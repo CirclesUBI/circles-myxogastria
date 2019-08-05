@@ -5,6 +5,9 @@ import { Provider } from 'react-redux';
 
 import Routes from '~/routes';
 import store from '~/configureStore';
+import { initializeWallet } from '~/store/wallet/actions';
+
+store.dispatch(initializeWallet());
 
 const Root = () => (
   <Provider store={store}>
