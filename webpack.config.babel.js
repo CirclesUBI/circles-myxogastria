@@ -62,6 +62,7 @@ export default () => {
       clientLogLevel: 'silent',
       contentBase: getPath(PATH_DIST),
       historyApiFallback: true,
+      liveReload: false,
     },
     plugins: [
       new HtmlWebpackPlugin({
