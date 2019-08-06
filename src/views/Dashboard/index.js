@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Hello from '~/components/Hello';
 
-export default class Dashboard extends Component {
-  render() {
-    return <Hello name="Baby Phoenix" />;
-  }
-}
+const Dashboard = () => {
+  return <Hello name="Baby Phoenix" />;
+};
+
+export default Dashboard;
