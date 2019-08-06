@@ -1,7 +1,5 @@
 import ActionTypes from '~/store/notifications/types';
 
-let internalCounter = 0;
-
 export const NOTIFY = Symbol('Notifications');
 
 export const NotificationsTypes = {
@@ -17,7 +15,6 @@ export default function notify(options) {
     dispatch({
       type: ActionTypes.NOTIFICATIONS_ADD,
       meta: {
-        id: ++internalCounter,
         text,
         type,
       },

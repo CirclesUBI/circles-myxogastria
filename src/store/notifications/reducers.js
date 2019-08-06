@@ -1,17 +1,31 @@
 import update from 'immutability-helper';
 
 import ActionTypes from '~/store/notifications/types';
+import { NotificationsTypes } from '~/store/notifications/actions';
 
 const initialState = {
   messages: [],
+  nextId: 1,
+};
+
+const initialStateMessage = {
+  id: 1,
+  text: '',
+  type: NotificationsTypes.INFO,
 };
 
 export default function flash(state = initialState, action) {
   switch (action.type) {
-    case ActionTypes.NOTIFICATIONS_ADD:
-      return update(state, {
-        messages: { $push: [action.meta] },
+    case ActionTypes.NOTIFICATIONS_ADD: {
+      const message = Object.assign({}, initialStateMessage, action.meta, {
+        id: state.nextId,
       });
+
+      return update(state, {
+        messages: { $push: [message] },
+        nextId: { $set: state.nextId + 1 },
+      });
+    }
     case ActionTypes.NOTIFICATIONS_REMOVE: {
       const index = state.messages.findIndex(item => {
         return item.id === action.meta.id;
