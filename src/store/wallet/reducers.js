@@ -14,7 +14,7 @@ export default function walletReducer(state = initialState, action) {
         address: { $set: action.meta.account.address },
         isReady: { $set: true },
       });
-    case ActionTypes.WALLET_INITIALIZE_FAILURE:
+    case ActionTypes.WALLET_INITIALIZE_ERROR:
       return update(state, {
         isReady: { $set: false },
       });
