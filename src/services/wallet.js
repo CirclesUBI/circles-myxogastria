@@ -10,14 +10,6 @@ import web3 from '~/services/web3';
 
 const PRIVATE_KEY_NAME = 'privateKey';
 
-function checkPrivateKey(privateKey) {
-  if (!privateKey || !/^0x[0-9a-fA-F]{64}$/.test(privateKey)) {
-    throw new Error('Invalid private key');
-  }
-
-  return true;
-}
-
 function generatePrivateKey() {
   const { privateKey } = web3.eth.accounts.create();
 
@@ -44,6 +36,10 @@ export function removePrivateKey() {
 
 export function initializeAccount() {
   const privateKey = getPrivateKey();
-  checkPrivateKey(privateKey);
+
+  if (!privateKey || !/^0x[0-9a-fA-F]{64}$/.test(privateKey)) {
+    throw new Error('Invalid private key');
+  }
+
   return web3.eth.accounts.privateKeyToAccount(privateKey);
 }
