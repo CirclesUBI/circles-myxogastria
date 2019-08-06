@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Notifications from '~/components/Notifications';
 
-export default class Header extends Component {
-  render() {
-    return (
-      <header>
-        <Notifications />
-      </header>
-    );
-  }
-}
+const Header = () => {
+  return (
+    <header>
+      <Notifications />
+    </header>
+  );
+};
+
+export default Header;

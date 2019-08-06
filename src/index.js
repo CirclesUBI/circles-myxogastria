@@ -15,11 +15,11 @@ store.dispatch(initializeWallet());
 const Root = () => (
   <Provider store={store}>
     <I18n translations={locales}>
-      <App>
-        <Router>
+      <Router>
+        <App>
           <Routes />
-        </Router>
-      </App>
+        </App>
+      </Router>
     </I18n>
   </Provider>
 );

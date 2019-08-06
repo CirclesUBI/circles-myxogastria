@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class View extends Component {
-  static propTypes = {
-    children: PropTypes.element.isRequired,
-  };
+const View = props => {
+  return <main>{props.children}</main>;
+};
 
-  render() {
-    return <main>{this.props.children}</main>;
-  }
-}
+View.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+export default View;
