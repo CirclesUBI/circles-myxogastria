@@ -5,7 +5,7 @@ import Dashboard from '~/views/Dashboard';
 
 const Routes = () => (
   <Switch>
-    <Route path="/" component={Dashboard} />
+    <Route component={Dashboard} path="/" />
   </Switch>
 );
 

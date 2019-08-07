@@ -19,12 +19,19 @@
     "react",
     "prettier"
   ],
+  "rules": {
+    "no-console": "error",
+    "react/jsx-sort-props": [
+      "error",
+      {
+        "callbacksLast": true
+      }
+    ],
+    "react/sort-prop-types": "error"
+  },
   "settings": {
     "react": {
       "version": "detect"
     }
-  },
-  "rules": {
-    "no-console": "error"
   }
 }
