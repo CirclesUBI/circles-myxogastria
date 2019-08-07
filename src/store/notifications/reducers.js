@@ -14,7 +14,7 @@ const initialStateMessage = {
   type: NotificationsTypes.INFO,
 };
 
-export default function flash(state = initialState, action) {
+const notificationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.NOTIFICATIONS_ADD: {
       const message = Object.assign({}, initialStateMessage, action.meta, {
@@ -46,4 +46,6 @@ export default function flash(state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default notificationsReducer;

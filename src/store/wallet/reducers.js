@@ -7,7 +7,7 @@ const initialState = {
   isReady: false,
 };
 
-export default function walletReducer(state = initialState, action) {
+const walletReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.WALLET_INITIALIZE_SUCCESS:
       return update(state, {
@@ -21,4 +21,6 @@ export default function walletReducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default walletReducer;
