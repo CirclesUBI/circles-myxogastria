@@ -1,9 +1,8 @@
 module.exports = {
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
 
-  // Setup Enzyme
-  snapshotSerializers: ['enzyme-to-json/serializer'],
-  setupFilesAfterEnv: ['<rootDir>/test/setup-tests.js'],
+  // Setup react-testing-library
+  setupFilesAfterEnv: ['@testing-library/react/cleanup-after-each'],
 
   // Resolve modules same as Webpack
   moduleNameMapper: {
