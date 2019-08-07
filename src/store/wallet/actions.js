@@ -1,5 +1,6 @@
 import types from '~/store/wallet/types';
 
+import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
 import { initializeAccount, removePrivateKey } from '~/services/wallet';
 
 export function initializeWallet() {
@@ -21,8 +22,11 @@ export function initializeWallet() {
       removePrivateKey();
 
       dispatch({
-        type: types.WALLET_INITIALIZE_FAILURE,
-        error,
+        type: types.WALLET_INITIALIZE_ERROR,
+        [NOTIFY]: {
+          text: error.message,
+          type: NotificationsTypes.ERROR,
+        },
       });
     }
   };

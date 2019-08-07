@@ -1,10 +1,13 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
-import Hello from '../src/components/Hello';
+import Hello from '~/components/Hello';
 
-it('welcomes us', () => {
-  const hello = shallow(<Hello name="Baby Phoenix" />);
+describe('Hello component', () => {
+  it('should welcome us', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Hello name="Baby Phoenix" />, div);
 
-  expect(hello.text()).toEqual('Hello Baby Phoenix!');
+    expect(div.textContent).toBe('Hello Baby Phoenix!');
+  });
 });
