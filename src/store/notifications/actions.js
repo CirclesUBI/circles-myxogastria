@@ -11,14 +11,12 @@ export const NotificationsTypes = {
 export default function notify(options) {
   const { text, type = NotificationsTypes.INFO } = options;
 
-  return dispatch => {
-    dispatch({
-      type: ActionTypes.NOTIFICATIONS_ADD,
-      meta: {
-        text,
-        type,
-      },
-    });
+  return {
+    type: ActionTypes.NOTIFICATIONS_ADD,
+    meta: {
+      text,
+      type,
+    },
   };
 }
 
