@@ -8,9 +8,6 @@ import App from '~/components/App';
 import Routes from '~/routes';
 import locales from '../locales';
 import store from '~/configureStore';
-import { initializeWallet } from '~/store/wallet/actions';
-
-store.dispatch(initializeWallet());
 
 const Root = () => (
   <Provider store={store}>
