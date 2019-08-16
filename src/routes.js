@@ -34,16 +34,10 @@ const OnboardingRoute = ({ component: Component, path }) => {
 const SessionRoute = ({ component: Component, path }) => {
   const { safeAddress } = useSelector(state => state.wallet);
 
-  let redirectPath;
-
   if (!safeAddress) {
-    redirectPath = '/welcome';
-  }
-
-  if (redirectPath) {
     return (
       <Route path={path}>
-        <Redirect to={redirectPath} />
+        <Redirect to="/welcome" />
       </Route>
     );
   }
