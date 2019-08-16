@@ -10,36 +10,25 @@ import web3 from '~/services/web3';
 
 const PRIVATE_KEY_NAME = 'privateKey';
 
-function generatePrivateKey() {
+export function generatePrivateKey() {
   const { privateKey } = web3.eth.accounts.create();
+  setItem(PRIVATE_KEY_NAME, privateKey);
 
   return privateKey;
 }
 
-function getPrivateKey() {
+export function hasPrivateKey() {
+  return hasItem(PRIVATE_KEY_NAME);
+}
+
+export function getPrivateKey() {
   if (!isAvailable()) {
     throw new Error('LocalStorage is not available');
   }
 
-  if (hasItem(PRIVATE_KEY_NAME)) {
-    return getItem(PRIVATE_KEY_NAME);
-  } else {
-    const privateKey = generatePrivateKey();
-    setItem(PRIVATE_KEY_NAME, privateKey);
-    return privateKey;
-  }
+  return getItem(PRIVATE_KEY_NAME);
 }
 
 export function removePrivateKey() {
   removeItem(PRIVATE_KEY_NAME);
-}
-
-export function initializeAccount() {
-  const privateKey = getPrivateKey();
-
-  if (!privateKey || !/^0x[0-9a-fA-F]{64}$/.test(privateKey)) {
-    throw new Error('Invalid private key');
-  }
-
-  return web3.eth.accounts.privateKeyToAccount(privateKey);
 }
