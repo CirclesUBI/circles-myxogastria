@@ -1,21 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import ConnectAccount from '~/views/ConnectAccount';
 import CreateNewAccount from '~/views/CreateNewAccount';
 import Dashboard from '~/views/Dashboard';
 import NotFound from '~/views/NotFound';
 import Welcome from '~/views/Welcome';
-import { hasPrivateKey } from '~/services/wallet';
-import { hasSafeAddress } from '~/services/safe';
-
-const isValidSession = hasPrivateKey() && hasSafeAddress();
 
 // This Route is only accessible when not running
 // a valid Session yet
 const OnboardingRoute = ({ component: Component, path }) => {
-  if (isValidSession) {
+  const { walletAddress, safeAddress } = useSelector(state => state.wallet);
+
+  if (walletAddress && safeAddress) {
     return (
       <Route path={path}>
         <Redirect to="/" />
@@ -33,12 +32,12 @@ const OnboardingRoute = ({ component: Component, path }) => {
 // This Route is only accessible when running a valid
 // Session, otherwise the user will be redirected
 const SessionRoute = ({ component: Component, path }) => {
+  const { safeAddress } = useSelector(state => state.wallet);
+
   let redirectPath;
 
-  if (!isValidSession) {
+  if (!safeAddress) {
     redirectPath = '/welcome';
-  } else if (!hasSafeAddress()) {
-    redirectPath = '/welcome/connect';
   }
 
   if (redirectPath) {
