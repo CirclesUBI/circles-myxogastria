@@ -1,3 +1,4 @@
 {
-  "Hello {name}!": "Hello {name}!"
+  "views.welcome.connect": "Connect to existing account",
+  "views.welcome.new": "Create new account"
 }

@@ -1,3 +1,4 @@
 {
-  "Hello {name}!": "Hallo {name}!"
+  "views.welcome.connect": "Verbinde mit bestehendem Profil",
+  "views.welcome.new": "Erstelle neues Profil"
 }
