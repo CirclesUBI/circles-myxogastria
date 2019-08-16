@@ -1,7 +1,8 @@
 import types from '~/store/wallet/types';
 
 import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
-import { initializeAccount, removePrivateKey } from '~/services/wallet';
+import { getPublicAddress, removePrivateKey } from '~/services/wallet';
+import { predictSafeAddress } from '~/services/safe';
 
 export function initializeWallet() {
   return dispatch => {
@@ -10,12 +11,14 @@ export function initializeWallet() {
     });
 
     try {
-      const account = initializeAccount();
+      const walletAddress = getPublicAddress();
+      const safeAddress = predictSafeAddress(walletAddress);
 
       dispatch({
         type: types.WALLET_INITIALIZE_SUCCESS,
         meta: {
-          account,
+          safeAddress,
+          walletAddress,
         },
       });
     } catch (error) {
