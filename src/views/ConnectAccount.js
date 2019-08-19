@@ -11,7 +11,7 @@ const ConnectAccount = () => {
     <Fragment>
       <BackButton />
 
-      <QRCode data={walletAddress} />
+      <QRCode data={walletAddress} width={250} />
     </Fragment>
   );
 };

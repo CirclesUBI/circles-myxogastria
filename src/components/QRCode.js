@@ -8,9 +8,14 @@ const QRCode = props => {
   const ref = createRef();
 
   const generateQRCode = () => {
+    const options = {
+      width: props.width || null,
+      margin: 0,
+    };
+
     setIsLoading(true);
 
-    QRCodeGenerator.toCanvas(ref.current, props.data, () => {
+    QRCodeGenerator.toCanvas(ref.current, props.data, options, () => {
       setIsLoading(false);
     });
   };
@@ -22,6 +27,7 @@ const QRCode = props => {
 
 QRCode.propTypes = {
   data: PropTypes.string.isRequired,
+  width: PropTypes.number,
 };
 
 export default QRCode;
