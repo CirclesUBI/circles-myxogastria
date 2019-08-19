@@ -20,7 +20,7 @@
     "lint:js": "eslint --ignore-path .gitignore .",
     "serve": "env-cmd -f ./config/development.js webpack-dev-server",
     "start": "npm run serve",
-    "test": "jest",
+    "test": "env-cmd -f ./config/test.js jest",
     "test:watch": "npm run test -- --watch"
   },
   "devDependencies": {
@@ -58,6 +58,7 @@
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
+    "bip39": "^3.0.2",
     "immutability-helper": "^3.0.1",
     "qrcode": "^1.4.1",
     "react": "^16.8.6",
