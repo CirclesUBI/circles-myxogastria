@@ -1,3 +1,5 @@
+import { mnemonicToEntropy, entropyToMnemonic } from 'bip39';
+
 import {
   getItem,
   hasItem,
@@ -10,14 +12,12 @@ import web3 from '~/services/web3';
 
 const PRIVATE_KEY_NAME = 'privateKey';
 
-function generatePrivateKey() {
+export function generatePrivateKey() {
   const { privateKey } = web3.eth.accounts.create();
-  setItem(PRIVATE_KEY_NAME, privateKey);
-
   return privateKey;
 }
 
-function getPrivateKey() {
+export function getPrivateKey() {
   if (!isAvailable()) {
     throw new Error('LocalStorage is not available');
   }
@@ -26,9 +26,13 @@ function getPrivateKey() {
     return getItem(PRIVATE_KEY_NAME);
   } else {
     const privateKey = generatePrivateKey();
-    setItem(PRIVATE_KEY_NAME, privateKey);
+    setPrivateKey(privateKey);
     return privateKey;
   }
+}
+
+export function setPrivateKey(privateKey) {
+  setItem(PRIVATE_KEY_NAME, privateKey);
 }
 
 export function removePrivateKey() {
@@ -45,4 +49,17 @@ export function getPublicAddress() {
   const { address } = web3.eth.accounts.privateKeyToAccount(privateKey);
 
   return address;
+}
+
+export function fromSeedPhrase(seedPhrase) {
+  const restoredKey = mnemonicToEntropy(seedPhrase);
+  const privateKey = `0x${restoredKey}`;
+
+  setPrivateKey(privateKey);
+
+  return privateKey;
+}
+
+export function toSeedPhrase(privateKey) {
+  return entropyToMnemonic(privateKey.replace('0x', ''));
 }

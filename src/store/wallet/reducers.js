@@ -12,8 +12,6 @@ const walletReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.WALLET_INITIALIZE_SUCCESS:
       return update(state, {
-        isReady: { $set: true },
-        safeAddress: { $set: action.meta.safeAddress },
         walletAddress: { $set: action.meta.walletAddress },
       });
     case ActionTypes.WALLET_INITIALIZE_ERROR:

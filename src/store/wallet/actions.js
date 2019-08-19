@@ -1,8 +1,11 @@
 import types from '~/store/wallet/types';
 
-import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
-import { getPublicAddress, removePrivateKey } from '~/services/wallet';
-import { predictSafeAddress } from '~/services/safe';
+import notify, {
+  NOTIFY,
+  NotificationsTypes,
+} from '~/store/notifications/actions';
+
+import { getPublicAddress, fromSeedPhrase } from '~/services/wallet';
 
 export function initializeWallet() {
   return dispatch => {
@@ -12,18 +15,16 @@ export function initializeWallet() {
 
     try {
       const walletAddress = getPublicAddress();
-      const safeAddress = predictSafeAddress(walletAddress);
 
-      dispatch({
-        type: types.WALLET_INITIALIZE_SUCCESS,
-        meta: {
-          safeAddress,
-          walletAddress,
-        },
-      });
+      if (walletAddress) {
+        dispatch({
+          type: types.WALLET_INITIALIZE_SUCCESS,
+          meta: {
+            walletAddress,
+          },
+        });
+      }
     } catch (error) {
-      removePrivateKey();
-
       dispatch({
         type: types.WALLET_INITIALIZE_ERROR,
         [NOTIFY]: {
@@ -31,6 +32,22 @@ export function initializeWallet() {
           type: NotificationsTypes.ERROR,
         },
       });
+    }
+  };
+}
+
+export function restoreWallet(seedPhrase) {
+  return dispatch => {
+    try {
+      fromSeedPhrase(seedPhrase);
+      dispatch(initializeWallet());
+    } catch (error) {
+      dispatch(
+        notify({
+          text: error.message,
+          type: NotificationsTypes.ERROR,
+        }),
+      );
     }
   };
 }
