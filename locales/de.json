@@ -1,4 +1,8 @@
 {
-  "views.welcome.connect": "Verbinde mit bestehendem Profil",
-  "views.welcome.new": "Erstelle neues Profil"
+  "views.connect.new": "",
+  "views.connect.seed": "",
+  "views.create.confirm": "",
+  "views.create.username": "",
+  "views.welcome.connect": "",
+  "views.welcome.new": ""
 }

@@ -23,11 +23,11 @@ const CreateNewAccount = (props, context) => {
       <BackButton />
 
       <form>
-        <label htmlFor="username">{context.t('views.c.username')}</label>
+        <label htmlFor="username">{context.t('views.create.username')}</label>
         <input id="username" type="text" value={username} onChange={onChange} />
 
         <Button disabled={isLoading} onClick={onSubmit}>
-          {context.t('views.createnew.confirm')}
+          {context.t('views.create.confirm')}
         </Button>
       </form>
     </Fragment>
