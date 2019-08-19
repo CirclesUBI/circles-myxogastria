@@ -6,15 +6,16 @@ import { useSelector } from 'react-redux';
 import ConnectAccount from '~/views/ConnectAccount';
 import CreateNewAccount from '~/views/CreateNewAccount';
 import Dashboard from '~/views/Dashboard';
+import FromSeedPhrase from '~/views/FromSeedPhrase';
 import NotFound from '~/views/NotFound';
 import Welcome from '~/views/Welcome';
 
 // This Route is only accessible when not running
 // a valid Session yet
 const OnboardingRoute = ({ component: Component, path }) => {
-  const { walletAddress, safeAddress } = useSelector(state => state.wallet);
+  const { isReady } = useSelector(state => state.wallet);
 
-  if (walletAddress && safeAddress) {
+  if (isReady) {
     return (
       <Route path={path}>
         <Redirect to="/" />
@@ -32,9 +33,9 @@ const OnboardingRoute = ({ component: Component, path }) => {
 // This Route is only accessible when running a valid
 // Session, otherwise the user will be redirected
 const SessionRoute = ({ component: Component, path }) => {
-  const { safeAddress } = useSelector(state => state.wallet);
+  const { isReady } = useSelector(state => state.wallet);
 
-  if (!safeAddress) {
+  if (!isReady) {
     return (
       <Route path={path}>
         <Redirect to="/welcome" />
@@ -54,6 +55,7 @@ const Routes = () => (
     <SessionRoute component={Dashboard} exact path="/" />
     <OnboardingRoute component={CreateNewAccount} path="/welcome/new" />
     <OnboardingRoute component={ConnectAccount} path="/welcome/connect" />
+    <OnboardingRoute component={FromSeedPhrase} path="/welcome/seed" />
     <OnboardingRoute component={Welcome} path="/welcome" />
     <Route component={NotFound} />
   </Switch>
