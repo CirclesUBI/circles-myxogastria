@@ -14,12 +14,18 @@ import Welcome from '~/views/Welcome';
 import { ensureSafeAddress } from '~/utils/state';
 
 const SessionContainer = ({ component: Component, isSessionRequired }) => {
-  const { safe, address } = useSelector(state => {
+  const { isReady, safe, address } = useSelector(state => {
     return {
-      safe: state.safe,
       address: state.wallet.address,
+      isReady: state.app.isReady,
+      safe: state.safe,
     };
   });
+
+  // Do not do anything yet when we are not ready
+  if (!isReady) {
+    return null;
+  }
 
   const isValidSession = ensureSafeAddress(safe) && address;
 
