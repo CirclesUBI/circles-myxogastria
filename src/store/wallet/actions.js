@@ -1,37 +1,37 @@
-import types from '~/store/wallet/types';
+import ActionTypes from '~/store/wallet/types';
 
-import notify, {
-  NOTIFY,
-  NotificationsTypes,
-} from '~/store/notifications/actions';
-
+import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
 import { getPublicAddress, fromSeedPhrase } from '~/services/wallet';
+
+function walletError(error) {
+  return {
+    type: ActionTypes.WALLET_INITIALIZE_ERROR,
+    [NOTIFY]: {
+      text: error.message,
+      type: NotificationsTypes.ERROR,
+    },
+  };
+}
 
 export function initializeWallet() {
   return dispatch => {
     dispatch({
-      type: types.WALLET_INITIALIZE,
+      type: ActionTypes.WALLET_INITIALIZE,
     });
 
     try {
-      const walletAddress = getPublicAddress();
+      const address = getPublicAddress();
 
-      if (walletAddress) {
+      if (address) {
         dispatch({
-          type: types.WALLET_INITIALIZE_SUCCESS,
+          type: ActionTypes.WALLET_INITIALIZE_SUCCESS,
           meta: {
-            walletAddress,
+            address,
           },
         });
       }
     } catch (error) {
-      dispatch({
-        type: types.WALLET_INITIALIZE_ERROR,
-        [NOTIFY]: {
-          text: error.message,
-          type: NotificationsTypes.ERROR,
-        },
-      });
+      dispatch(walletError(error));
     }
   };
 }
@@ -40,14 +40,10 @@ export function restoreWallet(seedPhrase) {
   return dispatch => {
     try {
       fromSeedPhrase(seedPhrase);
+
       dispatch(initializeWallet());
     } catch (error) {
-      dispatch(
-        notify({
-          text: error.message,
-          type: NotificationsTypes.ERROR,
-        }),
-      );
+      dispatch(walletError(error));
     }
   };
 }

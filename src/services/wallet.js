@@ -42,7 +42,7 @@ export function removePrivateKey() {
 export function getPublicAddress() {
   const privateKey = getPrivateKey();
 
-  if (!web3.utils.isHexStrict(privateKey)) {
+  if (privateKey && !web3.utils.isHexStrict(privateKey)) {
     throw new Error('Invalid private key');
   }
 

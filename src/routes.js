@@ -9,43 +9,42 @@ import Dashboard from '~/views/Dashboard';
 import FromSeedPhrase from '~/views/FromSeedPhrase';
 import NotFound from '~/views/NotFound';
 import Welcome from '~/views/Welcome';
+import { ensureSafeAddress } from '~/utils/state';
 
-// This Route is only accessible when not running
-// a valid Session yet
-const OnboardingRoute = ({ component: Component, path }) => {
-  const { isReady } = useSelector(state => state.wallet);
+const SessionContainer = ({ component: Component, isSessionRequired }) => {
+  const { safe, address } = useSelector(state => {
+    return {
+      safe: state.safe,
+      address: state.wallet.address,
+    };
+  });
 
-  if (isReady) {
-    return (
-      <Route path={path}>
-        <Redirect to="/" />
-      </Route>
-    );
+  const isValidSession = ensureSafeAddress(safe) && address;
+
+  if (
+    (isSessionRequired && isValidSession) ||
+    (!isSessionRequired && !isValidSession)
+  ) {
+    return <Component />;
+  } else if (!isSessionRequired && isValidSession) {
+    return <Redirect to="/" />;
+  } else if (isSessionRequired && !isValidSession) {
+    return <Redirect to="/welcome" />;
   }
+};
 
+const OnboardingRoute = ({ component, path }) => {
   return (
     <Route path={path}>
-      <Component />
+      <SessionContainer component={component} isSessionRequired={false} />
     </Route>
   );
 };
 
-// This Route is only accessible when running a valid
-// Session, otherwise the user will be redirected
-const SessionRoute = ({ component: Component, path }) => {
-  const { isReady } = useSelector(state => state.wallet);
-
-  if (!isReady) {
-    return (
-      <Route path={path}>
-        <Redirect to="/welcome" />
-      </Route>
-    );
-  }
-
+const SessionRoute = ({ component, path }) => {
   return (
     <Route path={path}>
-      <Component />
+      <SessionContainer component={component} isSessionRequired={true} />
     </Route>
   );
 };

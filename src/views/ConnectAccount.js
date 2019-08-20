@@ -8,12 +8,12 @@ import Button from '~/components/Button';
 import QRCode from '~/components/QRCode';
 
 const ConnectAccount = (props, context) => {
-  const { walletAddress } = useSelector(state => state.wallet);
+  const { address } = useSelector(state => state.wallet);
 
   return (
     <Fragment>
       <BackButton />
-      <QRCode data={walletAddress} width={250} />
+      <QRCode data={address} width={250} />
 
       <Link to="/welcome/seed">
         <Button>{context.t('views.connect.seed')}</Button>
