@@ -1,5 +1,4 @@
 import ActionTypes from '~/store/safe/types';
-
 import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
 
 import {

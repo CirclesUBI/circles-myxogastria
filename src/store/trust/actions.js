@@ -1,5 +1,4 @@
 import ActionTypes from '~/store/trust/types';
-
 import { ensureSafeAddress } from '~/utils/state';
 import { getTrustState } from '~/services/core';
 

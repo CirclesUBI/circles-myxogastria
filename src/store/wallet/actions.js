@@ -1,5 +1,4 @@
 import ActionTypes from '~/store/wallet/types';
-
 import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
 
 import {
