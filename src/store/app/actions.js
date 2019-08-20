@@ -1,9 +1,13 @@
 import ActionTypes from '~/store/app/types';
-import { checkTrustState } from '~/store/trust/actions';
-import { initializeWallet } from '~/store/wallet/actions';
-
 import { checkOnboardingState } from '~/store/onboarding/actions';
-import { checkSafeState, initializeSafe } from '~/store/safe/actions';
+import { checkTrustState } from '~/store/trust/actions';
+import { initializeWallet, burnWallet } from '~/store/wallet/actions';
+
+import {
+  checkSafeState,
+  initializeSafe,
+  resetSafe,
+} from '~/store/safe/actions';
 
 export function initializeApp() {
   return async dispatch => {
@@ -26,5 +30,14 @@ export function checkAppState() {
     await dispatch(checkSafeState());
     await dispatch(checkTrustState());
     await dispatch(checkOnboardingState());
+  };
+}
+
+export function burnApp() {
+  return async dispatch => {
+    await dispatch(burnWallet());
+    await dispatch(resetSafe());
+
+    window.location.reload();
   };
 }

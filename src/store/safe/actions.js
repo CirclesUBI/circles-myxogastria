@@ -1,7 +1,14 @@
 import ActionTypes from '~/store/safe/types';
 
 import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
-import { hasNonce, generateNonce, setNonce, getNonce } from '~/services/nonce';
+
+import {
+  generateNonce,
+  getNonce,
+  hasNonce,
+  removeNonce,
+  setNonce,
+} from '~/services/nonce';
 
 import {
   deploySafe,
@@ -105,5 +112,13 @@ export function deployNewSafe() {
         },
       });
     }
+  };
+}
+
+export function resetSafe() {
+  removeNonce();
+
+  return {
+    type: ActionTypes.SAFE_RESET,
   };
 }

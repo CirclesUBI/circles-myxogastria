@@ -37,6 +37,13 @@ const safeReducer = (state = initialState, action) => {
       return update(state, {
         isLocked: { $set: false },
       });
+    case ActionTypes.SAFE_RESET:
+      return update(state, {
+        address: { $set: null },
+        addressPredicted: { $set: null },
+        isLocked: { $set: false },
+        nonce: { $set: null },
+      });
     default:
       return state;
   }

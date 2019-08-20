@@ -12,6 +12,10 @@ const walletReducer = (state = initialState, action) => {
       return update(state, {
         address: { $set: action.meta.address },
       });
+    case ActionTypes.WALLET_BURN:
+      return update(state, {
+        address: { $set: null },
+      });
     default:
       return state;
   }

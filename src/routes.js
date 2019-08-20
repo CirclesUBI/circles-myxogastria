@@ -3,11 +3,13 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import ConnectAccount from '~/views/ConnectAccount';
-import CreateNewAccount from '~/views/CreateNewAccount';
+import AccountConnect from '~/views/AccountConnect';
+import AccountCreate from '~/views/AccountCreate';
+import AccountImport from '~/views/AccountImport';
 import Dashboard from '~/views/Dashboard';
-import FromSeedPhrase from '~/views/FromSeedPhrase';
 import NotFound from '~/views/NotFound';
+import Settings from '~/views/Settings';
+import SettingsExport from '~/views/SettingsExport';
 import Welcome from '~/views/Welcome';
 import { ensureSafeAddress } from '~/utils/state';
 
@@ -52,9 +54,11 @@ const SessionRoute = ({ component, path }) => {
 const Routes = () => (
   <Switch>
     <SessionRoute component={Dashboard} exact path="/" />
-    <OnboardingRoute component={CreateNewAccount} path="/welcome/new" />
-    <OnboardingRoute component={ConnectAccount} path="/welcome/connect" />
-    <OnboardingRoute component={FromSeedPhrase} path="/welcome/seed" />
+    <SessionRoute component={Settings} exact path="/settings" />
+    <SessionRoute component={SettingsExport} exact path="/settings/export" />
+    <OnboardingRoute component={AccountCreate} path="/welcome/new" />
+    <OnboardingRoute component={AccountConnect} path="/welcome/connect" />
+    <OnboardingRoute component={AccountImport} path="/welcome/seed" />
     <OnboardingRoute component={Welcome} path="/welcome" />
     <Route component={NotFound} />
   </Switch>

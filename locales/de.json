@@ -3,6 +3,8 @@
   "views.connect.seed": "",
   "views.create.confirm": "",
   "views.create.username": "",
+  "views.settings.burn": "",
+  "views.settings.export": "",
   "views.welcome.connect": "",
   "views.welcome.new": ""
 }

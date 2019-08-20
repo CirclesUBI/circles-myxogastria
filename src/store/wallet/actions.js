@@ -1,7 +1,12 @@
 import ActionTypes from '~/store/wallet/types';
 
 import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
-import { getPublicAddress, fromSeedPhrase } from '~/services/wallet';
+
+import {
+  fromSeedPhrase,
+  getPublicAddress,
+  removePrivateKey,
+} from '~/services/wallet';
 
 function walletError(error) {
   return {
@@ -46,4 +51,16 @@ export function restoreWallet(seedPhrase) {
       dispatch(walletError(error));
     }
   };
+}
+
+export function burnWallet() {
+  try {
+    removePrivateKey();
+
+    return {
+      type: ActionTypes.WALLET_BURN,
+    };
+  } catch (error) {
+    return walletError(error);
+  }
 }

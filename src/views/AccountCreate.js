@@ -6,7 +6,7 @@ import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
 import { createNewAccount } from '~/store/onboarding/actions';
 
-const CreateNewAccount = (props, context) => {
+const AccountCreate = (props, context) => {
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState('');
@@ -25,7 +25,6 @@ const CreateNewAccount = (props, context) => {
       await dispatch(createNewAccount(username));
     } catch (error) {
       // @TODO: Show error to user
-    } finally {
       setIsLoading(false);
     }
   };
@@ -46,8 +45,8 @@ const CreateNewAccount = (props, context) => {
   );
 };
 
-CreateNewAccount.contextTypes = {
+AccountCreate.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default CreateNewAccount;
+export default AccountCreate;

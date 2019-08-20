@@ -7,5 +7,6 @@ export default createTypes(
   'SAFE_INITIALIZE',
   'SAFE_INITIALIZE_ERROR',
   'SAFE_INITIALIZE_SUCCESS',
+  'SAFE_RESET',
   'SAFE_UPDATE',
 );

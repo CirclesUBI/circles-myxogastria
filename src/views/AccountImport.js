@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
-import { restoreWallet } from '~/store/wallet/actions';
+import { restoreAccount } from '~/store/onboarding/actions';
 
-const FromSeedPhrase = () => {
+const AccountImport = () => {
   const [seedPhrase, setSeedPhrase] = useState('');
   const dispatch = useDispatch();
 
@@ -14,7 +14,7 @@ const FromSeedPhrase = () => {
   };
 
   const onClick = () => {
-    dispatch(restoreWallet(seedPhrase));
+    dispatch(restoreAccount(seedPhrase));
   };
 
   return (
@@ -26,4 +26,4 @@ const FromSeedPhrase = () => {
   );
 };
 
-export default FromSeedPhrase;
+export default AccountImport;

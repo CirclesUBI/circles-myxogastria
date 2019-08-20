@@ -7,7 +7,7 @@ import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
 import QRCode from '~/components/QRCode';
 
-const ConnectAccount = (props, context) => {
+const AccountConnect = (props, context) => {
   const { address } = useSelector(state => state.wallet);
 
   return (
@@ -22,8 +22,8 @@ const ConnectAccount = (props, context) => {
   );
 };
 
-ConnectAccount.contextTypes = {
+AccountConnect.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default ConnectAccount;
+export default AccountConnect;
