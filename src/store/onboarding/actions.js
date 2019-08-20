@@ -1,15 +1,13 @@
-import { NOTIFY } from '~/store/notifications/actions';
+import notify from '~/store/notifications/actions';
 import { checkAppState } from '~/store/app/actions';
 import { deployNewSafe, initializeSafeWithNonce } from '~/store/safe/actions';
 import { registerUser } from '~/services/core';
 import { restoreWallet } from '~/store/wallet/actions';
 
 function welcomeUser() {
-  return {
-    [NOTIFY]: {
-      text: 'Welcome!', // @TODO: Use i18n
-    },
-  };
+  return notify({
+    text: 'Welcome!', // @TODO: Use i18n
+  });
 }
 
 export function checkOnboardingState() {
