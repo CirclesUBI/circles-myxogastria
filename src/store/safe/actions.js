@@ -13,7 +13,6 @@ export function initializeSafe() {
   return (dispatch, getState) => {
     try {
       if (!hasNonce()) {
-        console.log('fail');
         return;
       }
 
