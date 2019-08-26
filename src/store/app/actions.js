@@ -15,6 +15,12 @@ export function initializeApp() {
       type: ActionTypes.APP_INITIALIZE,
     });
 
+    // Connect to Blockchain via middleware
+    dispatch({
+      type: ActionTypes.APP_CONNECT,
+    });
+
+    // Initialize and gather important app states (auth etc.)
     await dispatch(initializeWallet());
     await dispatch(initializeSafe());
     await dispatch(checkAppState());
