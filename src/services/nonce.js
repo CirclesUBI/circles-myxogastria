@@ -9,7 +9,10 @@ import {
 const NONCE_NAME = 'nonce';
 
 export function generateNonce() {
-  return new Date().getTime();
+  const timestamp = new Date().getTime();
+  const random = Math.round(Math.random() * 10000000);
+
+  return parseInt(`${timestamp}${random}`, 10);
 }
 
 export function getNonce() {
