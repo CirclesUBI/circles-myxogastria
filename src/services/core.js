@@ -32,15 +32,15 @@ export function predictSafeAddress(walletAddress, nonce) {
 }
 
 // eslint-disable-next-line no-unused-vars
-export async function deploySafe(walletAddress, nonce) {
+export async function registerUser(data) {
   // @TODO: Call core method here
-  // should return final Gnosis Safe Public Address as string
+  // data contains `username` and `address`
   return Promise.resolve();
 }
 
 // eslint-disable-next-line no-unused-vars
-export async function registerUser(data) {
+export async function deploySafe(walletAddress, nonce) {
   // @TODO: Call core method here
-  // data contains `username` and `address`
+  // should return final Gnosis Safe Public Address as string
   return Promise.resolve();
 }

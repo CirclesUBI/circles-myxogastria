@@ -22,14 +22,17 @@ export function checkOnboardingState() {
 
 export function createNewAccount(username) {
   return async (dispatch, getState) => {
-    const { wallet } = getState();
+    await dispatch(initializeSafeWithNonce());
+
+    const { wallet, safe } = getState();
 
     await registerUser({
       address: wallet.address,
+      nonce: safe.nonce,
+      safeAddress: safe.addressPredicted,
       username,
     });
 
-    await dispatch(initializeSafeWithNonce());
     dispatch(welcomeUser());
   };
 }
