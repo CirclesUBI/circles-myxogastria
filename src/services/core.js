@@ -1,11 +1,14 @@
-// @TODO: Import and initialize circles-core
-// import CirclesCore from 'circles-core';
+import CirclesCore from 'circles-core';
 
-// import web3 from '~/services/web3';
+import web3 from '~/services/web3';
 
-// const core = new CirclesCore({
-//   web3,
-// });
+const core = new CirclesCore(web3, {
+  safeMasterAddress: process.env.SAFE_ADDRESS,
+  hubAddress: process.env.HUB_ADDRESS,
+  proxyFactoryAddress: process.env.PROXY_FACTORY_ADDRESS,
+  usernameServiceEndpoint: process.env.USERNAME_RESOLVER_SERVICE_ENDPOINT,
+  relayServiceEndpoint: process.env.RELAY_SERVICE_ENDPOINT,
+});
 
 // eslint-disable-next-line no-unused-vars
 export async function getSafeAddress(walletAddress) {
