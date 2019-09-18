@@ -53,6 +53,7 @@
     "stylelint-custom-processor-loader": "^0.6.0",
     "stylelint-order": "^3.1.1",
     "stylelint-processor-styled-components": "^1.8.0",
+    "truffle": "^5.0.36",
     "webpack": "^4.40.2",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.1"
