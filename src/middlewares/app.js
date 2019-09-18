@@ -22,7 +22,7 @@ const appMiddleware = store => next => action => {
     connectWeb3(store);
   }
 
-  return next(action);
+  next(action);
 };
 
 export default appMiddleware;

@@ -5,11 +5,9 @@ import { useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
 import QRCode from '~/components/QRCode';
-import { ensureSafeAddress } from '~/utils/state';
 
 const Dashboard = (props, context) => {
   const safe = useSelector(state => state.safe);
-  const safeAddress = ensureSafeAddress(safe);
 
   return (
     <Fragment>
@@ -17,7 +15,7 @@ const Dashboard = (props, context) => {
         <Button>{context.t('views.dashboard.settings')}</Button>
       </Link>
 
-      <QRCode data={safeAddress} width={250} />
+      <QRCode data={safe.address} width={250} />
     </Fragment>
   );
 };

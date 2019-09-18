@@ -63,3 +63,9 @@ export function fromSeedPhrase(seedPhrase) {
 export function toSeedPhrase(privateKey) {
   return entropyToMnemonic(privateKey.replace('0x', ''));
 }
+
+export function getAccount() {
+  const privateKey = getPrivateKey();
+
+  return web3.eth.accounts.privateKeyToAccount(privateKey);
+}

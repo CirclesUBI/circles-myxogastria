@@ -4,42 +4,59 @@ import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
 import {
   generateNonce,
   getNonce,
-  hasNonce,
-  removeNonce,
-  setNonce,
-} from '~/services/nonce';
-
-import {
-  deploySafe,
   getSafeAddress,
-  predictSafeAddress,
-} from '~/services/core';
+  hasNonce,
+  hasSafeAddress,
+  removeNonce,
+  removeSafeAddress,
+  setNonce,
+  setSafeAddress,
+} from '~/services/safe';
+
+import { deploySafe, prepareSafeDeploy } from '~/services/core';
 
 export function initializeSafe() {
-  return (dispatch, getState) => {
+  const nonce = hasNonce() ? getNonce() : null;
+  const address = hasSafeAddress() ? getSafeAddress() : null;
+
+  return {
+    type: ActionTypes.SAFE_UPDATE,
+    meta: {
+      address,
+      nonce,
+    },
+  };
+}
+
+export function createSafeWithNonce() {
+  return async dispatch => {
     try {
-      if (!hasNonce()) {
+      if (hasNonce()) {
         return;
       }
 
       dispatch({
-        type: ActionTypes.SAFE_INITIALIZE,
+        type: ActionTypes.SAFE_CREATE,
       });
 
-      const { wallet } = getState();
-      const nonce = getNonce();
-      const addressPredicted = predictSafeAddress(wallet.address, nonce);
+      // Generate a salt nonce
+      const nonce = generateNonce();
+      setNonce(nonce);
+
+      // Predict Safe address
+      const address = await prepareSafeDeploy(nonce);
+      setSafeAddress(address);
 
       dispatch({
-        type: ActionTypes.SAFE_INITIALIZE_SUCCESS,
+        type: ActionTypes.SAFE_CREATE_SUCCESS,
         meta: {
-          addressPredicted,
+          address,
           nonce,
         },
       });
     } catch (error) {
       dispatch({
-        type: ActionTypes.SAFE_INITIALIZE_ERROR,
+        type: ActionTypes.SAFE_CREATE_ERROR,
         [NOTIFY]: {
           text: error.message,
           type: NotificationsTypes.ERROR,
@@ -50,40 +67,14 @@ export function initializeSafe() {
 }
 
 export function checkSafeState() {
-  return async (dispatch, getState) => {
-    const { wallet, safe } = getState();
-
-    if (!safe.address) {
-      const address = await getSafeAddress(wallet.address);
-
-      if (address) {
-        dispatch({
-          type: ActionTypes.SAFE_UPDATE,
-          meta: {
-            address,
-          },
-        });
-      }
-    }
-  };
-}
-
-export function initializeSafeWithNonce() {
-  return dispatch => {
-    if (hasNonce()) {
-      return;
-    }
-
-    const nonce = generateNonce();
-    setNonce(nonce);
-
-    dispatch(initializeSafe());
-  };
+  // @TODO: Check if address is owner of Safe
+  // eslint-disable-next-line no-unused-vars
+  return dispatch => {};
 }
 
 export function deployNewSafe() {
   return async (dispatch, getState) => {
-    const { wallet, safe } = getState();
+    const { safe } = getState();
 
     if (safe.isLocked) {
       return;
@@ -94,13 +85,10 @@ export function deployNewSafe() {
     });
 
     try {
-      const address = await deploySafe(wallet.address, safe.nonce);
+      await deploySafe(safe.address);
 
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_SUCCESS,
-        meta: {
-          address,
-        },
       });
     } catch (error) {
       dispatch({
@@ -116,6 +104,7 @@ export function deployNewSafe() {
 
 export function resetSafe() {
   removeNonce();
+  removeSafeAddress();
 
   return {
     type: ActionTypes.SAFE_RESET,

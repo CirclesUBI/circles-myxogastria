@@ -4,9 +4,9 @@ import {
   hasNonce,
   removeNonce,
   setNonce,
-} from '~/services/nonce';
+} from '~/services/safe';
 
-describe('Nonce service', () => {
+describe('Safe service', () => {
   it('should generate a different nonce every time', () => {
     const firstNonce = generateNonce();
     const secondNonce = generateNonce();

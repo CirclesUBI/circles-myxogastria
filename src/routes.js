@@ -11,14 +11,13 @@ import NotFound from '~/views/NotFound';
 import Settings from '~/views/Settings';
 import SettingsExport from '~/views/SettingsExport';
 import Welcome from '~/views/Welcome';
-import { ensureSafeAddress } from '~/utils/state';
 
 const SessionContainer = ({ component: Component, isSessionRequired }) => {
-  const { isReady, safe, address } = useSelector(state => {
+  const { isReady, safe, wallet } = useSelector(state => {
     return {
-      address: state.wallet.address,
       isReady: state.app.isReady,
       safe: state.safe,
+      wallet: state.wallet,
     };
   });
 
@@ -27,7 +26,7 @@ const SessionContainer = ({ component: Component, isSessionRequired }) => {
     return null;
   }
 
-  const isValidSession = ensureSafeAddress(safe) && address;
+  const isValidSession = safe.address && wallet.address;
 
   if (
     (isSessionRequired && isValidSession) ||

@@ -1,6 +1,7 @@
 import CirclesCore from 'circles-core';
 
 import web3 from '~/services/web3';
+import { getAccount } from '~/services/wallet';
 
 const core = new CirclesCore(web3, {
   safeMasterAddress: process.env.SAFE_ADDRESS,
@@ -10,40 +11,34 @@ const core = new CirclesCore(web3, {
   relayServiceEndpoint: process.env.RELAY_SERVICE_ENDPOINT,
 });
 
-// eslint-disable-next-line no-unused-vars
-export async function getSafeAddress(walletAddress) {
-  // @TODO: Call core method here
-  // should return Gnosis Safe Public Address as string or null
-  // when wallet address does not own any safe
-  return Promise.resolve(null);
+export async function prepareSafeDeploy(nonce) {
+  const account = getAccount();
+
+  return await core.safe.prepareDeploy(account, {
+    nonce,
+  });
 }
 
-// eslint-disable-next-line no-unused-vars
-export async function getTrustState(safeAddress) {
-  // @TODO: Call core method here
-  return Promise.resolve({
-    isTrusted: false,
-    network: [],
+export async function registerUser(nonce, safeAddress, username) {
+  const account = getAccount();
+
+  return await core.user.register(account, {
+    nonce,
+    safeAddress,
+    username,
+  });
+}
+
+export async function deploySafe(safeAddress) {
+  const account = getAccount();
+
+  return await core.safe.forceDeploy(account, {
+    address: safeAddress,
   });
 }
 
 // eslint-disable-next-line no-unused-vars
-export function predictSafeAddress(walletAddress, nonce) {
+export async function getTrustNetwork(safeAddress) {
   // @TODO: Call core method here
-  // should return Gnosis Safe Public Address as string
-  return '0x0123456789123456789012345678901234567890';
-}
-
-// eslint-disable-next-line no-unused-vars
-export async function registerUser(data) {
-  // @TODO: Call core method here
-  // data contains `username` and `address`
-  return Promise.resolve();
-}
-
-// eslint-disable-next-line no-unused-vars
-export async function deploySafe(walletAddress, nonce) {
-  // @TODO: Call core method here
-  // should return final Gnosis Safe Public Address as string
-  return Promise.resolve();
+  return Promise.resolve([]);
 }

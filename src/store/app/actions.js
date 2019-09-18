@@ -22,7 +22,7 @@ export function initializeApp() {
 
     // Initialize and gather important app states (auth etc.)
     await dispatch(initializeWallet());
-    await dispatch(initializeSafe());
+    dispatch(initializeSafe());
     await dispatch(checkAppState());
 
     dispatch({
