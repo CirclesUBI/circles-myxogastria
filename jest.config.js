@@ -1,8 +1,6 @@
 module.exports = {
   testEnvironment: 'jsdom',
-
-  // Setup react-testing-library
-  setupFilesAfterEnv: ['@testing-library/react/cleanup-after-each'],
+  testPathIgnorePatterns: ['/node_modules/', '/config/'],
 
   // Resolve modules same as Webpack
   moduleNameMapper: {

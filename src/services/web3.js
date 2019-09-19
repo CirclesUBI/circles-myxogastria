@@ -6,19 +6,63 @@ const provider = new Web3.providers.WebsocketProvider(process.env.RPC_URL);
 
 const web3 = new Web3();
 
-function checkConnectionHealth() {
-  web3.eth.net.isListening().catch(() => {
-    connect();
+let checkInterval;
+let connectionChangeCallback;
+let isConnected = false;
 
-    window.setTimeout(() => {
-      checkConnectionHealth();
-    }, REPEAT_CONNECTION_CHECK);
-  });
+function connectToProvider() {
+  web3.setProvider(provider);
 }
 
-export function connect() {
-  web3.setProvider(provider);
-  checkConnectionHealth();
+function notifyConnectionState(newState) {
+  if (!connectionChangeCallback) {
+    return;
+  }
+
+  connectionChangeCallback(newState);
+}
+
+function checkConnectionState() {
+  web3.eth.net
+    .isListening()
+    .then(() => {
+      if (!isConnected) {
+        isConnected = true;
+        notifyConnectionState(isConnected);
+      }
+    })
+    .catch(() => {
+      // Try to reconnect ..
+      connectToProvider();
+
+      if (isConnected) {
+        isConnected = false;
+        notifyConnectionState(isConnected);
+      }
+    });
+}
+
+export function connect(callback) {
+  if (isConnected) {
+    return;
+  }
+
+  // Add callback to subscribe to connection state changes
+  if (typeof callback === 'function') {
+    connectionChangeCallback = callback;
+  }
+
+  // Connect to Blockchain
+  connectToProvider();
+
+  // Check frequently for connection state from now on
+  checkConnectionState();
+
+  if (!checkInterval) {
+    checkInterval = window.setInterval(() => {
+      checkConnectionState();
+    }, REPEAT_CONNECTION_CHECK);
+  }
 }
 
 export default web3;

@@ -1,3 +1,11 @@
 {
-  "Hello {name}!": "Hello {name}!"
+  "views.connect.new": "Create new account",
+  "views.connect.seed": "Use seed phrase to restore wallet",
+  "views.create.confirm": "Yay!",
+  "views.create.username": "Your username",
+  "views.dashboard.settings": "Settings",
+  "views.settings.burn": "End session",
+  "views.settings.export": "Export seed phrase",
+  "views.welcome.connect": "Connect to existing account",
+  "views.welcome.new": "Create new account"
 }
