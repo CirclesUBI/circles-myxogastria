@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "bip39": "^3.0.2",
-    "circles-core": "^0.1.0",
+    "circles-core": "^0.2.0",
     "immutability-helper": "^3.0.1",
     "qrcode": "^1.4.1",
     "react": "^16.9.0",
