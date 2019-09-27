@@ -42,3 +42,11 @@ export async function getTrustNetwork(safeAddress) {
   // @TODO: Call core method here
   return Promise.resolve([]);
 }
+
+export async function resolveUsernameAddresses(addresses) {
+  const account = getAccount();
+
+  return await core.user.resolve(account, {
+    addresses,
+  });
+}

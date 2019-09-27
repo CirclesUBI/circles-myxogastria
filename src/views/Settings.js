@@ -17,7 +17,7 @@ const Settings = (props, context) => {
     <Fragment>
       <Header>
         <BackButton to="/" />
-        <UsernameDisplay />
+        <UsernameDisplay address={safe.address} />
       </Header>
 
       <View>
