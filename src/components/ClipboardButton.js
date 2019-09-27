@@ -30,7 +30,7 @@ const ClipboardButton = props => {
     };
   };
 
-  useEffect(initializeClipboard, []);
+  useEffect(initializeClipboard, [props.text]);
 
   return <Button ref={ref}>{props.children}</Button>;
 };
