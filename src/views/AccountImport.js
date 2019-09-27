@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
+import Header from '~/components/Header';
+import View from '~/components/View';
 import { restoreAccount } from '~/store/onboarding/actions';
 
 const AccountImport = () => {
@@ -19,9 +21,14 @@ const AccountImport = () => {
 
   return (
     <Fragment>
-      <BackButton to="/welcome/connect" />
-      <textarea value={seedPhrase} onChange={onChange} />
-      <Button onClick={onClick}>Restore</Button>
+      <Header>
+        <BackButton to="/welcome/connect" />
+      </Header>
+
+      <View>
+        <textarea value={seedPhrase} onChange={onChange} />
+        <Button onClick={onClick}>Restore</Button>
+      </View>
     </Fragment>
   );
 };

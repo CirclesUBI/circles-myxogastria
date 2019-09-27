@@ -5,20 +5,26 @@ import { useSelector } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
+import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
+import View from '~/components/View';
 
 const AccountConnect = (props, context) => {
   const { address } = useSelector(state => state.wallet);
 
   return (
     <Fragment>
-      <BackButton to="/welcome" />
+      <Header>
+        <BackButton to="/welcome" />
+      </Header>
 
-      <QRCode data={address} width={250} />
+      <View>
+        <QRCode data={address} width={250} />
 
-      <Link to="/welcome/seed">
-        <Button>{context.t('views.connect.seed')}</Button>
-      </Link>
+        <Link to="/welcome/seed">
+          <Button>{context.t('views.connect.seed')}</Button>
+        </Link>
+      </View>
     </Fragment>
   );
 };

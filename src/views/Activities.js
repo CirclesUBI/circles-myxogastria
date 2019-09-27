@@ -2,11 +2,14 @@ import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 
 import BackButton from '~/components/BackButton';
+import Header from '~/components/Header';
 
 const Activities = () => {
   return (
     <Fragment>
-      <BackButton to="/" />
+      <Header>
+        <BackButton to="/" />
+      </Header>
     </Fragment>
   );
 };

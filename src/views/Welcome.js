@@ -4,19 +4,22 @@ import { Link } from 'react-router-dom';
 
 import Button from '~/components/Button';
 import LocaleSelector from '~/components/LocaleSelector';
+import View from '~/components/View';
 
 const Welcome = (props, context) => {
   return (
     <Fragment>
-      <Link to="/welcome/new">
-        <Button>{context.t('views.welcome.new')}</Button>
-      </Link>
+      <View>
+        <Link to="/welcome/new">
+          <Button>{context.t('views.welcome.new')}</Button>
+        </Link>
 
-      <Link to="/welcome/connect">
-        <Button>{context.t('views.welcome.connect')}</Button>
-      </Link>
+        <Link to="/welcome/connect">
+          <Button>{context.t('views.welcome.connect')}</Button>
+        </Link>
 
-      <LocaleSelector />
+        <LocaleSelector />
+      </View>
     </Fragment>
   );
 };

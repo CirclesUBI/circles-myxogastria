@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
+import Footer from '~/components/Footer';
+import Header from '~/components/Header';
+import View from '~/components/View';
 import { createNewAccount } from '~/store/onboarding/actions';
 
 const AccountCreate = (props, context) => {
@@ -31,16 +34,28 @@ const AccountCreate = (props, context) => {
 
   return (
     <Fragment>
-      <BackButton disabled={isLoading} to="/welcome" />
+      <Header>
+        <BackButton disabled={isLoading} to="/welcome" />
+      </Header>
 
-      <form>
-        <label htmlFor="username">{context.t('views.create.username')}</label>
-        <input id="username" type="text" value={username} onChange={onChange} />
+      <View>
+        <form>
+          <label htmlFor="username">{context.t('views.create.username')}</label>
 
+          <input
+            id="username"
+            type="text"
+            value={username}
+            onChange={onChange}
+          />
+        </form>
+      </View>
+
+      <Footer>
         <Button disabled={isLoading} onClick={onSubmit}>
           {context.t('views.create.confirm')}
         </Button>
-      </form>
+      </Footer>
     </Fragment>
   );
 };
