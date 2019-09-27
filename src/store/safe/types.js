@@ -8,6 +8,7 @@ export default createTypes(
   'SAFE_DEPLOY_ERROR',
   'SAFE_DEPLOY_SUCCESS',
   'SAFE_INITIALIZE',
+  'SAFE_INITIALIZE_ERROR',
   'SAFE_RESET',
   'SAFE_UPDATE',
 );

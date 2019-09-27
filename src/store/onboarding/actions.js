@@ -1,9 +1,14 @@
-import notify from '~/store/notifications/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { checkAppState } from '~/store/app/actions';
-import { deployNewSafe, createSafeWithNonce } from '~/store/safe/actions';
 import { registerUser } from '~/services/core';
 import { removeNonce } from '~/services/safe';
 import { restoreWallet } from '~/store/wallet/actions';
+
+import {
+  deployNewSafe,
+  createSafeWithNonce,
+  resetSafe,
+} from '~/store/safe/actions';
 
 function welcomeUser() {
   return notify({
@@ -25,13 +30,21 @@ export function checkOnboardingState() {
 
 export function createNewAccount(username) {
   return async (dispatch, getState) => {
-    await dispatch(createSafeWithNonce());
+    try {
+      await dispatch(createSafeWithNonce());
+      const { safe } = getState();
+      await registerUser(safe.nonce, safe.address, username);
+      await dispatch(welcomeUser());
+    } catch (error) {
+      dispatch(resetSafe());
 
-    const { safe } = getState();
-
-    await registerUser(safe.nonce, safe.address, username);
-
-    dispatch(welcomeUser());
+      dispatch(
+        notify({
+          text: error.message, // @TODO
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+    }
   };
 }
 

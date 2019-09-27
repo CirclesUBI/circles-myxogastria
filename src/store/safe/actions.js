@@ -16,15 +16,33 @@ import {
 import { deploySafe, prepareSafeDeploy } from '~/services/core';
 
 export function initializeSafe() {
-  const nonce = hasNonce() ? getNonce() : null;
-  const address = hasSafeAddress() ? getSafeAddress() : null;
+  return async dispatch => {
+    dispatch({
+      type: ActionTypes.SAFE_INITIALIZE,
+    });
 
-  return {
-    type: ActionTypes.SAFE_UPDATE,
-    meta: {
-      address,
-      nonce,
-    },
+    const nonce = hasNonce() ? getNonce() : null;
+    const address = hasSafeAddress() ? getSafeAddress() : null;
+
+    if (nonce && !address) {
+      dispatch({
+        type: ActionTypes.SAFE_INITIALIZE_ERROR,
+        [NOTIFY]: {
+          text: 'Invalid safe state', // @TODO
+          type: NotificationsTypes.ERROR,
+        },
+      });
+
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.SAFE_UPDATE,
+      meta: {
+        address,
+        nonce,
+      },
+    });
   };
 }
 
@@ -32,6 +50,14 @@ export function createSafeWithNonce() {
   return async dispatch => {
     try {
       if (hasNonce()) {
+        dispatch({
+          type: ActionTypes.SAFE_CREATE_ERROR,
+          [NOTIFY]: {
+            text: 'Nonce already given', // @TODO
+            type: NotificationsTypes.ERROR,
+          },
+        });
+
         return;
       }
 
@@ -41,11 +67,13 @@ export function createSafeWithNonce() {
 
       // Generate a salt nonce
       const nonce = generateNonce();
-      setNonce(nonce);
 
       // Predict Safe address
       const address = await prepareSafeDeploy(nonce);
+
+      // Store them when successful
       setSafeAddress(address);
+      setNonce(nonce);
 
       dispatch({
         type: ActionTypes.SAFE_CREATE_SUCCESS,
@@ -58,7 +86,7 @@ export function createSafeWithNonce() {
       dispatch({
         type: ActionTypes.SAFE_CREATE_ERROR,
         [NOTIFY]: {
-          text: error.message,
+          text: error.message, // @TODO
           type: NotificationsTypes.ERROR,
         },
       });
