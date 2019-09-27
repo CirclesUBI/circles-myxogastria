@@ -19,7 +19,7 @@ const AccountImport = () => {
 
   return (
     <Fragment>
-      <BackButton />
+      <BackButton to="/welcome/connect" />
       <textarea value={seedPhrase} onChange={onChange} />
       <Button onClick={onClick}>Restore</Button>
     </Fragment>

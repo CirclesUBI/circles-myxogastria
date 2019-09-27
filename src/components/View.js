@@ -6,7 +6,7 @@ const View = props => {
 };
 
 View.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default View;

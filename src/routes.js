@@ -6,10 +6,16 @@ import { useSelector } from 'react-redux';
 import AccountConnect from '~/views/AccountConnect';
 import AccountCreate from '~/views/AccountCreate';
 import AccountImport from '~/views/AccountImport';
+import Activities from '~/views/Activities';
 import Dashboard from '~/views/Dashboard';
 import NotFound from '~/views/NotFound';
+import Profile from '~/views/Profile';
+import Receive from '~/views/Receive';
+import Send from '~/views/Send';
 import Settings from '~/views/Settings';
-import SettingsExport from '~/views/SettingsExport';
+import SettingsKeys from '~/views/SettingsKeys';
+import SettingsKeysExport from '~/views/SettingsKeysExport';
+import Trust from '~/views/Trust';
 import Welcome from '~/views/Welcome';
 
 const SessionContainer = ({ component: Component, isSessionRequired }) => {
@@ -59,8 +65,14 @@ const SessionRoute = ({ component, path }) => {
 const Routes = () => (
   <Switch>
     <SessionRoute component={Dashboard} exact path="/" />
-    <SessionRoute component={Settings} exact path="/settings" />
-    <SessionRoute component={SettingsExport} exact path="/settings/export" />
+    <SessionRoute component={Activities} path="/activities" />
+    <SessionRoute component={Trust} path="/trust/:address?" />
+    <SessionRoute component={Send} path="/send/:address?" />
+    <SessionRoute component={Receive} path="/receive" />
+    <SessionRoute component={Profile} path="/profile/:address" />
+    <SessionRoute component={SettingsKeysExport} path="/settings/keys/export" />
+    <SessionRoute component={SettingsKeys} path="/settings/keys" />
+    <SessionRoute component={Settings} path="/settings" />
     <OnboardingRoute component={AccountCreate} path="/welcome/new" />
     <OnboardingRoute component={AccountConnect} path="/welcome/connect" />
     <OnboardingRoute component={AccountImport} path="/welcome/seed" />

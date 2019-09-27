@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import Footer from '~/components/Footer';
-import Header from '~/components/Header';
+import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
-import View from '~/components/View';
 import { initializeApp, checkAppState } from '~/store/app/actions';
 
 const APP_CHECK_FRQUENCY = 1000 * 10;
@@ -25,13 +23,8 @@ const App = () => {
 
   return (
     <Router>
-      <Header />
-
-      <View>
-        <Routes />
-      </View>
-
-      <Footer />
+      <Notifications />
+      <Routes />
     </Router>
   );
 };

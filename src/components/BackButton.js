@@ -1,23 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import Button from '~/components/Button';
 
-const BackButton = ({ history, ...props }) => {
-  const onClick = () => {
-    history.goBack();
-  };
-
+const BackButton = props => {
   return (
-    <Button {...props} onClick={onClick}>
-      &lt;
-    </Button>
+    <Link to={props.to}>
+      <Button {...props}>&lt;</Button>
+    </Link>
   );
 };
 
 BackButton.propTypes = {
-  history: PropTypes.object.isRequired,
+  to: PropTypes.string.isRequired,
 };
 
 export default withRouter(BackButton);

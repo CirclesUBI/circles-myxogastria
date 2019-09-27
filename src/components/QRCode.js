@@ -9,8 +9,9 @@ const QRCode = props => {
 
   const generateQRCode = () => {
     const options = {
-      width: props.width || null,
       margin: 0,
+      scale: props.scale || null,
+      width: props.width || null,
     };
 
     setIsLoading(true);
@@ -27,6 +28,7 @@ const QRCode = props => {
 
 QRCode.propTypes = {
   data: PropTypes.string.isRequired,
+  scale: PropTypes.number,
   width: PropTypes.number,
 };
 

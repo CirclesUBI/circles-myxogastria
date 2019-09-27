@@ -3,7 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import BackButton from '~/components/BackButton';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
 
-const SettingsExport = () => {
+const SettingsKeysExport = () => {
   const [mnemonic, setMnemonic] = useState('');
 
   const generateMnemonic = () => {
@@ -17,10 +17,10 @@ const SettingsExport = () => {
 
   return (
     <Fragment>
-      <BackButton />
+      <BackButton to="/settings/keys" />
       <textarea readOnly value={mnemonic} />
     </Fragment>
   );
 };
 
-export default SettingsExport;
+export default SettingsKeysExport;

@@ -31,7 +31,7 @@ const AccountCreate = (props, context) => {
 
   return (
     <Fragment>
-      <BackButton disabled={isLoading} />
+      <BackButton disabled={isLoading} to="/welcome" />
 
       <form>
         <label htmlFor="username">{context.t('views.create.username')}</label>

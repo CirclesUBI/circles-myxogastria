@@ -3,19 +3,40 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import ActionButton from '~/components/ActionButton';
+import BalanceDisplay from '~/components/BalanceDisplay';
 import Button from '~/components/Button';
+import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
+import TrustHealthDisplay from '~/components/TrustHealthDisplay';
+import TrustNetwork from '~/components/TrustNetwork';
+import View from '~/components/View';
 
-const Dashboard = (props, context) => {
+const Dashboard = () => {
   const safe = useSelector(state => state.safe);
 
   return (
     <Fragment>
-      <Link to="/settings">
-        <Button>{context.t('views.dashboard.settings')}</Button>
-      </Link>
+      <Header>
+        <Link to="/settings">
+          <Button>
+            <QRCode data={safe.address} scale={1} width={30} />
+          </Button>
+        </Link>
 
-      <QRCode data={safe.address} width={250} />
+        <BalanceDisplay />
+
+        <Link to="/activities">
+          <Button>0</Button>
+        </Link>
+      </Header>
+
+      <View>
+        <TrustHealthDisplay />
+        <TrustNetwork />
+      </View>
+
+      <ActionButton />
     </Fragment>
   );
 };

@@ -12,7 +12,8 @@ const AccountConnect = (props, context) => {
 
   return (
     <Fragment>
-      <BackButton />
+      <BackButton to="/welcome" />
+
       <QRCode data={address} width={250} />
 
       <Link to="/welcome/seed">
