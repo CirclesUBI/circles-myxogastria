@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '~/components/Button';
+import LocaleSelector from '~/components/LocaleSelector';
 
 const Welcome = (props, context) => {
   return (
@@ -14,6 +15,8 @@ const Welcome = (props, context) => {
       <Link to="/welcome/connect">
         <Button>{context.t('views.welcome.connect')}</Button>
       </Link>
+
+      <LocaleSelector />
     </Fragment>
   );
 };

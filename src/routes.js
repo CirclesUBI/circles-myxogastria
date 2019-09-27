@@ -15,6 +15,8 @@ import Send from '~/views/Send';
 import Settings from '~/views/Settings';
 import SettingsKeys from '~/views/SettingsKeys';
 import SettingsKeysExport from '~/views/SettingsKeysExport';
+import SettingsLocale from '~/views/SettingsLocale';
+import SettingsShare from '~/views/SettingsShare';
 import Trust from '~/views/Trust';
 import Welcome from '~/views/Welcome';
 
@@ -72,6 +74,8 @@ const Routes = () => (
     <SessionRoute component={Profile} path="/profile/:address" />
     <SessionRoute component={SettingsKeysExport} path="/settings/keys/export" />
     <SessionRoute component={SettingsKeys} path="/settings/keys" />
+    <SessionRoute component={SettingsLocale} path="/settings/locale" />
+    <SessionRoute component={SettingsShare} path="/settings/share" />
     <SessionRoute component={Settings} path="/settings" />
     <OnboardingRoute component={AccountCreate} path="/welcome/new" />
     <OnboardingRoute component={AccountConnect} path="/welcome/connect" />

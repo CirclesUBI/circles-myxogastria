@@ -1,6 +1,7 @@
 import ActionTypes from '~/store/app/types';
 import { checkOnboardingState } from '~/store/onboarding/actions';
 import { checkTrustState } from '~/store/trust/actions';
+import { initializeLocale } from '~/store/locale/actions';
 import { initializeWallet, burnWallet } from '~/store/wallet/actions';
 
 import {
@@ -21,6 +22,7 @@ export function initializeApp() {
     });
 
     // Initialize and gather important app states (auth etc.)
+    await dispatch(initializeLocale());
     await dispatch(initializeWallet());
     await dispatch(initializeSafe());
     await dispatch(checkAppState());
