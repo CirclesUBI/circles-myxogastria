@@ -1,7 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-const Footer = () => {
-  return <footer />;
+const Footer = props => {
+  return <footer>{props.children}</footer>;
+};
+
+Footer.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default Footer;
