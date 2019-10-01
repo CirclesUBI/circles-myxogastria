@@ -63,6 +63,7 @@
     "circles-core": "^0.3.0",
     "clipboard": "^2.0.4",
     "immutability-helper": "^3.0.1",
+    "qr-scanner": "^1.1.1",
     "qrcode": "^1.4.2",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",

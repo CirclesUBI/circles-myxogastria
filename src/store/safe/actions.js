@@ -13,7 +13,13 @@ import {
   setSafeAddress,
 } from '~/services/safe';
 
-import { deploySafe, prepareSafeDeploy } from '~/services/core';
+import {
+  addOwner,
+  deploySafe,
+  getOwners,
+  prepareSafeDeploy,
+  removeOwner,
+} from '~/services/core';
 
 export function initializeSafe() {
   return async dispatch => {
@@ -121,6 +127,86 @@ export function deployNewSafe() {
     } catch (error) {
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_ERROR,
+        [NOTIFY]: {
+          message: error.message,
+          type: NotificationsTypes.ERROR,
+        },
+      });
+    }
+  };
+}
+
+export function getSafeOwners() {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    // Safe is not deployed yet
+    if (safe.nonce) {
+      return;
+    }
+
+    try {
+      const owners = await getOwners(safe.address);
+
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_UPDATE,
+        meta: {
+          owners,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_ERROR,
+        [NOTIFY]: {
+          message: error.message,
+          type: NotificationsTypes.ERROR,
+        },
+      });
+    }
+  };
+}
+
+export function addSafeOwner(address) {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    try {
+      await addOwner(safe.address, address);
+
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_SUCCESS_ADD,
+        meta: {
+          address,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_ERROR,
+        [NOTIFY]: {
+          message: error.message,
+          type: NotificationsTypes.ERROR,
+        },
+      });
+    }
+  };
+}
+
+export function removeSafeOwner(address) {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    try {
+      await removeOwner(safe.address, address);
+
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_SUCCESS_REMOVE,
+        meta: {
+          address,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_ERROR,
         [NOTIFY]: {
           message: error.message,
           type: NotificationsTypes.ERROR,

@@ -24,8 +24,34 @@ export async function prepareSafeDeploy(nonce) {
 export async function deploySafe(safeAddress) {
   const account = getAccount();
 
-  return await core.safe.forceDeploy(account, {
+  return await core.safe.deploy(account, {
     address: safeAddress,
+  });
+}
+
+export async function getOwners(safeAddress) {
+  const account = getAccount();
+
+  return await core.safe.getOwners(account, {
+    address: safeAddress,
+  });
+}
+
+export async function removeOwner(safeAddress, ownerAddress) {
+  const account = getAccount();
+
+  return await core.safe.removeOwner(account, {
+    address: safeAddress,
+    owner: ownerAddress,
+  });
+}
+
+export async function addOwner(safeAddress, ownerAddress) {
+  const account = getAccount();
+
+  return await core.safe.addOwner(account, {
+    address: safeAddress,
+    owner: ownerAddress,
   });
 }
 

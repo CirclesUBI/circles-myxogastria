@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
 import Header from '~/components/Header';
+import SafeOwnerManager from '~/components/SafeOwnerManager';
 import View from '~/components/View';
 import { burnApp } from '~/store/app/actions';
 
@@ -26,6 +27,8 @@ const SettingsKeys = (props, context) => {
       </Header>
 
       <View>
+        <SafeOwnerManager />
+
         <Button onClick={onBurnClick}>
           {context.t('views.settings.burn')}
         </Button>

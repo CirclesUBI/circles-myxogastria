@@ -3,9 +3,11 @@ import update from 'immutability-helper';
 import ActionTypes from '~/store/safe/types';
 
 const initialState = {
-  isLocked: false,
   address: null,
+  isLoading: false,
+  isLocked: false,
   nonce: null,
+  owners: [],
 };
 
 const safeReducer = (state = initialState, action) => {
@@ -32,12 +34,40 @@ const safeReducer = (state = initialState, action) => {
       return update(state, {
         isLocked: { $set: false },
       });
-    case ActionTypes.SAFE_RESET:
+    case ActionTypes.SAFE_OWNERS:
       return update(state, {
-        address: { $set: null },
-        isLocked: { $set: false },
-        nonce: { $set: null },
+        isLoading: { $set: true },
       });
+    case ActionTypes.SAFE_OWNERS_SUCCESS:
+      return update(state, {
+        owners: { $set: action.meta.owners },
+        isLoading: { $set: false },
+      });
+    case ActionTypes.SAFE_OWNERS_SUCCESS_ADD:
+      return update(state, {
+        owners: { $push: [action.meta.address] },
+        isLoading: { $set: false },
+      });
+    case ActionTypes.SAFE_OWNERS_SUCCESS_REMOVE: {
+      const index = state.owners.findIndex(address => {
+        return address === action.meta.address;
+      });
+
+      if (index === -1) {
+        return state;
+      }
+
+      return update(state, {
+        owners: { $splice: [[index, 1]] },
+        isLoading: { $set: false },
+      });
+    }
+    case ActionTypes.SAFE_OWNERS_ERROR:
+      return update(state, {
+        isLoading: { $set: false },
+      });
+    case ActionTypes.SAFE_RESET:
+      return update(state, { $set: initialState });
     default:
       return state;
   }

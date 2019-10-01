@@ -14,6 +14,7 @@ import Receive from '~/views/Receive';
 import Send from '~/views/Send';
 import Settings from '~/views/Settings';
 import SettingsKeys from '~/views/SettingsKeys';
+import SettingsKeysAdd from '~/views/SettingsKeysAdd';
 import SettingsKeysExport from '~/views/SettingsKeysExport';
 import SettingsLocale from '~/views/SettingsLocale';
 import SettingsShare from '~/views/SettingsShare';
@@ -72,6 +73,7 @@ const Routes = () => (
     <SessionRoute component={Send} path="/send/:address?" />
     <SessionRoute component={Receive} path="/receive" />
     <SessionRoute component={Profile} path="/profile/:address" />
+    <SessionRoute component={SettingsKeysAdd} path="/settings/keys/add" />
     <SessionRoute component={SettingsKeysExport} path="/settings/keys/export" />
     <SessionRoute component={SettingsKeys} path="/settings/keys" />
     <SessionRoute component={SettingsLocale} path="/settings/locale" />

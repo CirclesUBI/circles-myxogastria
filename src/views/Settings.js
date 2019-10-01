@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
@@ -9,9 +9,16 @@ import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
+import { deployNewSafe } from '~/store/safe/actions';
 
 const Settings = (props, context) => {
   const safe = useSelector(state => state.safe);
+  const dispatch = useDispatch();
+
+  // @TODO: Remove this when we've implemented all of the onboarding flows
+  const onDeploy = () => {
+    dispatch(deployNewSafe());
+  };
 
   return (
     <Fragment>
@@ -34,6 +41,8 @@ const Settings = (props, context) => {
         <Link to="/settings/locale">
           <Button>{context.t('views.settings.locale')}</Button>
         </Link>
+
+        <Button onClick={onDeploy}>Debug: Deploy Safe</Button>
 
         <ul>
           <li>
