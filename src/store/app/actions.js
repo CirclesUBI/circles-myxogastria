@@ -1,5 +1,6 @@
 import ActionTypes from '~/store/app/types';
 import { checkOnboardingState } from '~/store/onboarding/actions';
+import { checkTokenState, checkCurrentBalance } from '~/store/token/actions';
 import { checkTrustState } from '~/store/trust/actions';
 import { initializeLocale } from '~/store/locale/actions';
 import { initializeWallet, burnWallet } from '~/store/wallet/actions';
@@ -35,9 +36,14 @@ export function initializeApp() {
 
 export function checkAppState() {
   return async dispatch => {
+    // Onboarding / permission states
     await dispatch(checkSafeState());
     await dispatch(checkTrustState());
     await dispatch(checkOnboardingState());
+
+    // In-app states
+    await dispatch(checkTokenState());
+    await dispatch(checkCurrentBalance());
   };
 }
 

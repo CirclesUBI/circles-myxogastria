@@ -11,21 +11,13 @@ const core = new CirclesCore(web3, {
   relayServiceEndpoint: process.env.RELAY_SERVICE_ENDPOINT,
 });
 
+// Safe module
+
 export async function prepareSafeDeploy(nonce) {
   const account = getAccount();
 
   return await core.safe.prepareDeploy(account, {
     nonce,
-  });
-}
-
-export async function registerUser(nonce, safeAddress, username) {
-  const account = getAccount();
-
-  return await core.user.register(account, {
-    nonce,
-    safeAddress,
-    username,
   });
 }
 
@@ -37,10 +29,16 @@ export async function deploySafe(safeAddress) {
   });
 }
 
-// eslint-disable-next-line no-unused-vars
-export async function getTrustNetwork(safeAddress) {
-  // @TODO: Call core method here
-  return Promise.resolve([]);
+// User module
+
+export async function registerUser(nonce, safeAddress, username) {
+  const account = getAccount();
+
+  return await core.user.register(account, {
+    nonce,
+    safeAddress,
+    username,
+  });
 }
 
 export async function resolveUsernameAddresses(addresses) {
@@ -48,5 +46,32 @@ export async function resolveUsernameAddresses(addresses) {
 
   return await core.user.resolve(account, {
     addresses,
+  });
+}
+
+// Trust module
+
+// eslint-disable-next-line no-unused-vars
+export async function getTrustNetwork(safeAddress) {
+  // @TODO: Call core method here
+  return Promise.resolve([]);
+}
+
+// UBI module
+
+export async function getBalance(safeAddress, tokenAddress) {
+  const account = getAccount();
+
+  return await core.ubi.getBalance(account, {
+    address: safeAddress,
+    tokenAddress,
+  });
+}
+
+export async function getTokenAddress(safeAddress) {
+  const account = getAccount();
+
+  return await core.ubi.getTokenAddress(account, {
+    safeAddress,
   });
 }
