@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 const BalanceDisplay = () => {
   const token = useSelector(state => state.token);
 
-  if (token.isLoading) {
+  if (token.isLoading && !token.balance) {
     return null;
   }
 
