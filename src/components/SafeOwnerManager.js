@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '~/components/Button';
-import UsernameDisplay from '~/components/UsernameDisplay';
 import { removeSafeOwner, getSafeOwners } from '~/store/safe/actions';
 
 const SafeOwnerManager = (props, context) => {
@@ -33,8 +32,8 @@ const SafeOwnerManager = (props, context) => {
 };
 
 const SafeOwnerManagerList = props => {
-  return props.owners.map(owner => {
-    return <SafeOwnerManagerItem address={owner.address} key={owner.address} />;
+  return props.owners.map(address => {
+    return <SafeOwnerManagerItem address={address} key={address} />;
   });
 };
 
@@ -47,7 +46,7 @@ const SafeOwnerManagerItem = (props, context) => {
 
   return (
     <li>
-      <UsernameDisplay address={props.address} />
+      {props.address}
 
       <button onClick={onRemove}>
         {context.t('views.settings.removeOwner')}
@@ -57,11 +56,7 @@ const SafeOwnerManagerItem = (props, context) => {
 };
 
 SafeOwnerManagerList.propTypes = {
-  owners: PropTypes.arrayOf(
-    PropTypes.shape({
-      address: PropTypes.string,
-    }),
-  ).isRequired,
+  owners: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 SafeOwnerManagerItem.propTypes = {
