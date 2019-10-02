@@ -85,6 +85,14 @@ export async function getTrustNetwork(safeAddress) {
 
 // UBI module
 
+export async function signup(safeAddress) {
+  const account = getAccount();
+
+  return await core.ubi.signup(account, {
+    safeAddress,
+  });
+}
+
 export async function getBalance(safeAddress, tokenAddress) {
   const account = getAccount();
 
