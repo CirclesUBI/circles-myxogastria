@@ -9,7 +9,7 @@ import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
-import { deployNewSafe } from '~/store/safe/actions';
+import { finalizeNewAccount } from '~/store/onboarding/actions';
 
 const Settings = (props, context) => {
   const safe = useSelector(state => state.safe);
@@ -17,7 +17,7 @@ const Settings = (props, context) => {
 
   // @TODO: Remove this when we've implemented all of the onboarding flows
   const onDeploy = () => {
-    dispatch(deployNewSafe());
+    dispatch(finalizeNewAccount());
   };
 
   return (

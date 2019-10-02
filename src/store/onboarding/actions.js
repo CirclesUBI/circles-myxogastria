@@ -1,7 +1,7 @@
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { checkAppState } from '~/store/app/actions';
+import { deployNewToken } from '~/store/token/actions';
 import { registerUser } from '~/services/core';
-import { removeNonce } from '~/services/safe';
 import { restoreWallet } from '~/store/wallet/actions';
 
 import {
@@ -22,8 +22,7 @@ export function checkOnboardingState() {
 
     // @TODO: We could check the error state here where no nonce is given but also no Safe is deployed yet
     if (trust.isTrusted && safe.nonce) {
-      await dispatch(deployNewSafe());
-      removeNonce();
+      await finalizeNewAccount();
     }
   };
 }
@@ -45,6 +44,13 @@ export function createNewAccount(username) {
         }),
       );
     }
+  };
+}
+
+export function finalizeNewAccount() {
+  return async dispatch => {
+    await dispatch(deployNewSafe());
+    await dispatch(deployNewToken());
   };
 }
 
