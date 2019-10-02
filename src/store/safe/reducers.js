@@ -29,6 +29,7 @@ const safeReducer = (state = initialState, action) => {
     case ActionTypes.SAFE_DEPLOY_SUCCESS:
       return update(state, {
         isLocked: { $set: false },
+        nonce: { $set: null },
       });
     case ActionTypes.SAFE_DEPLOY_ERROR:
       return update(state, {

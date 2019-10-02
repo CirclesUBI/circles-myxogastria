@@ -91,11 +91,9 @@ export function createSafeWithNonce() {
     } catch (error) {
       dispatch({
         type: ActionTypes.SAFE_CREATE_ERROR,
-        [NOTIFY]: {
-          text: error.message, // @TODO
-          type: NotificationsTypes.ERROR,
-        },
       });
+
+      throw new Error(error);
     }
   };
 }
@@ -120,6 +118,8 @@ export function deployNewSafe() {
 
     try {
       await deploySafe(safe.address);
+
+      removeNonce();
 
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_SUCCESS,
@@ -149,7 +149,7 @@ export function getSafeOwners() {
       const owners = await getOwners(safe.address);
 
       dispatch({
-        type: ActionTypes.SAFE_OWNERS_UPDATE,
+        type: ActionTypes.SAFE_OWNERS_SUCCESS,
         meta: {
           owners,
         },
