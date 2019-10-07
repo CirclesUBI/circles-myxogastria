@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { removeNotification } from '~/store/notifications/actions';
@@ -20,6 +20,7 @@ const NotificationsList = props => {
       <NotificationsItem
         id={item.id}
         key={item.id}
+        lifetime={item.lifetime}
         text={item.text}
         type={item.type}
       />
@@ -34,6 +35,22 @@ const NotificationsItem = props => {
     dispatch(removeNotification(props.id));
   };
 
+  useEffect(() => {
+    let timeout;
+
+    if (props.lifetime > 0) {
+      timeout = window.setTimeout(() => {
+        onRemove();
+      }, props.lifetime);
+    }
+
+    return () => {
+      if (timeout) {
+        window.clearTimeout(timeout);
+      }
+    };
+  }, []);
+
   return (
     <li>
       {props.text} <button onClick={onRemove}>Hide</button>
@@ -44,6 +61,7 @@ const NotificationsItem = props => {
 NotificationsList.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
+      lifetime: PropTypes.number,
       text: PropTypes.string,
       type: PropTypes.symbol,
     }),
@@ -52,6 +70,7 @@ NotificationsList.propTypes = {
 
 NotificationsItem.propTypes = {
   id: PropTypes.number.isRequired,
+  lifetime: PropTypes.number,
   text: PropTypes.string.isRequired,
   type: PropTypes.symbol.isRequired,
 };
