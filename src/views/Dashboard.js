@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -39,10 +38,6 @@ const Dashboard = () => {
       <ActionButton />
     </Fragment>
   );
-};
-
-Dashboard.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default Dashboard;

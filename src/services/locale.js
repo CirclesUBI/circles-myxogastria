@@ -6,7 +6,7 @@ import {
   setItem,
 } from '~/services/storage';
 
-import { DEFAULT_LOCALE, LOCALES } from '../../locales';
+import { DEFAULT_LOCALE, LOCALES } from '~/../locales';
 
 const LOCALE_NAME = 'locale';
 

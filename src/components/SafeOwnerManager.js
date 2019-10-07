@@ -24,7 +24,7 @@ const SafeOwnerManager = (props, context) => {
 
       <Link to="/settings/keys/add">
         <Button disabled={isDisabled}>
-          {context.t('views.settings.addOwner')}
+          {context.t('SafeOwnerManager.addNewDevice')}
         </Button>
       </Link>
     </Fragment>
@@ -48,9 +48,7 @@ const SafeOwnerManagerItem = (props, context) => {
     <li>
       {props.address}
 
-      <button onClick={onRemove}>
-        {context.t('views.settings.removeOwner')}
-      </button>
+      <button onClick={onRemove}>{context.t('SafeOwnerManager.remove')}</button>
     </li>
   );
 };

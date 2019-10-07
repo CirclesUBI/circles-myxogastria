@@ -5,7 +5,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
+import ExternalLinkList from '~/components/ExternalLinkList';
 import Header from '~/components/Header';
+import LocaleSelector from '~/components/LocaleSelector';
 import QRCode from '~/components/QRCode';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
@@ -31,44 +33,17 @@ const Settings = (props, context) => {
         <QRCode data={safe.address} width={250} />
 
         <Link to="/settings/share">
-          <Button>{context.t('views.settings.share')}</Button>
+          <Button>{context.t('Settings.share')}</Button>
         </Link>
 
         <Link to="/settings/keys">
-          <Button>{context.t('views.settings.keys')}</Button>
-        </Link>
-
-        <Link to="/settings/locale">
-          <Button>{context.t('views.settings.locale')}</Button>
+          <Button>{context.t('Settings.manageKeys')}</Button>
         </Link>
 
         <Button onClick={onDeploy}>Debug: Deploy Safe</Button>
 
-        <ul>
-          <li>
-            <a href="#" target="_blank">
-              {context.t('views.settings.marketplace')}
-            </a>
-          </li>
-
-          <li>
-            <a href="#" target="_blank">
-              {context.t('views.settings.meetups')}
-            </a>
-          </li>
-
-          <li>
-            <a href="#" target="_blank">
-              {context.t('views.settings.about')}
-            </a>
-          </li>
-
-          <li>
-            <a href="#" target="_blank">
-              {context.t('views.settings.contact')}
-            </a>
-          </li>
-        </ul>
+        <LocaleSelector />
+        <ExternalLinkList />
       </View>
     </Fragment>
   );

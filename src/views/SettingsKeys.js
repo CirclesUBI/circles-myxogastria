@@ -14,8 +14,7 @@ const SettingsKeys = (props, context) => {
   const dispatch = useDispatch();
 
   const onBurnClick = () => {
-    // @TODO: Use a proper modal here
-    if (window.confirm('Are you sure?')) {
+    if (window.confirm(context.t('SettingsKeys.areYouSure'))) {
       dispatch(burnApp());
     }
   };
@@ -27,15 +26,18 @@ const SettingsKeys = (props, context) => {
       </Header>
 
       <View>
+        <h1>{context.t('SettingsKeys.manageKeys')}</h1>
+        <p>{context.t('SettingsKeys.devicesAccessingAccount')}</p>
+
         <SafeOwnerManager />
 
-        <Button onClick={onBurnClick}>
-          {context.t('views.settings.burn')}
-        </Button>
-
         <Link to="/settings/keys/export">
-          <Button>{context.t('views.settings.export')}</Button>
+          <Button>{context.t('SettingsKeys.exportSeedPhrase')}</Button>
         </Link>
+
+        <Button onClick={onBurnClick}>
+          {context.t('SettingsKeys.endSession')}
+        </Button>
       </View>
     </Fragment>
   );

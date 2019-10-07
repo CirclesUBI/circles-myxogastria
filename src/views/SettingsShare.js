@@ -13,7 +13,7 @@ const SettingsShare = (props, context) => {
 
   const shareLink = `${process.env.BASE_PATH}/profile/${safe.address}`;
 
-  const shareText = `Hi! Check out my profile at: ${shareLink}`; // @TODO
+  const shareText = context.t('SettingsShare.shareText', { shareLink });
 
   return (
     <Fragment>
@@ -27,7 +27,7 @@ const SettingsShare = (props, context) => {
 
       <Footer>
         <ClipboardButton text={shareText}>
-          {context.t('views.settings.clipboard')}
+          {context.t('SettingsShare.copyToClipboard')}
         </ClipboardButton>
       </Footer>
     </Fragment>

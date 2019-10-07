@@ -32,7 +32,7 @@ const SettingsKeysExport = (props, context) => {
 
       <Footer>
         <ClipboardButton text={mnemonic}>
-          {context.t('views.settings.clipboard')}
+          {context.t('SettingsKeysExport.copyToClipboard')}
         </ClipboardButton>
       </Footer>
     </Fragment>

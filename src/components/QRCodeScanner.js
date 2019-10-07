@@ -8,7 +8,7 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 
 QrScanner.WORKER_PATH = QrScannerWorkerPath;
 
-const QRCodeScanner = props => {
+const QRCodeScanner = (props, context) => {
   const dispatch = useDispatch();
 
   const [isCameraAvailable, setIsCameraAvailable] = useState(true);
@@ -31,7 +31,7 @@ const QRCodeScanner = props => {
       .catch(() => {
         dispatch(
           notify({
-            text: 'Could not find QR code', // @TODO
+            text: context.t('QrCodeScanner.qrNotFound'),
             type: NotificationsTypes.WARNING,
           }),
         );
@@ -84,6 +84,10 @@ const QRCodeScanner = props => {
   }
 
   return <video ref={refVideo} />;
+};
+
+QRCodeScanner.contextTypes = {
+  t: PropTypes.func.isRequired,
 };
 
 QRCodeScanner.propTypes = {

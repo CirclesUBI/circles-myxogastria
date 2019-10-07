@@ -19,11 +19,25 @@ const AccountConnect = (props, context) => {
       </Header>
 
       <View>
+        <h1>{context.t('AccountConnect.connectToYourWallet')}</h1>
+
         <QRCode data={address} width={250} />
 
         <Link to="/welcome/seed">
-          <Button>{context.t('views.connect.seed')}</Button>
+          <Button>{context.t('AccountConnect.restoreWithSeedPhrase')}</Button>
         </Link>
+
+        <p>
+          {context.t('AccountConnect.noSeedPhrase')}{' '}
+          <Link to="/welcome/new">
+            {context.t('AccountConnect.createNewWallet')}
+          </Link>
+        </p>
+
+        <p>
+          {context.t('AccountConnect.questions')}{' '}
+          <a href="#">{context.t('AccountConnect.contactUs')}</a>
+        </p>
       </View>
     </Fragment>
   );

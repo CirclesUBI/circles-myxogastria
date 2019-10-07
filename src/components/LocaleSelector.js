@@ -1,48 +1,73 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
 import notify from '~/store/notifications/actions';
+import { LOCALES } from '~/../locales';
 import { selectLocale } from '~/store/locale/actions';
 
-const LocaleSelector = (props, context) => {
-  const dispatch = useDispatch();
-  const { lang } = useSelector(state => state.i18nState);
+const LocaleSelector = () => {
+  return (
+    <ul>
+      <LocaleSelectorList />
+    </ul>
+  );
+};
 
-  const showNotification = () => {
+const LocaleSelectorList = (props, context) => {
+  const { lang } = useSelector(state => state.i18nState);
+  const dispatch = useDispatch();
+
+  const onSelect = locale => {
+    dispatch(selectLocale(locale));
+
     dispatch(
       notify({
-        text: 'Locale changed!', // @TODO
+        text: context.t('LocaleSelector.localeChangedMessage'),
       }),
     );
   };
 
-  const onEnglishSelect = () => {
-    dispatch(selectLocale('en'));
-    showNotification();
-  };
+  return LOCALES.map(locale => {
+    const isSelected = lang === locale;
 
-  const onGermanSelect = () => {
-    dispatch(selectLocale('de'));
-    showNotification();
+    return (
+      <li key={locale}>
+        <LocaleSelectorButton
+          isSelected={isSelected}
+          locale={locale}
+          onSelect={onSelect}
+        />
+      </li>
+    );
+  });
+};
+
+const LocaleSelectorButton = (props, context) => {
+  const onSelect = () => {
+    props.onSelect(props.locale);
   };
 
   return (
-    <Fragment>
-      <Button disabled={lang === 'en'} onClick={onEnglishSelect}>
-        {context.t('views.settings.locale.en')}
-      </Button>
-
-      <Button disabled={lang === 'de'} onClick={onGermanSelect}>
-        {context.t('views.settings.locale.de')}
-      </Button>
-    </Fragment>
+    <Button disabled={props.isSelected} onClick={onSelect}>
+      {context.t(`LocaleSelector.${props.locale}`)}
+    </Button>
   );
 };
 
-LocaleSelector.contextTypes = {
+LocaleSelectorList.contextTypes = {
   t: PropTypes.func.isRequired,
+};
+
+LocaleSelectorButton.contextTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+LocaleSelectorButton.propTypes = {
+  isSelected: PropTypes.bool.isRequired,
+  locale: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default LocaleSelector;

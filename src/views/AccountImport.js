@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
@@ -8,7 +10,7 @@ import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { restoreAccount } from '~/store/onboarding/actions';
 
-const AccountImport = () => {
+const AccountImport = (props, context) => {
   const [seedPhrase, setSeedPhrase] = useState('');
   const dispatch = useDispatch();
 
@@ -19,10 +21,16 @@ const AccountImport = () => {
   const onClick = async () => {
     try {
       await dispatch(restoreAccount(seedPhrase));
+
+      dispatch(
+        notify({
+          text: context.t('AccountImport.welcomeMessage'),
+        }),
+      );
     } catch {
       dispatch(
         notify({
-          text: 'Something went wrong!', // @TODO
+          text: context.t('AccountImport.errorMessage'),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -36,11 +44,31 @@ const AccountImport = () => {
       </Header>
 
       <View>
+        <h1>{context.t('AccountImport.connectToYourWallet')}</h1>
+        <p>{context.t('AccountImport.enterYourSeedPhrase')}</p>
+
         <textarea value={seedPhrase} onChange={onChange} />
-        <Button onClick={onClick}>Restore</Button>
+
+        <p>
+          {context.t('AccountImport.lostYourSeedPhrase')}{' '}
+          <Link to="/welcome/new">
+            {context.t('AccountImport.createNewWallet')}
+          </Link>
+        </p>
+
+        <p>
+          {context.t('AccountImport.questions')}{' '}
+          <a href="#">{context.t('AccountImport.contactUs')}</a>
+        </p>
+
+        <Button onClick={onClick}>{context.t('AccountImport.submit')}</Button>
       </View>
     </Fragment>
   );
+};
+
+AccountImport.contextTypes = {
+  t: PropTypes.func.isRequired,
 };
 
 export default AccountImport;

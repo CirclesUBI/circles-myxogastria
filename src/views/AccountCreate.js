@@ -31,7 +31,7 @@ const AccountCreate = (props, context) => {
 
       dispatch(
         notify({
-          text: 'Welcome!', // @TODO
+          text: context.t('AccountCreate.welcomeMessage'),
         }),
       );
     } catch (error) {
@@ -39,7 +39,7 @@ const AccountCreate = (props, context) => {
 
       dispatch(
         notify({
-          text: 'Something went wrong!', // @TODO
+          text: context.t('AccountCreate.errorMessage'),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -55,8 +55,13 @@ const AccountCreate = (props, context) => {
       </Header>
 
       <View>
+        <h1>{context.t('AccountCreate.createYourUsername')}</h1>
+        <p>{context.t('AccountCreate.yourUsernameDescription')}</p>
+
         <form>
-          <label htmlFor="username">{context.t('views.create.username')}</label>
+          <label htmlFor="username">
+            {context.t('AccountCreate.username')}
+          </label>
 
           <input
             id="username"
@@ -69,7 +74,7 @@ const AccountCreate = (props, context) => {
 
       <Footer>
         <Button disabled={isLoading} onClick={onSubmit}>
-          {context.t('views.create.confirm')}
+          {context.t('AccountCreate.submit')}
         </Button>
       </Footer>
     </Fragment>

@@ -6,16 +6,20 @@ import BackButton from '~/components/BackButton';
 import Header from '~/components/Header';
 import QRCodeScanner from '~/components/QRCodeScanner';
 import View from '~/components/View';
+import notify from '~/store/notifications/actions';
 import { addSafeOwner } from '~/store/safe/actions';
 
-const SettingsKeysAdd = () => {
+const SettingsKeysAdd = (props, context) => {
   const dispatch = useDispatch();
 
   const onSuccess = address => {
-    // @TODO: Use a proper modal here
-    if (window.confirm('Are you sure?')) {
-      dispatch(addSafeOwner(address));
-    }
+    dispatch(addSafeOwner(address));
+
+    dispatch(
+      notify({
+        text: context.t('SettingsKeysAdd.successMessage'),
+      }),
+    );
   };
 
   return (

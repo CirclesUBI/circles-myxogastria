@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import Button from '~/components/Button';
 import notify from '~/store/notifications/actions';
 
-const ClipboardButton = props => {
+const ClipboardButton = (props, context) => {
   const dispatch = useDispatch();
   const ref = createRef();
 
@@ -20,7 +20,7 @@ const ClipboardButton = props => {
     clipboard.on('success', () => {
       dispatch(
         notify({
-          text: 'Copied!', // @TODO
+          text: context.t('ClipboardButton.copiedMessage'),
         }),
       );
     });
@@ -33,6 +33,10 @@ const ClipboardButton = props => {
   useEffect(initializeClipboard, [props.text]);
 
   return <Button ref={ref}>{props.children}</Button>;
+};
+
+ClipboardButton.contextTypes = {
+  t: PropTypes.func.isRequired,
 };
 
 ClipboardButton.propTypes = {

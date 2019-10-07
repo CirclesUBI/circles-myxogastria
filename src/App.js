@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -11,7 +12,7 @@ import { initializeApp, checkAppState } from '~/store/app/actions';
 
 const APP_CHECK_FRQUENCY = 1000 * 10;
 
-const App = () => {
+const App = (props, context) => {
   const dispatch = useDispatch();
 
   const onAppStart = () => {
@@ -33,7 +34,7 @@ const App = () => {
 
         dispatch(
           notify({
-            text: '', // @TODO
+            text: context.t('App.updateErrorMessage'),
             type: NotificationsTypes.ERROR,
           }),
         );
@@ -50,6 +51,10 @@ const App = () => {
       <Routes />
     </Router>
   );
+};
+
+App.contextTypes = {
+  t: PropTypes.func.isRequired,
 };
 
 export default App;

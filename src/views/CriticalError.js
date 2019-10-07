@@ -10,8 +10,7 @@ const CriticalError = (props, context) => {
   const dispatch = useDispatch();
 
   const onBurnClick = () => {
-    // @TODO: Use a proper modal here
-    if (window.confirm('Are you sure?')) {
+    if (window.confirm(context.t('CriticalError.areYouSure'))) {
       dispatch(burnApp());
     }
   };
@@ -19,10 +18,10 @@ const CriticalError = (props, context) => {
   return (
     <Fragment>
       <View>
-        <p>{context.t('views.app.criticalError')}</p>
+        <p>{context.t('CriticalError.criticalErrorDesription')}</p>
 
         <Button onClick={onBurnClick}>
-          {context.t('views.app.criticalReset')}
+          {context.t('CriticalError.reset')}
         </Button>
       </View>
     </Fragment>
