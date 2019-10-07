@@ -34,7 +34,7 @@ export function deployNewToken() {
         type: ActionTypes.TOKEN_DEPLOY_ERROR,
       });
 
-      throw new Error(error);
+      throw error;
     }
   };
 }
@@ -42,6 +42,11 @@ export function deployNewToken() {
 export function checkTokenState() {
   return async (dispatch, getState) => {
     const { safe, token } = getState();
+
+    // Safe address is not known yet
+    if (!safe.address) {
+      return;
+    }
 
     // Token address already exists
     if (token.address) {
@@ -74,6 +79,8 @@ export function checkTokenState() {
       dispatch({
         type: ActionTypes.TOKEN_UPDATE_ERROR,
       });
+
+      throw error;
     }
   };
 }
@@ -105,7 +112,7 @@ export function checkCurrentBalance() {
         type: ActionTypes.TOKEN_BALANCE_UPDATE_ERROR,
       });
 
-      throw new Error(error);
+      throw error;
     }
   };
 }

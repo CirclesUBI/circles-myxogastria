@@ -28,7 +28,7 @@ export function createNewAccount(username) {
       await registerUser(safe.nonce, safe.address, username);
     } catch (error) {
       dispatch(resetSafe());
-      throw new Error(error);
+      throw error;
     }
   };
 }

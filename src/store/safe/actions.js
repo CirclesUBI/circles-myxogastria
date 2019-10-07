@@ -85,7 +85,7 @@ export function createSafeWithNonce() {
         type: ActionTypes.SAFE_CREATE_ERROR,
       });
 
-      throw new Error(error);
+      throw error;
     }
   };
 }
@@ -143,7 +143,7 @@ export function deployNewSafe() {
         type: ActionTypes.SAFE_DEPLOY_ERROR,
       });
 
-      throw new Error(error);
+      throw error;
     }
   };
 }
@@ -175,7 +175,7 @@ export function getSafeOwners() {
         type: ActionTypes.SAFE_OWNERS_ERROR,
       });
 
-      throw new Error(error);
+      throw error;
     }
   };
 }
@@ -202,7 +202,7 @@ export function addSafeOwner(address) {
         type: ActionTypes.SAFE_OWNERS_ADD_ERROR,
       });
 
-      throw new Error(error);
+      throw error;
     }
   };
 }
@@ -229,7 +229,7 @@ export function removeSafeOwner(address) {
         type: ActionTypes.SAFE_OWNERS_REMOVE_ERROR,
       });
 
-      throw new Error(error);
+      throw error;
     }
   };
 }

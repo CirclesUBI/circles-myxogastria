@@ -23,19 +23,33 @@ export function initializeApp() {
     });
 
     // Initialize and gather important app states (auth etc.)
-    await dispatch(initializeLocale());
-    await dispatch(initializeWallet());
-    await dispatch(initializeSafe());
-    await dispatch(checkAppState());
+    try {
+      await dispatch(initializeLocale());
+      await dispatch(initializeWallet());
+      await dispatch(initializeSafe());
+      await dispatch(checkAppState());
 
-    dispatch({
-      type: ActionTypes.APP_INITIALIZE_SUCCESS,
-    });
+      dispatch({
+        type: ActionTypes.APP_INITIALIZE_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.APP_INITIALIZE_ERROR,
+      });
+
+      throw error;
+    }
   };
 }
 
 export function checkAppState() {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const { app } = getState();
+
+    if (!app.isReady || app.isError) {
+      return;
+    }
+
     // Onboarding / permission states
     await dispatch(checkSafeState());
     await dispatch(checkTrustState());

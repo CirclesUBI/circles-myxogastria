@@ -7,6 +7,7 @@ import AccountConnect from '~/views/AccountConnect';
 import AccountCreate from '~/views/AccountCreate';
 import AccountImport from '~/views/AccountImport';
 import Activities from '~/views/Activities';
+import CriticalError from '~/views/CriticalError';
 import Dashboard from '~/views/Dashboard';
 import NotFound from '~/views/NotFound';
 import Profile from '~/views/Profile';
@@ -22,16 +23,21 @@ import Trust from '~/views/Trust';
 import Welcome from '~/views/Welcome';
 
 const SessionContainer = ({ component: Component, isSessionRequired }) => {
-  const { isReady, safe, wallet } = useSelector(state => {
+  const { app, safe, wallet } = useSelector(state => {
     return {
-      isReady: state.app.isReady,
+      app: state.app,
       safe: state.safe,
       wallet: state.wallet,
     };
   });
 
+  // Did something bad happen?
+  if (app.isError) {
+    return <CriticalError />;
+  }
+
   // Do not do anything yet when we are not ready
-  if (!isReady) {
+  if (!app.isReady) {
     return null;
   }
 

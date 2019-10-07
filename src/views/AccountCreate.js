@@ -8,7 +8,7 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import logError from '~/services/debug';
-import notify from '~/store/notifications/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { createNewAccount } from '~/store/onboarding/actions';
 
 const AccountCreate = (props, context) => {
@@ -35,8 +35,15 @@ const AccountCreate = (props, context) => {
         }),
       );
     } catch (error) {
-      // @TODO: Show error to user
       setIsLoading(false);
+
+      dispatch(
+        notify({
+          text: 'Something went wrong!', // @TODO
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+
       logError(error);
     }
   };
