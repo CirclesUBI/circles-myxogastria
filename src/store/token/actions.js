@@ -1,5 +1,4 @@
 import ActionTypes from '~/store/token/types';
-import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import { getBalance, getTokenAddress, signup } from '~/services/core';
 
@@ -33,11 +32,9 @@ export function deployNewToken() {
     } catch (error) {
       dispatch({
         type: ActionTypes.TOKEN_DEPLOY_ERROR,
-        [NOTIFY]: {
-          message: error.message,
-          type: NotificationsTypes.ERROR,
-        },
       });
+
+      throw new Error(error);
     }
   };
 }
@@ -76,10 +73,6 @@ export function checkTokenState() {
     } catch (error) {
       dispatch({
         type: ActionTypes.TOKEN_UPDATE_ERROR,
-        [NOTIFY]: {
-          message: error.message,
-          type: NotificationsTypes.ERROR,
-        },
       });
     }
   };
@@ -110,11 +103,9 @@ export function checkCurrentBalance() {
     } catch (error) {
       dispatch({
         type: ActionTypes.TOKEN_BALANCE_UPDATE_ERROR,
-        [NOTIFY]: {
-          message: error.message,
-          type: NotificationsTypes.ERROR,
-        },
       });
+
+      throw new Error(error);
     }
   };
 }

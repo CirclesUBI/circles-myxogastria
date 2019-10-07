@@ -3,18 +3,29 @@ import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
+import notify from '~/store/notifications/actions';
 import { selectLocale } from '~/store/locale/actions';
 
 const LocaleSelector = (props, context) => {
   const dispatch = useDispatch();
   const { lang } = useSelector(state => state.i18nState);
 
+  const showNotification = () => {
+    dispatch(
+      notify({
+        text: 'Locale changed!', // @TODO
+      }),
+    );
+  };
+
   const onEnglishSelect = () => {
     dispatch(selectLocale('en'));
+    showNotification();
   };
 
   const onGermanSelect = () => {
     dispatch(selectLocale('de'));
+    showNotification();
   };
 
   return (

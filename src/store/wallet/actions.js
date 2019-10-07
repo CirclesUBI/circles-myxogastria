@@ -1,21 +1,10 @@
 import ActionTypes from '~/store/wallet/types';
-import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
 
 import {
   fromSeedPhrase,
   getPublicAddress,
   removePrivateKey,
 } from '~/services/wallet';
-
-function walletError(error) {
-  return {
-    type: ActionTypes.WALLET_INITIALIZE_ERROR,
-    [NOTIFY]: {
-      text: error.message,
-      type: NotificationsTypes.ERROR,
-    },
-  };
-}
 
 export function initializeWallet() {
   return dispatch => {
@@ -35,31 +24,27 @@ export function initializeWallet() {
         });
       }
     } catch (error) {
-      dispatch(walletError(error));
+      dispatch({
+        type: ActionTypes.WALLET_INITIALIZE_ERROR,
+      });
+
+      throw new Error(error);
     }
   };
 }
 
 export function restoreWallet(seedPhrase) {
   return dispatch => {
-    try {
-      fromSeedPhrase(seedPhrase);
+    fromSeedPhrase(seedPhrase);
 
-      dispatch(initializeWallet());
-    } catch (error) {
-      dispatch(walletError(error));
-    }
+    dispatch(initializeWallet());
   };
 }
 
 export function burnWallet() {
-  try {
-    removePrivateKey();
+  removePrivateKey();
 
-    return {
-      type: ActionTypes.WALLET_BURN,
-    };
-  } catch (error) {
-    return walletError(error);
-  }
+  return {
+    type: ActionTypes.WALLET_BURN,
+  };
 }

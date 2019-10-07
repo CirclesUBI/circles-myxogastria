@@ -55,6 +55,16 @@ export async function addOwner(safeAddress, ownerAddress) {
   });
 }
 
+// eslint-disable-next-line no-unused-vars
+export async function findSafeAddress(ownerAddress) {
+  return Promise.resolve();
+  // @TODO: Core method is not implemented yet
+  // const account = getAccount();
+  // return await core.safe.getSafeAddress(account, {
+  //   address: ownerAddress,
+  // });
+}
+
 // User module
 
 export async function registerUser(nonce, safeAddress, username) {
@@ -79,7 +89,7 @@ export async function resolveUsernameAddresses(addresses) {
 
 // eslint-disable-next-line no-unused-vars
 export async function getTrustNetwork(safeAddress) {
-  // @TODO: Call core method here
+  // @TODO: Core method is not implemented yet
   return Promise.resolve([]);
 }
 

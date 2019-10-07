@@ -1,6 +1,5 @@
 import { setLanguage } from 'redux-i18n';
 
-import notify from '~/store/notifications/actions';
 import { getLocale, setLocale } from '~/services/locale';
 
 export function initializeLocale() {
@@ -14,11 +13,5 @@ export function selectLocale(locale) {
     setLocale(locale);
 
     dispatch(setLanguage(locale));
-
-    dispatch(
-      notify({
-        text: 'Locale changed!', // @TODO
-      }),
-    );
   };
 }

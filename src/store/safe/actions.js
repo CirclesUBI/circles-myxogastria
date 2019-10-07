@@ -1,5 +1,4 @@
 import ActionTypes from '~/store/safe/types';
-import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
 
 import {
   generateNonce,
@@ -16,6 +15,7 @@ import {
 import {
   addOwner,
   deploySafe,
+  findSafeAddress,
   getOwners,
   prepareSafeDeploy,
   removeOwner,
@@ -33,17 +33,13 @@ export function initializeSafe() {
     if (nonce && !address) {
       dispatch({
         type: ActionTypes.SAFE_INITIALIZE_ERROR,
-        [NOTIFY]: {
-          text: 'Invalid safe state', // @TODO
-          type: NotificationsTypes.ERROR,
-        },
       });
 
-      return;
+      throw new Error('Invalid Safe state');
     }
 
     dispatch({
-      type: ActionTypes.SAFE_UPDATE,
+      type: ActionTypes.SAFE_INITIALIZE_SUCCESS,
       meta: {
         address,
         nonce,
@@ -58,13 +54,9 @@ export function createSafeWithNonce() {
       if (hasNonce()) {
         dispatch({
           type: ActionTypes.SAFE_CREATE_ERROR,
-          [NOTIFY]: {
-            text: 'Nonce already given', // @TODO
-            type: NotificationsTypes.ERROR,
-          },
         });
 
-        return;
+        throw new Error('Nonce is already given');
       }
 
       dispatch({
@@ -99,9 +91,31 @@ export function createSafeWithNonce() {
 }
 
 export function checkSafeState() {
-  // @TODO: Check if address is owner of Safe
-  // eslint-disable-next-line no-unused-vars
-  return dispatch => {};
+  return async (dispatch, getState) => {
+    const { safe, wallet } = getState();
+
+    // Waiting to deploy a Safe ..
+    if (safe.nonce) {
+      return;
+    }
+
+    // Already knows Safe address ..
+    if (safe.address) {
+      return;
+    }
+
+    // Try to find a Safe owned by us
+    const address = await findSafeAddress(wallet.address);
+
+    if (address) {
+      dispatch({
+        type: ActionTypes.SAFE_FOUND,
+        meta: {
+          address,
+        },
+      });
+    }
+  };
 }
 
 export function deployNewSafe() {
@@ -127,11 +141,9 @@ export function deployNewSafe() {
     } catch (error) {
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_ERROR,
-        [NOTIFY]: {
-          message: error.message,
-          type: NotificationsTypes.ERROR,
-        },
       });
+
+      throw new Error(error);
     }
   };
 }
@@ -145,6 +157,10 @@ export function getSafeOwners() {
       return;
     }
 
+    dispatch({
+      type: ActionTypes.SAFE_OWNERS,
+    });
+
     try {
       const owners = await getOwners(safe.address);
 
@@ -157,11 +173,9 @@ export function getSafeOwners() {
     } catch (error) {
       dispatch({
         type: ActionTypes.SAFE_OWNERS_ERROR,
-        [NOTIFY]: {
-          message: error.message,
-          type: NotificationsTypes.ERROR,
-        },
       });
+
+      throw new Error(error);
     }
   };
 }
@@ -170,23 +184,25 @@ export function addSafeOwner(address) {
   return async (dispatch, getState) => {
     const { safe } = getState();
 
+    dispatch({
+      type: ActionTypes.SAFE_OWNERS_ADD,
+    });
+
     try {
       await addOwner(safe.address, address);
 
       dispatch({
-        type: ActionTypes.SAFE_OWNERS_SUCCESS_ADD,
+        type: ActionTypes.SAFE_OWNERS_ADD_SUCCESS,
         meta: {
           address,
         },
       });
     } catch (error) {
       dispatch({
-        type: ActionTypes.SAFE_OWNERS_ERROR,
-        [NOTIFY]: {
-          message: error.message,
-          type: NotificationsTypes.ERROR,
-        },
+        type: ActionTypes.SAFE_OWNERS_ADD_ERROR,
       });
+
+      throw new Error(error);
     }
   };
 }
@@ -195,23 +211,25 @@ export function removeSafeOwner(address) {
   return async (dispatch, getState) => {
     const { safe } = getState();
 
+    dispatch({
+      type: ActionTypes.SAFE_OWNERS_REMOVE,
+    });
+
     try {
       await removeOwner(safe.address, address);
 
       dispatch({
-        type: ActionTypes.SAFE_OWNERS_SUCCESS_REMOVE,
+        type: ActionTypes.SAFE_OWNERS_REMOVE_SUCCESS,
         meta: {
           address,
         },
       });
     } catch (error) {
       dispatch({
-        type: ActionTypes.SAFE_OWNERS_ERROR,
-        [NOTIFY]: {
-          message: error.message,
-          type: NotificationsTypes.ERROR,
-        },
+        type: ActionTypes.SAFE_OWNERS_REMOVE_ERROR,
       });
+
+      throw new Error(error);
     }
   };
 }

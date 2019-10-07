@@ -12,7 +12,7 @@ const initialState = {
 
 const safeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.SAFE_UPDATE:
+    case ActionTypes.SAFE_INITIALIZE_SUCCESS:
       return update(state, {
         address: { $set: action.meta.address },
         nonce: { $set: action.meta.nonce },
@@ -21,6 +21,10 @@ const safeReducer = (state = initialState, action) => {
       return update(state, {
         address: { $set: action.meta.address },
         nonce: { $set: action.meta.nonce },
+      });
+    case ActionTypes.SAFE_FOUND:
+      return update(state, {
+        address: { $set: action.meta.address },
       });
     case ActionTypes.SAFE_DEPLOY:
       return update(state, {
@@ -44,12 +48,12 @@ const safeReducer = (state = initialState, action) => {
         owners: { $set: action.meta.owners },
         isLoading: { $set: false },
       });
-    case ActionTypes.SAFE_OWNERS_SUCCESS_ADD:
+    case ActionTypes.SAFE_OWNERS_ADD_SUCCESS:
       return update(state, {
         owners: { $push: [action.meta.address] },
         isLoading: { $set: false },
       });
-    case ActionTypes.SAFE_OWNERS_SUCCESS_REMOVE: {
+    case ActionTypes.SAFE_OWNERS_REMOVE_SUCCESS: {
       const index = state.owners.findIndex(address => {
         return address === action.meta.address;
       });
@@ -64,6 +68,8 @@ const safeReducer = (state = initialState, action) => {
       });
     }
     case ActionTypes.SAFE_OWNERS_ERROR:
+    case ActionTypes.SAFE_OWNERS_ADD_ERROR:
+    case ActionTypes.SAFE_OWNERS_REMOVE_ERROR:
       return update(state, {
         isLoading: { $set: false },
       });

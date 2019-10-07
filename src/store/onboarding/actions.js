@@ -1,4 +1,3 @@
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { checkAppState } from '~/store/app/actions';
 import { deployNewToken } from '~/store/token/actions';
 import { registerUser } from '~/services/core';
@@ -9,12 +8,6 @@ import {
   createSafeWithNonce,
   resetSafe,
 } from '~/store/safe/actions';
-
-function welcomeUser() {
-  return notify({
-    text: 'Welcome!', // @TODO: Use i18n
-  });
-}
 
 export function checkOnboardingState() {
   return async (dispatch, getState) => {
@@ -33,16 +26,9 @@ export function createNewAccount(username) {
       await dispatch(createSafeWithNonce());
       const { safe } = getState();
       await registerUser(safe.nonce, safe.address, username);
-      await dispatch(welcomeUser());
     } catch (error) {
       dispatch(resetSafe());
-
-      dispatch(
-        notify({
-          text: error.message, // @TODO
-          type: NotificationsTypes.ERROR,
-        }),
-      );
+      throw new Error(error);
     }
   };
 }
