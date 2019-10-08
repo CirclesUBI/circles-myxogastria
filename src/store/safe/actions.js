@@ -1,5 +1,4 @@
 import ActionTypes from '~/store/safe/types';
-import { NOTIFY, NotificationsTypes } from '~/store/notifications/actions';
 
 import {
   generateNonce,
@@ -13,18 +12,39 @@ import {
   setSafeAddress,
 } from '~/services/safe';
 
-import { deploySafe, prepareSafeDeploy } from '~/services/core';
+import {
+  addOwner,
+  deploySafe,
+  findSafeAddress,
+  getOwners,
+  prepareSafeDeploy,
+  removeOwner,
+} from '~/services/core';
 
 export function initializeSafe() {
-  const nonce = hasNonce() ? getNonce() : null;
-  const address = hasSafeAddress() ? getSafeAddress() : null;
+  return async dispatch => {
+    dispatch({
+      type: ActionTypes.SAFE_INITIALIZE,
+    });
 
-  return {
-    type: ActionTypes.SAFE_UPDATE,
-    meta: {
-      address,
-      nonce,
-    },
+    const nonce = hasNonce() ? getNonce() : null;
+    const address = hasSafeAddress() ? getSafeAddress() : null;
+
+    if (nonce && !address) {
+      dispatch({
+        type: ActionTypes.SAFE_INITIALIZE_ERROR,
+      });
+
+      throw new Error('Invalid Safe state');
+    }
+
+    dispatch({
+      type: ActionTypes.SAFE_INITIALIZE_SUCCESS,
+      meta: {
+        address,
+        nonce,
+      },
+    });
   };
 }
 
@@ -32,7 +52,11 @@ export function createSafeWithNonce() {
   return async dispatch => {
     try {
       if (hasNonce()) {
-        return;
+        dispatch({
+          type: ActionTypes.SAFE_CREATE_ERROR,
+        });
+
+        throw new Error('Nonce is already given');
       }
 
       dispatch({
@@ -41,11 +65,13 @@ export function createSafeWithNonce() {
 
       // Generate a salt nonce
       const nonce = generateNonce();
-      setNonce(nonce);
 
       // Predict Safe address
       const address = await prepareSafeDeploy(nonce);
+
+      // Store them when successful
       setSafeAddress(address);
+      setNonce(nonce);
 
       dispatch({
         type: ActionTypes.SAFE_CREATE_SUCCESS,
@@ -57,19 +83,39 @@ export function createSafeWithNonce() {
     } catch (error) {
       dispatch({
         type: ActionTypes.SAFE_CREATE_ERROR,
-        [NOTIFY]: {
-          text: error.message,
-          type: NotificationsTypes.ERROR,
-        },
       });
+
+      throw error;
     }
   };
 }
 
 export function checkSafeState() {
-  // @TODO: Check if address is owner of Safe
-  // eslint-disable-next-line no-unused-vars
-  return dispatch => {};
+  return async (dispatch, getState) => {
+    const { safe, wallet } = getState();
+
+    // Waiting to deploy a Safe ..
+    if (safe.nonce) {
+      return;
+    }
+
+    // Already knows Safe address ..
+    if (safe.address) {
+      return;
+    }
+
+    // Try to find a Safe owned by us
+    const address = await findSafeAddress(wallet.address);
+
+    if (address) {
+      dispatch({
+        type: ActionTypes.SAFE_FOUND,
+        meta: {
+          address,
+        },
+      });
+    }
+  };
 }
 
 export function deployNewSafe() {
@@ -87,17 +133,103 @@ export function deployNewSafe() {
     try {
       await deploySafe(safe.address);
 
+      removeNonce();
+
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_SUCCESS,
       });
     } catch (error) {
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_ERROR,
-        [NOTIFY]: {
-          message: error.message,
-          type: NotificationsTypes.ERROR,
+      });
+
+      throw error;
+    }
+  };
+}
+
+export function getSafeOwners() {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    // Safe is not deployed yet
+    if (safe.nonce) {
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.SAFE_OWNERS,
+    });
+
+    try {
+      const owners = await getOwners(safe.address);
+
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_SUCCESS,
+        meta: {
+          owners,
         },
       });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_ERROR,
+      });
+
+      throw error;
+    }
+  };
+}
+
+export function addSafeOwner(address) {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    dispatch({
+      type: ActionTypes.SAFE_OWNERS_ADD,
+    });
+
+    try {
+      await addOwner(safe.address, address);
+
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_ADD_SUCCESS,
+        meta: {
+          address,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_ADD_ERROR,
+      });
+
+      throw error;
+    }
+  };
+}
+
+export function removeSafeOwner(address) {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    dispatch({
+      type: ActionTypes.SAFE_OWNERS_REMOVE,
+    });
+
+    try {
+      await removeOwner(safe.address, address);
+
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_REMOVE_SUCCESS,
+        meta: {
+          address,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.SAFE_OWNERS_REMOVE_ERROR,
+      });
+
+      throw error;
     }
   };
 }

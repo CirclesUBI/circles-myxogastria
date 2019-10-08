@@ -1,6 +1,8 @@
 import ActionTypes from '~/store/app/types';
 import { checkOnboardingState } from '~/store/onboarding/actions';
+import { checkTokenState, checkCurrentBalance } from '~/store/token/actions';
 import { checkTrustState } from '~/store/trust/actions';
+import { initializeLocale } from '~/store/locale/actions';
 import { initializeWallet, burnWallet } from '~/store/wallet/actions';
 
 import {
@@ -21,21 +23,41 @@ export function initializeApp() {
     });
 
     // Initialize and gather important app states (auth etc.)
-    await dispatch(initializeWallet());
-    dispatch(initializeSafe());
-    await dispatch(checkAppState());
+    try {
+      await dispatch(initializeLocale());
+      await dispatch(initializeWallet());
+      await dispatch(initializeSafe());
+      await dispatch(checkAppState());
 
-    dispatch({
-      type: ActionTypes.APP_INITIALIZE_READY,
-    });
+      dispatch({
+        type: ActionTypes.APP_INITIALIZE_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.APP_INITIALIZE_ERROR,
+      });
+
+      throw error;
+    }
   };
 }
 
 export function checkAppState() {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const { app } = getState();
+
+    if (!app.isReady || app.isError) {
+      return;
+    }
+
+    // Onboarding / permission states
     await dispatch(checkSafeState());
     await dispatch(checkTrustState());
     await dispatch(checkOnboardingState());
+
+    // In-app states
+    await dispatch(checkTokenState());
+    await dispatch(checkCurrentBalance());
   };
 }
 

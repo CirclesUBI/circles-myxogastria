@@ -5,19 +5,40 @@ import { useSelector } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
+import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
+import View from '~/components/View';
 
 const AccountConnect = (props, context) => {
   const { address } = useSelector(state => state.wallet);
 
   return (
     <Fragment>
-      <BackButton />
-      <QRCode data={address} width={250} />
+      <Header>
+        <BackButton to="/welcome" />
+      </Header>
 
-      <Link to="/welcome/seed">
-        <Button>{context.t('views.connect.seed')}</Button>
-      </Link>
+      <View>
+        <h1>{context.t('AccountConnect.connectToYourWallet')}</h1>
+
+        <QRCode data={address} width={250} />
+
+        <Link to="/welcome/seed">
+          <Button>{context.t('AccountConnect.restoreWithSeedPhrase')}</Button>
+        </Link>
+
+        <p>
+          {context.t('AccountConnect.noSeedPhrase')}{' '}
+          <Link to="/welcome/new">
+            {context.t('AccountConnect.createNewWallet')}
+          </Link>
+        </p>
+
+        <p>
+          {context.t('AccountConnect.questions')}{' '}
+          <a href="#">{context.t('AccountConnect.contactUs')}</a>
+        </p>
+      </View>
     </Fragment>
   );
 };

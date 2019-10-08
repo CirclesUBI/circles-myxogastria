@@ -1,23 +1,44 @@
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import Footer from '~/components/Footer';
-import Header from '~/components/Header';
+import ConnectivityStatus from '~/components/ConnectivityStatus';
+import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
-import View from '~/components/View';
+import logError from '~/services/debug';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { initializeApp, checkAppState } from '~/store/app/actions';
 
 const APP_CHECK_FRQUENCY = 1000 * 10;
 
-const App = () => {
+const App = (props, context) => {
   const dispatch = useDispatch();
 
   const onAppStart = () => {
-    dispatch(initializeApp());
+    const initialize = async () => {
+      try {
+        await dispatch(initializeApp());
+      } catch (error) {
+        logError(error);
+      }
+    };
 
-    window.setInterval(() => {
-      dispatch(checkAppState());
+    initialize();
+
+    window.setInterval(async () => {
+      try {
+        await dispatch(checkAppState());
+      } catch (error) {
+        logError(error);
+
+        dispatch(
+          notify({
+            text: context.t('App.updateErrorMessage'),
+            type: NotificationsTypes.ERROR,
+          }),
+        );
+      }
     }, APP_CHECK_FRQUENCY);
   };
 
@@ -25,15 +46,15 @@ const App = () => {
 
   return (
     <Router>
-      <Header />
-
-      <View>
-        <Routes />
-      </View>
-
-      <Footer />
+      <ConnectivityStatus />
+      <Notifications />
+      <Routes />
     </Router>
   );
+};
+
+App.contextTypes = {
+  t: PropTypes.func.isRequired,
 };
 
 export default App;

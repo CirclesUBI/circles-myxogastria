@@ -1,4 +1,7 @@
 module.exports = {
+  // Base path
+  BASE_PATH: 'http://localhost:8080',
+
   // Build environment
   NODE_ENV: 'development',
 

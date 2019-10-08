@@ -25,6 +25,7 @@ export default () => {
     output: {
       filename: `${filename}.js`,
       path: getPath(PATH_DIST),
+      publicPath: '/',
     },
     resolve: {
       modules: [NODE_MODULES],
@@ -66,9 +67,11 @@ export default () => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        minify: {
-          collapseWhitespace: !isDevelopment,
-        },
+        minify: isDevelopment
+          ? false
+          : {
+              collapseWhitespace: true,
+            },
         favicon: getPath(`${PATH_ASSETS}/favicon.ico`),
         template: getPath(`${PATH_SRC}/index.html`),
       }),

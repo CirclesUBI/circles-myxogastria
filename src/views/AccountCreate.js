@@ -4,6 +4,11 @@ import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
+import Footer from '~/components/Footer';
+import Header from '~/components/Header';
+import View from '~/components/View';
+import logError from '~/services/debug';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { createNewAccount } from '~/store/onboarding/actions';
 
 const AccountCreate = (props, context) => {
@@ -23,24 +28,55 @@ const AccountCreate = (props, context) => {
 
     try {
       await dispatch(createNewAccount(username));
+
+      dispatch(
+        notify({
+          text: context.t('AccountCreate.welcomeMessage'),
+        }),
+      );
     } catch (error) {
-      // @TODO: Show error to user
       setIsLoading(false);
+
+      dispatch(
+        notify({
+          text: context.t('AccountCreate.errorMessage'),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+
+      logError(error);
     }
   };
 
   return (
     <Fragment>
-      <BackButton disabled={isLoading} />
+      <Header>
+        <BackButton disabled={isLoading} to="/welcome" />
+      </Header>
 
-      <form>
-        <label htmlFor="username">{context.t('views.create.username')}</label>
-        <input id="username" type="text" value={username} onChange={onChange} />
+      <View>
+        <h1>{context.t('AccountCreate.createYourUsername')}</h1>
+        <p>{context.t('AccountCreate.yourUsernameDescription')}</p>
 
+        <form>
+          <label htmlFor="username">
+            {context.t('AccountCreate.username')}
+          </label>
+
+          <input
+            id="username"
+            type="text"
+            value={username}
+            onChange={onChange}
+          />
+        </form>
+      </View>
+
+      <Footer>
         <Button disabled={isLoading} onClick={onSubmit}>
-          {context.t('views.create.confirm')}
+          {context.t('AccountCreate.submit')}
         </Button>
-      </form>
+      </Footer>
     </Fragment>
   );
 };

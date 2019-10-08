@@ -1,3 +1,4 @@
+export const DEFAULT_LOCALE = 'en';
 export const LOCALES = ['de', 'en'];
 
 const locales = LOCALES.reduce((acc, locale) => {

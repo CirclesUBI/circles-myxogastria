@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Button = props => {
+// eslint-disable-next-line react/display-name
+const Button = React.forwardRef((props, ref) => {
   return (
-    <button disabled={props.disabled} onClick={props.onClick}>
+    <button disabled={props.disabled} ref={ref} onClick={props.onClick}>
       {props.children}
     </button>
   );
-};
+});
 
 Button.propTypes = {
   children: PropTypes.any.isRequired,

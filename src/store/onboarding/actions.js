@@ -1,15 +1,13 @@
-import notify from '~/store/notifications/actions';
 import { checkAppState } from '~/store/app/actions';
-import { deployNewSafe, createSafeWithNonce } from '~/store/safe/actions';
+import { deployNewToken } from '~/store/token/actions';
 import { registerUser } from '~/services/core';
-import { removeNonce } from '~/services/safe';
 import { restoreWallet } from '~/store/wallet/actions';
 
-function welcomeUser() {
-  return notify({
-    text: 'Welcome!', // @TODO: Use i18n
-  });
-}
+import {
+  deployNewSafe,
+  createSafeWithNonce,
+  resetSafe,
+} from '~/store/safe/actions';
 
 export function checkOnboardingState() {
   return async (dispatch, getState) => {
@@ -17,21 +15,28 @@ export function checkOnboardingState() {
 
     // @TODO: We could check the error state here where no nonce is given but also no Safe is deployed yet
     if (trust.isTrusted && safe.nonce) {
-      await dispatch(deployNewSafe());
-      removeNonce();
+      await finalizeNewAccount();
     }
   };
 }
 
 export function createNewAccount(username) {
   return async (dispatch, getState) => {
-    await dispatch(createSafeWithNonce());
+    try {
+      await dispatch(createSafeWithNonce());
+      const { safe } = getState();
+      await registerUser(safe.nonce, safe.address, username);
+    } catch (error) {
+      dispatch(resetSafe());
+      throw error;
+    }
+  };
+}
 
-    const { safe } = getState();
-
-    await registerUser(safe.nonce, safe.address, username);
-
-    dispatch(welcomeUser());
+export function finalizeNewAccount() {
+  return async dispatch => {
+    await dispatch(deployNewSafe());
+    await dispatch(deployNewToken());
   };
 }
 

@@ -11,8 +11,9 @@ const SAFE_ADDRESS_NAME = 'safeAddress';
 
 export function generateNonce() {
   const timestamp = new Date().getTime();
-  const random = Math.round(Math.random() * 10000000);
+  const random = Math.round(Math.random() * 1000);
 
+  // Number should be smaller than Number.MAX_SAFE_INTEGER
   return parseInt(`${timestamp}${random}`, 10);
 }
 

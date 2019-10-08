@@ -4,6 +4,7 @@ import { i18nState } from 'redux-i18n';
 import appReducer from '~/store/app/reducers';
 import notificationsReducer from '~/store/notifications/reducers';
 import safeReducer from '~/store/safe/reducers';
+import tokenReducer from '~/store/token/reducers';
 import trustReducer from '~/store/trust/reducers';
 import walletReducer from '~/store/wallet/reducers';
 
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   app: appReducer,
   notifications: notificationsReducer,
   safe: safeReducer,
+  token: tokenReducer,
   trust: trustReducer,
   wallet: walletReducer,
 });

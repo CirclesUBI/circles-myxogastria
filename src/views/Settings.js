@@ -1,30 +1,50 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
-import { burnApp } from '~/store/app/actions';
+import ExternalLinkList from '~/components/ExternalLinkList';
+import Header from '~/components/Header';
+import LocaleSelector from '~/components/LocaleSelector';
+import QRCode from '~/components/QRCode';
+import UsernameDisplay from '~/components/UsernameDisplay';
+import View from '~/components/View';
+import { finalizeNewAccount } from '~/store/onboarding/actions';
 
 const Settings = (props, context) => {
+  const safe = useSelector(state => state.safe);
   const dispatch = useDispatch();
 
-  const onBurnClick = () => {
-    // @TODO: Use a proper modal here
-    if (window.confirm('Are you sure?')) {
-      dispatch(burnApp());
-    }
+  // @TODO: Remove this when we've implemented all of the onboarding flows
+  const onDeploy = () => {
+    dispatch(finalizeNewAccount());
   };
 
   return (
     <Fragment>
-      <BackButton />
-      <Button onClick={onBurnClick}>{context.t('views.settings.burn')}</Button>
+      <Header>
+        <BackButton to="/" />
+        <UsernameDisplay address={safe.address} />
+      </Header>
 
-      <Link to="/settings/export">
-        <Button>{context.t('views.settings.export')}</Button>
-      </Link>
+      <View>
+        <QRCode data={safe.address} width={250} />
+
+        <Link to="/settings/share">
+          <Button>{context.t('Settings.share')}</Button>
+        </Link>
+
+        <Link to="/settings/keys">
+          <Button>{context.t('Settings.manageKeys')}</Button>
+        </Link>
+
+        <Button onClick={onDeploy}>Debug: Deploy Safe</Button>
+
+        <LocaleSelector />
+        <ExternalLinkList />
+      </View>
     </Fragment>
   );
 };

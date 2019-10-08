@@ -6,23 +6,38 @@ import { useSelector } from 'react-redux';
 import AccountConnect from '~/views/AccountConnect';
 import AccountCreate from '~/views/AccountCreate';
 import AccountImport from '~/views/AccountImport';
+import Activities from '~/views/Activities';
+import CriticalError from '~/views/CriticalError';
 import Dashboard from '~/views/Dashboard';
 import NotFound from '~/views/NotFound';
+import Profile from '~/views/Profile';
+import Receive from '~/views/Receive';
+import Send from '~/views/Send';
 import Settings from '~/views/Settings';
-import SettingsExport from '~/views/SettingsExport';
+import SettingsKeys from '~/views/SettingsKeys';
+import SettingsKeysAdd from '~/views/SettingsKeysAdd';
+import SettingsKeysExport from '~/views/SettingsKeysExport';
+import SettingsLocale from '~/views/SettingsLocale';
+import SettingsShare from '~/views/SettingsShare';
+import Trust from '~/views/Trust';
 import Welcome from '~/views/Welcome';
 
 const SessionContainer = ({ component: Component, isSessionRequired }) => {
-  const { isReady, safe, wallet } = useSelector(state => {
+  const { app, safe, wallet } = useSelector(state => {
     return {
-      isReady: state.app.isReady,
+      app: state.app,
       safe: state.safe,
       wallet: state.wallet,
     };
   });
 
+  // Did something bad happen?
+  if (app.isError) {
+    return <CriticalError />;
+  }
+
   // Do not do anything yet when we are not ready
-  if (!isReady) {
+  if (!app.isReady) {
     return null;
   }
 
@@ -59,8 +74,17 @@ const SessionRoute = ({ component, path }) => {
 const Routes = () => (
   <Switch>
     <SessionRoute component={Dashboard} exact path="/" />
-    <SessionRoute component={Settings} exact path="/settings" />
-    <SessionRoute component={SettingsExport} exact path="/settings/export" />
+    <SessionRoute component={Activities} path="/activities" />
+    <SessionRoute component={Trust} path="/trust/:address?" />
+    <SessionRoute component={Send} path="/send/:address?" />
+    <SessionRoute component={Receive} path="/receive" />
+    <SessionRoute component={Profile} path="/profile/:address" />
+    <SessionRoute component={SettingsKeysAdd} path="/settings/keys/add" />
+    <SessionRoute component={SettingsKeysExport} path="/settings/keys/export" />
+    <SessionRoute component={SettingsKeys} path="/settings/keys" />
+    <SessionRoute component={SettingsLocale} path="/settings/locale" />
+    <SessionRoute component={SettingsShare} path="/settings/share" />
+    <SessionRoute component={Settings} path="/settings" />
     <OnboardingRoute component={AccountCreate} path="/welcome/new" />
     <OnboardingRoute component={AccountConnect} path="/welcome/connect" />
     <OnboardingRoute component={AccountImport} path="/welcome/seed" />

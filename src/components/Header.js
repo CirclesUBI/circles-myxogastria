@@ -1,13 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import Notifications from '~/components/Notifications';
+const Header = props => {
+  return <header>{props.children}</header>;
+};
 
-const Header = () => {
-  return (
-    <header>
-      <Notifications />
-    </header>
-  );
+Header.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default Header;

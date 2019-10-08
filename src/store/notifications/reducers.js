@@ -10,6 +10,7 @@ const initialState = {
 
 const initialStateMessage = {
   id: 1,
+  lifetime: 0,
   text: '',
   type: NotificationsTypes.INFO,
 };

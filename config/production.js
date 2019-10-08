@@ -1,4 +1,7 @@
 module.exports = {
+  // Base path
+  BASE_PATH: '', // @TODO
+
   // Build environment
   NODE_ENV: 'production',
 
