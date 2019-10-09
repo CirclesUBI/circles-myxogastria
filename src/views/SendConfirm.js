@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
@@ -40,7 +39,7 @@ const SendConfirm = (props, context) => {
 
   const onSubmit = async () => {
     try {
-      await dispatch(sendCircles(amount));
+      await dispatch(sendCircles(address, amount));
 
       dispatch(
         notify({

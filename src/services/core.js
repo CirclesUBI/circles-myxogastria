@@ -93,6 +93,24 @@ export async function getTrustNetwork(safeAddress) {
   return Promise.resolve([]);
 }
 
+export async function addTrustConnection(from, to) {
+  const account = getAccount();
+
+  return core.trust.addConnection(account, {
+    from,
+    to,
+  });
+}
+
+export async function removeTrustConnection(from, to) {
+  const account = getAccount();
+
+  return core.trust.removeConnection(account, {
+    from,
+    to,
+  });
+}
+
 // UBI module
 
 export async function signup(safeAddress) {
