@@ -41,6 +41,8 @@
   "LocaleSelector.de": "DE",
   "LocaleSelector.en": "EN",
   "LocaleSelector.localeChangedMessage": "Sprache wurde erfolgreich geändert!",
+  "Profile.copyToClipboard": "Link zum Profil kopieren",
+  "Profile.send": "Circles schicken",
   "QRCodeScanner.qrNotFound": "QR Code konnte nicht erkannt werden!",
   "QRCodeScanner.tapToScan": "QR Code scannen",
   "Receive.share": "Teile meinen Profil-Link",
