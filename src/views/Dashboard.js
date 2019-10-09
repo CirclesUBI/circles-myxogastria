@@ -56,7 +56,7 @@ const DashboardView = (props, context) => {
         </View>
 
         <Footer>
-          <Link to="/settings/share">
+          <Link to="/receive">
             <Button>{context.t('Dashboard.share')}</Button>
           </Link>
         </Footer>
