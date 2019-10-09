@@ -3,7 +3,7 @@ import update from 'immutability-helper';
 import ActionTypes from '~/store/trust/types';
 
 const initialState = {
-  isTrusted: false,
+  isTrusted: true,
   network: [],
 };
 

@@ -47,6 +47,7 @@
   "SettingsKeys.endSession": "Session beenden",
   "SettingsKeys.exportSeedPhrase": "Exportiere deine seed phrase",
   "SettingsKeys.manageKeys": "Schlüsses verwalten",
+  "SettingsKeysAdd.errorMessage": "Leider ist etwas schiefgelaufen, bitte versuche es nochmal!",
   "SettingsKeysAdd.successMessage": "Ein neues Gerät wurde erfolgreich hinzugefügt",
   "SettingsKeysExport.copyToClipboard": "Kopieren in Zwischenablage",
   "SettingsShare.copyToClipboard": "Kopieren in Zwischenablage",

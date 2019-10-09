@@ -12,14 +12,22 @@ import { addSafeOwner } from '~/store/safe/actions';
 const SettingsKeysAdd = (props, context) => {
   const dispatch = useDispatch();
 
-  const onSuccess = address => {
-    dispatch(addSafeOwner(address));
+  const onSuccess = async address => {
+    try {
+      await dispatch(addSafeOwner(address));
 
-    dispatch(
-      notify({
-        text: context.t('SettingsKeysAdd.successMessage'),
-      }),
-    );
+      dispatch(
+        notify({
+          text: context.t('SettingsKeysAdd.successMessage'),
+        }),
+      );
+    } catch {
+      dispatch(
+        notify({
+          text: context.t('SettingsKeysAdd.errorMessage'),
+        }),
+      );
+    }
   };
 
   return (

@@ -13,6 +13,7 @@ import NotFound from '~/views/NotFound';
 import Profile from '~/views/Profile';
 import Receive from '~/views/Receive';
 import Send from '~/views/Send';
+import SendAmount from '~/views/SendAmount';
 import Settings from '~/views/Settings';
 import SettingsKeys from '~/views/SettingsKeys';
 import SettingsKeysAdd from '~/views/SettingsKeysAdd';
@@ -76,7 +77,8 @@ const Routes = () => (
     <SessionRoute component={Dashboard} exact path="/" />
     <SessionRoute component={Activities} path="/activities" />
     <SessionRoute component={Trust} path="/trust/:address?" />
-    <SessionRoute component={Send} path="/send/:address?" />
+    <SessionRoute component={SendAmount} path="/send/:address" />
+    <SessionRoute component={Send} path="/send" />
     <SessionRoute component={Receive} path="/receive" />
     <SessionRoute component={Profile} path="/profile/:address" />
     <SessionRoute component={SettingsKeysAdd} path="/settings/keys/add" />

@@ -47,6 +47,7 @@
   "SettingsKeys.endSession": "End session",
   "SettingsKeys.exportSeedPhrase": "Export your seed phrase",
   "SettingsKeys.manageKeys": "Manage keys",
+  "SettingsKeysAdd.errorMessage": "Something went wrong .. please try again!",
   "SettingsKeysAdd.successMessage": "Successfully added new device",
   "SettingsKeysExport.copyToClipboard": "Copy to clipboard",
   "SettingsShare.copyToClipboard": "Copy to clipboard",
