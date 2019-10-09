@@ -78,7 +78,7 @@ const Routes = () => (
     <SessionRoute component={Dashboard} exact path="/" />
     <SessionRoute component={Activities} path="/activities" />
     <SessionRoute component={TrustConfirm} path="/trust/:address" />
-    <SessionRoute component={Trust} path="/trust/:address" />
+    <SessionRoute component={Trust} path="/trust" />
     <SessionRoute component={SendConfirm} path="/send/:address" />
     <SessionRoute component={Send} path="/send" />
     <SessionRoute component={Receive} path="/receive" />
