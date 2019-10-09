@@ -12,6 +12,7 @@ import Dashboard from '~/views/Dashboard';
 import NotFound from '~/views/NotFound';
 import Profile from '~/views/Profile';
 import Receive from '~/views/Receive';
+import ReceiveShare from '~/views/ReceiveShare';
 import Send from '~/views/Send';
 import SendConfirm from '~/views/SendConfirm';
 import Settings from '~/views/Settings';
@@ -81,6 +82,7 @@ const Routes = () => (
     <SessionRoute component={Trust} path="/trust" />
     <SessionRoute component={SendConfirm} path="/send/:address" />
     <SessionRoute component={Send} path="/send" />
+    <SessionRoute component={ReceiveShare} path="/receive/share" />
     <SessionRoute component={Receive} path="/receive" />
     <SessionRoute component={Profile} path="/profile/:address" />
     <SessionRoute component={SettingsKeysAdd} path="/settings/keys/add" />
