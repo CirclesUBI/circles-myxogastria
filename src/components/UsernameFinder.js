@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import UsernameDisplay from '~/components/UsernameDisplay';
+import web3 from '~/services/web3';
 
 const MAX_SEARCH_RESULTS = 5;
 
@@ -13,20 +14,30 @@ const UsernameFinder = (props, context) => {
   const trust = useSelector(state => state.trust);
 
   const onInputChange = event => {
-    const query = event.target.value;
+    props.onInputChange(event.target.value);
+  };
 
-    setIsQueryEmpty(query.length === 0);
+  const onSelect = user => {
+    props.onSelect(user);
+  };
 
-    props.onInputChange(query);
+  const search = () => {
+    setIsQueryEmpty(props.input.length === 0);
 
-    if (query.length === 0) {
+    if (props.input.length === 0) {
       setSearchResults([]);
       return;
     }
 
+    if (web3.utils.isAddress(props.input)) {
+      props.onSelect({
+        safeAddress: props.input,
+      });
+    }
+
     const result = trust.network
       .filter(connection => {
-        return connection.username.includes(query);
+        return connection.username.includes(props.input);
       })
       .sort((itemA, itemB) => {
         return itemA.username.lowercaseCompareTo(itemB.username);
@@ -36,9 +47,7 @@ const UsernameFinder = (props, context) => {
     setSearchResults(result);
   };
 
-  const onSelect = user => {
-    props.onSelect(user);
-  };
+  useEffect(search, [props.input]);
 
   return (
     <Fragment>
