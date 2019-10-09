@@ -46,7 +46,7 @@
   "Receive.share": "Teile meinen Profil-Link",
   "Receive.showThisQR": "Zeige diesen QR Code anderen, um Vertrauen oder Circles von Ihnen zu erhalten",
   "ReceiveShare.copyToClipboard": "In Zwischenablage kopieren",
-  "ReceiveShare.shareText": "Hey! Check out my profile at: {shareLink}",
+  "ReceiveShare.shareText": "Hey! Schaue dir mein Profil an unter: {shareLink}",
   "SafeFinderView.tapToScanQR": "QR Code scannen",
   "SafeOwnerManager.addNewDevice": "Gerät hinzufügen",
   "SafeOwnerManager.remove": "Entfernen",
