@@ -22,7 +22,8 @@ describe('findAddress', () => {
 
     expect(() => findAddress('Nothing to find here')).toThrow();
 
-    expect(() => findAddress('https://circles.net/profile/0x321asd12321321311221321tqq'),
+    expect(() =>
+      findAddress('https://circles.net/profile/0x321asd12321321311221321tqq'),
     ).toThrow();
   });
 });
