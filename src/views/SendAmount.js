@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -15,14 +16,17 @@ const SendAmount = (props, context) => {
   const { address } = props.match.params;
 
   const [amount, setAmount] = useState(0);
-  const [receiver, setReceiver] = useState(address);
   const [isConfirmationShown, setIsConfirmationShown] = useState(false);
+  const [isSent, setIsSent] = useState(false);
+  const [receiver, setReceiver] = useState(address);
 
   const dispatch = useDispatch();
 
   const resolveAddress = safeAddress => {
     resolveUsernames([safeAddress]).then(result => {
-      setReceiver(result[safeAddress]);
+      if (safeAddress in result) {
+        setReceiver(result[safeAddress]);
+      }
     });
   };
 
@@ -34,15 +38,17 @@ const SendAmount = (props, context) => {
     setIsConfirmationShown(true);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     try {
-      dispatch(sendCircles(amount));
+      await dispatch(sendCircles(amount));
 
       dispatch(
         notify({
           text: context.t('SendAmount.successMessage'),
         }),
       );
+
+      setIsSent(true);
     } catch {
       dispatch(
         notify({
@@ -54,6 +60,10 @@ const SendAmount = (props, context) => {
   };
 
   useEffect(resolveAddress, [address]);
+
+  if (isSent) {
+    return <Redirect to="/" />;
+  }
 
   if (isConfirmationShown) {
     return (
@@ -69,7 +79,7 @@ const SendAmount = (props, context) => {
     <SendAmountView>
       <input type="number" value={amount} onChange={onAmountChange} />
 
-      <Button disabled={amount === 0} onClick={onNext}>
+      <Button disabled={!amount > 0} onClick={onNext}>
         {context.t('SendAmount.submitAmount')}
       </Button>
     </SendAmountView>
