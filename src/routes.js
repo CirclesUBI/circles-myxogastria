@@ -13,7 +13,7 @@ import NotFound from '~/views/NotFound';
 import Profile from '~/views/Profile';
 import Receive from '~/views/Receive';
 import Send from '~/views/Send';
-import SendAmount from '~/views/SendAmount';
+import SendConfirm from '~/views/SendConfirm';
 import Settings from '~/views/Settings';
 import SettingsKeys from '~/views/SettingsKeys';
 import SettingsKeysAdd from '~/views/SettingsKeysAdd';
@@ -21,6 +21,7 @@ import SettingsKeysExport from '~/views/SettingsKeysExport';
 import SettingsLocale from '~/views/SettingsLocale';
 import SettingsShare from '~/views/SettingsShare';
 import Trust from '~/views/Trust';
+import TrustConfirm from '~/views/TrustConfirm';
 import Welcome from '~/views/Welcome';
 
 const SessionContainer = ({ component: Component, isSessionRequired }) => {
@@ -76,8 +77,9 @@ const Routes = () => (
   <Switch>
     <SessionRoute component={Dashboard} exact path="/" />
     <SessionRoute component={Activities} path="/activities" />
-    <SessionRoute component={Trust} path="/trust/:address?" />
-    <SessionRoute component={SendAmount} path="/send/:address" />
+    <SessionRoute component={TrustConfirm} path="/trust/:address" />
+    <SessionRoute component={Trust} path="/trust/:address" />
+    <SessionRoute component={SendConfirm} path="/send/:address" />
     <SessionRoute component={Send} path="/send" />
     <SessionRoute component={Receive} path="/receive" />
     <SessionRoute component={Profile} path="/profile/:address" />

@@ -12,7 +12,7 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { resolveUsernames } from '~/services/username';
 import { sendCircles } from '~/store/token/actions';
 
-const SendAmount = (props, context) => {
+const SendConfirm = (props, context) => {
   const { address } = props.match.params;
 
   const [amount, setAmount] = useState(0);
@@ -44,7 +44,7 @@ const SendAmount = (props, context) => {
 
       dispatch(
         notify({
-          text: context.t('SendAmount.successMessage'),
+          text: context.t('SendConfirm.successMessage'),
         }),
       );
 
@@ -52,7 +52,7 @@ const SendAmount = (props, context) => {
     } catch {
       dispatch(
         notify({
-          text: context.t('SendAmount.errorMessage'),
+          text: context.t('SendConfirm.errorMessage'),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -67,26 +67,28 @@ const SendAmount = (props, context) => {
 
   if (isConfirmationShown) {
     return (
-      <SendAmountView>
-        <p>{context.t('SendAmount.confirmationText', { receiver, amount })}</p>
+      <SendConfirmView>
+        <p>{context.t('SendConfirm.confirmationText', { receiver, amount })}</p>
 
-        <Button onClick={onSubmit}>{context.t('SendAmount.confirm')}</Button>
-      </SendAmountView>
+        <Button onClick={onSubmit}>{context.t('SendConfirm.confirm')}</Button>
+      </SendConfirmView>
     );
   }
 
   return (
-    <SendAmountView>
+    <SendConfirmView>
+      <p>{context.t('SendConfirm.howMuch')}</p>
+
       <input type="number" value={amount} onChange={onAmountChange} />
 
       <Button disabled={!amount > 0} onClick={onNext}>
-        {context.t('SendAmount.submitAmount')}
+        {context.t('SendConfirm.submitAmount')}
       </Button>
-    </SendAmountView>
+    </SendConfirmView>
   );
 };
 
-const SendAmountView = props => {
+const SendConfirmView = props => {
   return (
     <Fragment>
       <Header>
@@ -98,16 +100,16 @@ const SendAmountView = props => {
   );
 };
 
-SendAmount.contextTypes = {
+SendConfirm.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
-SendAmount.propTypes = {
+SendConfirm.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-SendAmountView.propTypes = {
+SendConfirmView.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default withRouter(SendAmount);
+export default withRouter(SendConfirm);
