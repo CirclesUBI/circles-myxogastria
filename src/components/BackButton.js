@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
 
 import Button from '~/components/Button';
 
@@ -17,4 +16,4 @@ BackButton.propTypes = {
   to: PropTypes.string.isRequired,
 };
 
-export default withRouter(BackButton);
+export default BackButton;
