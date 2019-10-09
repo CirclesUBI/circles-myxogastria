@@ -1,6 +1,6 @@
 import ActionTypes from '~/store/token/types';
 import { ZERO_ADDRESS } from '~/utils/constants';
-import { getBalance, getTokenAddress, signup } from '~/services/core';
+import { getBalance, transfer, getTokenAddress, signup } from '~/services/core';
 
 export function deployNewToken() {
   return async (dispatch, getState) => {
@@ -110,6 +110,28 @@ export function checkCurrentBalance() {
     } catch (error) {
       dispatch({
         type: ActionTypes.TOKEN_BALANCE_UPDATE_ERROR,
+      });
+
+      throw error;
+    }
+  };
+}
+
+export function sendCircles(safeAddress, amount) {
+  return async dispatch => {
+    dispatch({
+      type: ActionTypes.TOKEN_TRANSFER,
+    });
+
+    try {
+      await transfer(safeAddress, amount);
+
+      dispatch({
+        type: ActionTypes.TOKEN_TRANSFER_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.TOKEN_TRANSFER_ERROR,
       });
 
       throw error;

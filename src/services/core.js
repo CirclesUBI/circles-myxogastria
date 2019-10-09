@@ -119,3 +119,13 @@ export async function getTokenAddress(safeAddress) {
     safeAddress,
   });
 }
+
+export async function transfer(safeAddress, amount) {
+  const account = getAccount();
+
+  return await core.ubi.transfer(account, {
+    from: account.address,
+    to: safeAddress,
+    value: amount,
+  });
+}
