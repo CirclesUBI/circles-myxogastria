@@ -5,6 +5,7 @@ import React, { Fragment, useState, useEffect, createRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Button from '~/components/Button';
+import findAddress from '~/utils/findAddress';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 
 QrScanner.WORKER_PATH = QrScannerWorkerPath;
@@ -19,31 +20,33 @@ const QRCodeScanner = (props, context) => {
 
   let scanner;
 
-  const onImageSelected = event => {
+  const onImageSelected = async event => {
     const image = event.target.files[0];
 
     if (!image) {
       return;
     }
 
-    QrScanner.scanImage(image)
-      .then(result => {
-        props.onSuccess(result);
-      })
-      .catch(() => {
-        dispatch(
-          notify({
-            text: context.t('QRCodeScanner.qrNotFound'),
-            type: NotificationsTypes.WARNING,
-          }),
-        );
-      });
+    try {
+      const result = await QrScanner.scanImage(image);
+      const address = findAddress(result);
+
+      props.onSuccess(address);
+    } catch {
+      dispatch(
+        notify({
+          text: context.t('QRCodeScanner.qrNotFound'),
+          type: NotificationsTypes.WARNING,
+        }),
+      );
+    }
   };
 
   const startCameraStream = async () => {
     try {
       scanner = new QrScanner(refVideo.current, result => {
-        props.onSuccess(result);
+        const address = findAddress(result);
+        props.onSuccess(address);
       });
 
       await scanner.start();
