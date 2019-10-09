@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import QrScanner from 'qr-scanner';
 import QrScannerWorkerPath from '!!file-loader!qr-scanner/qr-scanner-worker.min.js';
-import React, { useState, useEffect, createRef } from 'react';
+import React, { Fragment, useState, useEffect, createRef } from 'react';
 import { useDispatch } from 'react-redux';
 
+import Button from '~/components/Button';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 
 QrScanner.WORKER_PATH = QrScannerWorkerPath;
@@ -11,11 +12,12 @@ QrScanner.WORKER_PATH = QrScannerWorkerPath;
 const QRCodeScanner = (props, context) => {
   const dispatch = useDispatch();
 
-  const [isCameraAvailable, setIsCameraAvailable] = useState(true);
   const [isOnlyUpload, setIsOnlyUpload] = useState(false);
 
   const refVideo = createRef();
   const refInput = createRef();
+
+  let scanner;
 
   const onImageSelected = event => {
     const image = event.target.files[0];
@@ -31,59 +33,71 @@ const QRCodeScanner = (props, context) => {
       .catch(() => {
         dispatch(
           notify({
-            text: context.t('QrCodeScanner.qrNotFound'),
+            text: context.t('QRCodeScanner.qrNotFound'),
             type: NotificationsTypes.WARNING,
           }),
         );
       });
   };
 
+  const startCameraStream = async () => {
+    try {
+      scanner = new QrScanner(refVideo.current, result => {
+        props.onSuccess(result);
+      });
+
+      await scanner.start();
+    } catch (error) {
+      // .. fall back on manual upload option
+      setIsOnlyUpload(true);
+    }
+  };
+
   const initialize = () => {
-    let scanner;
+    const startCameraStream = async () => {
+      const isAvailable = await QrScanner.hasCamera();
 
-    QrScanner.hasCamera().then(cameraResult => {
-      setIsCameraAvailable(cameraResult);
-
-      if (!cameraResult) {
-        return;
-      }
-
-      try {
-        scanner = new QrScanner(refVideo.current, result => {
-          props.onSuccess(result);
-        });
-
-        scanner.start();
-      } catch {
-        // .. fall back on manual upload option
+      if (!isAvailable) {
         setIsOnlyUpload(true);
       }
-    });
+    };
+
+    startCameraStream();
 
     return () => {
-      if (!scanner) {
-        return;
+      if (scanner) {
+        scanner.destroy();
       }
-
-      scanner.destroy();
     };
+  };
+
+  const onClick = () => {
+    if (isOnlyUpload) {
+      refInput.current.click();
+    } else {
+      startCameraStream();
+    }
   };
 
   useEffect(initialize, []);
 
-  if (!isCameraAvailable || isOnlyUpload) {
-    return (
+  // @TODO: Improve UI elements depending on permissions
+  return (
+    <Fragment>
       <input
         accept="image/*"
         capture="camera"
         ref={refInput}
+        style={{ display: 'none' }}
         type="file"
         onChange={onImageSelected}
       />
-    );
-  }
 
-  return <video ref={refVideo} />;
+      <video ref={refVideo} />
+
+      <Button onClick={onClick}>{context.t('QRCodeScanner.tapToScan')}</Button>
+    </Fragment>
+  );
 };
 
 QRCodeScanner.contextTypes = {
