@@ -26,6 +26,7 @@ export function createNewAccount(username) {
       await dispatch(createSafeWithNonce());
       const { safe } = getState();
       await registerUser(safe.nonce, safe.address, username);
+      await dispatch(checkAppState());
     } catch (error) {
       dispatch(resetSafe());
       throw error;
@@ -37,6 +38,7 @@ export function finalizeNewAccount() {
   return async dispatch => {
     await dispatch(deployNewSafe());
     await dispatch(deployNewToken());
+    await dispatch(checkAppState());
   };
 }
 

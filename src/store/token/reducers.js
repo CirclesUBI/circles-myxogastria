@@ -10,7 +10,6 @@ const initialState = {
 
 const tokenReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.TOKEN_DEPLOY_SUCCESS:
     case ActionTypes.TOKEN_UPDATE_SUCCESS:
       return update(state, {
         address: { $set: action.meta.address },
