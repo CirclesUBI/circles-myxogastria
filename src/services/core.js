@@ -25,7 +25,7 @@ export async function deploySafe(safeAddress) {
   const account = getAccount();
 
   return await core.safe.deploy(account, {
-    address: safeAddress,
+    safeAddress,
   });
 }
 
@@ -33,7 +33,7 @@ export async function getOwners(safeAddress) {
   const account = getAccount();
 
   return await core.safe.getOwners(account, {
-    address: safeAddress,
+    safeAddress,
   });
 }
 
@@ -41,8 +41,8 @@ export async function removeOwner(safeAddress, ownerAddress) {
   const account = getAccount();
 
   return await core.safe.removeOwner(account, {
-    address: safeAddress,
-    owner: ownerAddress,
+    safeAddress,
+    ownerAddress,
   });
 }
 
@@ -50,8 +50,8 @@ export async function addOwner(safeAddress, ownerAddress) {
   const account = getAccount();
 
   return await core.safe.addOwner(account, {
-    address: safeAddress,
-    owner: ownerAddress,
+    safeAddress,
+    ownerAddress,
   });
 }
 
@@ -116,7 +116,7 @@ export async function removeTrustConnection(from, to) {
 export async function signup(safeAddress) {
   const account = getAccount();
 
-  return await core.ubi.signup(account, {
+  return await core.token.signup(account, {
     safeAddress,
   });
 }
@@ -124,8 +124,8 @@ export async function signup(safeAddress) {
 export async function getBalance(safeAddress, tokenAddress) {
   const account = getAccount();
 
-  return await core.ubi.getBalance(account, {
-    address: safeAddress,
+  return await core.token.getBalance(account, {
+    safeAddress,
     tokenAddress,
   });
 }
@@ -133,17 +133,17 @@ export async function getBalance(safeAddress, tokenAddress) {
 export async function getTokenAddress(safeAddress) {
   const account = getAccount();
 
-  return await core.ubi.getTokenAddress(account, {
+  return await core.token.getAddress(account, {
     safeAddress,
   });
 }
 
-export async function transfer(safeAddress, amount) {
+export async function transfer(from, to, value) {
   const account = getAccount();
 
-  return await core.ubi.transfer(account, {
-    from: account.address,
-    to: safeAddress,
-    value: amount,
+  return await core.token.transfer(account, {
+    from,
+    to,
+    value,
   });
 }
