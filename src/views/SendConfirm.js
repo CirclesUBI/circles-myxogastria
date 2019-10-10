@@ -7,6 +7,7 @@ import BackButton from '~/components/BackButton';
 import Button from '~/components/Button';
 import Header from '~/components/Header';
 import View from '~/components/View';
+import logError from '~/services/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { resolveUsernames } from '~/services/username';
 import { sendCircles } from '~/store/token/actions';
@@ -48,7 +49,9 @@ const SendConfirm = (props, context) => {
       );
 
       setIsSent(true);
-    } catch {
+    } catch (error) {
+      logError(error);
+
       dispatch(
         notify({
           text: context.t('SendConfirm.errorMessage'),

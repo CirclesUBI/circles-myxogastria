@@ -1,4 +1,5 @@
 import ActionTypes from '~/store/token/types';
+import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import { getBalance, transfer, getTokenAddress, signup } from '~/services/core';
 
@@ -117,14 +118,17 @@ export function checkCurrentBalance() {
   };
 }
 
-export function sendCircles(safeAddress, amount) {
-  return async dispatch => {
+export function sendCircles(to, value) {
+  return async (dispatch, getState) => {
     dispatch({
       type: ActionTypes.TOKEN_TRANSFER,
     });
 
+    const { safe } = getState();
+    const from = safe.address;
+
     try {
-      await transfer(safeAddress, amount);
+      await transfer(from, to, new web3.utils.BN(value));
 
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_SUCCESS,
