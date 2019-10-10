@@ -7,6 +7,10 @@ import { removeNotification } from '~/store/notifications/actions';
 const Notifications = () => {
   const { messages } = useSelector(state => state.notifications);
 
+  if (messages.length === 0) {
+    return null;
+  }
+
   return (
     <ul>
       <NotificationsList items={messages} />
