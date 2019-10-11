@@ -31,6 +31,9 @@ export default createGlobalStyle`
   h4,
   h5,
   h6 {
+    margin: 0;
+    padding: 0;
+
     font-weight: ${styles.typography.weightBold};
   }
 `;
