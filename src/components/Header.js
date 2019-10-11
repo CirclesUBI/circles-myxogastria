@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
+import styles from '~/styles/variables';
+
 const Header = props => {
   return <HeaderStyle>{props.children}</HeaderStyle>;
 };
@@ -11,9 +13,17 @@ Header.propTypes = {
 };
 
 const HeaderStyle = styled.header`
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  left: 0;
+
+  z-index: ${styles.zIndex.header};
+
   display: flex;
 
-  height: 5rem;
+  height: ${styles.components.header.height};
 
   padding: 1rem;
 

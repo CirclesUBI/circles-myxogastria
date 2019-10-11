@@ -27,7 +27,23 @@ const colors = {
   turquoiseDark: '#369998',
 };
 
-const styles = {
+const components = {
+  footer: {
+    height: '5rem',
+  },
+  header: {
+    height: '5rem',
+  },
+};
+
+const zIndex = {
+  view: 100,
+  header: 1000,
+  footer: 2000,
+};
+
+export default {
+  components,
   device: {
     desktop: `(min-width: ${layout.width}) and (min-height: ${layout.height})`,
   },
@@ -67,6 +83,5 @@ const styles = {
     blur: '25px',
     color: monochrome.gray,
   },
+  zIndex,
 };
-
-export default styles;
