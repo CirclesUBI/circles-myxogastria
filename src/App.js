@@ -66,9 +66,8 @@ App.contextTypes = {
 
 const AppStyle = styled.div`
   @media ${styles.device.desktop} {
-    max-height: ${styles.layout.height};
-
     width: ${styles.layout.width};
+    height: ${styles.layout.height};
 
     border-radius: ${styles.border.radius};
   }

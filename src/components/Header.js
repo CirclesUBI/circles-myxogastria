@@ -15,6 +15,8 @@ const HeaderStyle = styled.header`
 
   height: 5rem;
 
+  padding: 1rem;
+
   align-items: center;
   justify-content: space-between;
 `;
