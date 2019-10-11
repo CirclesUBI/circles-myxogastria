@@ -51,11 +51,11 @@ const App = (props, context) => {
     <Router>
       <GlobalStyle />
 
-      <Wrapper>
+      <AppStyle>
         <ConnectivityStatus />
         <Notifications />
         <Routes />
-      </Wrapper>
+      </AppStyle>
     </Router>
   );
 };
@@ -64,7 +64,7 @@ App.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
-const Wrapper = styled.div`
+const AppStyle = styled.div`
   @media ${styles.device.desktop} {
     max-height: ${styles.layout.height};
 
