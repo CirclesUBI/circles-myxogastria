@@ -3,7 +3,7 @@ import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import { removeSafeOwner, getSafeOwners } from '~/store/safe/actions';
 
 const SafeOwnerManager = (props, context) => {
@@ -22,11 +22,11 @@ const SafeOwnerManager = (props, context) => {
         <SafeOwnerManagerList owners={safe.owners} />
       </ul>
 
-      <Link to="/settings/keys/add">
-        <Button disabled={isDisabled}>
+      <ButtonPrimary disabled={isDisabled}>
+        <Link to="/settings/keys/add">
           {context.t('SafeOwnerManager.addNewDevice')}
-        </Button>
-      </Link>
+        </Link>
+      </ButtonPrimary>
     </Fragment>
   );
 };

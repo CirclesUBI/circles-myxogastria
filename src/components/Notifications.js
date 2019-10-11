@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import Button from '~/components/Button';
 import styles from '~/styles/variables';
 import { removeNotification } from '~/store/notifications/actions';
 
@@ -59,8 +58,8 @@ const NotificationsItem = props => {
   }, []);
 
   return (
-    <NotificationsItemStyle>
-      {props.text} <Button onClick={onRemove}>X</Button>
+    <NotificationsItemStyle onClick={onRemove}>
+      {props.text}
     </NotificationsItemStyle>
   );
 };
@@ -96,9 +95,11 @@ const NotificationsItemStyle = styled.li`
   margin: 1rem;
   padding: 1rem;
 
-  background-color: ${styles.colors.background};
+  background-color: ${styles.colors.secondary};
 
   box-shadow: 0 0 ${styles.shadow.blurSmall} ${styles.shadow.color};
+
+  cursor: pointer;
 `;
 
 export default Notifications;

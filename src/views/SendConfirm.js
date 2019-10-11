@@ -4,7 +4,7 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
-import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import logError from '~/services/debug';
@@ -72,7 +72,9 @@ const SendConfirm = (props, context) => {
       <SendConfirmView>
         <p>{context.t('SendConfirm.confirmationText', { receiver, amount })}</p>
 
-        <Button onClick={onSubmit}>{context.t('SendConfirm.confirm')}</Button>
+        <ButtonPrimary onClick={onSubmit}>
+          {context.t('SendConfirm.confirm')}
+        </ButtonPrimary>
       </SendConfirmView>
     );
   }
@@ -83,9 +85,9 @@ const SendConfirm = (props, context) => {
 
       <input type="number" value={amount} onChange={onAmountChange} />
 
-      <Button disabled={!amount > 0} onClick={onNext}>
+      <ButtonPrimary disabled={!amount > 0} onClick={onNext}>
         {context.t('SendConfirm.submitAmount')}
-      </Button>
+      </ButtonPrimary>
     </SendConfirmView>
   );
 };

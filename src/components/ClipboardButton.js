@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { createRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import notify from '~/store/notifications/actions';
 
 const ClipboardButton = (props, context) => {
@@ -32,7 +32,7 @@ const ClipboardButton = (props, context) => {
 
   useEffect(initializeClipboard, [props.text]);
 
-  return <Button ref={ref}>{props.children}</Button>;
+  return <ButtonPrimary ref={ref}>{props.children}</ButtonPrimary>;
 };
 
 ClipboardButton.contextTypes = {

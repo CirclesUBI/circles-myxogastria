@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import ActionButton from '~/components/ActionButton';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
@@ -56,9 +57,9 @@ const DashboardView = (props, context) => {
         </View>
 
         <Footer>
-          <Link to="/receive">
-            <Button>{context.t('Dashboard.share')}</Button>
-          </Link>
+          <ButtonPrimary>
+            <Link to="/receive">{context.t('Dashboard.share')}</Link>
+          </ButtonPrimary>
         </Footer>
       </Fragment>
     );

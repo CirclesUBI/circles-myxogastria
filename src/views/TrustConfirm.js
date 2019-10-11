@@ -4,7 +4,7 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
-import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -63,7 +63,9 @@ const TrustConfirm = (props, context) => {
       <View>
         <p>{context.t('TrustConfirm.confirmationText', { receiver })}</p>
 
-        <Button onClick={onSubmit}>{context.t('TrustConfirm.confirm')}</Button>
+        <ButtonPrimary onClick={onSubmit}>
+          {context.t('TrustConfirm.confirm')}
+        </ButtonPrimary>
       </View>
     </Fragment>
   );

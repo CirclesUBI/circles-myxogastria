@@ -18,6 +18,8 @@ Button.propTypes = {
 };
 
 export const ButtonStyle = styled.button`
+  position: relative;
+
   display: inline-block;
 
   padding: 0;
@@ -36,6 +38,10 @@ export const ButtonStyle = styled.button`
 
   &[disabled] {
     cursor: not-allowed;
+  }
+
+  a {
+    display: block;
   }
 `;
 

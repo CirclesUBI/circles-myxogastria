@@ -34,6 +34,9 @@ const components = {
   header: {
     height: '5rem',
   },
+  button: {
+    color: monochrome.white,
+  },
 };
 
 const zIndex = {

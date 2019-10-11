@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
-import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import Header from '~/components/Header';
 import SafeOwnerManager from '~/components/SafeOwnerManager';
 import View from '~/components/View';
@@ -31,13 +31,15 @@ const SettingsKeys = (props, context) => {
 
         <SafeOwnerManager />
 
-        <Link to="/settings/keys/export">
-          <Button>{context.t('SettingsKeys.exportSeedPhrase')}</Button>
-        </Link>
+        <ButtonPrimary>
+          <Link to="/settings/keys/export">
+            {context.t('SettingsKeys.exportSeedPhrase')}
+          </Link>
+        </ButtonPrimary>
 
-        <Button onClick={onBurnClick}>
+        <ButtonPrimary onClick={onBurnClick}>
           {context.t('SettingsKeys.endSession')}
-        </Button>
+        </ButtonPrimary>
       </View>
     </Fragment>
   );
