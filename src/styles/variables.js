@@ -40,6 +40,7 @@ const zIndex = {
   view: 100,
   header: 1000,
   footer: 2000,
+  notifications: 5000,
 };
 
 export default {
@@ -81,6 +82,7 @@ export default {
   },
   shadow: {
     blur: '25px',
+    blurSmall: '5px',
     color: monochrome.gray,
   },
   zIndex,

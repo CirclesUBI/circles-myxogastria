@@ -26,10 +26,10 @@ const Settings = (props, context) => {
     <Fragment>
       <Header>
         <BackButton to="/" />
-        <UsernameDisplay address={safe.address} />
       </Header>
 
       <View>
+        <UsernameDisplay address={safe.address} />
         <QRCode data={safe.address} width={250} />
 
         <Link to="/settings/share">

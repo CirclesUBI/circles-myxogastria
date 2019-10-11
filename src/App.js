@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import ConnectivityStatus from '~/components/ConnectivityStatus';
 import GlobalStyle from '~/styles';
 import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
@@ -52,7 +51,6 @@ const App = (props, context) => {
       <GlobalStyle />
 
       <AppStyle>
-        <ConnectivityStatus />
         <Notifications />
         <Routes />
       </AppStyle>
