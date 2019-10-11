@@ -49,7 +49,7 @@ export default () => {
           use: ['style-loader', 'css-loader'],
         },
         {
-          test: /\.(png|jp(e?)g|gif)$/,
+          test: /\.(png|jp(e?)g|gif|woff(2?))$/,
           exclude,
           use: [
             {

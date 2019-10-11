@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import ConnectivityStatus from '~/components/ConnectivityStatus';
+import GlobalStyle from '~/styles';
 import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
 import logError from '~/services/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import theme from '~/styles';
+import styles from '~/styles/variables';
 import { initializeApp, checkAppState } from '~/store/app/actions';
 
 const APP_CHECK_FRQUENCY = 1000 * 10;
@@ -47,17 +48,15 @@ const App = (props, context) => {
   useEffect(onAppStart, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <Router>
       <GlobalStyle />
 
-      <Router>
-        <AppContainer>
-          <ConnectivityStatus />
-          <Notifications />
-          <Routes />
-        </AppContainer>
-      </Router>
-    </ThemeProvider>
+      <Wrapper>
+        <ConnectivityStatus />
+        <Notifications />
+        <Routes />
+      </Wrapper>
+    </Router>
   );
 };
 
@@ -65,31 +64,25 @@ App.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
-const GlobalStyle = createGlobalStyle`
-  html,
-  body {
-    height: 100%;
+const Wrapper = styled.div`
+  @media ${styles.device.desktop} {
+    max-height: ${styles.layout.height};
+
+    width: ${styles.layout.width};
+
+    border-radius: ${styles.border.radius};
   }
 
-  body {
-    display: flex;
+  position: relative;
 
-    justify-content: center;
-    align-items: center;
-
-    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)
-  }
-`;
-
-const AppContainer = styled.div`
-  width: 50rem;
-  height: 30rem;
+  min-width: 320px;
+  height: 100%;
 
   margin: 0 auto;
 
-  border-radius: 1rem;
+  background-color: ${styles.colors.background};
 
-  background-color: white;
+  box-shadow: 0 0 ${styles.shadow.blur} ${styles.shadow.color};
 `;
 
 export default App;
