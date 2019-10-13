@@ -21,6 +21,7 @@ const App = (props, context) => {
     const initialize = async () => {
       try {
         await dispatch(initializeApp());
+        await dispatch(checkAppState());
       } catch (error) {
         logError(error);
       }
