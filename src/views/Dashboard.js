@@ -43,7 +43,7 @@ const DashboardView = (props, context) => {
         <View>
           <TrustHealthDisplay />
           <h1>{context.t('Dashboard.welcomeToCircles')}</h1>
-          <QRCode data={safe.address} width={200} />
+          <QRCode data={safe.address} width={250} />
 
           <p>
             {context.t('Dashboard.trustDescription')}{' '}
