@@ -54,6 +54,7 @@ export default {
   layout: {
     height: layout.height,
     width: layout.width,
+    spacing: '1rem',
   },
   typography: {
     family: 'Noto Sans',

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import Button from '~/components/Button';
 
@@ -26,17 +25,9 @@ const ActionButtonExtended = props => {
 
   return (
     <Fragment>
-      <Link to="/trust">
-        <Button>Trust</Button>
-      </Link>
-
-      <Link to="/receive">
-        <Button>Receive</Button>
-      </Link>
-
-      <Link to="/send">
-        <Button>Send</Button>
-      </Link>
+      <Button to="/trust">Trust</Button>
+      <Button to="/receive">Receive</Button>
+      <Button to="/send">Send</Button>
     </Fragment>
   );
 };

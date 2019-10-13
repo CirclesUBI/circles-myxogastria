@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
@@ -27,8 +26,8 @@ const Receive = (props, context) => {
       </View>
 
       <Footer>
-        <ButtonPrimary>
-          <Link to="/receive/share">{context.t('Receive.share')}</Link>
+        <ButtonPrimary to="/receive/share">
+          {context.t('Receive.share')}
         </ButtonPrimary>
       </Footer>
     </Fragment>

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import ActionButton from '~/components/ActionButton';
@@ -20,17 +19,13 @@ const Dashboard = () => {
   return (
     <Fragment>
       <Header>
-        <Link to="/settings">
-          <Button>
-            <QRCode data={safe.address} scale={1} width={30} />
-          </Button>
-        </Link>
+        <Button to="/settings">
+          <QRCode data={safe.address} scale={1} width={30} />
+        </Button>
 
         <BalanceDisplay />
 
-        <Link to="/activities">
-          <Button>0</Button>
-        </Link>
+        <Button to="/activities">0</Button>
       </Header>
 
       <DashboardView />
@@ -57,8 +52,8 @@ const DashboardView = (props, context) => {
         </View>
 
         <Footer>
-          <ButtonPrimary>
-            <Link to="/receive">{context.t('Dashboard.share')}</Link>
+          <ButtonPrimary to="/receive">
+            {context.t('Dashboard.share')}
           </ButtonPrimary>
         </Footer>
       </Fragment>

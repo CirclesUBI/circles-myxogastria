@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Button from '~/components/Button';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import { removeSafeOwner, getSafeOwners } from '~/store/safe/actions';
 
@@ -22,10 +22,8 @@ const SafeOwnerManager = (props, context) => {
         <SafeOwnerManagerList owners={safe.owners} />
       </ul>
 
-      <ButtonPrimary disabled={isDisabled}>
-        <Link to="/settings/keys/add">
-          {context.t('SafeOwnerManager.addNewDevice')}
-        </Link>
+      <ButtonPrimary disabled={isDisabled} to="/settings/keys/add">
+        {context.t('SafeOwnerManager.addNewDevice')}
       </ButtonPrimary>
     </Fragment>
   );
@@ -48,7 +46,7 @@ const SafeOwnerManagerItem = (props, context) => {
     <li>
       {props.address}
 
-      <button onClick={onRemove}>{context.t('SafeOwnerManager.remove')}</button>
+      <Button onClick={onRemove}>{context.t('SafeOwnerManager.remove')}</Button>
     </li>
   );
 };

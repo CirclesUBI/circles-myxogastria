@@ -1,12 +1,23 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import styles from '~/styles/variables';
 import { ButtonStyle } from '~/components/Button';
 
 // eslint-disable-next-line react/display-name
-const ButtonPrimary = React.forwardRef(({ children, ...props }, ref) => {
+const ButtonPrimary = React.forwardRef(({ children, to, ...props }, ref) => {
+  if (to) {
+    return (
+      <Link style={{ width: '100%' }} to={to}>
+        <ButtonPrimaryStyle {...props} ref={ref}>
+          {children}
+        </ButtonPrimaryStyle>
+      </Link>
+    );
+  }
+
   return (
     <ButtonPrimaryStyle {...props} ref={ref}>
       {children}
@@ -18,6 +29,7 @@ ButtonPrimary.propTypes = {
   children: PropTypes.any.isRequired,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
+  to: PropTypes.string,
 };
 
 export const ButtonPrimaryStyle = styled(ButtonStyle)`
@@ -25,6 +37,8 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
 
   width: 100%;
 
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   padding: 1rem;
 
   border-radius: 1rem;
@@ -32,10 +46,6 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
   color: ${styles.components.button.color};
 
   background-color: ${styles.colors.primary};
-
-  & + & {
-    margin-top: 1rem;
-  }
 
   a {
     color: ${styles.components.button.color};

@@ -12,7 +12,7 @@ Footer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const FooterStyle = styled.footer`
+export const FooterStyle = styled.footer`
   position: absolute;
 
   right: 0;
@@ -25,7 +25,7 @@ const FooterStyle = styled.footer`
 
   height: ${styles.components.footer.height};
 
-  padding: 1rem;
+  padding: ${styles.layout.spacing};
 
   align-items: center;
   justify-content: space-between;

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
@@ -31,10 +30,8 @@ const SettingsKeys = (props, context) => {
 
         <SafeOwnerManager />
 
-        <ButtonPrimary>
-          <Link to="/settings/keys/export">
-            {context.t('SettingsKeys.exportSeedPhrase')}
-          </Link>
+        <ButtonPrimary to="/settings/keys/export">
+          {context.t('SettingsKeys.exportSeedPhrase')}
         </ButtonPrimary>
 
         <ButtonPrimary onClick={onBurnClick}>

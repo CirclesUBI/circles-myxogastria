@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
@@ -32,12 +31,12 @@ const Settings = (props, context) => {
         <UsernameDisplay address={safe.address} />
         <QRCode data={safe.address} width={250} />
 
-        <ButtonPrimary>
-          <Link to="/settings/share">{context.t('Settings.share')}</Link>
+        <ButtonPrimary to="/settings/share">
+          {context.t('Settings.share')}
         </ButtonPrimary>
 
-        <ButtonPrimary>
-          <Link to="/settings/keys">{context.t('Settings.manageKeys')}</Link>
+        <ButtonPrimary to="/settings/keys">
+          {context.t('Settings.manageKeys')}
         </ButtonPrimary>
 
         <ButtonPrimary onClick={onDeploy}>Debug: Deploy Safe</ButtonPrimary>

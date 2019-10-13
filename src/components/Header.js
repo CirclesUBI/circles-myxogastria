@@ -12,7 +12,7 @@ Header.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const HeaderStyle = styled.header`
+export const HeaderStyle = styled.header`
   position: absolute;
 
   top: 0;
@@ -25,7 +25,7 @@ const HeaderStyle = styled.header`
 
   height: ${styles.components.header.height};
 
-  padding: 1rem;
+  padding: ${styles.layout.spacing};
 
   align-items: center;
   justify-content: space-between;

@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import styles from '~/styles/variables';
+import { HeaderStyle } from '~/components/Header';
 
 const View = props => {
   return <ViewStyle>{props.children}</ViewStyle>;
@@ -22,9 +23,15 @@ const ViewStyle = styled.main`
 
   z-index: ${styles.zIndex.view};
 
-  margin-top: ${styles.components.header.height};
-  margin-bottom: ${styles.components.footer.height};
-  padding: 1rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  padding: ${styles.layout.spacing};
+  padding-bottom: ${styles.components.footer.height};
+
+  ${HeaderStyle} + & {
+    padding-top: ${styles.components.header.height};
+  }
 `;
 
 export default View;

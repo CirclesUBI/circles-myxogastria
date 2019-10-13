@@ -1,9 +1,24 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // eslint-disable-next-line react/display-name
 const Button = React.forwardRef((props, ref) => {
+  if (props.to) {
+    return (
+      <Link to={props.to}>
+        <ButtonStyle
+          disabled={props.disabled}
+          ref={ref}
+          onClick={props.onClick}
+        >
+          {props.children}
+        </ButtonStyle>
+      </Link>
+    );
+  }
+
   return (
     <ButtonStyle disabled={props.disabled} ref={ref} onClick={props.onClick}>
       {props.children}
@@ -15,6 +30,7 @@ Button.propTypes = {
   children: PropTypes.any.isRequired,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
+  to: PropTypes.string,
 };
 
 export const ButtonStyle = styled.button`
