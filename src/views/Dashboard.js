@@ -34,10 +34,9 @@ const Dashboard = () => {
 };
 
 const DashboardView = (props, context) => {
-  const { isTrusted } = useSelector(state => state.trust);
   const safe = useSelector(state => state.safe);
 
-  if (!isTrusted) {
+  if (safe.nonce) {
     return (
       <Fragment>
         <View>
