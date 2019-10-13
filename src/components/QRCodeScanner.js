@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import QrScanner from 'qr-scanner';
 import QrScannerWorkerPath from '!!file-loader!qr-scanner/qr-scanner-worker.min.js';
-import React, { Fragment, useState, useEffect, createRef } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
+import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import Button from '~/components/Button';
 import findAddress from '~/utils/findAddress';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import styles from '~/styles/variables';
+import { ButtonStyle } from '~/components/Button';
 
 QrScanner.WORKER_PATH = QrScannerWorkerPath;
 
@@ -14,6 +16,7 @@ const QRCodeScanner = (props, context) => {
   const dispatch = useDispatch();
 
   const [isOnlyUpload, setIsOnlyUpload] = useState(false);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
 
   const refVideo = createRef();
   const refInput = createRef();
@@ -50,6 +53,8 @@ const QRCodeScanner = (props, context) => {
       });
 
       await scanner.start();
+
+      setIsVideoVisible(true);
     } catch (error) {
       // .. fall back on manual upload option
       setIsOnlyUpload(true);
@@ -57,7 +62,8 @@ const QRCodeScanner = (props, context) => {
   };
 
   const initialize = () => {
-    const startCameraStream = async () => {
+    const checkCamera = async () => {
+      // @TODO: Find a better way to check if we have the permission to use camera
       const isAvailable = await QrScanner.hasCamera();
 
       if (!isAvailable) {
@@ -65,7 +71,7 @@ const QRCodeScanner = (props, context) => {
       }
     };
 
-    startCameraStream();
+    checkCamera();
 
     return () => {
       if (scanner) {
@@ -84,9 +90,8 @@ const QRCodeScanner = (props, context) => {
 
   useEffect(initialize, []);
 
-  // @TODO: Improve UI elements depending on permissions
   return (
-    <Fragment>
+    <QRCodeScannerStyle>
       <input
         accept="image/*"
         capture="camera"
@@ -96,10 +101,19 @@ const QRCodeScanner = (props, context) => {
         onChange={onImageSelected}
       />
 
-      <video ref={refVideo} />
+      <QRCodeScannerVideoStyle
+        ref={refVideo}
+        style={{ display: isVideoVisible ? 'block' : 'none' }}
+      />
 
-      <Button onClick={onClick}>{context.t('QRCodeScanner.tapToScan')}</Button>
-    </Fragment>
+      <QRCodeScannerButtonStyle
+        disabled={props.disabled || false}
+        style={{ display: isVideoVisible ? 'none' : 'inline-block' }}
+        onClick={onClick}
+      >
+        {context.t('QRCodeScanner.tapToScan')}
+      </QRCodeScannerButtonStyle>
+    </QRCodeScannerStyle>
   );
 };
 
@@ -108,7 +122,30 @@ QRCodeScanner.contextTypes = {
 };
 
 QRCodeScanner.propTypes = {
+  disabled: PropTypes.bool,
   onSuccess: PropTypes.func.isRequired,
 };
+
+const QRCodeScannerStyle = styled.div`
+  display: flex;
+
+  width: 30rem;
+  height: 30rem;
+
+  margin: 0 auto;
+
+  background-color: ${styles.colors.secondary};
+
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const QRCodeScannerVideoStyle = styled.video`
+  width: 100%;
+  height: 100%;
+`;
+
+const QRCodeScannerButtonStyle = styled(ButtonStyle)``;
 
 export default QRCodeScanner;
