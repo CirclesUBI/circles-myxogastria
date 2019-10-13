@@ -39,7 +39,9 @@ const Settings = (props, context) => {
           {context.t('Settings.manageKeys')}
         </ButtonPrimary>
 
-        <ButtonPrimary onClick={onDeploy}>Debug: Deploy Safe</ButtonPrimary>
+        <ButtonPrimary disabled={!safe.nonce} onClick={onDeploy}>
+          Debug: Deploy Safe
+        </ButtonPrimary>
 
         <LocaleSelector />
         <ExternalLinkList />
