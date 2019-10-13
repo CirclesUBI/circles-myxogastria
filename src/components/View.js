@@ -24,7 +24,7 @@ const ViewStyle = styled.main`
   z-index: ${styles.zIndex.view};
 
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   padding: ${styles.layout.spacing};
   padding-bottom: ${styles.components.footer.height};
