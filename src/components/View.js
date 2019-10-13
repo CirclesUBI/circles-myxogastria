@@ -29,6 +29,8 @@ const ViewStyle = styled.main`
   padding: ${styles.layout.spacing};
   padding-bottom: ${styles.components.footer.height};
 
+  text-align: center;
+
   ${HeaderStyle} + & {
     padding-top: ${styles.components.header.height};
   }
