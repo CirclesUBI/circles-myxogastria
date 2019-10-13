@@ -21,6 +21,8 @@ import {
   removeOwner,
 } from '~/services/core';
 
+import isDeployed from '~/utils/isDeployed';
+
 export function initializeSafe() {
   return async dispatch => {
     dispatch({
@@ -132,6 +134,9 @@ export function deployNewSafe() {
 
     try {
       await deploySafe(safe.address);
+
+      // @TODO: Remove this
+      await isDeployed(safe.address);
 
       removeNonce();
 
