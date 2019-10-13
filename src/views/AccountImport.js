@@ -61,7 +61,7 @@ const AccountImport = (props, context) => {
           <a href="#">{context.t('AccountImport.contactUs')}</a>
         </p>
 
-        <ButtonPrimary onClick={onClick}>
+        <ButtonPrimary disabled={seedPhrase.length === 0} onClick={onClick}>
           {context.t('AccountImport.submit')}
         </ButtonPrimary>
       </View>

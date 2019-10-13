@@ -73,7 +73,10 @@ const AccountCreate = (props, context) => {
       </View>
 
       <Footer>
-        <ButtonPrimary disabled={isLoading} onClick={onSubmit}>
+        <ButtonPrimary
+          disabled={isLoading || username.length < 3}
+          onClick={onSubmit}
+        >
           {context.t('AccountCreate.submit')}
         </ButtonPrimary>
       </Footer>
