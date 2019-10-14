@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import styles from '~/styles/variables';
-import { ButtonStyle } from '~/components/Button';
+import ButtonStyle from '~/components/Button';
 
 // eslint-disable-next-line react/display-name
 const ButtonPrimary = React.forwardRef(({ children, to, ...props }, ref) => {
@@ -45,7 +45,11 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
 
   color: ${styles.components.button.color};
 
-  background-color: ${styles.colors.primary};
+  background-color: ${props => {
+    return props.disabled
+      ? styles.components.button.colorDisabled
+      : styles.components.button.colorPrimary;
+  }};
 
   a {
     color: ${styles.components.button.color};

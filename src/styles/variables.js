@@ -36,6 +36,8 @@ const components = {
   },
   button: {
     color: monochrome.white,
+    colorDisabled: monochrome.gray,
+    colorPrimary: colors.purple,
   },
 };
 
@@ -43,6 +45,8 @@ const zIndex = {
   view: 100,
   header: 1000,
   footer: 2000,
+  actionButtonOverlay: 3000,
+  actionButton: 4000,
   notifications: 5000,
 };
 
@@ -59,7 +63,7 @@ export default {
   typography: {
     family: 'Noto Sans',
     lineHeight: 1.5,
-    size: '1.4em',
+    size: '1.6em',
     style: 'normal',
     styleItalic: 'italic',
     weight: 400,

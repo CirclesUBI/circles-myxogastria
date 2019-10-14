@@ -8,32 +8,34 @@ const Button = React.forwardRef((props, ref) => {
   if (props.to) {
     return (
       <Link to={props.to}>
-        <ButtonStyle
-          disabled={props.disabled}
-          ref={ref}
-          onClick={props.onClick}
-        >
+        <button className={props.className} disabled={props.disabled} ref={ref}>
           {props.children}
-        </ButtonStyle>
+        </button>
       </Link>
     );
   }
 
   return (
-    <ButtonStyle disabled={props.disabled} ref={ref} onClick={props.onClick}>
+    <button
+      className={props.className}
+      disabled={props.disabled}
+      ref={ref}
+      onClick={props.onClick}
+    >
       {props.children}
-    </ButtonStyle>
+    </button>
   );
 });
 
 Button.propTypes = {
   children: PropTypes.any.isRequired,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
 };
 
-export const ButtonStyle = styled.button`
+const ButtonStyle = styled(Button)`
   position: relative;
 
   display: inline-block;
@@ -55,10 +57,6 @@ export const ButtonStyle = styled.button`
   &[disabled] {
     cursor: not-allowed;
   }
-
-  a {
-    display: block;
-  }
 `;
 
-export default Button;
+export default ButtonStyle;

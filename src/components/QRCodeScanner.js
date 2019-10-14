@@ -5,10 +5,10 @@ import React, { useState, useEffect, createRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
+import ButtonStyle from '~/components/Button';
 import findAddress from '~/utils/findAddress';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
-import { ButtonStyle } from '~/components/Button';
 
 QrScanner.WORKER_PATH = QrScannerWorkerPath;
 
