@@ -2,9 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 
 import styles from '~/styles/variables';
 
+const { links } = styles.base;
+
 export default createGlobalStyle`
   a {
-    color: ${styles.links.color};
+    color: ${links.color};
 
     text-decoration: none;
   }

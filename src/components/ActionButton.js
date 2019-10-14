@@ -52,7 +52,7 @@ const ActionButtonStyle = styled(ButtonStyle)`
 
   background-color: ${styles.colors.primary};
 
-  box-shadow: 0 0 ${styles.shadow.blur} ${styles.shadow.color};
+  box-shadow: 0 0 25px ${styles.colors.shadow};
 `;
 
 const ActionButtonMainStyle = styled(ActionButtonStyle)`
@@ -61,8 +61,8 @@ const ActionButtonMainStyle = styled(ActionButtonStyle)`
 `;
 
 const ActionButtonOverlayStyle = styled.div`
-  @media ${styles.device.desktop} {
-    border-radius: ${styles.border.radius};
+  @media ${styles.media.desktop} {
+    border-radius: ${styles.base.layout.borderRadius};
   }
 
   position: absolute;

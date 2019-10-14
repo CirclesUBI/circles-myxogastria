@@ -92,12 +92,12 @@ const NotificationsListStyle = styled.ul`
 `;
 
 const NotificationsItemStyle = styled.li`
-  margin: ${styles.layout.spacing};
+  margin: ${styles.base.layout.spacing};
   padding: 1rem;
 
   background-color: ${styles.colors.secondary};
 
-  box-shadow: 0 0 ${styles.shadow.blurSmall} ${styles.shadow.color};
+  box-shadow: 0 0 5px ${styles.colors.shadow};
 
   cursor: pointer;
 `;

@@ -2,6 +2,8 @@ import { createGlobalStyle } from 'styled-components';
 
 import styles from '~/styles/variables';
 
+const { layout, inputs } = styles.base;
+
 export default createGlobalStyle`
   textarea {
     display: block;
@@ -10,7 +12,7 @@ export default createGlobalStyle`
     max-width: 100%;
     min-height: 20rem;
 
-    padding: ${styles.layout.spacing};
+    padding: ${layout.spacing};
   }
 
   select {
@@ -28,26 +30,26 @@ export default createGlobalStyle`
   input:not([type]),
   textarea,
   select {
-    padding: ${styles.layout.spacing};
+    padding: ${layout.spacing};
 
     appearance: none;
 
     border: 0;
     border-radius: 0;
 
-    color: ${styles.inputs.color};
+    color: ${inputs.color};
 
-    background-color: ${styles.inputs.colorBackground};
+    background-color: ${inputs.colorBackground};
 
-    font-weight: ${styles.typography.weight};
-    font-family: ${styles.typography.family};
+    font-weight: ${inputs.weight};
+    font-family: ${inputs.family};
 
     &:focus {
       outline: 0;
     }
 
     &[disabled] {
-      color: ${styles.inputs.colorDisabled};
+      color: ${inputs.colorDisabled};
 
       cursor: default;
     }

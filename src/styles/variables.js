@@ -1,4 +1,6 @@
-const layout = {
+// Definitions
+
+const dimensions = {
   height: '500px',
   width: '700px',
 };
@@ -15,7 +17,7 @@ const monochrome = {
   white: '#fff',
 };
 
-const colors = {
+const color = {
   green: '#45e6af',
   orange: '#faad26',
   orangeDark: '#ff9933',
@@ -27,6 +29,70 @@ const colors = {
   turquoiseDark: '#369998',
 };
 
+// Typography
+
+const typography = {
+  family: 'Noto Sans',
+  lineHeight: 1.5,
+  size: '1.6em',
+  style: 'normal',
+  styleItalic: 'italic',
+  weight: 400,
+  weightBold: 700,
+  weightLight: 300,
+  weightSemiBold: 500,
+};
+
+// Colors
+
+const colors = {
+  accent: color.green,
+  accentAlternative: color.orange,
+  accentAlternativeDark: color.orangeDark,
+  primary: color.purple,
+  primaryDark: color.purpleDark,
+  secondary: color.turquoise,
+  secondaryDark: color.turquoiseDark,
+  shadow: monochrome.gray,
+};
+
+// Base
+
+const background = {
+  color: monochrome.white,
+  colorGradientPrimary: monochrome.white,
+  colorGradientSecondary: monochrome.grayLight,
+};
+
+const inputs = {
+  color: monochrome.black,
+  colorBackground: monochrome.grayLightest,
+  colorDisabled: monochrome.gray,
+  fontFamily: typography.family,
+  fontWeight: typography.weight,
+};
+
+const layout = {
+  borderRadius: '1rem',
+  spacing: '1rem',
+  width: dimensions.width,
+  height: dimensions.height,
+};
+
+const links = {
+  color: color.turquoiseDark,
+};
+
+const base = {
+  background,
+  inputs,
+  layout,
+  links,
+  typography,
+};
+
+// Components
+
 const components = {
   footer: {
     height: '5rem',
@@ -37,9 +103,17 @@ const components = {
   button: {
     color: monochrome.white,
     colorDisabled: monochrome.gray,
-    colorPrimary: colors.purple,
+    colorPrimary: color.purple,
   },
 };
+
+// Media-query
+
+const media = {
+  desktop: `(min-width: ${dimensions.width}) and (min-height: ${dimensions.height})`,
+};
+
+// Z-index
 
 const zIndex = {
   view: 100,
@@ -50,53 +124,12 @@ const zIndex = {
   notifications: 5000,
 };
 
+// Variables
+
 export default {
+  base,
+  colors,
   components,
-  device: {
-    desktop: `(min-width: ${layout.width}) and (min-height: ${layout.height})`,
-  },
-  layout: {
-    height: layout.height,
-    width: layout.width,
-    spacing: '1rem',
-  },
-  typography: {
-    family: 'Noto Sans',
-    lineHeight: 1.5,
-    size: '1.6em',
-    style: 'normal',
-    styleItalic: 'italic',
-    weight: 400,
-    weightBold: 700,
-    weightLight: 300,
-    weightSemiBold: 500,
-  },
-  colors: {
-    accent: colors.green,
-    accentAlternative: colors.orange,
-    accentAlternativeDark: colors.orangeDark,
-    background: monochrome.white,
-    backgroundAlternative: monochrome.grayLight,
-    primary: colors.purple,
-    primaryDark: colors.purpleDark,
-    secondary: colors.turquoise,
-    secondaryDark: colors.turquoiseDark,
-  },
-  links: {
-    color: colors.turquoiseDark,
-  },
-  border: {
-    radius: '1rem',
-  },
-  shadow: {
-    blur: '25px',
-    blurSmall: '5px',
-    color: monochrome.gray,
-  },
-  inputs: {
-    color: monochrome.black,
-    colorBackground: monochrome.grayLightest,
-    colorDisabled: monochrome.gray,
-  },
+  media,
   zIndex,
 };

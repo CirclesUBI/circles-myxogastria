@@ -26,7 +26,7 @@ const ViewStyle = styled.main`
   overflow-x: hidden;
   overflow-y: auto;
 
-  padding: ${styles.layout.spacing};
+  padding: ${styles.base.layout.spacing};
   padding-bottom: ${styles.components.footer.height};
 
   text-align: center;

@@ -25,7 +25,7 @@ export const HeaderStyle = styled.header`
 
   height: ${styles.components.header.height};
 
-  padding: ${styles.layout.spacing};
+  padding: ${styles.base.layout.spacing};
 
   align-items: center;
   justify-content: space-between;

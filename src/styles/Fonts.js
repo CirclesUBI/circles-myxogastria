@@ -15,11 +15,13 @@ import notoSansSemiBoldWoff2 from '~/../assets/fonts/notosans-semibold-webfont.w
 import notoSansWoff from '~/../assets/fonts/notosans-regular-webfont.woff';
 import notoSansWoff2 from '~/../assets/fonts/notosans-regular-webfont.woff2';
 
+const { typography } = styles.base;
+
 export default createGlobalStyle`
   @font-face {
-    font-weight: ${styles.typography.weightBold};
-    font-style: ${styles.typography.style};
-    font-family: ${styles.typography.family};
+    font-weight: ${typography.weightBold};
+    font-style: ${typography.style};
+    font-family: ${typography.family};
 
     src:
       url(${notoSansBoldWoff2}) format('woff2'),
@@ -27,9 +29,9 @@ export default createGlobalStyle`
   }
 
   @font-face {
-    font-weight: ${styles.typography.weight};
-    font-style: ${styles.typography.styleItalic};
-    font-family: ${styles.typography.family};
+    font-weight: ${typography.weight};
+    font-style: ${typography.styleItalic};
+    font-family: ${typography.family};
 
     src:
       url(${notoSansItalicWoff2}) format('woff2'),
@@ -37,9 +39,9 @@ export default createGlobalStyle`
   }
 
   @font-face {
-    font-weight: ${styles.typography.weightLight};
-    font-style: ${styles.typography.style};
-    font-family: ${styles.typography.family};
+    font-weight: ${typography.weightLight};
+    font-style: ${typography.style};
+    font-family: ${typography.family};
 
     src:
       url(${notoSansLightWoff2}) format('woff2'),
@@ -47,9 +49,9 @@ export default createGlobalStyle`
   }
 
   @font-face {
-    font-weight: ${styles.typography.weightLight};
-    font-style: ${styles.typography.styleItalic};
-    font-family: ${styles.typography.family};
+    font-weight: ${typography.weightLight};
+    font-style: ${typography.styleItalic};
+    font-family: ${typography.family};
 
     src:
       url(${notoSansLightItalicWoff2}) format('woff2'),
@@ -57,9 +59,9 @@ export default createGlobalStyle`
   }
 
   @font-face {
-    font-weight: ${styles.typography.weight};
-    font-style: ${styles.typography.style};
-    font-family: ${styles.typography.family};
+    font-weight: ${typography.weight};
+    font-style: ${typography.style};
+    font-family: ${typography.family};
 
     src:
       url(${notoSansWoff2}) format('woff2'),
@@ -67,9 +69,9 @@ export default createGlobalStyle`
   }
 
   @font-face {
-    font-weight: ${styles.typography.weightSemiBold};
-    font-style: ${styles.typography.style};
-    font-family: ${styles.typography.family};
+    font-weight: ${typography.weightSemiBold};
+    font-style: ${typography.style};
+    font-family: ${typography.family};
 
     src:
       url(${notoSansSemiBoldWoff2}) format('woff2'),

@@ -64,11 +64,11 @@ App.contextTypes = {
 };
 
 const AppStyle = styled.div`
-  @media ${styles.device.desktop} {
-    width: ${styles.layout.width};
-    height: ${styles.layout.height};
+  @media ${styles.media.desktop} {
+    width: ${styles.base.layout.width};
+    height: ${styles.base.layout.height};
 
-    border-radius: ${styles.border.radius};
+    border-radius: ${styles.base.layout.borderRadius};
   }
 
   position: relative;
@@ -78,9 +78,9 @@ const AppStyle = styled.div`
 
   margin: 0 auto;
 
-  background-color: ${styles.colors.background};
+  background-color: ${styles.base.background.color};
 
-  box-shadow: 0 0 ${styles.shadow.blur} ${styles.shadow.color};
+  box-shadow: 0 0 25px ${styles.colors.shadow};
 `;
 
 export default App;

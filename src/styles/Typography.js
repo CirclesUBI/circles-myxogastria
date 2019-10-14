@@ -2,18 +2,20 @@ import { createGlobalStyle } from 'styled-components';
 
 import styles from '~/styles/variables';
 
+const { typography } = styles.base;
+
 export default createGlobalStyle`
   html {
     font-size: 62.5%;
   }
 
   body {
-    font-weight: ${styles.typography.weight};
-    font-style: ${styles.typography.style};
-    font-size: ${styles.typography.size};
-    font-family: ${styles.typography.family}, sans-serif;
+    font-weight: ${typography.weight};
+    font-style: ${typography.style};
+    font-size: ${typography.size};
+    font-family: ${typography.family}, sans-serif;
 
-    line-height: ${styles.typography.lineHeight};
+    line-height: ${typography.lineHeight};
   }
 
   p {
@@ -34,6 +36,6 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
 
-    font-weight: ${styles.typography.weightBold};
+    font-weight: ${typography.weightBold};
   }
 `;

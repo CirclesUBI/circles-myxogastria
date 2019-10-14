@@ -9,7 +9,7 @@ export default createGlobalStyle`
   }
 
   #app {
-    @media ${styles.device.desktop} {
+    @media ${styles.media.desktop} {
       height: auto;
     }
 
@@ -17,7 +17,7 @@ export default createGlobalStyle`
   }
 
   body {
-    @media ${styles.device.desktop} {
+    @media ${styles.media.desktop} {
       display: flex;
 
       align-items: center;
