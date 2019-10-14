@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
-import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
@@ -27,9 +26,9 @@ const Receive = (props, context) => {
       </View>
 
       <Footer>
-        <Link to="/receive/share">
-          <Button>{context.t('Receive.share')}</Button>
-        </Link>
+        <ButtonPrimary to="/receive/share">
+          {context.t('Receive.share')}
+        </ButtonPrimary>
       </Footer>
     </Fragment>
   );

@@ -45,7 +45,11 @@ export default () => {
           ],
         },
         {
-          test: /\.(png|jp(e?)g|gif)$/,
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.(png|jp(e?)g|gif|woff(2?))$/,
           exclude,
           use: [
             {

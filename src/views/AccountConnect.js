@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
-import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
 import View from '~/components/View';
@@ -23,9 +23,9 @@ const AccountConnect = (props, context) => {
 
         <QRCode data={address} width={250} />
 
-        <Link to="/welcome/seed">
-          <Button>{context.t('AccountConnect.restoreWithSeedPhrase')}</Button>
-        </Link>
+        <ButtonPrimary to="/welcome/seed">
+          {context.t('AccountConnect.restoreWithSeedPhrase')}
+        </ButtonPrimary>
 
         <p>
           {context.t('AccountConnect.noSeedPhrase')}{' '}

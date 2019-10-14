@@ -4,7 +4,7 @@ import ActionTypes from '~/store/token/types';
 
 const initialState = {
   address: null,
-  balance: 0,
+  balance: null,
   isLoading: false,
 };
 

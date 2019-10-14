@@ -1,16 +1,22 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
 
+import styles from '~/styles/variables';
 import { removeNotification } from '~/store/notifications/actions';
 
 const Notifications = () => {
   const { messages } = useSelector(state => state.notifications);
 
+  if (messages.length === 0) {
+    return null;
+  }
+
   return (
-    <ul>
+    <NotificationsListStyle>
       <NotificationsList items={messages} />
-    </ul>
+    </NotificationsListStyle>
   );
 };
 
@@ -52,9 +58,9 @@ const NotificationsItem = props => {
   }, []);
 
   return (
-    <li>
-      {props.text} <button onClick={onRemove}>Hide</button>
-    </li>
+    <NotificationsItemStyle onClick={onRemove}>
+      {props.text}
+    </NotificationsItemStyle>
   );
 };
 
@@ -74,5 +80,26 @@ NotificationsItem.propTypes = {
   text: PropTypes.string.isRequired,
   type: PropTypes.symbol.isRequired,
 };
+
+const NotificationsListStyle = styled.ul`
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  left: 0;
+
+  z-index: ${styles.zIndex.notifications};
+`;
+
+const NotificationsItemStyle = styled.li`
+  margin: ${styles.base.layout.spacing};
+  padding: 1rem;
+
+  background-color: ${styles.colors.secondary};
+
+  box-shadow: 0 0 5px ${styles.colors.shadow};
+
+  cursor: pointer;
+`;
 
 export default Notifications;

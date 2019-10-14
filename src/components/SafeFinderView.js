@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 
-import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import QRCodeScanner from '~/components/QRCodeScanner';
 import UsernameFinder from '~/components/UsernameFinder';
@@ -80,9 +80,9 @@ const SafeFinderViewFooter = (props, context) => {
 
   return (
     <Footer>
-      <Button onClick={onClick}>
+      <ButtonPrimary onClick={onClick}>
         {context.t('SafeFinderView.tapToScanQR')}
-      </Button>
+      </ButtonPrimary>
     </Footer>
   );
 };

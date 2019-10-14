@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
@@ -12,7 +13,12 @@ import { addSafeOwner } from '~/store/safe/actions';
 const SettingsKeysAdd = (props, context) => {
   const dispatch = useDispatch();
 
+  const [isDone, setIsDone] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const onSuccess = async address => {
+    setIsLoading(true);
+
     try {
       await dispatch(addSafeOwner(address));
 
@@ -21,6 +27,8 @@ const SettingsKeysAdd = (props, context) => {
           text: context.t('SettingsKeysAdd.successMessage'),
         }),
       );
+
+      setIsDone(true);
     } catch {
       dispatch(
         notify({
@@ -28,16 +36,22 @@ const SettingsKeysAdd = (props, context) => {
         }),
       );
     }
+
+    setIsLoading(false);
   };
+
+  if (isDone) {
+    return <Redirect to="/settings/keys" />;
+  }
 
   return (
     <Fragment>
       <Header>
-        <BackButton to="/settings/keys" />
+        <BackButton disabled={isLoading} to="/settings/keys" />
       </Header>
 
       <View>
-        <QRCodeScanner onSuccess={onSuccess} />
+        <QRCodeScanner disabled={isLoading} onSuccess={onSuccess} />
       </View>
     </Fragment>
   );

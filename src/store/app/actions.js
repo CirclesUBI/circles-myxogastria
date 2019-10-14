@@ -27,7 +27,6 @@ export function initializeApp() {
       await dispatch(initializeLocale());
       await dispatch(initializeWallet());
       await dispatch(initializeSafe());
-      await dispatch(checkAppState());
 
       dispatch({
         type: ActionTypes.APP_INITIALIZE_SUCCESS,

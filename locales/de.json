@@ -51,6 +51,7 @@
   "ReceiveShare.shareText": "Hey! Schaue dir mein Profil an unter: {shareLink}",
   "SafeFinderView.tapToScanQR": "QR Code scannen",
   "SafeOwnerManager.addNewDevice": "Gerät hinzufügen",
+  "SafeOwnerManager.errorMessage": "Dieses Gerät kann nicht entfernt werden",
   "SafeOwnerManager.remove": "Entfernen",
   "SendConfirm.confirm": "Senden",
   "SendConfirm.confirmationText": "Bist du dir sicher {amount} Circles an @{receiver} zu schicken?",

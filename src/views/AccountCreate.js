@@ -3,7 +3,7 @@ import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
-import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import View from '~/components/View';
@@ -73,9 +73,12 @@ const AccountCreate = (props, context) => {
       </View>
 
       <Footer>
-        <Button disabled={isLoading} onClick={onSubmit}>
+        <ButtonPrimary
+          disabled={isLoading || username.length < 3}
+          onClick={onSubmit}
+        >
           {context.t('AccountCreate.submit')}
-        </Button>
+        </ButtonPrimary>
       </Footer>
     </Fragment>
   );

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import BackButton from '~/components/BackButton';
@@ -29,9 +28,7 @@ const Profile = (props, context) => {
           {context.t('Profile.copyToClipboard')}
         </ClipboardButton>
 
-        <Link to={`/send/${address}`}>
-          <Button>{context.t('Profile.send')}</Button>
-        </Link>
+        <Button to={`/send/${address}`}>{context.t('Profile.send')}</Button>
       </View>
     </Fragment>
   );

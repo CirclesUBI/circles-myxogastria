@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import QRCodeGenerator from 'qrcode';
 import React, { createRef, useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 const QRCode = props => {
   // eslint-disable-next-line no-unused-vars
@@ -23,7 +24,11 @@ const QRCode = props => {
 
   useEffect(generateQRCode, [props.data]);
 
-  return <canvas ref={ref} />;
+  return (
+    <QRCodeStyle>
+      <canvas ref={ref} />
+    </QRCodeStyle>
+  );
 };
 
 QRCode.propTypes = {
@@ -31,5 +36,11 @@ QRCode.propTypes = {
   scale: PropTypes.number,
   width: PropTypes.number,
 };
+
+const QRCodeStyle = styled.div`
+  margin: 0 auto;
+
+  text-align: center;
+`;
 
 export default QRCode;

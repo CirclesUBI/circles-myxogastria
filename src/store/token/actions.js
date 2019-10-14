@@ -128,7 +128,11 @@ export function sendCircles(to, value) {
     const from = safe.address;
 
     try {
-      await transfer(from, to, new web3.utils.BN(value));
+      const valueInWei = new web3.utils.BN(
+        web3.utils.toWei(`${value}`, 'ether'),
+      );
+
+      await transfer(from, to, valueInWei);
 
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_SUCCESS,

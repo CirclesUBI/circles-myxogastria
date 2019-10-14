@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
-import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -61,7 +61,9 @@ const AccountImport = (props, context) => {
           <a href="#">{context.t('AccountImport.contactUs')}</a>
         </p>
 
-        <Button onClick={onClick}>{context.t('AccountImport.submit')}</Button>
+        <ButtonPrimary disabled={seedPhrase.length === 0} onClick={onClick}>
+          {context.t('AccountImport.submit')}
+        </ButtonPrimary>
       </View>
     </Fragment>
   );

@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
-import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import ExternalLinkList from '~/components/ExternalLinkList';
 import Header from '~/components/Header';
 import LocaleSelector from '~/components/LocaleSelector';
@@ -26,21 +25,23 @@ const Settings = (props, context) => {
     <Fragment>
       <Header>
         <BackButton to="/" />
-        <UsernameDisplay address={safe.address} />
       </Header>
 
       <View>
+        <UsernameDisplay address={safe.address} />
         <QRCode data={safe.address} width={250} />
 
-        <Link to="/settings/share">
-          <Button>{context.t('Settings.share')}</Button>
-        </Link>
+        <ButtonPrimary to="/settings/share">
+          {context.t('Settings.share')}
+        </ButtonPrimary>
 
-        <Link to="/settings/keys">
-          <Button>{context.t('Settings.manageKeys')}</Button>
-        </Link>
+        <ButtonPrimary to="/settings/keys">
+          {context.t('Settings.manageKeys')}
+        </ButtonPrimary>
 
-        <Button onClick={onDeploy}>Debug: Deploy Safe</Button>
+        <ButtonPrimary disabled={!safe.nonce} onClick={onDeploy}>
+          Debug: Deploy Safe
+        </ButtonPrimary>
 
         <LocaleSelector />
         <ExternalLinkList />

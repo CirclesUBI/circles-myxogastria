@@ -1,6 +1,7 @@
 {
   "extends": [
     "stylelint-config-standard",
+    "stylelint-config-prettier",
     "stylelint-config-styled-components"
   ],
   "plugins": [
@@ -34,7 +35,6 @@
     ],
     "declaration-empty-line-before": null,
     "no-descending-specificity": null,
-    "number-leading-zero": "never",
     "order/order": [
       "at-rules",
       "less-mixins",
@@ -288,7 +288,6 @@
           "pointer-events"
         ]
       }
-    ],
-    "string-quotes": "single"
+    ]
   }
 }

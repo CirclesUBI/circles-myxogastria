@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import ActionButton from '~/components/ActionButton';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import Button from '~/components/Button';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
@@ -19,17 +19,13 @@ const Dashboard = () => {
   return (
     <Fragment>
       <Header>
-        <Link to="/settings">
-          <Button>
-            <QRCode data={safe.address} scale={1} width={30} />
-          </Button>
-        </Link>
+        <Button to="/settings">
+          <QRCode data={safe.address} scale={1} width={30} />
+        </Button>
 
         <BalanceDisplay />
 
-        <Link to="/activities">
-          <Button>0</Button>
-        </Link>
+        <Button to="/activities">0</Button>
       </Header>
 
       <DashboardView />
@@ -38,16 +34,15 @@ const Dashboard = () => {
 };
 
 const DashboardView = (props, context) => {
-  const { isTrusted } = useSelector(state => state.trust);
   const safe = useSelector(state => state.safe);
 
-  if (!isTrusted) {
+  if (safe.nonce) {
     return (
       <Fragment>
         <View>
           <TrustHealthDisplay />
           <h1>{context.t('Dashboard.welcomeToCircles')}</h1>
-          <QRCode data={safe.address} width={200} />
+          <QRCode data={safe.address} width={250} />
 
           <p>
             {context.t('Dashboard.trustDescription')}{' '}
@@ -56,9 +51,9 @@ const DashboardView = (props, context) => {
         </View>
 
         <Footer>
-          <Link to="/receive">
-            <Button>{context.t('Dashboard.share')}</Button>
-          </Link>
+          <ButtonPrimary to="/receive">
+            {context.t('Dashboard.share')}
+          </ButtonPrimary>
         </Footer>
       </Fragment>
     );

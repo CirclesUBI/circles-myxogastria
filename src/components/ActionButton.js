@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import Button from '~/components/Button';
+import styles from '~/styles/variables';
+import ButtonStyle from '~/components/Button';
 
 const ActionButton = () => {
   const [isActive, setIsActive] = useState(false);
@@ -13,36 +14,82 @@ const ActionButton = () => {
 
   return (
     <Fragment>
-      <ActionButtonExtended isActive={isActive} />
-      <Button onClick={onToggle}>+</Button>
+      <ActionButtonOverlay isActive={isActive} />
+      <ActionButtonMainStyle onClick={onToggle}>+</ActionButtonMainStyle>
     </Fragment>
   );
 };
 
-const ActionButtonExtended = props => {
+const ActionButtonOverlay = props => {
   if (!props.isActive) {
     return null;
   }
 
   return (
-    <Fragment>
-      <Link to="/trust">
-        <Button>Trust</Button>
-      </Link>
-
-      <Link to="/receive">
-        <Button>Receive</Button>
-      </Link>
-
-      <Link to="/send">
-        <Button>Send</Button>
-      </Link>
-    </Fragment>
+    <ActionButtonOverlayStyle>
+      <ActionButtonTrustStyle to="/trust">Trust</ActionButtonTrustStyle>
+      <ActionButtonReceiveStyle to="/receive">Receive</ActionButtonReceiveStyle>
+      <ActionButtonSendStyle to="/send">Send</ActionButtonSendStyle>
+    </ActionButtonOverlayStyle>
   );
 };
 
-ActionButtonExtended.propTypes = {
+ActionButtonOverlay.propTypes = {
   isActive: PropTypes.bool.isRequired,
 };
+
+const ActionButtonStyle = styled(ButtonStyle)`
+  position: absolute;
+
+  z-index: ${styles.zIndex.actionButton};
+
+  width: 6rem;
+  height: 6rem;
+
+  border-radius: 50%;
+
+  color: ${styles.components.button.color};
+
+  background-color: ${styles.colors.primary};
+
+  box-shadow: 0 0 25px ${styles.colors.shadow};
+`;
+
+const ActionButtonMainStyle = styled(ActionButtonStyle)`
+  right: 2rem;
+  bottom: 2rem;
+`;
+
+const ActionButtonOverlayStyle = styled.div`
+  @media ${styles.media.desktop} {
+    border-radius: ${styles.base.layout.borderRadius};
+  }
+
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  z-index: ${styles.zIndex.actionButtonOverlay};
+
+  background-color: ${styles.colors.secondary};
+`;
+
+const ActionButtonTrustStyle = styled(ActionButtonStyle)`
+  right: 10rem;
+  bottom: 10rem;
+`;
+
+const ActionButtonReceiveStyle = styled(ActionButtonStyle)`
+  right: 4rem;
+  bottom: 14rem;
+`;
+
+const ActionButtonSendStyle = styled(ActionButtonStyle)`
+  right: 14rem;
+  bottom: 4rem;
+`;
 
 export default ActionButton;
