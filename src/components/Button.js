@@ -35,7 +35,7 @@ Button.propTypes = {
   to: PropTypes.string,
 };
 
-const ButtonStyle = styled(Button)`
+export const ButtonStyle = styled(Button)`
   position: relative;
 
   display: inline-block;
@@ -59,4 +59,4 @@ const ButtonStyle = styled(Button)`
   }
 `;
 
-export default ButtonStyle;
+export default Button;

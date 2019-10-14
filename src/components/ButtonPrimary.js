@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import styles from '~/styles/variables';
-import ButtonStyle from '~/components/Button';
+import { ButtonStyle } from '~/components/Button';
 
 // eslint-disable-next-line react/display-name
 const ButtonPrimary = React.forwardRef(({ children, to, ...props }, ref) => {
