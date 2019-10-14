@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import Background from '~/styles/Background';
 import Fonts from '~/styles/Fonts';
 import Global from '~/styles/Global';
+import Icons from '~/styles/Icons';
 import Inputs from '~/styles/Inputs';
 import Layout from '~/styles/Layout';
 import Links from '~/styles/Links';
@@ -15,6 +16,7 @@ const GlobalStyle = () => {
       <Background />
       <Fonts />
       <Global />
+      <Icons />
       <Inputs />
       <Layout />
       <Links />
