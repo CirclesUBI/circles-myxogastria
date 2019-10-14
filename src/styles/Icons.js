@@ -10,7 +10,7 @@ export default createGlobalStyle`
     font-weight: normal;
     font-style: normal;
     font-display: block;
-    font-family: 'Circles', sans-serif;
+    font-family: 'Circles';
 
     src: url('${iconsEot}?vxg1ru');
     src: url('${iconsEot}?vxg1ru#iefix') format('embedded-opentype'),
