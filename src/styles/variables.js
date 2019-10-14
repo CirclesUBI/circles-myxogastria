@@ -93,5 +93,10 @@ export default {
     blurSmall: '5px',
     color: monochrome.gray,
   },
+  inputs: {
+    color: monochrome.black,
+    colorBackground: monochrome.grayLightest,
+    colorDisabled: monochrome.gray,
+  },
   zIndex,
 };
