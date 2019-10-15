@@ -1,66 +1,144 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import styles from '~/styles/variables';
-import ButtonStyle from '~/components/Button';
+import { ButtonStyle } from '~/components/Button';
+import { IconReceive, IconExit, IconSend, IconTrust } from '~/styles/Icons';
+
+const TRANSITION_DURATION = 500;
 
 const ActionButton = () => {
-  const [isActive, setIsActive] = useState(false);
+  const [isExtended, setIsExtended] = useState(false);
 
   const onToggle = () => {
-    setIsActive(!isActive);
+    setIsExtended(!isExtended);
   };
 
   return (
     <Fragment>
-      <ActionButtonOverlay isActive={isActive} />
-      <ActionButtonMainStyle onClick={onToggle}>+</ActionButtonMainStyle>
+      <Overlay isExtended={isExtended} />
+
+      <ToggleStyle isExtended={isExtended} onClick={onToggle}>
+        <IconExit />
+      </ToggleStyle>
     </Fragment>
   );
 };
 
-const ActionButtonOverlay = props => {
-  if (!props.isActive) {
+const Overlay = (props, context) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isPanelVisible, setIsPanelVisible] = useState(false);
+
+  useEffect(() => {
+    if (props.isExtended) {
+      setIsVisible(true);
+    } else {
+      window.setTimeout(() => {
+        setIsVisible(false);
+      }, TRANSITION_DURATION);
+    }
+
+    window.setTimeout(() => {
+      setIsPanelVisible(props.isExtended);
+    }, TRANSITION_DURATION / 20);
+  }, [props.isExtended]);
+
+  if (!isVisible) {
     return null;
   }
 
   return (
-    <ActionButtonOverlayStyle>
-      <ActionButtonTrustStyle to="/trust">Trust</ActionButtonTrustStyle>
-      <ActionButtonReceiveStyle to="/receive">Receive</ActionButtonReceiveStyle>
-      <ActionButtonSendStyle to="/send">Send</ActionButtonSendStyle>
-    </ActionButtonOverlayStyle>
+    <OverlayStyle isVisible={isPanelVisible}>
+      <PanelStyle isVisible={isPanelVisible}>
+        <PanelItemStyle>
+          <PanelButtonStyle to="/send">
+            <IconSend />
+            <span>{context.t('ActionButton.send')}</span>
+          </PanelButtonStyle>
+        </PanelItemStyle>
+
+        <PanelItemStyle>
+          <PanelButtonStyle to="/trust">
+            <IconTrust />
+            <span>{context.t('ActionButton.trust')}</span>
+          </PanelButtonStyle>
+        </PanelItemStyle>
+
+        <PanelItemStyle>
+          <PanelButtonStyle to="/receive">
+            <IconReceive />
+            <span>{context.t('ActionButton.receive')}</span>
+          </PanelButtonStyle>
+        </PanelItemStyle>
+      </PanelStyle>
+    </OverlayStyle>
   );
 };
 
-ActionButtonOverlay.propTypes = {
-  isActive: PropTypes.bool.isRequired,
+Overlay.propTypes = {
+  isExtended: PropTypes.bool.isRequired,
 };
 
+Overlay.contextTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+const actionButtonSize = '6rem';
+const panelHeight = '12rem';
+
+const gradient = `linear-gradient(
+  90deg,
+  ${styles.colors.primary} 0%,
+  ${styles.colors.accentAlternative} 100%
+)`;
+
 const ActionButtonStyle = styled(ButtonStyle)`
-  position: absolute;
-
-  z-index: ${styles.zIndex.actionButton};
-
-  width: 6rem;
-  height: 6rem;
+  width: ${actionButtonSize};
+  height: ${actionButtonSize};
 
   border-radius: 50%;
 
   color: ${styles.components.button.color};
 
-  background-color: ${styles.colors.primary};
+  background: ${gradient};
 
   box-shadow: 0 0 25px ${styles.colors.shadow};
 `;
 
-const ActionButtonMainStyle = styled(ActionButtonStyle)`
+const ToggleStyle = styled(ActionButtonStyle)`
+  position: absolute;
+
   right: 2rem;
   bottom: 2rem;
+
+  z-index: ${styles.zIndex.actionButton};
+
+  font-weight: ${styles.base.typography.weightSemiBold};
+  font-size: 2.5em;
+
+  transform: translate3d(
+      ${props => {
+        return props.isExtended ? '0, -14rem, 0' : '0, 0, 0';
+      }}
+    )
+    rotate(
+      ${props => {
+        return props.isExtended ? '0deg' : '45deg';
+      }}
+    );
+  transition: ${TRANSITION_DURATION}ms transform ease-in-out;
+
+  ${IconExit} {
+    position: relative;
+
+    top: -4px;
+
+    font-size: 2rem;
+  }
 `;
 
-const ActionButtonOverlayStyle = styled.div`
+const OverlayStyle = styled.div`
   @media ${styles.media.desktop} {
     border-radius: ${styles.base.layout.borderRadius};
   }
@@ -74,22 +152,70 @@ const ActionButtonOverlayStyle = styled.div`
 
   z-index: ${styles.zIndex.actionButtonOverlay};
 
-  background-color: ${styles.colors.secondary};
+  overflow: hidden;
+
+  background: ${props => {
+    return props.isVisible
+      ? `rgba(255, 255, 255, 0.9)`
+      : `rgba(255, 255, 255, 0)`;
+  }};
+
+  transition: ${TRANSITION_DURATION}ms background ease-in-out;
 `;
 
-const ActionButtonTrustStyle = styled(ActionButtonStyle)`
-  right: 10rem;
-  bottom: 10rem;
+const PanelStyle = styled.ul`
+  position: absolute;
+
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+
+  height: ${panelHeight};
+
+  background: ${gradient};
+
+  transform: ${props => {
+    return props.isVisible
+      ? 'translate3d(0, 0, 0)'
+      : `translate3d(0, ${panelHeight}, 0)`;
+  }};
+  transition: ${TRANSITION_DURATION}ms transform ease-in-out;
 `;
 
-const ActionButtonReceiveStyle = styled(ActionButtonStyle)`
-  right: 4rem;
-  bottom: 14rem;
+const PanelItemStyle = styled.li`
+  flex: 1;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `;
 
-const ActionButtonSendStyle = styled(ActionButtonStyle)`
-  right: 14rem;
-  bottom: 4rem;
+const PanelButtonStyle = styled(ButtonStyle)`
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+
+  color: ${styles.components.button.color};
+
+  flex-direction: column;
+  justify-content: center;
+
+  ${/* sc-selector */ IconReceive},
+  ${/* sc-selector */ IconSend},
+  ${/* sc-selector */ IconTrust} {
+    &::before {
+      font-size: 5rem;
+    }
+  }
+
+  span {
+    margin-top: 1rem;
+
+    font-weight: ${styles.base.typography.weightLight};
+  }
 `;
 
 export default ActionButton;

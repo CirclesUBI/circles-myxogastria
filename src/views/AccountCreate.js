@@ -51,7 +51,7 @@ const AccountCreate = (props, context) => {
   return (
     <Fragment>
       <Header>
-        <BackButton disabled={isLoading} to="/welcome" />
+        <BackButton disabled={isLoading} isDark to="/welcome" />
       </Header>
 
       <View>

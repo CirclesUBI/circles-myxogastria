@@ -15,13 +15,13 @@ const AccountConnect = (props, context) => {
   return (
     <Fragment>
       <Header>
-        <BackButton to="/welcome" />
+        <BackButton isDark to="/welcome" />
       </Header>
 
       <View>
         <h1>{context.t('AccountConnect.connectToYourWallet')}</h1>
 
-        <QRCode data={address} width={250} />
+        <QRCode data={address} />
 
         <ButtonPrimary to="/welcome/seed">
           {context.t('AccountConnect.restoreWithSeedPhrase')}

@@ -35,7 +35,7 @@ Button.propTypes = {
   to: PropTypes.string,
 };
 
-const ButtonStyle = styled(Button)`
+export const ButtonStyle = styled(Button)`
   position: relative;
 
   display: inline-block;
@@ -54,9 +54,13 @@ const ButtonStyle = styled(Button)`
 
   cursor: pointer;
 
+  &:focus {
+    outline: 0;
+  }
+
   &[disabled] {
     cursor: not-allowed;
   }
 `;
 
-export default ButtonStyle;
+export default Button;

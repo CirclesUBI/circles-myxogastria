@@ -98,7 +98,7 @@ const components = {
     height: '5rem',
   },
   header: {
-    height: '5rem',
+    height: '8rem',
   },
   button: {
     color: monochrome.white,
@@ -131,5 +131,6 @@ export default {
   colors,
   components,
   media,
+  monochrome,
   zIndex,
 };

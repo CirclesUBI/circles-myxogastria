@@ -22,7 +22,7 @@ const Profile = (props, context) => {
 
       <View>
         <UsernameDisplay address={address} />
-        <QRCode data={address} width={250} />
+        <QRCode data={address} />
 
         <ClipboardButton text={profileAddress}>
           {context.t('Profile.copyToClipboard')}
