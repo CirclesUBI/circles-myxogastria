@@ -73,7 +73,9 @@ const AppStyle = styled.div`
 
   position: relative;
 
-  min-width: 320px;
+  overflow: hidden;
+
+  min-width: 360px;
   height: 100%;
 
   margin: 0 auto;

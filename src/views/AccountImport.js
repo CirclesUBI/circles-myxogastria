@@ -40,7 +40,7 @@ const AccountImport = (props, context) => {
   return (
     <Fragment>
       <Header>
-        <BackButton to="/welcome/connect" />
+        <BackButton isDark to="/welcome/connect" />
       </Header>
 
       <View>

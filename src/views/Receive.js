@@ -21,7 +21,7 @@ const Receive = (props, context) => {
 
       <View>
         <UsernameDisplay address={safe.address} />
-        <QRCode data={safe.address} width={250} />
+        <QRCode data={safe.address} />
         <p>{context.t('Receive.showThisQR')}</p>
       </View>
 

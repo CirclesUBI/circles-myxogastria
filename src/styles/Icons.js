@@ -20,7 +20,7 @@ export default createGlobalStyle`
   }
 `;
 
-const IconBase = styled.i`
+export const IconBase = styled.i`
   font-weight: normal;
   font-style: normal;
   font-variant: normal;
@@ -88,5 +88,17 @@ export const IconTrust = styled(IconBase)`
 export const IconSend = styled(IconBase)`
   &::before {
     content: '\\e909';
+  }
+`;
+
+export const IconKeys = styled(IconBase)`
+  &::before {
+    content: '\\e90A';
+  }
+`;
+
+export const IconSpinner = styled(IconBase)`
+  &::before {
+    content: '\\e90B';
   }
 `;

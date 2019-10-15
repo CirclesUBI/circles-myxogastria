@@ -41,7 +41,7 @@ const BalanceStyle = styled.div`
   color: ${styles.components.button.color};
 
   ${IconCircles} {
-    margin-right: 0.5rem;
+    margin-right: 1rem;
 
     &::before {
       @media ${styles.media.desktop} {

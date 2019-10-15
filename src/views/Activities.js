@@ -8,7 +8,7 @@ const Activities = () => {
   return (
     <Fragment>
       <Header>
-        <BackButton to="/" />
+        <BackButton isDark to="/" />
       </Header>
     </Fragment>
   );

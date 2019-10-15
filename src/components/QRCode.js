@@ -3,6 +3,8 @@ import QRCodeGenerator from 'qrcode';
 import React, { createRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+import styles from '~/styles/variables';
+
 const QRCode = props => {
   // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +14,7 @@ const QRCode = props => {
     const options = {
       margin: 0,
       scale: props.scale || null,
-      width: props.width || null,
+      width: 250,
     };
 
     setIsLoading(true);
@@ -34,13 +36,22 @@ const QRCode = props => {
 QRCode.propTypes = {
   data: PropTypes.string.isRequired,
   scale: PropTypes.number,
-  width: PropTypes.number,
 };
 
 const QRCodeStyle = styled.div`
-  margin: 0 auto;
+  display: flex;
 
-  text-align: center;
+  width: 30rem;
+  height: 30rem;
+
+  margin: 2rem auto;
+
+  border-radius: 25px;
+
+  background-color: ${styles.monochrome.white};
+
+  align-items: center;
+  justify-content: center;
 `;
 
 export default QRCode;
