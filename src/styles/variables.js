@@ -98,7 +98,7 @@ const components = {
     height: '5rem',
   },
   header: {
-    height: '5rem',
+    height: '8rem',
   },
   button: {
     color: monochrome.white,
