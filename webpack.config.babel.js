@@ -69,6 +69,17 @@ export default () => {
       historyApiFallback: true,
       liveReload: false,
     },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: new RegExp(NODE_MODULES),
+            chunks: 'all',
+            name: 'lib',
+          },
+        },
+      },
+    },
     plugins: [
       new HtmlWebpackPlugin({
         minify: isDevelopment
