@@ -131,5 +131,6 @@ export default {
   colors,
   components,
   media,
+  monochrome,
   zIndex,
 };

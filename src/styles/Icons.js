@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import iconsEot from '~/../assets/fonts/circles.eot';
 import iconsSvg from '~/../assets/fonts/circles.svg';
@@ -18,56 +18,75 @@ export default createGlobalStyle`
       url('${iconsWoff}?vxg1ru') format('woff'),
       url('${iconsSvg}?vxg1ru#circles') format('svg');
   }
+`;
 
-  [class^="icon-"],
-  [class*=" icon-"] {
-    font-weight: normal;
-    font-style: normal;
-    font-variant: normal;
-    font-family: 'Circles', sans-serif;
+const IconBase = styled.i`
+  font-weight: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-family: 'Circles', sans-serif;
 
-    line-height: 1;
+  line-height: 1;
 
-    text-transform: none;
+  text-transform: none;
+`;
+
+export const IconCircles = styled(IconBase)`
+  &::before {
+    content: '\\e900';
   }
+`;
 
-  .icon-circles::before {
-    content: "\\e900";
+export const IconBack = styled(IconBase)`
+  &::before {
+    content: '\\e901';
   }
+`;
 
-  .icon-back::before {
-    content: "\\e901";
+export const IconExit = styled(IconBase)`
+  &::before {
+    content: '\\e902';
   }
+`;
 
-  .icon-exit::before {
-    content: "\\e902";
+export const IconCopy = styled(IconBase)`
+  &::before {
+    content: '\\e903';
   }
+`;
 
-  .icon-copy::before {
-    content: "\\e903";
+export const IconQR = styled(IconBase)`
+  &::before {
+    content: '\\e904';
   }
+`;
 
-  .icon-qr::before {
-    content: "\\e904";
+export const IconNotification = styled(IconBase)`
+  &::before {
+    content: '\\e905';
   }
+`;
 
-  .icon-notification::before {
-    content: "\\e905";
+export const IconActivities = styled(IconBase)`
+  &::before {
+    content: '\\e906';
   }
+`;
 
-  .icon-activities::before {
-    content: "\\e906";
+export const IconReceive = styled(IconBase)`
+  &::before {
+    content: '\\e907';
   }
+`;
 
-  .icon-receive::before {
-    content: "\\e907";
+export const IconTrust = styled(IconBase)`
+  &::before {
+    content: '\\e908';
   }
+`;
 
-  .icon-trust::before {
-    content: "\\e908";
-  }
-
-  .icon-send::before {
-    content: "\\e909";
+export const IconSend = styled(IconBase)`
+  &::before {
+    content: '\\e909';
   }
 `;

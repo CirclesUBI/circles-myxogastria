@@ -54,6 +54,10 @@ export const ButtonStyle = styled(Button)`
 
   cursor: pointer;
 
+  &:focus {
+    outline: 0;
+  }
+
   &[disabled] {
     cursor: not-allowed;
   }
