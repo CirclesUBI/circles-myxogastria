@@ -19,11 +19,7 @@ function formatBalance(value, decimals = 2) {
 const BalanceDisplay = () => {
   const token = useSelector(state => state.token);
 
-  if (token.isLoading && !token.balance) {
-    return null;
-  }
-
-  if (!token.balance) {
+  if (token.balance === null) {
     return null;
   }
 
