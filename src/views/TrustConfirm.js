@@ -60,7 +60,7 @@ const TrustConfirm = (props, context) => {
         <BackButton to="/trust" />
       </Header>
 
-      <View>
+      <View isHeader>
         <p>{context.t('TrustConfirm.confirmationText', { receiver })}</p>
 
         <ButtonPrimary onClick={onSubmit}>

@@ -45,7 +45,7 @@ const DashboardView = (props, context) => {
   if (safe.nonce) {
     return (
       <Fragment>
-        <View>
+        <View isFooter isHeader>
           <TrustHealthDisplay />
           <h1>{context.t('Dashboard.welcomeToCircles')}</h1>
           <QRCode data={safe.address} />
@@ -67,7 +67,7 @@ const DashboardView = (props, context) => {
 
   return (
     <Fragment>
-      <View>
+      <View isHeader>
         <TrustHealthDisplay />
         <TrustNetwork />
       </View>

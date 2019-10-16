@@ -26,7 +26,7 @@ const SettingsKeysExport = (props, context) => {
         <BackButton to="/settings/keys" />
       </Header>
 
-      <View>
+      <View isFooter isHeader>
         <textarea readOnly value={mnemonic} />
       </View>
 

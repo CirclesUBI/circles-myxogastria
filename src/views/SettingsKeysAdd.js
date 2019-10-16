@@ -50,7 +50,7 @@ const SettingsKeysAdd = (props, context) => {
         <BackButton disabled={isLoading} to="/settings/keys" />
       </Header>
 
-      <View>
+      <View isHeader>
         <QRCodeScanner disabled={isLoading} onSuccess={onSuccess} />
       </View>
     </Fragment>

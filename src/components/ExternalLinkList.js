@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
 import styles from '~/styles/variables';
@@ -8,43 +8,51 @@ import background from '~/../assets/images/background-orange-bottom.svg';
 
 const ExternalLinkList = (props, context) => {
   return (
-    <ListStyle>
-      <ListItemStyle>
-        <a href="#" target="_blank">
-          {context.t('ExternalLinkList.about')}
-        </a>
-      </ListItemStyle>
+    <Fragment>
+      <PushToBottomStyle />
 
-      <ListItemStyle>
-        <a href="#" target="_blank">
-          {context.t('ExternalLinkList.faq')}
-        </a>
-      </ListItemStyle>
+      <ListStyle>
+        <ListItemStyle>
+          <a href="#" target="_blank">
+            {context.t('ExternalLinkList.about')}
+          </a>
+        </ListItemStyle>
 
-      <ListItemStyle>
-        <a href="#" target="_blank">
-          {context.t('ExternalLinkList.marketplace')}
-        </a>
-      </ListItemStyle>
+        <ListItemStyle>
+          <a href="#" target="_blank">
+            {context.t('ExternalLinkList.faq')}
+          </a>
+        </ListItemStyle>
 
-      <ListItemStyle>
-        <a href="#" target="_blank">
-          {context.t('ExternalLinkList.meetups')}
-        </a>
-      </ListItemStyle>
+        <ListItemStyle>
+          <a href="#" target="_blank">
+            {context.t('ExternalLinkList.marketplace')}
+          </a>
+        </ListItemStyle>
 
-      <ListItemStyle>
-        <a href="#" target="_blank">
-          {context.t('ExternalLinkList.contact')}
-        </a>
-      </ListItemStyle>
-    </ListStyle>
+        <ListItemStyle>
+          <a href="#" target="_blank">
+            {context.t('ExternalLinkList.meetups')}
+          </a>
+        </ListItemStyle>
+
+        <ListItemStyle>
+          <a href="#" target="_blank">
+            {context.t('ExternalLinkList.contact')}
+          </a>
+        </ListItemStyle>
+      </ListStyle>
+    </Fragment>
   );
 };
 
 ExternalLinkList.contextTypes = {
   t: PropTypes.func.isRequired,
 };
+
+const PushToBottomStyle = styled.div`
+  flex: 1 0 auto;
+`;
 
 const ListStyle = styled.ul`
   margin-right: -${styles.base.layout.spacing};
@@ -55,6 +63,8 @@ const ListStyle = styled.ul`
   background-image: url(${background});
   background-repeat: no-repeat;
   background-size: cover;
+
+  flex-shrink: 0;
 `;
 
 const ListItemStyle = styled.li`

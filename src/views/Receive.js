@@ -19,7 +19,7 @@ const Receive = (props, context) => {
         <BackButton to="/" />
       </Header>
 
-      <View>
+      <View isFooter isHeader>
         <UsernameDisplay address={safe.address} />
         <QRCode data={safe.address} />
         <p>{context.t('Receive.showThisQR')}</p>

@@ -34,6 +34,8 @@ ButtonPrimary.propTypes = {
 };
 
 export const ButtonPrimaryStyle = styled(ButtonStyle)`
+  position: relative;
+
   display: block;
 
   width: 100%;
@@ -54,7 +56,11 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
   border-radius: 1.6rem;
 
   color: ${props => {
-    return props.disabled ? styles.monochrome.gray : styles.monochrome.white;
+    if (props.disabled) {
+      return styles.monochrome.gray;
+    }
+
+    return props.isOutline ? styles.colors.primary : styles.monochrome.white;
   }};
 
   background: ${props => {
@@ -80,10 +86,33 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
   font-weight: ${styles.base.typography.weightSemiBold};
   font-size: 1.1em;
 
-  transition: opacity 0.3s linear;
-
   &:hover {
-    opacity: 0.75;
+    &::after {
+      opacity: 0.2;
+    }
+  }
+
+  &::after {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: block;
+
+    border-radius: 1.6rem;
+
+    content: '';
+
+    background-color: ${styles.monochrome.white};
+
+    opacity: 0;
+
+    transition: opacity 0.3s ease-in;
+
+    pointer-events: none;
   }
 
   a {

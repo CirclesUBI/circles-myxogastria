@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Button from '~/components/Button';
 import notify from '~/store/notifications/actions';
+import styles from '~/styles/variables';
+import { ButtonStyle } from '~/components/Button';
 import { LOCALES } from '~/../locales';
 import { selectLocale } from '~/store/locale/actions';
 
@@ -33,13 +35,13 @@ const LocaleSelectorList = (props, context) => {
     const isSelected = lang === locale;
 
     return (
-      <li key={locale}>
+      <LocaleListItemStyle key={locale}>
         <LocaleSelectorButton
           isSelected={isSelected}
           locale={locale}
           onSelect={onSelect}
         />
-      </li>
+      </LocaleListItemStyle>
     );
   });
 };
@@ -50,9 +52,9 @@ const LocaleSelectorButton = (props, context) => {
   };
 
   return (
-    <Button disabled={props.isSelected} onClick={onSelect}>
+    <LocaleButtonStyle disabled={props.isSelected} onClick={onSelect}>
       {context.t(`LocaleSelector.${props.locale}`)}
-    </Button>
+    </LocaleButtonStyle>
   );
 };
 
@@ -69,5 +71,25 @@ LocaleSelectorButton.propTypes = {
   locale: PropTypes.string.isRequired,
   onSelect: PropTypes.func.isRequired,
 };
+
+const LocaleListItemStyle = styled.li`
+  display: inline;
+
+  & + & {
+    margin-left: 0.5rem;
+
+    &::before {
+      display: inline;
+
+      margin-right: 0.5rem;
+
+      content: '/';
+    }
+  }
+`;
+
+const LocaleButtonStyle = styled(ButtonStyle)`
+  font-weight: ${styles.base.typography.weightSemiBold};
+`;
 
 export default LocaleSelector;

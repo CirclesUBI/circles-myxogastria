@@ -13,7 +13,7 @@ const SettingsLocale = () => {
         <BackButton to="/settings" />
       </Header>
 
-      <View>
+      <View isHeader>
         <LocaleSelector />
       </View>
     </Fragment>

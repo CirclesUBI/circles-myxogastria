@@ -25,7 +25,6 @@ export const FooterStyle = styled.footer`
 
   height: ${styles.components.footer.height};
 
-  margin-bottom: 0.5rem;
   padding: ${styles.base.layout.spacing};
 
   align-items: center;

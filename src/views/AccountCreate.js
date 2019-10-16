@@ -54,7 +54,7 @@ const AccountCreate = (props, context) => {
         <BackButton disabled={isLoading} isDark to="/welcome" />
       </Header>
 
-      <View>
+      <View isFooter isHeader>
         <h1>{context.t('AccountCreate.createYourUsername')}</h1>
         <p>{context.t('AccountCreate.yourUsernameDescription')}</p>
 

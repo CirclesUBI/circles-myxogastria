@@ -43,7 +43,7 @@ const AccountImport = (props, context) => {
         <BackButton isDark to="/welcome/connect" />
       </Header>
 
-      <View>
+      <View isHeader>
         <h1>{context.t('AccountImport.connectToYourWallet')}</h1>
         <p>{context.t('AccountImport.enterYourSeedPhrase')}</p>
 

@@ -75,7 +75,7 @@ const inputs = {
 
 const layout = {
   borderRadius: '1rem',
-  spacing: '1rem',
+  spacing: '2rem',
   width: dimensions.width,
   height: dimensions.height,
 };
@@ -96,7 +96,7 @@ const base = {
 
 const components = {
   footer: {
-    height: '5rem',
+    height: '7rem',
   },
   header: {
     height: '8rem',

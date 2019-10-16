@@ -39,7 +39,7 @@ const SafeFinderView = props => {
 
   return (
     <Fragment>
-      <View>
+      <View isFooter={props.isFooter} isHeader={props.isHeader}>
         <UsernameFinder
           input={usernameInput}
           onInputChange={onUserInputChange}
@@ -88,6 +88,8 @@ const SafeFinderViewFooter = (props, context) => {
 };
 
 SafeFinderView.propTypes = {
+  isFooter: PropTypes.bool,
+  isHeader: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
 };
 

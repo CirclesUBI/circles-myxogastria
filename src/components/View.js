@@ -3,17 +3,27 @@ import React from 'react';
 import styled from 'styled-components';
 
 import styles from '~/styles/variables';
-import { HeaderStyle } from '~/components/Header';
 
 const View = props => {
-  return <ViewStyle>{props.children}</ViewStyle>;
+  return (
+    <ViewStyle
+      isFooter={props.isFooter}
+      isHeader={props.isHeader}
+      isPushingToBottom={props.isPushingToBottom}
+    >
+      {props.children}
+    </ViewStyle>
+  );
 };
 
 View.propTypes = {
   children: PropTypes.node.isRequired,
+  isFooter: PropTypes.bool,
+  isHeader: PropTypes.bool,
+  isPushingToBottom: PropTypes.bool,
 };
 
-const ViewStyle = styled.main`
+export const ViewStyle = styled.main`
   position: absolute;
 
   top: 0;
@@ -23,16 +33,31 @@ const ViewStyle = styled.main`
 
   z-index: ${styles.zIndex.view};
 
+  display: ${props => {
+    return props.isPushingToBottom ? 'flex' : 'block';
+  }};
+
   overflow-x: hidden;
   overflow-y: auto;
 
-  padding: ${styles.base.layout.spacing};
-  padding-bottom: ${styles.components.footer.height};
+  padding-top: ${props => {
+    return props.isHeader ? styles.components.header.height : 0;
+  }};
+  padding-right: ${styles.base.layout.spacing};
+  padding-left: ${styles.base.layout.spacing};
 
   text-align: center;
 
-  ${HeaderStyle} + & {
-    padding-top: ${styles.components.header.height};
+  flex-direction: column;
+
+  &::after {
+    display: block;
+
+    height: ${props => {
+      return props.isFooter ? styles.components.footer.height : 0;
+    }};
+
+    content: '';
   }
 `;
 

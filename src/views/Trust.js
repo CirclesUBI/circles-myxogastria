@@ -22,7 +22,7 @@ const Trust = () => {
         <BackButton to="/" />
       </Header>
 
-      <SafeFinderView onSelect={onSelect} />
+      <SafeFinderView isHeader onSelect={onSelect} />
     </Fragment>
   );
 };

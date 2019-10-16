@@ -21,7 +21,7 @@ const SettingsShare = (props, context) => {
         <BackButton to="/settings" />
       </Header>
 
-      <View>
+      <View isFooter isHeader>
         <textarea readOnly={true} value={shareText} />
       </View>
 

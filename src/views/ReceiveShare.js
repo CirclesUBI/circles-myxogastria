@@ -21,7 +21,7 @@ const ReceiveShare = (props, context) => {
         <BackButton to="/receive" />
       </Header>
 
-      <View>
+      <View isFooter isHeader>
         <textarea readOnly={true} value={shareText} />
       </View>
 

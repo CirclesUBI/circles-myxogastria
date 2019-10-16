@@ -18,7 +18,7 @@ const AccountConnect = (props, context) => {
         <BackButton isDark to="/welcome" />
       </Header>
 
-      <View>
+      <View isHeader>
         <h1>{context.t('AccountConnect.connectToYourWallet')}</h1>
 
         <QRCode data={address} />

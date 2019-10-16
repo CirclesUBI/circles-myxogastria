@@ -41,7 +41,7 @@ const Settings = (props, context) => {
         </HeaderButton>
       </Header>
 
-      <View>
+      <View isHeader>
         <QRCode data={safe.address} />
 
         <ButtonPrimary to="/settings/share">

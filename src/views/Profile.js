@@ -20,7 +20,7 @@ const Profile = (props, context) => {
         <BackButton to="/" />
       </Header>
 
-      <View>
+      <View isHeader>
         <UsernameDisplay address={address} />
         <QRCode data={address} />
 

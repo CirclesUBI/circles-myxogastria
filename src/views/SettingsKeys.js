@@ -27,7 +27,7 @@ const SettingsKeys = (props, context) => {
         <BackButton to="/settings" />
       </Header>
 
-      <View>
+      <View isHeader>
         <h1>{context.t('SettingsKeys.manageKeys')}</h1>
         <p>{context.t('SettingsKeys.devicesAccessingAccount')}</p>
 

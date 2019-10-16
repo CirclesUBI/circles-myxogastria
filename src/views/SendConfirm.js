@@ -99,7 +99,7 @@ const SendConfirmView = props => {
         <BackButton to="/send" />
       </Header>
 
-      <View>{props.children}</View>
+      <View isHeader>{props.children}</View>
     </Fragment>
   );
 };
