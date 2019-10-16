@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import ButtonPrimary from '~/components/ButtonPrimary';
@@ -9,16 +9,23 @@ import Header from '~/components/Header';
 import SafeOwnerManager from '~/components/SafeOwnerManager';
 import View from '~/components/View';
 import { burnApp } from '~/store/app/actions';
+import { finalizeNewAccount } from '~/store/onboarding/actions';
 
 import background from '~/../assets/images/background-green.svg';
 
 const SettingsKeys = (props, context) => {
+  const safe = useSelector(state => state.safe);
   const dispatch = useDispatch();
 
   const onBurnClick = () => {
     if (window.confirm(context.t('SettingsKeys.areYouSure'))) {
       dispatch(burnApp());
     }
+  };
+
+  // @TODO: Remove this when we've implemented all of the onboarding flows
+  const onDeploy = () => {
+    dispatch(finalizeNewAccount());
   };
 
   return (
@@ -39,6 +46,10 @@ const SettingsKeys = (props, context) => {
 
         <ButtonPrimary onClick={onBurnClick}>
           {context.t('SettingsKeys.endSession')}
+        </ButtonPrimary>
+
+        <ButtonPrimary disabled={!safe.nonce} isOutline onClick={onDeploy}>
+          Debug: Deploy Safe
         </ButtonPrimary>
       </View>
     </BackgroundStyle>

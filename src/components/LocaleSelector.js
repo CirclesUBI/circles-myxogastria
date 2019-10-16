@@ -84,11 +84,17 @@ const LocaleListItemStyle = styled.li`
       margin-right: 0.5rem;
 
       content: '/';
+
+      color: ${styles.monochrome.gray};
     }
   }
 `;
 
 const LocaleButtonStyle = styled(ButtonStyle)`
+  color: ${props => {
+    return props.disabled ? styles.monochrome.black : styles.monochrome.gray;
+  }};
+
   font-weight: ${styles.base.typography.weightSemiBold};
 `;
 

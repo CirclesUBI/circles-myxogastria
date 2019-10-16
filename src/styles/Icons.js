@@ -49,7 +49,7 @@ export const IconExit = styled(IconBase)`
   }
 `;
 
-export const IconCopy = styled(IconBase)`
+export const IconShare = styled(IconBase)`
   &::before {
     content: '\\e903';
   }

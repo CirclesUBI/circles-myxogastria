@@ -97,7 +97,7 @@ const NotificationsItemStyle = styled.li`
 
   background-color: ${styles.colors.secondary};
 
-  box-shadow: 0 0 5px ${styles.colors.shadow};
+  box-shadow: 0 0 5px ${styles.monochrome.gray};
 
   cursor: pointer;
 `;

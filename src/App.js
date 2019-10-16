@@ -82,7 +82,7 @@ const AppStyle = styled.div`
 
   background-color: ${styles.base.background.color};
 
-  box-shadow: 0 0 25px ${styles.colors.shadow};
+  box-shadow: 0 0 25px ${styles.monochrome.gray};
 `;
 
 export default App;

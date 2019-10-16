@@ -1,0 +1,98 @@
+import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+import styles from '~/styles/variables';
+import { ButtonStyle } from '~/components/Button';
+import { IconBase } from '~/styles/Icons';
+
+const RoundButton = ({ to, children, ...props }) => {
+  if (to) {
+    return (
+      <Link to={to}>
+        <ShareButtonStyle {...props}>{children}</ShareButtonStyle>
+      </Link>
+    );
+  }
+
+  return <ShareButtonStyle {...props}>{children}</ShareButtonStyle>;
+};
+
+RoundButton.propTypes = {
+  children: PropTypes.any.isRequired,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  to: PropTypes.string,
+};
+
+export const ShareButtonStyle = styled(ButtonStyle)`
+  position: relative;
+
+  display: flex;
+
+  width: 7rem;
+  height: 7rem;
+
+  margin: 1rem auto;
+  padding: 1rem;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    90deg,
+    ${styles.colors.primary},
+    ${styles.colors.primaryDark} 100%
+  );
+
+  box-shadow: 1px 1px 7px ${styles.monochrome.grayDark};
+
+  flex-direction: column;
+
+  &:hover {
+    &::after {
+      opacity: 0.2;
+    }
+  }
+
+  &::after {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: block;
+
+    border-radius: 50%;
+
+    content: '';
+
+    background-color: ${styles.monochrome.white};
+
+    opacity: 0;
+
+    transition: opacity 0.3s ease-in;
+
+    pointer-events: none;
+  }
+
+  span {
+    margin-top: 0.3rem;
+
+    color: ${styles.monochrome.white};
+
+    font-weight: ${styles.base.typography.weightLight};
+  }
+
+  ${IconBase} {
+    &::before {
+      color: ${styles.monochrome.white};
+
+      font-size: 1.5em;
+    }
+  }
+`;
+
+export default RoundButton;

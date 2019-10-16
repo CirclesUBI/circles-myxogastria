@@ -103,7 +103,7 @@ const ActionButtonStyle = styled(ButtonStyle)`
 
   background: ${gradient};
 
-  box-shadow: 0 0 25px ${styles.colors.shadow};
+  box-shadow: 0 0 25px ${styles.monochrome.gray};
 `;
 
 const ToggleStyle = styled(ActionButtonStyle)`

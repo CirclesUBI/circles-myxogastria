@@ -54,7 +54,6 @@ const colors = {
   primaryDarker: color.purpleDarker,
   secondary: color.turquoise,
   secondaryDark: color.turquoiseDark,
-  shadow: monochrome.gray,
 };
 
 // Base
