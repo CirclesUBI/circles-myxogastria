@@ -7,17 +7,24 @@ import styles from '~/styles/variables';
 import { ButtonStyle } from '~/components/Button';
 import { IconBase } from '~/styles/Icons';
 
-const RoundButton = ({ to, children, ...props }) => {
+// eslint-disable-next-line react/display-name
+const RoundButton = React.forwardRef(({ to, children, ...props }, ref) => {
   if (to) {
     return (
       <Link to={to}>
-        <ShareButtonStyle {...props}>{children}</ShareButtonStyle>
+        <ShareButtonStyle {...props} ref={ref}>
+          {children}
+        </ShareButtonStyle>
       </Link>
     );
   }
 
-  return <ShareButtonStyle {...props}>{children}</ShareButtonStyle>;
-};
+  return (
+    <ShareButtonStyle {...props} ref={ref}>
+      {children}
+    </ShareButtonStyle>
+  );
+});
 
 RoundButton.propTypes = {
   children: PropTypes.any.isRequired,

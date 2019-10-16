@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
-import ClipboardButton from '~/components/ClipboardButton';
-import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
+
+import background from '~/../assets/images/background-whirly-green.svg';
 
 const SettingsShare = (props, context) => {
   const safe = useSelector(state => state.safe);
@@ -16,26 +18,30 @@ const SettingsShare = (props, context) => {
   const shareText = context.t('SettingsShare.shareText', { shareLink });
 
   return (
-    <Fragment>
+    <BackgroundStyle>
       <Header>
-        <BackButton to="/settings" />
+        <BackButton isDark to="/settings" />
       </Header>
 
       <View isFooter isHeader>
-        <textarea readOnly={true} value={shareText} />
+        <p>{context.t('SettingsShare.description')}</p>
+        <ShareTextBox text={shareText} />
       </View>
-
-      <Footer>
-        <ClipboardButton text={shareText}>
-          {context.t('SettingsShare.copyToClipboard')}
-        </ClipboardButton>
-      </Footer>
-    </Fragment>
+    </BackgroundStyle>
   );
 };
 
 SettingsShare.contextTypes = {
   t: PropTypes.func.isRequired,
 };
+
+const BackgroundStyle = styled.div`
+  height: 100%;
+
+  background-image: url(${background});
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+`;
 
 export default SettingsShare;

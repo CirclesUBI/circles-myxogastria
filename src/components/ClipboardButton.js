@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import React, { createRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import ButtonPrimary from '~/components/ButtonPrimary';
+import RoundButton from '~/components/RoundButton';
 import notify from '~/store/notifications/actions';
+import { IconShare } from '~/styles/Icons';
 
 const ClipboardButton = (props, context) => {
   const dispatch = useDispatch();
@@ -32,7 +33,12 @@ const ClipboardButton = (props, context) => {
 
   useEffect(initializeClipboard, [props.text]);
 
-  return <ButtonPrimary ref={ref}>{props.children}</ButtonPrimary>;
+  return (
+    <RoundButton ref={ref}>
+      <IconShare />
+      <span>{context.t('ClipboardButton.share')}</span>
+    </RoundButton>
+  );
 };
 
 ClipboardButton.contextTypes = {
@@ -40,7 +46,6 @@ ClipboardButton.contextTypes = {
 };
 
 ClipboardButton.propTypes = {
-  children: PropTypes.any.isRequired,
   text: PropTypes.string.isRequired,
 };
 
