@@ -80,6 +80,12 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
   font-weight: ${styles.base.typography.weightSemiBold};
   font-size: 1.1em;
 
+  transition: opacity 0.3s linear;
+
+  &:hover {
+    opacity: 0.75;
+  }
+
   a {
     color: ${styles.components.button.color};
   }

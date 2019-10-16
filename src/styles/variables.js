@@ -51,6 +51,7 @@ const colors = {
   accentAlternativeDark: color.orangeDark,
   primary: color.purple,
   primaryDark: color.purpleDark,
+  primaryDarker: color.purpleDarker,
   secondary: color.turquoise,
   secondaryDark: color.turquoiseDark,
   shadow: monochrome.gray,
