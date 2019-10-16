@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import styles from '~/styles/variables';
+import { IconNotification } from '~/styles/Icons';
 import { removeNotification } from '~/store/notifications/actions';
 
 const Notifications = () => {
@@ -59,6 +60,7 @@ const NotificationsItem = props => {
 
   return (
     <NotificationsItemStyle onClick={onRemove}>
+      <IconNotification />
       {props.text}
     </NotificationsItemStyle>
   );
@@ -92,14 +94,34 @@ const NotificationsListStyle = styled.ul`
 `;
 
 const NotificationsItemStyle = styled.li`
+  display: flex;
+
   margin: ${styles.base.layout.spacing};
-  padding: 1rem;
+  padding: 2rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 
-  background-color: ${styles.colors.secondary};
+  border-radius: 5px;
 
-  box-shadow: 0 0 5px ${styles.monochrome.gray};
+  background-color: ${styles.monochrome.white};
+
+  font-weight: ${styles.base.typography.weightLight};
+
+  box-shadow: 1px 5px 5px ${styles.monochrome.gray};
+
+  align-items: center;
 
   cursor: pointer;
+
+  ${IconNotification} {
+    margin-right: 1rem;
+
+    &::before {
+      color: ${styles.colors.primary};
+
+      font-size: 2em;
+    }
+  }
 `;
 
 export default Notifications;

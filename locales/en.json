@@ -24,7 +24,7 @@
   "ActionButton.send": "Send",
   "ActionButton.trust": "Trust",
   "App.updateErrorMessage": "Something went wrong .. are you connected to the internet?",
-  "ClipboardButton.copiedMessage": "Copied to clipboard!",
+  "ClipboardButton.copiedMessage": "Text copied to clipboard!",
   "ClipboardButton.share": "Copy",
   "CriticalError.areYouSure": "Are you really sure you want to reset this device?",
   "CriticalError.criticalErrorDescription": "Something went wrong.",
