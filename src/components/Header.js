@@ -25,11 +25,39 @@ export const HeaderStyle = styled.header`
 
   height: ${styles.components.header.height};
 
-  padding-right: 1rem;
-  padding-left: 1rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
 
   align-items: center;
   justify-content: space-between;
+`;
+
+export const HeaderCenterStyle = styled.div`
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  left: 0;
+
+  display: flex;
+
+  height: ${styles.components.header.height};
+
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+`;
+
+export const HeaderTitleStyle = styled.h1`
+  color: ${props => {
+    return props.isDark ? styles.monochrome.black : styles.monochrome.white;
+  }};
+
+  font-weight: ${styles.base.typography.weightSemiBold};
+  font-size: 1.5em;
+
+  pointer-events: initial;
 `;
 
 export default Header;

@@ -1,5 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
+import styles from '~/styles/variables';
+
 import iconsEot from '%/fonts/circles.eot';
 import iconsSvg from '%/fonts/circles.svg';
 import iconsTtf from '%/fonts/circles.ttf';
@@ -21,6 +23,10 @@ export default createGlobalStyle`
 `;
 
 export const IconBase = styled.i`
+  color: ${props => {
+    return props.isDark ? styles.monochrome.black : styles.monochrome.white;
+  }};
+
   font-weight: normal;
   font-style: normal;
   font-variant: normal;
@@ -100,5 +106,11 @@ export const IconKeys = styled(IconBase)`
 export const IconSpinner = styled(IconBase)`
   &::before {
     content: '\\e90B';
+  }
+`;
+
+export const IconScanner = styled(IconBase)`
+  &::before {
+    content: '\\e90C';
   }
 `;

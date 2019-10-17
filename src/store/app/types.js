@@ -7,4 +7,6 @@ export default createTypes(
   'APP_INITIALIZE',
   'APP_INITIALIZE_ERROR',
   'APP_INITIALIZE_SUCCESS',
+  'APP_SPINNER_HIDE',
+  'APP_SPINNER_SHOW',
 );

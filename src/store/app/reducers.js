@@ -5,6 +5,7 @@ import ActionTypes from '~/store/app/types';
 const initialState = {
   isConnected: false,
   isError: false,
+  isLoading: false,
   isReady: false,
 };
 
@@ -29,6 +30,14 @@ const appReducer = (state = initialState, action) => {
     case ActionTypes.APP_CONNECT_ERROR:
       return update(state, {
         isConnected: { $set: false },
+      });
+    case ActionTypes.APP_SPINNER_SHOW:
+      return update(state, {
+        isLoading: { $set: true },
+      });
+    case ActionTypes.APP_SPINNER_HIDE:
+      return update(state, {
+        isLoading: { $set: false },
       });
     default:
       return state;

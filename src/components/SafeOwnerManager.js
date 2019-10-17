@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Button from '~/components/Button';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import styles from '~/styles/variables';
+import { ButtonStyle } from '~/components/Button';
+import { IconExit } from '~/styles/Icons';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { removeSafeOwner, getSafeOwners } from '~/store/safe/actions';
 
 const SafeOwnerManager = (props, context) => {
@@ -12,14 +16,13 @@ const SafeOwnerManager = (props, context) => {
   const dispatch = useDispatch();
 
   const isDisabled = safe.nonce !== null;
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     dispatch(getSafeOwners());
   }, []);
 
   const onRemove = async address => {
-    setIsLoading(true);
+    dispatch(showSpinnerOverlay());
 
     try {
       await dispatch(removeSafeOwner(address));
@@ -32,20 +35,16 @@ const SafeOwnerManager = (props, context) => {
       );
     }
 
-    setIsLoading(false);
+    dispatch(hideSpinnerOverlay());
   };
 
   return (
     <Fragment>
       <ul>
-        <SafeOwnerManagerList
-          isLoading={isLoading}
-          owners={safe.owners}
-          onRemove={onRemove}
-        />
+        <SafeOwnerManagerList owners={safe.owners} onRemove={onRemove} />
       </ul>
 
-      <ButtonPrimary disabled={isDisabled || isLoading} to="/settings/keys/add">
+      <ButtonPrimary disabled={isDisabled} to="/settings/keys/add">
         {context.t('SafeOwnerManager.addNewDevice')}
       </ButtonPrimary>
     </Fragment>
@@ -57,7 +56,6 @@ const SafeOwnerManagerList = props => {
     return (
       <SafeOwnerManagerItem
         address={address}
-        isLoading={props.isLoading}
         key={address}
         onRemove={props.onRemove}
       />
@@ -65,30 +63,29 @@ const SafeOwnerManagerList = props => {
   });
 };
 
-const SafeOwnerManagerItem = (props, context) => {
+const SafeOwnerManagerItem = props => {
   const onRemove = async () => {
     props.onRemove(props.address);
   };
 
   return (
-    <li>
-      {props.address}{' '}
-      <Button disabled={props.isLoading} onClick={onRemove}>
-        {context.t('SafeOwnerManager.remove')}
-      </Button>
-    </li>
+    <OwnerStyle>
+      <span>{props.address}</span>
+
+      <ButtonStyle onClick={onRemove}>
+        <IconExit isDark />
+      </ButtonStyle>
+    </OwnerStyle>
   );
 };
 
 SafeOwnerManagerList.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
   onRemove: PropTypes.func.isRequired,
   owners: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 SafeOwnerManagerItem.propTypes = {
   address: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
   onRemove: PropTypes.func.isRequired,
 };
 
@@ -99,5 +96,36 @@ SafeOwnerManager.contextTypes = {
 SafeOwnerManagerItem.contextTypes = {
   t: PropTypes.func.isRequired,
 };
+
+const OwnerStyle = styled.li`
+  display: flex;
+
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1.5rem;
+
+  border-radius: 5px;
+
+  background-color: ${styles.monochrome.grayLighter};
+
+  justify-content: space-between;
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    font-weight: ${styles.base.typography.weightLight};
+
+    letter-spacing: 2px;
+  }
+
+  ${IconExit} {
+    &::before {
+      color: ${styles.monochrome.grayDark};
+    }
+  }
+`;
 
 export default SafeOwnerManager;

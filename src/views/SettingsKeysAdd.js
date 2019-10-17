@@ -4,20 +4,25 @@ import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
-import Header from '~/components/Header';
+import HomeButton from '~/components/HomeButton';
 import QRCodeScanner from '~/components/QRCodeScanner';
 import View from '~/components/View';
 import notify from '~/store/notifications/actions';
 import { addSafeOwner } from '~/store/safe/actions';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+
+import Header, {
+  HeaderCenterStyle,
+  HeaderTitleStyle,
+} from '~/components/Header';
 
 const SettingsKeysAdd = (props, context) => {
   const dispatch = useDispatch();
 
   const [isDone, setIsDone] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const onSuccess = async address => {
-    setIsLoading(true);
+  const onQRCodeScanned = async address => {
+    dispatch(showSpinnerOverlay());
 
     try {
       await dispatch(addSafeOwner(address));
@@ -37,7 +42,7 @@ const SettingsKeysAdd = (props, context) => {
       );
     }
 
-    setIsLoading(false);
+    dispatch(hideSpinnerOverlay());
   };
 
   if (isDone) {
@@ -47,11 +52,19 @@ const SettingsKeysAdd = (props, context) => {
   return (
     <Fragment>
       <Header>
-        <BackButton disabled={isLoading} to="/settings/keys" />
+        <BackButton isDark to="/settings/keys" />
+
+        <HeaderCenterStyle>
+          <HeaderTitleStyle isDark>
+            {context.t('SettingsKeysAdd.addDevice')}
+          </HeaderTitleStyle>
+        </HeaderCenterStyle>
+
+        <HomeButton isDark />
       </Header>
 
       <View isHeader>
-        <QRCodeScanner disabled={isLoading} onSuccess={onSuccess} />
+        <QRCodeScanner onSuccess={onQRCodeScanned} />
       </View>
     </Fragment>
   );

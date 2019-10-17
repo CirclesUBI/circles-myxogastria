@@ -19,7 +19,6 @@ import Settings from '~/views/Settings';
 import SettingsKeys from '~/views/SettingsKeys';
 import SettingsKeysAdd from '~/views/SettingsKeysAdd';
 import SettingsKeysExport from '~/views/SettingsKeysExport';
-import SettingsLocale from '~/views/SettingsLocale';
 import SettingsShare from '~/views/SettingsShare';
 import Trust from '~/views/Trust';
 import TrustConfirm from '~/views/TrustConfirm';
@@ -88,7 +87,6 @@ const Routes = () => (
     <SessionRoute component={SettingsKeysAdd} path="/settings/keys/add" />
     <SessionRoute component={SettingsKeysExport} path="/settings/keys/export" />
     <SessionRoute component={SettingsKeys} path="/settings/keys" />
-    <SessionRoute component={SettingsLocale} path="/settings/locale" />
     <SessionRoute component={SettingsShare} path="/settings/share" />
     <SessionRoute component={Settings} path="/settings" />
     <OnboardingRoute component={AccountCreate} path="/welcome/new" />

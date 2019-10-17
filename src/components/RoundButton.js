@@ -12,17 +12,17 @@ const RoundButton = React.forwardRef(({ to, children, ...props }, ref) => {
   if (to) {
     return (
       <Link to={to}>
-        <ShareButtonStyle {...props} ref={ref}>
+        <RoundButtonStyle {...props} ref={ref}>
           {children}
-        </ShareButtonStyle>
+        </RoundButtonStyle>
       </Link>
     );
   }
 
   return (
-    <ShareButtonStyle {...props} ref={ref}>
+    <RoundButtonStyle {...props} ref={ref}>
       {children}
-    </ShareButtonStyle>
+    </RoundButtonStyle>
   );
 });
 
@@ -33,7 +33,7 @@ RoundButton.propTypes = {
   to: PropTypes.string,
 };
 
-export const ShareButtonStyle = styled(ButtonStyle)`
+export const RoundButtonStyle = styled(ButtonStyle)`
   position: relative;
 
   display: flex;

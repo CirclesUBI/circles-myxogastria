@@ -68,3 +68,15 @@ export function burnApp() {
     window.location.reload();
   };
 }
+
+export function showSpinnerOverlay() {
+  return {
+    type: ActionTypes.APP_SPINNER_SHOW,
+  };
+}
+
+export function hideSpinnerOverlay() {
+  return {
+    type: ActionTypes.APP_SPINNER_HIDE,
+  };
+}

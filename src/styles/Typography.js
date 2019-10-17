@@ -19,7 +19,9 @@ export default createGlobalStyle`
   }
 
   p {
-    margin: 0;
+    max-width: 30rem;
+
+    margin: 0 auto;
     padding: 0;
 
     + p {

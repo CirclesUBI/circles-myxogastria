@@ -121,7 +121,8 @@ const zIndex = {
   footer: 2000,
   actionButtonOverlay: 3000,
   actionButton: 4000,
-  notifications: 5000,
+  spinnerOverlay: 9000,
+  notifications: 10000,
 };
 
 // Variables

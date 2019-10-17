@@ -2,11 +2,15 @@ import PropTypes from 'prop-types';
 import React, { Fragment, useState, useEffect } from 'react';
 
 import BackButton from '~/components/BackButton';
-import ClipboardButton from '~/components/ClipboardButton';
-import Footer from '~/components/Footer';
-import Header from '~/components/Header';
+import HomeButton from '~/components/HomeButton';
+import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
+
+import Header, {
+  HeaderCenterStyle,
+  HeaderTitleStyle,
+} from '~/components/Header';
 
 const SettingsKeysExport = (props, context) => {
   const [mnemonic, setMnemonic] = useState('');
@@ -23,18 +27,21 @@ const SettingsKeysExport = (props, context) => {
   return (
     <Fragment>
       <Header>
-        <BackButton to="/settings/keys" />
+        <BackButton isDark to="/settings/keys" />
+
+        <HeaderCenterStyle>
+          <HeaderTitleStyle isDark>
+            {context.t('SettingsKeysExport.exportSeedPhrase')}
+          </HeaderTitleStyle>
+        </HeaderCenterStyle>
+
+        <HomeButton isDark />
       </Header>
 
-      <View isFooter isHeader>
-        <textarea readOnly value={mnemonic} />
+      <View isHeader>
+        <p>{context.t('SettingsKeysExport.description')}</p>
+        <ShareTextBox text={mnemonic} />
       </View>
-
-      <Footer>
-        <ClipboardButton text={mnemonic}>
-          {context.t('SettingsKeysExport.copyToClipboard')}
-        </ClipboardButton>
-      </Footer>
     </Fragment>
   );
 };

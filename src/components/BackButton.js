@@ -4,10 +4,10 @@ import React from 'react';
 import { IconBack } from '~/styles/Icons';
 import HeaderButton from '~/components/HeaderButton';
 
-const BackButton = props => {
+const BackButton = ({ isDark, ...props }) => {
   return (
     <HeaderButton {...props}>
-      <IconBack />
+      <IconBack isDark={isDark} />
     </HeaderButton>
   );
 };

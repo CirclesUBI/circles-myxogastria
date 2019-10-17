@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import GlobalStyle from '~/styles';
 import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
+import SpinnerOverlay from '~/components/SpinnerOverlay';
 import logError from '~/services/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
@@ -15,6 +16,8 @@ import { initializeApp, checkAppState } from '~/store/app/actions';
 const APP_CHECK_FRQUENCY = 1000 * 10;
 
 const App = (props, context) => {
+  const app = useSelector(state => state.app);
+
   const dispatch = useDispatch();
 
   const onAppStart = () => {
@@ -53,6 +56,7 @@ const App = (props, context) => {
 
       <AppStyle>
         <Notifications />
+        <SpinnerOverlay isVisible={app.isLoading} />
         <Routes />
       </AppStyle>
     </Router>

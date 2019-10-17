@@ -5,10 +5,11 @@ import React, { useState, useEffect, createRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import ButtonStyle from '~/components/Button';
 import findAddress from '~/utils/findAddress';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
+import { IconScanner } from '~/styles/Icons';
+import { RoundButtonStyle } from '~/components/RoundButton';
 
 QrScanner.WORKER_PATH = QrScannerWorkerPath;
 
@@ -91,7 +92,7 @@ const QRCodeScanner = (props, context) => {
   useEffect(initialize, []);
 
   return (
-    <QRCodeScannerStyle>
+    <QRCodeScannerStyle isVideoVisible={isVideoVisible}>
       <input
         accept="image/*"
         capture="camera"
@@ -101,17 +102,14 @@ const QRCodeScanner = (props, context) => {
         onChange={onImageSelected}
       />
 
-      <QRCodeScannerVideoStyle
-        ref={refVideo}
-        style={{ display: isVideoVisible ? 'block' : 'none' }}
-      />
+      <QRCodeScannerVideoStyle isVideoVisible={isVideoVisible} ref={refVideo} />
 
       <QRCodeScannerButtonStyle
-        disabled={props.disabled || false}
-        style={{ display: isVideoVisible ? 'none' : 'inline-block' }}
+        isVideoVisible={isVideoVisible}
         onClick={onClick}
       >
-        {context.t('QRCodeScanner.tapToScan')}
+        <IconScanner />
+        <span>{context.t('QRCodeScanner.tapToScan')}</span>
       </QRCodeScannerButtonStyle>
     </QRCodeScannerStyle>
   );
@@ -129,12 +127,24 @@ QRCodeScanner.propTypes = {
 const QRCodeScannerStyle = styled.div`
   display: flex;
 
-  width: 30rem;
-  height: 30rem;
+  overflow: hidden;
 
-  margin: 0 auto;
+  width: ${props => {
+    return props.isVideoVisible ? '100%' : '30rem';
+  }};
+  height: ${props => {
+    return props.isVideoVisible ? 'auto' : '30rem';
+  }};
 
-  background-color: ${styles.colors.secondary};
+  margin: ${props => {
+    return props.isVideoVisible ? '0' : '2rem auto';
+  }};
+
+  border-radius: 25px;
+
+  background-color: ${props => {
+    return props.isVideoVisible ? 'transparent' : styles.monochrome.grayLighter;
+  }};
 
   align-items: center;
   flex-direction: column;
@@ -142,10 +152,31 @@ const QRCodeScannerStyle = styled.div`
 `;
 
 const QRCodeScannerVideoStyle = styled.video`
+  display: ${props => {
+    return props.isVideoVisible ? 'block' : 'none';
+  }};
+
   width: 100%;
   height: 100%;
 `;
 
-const QRCodeScannerButtonStyle = styled(ButtonStyle)``;
+const QRCodeScannerButtonStyle = styled(RoundButtonStyle)`
+  display: ${props => {
+    return props.isVideoVisible ? 'none' : 'flex';
+  }};
+
+  width: 12rem;
+  height: 12rem;
+
+  padding-top: 2.5rem;
+
+  ${IconScanner} {
+    margin-bottom: 0.5rem;
+
+    &::before {
+      font-size: 3em;
+    }
+  }
+`;
 
 export default QRCodeScanner;
