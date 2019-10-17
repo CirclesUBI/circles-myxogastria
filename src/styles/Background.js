@@ -2,6 +2,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 import styles from '~/styles/variables';
 
+import green from '%/images/background-green.svg';
 import whirlyGreen from '%/images/background-whirly-green.svg';
 import whirlyOrange from '%/images/background-whirly-orange.svg';
 
@@ -32,4 +33,14 @@ export const BackgroundWhirlyGreen = styled(BackgroundBase)`
   background-image: url(${whirlyGreen});
   background-position: top center;
   background-size: cover;
+`;
+
+export const BackgroundGreen = styled(BackgroundBase)`
+  @media ${styles.media.desktop} {
+    background-position: 0 -50rem;
+  }
+
+  background-image: url(${green});
+  background-position: 0 -20rem;
+  background-size: 100%;
 `;

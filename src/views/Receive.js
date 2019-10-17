@@ -1,36 +1,45 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
-import ButtonPrimary from '~/components/ButtonPrimary';
-import Footer from '~/components/Footer';
-import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
+import RoundButton from '~/components/RoundButton';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
+import { BackgroundGreen } from '~/styles/Background';
+import { IconShare } from '~/styles/Icons';
+
+import Header, {
+  HeaderCenterStyle,
+  HeaderTitleStyle,
+} from '~/components/Header';
 
 const Receive = (props, context) => {
   const safe = useSelector(state => state.safe);
 
   return (
-    <Fragment>
+    <BackgroundGreen>
       <Header>
         <BackButton to="/" />
+
+        <HeaderCenterStyle>
+          <HeaderTitleStyle>
+            <UsernameDisplay address={safe.address} />
+          </HeaderTitleStyle>
+        </HeaderCenterStyle>
       </Header>
 
-      <View isFooter isHeader>
-        <UsernameDisplay address={safe.address} />
+      <View isHeader>
         <QRCode data={safe.address} />
         <p>{context.t('Receive.showThisQR')}</p>
-      </View>
 
-      <Footer>
-        <ButtonPrimary to="/receive/share">
-          {context.t('Receive.share')}
-        </ButtonPrimary>
-      </Footer>
-    </Fragment>
+        <RoundButton to="/receive/share">
+          <IconShare />
+          <span>{context.t('Receive.share')}</span>
+        </RoundButton>
+      </View>
+    </BackgroundGreen>
   );
 };
 

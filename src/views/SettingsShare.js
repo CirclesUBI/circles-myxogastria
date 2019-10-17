@@ -21,7 +21,7 @@ const SettingsShare = (props, context) => {
         <BackButton isDark to="/settings" />
       </Header>
 
-      <View isFooter isHeader>
+      <View isHeader>
         <p>{context.t('SettingsShare.description')}</p>
         <ShareTextBox text={shareText} />
       </View>
