@@ -5,22 +5,21 @@ import { useSelector } from 'react-redux';
 
 import ActionButton from '~/components/ActionButton';
 import BalanceDisplay from '~/components/BalanceDisplay';
-import ButtonPrimary from '~/components/ButtonPrimary';
-import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import HeaderButton from '~/components/HeaderButton';
 import QRCode from '~/components/QRCode';
+import RoundButton from '~/components/RoundButton';
 import TrustHealthDisplay from '~/components/TrustHealthDisplay';
 import TrustNetwork from '~/components/TrustNetwork';
 import View from '~/components/View';
 import styles from '~/styles/variables';
-import { IconQR, IconActivities } from '~/styles/Icons';
-
-import background from '%/images/background-whirly-orange.svg';
+import { BackgroundWhirlyOrange } from '~/styles/Background';
+import { IconQR, IconShare, IconActivities } from '~/styles/Icons';
+import { SpacingStyle } from '~/styles/Layout';
 
 const Dashboard = () => {
   return (
-    <BackgroundStyle>
+    <BackgroundWhirlyOrange>
       <Header>
         <HeaderButton to="/settings">
           <IconQR />
@@ -35,7 +34,7 @@ const Dashboard = () => {
       </Header>
 
       <DashboardView />
-    </BackgroundStyle>
+    </BackgroundWhirlyOrange>
   );
 };
 
@@ -45,22 +44,35 @@ const DashboardView = (props, context) => {
   if (safe.nonce) {
     return (
       <Fragment>
-        <View isFooter isHeader>
-          <TrustHealthDisplay />
-          <h1>{context.t('Dashboard.welcomeToCircles')}</h1>
-          <QRCode data={safe.address} />
+        <View isHeader>
+          <SpacingStyle>
+            <TrustHealthDisplay />
+          </SpacingStyle>
+
+          <SpacingStyle>
+            <h1>{context.t('Dashboard.welcomeToCircles')}</h1>
+          </SpacingStyle>
 
           <p>
             {context.t('Dashboard.trustDescription')}{' '}
             <a href="#">{context.t('Dashboard.learnMore')}</a>
           </p>
-        </View>
 
-        <Footer>
-          <ButtonPrimary to="/receive">
-            {context.t('Dashboard.share')}
-          </ButtonPrimary>
-        </Footer>
+          <SpacingStyle>
+            <QRCode data={safe.address} />
+          </SpacingStyle>
+
+          <SpacingStyle>
+            <p>{context.t('Dashboard.showThisQR')}</p>
+          </SpacingStyle>
+
+          <SpacingStyle>
+            <RoundButton to="/invite">
+              <IconShare />
+              <span>{context.t('Dashboard.share')}</span>
+            </RoundButton>
+          </SpacingStyle>
+        </View>
       </Fragment>
     );
   }
@@ -96,14 +108,6 @@ DashboardView.contextTypes = {
 DashboardActivityCounter.propTypes = {
   count: PropTypes.number.isRequired,
 };
-
-const BackgroundStyle = styled.div`
-  height: 100%;
-
-  background-image: url(${background});
-  background-repeat: no-repeat;
-  background-size: contain;
-`;
 
 const ActivityCounterStyle = styled.div`
   position: absolute;

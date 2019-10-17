@@ -80,7 +80,8 @@ const layout = {
 };
 
 const links = {
-  color: color.turquoiseDark,
+  color: monochrome.black,
+  fontWeight: typography.weightSemiBold,
 };
 
 const base = {

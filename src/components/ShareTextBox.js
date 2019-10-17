@@ -3,12 +3,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ClipboardButton from '~/components/ClipboardButton';
-import styles from '~/styles/variables';
+import { TextareaStyle } from '~/styles/Inputs';
 
 const ShareTextBox = props => {
   return (
     <ShareTextBoxStyle>
-      <TextareaStyle readOnly={true} value={props.text} />
+      <ShareTextareaStyle readOnly={true} value={props.text} />
 
       <ButtonContainerStyle>
         <ClipboardButton text={props.text} />
@@ -38,17 +38,9 @@ const ButtonContainerStyle = styled.div`
   width: 100%;
 `;
 
-const TextareaStyle = styled.textarea`
+const ShareTextareaStyle = styled(TextareaStyle)`
   min-height: 20rem;
   max-height: 20rem;
-
-  border-radius: 5px;
-
-  font-weight: ${styles.base.typography.weightLight};
-
-  line-height: 1.5;
-
-  box-shadow: inset 1px 5px 5px ${styles.monochrome.gray};
 `;
 
 export default ShareTextBox;

@@ -9,6 +9,7 @@ import AccountImport from '~/views/AccountImport';
 import Activities from '~/views/Activities';
 import CriticalError from '~/views/CriticalError';
 import Dashboard from '~/views/Dashboard';
+import Invite from '~/views/Invite';
 import NotFound from '~/views/NotFound';
 import Profile from '~/views/Profile';
 import Receive from '~/views/Receive';
@@ -76,6 +77,7 @@ const SessionRoute = ({ component, path }) => {
 const Routes = () => (
   <Switch>
     <SessionRoute component={Dashboard} exact path="/" />
+    <SessionRoute component={Invite} path="/invite" />
     <SessionRoute component={Activities} path="/activities" />
     <SessionRoute component={TrustConfirm} path="/trust/:address" />
     <SessionRoute component={Trust} path="/trust" />

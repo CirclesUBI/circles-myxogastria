@@ -56,8 +56,6 @@ const SettingsKeys = (props, context) => {
       </Header>
 
       <View isFooter isHeader>
-        <p>{context.t('SettingsKeys.devicesAccessingAccount')}</p>
-
         <SafeOwnerManager />
 
         <DangerButtonStyle onClick={onBurnClick}>

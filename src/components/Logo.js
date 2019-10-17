@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 import logo from '%/images/logo.png';
 
-const TrustHealthDisplay = () => {
-  return <TrustHealthStyle />;
+const Logo = () => {
+  return <LogoStyle />;
 };
 
-const TrustHealthStyle = styled.div`
-  width: 10rem;
-  height: 10rem;
+const LogoStyle = styled.div`
+  width: 15rem;
+  height: 15rem;
 
   margin: 0 auto;
 
@@ -19,4 +19,4 @@ const TrustHealthStyle = styled.div`
   background-size: contain;
 `;
 
-export default TrustHealthDisplay;
+export default Logo;

@@ -31,6 +31,7 @@ ButtonPrimary.propTypes = {
   isOutline: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export const ButtonPrimaryStyle = styled(ButtonStyle)`

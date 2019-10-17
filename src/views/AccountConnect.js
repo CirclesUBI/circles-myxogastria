@@ -8,6 +8,7 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
 import View from '~/components/View';
+import { SpacingStyle } from '~/styles/Layout';
 
 const AccountConnect = (props, context) => {
   const { address } = useSelector(state => state.wallet);
@@ -19,13 +20,13 @@ const AccountConnect = (props, context) => {
       </Header>
 
       <View isHeader>
-        <h1>{context.t('AccountConnect.connectToYourWallet')}</h1>
+        <SpacingStyle>
+          <h1>{context.t('AccountConnect.connectToYourWallet')}</h1>
+        </SpacingStyle>
 
-        <QRCode data={address} />
-
-        <ButtonPrimary to="/welcome/seed">
-          {context.t('AccountConnect.restoreWithSeedPhrase')}
-        </ButtonPrimary>
+        <SpacingStyle>
+          <QRCode data={address} />
+        </SpacingStyle>
 
         <p>
           {context.t('AccountConnect.noSeedPhrase')}{' '}
@@ -38,6 +39,10 @@ const AccountConnect = (props, context) => {
           {context.t('AccountConnect.questions')}{' '}
           <a href="#">{context.t('AccountConnect.contactUs')}</a>
         </p>
+
+        <ButtonPrimary to="/welcome/seed">
+          {context.t('AccountConnect.restoreWithSeedPhrase')}
+        </ButtonPrimary>
       </View>
     </Fragment>
   );

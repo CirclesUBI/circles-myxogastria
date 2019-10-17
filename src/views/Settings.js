@@ -13,6 +13,7 @@ import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import styles from '~/styles/variables';
 import { IconKeys, IconShare } from '~/styles/Icons';
+import { SpacingStyle } from '~/styles/Layout';
 
 import Header, {
   HeaderCenterStyle,
@@ -79,11 +80,6 @@ const BackgroundStyle = styled.div`
   background-repeat: no-repeat;
   background-position: 0 -20rem;
   background-size: 100%;
-`;
-
-const SpacingStyle = styled.div`
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
 `;
 
 export default Settings;

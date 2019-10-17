@@ -8,6 +8,8 @@ export default createGlobalStyle`
   a {
     color: ${links.color};
 
+    font-weight: ${links.fontWeight};
+
     text-decoration: none;
   }
 `;

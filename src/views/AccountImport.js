@@ -5,10 +5,19 @@ import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import ButtonPrimary from '~/components/ButtonPrimary';
-import Header from '~/components/Header';
+import Footer from '~/components/Footer';
+import HomeButton from '~/components/HomeButton';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { SpacingStyle } from '~/styles/Layout';
+import { TextareaStyle } from '~/styles/Inputs';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { restoreAccount } from '~/store/onboarding/actions';
+
+import Header, {
+  HeaderCenterStyle,
+  HeaderTitleStyle,
+} from '~/components/Header';
 
 const AccountImport = (props, context) => {
   const [seedPhrase, setSeedPhrase] = useState('');
@@ -19,6 +28,8 @@ const AccountImport = (props, context) => {
   };
 
   const onClick = async () => {
+    dispatch(showSpinnerOverlay());
+
     try {
       await dispatch(restoreAccount(seedPhrase));
 
@@ -35,22 +46,35 @@ const AccountImport = (props, context) => {
         }),
       );
     }
+
+    dispatch(hideSpinnerOverlay());
   };
 
   return (
     <Fragment>
       <Header>
         <BackButton isDark to="/welcome/connect" />
+
+        <HeaderCenterStyle>
+          <HeaderTitleStyle isDark>
+            {context.t('AccountImport.connectToYourWallet')}
+          </HeaderTitleStyle>
+        </HeaderCenterStyle>
+
+        <HomeButton isDark />
       </Header>
 
-      <View isHeader>
-        <h1>{context.t('AccountImport.connectToYourWallet')}</h1>
+      <View isFooter isHeader>
         <p>{context.t('AccountImport.enterYourSeedPhrase')}</p>
 
-        <textarea value={seedPhrase} onChange={onChange} />
+        <SpacingStyle>
+          <TextareaStyle value={seedPhrase} onChange={onChange} />
+        </SpacingStyle>
 
         <p>
-          {context.t('AccountImport.lostYourSeedPhrase')}{' '}
+          {context.t('AccountImport.lostYourSeedPhrase')}
+          <br />
+
           <Link to="/welcome/new">
             {context.t('AccountImport.createNewWallet')}
           </Link>
@@ -60,11 +84,13 @@ const AccountImport = (props, context) => {
           {context.t('AccountImport.questions')}{' '}
           <a href="#">{context.t('AccountImport.contactUs')}</a>
         </p>
+      </View>
 
+      <Footer>
         <ButtonPrimary disabled={seedPhrase.length === 0} onClick={onClick}>
           {context.t('AccountImport.submit')}
         </ButtonPrimary>
-      </View>
+      </Footer>
     </Fragment>
   );
 };

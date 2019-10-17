@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import styles from '~/styles/variables';
 
@@ -24,4 +24,9 @@ export default createGlobalStyle`
       justify-content: center;
     }
   }
+`;
+
+export const SpacingStyle = styled.div`
+  margin-top: ${styles.base.layout.spacing};
+  margin-bottom: ${styles.base.layout.spacing};
 `;

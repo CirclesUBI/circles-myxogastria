@@ -38,8 +38,15 @@ const SafeOwnerManager = (props, context) => {
     dispatch(hideSpinnerOverlay());
   };
 
+  // Safe is not deployed yet ...
+  if (safe.nonce) {
+    return null;
+  }
+
   return (
     <Fragment>
+      <p>{context.t('SafeOwnerManager.devicesAccessingAccount')}</p>
+
       <ul>
         <SafeOwnerManagerList owners={safe.owners} onRemove={onRemove} />
       </ul>

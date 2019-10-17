@@ -4,27 +4,26 @@ import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import ButtonPrimary from '~/components/ButtonPrimary';
-import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import Logo from '~/components/Logo';
 import View from '~/components/View';
 import logError from '~/services/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { InputStyle, FieldsetStyle, LabelStyle } from '~/styles/Inputs';
+import { SpacingStyle } from '~/styles/Layout';
 import { createNewAccount } from '~/store/onboarding/actions';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 
 const AccountCreate = (props, context) => {
   const dispatch = useDispatch();
-
   const [username, setUsername] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const onChange = event => {
     setUsername(event.target.value);
   };
 
-  const onSubmit = async event => {
-    event.preventDefault();
-
-    setIsLoading(true);
+  const onSubmit = async () => {
+    dispatch(showSpinnerOverlay());
 
     try {
       await dispatch(createNewAccount(username));
@@ -35,8 +34,6 @@ const AccountCreate = (props, context) => {
         }),
       );
     } catch (error) {
-      setIsLoading(false);
-
       dispatch(
         notify({
           text: context.t('AccountCreate.errorMessage'),
@@ -46,40 +43,45 @@ const AccountCreate = (props, context) => {
 
       logError(error);
     }
+
+    dispatch(hideSpinnerOverlay());
   };
 
   return (
     <Fragment>
       <Header>
-        <BackButton disabled={isLoading} isDark to="/welcome" />
+        <BackButton isDark to="/welcome" />
       </Header>
 
-      <View isFooter isHeader>
-        <h1>{context.t('AccountCreate.createYourUsername')}</h1>
+      <View isHeader>
+        <Logo />
+
+        <SpacingStyle>
+          <h1>{context.t('AccountCreate.createYourUsername')}</h1>
+        </SpacingStyle>
+
         <p>{context.t('AccountCreate.yourUsernameDescription')}</p>
 
-        <form>
-          <label htmlFor="username">
-            {context.t('AccountCreate.username')}
-          </label>
+        <SpacingStyle>
+          <FieldsetStyle>
+            <LabelStyle htmlFor="username">
+              {context.t('AccountCreate.username')}
+            </LabelStyle>
 
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={onChange}
-          />
-        </form>
-      </View>
+            <InputStyle
+              id="username"
+              required
+              type="text"
+              value={username}
+              onChange={onChange}
+            />
+          </FieldsetStyle>
+        </SpacingStyle>
 
-      <Footer>
-        <ButtonPrimary
-          disabled={isLoading || username.length < 3}
-          onClick={onSubmit}
-        >
+        <ButtonPrimary type="submit" onClick={onSubmit}>
           {context.t('AccountCreate.submit')}
         </ButtonPrimary>
-      </Footer>
+      </View>
     </Fragment>
   );
 };

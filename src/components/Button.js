@@ -8,7 +8,12 @@ const Button = React.forwardRef((props, ref) => {
   if (props.to) {
     return (
       <Link to={props.to}>
-        <button className={props.className} disabled={props.disabled} ref={ref}>
+        <button
+          className={props.className}
+          disabled={props.disabled}
+          ref={ref}
+          type={props.type}
+        >
           {props.children}
         </button>
       </Link>
@@ -20,6 +25,7 @@ const Button = React.forwardRef((props, ref) => {
       className={props.className}
       disabled={props.disabled}
       ref={ref}
+      type={props.type}
       onClick={props.onClick}
     >
       {props.children}
@@ -33,6 +39,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export const ButtonStyle = styled(Button)`

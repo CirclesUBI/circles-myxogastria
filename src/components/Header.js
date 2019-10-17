@@ -50,12 +50,16 @@ export const HeaderCenterStyle = styled.div`
 `;
 
 export const HeaderTitleStyle = styled.h1`
+  @media ${styles.media.desktop} {
+    font-size: 1.5em;
+  }
+
   color: ${props => {
     return props.isDark ? styles.monochrome.black : styles.monochrome.white;
   }};
 
   font-weight: ${styles.base.typography.weightSemiBold};
-  font-size: 1.5em;
+  font-size: 1.1em;
 
   pointer-events: initial;
 `;
