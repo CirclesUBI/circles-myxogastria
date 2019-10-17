@@ -1,9 +1,9 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
-import iconsEot from '~/../assets/fonts/circles.eot';
-import iconsSvg from '~/../assets/fonts/circles.svg';
-import iconsTtf from '~/../assets/fonts/circles.ttf';
-import iconsWoff from '~/../assets/fonts/circles.woff';
+import iconsEot from '%/fonts/circles.eot';
+import iconsSvg from '%/fonts/circles.svg';
+import iconsTtf from '%/fonts/circles.ttf';
+import iconsWoff from '%/fonts/circles.woff';
 
 export default createGlobalStyle`
   @font-face {

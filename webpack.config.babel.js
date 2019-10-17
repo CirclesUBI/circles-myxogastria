@@ -6,6 +6,7 @@ import webpack from 'webpack';
 const NODE_MODULES = 'node_modules';
 const PATH_ASSETS = './assets';
 const PATH_DIST = './build';
+const PATH_LOCALES = './locales';
 const PATH_SRC = './src';
 
 function getPath(filePath) {
@@ -30,6 +31,8 @@ export default () => {
     resolve: {
       modules: [NODE_MODULES],
       alias: {
+        '%': getPath(PATH_ASSETS),
+        locales: getPath(PATH_LOCALES),
         '~': getPath(PATH_SRC),
       },
     },

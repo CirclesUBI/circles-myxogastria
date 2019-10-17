@@ -15,7 +15,7 @@ import View from '~/components/View';
 import styles from '~/styles/variables';
 import { IconKeys, IconShare } from '~/styles/Icons';
 
-import background from '~/../assets/images/background-green.svg';
+import background from '%/images/background-green.svg';
 
 const Settings = (props, context) => {
   const safe = useSelector(state => state.safe);

@@ -16,7 +16,7 @@ import View from '~/components/View';
 import styles from '~/styles/variables';
 import { IconQR, IconActivities } from '~/styles/Icons';
 
-import background from '~/../assets/images/background-whirly-orange.svg';
+import background from '%/images/background-whirly-orange.svg';
 
 const Dashboard = () => {
   return (

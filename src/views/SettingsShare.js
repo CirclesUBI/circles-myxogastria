@@ -8,7 +8,7 @@ import Header from '~/components/Header';
 import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
 
-import background from '~/../assets/images/background-whirly-green.svg';
+import background from '%/images/background-whirly-green.svg';
 
 const SettingsShare = (props, context) => {
   const safe = useSelector(state => state.safe);

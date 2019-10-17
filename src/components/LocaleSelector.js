@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import notify from '~/store/notifications/actions';
 import styles from '~/styles/variables';
 import { ButtonStyle } from '~/components/Button';
-import { LOCALES } from '~/../locales';
 import { selectLocale } from '~/store/locale/actions';
+
+import { LOCALES } from 'locales';
 
 const LocaleSelector = () => {
   return (

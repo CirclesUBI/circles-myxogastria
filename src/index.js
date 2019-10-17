@@ -7,8 +7,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import App from '~/App';
-import locales from '~/../locales';
 import store from '~/configureStore';
+
+import locales from 'locales';
 
 const Root = props => (
   <Provider store={props.store}>

@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { i18nState } from 'redux-i18n';
 import { render } from '@testing-library/react';
 
-import locales from '~/../locales';
+import locales from 'locales';
 
 const TestRoot = ({ store, translations, children }) => {
   return (

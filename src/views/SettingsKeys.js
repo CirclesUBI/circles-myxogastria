@@ -11,7 +11,7 @@ import View from '~/components/View';
 import { burnApp } from '~/store/app/actions';
 import { finalizeNewAccount } from '~/store/onboarding/actions';
 
-import background from '~/../assets/images/background-green.svg';
+import background from '%/images/background-green.svg';
 
 const SettingsKeys = (props, context) => {
   const safe = useSelector(state => state.safe);

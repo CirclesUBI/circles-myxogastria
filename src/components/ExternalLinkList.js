@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import styles from '~/styles/variables';
 
-import background from '~/../assets/images/background-orange-bottom.svg';
+import background from '%/images/background-orange-bottom.svg';
 
 const ExternalLinkList = (props, context) => {
   return (
