@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import styles from '~/styles/variables';
-
-import background from '%/images/background-orange-bottom.svg';
+import { BackgroundOrangeBottom } from '~/styles/Background';
 
 const ExternalLinkList = (props, context) => {
   return (
-    <Fragment>
+    <Background>
       <PushToBottomStyle />
 
       <ListStyle>
@@ -42,7 +41,7 @@ const ExternalLinkList = (props, context) => {
           </a>
         </ListItemStyle>
       </ListStyle>
-    </Fragment>
+    </Background>
   );
 };
 
@@ -54,15 +53,16 @@ const PushToBottomStyle = styled.div`
   flex: 1 0 auto;
 `;
 
-const ListStyle = styled.ul`
+const Background = styled(BackgroundOrangeBottom)`
+  height: auto;
+
   margin-right: -${styles.base.layout.spacing};
   margin-left: -${styles.base.layout.spacing};
+`;
+
+const ListStyle = styled.ul`
   padding: 2rem;
   padding-top: 3rem;
-
-  background-image: url(${background});
-  background-repeat: no-repeat;
-  background-size: cover;
 
   flex-shrink: 0;
 `;

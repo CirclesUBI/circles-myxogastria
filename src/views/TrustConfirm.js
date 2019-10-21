@@ -1,15 +1,24 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import ButtonPrimary from '~/components/ButtonPrimary';
-import Header from '~/components/Header';
+import Footer from '~/components/Footer';
+import HomeButton from '~/components/HomeButton';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { BackgroundPurpleTop } from '~/styles/Background';
+import { checkCurrentBalance } from '~/store/token/actions';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { resolveUsernames } from '~/services/username';
 import { trustUser } from '~/store/trust/actions';
+
+import Header, {
+  HeaderCenterStyle,
+  HeaderTitleStyle,
+} from '~/components/Header';
 
 const TrustConfirm = (props, context) => {
   const { address } = props.match.params;
@@ -28,6 +37,8 @@ const TrustConfirm = (props, context) => {
   };
 
   const onSubmit = async () => {
+    dispatch(showSpinnerOverlay());
+
     try {
       await dispatch(trustUser(address));
 
@@ -36,6 +47,8 @@ const TrustConfirm = (props, context) => {
           text: context.t('TrustConfirm.successMessage', { receiver }),
         }),
       );
+
+      await dispatch(checkCurrentBalance());
 
       setIsSent(true);
     } catch {
@@ -46,6 +59,8 @@ const TrustConfirm = (props, context) => {
         }),
       );
     }
+
+    dispatch(hideSpinnerOverlay());
   };
 
   useEffect(resolveAddress, [address]);
@@ -55,19 +70,29 @@ const TrustConfirm = (props, context) => {
   }
 
   return (
-    <Fragment>
+    <BackgroundPurpleTop>
       <Header>
         <BackButton to="/trust" />
+
+        <HeaderCenterStyle>
+          <HeaderTitleStyle>
+            {context.t('TrustConfirm.trustSomeone')}
+          </HeaderTitleStyle>
+        </HeaderCenterStyle>
+
+        <HomeButton />
       </Header>
 
-      <View isHeader>
+      <View isFooter isHeader>
         <p>{context.t('TrustConfirm.confirmationText', { receiver })}</p>
+      </View>
 
+      <Footer>
         <ButtonPrimary onClick={onSubmit}>
           {context.t('TrustConfirm.confirm')}
         </ButtonPrimary>
-      </View>
-    </Fragment>
+      </Footer>
+    </BackgroundPurpleTop>
   );
 };
 

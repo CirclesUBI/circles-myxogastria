@@ -19,15 +19,7 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
-  input[type="date"],
-  input[type="email"],
-  input[type="number"],
-  input[type="password"],
-  input[type="search"],
-  input[type="text"],
-  input[type="time"],
-  input[type="url"],
-  input:not([type]),
+  input,
   textarea,
   select {
     padding: ${layout.spacing};
@@ -78,6 +70,23 @@ export const InputStyle = styled.input`
   font-weight: ${styles.base.typography.weightLight};
 
   box-shadow: inset 1px 2px 2px ${styles.monochrome.gray};
+`;
+
+export const InputNumberStyle = styled.input`
+  max-width: 11rem;
+
+  margin: 2rem auto;
+  padding: 0;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+
+  border: 0;
+  border-bottom: 1px solid ${styles.monochrome.black};
+
+  background: transparent;
+
+  font-weight: ${styles.base.typography.weightLight};
+  font-size: 2.5em;
 `;
 
 export const LabelStyle = styled.label`

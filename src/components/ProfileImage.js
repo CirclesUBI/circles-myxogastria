@@ -3,13 +3,16 @@ import React, { useEffect, createRef } from 'react';
 import jazzicon from 'jazzicon';
 import styled from 'styled-components';
 
+import web3 from '~/services/web3';
+
 const ICON_SIZE = 30;
 
 const ProfileImage = props => {
   const ref = createRef();
 
   const generate = () => {
-    const identiconElem = jazzicon(ICON_SIZE, props.address);
+    const seed = web3.utils.hexToNumber(props.address.slice(2, 15));
+    const identiconElem = jazzicon(ICON_SIZE, seed);
 
     ref.current.innerHTML = '';
     ref.current.appendChild(identiconElem);

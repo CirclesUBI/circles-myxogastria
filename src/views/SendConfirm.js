@@ -1,16 +1,27 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import ButtonPrimary from '~/components/ButtonPrimary';
-import Header from '~/components/Header';
+import Footer from '~/components/Footer';
+import HomeButton from '~/components/HomeButton';
+import MiniProfile from '~/components/MiniProfile';
 import View from '~/components/View';
 import logError from '~/services/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { BackgroundOrangeTop } from '~/styles/Background';
+import { InputNumberStyle } from '~/styles/Inputs';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { resolveUsernames } from '~/services/username';
-import { sendCircles } from '~/store/token/actions';
+import { sendCircles, checkCurrentBalance } from '~/store/token/actions';
+
+import Header, {
+  HeaderCenterStyle,
+  HeaderTitleStyle,
+} from '~/components/Header';
 
 const SendConfirm = (props, context) => {
   const { address } = props.match.params;
@@ -38,7 +49,13 @@ const SendConfirm = (props, context) => {
     setIsConfirmationShown(true);
   };
 
+  const onPrevious = () => {
+    setIsConfirmationShown(false);
+  };
+
   const onSubmit = async () => {
+    dispatch(showSpinnerOverlay());
+
     try {
       await dispatch(sendCircles(address, amount));
 
@@ -47,6 +64,8 @@ const SendConfirm = (props, context) => {
           text: context.t('SendConfirm.successMessage'),
         }),
       );
+
+      await dispatch(checkCurrentBalance());
 
       setIsSent(true);
     } catch (error) {
@@ -59,6 +78,8 @@ const SendConfirm = (props, context) => {
         }),
       );
     }
+
+    dispatch(hideSpinnerOverlay());
   };
 
   useEffect(resolveAddress, [address]);
@@ -69,38 +90,69 @@ const SendConfirm = (props, context) => {
 
   if (isConfirmationShown) {
     return (
-      <SendConfirmView>
-        <p>{context.t('SendConfirm.confirmationText', { receiver, amount })}</p>
+      <BackgroundOrangeTop>
+        <SendConfirmHeader>
+          <BackButton onClick={onPrevious} />
+        </SendConfirmHeader>
 
-        <ButtonPrimary onClick={onSubmit}>
-          {context.t('SendConfirm.confirm')}
-        </ButtonPrimary>
-      </SendConfirmView>
+        <View isFooter isHeader>
+          <p>
+            {context.t('SendConfirm.confirmationText', { receiver, amount })}
+          </p>
+        </View>
+
+        <Footer>
+          <ButtonPrimary onClick={onSubmit}>
+            {context.t('SendConfirm.confirm')}
+          </ButtonPrimary>
+        </Footer>
+      </BackgroundOrangeTop>
     );
   }
 
   return (
-    <SendConfirmView>
-      <p>{context.t('SendConfirm.howMuch')}</p>
+    <BackgroundOrangeTop>
+      <SendConfirmHeader>
+        <BackButton to="/send" />
+      </SendConfirmHeader>
 
-      <input type="number" value={amount} onChange={onAmountChange} />
+      <View isFooter isHeader>
+        <ConfirmToStyle>
+          <span>{context.t('SendConfirm.to')}</span>
+          <MiniProfile address={address} />
+        </ConfirmToStyle>
 
-      <ButtonPrimary disabled={!amount > 0} onClick={onNext}>
-        {context.t('SendConfirm.submitAmount')}
-      </ButtonPrimary>
-    </SendConfirmView>
+        <p>{context.t('SendConfirm.howMuch')}</p>
+
+        <InputNumberStyle
+          type="number"
+          value={amount}
+          onChange={onAmountChange}
+        />
+      </View>
+
+      <Footer>
+        <ButtonPrimary disabled={!amount > 0} onClick={onNext}>
+          {context.t('SendConfirm.submitAmount')}
+        </ButtonPrimary>
+      </Footer>
+    </BackgroundOrangeTop>
   );
 };
 
-const SendConfirmView = props => {
+const SendConfirmHeader = (props, context) => {
   return (
-    <Fragment>
-      <Header>
-        <BackButton to="/send" />
-      </Header>
+    <Header>
+      {props.children}
 
-      <View isHeader>{props.children}</View>
-    </Fragment>
+      <HeaderCenterStyle>
+        <HeaderTitleStyle>
+          {context.t('SendConfirm.sendCircles')}
+        </HeaderTitleStyle>
+      </HeaderCenterStyle>
+
+      <HomeButton />
+    </Header>
   );
 };
 
@@ -112,8 +164,25 @@ SendConfirm.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-SendConfirmView.propTypes = {
-  children: PropTypes.node.isRequired,
+SendConfirmHeader.contextTypes = {
+  t: PropTypes.func.isRequired,
 };
+
+SendConfirmHeader.propTypes = {
+  children: PropTypes.any.isRequired,
+};
+
+const ConfirmToStyle = styled.div`
+  display: flex;
+
+  margin-bottom: 2rem;
+
+  align-items: center;
+  justify-content: center;
+
+  span {
+    margin-right: 1rem;
+  }
+`;
 
 export default withRouter(SendConfirm);

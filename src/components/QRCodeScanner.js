@@ -130,14 +130,14 @@ const QRCodeScannerStyle = styled.div`
   overflow: hidden;
 
   width: ${props => {
-    return props.isVideoVisible ? '100%' : '30rem';
+    return props.isVideoVisible ? '30rem' : '30rem';
   }};
   height: ${props => {
-    return props.isVideoVisible ? 'auto' : '30rem';
+    return props.isVideoVisible ? '30rem' : '30rem';
   }};
 
   margin: ${props => {
-    return props.isVideoVisible ? '0' : '2rem auto';
+    return props.isVideoVisible ? '2rem auto' : '2rem auto';
   }};
 
   border-radius: 25px;
@@ -155,9 +155,6 @@ const QRCodeScannerVideoStyle = styled.video`
   display: ${props => {
     return props.isVideoVisible ? 'block' : 'none';
   }};
-
-  width: 100%;
-  height: 100%;
 `;
 
 const QRCodeScannerButtonStyle = styled(RoundButtonStyle)`

@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import UsernameDisplay from '~/components/UsernameDisplay';
+import MiniProfile from '~/components/MiniProfile';
 import web3 from '~/services/web3';
+import { InputStyle } from '~/styles/Inputs';
+import { SpacingStyle } from '~/styles/Layout';
 
 const MAX_SEARCH_RESULTS = 5;
 
@@ -51,18 +54,20 @@ const UsernameFinder = (props, context) => {
 
   return (
     <Fragment>
-      <input
+      <InputStyle
         placeholder={context.t('UsernameFinder.inputPlaceholder')}
         type="text"
         value={props.input}
         onChange={onInputChange}
       />
 
-      <UsernameFinderResult
-        isQueryEmpty={isQueryEmpty}
-        items={searchResults}
-        onClick={onSelect}
-      />
+      <SpacingStyle>
+        <UsernameFinderResult
+          isQueryEmpty={isQueryEmpty}
+          items={searchResults}
+          onClick={onSelect}
+        />
+      </SpacingStyle>
     </Fragment>
   );
 };
@@ -87,9 +92,9 @@ const UsernameFinderItem = props => {
   };
 
   return (
-    <li onClick={onClick}>
-      <UsernameDisplay address={props.user.safeAddress} />
-    </li>
+    <ItemStyle onClick={onClick}>
+      <MiniProfile address={props.user.safeAddress} />
+    </ItemStyle>
   );
 };
 
@@ -115,5 +120,10 @@ UsernameFinder.contextTypes = {
 UsernameFinderResult.contextTypes = {
   t: PropTypes.func.isRequired,
 };
+
+const ItemStyle = styled.li`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`;
 
 export default UsernameFinder;

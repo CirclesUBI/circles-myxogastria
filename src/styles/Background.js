@@ -3,6 +3,9 @@ import styled, { createGlobalStyle } from 'styled-components';
 import styles from '~/styles/variables';
 
 import green from '%/images/background-green.svg';
+import orangeBottom from '%/images/background-orange-bottom.svg';
+import orangeTop from '%/images/background-orange-top.svg';
+import purpleTop from '%/images/background-purple-top.svg';
 import whirlyGreen from '%/images/background-whirly-green.svg';
 import whirlyOrange from '%/images/background-whirly-orange.svg';
 
@@ -43,4 +46,32 @@ export const BackgroundGreen = styled(BackgroundBase)`
   background-image: url(${green});
   background-position: 0 -20rem;
   background-size: 100%;
+`;
+
+export const BackgroundOrangeBottom = styled(BackgroundBase)`
+  background-image: url(${orangeBottom});
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
+export const BackgroundOrangeTop = styled(BackgroundBase)`
+  @media ${styles.media.desktop} {
+    background-position: 0 -40rem;
+    background-size: cover;
+  }
+
+  background-image: url(${orangeTop});
+  background-position: 0 -10rem;
+  background-size: contain;
+`;
+
+export const BackgroundPurpleTop = styled(BackgroundBase)`
+  @media ${styles.media.desktop} {
+    background-position: 0 -40rem;
+    background-size: cover;
+  }
+
+  background-image: url(${purpleTop});
+  background-position: 0 -10rem;
+  background-size: contain;
 `;

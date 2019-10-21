@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import BackButton from '~/components/BackButton';
-import Header from '~/components/Header';
 import SafeFinderView from '~/components/SafeFinderView';
+import { BackgroundPurpleTop } from '~/styles/Background';
 
-const Trust = () => {
+import Header, {
+  HeaderCenterStyle,
+  HeaderTitleStyle,
+} from '~/components/Header';
+
+const Trust = (props, context) => {
   const [safeAddress, setSafeAddress] = useState('');
 
   const onSelect = address => {
@@ -17,13 +22,17 @@ const Trust = () => {
     return <Redirect to={`/trust/${safeAddress}`} />;
   }
   return (
-    <Fragment>
+    <BackgroundPurpleTop>
       <Header>
         <BackButton to="/" />
+
+        <HeaderCenterStyle>
+          <HeaderTitleStyle>{context.t('Trust.trustSomeone')}</HeaderTitleStyle>
+        </HeaderCenterStyle>
       </Header>
 
       <SafeFinderView isHeader onSelect={onSelect} />
-    </Fragment>
+    </BackgroundPurpleTop>
   );
 };
 

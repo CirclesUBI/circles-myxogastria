@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import BackButton from '~/components/BackButton';
-import Header from '~/components/Header';
 import SafeFinderView from '~/components/SafeFinderView';
+import { BackgroundOrangeTop } from '~/styles/Background';
 
-const Send = () => {
+import Header, {
+  HeaderCenterStyle,
+  HeaderTitleStyle,
+} from '~/components/Header';
+
+const Send = (props, context) => {
   const [safeAddress, setSafeAddress] = useState('');
 
   const onSelect = address => {
@@ -18,13 +23,17 @@ const Send = () => {
   }
 
   return (
-    <Fragment>
+    <BackgroundOrangeTop>
       <Header>
         <BackButton to="/" />
+
+        <HeaderCenterStyle>
+          <HeaderTitleStyle>{context.t('Send.sendCircles')}</HeaderTitleStyle>
+        </HeaderCenterStyle>
       </Header>
 
-      <SafeFinderView onSelect={onSelect} />
-    </Fragment>
+      <SafeFinderView isHeader onSelect={onSelect} />
+    </BackgroundOrangeTop>
   );
 };
 
