@@ -8,10 +8,10 @@ import styles from '~/styles/variables';
 
 const MiniProfile = props => {
   return (
-    <MiniProfileStyle>
+    <MiniProfileStyle isInline={props.isInline}>
       <ProfileImage address={props.address} />
 
-      <UsernameDisplayStyle>
+      <UsernameDisplayStyle isLarge={props.isLarge}>
         <UsernameDisplay address={props.address} />
       </UsernameDisplayStyle>
     </MiniProfileStyle>
@@ -20,6 +20,8 @@ const MiniProfile = props => {
 
 MiniProfile.propTypes = {
   address: PropTypes.string.isRequired,
+  isInline: PropTypes.bool,
+  isLarge: PropTypes.bool,
 };
 
 const MiniProfileStyle = styled.div`
@@ -31,13 +33,19 @@ const MiniProfileStyle = styled.div`
 
   background-color: ${styles.monochrome.white};
 
-  box-shadow: 1px 1px 4px ${styles.monochrome.grayDark};
+  box-shadow: ${props => {
+    return props.isInline ? '0' : `1px 1px 4px ${styles.monochrome.grayDark}`;
+  }};
 
   align-items: center;
 `;
 
 const UsernameDisplayStyle = styled.span`
   padding-left: 1rem;
+
+  font-size: ${props => {
+    return props.isLarge ? '1.5em' : '1em';
+  }};
 `;
 
 export default MiniProfile;

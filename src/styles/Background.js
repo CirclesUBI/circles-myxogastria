@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import styles from '~/styles/variables';
 
 import green from '%/images/background-green.svg';
+import greenBottom from '%/images/background-green-bottom.svg';
 import orangeBottom from '%/images/background-orange-bottom.svg';
 import orangeTop from '%/images/background-orange-top.svg';
 import purpleTop from '%/images/background-purple-top.svg';
@@ -48,6 +49,12 @@ export const BackgroundGreen = styled(BackgroundBase)`
   background-size: 100%;
 `;
 
+export const BackgroundGreenBottom = styled(BackgroundBase)`
+  background-image: url(${greenBottom});
+  background-position: 0 10rem;
+  background-size: 100%;
+`;
+
 export const BackgroundOrangeBottom = styled(BackgroundBase)`
   background-image: url(${orangeBottom});
   background-repeat: no-repeat;
@@ -74,4 +81,12 @@ export const BackgroundPurpleTop = styled(BackgroundBase)`
   background-image: url(${purpleTop});
   background-position: 0 -10rem;
   background-size: contain;
+`;
+
+export const BackgroundPurple = styled(BackgroundBase)`
+  background: linear-gradient(
+    180deg,
+    ${styles.colors.primaryDark} 0%,
+    ${styles.colors.primary} 100%
+  );
 `;

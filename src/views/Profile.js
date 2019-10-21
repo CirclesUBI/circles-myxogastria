@@ -1,41 +1,27 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import BackButton from '~/components/BackButton';
-import Button from '~/components/Button';
-import ClipboardButton from '~/components/ClipboardButton';
+import ProfileBox from '~/components/ProfileBox';
 import Header from '~/components/Header';
-import QRCode from '~/components/QRCode';
-import UsernameDisplay from '~/components/UsernameDisplay';
+import HomeButton from '~/components/HomeButton';
 import View from '~/components/View';
+import { BackgroundPurple } from '~/styles/Background';
 
-const Profile = (props, context) => {
+const Profile = props => {
   const { address } = props.match.params;
-  const profileAddress = `${process.env.BASE_PATH}/profile/${address}`;
 
   return (
-    <Fragment>
-      <Header>
-        <BackButton to="/" />
+    <BackgroundPurple>
+      <Header isAlignedRight>
+        <HomeButton />
       </Header>
 
       <View isHeader>
-        <UsernameDisplay address={address} />
-        <QRCode data={address} />
-
-        <ClipboardButton text={profileAddress}>
-          {context.t('Profile.copyToClipboard')}
-        </ClipboardButton>
-
-        <Button to={`/send/${address}`}>{context.t('Profile.send')}</Button>
+        <ProfileBox address={address} />
       </View>
-    </Fragment>
+    </BackgroundPurple>
   );
-};
-
-Profile.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 Profile.propTypes = {

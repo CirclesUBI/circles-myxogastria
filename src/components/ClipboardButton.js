@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { createRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+import ButtonPrimary from '~/components/ButtonPrimary';
 import RoundButton from '~/components/RoundButton';
 import notify from '~/store/notifications/actions';
 import { IconShare } from '~/styles/Icons';
@@ -33,11 +34,19 @@ const ClipboardButton = (props, context) => {
 
   useEffect(initializeClipboard, [props.text]);
 
+  if (!props.isPrimary) {
+    return (
+      <RoundButton ref={ref}>
+        <IconShare />
+        <span>{context.t('ClipboardButton.share')}</span>
+      </RoundButton>
+    );
+  }
+
   return (
-    <RoundButton ref={ref}>
-      <IconShare />
-      <span>{context.t('ClipboardButton.share')}</span>
-    </RoundButton>
+    <ButtonPrimary ref={ref}>
+      {context.t('ClipboardButton.copyToClipboard')}
+    </ButtonPrimary>
   );
 };
 
@@ -46,6 +55,7 @@ ClipboardButton.contextTypes = {
 };
 
 ClipboardButton.propTypes = {
+  isPrimary: PropTypes.bool,
   text: PropTypes.string.isRequired,
 };
 

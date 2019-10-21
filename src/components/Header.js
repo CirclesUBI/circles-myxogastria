@@ -5,11 +5,16 @@ import styled from 'styled-components';
 import styles from '~/styles/variables';
 
 const Header = props => {
-  return <HeaderStyle>{props.children}</HeaderStyle>;
+  return (
+    <HeaderStyle isAlignedRight={props.isAlignedRight}>
+      {props.children}
+    </HeaderStyle>
+  );
 };
 
 Header.propTypes = {
   children: PropTypes.node.isRequired,
+  isAlignedRight: PropTypes.bool,
 };
 
 export const HeaderStyle = styled.header`
@@ -29,7 +34,9 @@ export const HeaderStyle = styled.header`
   margin-left: 1rem;
 
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${props => {
+    return props.isAlignedRight ? 'flex-end' : 'space-between';
+  }};
 `;
 
 export const HeaderCenterStyle = styled.div`
