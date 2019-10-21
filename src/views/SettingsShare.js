@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import Header from '~/components/Header';
+import HomeButton from '~/components/HomeButton';
 import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
 import { BackgroundWhirlyGreen } from '~/styles/Background';
@@ -19,6 +20,7 @@ const SettingsShare = (props, context) => {
     <BackgroundWhirlyGreen>
       <Header>
         <BackButton isDark to="/settings" />
+        <HomeButton isDark />
       </Header>
 
       <View isHeader>
