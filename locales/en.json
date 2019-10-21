@@ -56,6 +56,7 @@
   "ReceiveShare.shareText": "Hey! Check out my profile at: {shareLink}",
   "SafeFinderView.tapToScanQR": "Scan QR Code",
   "SafeOwnerManager.addNewDevice": "Add new device",
+  "SafeOwnerManager.currentDevice": "Your current device",
   "SafeOwnerManager.devicesAccessingAccount": "Devices accessing this account:",
   "SafeOwnerManager.errorMessage": "Could not remove this device",
   "Send.sendCircles": "Send Circles",

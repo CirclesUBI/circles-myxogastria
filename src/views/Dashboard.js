@@ -18,6 +18,9 @@ import { IconQR, IconShare, IconActivities } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
 
 const Dashboard = () => {
+  // @TODO: Show unread / pending transactions or notifications count
+  const count = 0;
+
   return (
     <BackgroundWhirlyOrange>
       <Header>
@@ -29,7 +32,7 @@ const Dashboard = () => {
 
         <HeaderButton to="/activities">
           <IconActivities />
-          <DashboardActivityCounter count={12} />
+          <DashboardActivityCounter count={count} />
         </HeaderButton>
       </Header>
 

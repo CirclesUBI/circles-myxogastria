@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -8,6 +8,7 @@ import HomeButton from '~/components/HomeButton';
 import QRCodeScanner from '~/components/QRCodeScanner';
 import View from '~/components/View';
 import notify from '~/store/notifications/actions';
+import { BackgroundGreen } from '~/styles/Background';
 import { addSafeOwner } from '~/store/safe/actions';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 
@@ -50,23 +51,23 @@ const SettingsKeysAdd = (props, context) => {
   }
 
   return (
-    <Fragment>
+    <BackgroundGreen>
       <Header>
-        <BackButton isDark to="/settings/keys" />
+        <BackButton to="/settings/keys" />
 
         <HeaderCenterStyle>
-          <HeaderTitleStyle isDark>
+          <HeaderTitleStyle>
             {context.t('SettingsKeysAdd.addDevice')}
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
-        <HomeButton isDark />
+        <HomeButton />
       </Header>
 
       <View isHeader>
         <QRCodeScanner onSuccess={onQRCodeScanned} />
       </View>
-    </Fragment>
+    </BackgroundGreen>
   );
 };
 

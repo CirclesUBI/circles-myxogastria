@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,6 +10,7 @@ import HomeButton from '~/components/HomeButton';
 import SafeOwnerManager from '~/components/SafeOwnerManager';
 import View from '~/components/View';
 import styles from '~/styles/variables';
+import { BackgroundGreen } from '~/styles/Background';
 import { ButtonStyle } from '~/components/Button';
 import { finalizeNewAccount } from '~/store/onboarding/actions';
 
@@ -42,17 +43,17 @@ const SettingsKeys = (props, context) => {
   };
 
   return (
-    <Fragment>
+    <BackgroundGreen>
       <Header>
-        <BackButton isDark to="/settings" />
+        <BackButton to="/settings" />
 
         <HeaderCenterStyle>
-          <HeaderTitleStyle isDark>
+          <HeaderTitleStyle>
             {context.t('SettingsKeys.manageKeys')}
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
-        <HomeButton isDark />
+        <HomeButton />
       </Header>
 
       <View isFooter isHeader>
@@ -72,7 +73,7 @@ const SettingsKeys = (props, context) => {
           {context.t('SettingsKeys.exportSeedPhrase')}
         </ButtonPrimary>
       </Footer>
-    </Fragment>
+    </BackgroundGreen>
   );
 };
 

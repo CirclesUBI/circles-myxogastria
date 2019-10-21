@@ -70,10 +70,21 @@ const SafeOwnerManagerList = props => {
   });
 };
 
-const SafeOwnerManagerItem = props => {
+const SafeOwnerManagerItem = (props, context) => {
+  const wallet = useSelector(state => state.wallet);
+
   const onRemove = async () => {
     props.onRemove(props.address);
   };
+
+  if (props.address === wallet.address) {
+    return (
+      <OwnerStyle isWrap>
+        <p>{context.t('SafeOwnerManager.currentDevice')}</p>
+        <span>{props.address}</span>
+      </OwnerStyle>
+    );
+  }
 
   return (
     <OwnerStyle>
@@ -115,7 +126,22 @@ const OwnerStyle = styled.li`
 
   background-color: ${styles.monochrome.grayLighter};
 
+  flex-wrap: ${props => {
+    return props.isWrap ? 'wrap' : 'none';
+  }};
   justify-content: space-between;
+
+  p {
+    width: 100%;
+    max-width: 100%;
+
+    color: ${styles.monochrome.grayDark};
+
+    font-weight: ${styles.base.typography.weightSemiBold};
+    font-size: 0.8em;
+
+    text-align: left;
+  }
 
   span {
     overflow: hidden;
