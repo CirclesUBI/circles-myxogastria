@@ -10,7 +10,7 @@ import Footer from '~/components/Footer';
 import HomeButton from '~/components/HomeButton';
 import MiniProfile from '~/components/MiniProfile';
 import View from '~/components/View';
-import logError from '~/services/debug';
+import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { BackgroundOrangeTop } from '~/styles/Background';
 import { InputNumberStyle } from '~/styles/Inputs';

@@ -7,7 +7,7 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import Header from '~/components/Header';
 import Logo from '~/components/Logo';
 import View from '~/components/View';
-import logError from '~/services/debug';
+import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { InputStyle, FieldsetStyle, LabelStyle } from '~/styles/Inputs';
 import { SpacingStyle } from '~/styles/Layout';

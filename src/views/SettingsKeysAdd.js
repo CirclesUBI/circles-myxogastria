@@ -7,7 +7,8 @@ import BackButton from '~/components/BackButton';
 import HomeButton from '~/components/HomeButton';
 import QRCodeScanner from '~/components/QRCodeScanner';
 import View from '~/components/View';
-import notify from '~/store/notifications/actions';
+import logError from '~/utils/debug';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { BackgroundGreen } from '~/styles/Background';
 import { addSafeOwner } from '~/store/safe/actions';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
@@ -35,10 +36,13 @@ const SettingsKeysAdd = (props, context) => {
       );
 
       setIsDone(true);
-    } catch {
+    } catch (error) {
+      logError(error);
+
       dispatch(
         notify({
           text: context.t('SettingsKeysAdd.errorMessage'),
+          type: NotificationsTypes.ERROR,
         }),
       );
     }

@@ -8,7 +8,7 @@ import GlobalStyle from '~/styles';
 import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
 import SpinnerOverlay from '~/components/SpinnerOverlay';
-import logError from '~/services/debug';
+import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
 import { initializeApp, checkAppState } from '~/store/app/actions';

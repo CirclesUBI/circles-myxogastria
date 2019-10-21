@@ -8,6 +8,7 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import HomeButton from '~/components/HomeButton';
 import View from '~/components/View';
+import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { BackgroundPurpleTop } from '~/styles/Background';
 import { checkCurrentBalance } from '~/store/token/actions';
@@ -51,7 +52,9 @@ const TrustConfirm = (props, context) => {
       await dispatch(checkCurrentBalance());
 
       setIsSent(true);
-    } catch {
+    } catch (error) {
+      logError(error);
+
       dispatch(
         notify({
           text: context.t('TrustConfirm.errorMessage'),
