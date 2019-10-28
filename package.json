@@ -31,14 +31,14 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
-    "@testing-library/jest-dom": "^4.1.2",
+    "@testing-library/jest-dom": "^4.2.0",
     "@testing-library/react": "^9.3.0",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
     "env-cmd": "^10.0.1",
-    "eslint": "^6.5.1",
-    "eslint-config-prettier": "^6.4.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
     "eslint-loader": "^3.0.2",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
@@ -56,10 +56,10 @@
     "stylelint-custom-processor-loader": "^0.6.0",
     "stylelint-order": "^3.1.1",
     "stylelint-processor-styled-components": "^1.8.0",
-    "truffle": "^5.0.41",
+    "truffle": "^5.0.42",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.2"
+    "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
     "bip39": "^3.0.2",
@@ -70,16 +70,16 @@
     "normalize.css": "^8.0.1",
     "qr-scanner": "^1.1.1",
     "qrcode": "^1.4.2",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.4",
     "redux-create-action-types": "^2.1.0",
-    "redux-i18n": "^1.5.18",
+    "redux-i18n": "^1.5.19",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.4.0",
-    "web3": "^1.2.1"
+    "web3": "^1.2.2"
   }
 }
