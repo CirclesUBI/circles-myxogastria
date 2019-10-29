@@ -11,7 +11,7 @@ const ProfileImage = props => {
   const ref = createRef();
 
   const generate = () => {
-    const seed = web3.utils.hexToNumber(props.address.slice(2, 15));
+    const seed = web3.utils.hexToNumber(props.address.slice(0, 15));
     const identiconElem = jazzicon(ICON_SIZE, seed);
 
     ref.current.innerHTML = '';
