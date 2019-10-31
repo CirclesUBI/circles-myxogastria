@@ -38,10 +38,11 @@ const AccountCreate = (props, context) => {
 
       if (error.message.includes('409')) {
         text = context.t('AccountCreate.errorExistsAlready');
-      } else if (error.message.includes('invalid type')) {
-        text = context.t('AccountCreate.errorFormat');
-      } else if (error.message.includes('400')) {
-        text = context.t('AccountCreate.errorLength');
+      } else if (
+        error.message.includes('400') ||
+        error.message.includes('invalid type')
+      ) {
+        text = context.t('AccountCreate.errorLengthOrFormat');
       }
 
       dispatch(
