@@ -34,10 +34,21 @@ const AccountCreate = (props, context) => {
         }),
       );
     } catch (error) {
+      let text = context.t('AccountCreate.errorMessage');
+
+      if (error.message.includes('409')) {
+        text = context.t('AccountCreate.errorExistsAlready');
+      } else if (error.message.includes('invalid type')) {
+        text = context.t('AccountCreate.errorFormat');
+      } else if (error.message.includes('400')) {
+        text = context.t('AccountCreate.errorLength');
+      }
+
       dispatch(
         notify({
-          text: context.t('AccountCreate.errorMessage'),
+          text,
           type: NotificationsTypes.ERROR,
+          lifetime: 10000,
         }),
       );
 
@@ -78,7 +89,11 @@ const AccountCreate = (props, context) => {
           </FieldsetStyle>
         </SpacingStyle>
 
-        <ButtonPrimary type="submit" onClick={onSubmit}>
+        <ButtonPrimary
+          disabled={username.length < 3}
+          type="submit"
+          onClick={onSubmit}
+        >
           {context.t('AccountCreate.submit')}
         </ButtonPrimary>
       </View>
