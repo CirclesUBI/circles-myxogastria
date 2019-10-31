@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import HomeButton from '~/components/HomeButton';
 import QRCodeScanner from '~/components/QRCodeScanner';
 import View from '~/components/View';
@@ -21,13 +22,20 @@ import Header, {
 const SettingsKeysAdd = (props, context) => {
   const dispatch = useDispatch();
 
+  const [isConfirmationShown, setIsConfirmationShown] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  const [ownerAddress, setOwnerAddress] = useState('');
 
-  const onQRCodeScanned = async address => {
+  const onQRCodeScanned = address => {
+    setOwnerAddress(address);
+    setIsConfirmationShown(true);
+  };
+
+  const onSubmit = async () => {
     dispatch(showSpinnerOverlay());
 
     try {
-      await dispatch(addSafeOwner(address));
+      await dispatch(addSafeOwner(ownerAddress));
 
       dispatch(
         notify({
@@ -50,8 +58,42 @@ const SettingsKeysAdd = (props, context) => {
     dispatch(hideSpinnerOverlay());
   };
 
+  const onPrevious = () => {
+    setIsConfirmationShown(false);
+  };
+
   if (isDone) {
     return <Redirect to="/settings/keys" />;
+  }
+
+  if (isConfirmationShown) {
+    return (
+      <BackgroundGreen>
+        <Header>
+          <BackButton onClick={onPrevious} />
+
+          <HeaderCenterStyle>
+            <HeaderTitleStyle>
+              {context.t('SettingsKeysAdd.addDevice')}
+            </HeaderTitleStyle>
+          </HeaderCenterStyle>
+
+          <HomeButton />
+        </Header>
+
+        <View isHeader>
+          <p>
+            {context.t('SettingsKeysAdd.confirmationText', {
+              address: ownerAddress,
+            })}
+          </p>
+
+          <ButtonPrimary onClick={onSubmit}>
+            {context.t('SettingsKeysAdd.submit')}
+          </ButtonPrimary>
+        </View>
+      </BackgroundGreen>
+    );
   }
 
   return (
