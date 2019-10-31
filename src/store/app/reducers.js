@@ -3,6 +3,7 @@ import update from 'immutability-helper';
 import ActionTypes from '~/store/app/types';
 
 const initialState = {
+  isAuthorized: false,
   isConnected: false,
   isError: false,
   isLoading: false,
@@ -38,6 +39,14 @@ const appReducer = (state = initialState, action) => {
     case ActionTypes.APP_SPINNER_HIDE:
       return update(state, {
         isLoading: { $set: false },
+      });
+    case ActionTypes.APP_AUTHORIZE_SUCCESS:
+      return update(state, {
+        isAuthorized: { $set: true },
+      });
+    case ActionTypes.APP_AUTHORIZE_ERROR:
+      return update(state, {
+        isAuthorized: { $set: false },
       });
     default:
       return state;

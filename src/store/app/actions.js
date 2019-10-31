@@ -54,9 +54,32 @@ export function checkAppState() {
     await dispatch(checkTrustState());
     await dispatch(checkOnboardingState());
 
+    // Authorization state
+    await dispatch(checkAuthState());
+
     // In-app states
     await dispatch(checkTokenState());
     await dispatch(checkCurrentBalance());
+  };
+}
+
+export function checkAuthState() {
+  return async (dispatch, getState) => {
+    const { safe, wallet } = getState();
+
+    dispatch({
+      type: ActionTypes.APP_AUTHORIZE,
+    });
+
+    if (safe.address && wallet.address) {
+      dispatch({
+        type: ActionTypes.APP_AUTHORIZE_SUCCESS,
+      });
+    } else {
+      dispatch({
+        type: ActionTypes.APP_AUTHORIZE_ERROR,
+      });
+    }
   };
 }
 

@@ -26,12 +26,8 @@ import TrustConfirm from '~/views/TrustConfirm';
 import Welcome from '~/views/Welcome';
 
 const SessionContainer = ({ component: Component, isSessionRequired }) => {
-  const { app, safe, wallet } = useSelector(state => {
-    return {
-      app: state.app,
-      safe: state.safe,
-      wallet: state.wallet,
-    };
+  const app = useSelector(state => {
+    return state.app;
   });
 
   // Did something bad happen?
@@ -44,16 +40,14 @@ const SessionContainer = ({ component: Component, isSessionRequired }) => {
     return null;
   }
 
-  const isValidSession = safe.address && wallet.address;
-
   if (
-    (isSessionRequired && isValidSession) ||
-    (!isSessionRequired && !isValidSession)
+    (isSessionRequired && app.isAuthorized) ||
+    (!isSessionRequired && !app.isAuthorized)
   ) {
     return <Component />;
-  } else if (!isSessionRequired && isValidSession) {
+  } else if (!isSessionRequired && app.isAuthorized) {
     return <Redirect to="/" />;
-  } else if (isSessionRequired && !isValidSession) {
+  } else if (isSessionRequired && !app.isAuthorized) {
     return <Redirect to="/welcome" />;
   }
 };
