@@ -1,4 +1,4 @@
-import { checkAppState } from '~/store/app/actions';
+import { checkAppState, checkAuthState } from '~/store/app/actions';
 import { deployNewToken } from '~/store/token/actions';
 import { registerUser } from '~/services/core';
 import { restoreWallet } from '~/store/wallet/actions';
@@ -27,8 +27,10 @@ export function createNewAccount(username) {
       const { safe } = getState();
       await registerUser(safe.nonce, safe.address, username);
       await dispatch(checkAppState());
+      await dispatch(checkAuthState());
     } catch (error) {
       dispatch(resetSafe());
+
       throw error;
     }
   };
@@ -46,5 +48,6 @@ export function restoreAccount(seedPhrase) {
   return async dispatch => {
     await dispatch(restoreWallet(seedPhrase));
     await dispatch(checkAppState());
+    await dispatch(checkAuthState());
   };
 }

@@ -27,6 +27,7 @@ export function initializeApp() {
       await dispatch(initializeLocale());
       await dispatch(initializeWallet());
       await dispatch(initializeSafe());
+      await dispatch(checkAuthState());
 
       dispatch({
         type: ActionTypes.APP_INITIALIZE_SUCCESS,
@@ -53,9 +54,6 @@ export function checkAppState() {
     await dispatch(checkSafeState());
     await dispatch(checkTrustState());
     await dispatch(checkOnboardingState());
-
-    // Authorization state
-    await dispatch(checkAuthState());
 
     // In-app states
     await dispatch(checkTokenState());

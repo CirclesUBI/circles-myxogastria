@@ -11,7 +11,7 @@ import SpinnerOverlay from '~/components/SpinnerOverlay';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
-import { initializeApp, checkAppState } from '~/store/app/actions';
+import { checkAppState, initializeApp } from '~/store/app/actions';
 
 const APP_CHECK_FRQUENCY = 1000 * 10;
 
