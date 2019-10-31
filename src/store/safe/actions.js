@@ -1,4 +1,6 @@
 import ActionTypes from '~/store/safe/types';
+import core from '~/services/core';
+import isDeployed from '~/utils/isDeployed';
 
 import {
   generateNonce,
@@ -11,17 +13,6 @@ import {
   setNonce,
   setSafeAddress,
 } from '~/services/safe';
-
-import {
-  addOwner,
-  deploySafe,
-  findSafeAddress,
-  getOwners,
-  prepareSafeDeploy,
-  removeOwner,
-} from '~/services/core';
-
-import isDeployed from '~/utils/isDeployed';
 
 export function initializeSafe() {
   return async dispatch => {
@@ -69,7 +60,7 @@ export function createSafeWithNonce() {
       const nonce = generateNonce();
 
       // Predict Safe address
-      const address = await prepareSafeDeploy(nonce);
+      const address = await core.safe.prepareDeploy(nonce);
 
       // Store them when successful
       setSafeAddress(address);
@@ -107,7 +98,7 @@ export function checkSafeState() {
     }
 
     // Try to find a Safe owned by us
-    const address = await findSafeAddress(wallet.address);
+    const address = await core.safe.getAddress(wallet.address);
 
     if (address) {
       dispatch({
@@ -120,7 +111,7 @@ export function checkSafeState() {
   };
 }
 
-export function deployNewSafe() {
+export function deploySafe() {
   return async (dispatch, getState) => {
     const { safe } = getState();
 
@@ -133,7 +124,7 @@ export function deployNewSafe() {
     });
 
     try {
-      await deploySafe(safe.address);
+      await core.safe.deploy(safe.address);
 
       // @TODO: Remove this
       await isDeployed(safe.address);
@@ -167,7 +158,7 @@ export function getSafeOwners() {
     });
 
     try {
-      const owners = await getOwners(safe.address);
+      const owners = await core.safe.getOwners(safe.address);
 
       dispatch({
         type: ActionTypes.SAFE_OWNERS_SUCCESS,
@@ -194,7 +185,7 @@ export function addSafeOwner(address) {
     });
 
     try {
-      await addOwner(safe.address, address);
+      await core.safe.addOwner(safe.address, address);
 
       dispatch({
         type: ActionTypes.SAFE_OWNERS_ADD_SUCCESS,
@@ -221,7 +212,7 @@ export function removeSafeOwner(address) {
     });
 
     try {
-      await removeOwner(safe.address, address);
+      await core.safe.removeOwner(safe.address, address);
 
       dispatch({
         type: ActionTypes.SAFE_OWNERS_REMOVE_SUCCESS,

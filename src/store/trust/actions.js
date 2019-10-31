@@ -1,10 +1,5 @@
 import ActionTypes from '~/store/trust/types';
-
-import {
-  addTrustConnection,
-  getTrustNetwork,
-  removeTrustConnection,
-} from '~/services/core';
+import core from '~/services/core';
 
 const TRUST_CONNECTION_LIMIT = 3;
 
@@ -16,7 +11,7 @@ export function checkTrustState() {
       return;
     }
 
-    const network = await getTrustNetwork(safe.address);
+    const network = await core.trust.getNetwork(safe.address);
 
     const isTrusted =
       network.reduce((acc, connection) => {
@@ -41,7 +36,7 @@ export function trustUser(safeAddress) {
       return;
     }
 
-    await addTrustConnection(safe.address, safeAddress);
+    await core.trust.addConnection(safe.address, safeAddress);
   };
 }
 
@@ -53,6 +48,6 @@ export function untrustUser(safeAddress) {
       return;
     }
 
-    await removeTrustConnection(safe.address, safeAddress);
+    await core.trust.removeConnection(safe.address, safeAddress);
   };
 }

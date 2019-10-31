@@ -1,9 +1,9 @@
 import ActionTypes from '~/store/token/types';
 import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
-import { getBalance, transfer, getTokenAddress, signup } from '~/services/core';
+import core from '~/services/core';
 
-export function deployNewToken() {
+export function deployToken() {
   return async (dispatch, getState) => {
     const { safe, token } = getState();
 
@@ -22,7 +22,7 @@ export function deployNewToken() {
     });
 
     try {
-      const address = await signup(safe.address);
+      const address = await core.token.deploy(safe.address);
 
       dispatch({
         type: ActionTypes.TOKEN_DEPLOY_SUCCESS,
@@ -64,7 +64,7 @@ export function checkTokenState() {
     });
 
     try {
-      const address = await getTokenAddress(safe.address);
+      const address = await core.token.getAddress(safe.address);
 
       if (address === ZERO_ADDRESS) {
         throw new Error('Invalid Token address');
@@ -100,7 +100,7 @@ export function checkCurrentBalance() {
     });
 
     try {
-      const balance = await getBalance(safe.address, token.address);
+      const balance = await core.token.getBalance(safe.address, token.address);
 
       dispatch({
         type: ActionTypes.TOKEN_BALANCE_UPDATE_SUCCESS,
@@ -118,7 +118,7 @@ export function checkCurrentBalance() {
   };
 }
 
-export function sendCircles(to, value) {
+export function transferCircles(to, value) {
   return async (dispatch, getState) => {
     dispatch({
       type: ActionTypes.TOKEN_TRANSFER,
@@ -132,7 +132,7 @@ export function sendCircles(to, value) {
         web3.utils.toWei(`${value}`, 'ether'),
       );
 
-      await transfer(from, to, valueInWei);
+      await core.token.transfer(from, to, valueInWei);
 
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_SUCCESS,

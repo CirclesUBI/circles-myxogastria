@@ -1,4 +1,4 @@
-import { resolveUsernameAddresses } from '~/services/core';
+import core from '~/services/core';
 
 const cache = {};
 
@@ -20,7 +20,8 @@ export async function resolveUsernames(addresses) {
       return;
     }
 
-    resolveUsernameAddresses(toBeFetched)
+    core.user
+      .resolve(toBeFetched)
       .then(({ data }) => {
         data.forEach(user => {
           cache[user.safeAddress] = user.username;

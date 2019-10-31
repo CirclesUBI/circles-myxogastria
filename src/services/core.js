@@ -11,139 +11,132 @@ const core = new CirclesCore(web3, {
   relayServiceEndpoint: process.env.RELAY_SERVICE_ENDPOINT,
 });
 
+async function requestCore(moduleName, method, options) {
+  return await core[moduleName][method](getAccount(), options);
+}
+
 // Safe module
 
-export async function prepareSafeDeploy(nonce) {
-  const account = getAccount();
+const safe = {
+  prepareDeploy: async nonce => {
+    return await requestCore('safe', 'prepareDeploy', {
+      nonce,
+    });
+  },
 
-  return await core.safe.prepareDeploy(account, {
-    nonce,
-  });
-}
+  deploy: async safeAddress => {
+    return await requestCore('safe', 'deploy', {
+      safeAddress,
+    });
+  },
 
-export async function deploySafe(safeAddress) {
-  const account = getAccount();
+  getOwners: async safeAddress => {
+    return await requestCore('safe', 'getOwners', {
+      safeAddress,
+    });
+  },
 
-  return await core.safe.deploy(account, {
-    safeAddress,
-  });
-}
+  removeOwner: async (safeAddress, ownerAddress) => {
+    return await requestCore('safe', 'removeOwner', {
+      safeAddress,
+      ownerAddress,
+    });
+  },
 
-export async function getOwners(safeAddress) {
-  const account = getAccount();
+  addOwner: async (safeAddress, ownerAddress) => {
+    return await requestCore('safe', 'addOwner', {
+      safeAddress,
+      ownerAddress,
+    });
+  },
 
-  return await core.safe.getOwners(account, {
-    safeAddress,
-  });
-}
-
-export async function removeOwner(safeAddress, ownerAddress) {
-  const account = getAccount();
-
-  return await core.safe.removeOwner(account, {
-    safeAddress,
-    ownerAddress,
-  });
-}
-
-export async function addOwner(safeAddress, ownerAddress) {
-  const account = getAccount();
-
-  return await core.safe.addOwner(account, {
-    safeAddress,
-    ownerAddress,
-  });
-}
-
-// eslint-disable-next-line no-unused-vars
-export async function findSafeAddress(ownerAddress) {
-  return Promise.resolve();
-  // @TODO: Core method is not implemented yet
-  // const account = getAccount();
-  // return await core.safe.getSafeAddress(account, {
-  //   address: ownerAddress,
-  // });
-}
+  // eslint-disable-next-line no-unused-vars
+  getAddress: async ownerAddress => {
+    return Promise.resolve();
+    // @TODO: Core method is not implemented yet
+    // const account = getAccount();
+    // return await core.safe.getAddress(account, {
+    //   ownerAddress,
+    // });
+  },
+};
 
 // User module
 
-export async function registerUser(nonce, safeAddress, username) {
-  const account = getAccount();
+const user = {
+  register: async (nonce, safeAddress, username) => {
+    return await requestCore('user', 'register', {
+      nonce,
+      safeAddress,
+      username,
+    });
+  },
 
-  return await core.user.register(account, {
-    nonce,
-    safeAddress,
-    username,
-  });
-}
-
-export async function resolveUsernameAddresses(addresses) {
-  const account = getAccount();
-
-  return await core.user.resolve(account, {
-    addresses,
-  });
-}
+  resolve: async addresses => {
+    return await requestCore('user', 'resolve', {
+      addresses,
+    });
+  },
+};
 
 // Trust module
 
-// eslint-disable-next-line no-unused-vars
-export async function getTrustNetwork(safeAddress) {
-  // @TODO: Core method is not implemented yet
-  return Promise.resolve([]);
-}
+const trust = {
+  // eslint-disable-next-line no-unused-vars
+  getNetwork: async safeAddress => {
+    // @TODO: Core method is not implemented yet
+    return Promise.resolve([]);
+  },
 
-export async function addTrustConnection(from, to) {
-  const account = getAccount();
+  addConnection: async (from, to) => {
+    return await requestCore('trust', 'addConnection', {
+      from,
+      to,
+    });
+  },
 
-  return core.trust.addConnection(account, {
-    from,
-    to,
-  });
-}
+  removeConnection: async (from, to) => {
+    return await requestCore('trust', 'removeConnection', {
+      from,
+      to,
+    });
+  },
+};
 
-export async function removeTrustConnection(from, to) {
-  const account = getAccount();
+// Token module
 
-  return core.trust.removeConnection(account, {
-    from,
-    to,
-  });
-}
+const token = {
+  deploy: async safeAddress => {
+    return await requestCore('token', 'signup', {
+      safeAddress,
+    });
+  },
 
-// UBI module
+  getBalance: async (safeAddress, tokenAddress) => {
+    return await requestCore('token', 'getBalance', {
+      safeAddress,
+      tokenAddress,
+    });
+  },
 
-export async function signup(safeAddress) {
-  const account = getAccount();
+  getAddress: async safeAddress => {
+    return await requestCore('token', 'getAddress', {
+      safeAddress,
+    });
+  },
 
-  return await core.token.signup(account, {
-    safeAddress,
-  });
-}
+  transfer: async (from, to, value) => {
+    return await requestCore('token', 'transfer', {
+      from,
+      to,
+      value,
+    });
+  },
+};
 
-export async function getBalance(safeAddress, tokenAddress) {
-  const account = getAccount();
-
-  return await core.token.getBalance(account, {
-    safeAddress,
-    tokenAddress,
-  });
-}
-
-export async function getTokenAddress(safeAddress) {
-  const account = getAccount();
-
-  return await core.token.getAddress(account, {
-    safeAddress,
-  });
-}
-
-export async function transfer(from, to, value) {
-  const account = getAccount();
-
-  return await core.token.transfer(account, {
-    from,
-    to,
-    value,
-  });
-}
+export default {
+  safe,
+  token,
+  trust,
+  user,
+};

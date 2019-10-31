@@ -1,10 +1,10 @@
+import core from '~/services/core';
 import { checkAppState, checkAuthState } from '~/store/app/actions';
-import { deployNewToken } from '~/store/token/actions';
-import { registerUser } from '~/services/core';
+import { deployToken } from '~/store/token/actions';
 import { restoreWallet } from '~/store/wallet/actions';
 
 import {
-  deployNewSafe,
+  deploySafe,
   createSafeWithNonce,
   resetSafe,
 } from '~/store/safe/actions';
@@ -25,7 +25,7 @@ export function createNewAccount(username) {
     try {
       await dispatch(createSafeWithNonce());
       const { safe } = getState();
-      await registerUser(safe.nonce, safe.address, username);
+      await core.user.register(safe.nonce, safe.address, username);
       await dispatch(checkAppState());
       await dispatch(checkAuthState());
     } catch (error) {
@@ -38,8 +38,8 @@ export function createNewAccount(username) {
 
 export function finalizeNewAccount() {
   return async dispatch => {
-    await dispatch(deployNewSafe());
-    await dispatch(deployNewToken());
+    await dispatch(deploySafe());
+    await dispatch(deployToken());
     await dispatch(checkAppState());
   };
 }
