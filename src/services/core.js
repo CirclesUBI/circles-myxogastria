@@ -7,8 +7,10 @@ const core = new CirclesCore(web3, {
   safeMasterAddress: process.env.SAFE_ADDRESS,
   hubAddress: process.env.HUB_ADDRESS,
   proxyFactoryAddress: process.env.PROXY_FACTORY_ADDRESS,
-  usernameServiceEndpoint: process.env.USERNAME_RESOLVER_SERVICE_ENDPOINT,
+  usernameServiceEndpoint: process.env.USERNAME_SERVICE_ENDPOINT,
   relayServiceEndpoint: process.env.RELAY_SERVICE_ENDPOINT,
+  graphNodeEndpoint: process.env.GRAPH_NODE_ENDPOINT,
+  subgraphName: process.env.SUBGRAPH_NAME,
 });
 
 async function requestCore(moduleName, method, options) {
@@ -50,14 +52,10 @@ const safe = {
     });
   },
 
-  // eslint-disable-next-line no-unused-vars
   getAddress: async ownerAddress => {
-    return Promise.resolve();
-    // @TODO: Core method is not implemented yet
-    // const account = getAccount();
-    // return await core.safe.getAddress(account, {
-    //   ownerAddress,
-    // });
+    return await requestCore('safe', 'getAddress', {
+      ownerAddress,
+    });
   },
 };
 
@@ -82,10 +80,10 @@ const user = {
 // Trust module
 
 const trust = {
-  // eslint-disable-next-line no-unused-vars
   getNetwork: async safeAddress => {
-    // @TODO: Core method is not implemented yet
-    return Promise.resolve([]);
+    return await requestCore('trust', 'getNetwork', {
+      safeAddress,
+    });
   },
 
   addConnection: async (from, to) => {
@@ -112,10 +110,9 @@ const token = {
     });
   },
 
-  getBalance: async (safeAddress, tokenAddress) => {
+  getBalance: async safeAddress => {
     return await requestCore('token', 'getBalance', {
       safeAddress,
-      tokenAddress,
     });
   },
 
