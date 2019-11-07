@@ -36,6 +36,8 @@ const UsernameFinder = (props, context) => {
       props.onSelect({
         safeAddress: props.input,
       });
+
+      return;
     }
 
     const result = trust.network
@@ -62,11 +64,13 @@ const UsernameFinder = (props, context) => {
       />
 
       <SpacingStyle>
-        <UsernameFinderResult
-          isQueryEmpty={isQueryEmpty}
-          items={searchResults}
-          onClick={onSelect}
-        />
+        <ListStyle>
+          <UsernameFinderResult
+            isQueryEmpty={isQueryEmpty}
+            items={searchResults}
+            onClick={onSelect}
+          />
+        </ListStyle>
       </SpacingStyle>
     </Fragment>
   );
@@ -120,6 +124,10 @@ UsernameFinder.contextTypes = {
 UsernameFinderResult.contextTypes = {
   t: PropTypes.func.isRequired,
 };
+
+const ListStyle = styled.ul`
+  list-style: none;
+`;
 
 const ItemStyle = styled.li`
   margin-top: 1rem;

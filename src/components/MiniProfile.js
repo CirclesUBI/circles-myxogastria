@@ -38,6 +38,8 @@ const MiniProfileStyle = styled.div`
   }};
 
   align-items: center;
+
+  cursor: pointer;
 `;
 
 const UsernameDisplayStyle = styled.span`

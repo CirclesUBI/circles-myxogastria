@@ -40,11 +40,11 @@ const appReducer = (state = initialState, action) => {
       return update(state, {
         isLoading: { $set: false },
       });
-    case ActionTypes.APP_AUTHORIZE_SUCCESS:
+    case ActionTypes.APP_AUTHORIZE:
       return update(state, {
         isAuthorized: { $set: true },
       });
-    case ActionTypes.APP_AUTHORIZE_ERROR:
+    case ActionTypes.APP_UNAUTHORIZE:
       return update(state, {
         isAuthorized: { $set: false },
       });

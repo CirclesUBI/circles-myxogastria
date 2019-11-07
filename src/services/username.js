@@ -2,7 +2,7 @@ import core from '~/services/core';
 
 const cache = {};
 
-export async function resolveUsernames(addresses) {
+export default async function resolveUsernames(addresses) {
   return new Promise(resolve => {
     const result = {};
     const toBeFetched = [];

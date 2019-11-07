@@ -10,10 +10,10 @@ import HomeButton from '~/components/HomeButton';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import resolveUsernames from '~/services/username';
 import { BackgroundPurpleTop } from '~/styles/Background';
 import { checkCurrentBalance } from '~/store/token/actions';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
-import { resolveUsernames } from '~/services/username';
 import { trustUser } from '~/store/trust/actions';
 
 import Header, {
