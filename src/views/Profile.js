@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import ProfileBox from '~/components/ProfileBox';
 import Header from '~/components/Header';
 import HomeButton from '~/components/HomeButton';
+import ProfileBox from '~/components/ProfileBox';
 import View from '~/components/View';
 import { BackgroundPurple } from '~/styles/Background';
 

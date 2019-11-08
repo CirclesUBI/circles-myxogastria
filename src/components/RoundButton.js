@@ -29,6 +29,7 @@ const RoundButton = React.forwardRef(({ to, children, ...props }, ref) => {
 RoundButton.propTypes = {
   children: PropTypes.any.isRequired,
   disabled: PropTypes.bool,
+  isConfirmed: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
 };
@@ -46,11 +47,29 @@ export const RoundButtonStyle = styled(ButtonStyle)`
 
   border-radius: 50%;
 
-  background: linear-gradient(
-    90deg,
-    ${styles.colors.primary},
-    ${styles.colors.primaryDark} 100%
-  );
+  background: ${props => {
+    if (props.isConfirmed) {
+      return `linear-gradient(
+        90deg,
+        ${styles.colors.secondaryDark},
+        ${styles.colors.secondary} 100%
+      );`;
+    }
+
+    if (props.disabled) {
+      return `linear-gradient(
+        90deg,
+        ${styles.monochrome.gray},
+        ${styles.monochrome.grayLight} 100%
+      );`;
+    }
+
+    return `linear-gradient(
+      90deg,
+      ${styles.colors.primary},
+      ${styles.colors.primaryDark} 100%
+    );`;
+  }};
 
   box-shadow: 1px 1px 7px ${styles.monochrome.grayDark};
 

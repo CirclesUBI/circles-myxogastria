@@ -23,6 +23,7 @@ import SettingsKeysExport from '~/views/SettingsKeysExport';
 import SettingsShare from '~/views/SettingsShare';
 import Trust from '~/views/Trust';
 import TrustConfirm from '~/views/TrustConfirm';
+import TrustRevokeConfirm from '~/views/TrustRevokeConfirm';
 import Welcome from '~/views/Welcome';
 
 const SessionContainer = ({ component: Component, isSessionRequired }) => {
@@ -73,6 +74,10 @@ const Routes = () => (
     <SessionRoute component={Dashboard} exact path="/" />
     <SessionRoute component={Invite} path="/invite" />
     <SessionRoute component={Activities} path="/activities" />
+    <SessionRoute
+      component={TrustRevokeConfirm}
+      path="/trust/revoke/:address"
+    />
     <SessionRoute component={TrustConfirm} path="/trust/:address" />
     <SessionRoute component={Trust} path="/trust" />
     <SessionRoute component={SendConfirm} path="/send/:address" />

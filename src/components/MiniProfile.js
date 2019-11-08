@@ -38,13 +38,12 @@ const MiniProfileStyle = styled.div`
   }};
 
   align-items: center;
-
-  cursor: pointer;
 `;
 
 const UsernameDisplayStyle = styled.span`
   padding-left: 1rem;
 
+  font-weight: ${styles.base.typography.weight};
   font-size: ${props => {
     return props.isLarge ? '1.5em' : '1em';
   }};
