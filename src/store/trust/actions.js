@@ -29,12 +29,18 @@ export function checkTrustState() {
       }),
     );
 
-    const resolvedNetwork = network.map(connection => {
-      return {
-        ...connection,
-        username: usernames[connection.safeAddress],
-      };
-    });
+    const resolvedNetwork = network
+      .map(connection => {
+        return {
+          ...connection,
+          username: usernames[connection.safeAddress],
+        };
+      })
+      .sort((itemA, itemB) => {
+        return itemA.username
+          .toLowerCase()
+          .localeCompare(itemB.username.toLowerCase());
+      });
 
     dispatch({
       type: ActionTypes.TRUST_UPDATE,
