@@ -158,7 +158,7 @@ const TrustStateStyle = styled.span`
 
   color: ${props => {
     return props.isMutual ? styles.colors.secondary : styles.monochrome.black;
-}};
+  }};
 
   font-size: 0.8em;
 `;
