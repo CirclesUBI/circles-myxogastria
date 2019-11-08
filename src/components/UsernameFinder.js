@@ -45,7 +45,9 @@ const UsernameFinder = (props, context) => {
         return connection.username.includes(props.input);
       })
       .sort((itemA, itemB) => {
-        return itemA.username.lowercaseCompareTo(itemB.username);
+        return itemA.username
+          .toLowerCase()
+          .localeCompare(itemB.username.toLowerCase());
       })
       .slice(0, MAX_SEARCH_RESULTS);
 
