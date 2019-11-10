@@ -1,4 +1,4 @@
-import CirclesCore from 'circles-core';
+import CirclesCore from '@circles/core';
 
 import web3 from '~/services/web3';
 import { getAccount } from '~/services/wallet';
