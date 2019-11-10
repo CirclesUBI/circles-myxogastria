@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import styles from '~/styles/variables';
 import { ButtonStyle } from '~/components/Button';
-import { IconBase } from '~/styles/Icons';
+import { IconBase, IconSend } from '~/styles/Icons';
 
 // eslint-disable-next-line react/display-name
 const RoundButton = React.forwardRef(({ to, children, ...props }, ref) => {
@@ -118,6 +118,12 @@ export const RoundButtonStyle = styled(ButtonStyle)`
 
       font-size: 1.5em;
     }
+  }
+
+  ${IconSend} {
+    position: relative;
+
+    right: 3px;
   }
 `;
 

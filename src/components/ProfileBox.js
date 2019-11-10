@@ -13,8 +13,6 @@ import { IconSend, IconTrust } from '~/styles/Icons';
 import { InputStyle } from '~/styles/Inputs';
 
 const ProfileBox = (props, context) => {
-  const sendLink = `/send/${props.address}`;
-
   const { network } = useSelector(state => state.trust);
 
   const connection = network.find(item => {
@@ -29,11 +27,7 @@ const ProfileBox = (props, context) => {
       </ProfileBoxHeaderStyle>
 
       <ProfileBoxActionsStyle>
-        <RoundButton to={sendLink}>
-          <IconSend />
-          <span>{context.t('ProfileBox.sendCircles')}</span>
-        </RoundButton>
-
+        <SendButton address={props.address} />
         <TrustButton address={props.address} connection={connection} />
       </ProfileBoxActionsStyle>
 
@@ -47,7 +41,25 @@ const ProfileBox = (props, context) => {
   );
 };
 
+const SendButton = ({ address }, context) => {
+  const safe = useSelector(state => state.safe);
+  const disabled = safe.address === address;
+
+  return (
+    <RoundButton disabled={disabled} to={`/send/${address}`}>
+      <IconSend />
+      <span>{context.t('ProfileBox.sendCircles')}</span>
+    </RoundButton>
+  );
+};
+
 const TrustButton = ({ connection, address }, context) => {
+  const safe = useSelector(state => state.safe);
+
+  if (safe.address === address) {
+    return null;
+  }
+
   if (connection && connection.isTrustedByMe) {
     return (
       <RoundButton disabled isConfirmed>
@@ -67,6 +79,12 @@ const TrustButton = ({ connection, address }, context) => {
 
 const RevokeTrustButton = ({ connection }, context) => {
   if (!connection || !connection.isTrustedByMe) {
+    return null;
+  }
+
+  const safe = useSelector(state => state.safe);
+
+  if (safe.address === connection.safeAddress) {
     return null;
   }
 
@@ -99,6 +117,14 @@ ProfileBox.contextTypes = {
 };
 
 ProfileBox.propTypes = {
+  address: PropTypes.string.isRequired,
+};
+
+SendButton.contextTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+SendButton.propTypes = {
   address: PropTypes.string.isRequired,
 };
 
@@ -150,16 +176,26 @@ const ProfileBoxHeaderStyle = styled.div`
 `;
 
 const TrustStateStyle = styled.span`
-  position: relative;
-
-  top: 3px;
-
   margin-left: 0.5rem;
+  padding: 0.2rem;
+  padding-right: 0.7rem;
+  padding-left: 0.7rem;
+
+  border-radius: 5px;
 
   color: ${props => {
-    return props.isMutual ? styles.colors.secondary : styles.monochrome.black;
+    return props.isMutual
+      ? styles.monochrome.white
+      : styles.monochrome.grayDarker;
   }};
 
+  background-color: ${props => {
+    return props.isMutual
+      ? styles.colors.secondary
+      : styles.monochrome.grayLighter;
+  }};
+
+  font-weight: ${styles.base.typography.weightLight};
   font-size: 0.8em;
 `;
 

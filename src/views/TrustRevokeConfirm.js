@@ -69,17 +69,17 @@ const TrustRevokeConfirm = (props, context) => {
   useEffect(resolveAddress, [address]);
 
   if (isSent) {
-    return <Redirect to="" />;
+    return <Redirect to="/" />;
   }
 
   return (
     <BackgroundPurpleTop>
       <Header>
-        <BackButton to="/trust" />
+        <BackButton to={`/profile/${address}`} />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle>
-            {context.t('TrustRevokeConfirm.trustSomeone')}
+            {context.t('TrustRevokeConfirm.revokeTrust')}
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
