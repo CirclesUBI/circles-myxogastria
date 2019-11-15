@@ -115,12 +115,6 @@ export function checkSafeState() {
           address,
         },
       });
-    } else if (!address && safe.address) {
-      removeSafeAddress();
-
-      dispatch({
-        type: ActionTypes.SAFE_REMOTE_REMOVED,
-      });
     }
   };
 }
