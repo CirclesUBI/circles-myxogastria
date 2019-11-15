@@ -105,7 +105,7 @@ const trust = {
 
 const token = {
   deploy: async safeAddress => {
-    return await requestCore('token', 'signup', {
+    return await requestCore('token', 'deploy', {
       safeAddress,
     });
   },
@@ -131,9 +131,33 @@ const token = {
   },
 };
 
+// Activity module
+
+const activity = {
+  ActivityTypes: core.activity.ActivityTypes,
+
+  getLatest: async (safeAddress, timestamp) => {
+    return await requestCore('activity', 'getLatest', {
+      safeAddress,
+      timestamp,
+    });
+  },
+};
+
+// Utils module
+
+const { fromFreckles, toFreckles } = core.utils;
+
+const utils = {
+  fromFreckles,
+  toFreckles,
+};
+
 export default {
+  activity,
   safe,
   token,
   trust,
   user,
+  utils,
 };

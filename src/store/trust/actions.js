@@ -1,6 +1,9 @@
 import ActionTypes from '~/store/trust/types';
 import core from '~/services/core';
 import resolveUsernames from '~/services/username';
+import { addTask } from '~/store/task/actions';
+
+const { ActivityTypes } = core.activity;
 
 const TRUST_CONNECTION_LIMIT = 3;
 
@@ -60,7 +63,21 @@ export function trustUser(safeAddress) {
       return;
     }
 
-    await core.trust.addConnection(safe.address, safeAddress);
+    const from = safe.address;
+    const to = safeAddress;
+
+    const txHash = await core.trust.addConnection(from, to);
+
+    dispatch(
+      addTask({
+        txHash,
+        type: ActivityTypes.ADD_CONNECTION,
+        data: {
+          from,
+          to,
+        },
+      }),
+    );
   };
 }
 
@@ -72,6 +89,20 @@ export function untrustUser(safeAddress) {
       return;
     }
 
-    await core.trust.removeConnection(safe.address, safeAddress);
+    const from = safe.address;
+    const to = safeAddress;
+
+    const txHash = await core.trust.removeConnection(from, to);
+
+    dispatch(
+      addTask({
+        txHash,
+        type: ActivityTypes.REMOVE_CONNECTION,
+        data: {
+          from,
+          to,
+        },
+      }),
+    );
   };
 }

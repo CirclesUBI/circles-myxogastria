@@ -1,7 +1,10 @@
 import ActionTypes from '~/store/token/types';
+import core from '~/services/core';
 import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
-import core from '~/services/core';
+import { addTask } from '~/store/task/actions';
+
+const { ActivityTypes } = core.activity;
 
 export function deployToken() {
   return async (dispatch, getState) => {
@@ -120,7 +123,7 @@ export function checkCurrentBalance() {
   };
 }
 
-export function transferCircles(to, value) {
+export function transfer(to, amount) {
   return async (dispatch, getState) => {
     dispatch({
       type: ActionTypes.TOKEN_TRANSFER,
@@ -130,11 +133,21 @@ export function transferCircles(to, value) {
     const from = safe.address;
 
     try {
-      const valueInWei = new web3.utils.BN(
-        web3.utils.toWei(`${value}`, 'ether'),
-      );
+      const value = new web3.utils.BN(core.utils.toFreckles(amount));
 
-      await core.token.transfer(from, to, valueInWei);
+      const txHash = await core.token.transfer(from, to, value);
+
+      dispatch(
+        addTask({
+          txHash,
+          type: ActivityTypes.TRANSFER,
+          data: {
+            from,
+            to,
+            value,
+          },
+        }),
+      );
 
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_SUCCESS,
