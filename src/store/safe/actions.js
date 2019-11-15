@@ -140,8 +140,7 @@ export function deploySafe() {
     try {
       await core.safe.deploy(safe.address);
 
-      // @TODO: Remove nonce when Safe deployment got successfully mined
-      removeNonce();
+      await isDeployed(safe.address);
 
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_SUCCESS,
@@ -153,6 +152,14 @@ export function deploySafe() {
 
       throw error;
     }
+  };
+}
+
+export function finalizeSafeDeployment() {
+  removeNonce();
+
+  return {
+    type: ActionTypes.SAFE_DEPLOY_FINALIZE,
   };
 }
 

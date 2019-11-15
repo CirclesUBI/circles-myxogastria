@@ -13,7 +13,11 @@ import core from '~/services/core';
 import styles from '~/styles/variables';
 import { BackgroundPurple } from '~/styles/Background';
 import { ZERO_ADDRESS } from '~/utils/constants';
-import { updateLastSeen } from '~/store/activity/actions';
+
+import {
+  ONBOARDING_FINALIZATION,
+  updateLastSeen,
+} from '~/store/activity/actions';
 
 import {
   IconBase,
@@ -58,8 +62,6 @@ function formatMessage(props) {
       messageId = 'untrustedBySomeone';
       actorAddress = props.data.from;
     }
-    messageId = 'removedTrustConnection';
-    actorAddress = props.data.to;
   } else if (props.type === ActivityTypes.TRANSFER) {
     if (props.data.from === ZERO_ADDRESS) {
       // I've received Circles from the Hub (UBI)
@@ -88,6 +90,9 @@ function formatMessage(props) {
     messageId = 'removedFromSafe';
     isOwnerAddress = true;
     actorAddress = props.data.ownerAddress;
+  } else if (props.type === ONBOARDING_FINALIZATION) {
+    // I've just finished onboarding
+    messageId = 'safeAndTokenDeployed';
   }
 
   // Format the given timestamp to a readable string
@@ -175,8 +180,11 @@ const ActivitiesList = () => {
     },
   );
 
-  return activities.map(
-    ({ data, id, timestamp, type, txHash, isPending = false }) => {
+  return activities
+    .sort((itemA, itemB) => {
+      return itemB.timestamp - itemA.timestamp;
+    })
+    .map(({ data, id, timestamp, type, txHash, isPending = false }) => {
       return (
         <ActivitiesListItem
           data={data}
@@ -189,8 +197,7 @@ const ActivitiesList = () => {
           walletAddress={walletAddress}
         />
       );
-    },
-  );
+    });
 };
 
 const ActivitiesListItem = (props, context) => {
@@ -337,7 +344,7 @@ const ItemStyle = styled.li`
     top: 0;
 
     &::before {
-      font-size: 1.5em;
+      font-size: 1.2em;
     }
   }
 `;
@@ -348,6 +355,8 @@ const ItemContentStyle = styled.div`
   margin-left: 2rem;
 
   font-weight: ${styles.base.typography.weightLight};
+
+  line-height: 1.25;
 
   text-align: left;
 

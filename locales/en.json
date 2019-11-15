@@ -34,6 +34,7 @@
   "Activities.receivedUBI": "You received {value} {denominator} as your UBI",
   "Activities.removedFromSafe": "was removed from this account",
   "Activities.removedTrustConnection": "received {value} {denominator} from you",
+  "Activities.safeAndTokenDeployed": "Your account was created",
   "Activities.sentCircles": "received {value} {denominator} from you",
   "Activities.trustedBySomeone": "trusted you",
   "Activities.untrustedBySomeone": "untrusted you",

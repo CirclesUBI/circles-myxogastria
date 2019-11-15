@@ -1,5 +1,6 @@
 import ActionTypes from '~/store/activity/types';
 import core from '~/services/core';
+import { ZERO_ADDRESS } from '~/utils/constants';
 import web3 from '~/services/web3';
 
 import {
@@ -7,6 +8,8 @@ import {
   removeLastSeen,
   setLastSeen,
 } from '~/services/activities';
+
+export const ONBOARDING_FINALIZATION = Symbol('ONBOARDING_FINALIZATION');
 
 export function initializeActivities() {
   const lastSeen = getLastSeen();
@@ -70,10 +73,34 @@ export function checkPendingActivities() {
         continue;
       }
 
-      const receipt = await web3.eth.getTransactionReceipt(activity.txHash);
+      let isPending;
+      let isError;
 
-      const isPending = receipt === null;
-      const isError = !isPending && !receipt.status;
+      // Check special onboarding activity state
+      if (activity.type === ONBOARDING_FINALIZATION) {
+        const { safeAddress } = activity.data;
+
+        try {
+          // Check if both Safe and Token are deployed
+          const isSafeDeployed = await web3.eth.getCode(safeAddress);
+
+          const tokenAddress = await core.token.getAddress(safeAddress);
+          const isTokenDeployed = tokenAddress !== ZERO_ADDRESS;
+
+          isError = false;
+          isPending = !(isSafeDeployed && isTokenDeployed);
+        } catch {
+          isError = true;
+          isPending = true;
+        }
+      } else {
+        // Check normal transaction mining state
+        const receipt = await web3.eth.getTransactionReceipt(activity.txHash);
+
+        isPending = receipt === null;
+        isError = !isPending && !receipt.status;
+      }
+
       const { id } = activity;
 
       if (activity.isPending !== isPending || activity.isError !== isError) {

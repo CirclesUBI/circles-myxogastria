@@ -3,6 +3,7 @@ import core from '~/services/core';
 import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import { addPendingActivity } from '~/store/activity/actions';
+import { isTokenDeployed } from '~/utils/isDeployed';
 
 const { ActivityTypes } = core.activity;
 
@@ -15,23 +16,17 @@ export function deployToken() {
       return;
     }
 
-    // Safe is not deployed yet
-    if (safe.nonce) {
-      return;
-    }
-
     dispatch({
       type: ActionTypes.TOKEN_DEPLOY,
     });
 
     try {
-      const address = await core.token.deploy(safe.address);
+      await core.token.deploy(safe.address);
+
+      await isTokenDeployed(safe.address);
 
       dispatch({
         type: ActionTypes.TOKEN_DEPLOY_SUCCESS,
-        meta: {
-          address,
-        },
       });
     } catch (error) {
       dispatch({

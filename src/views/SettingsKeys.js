@@ -12,13 +12,8 @@ import View from '~/components/View';
 import styles from '~/styles/variables';
 import { BackgroundGreen } from '~/styles/Background';
 import { ButtonStyle } from '~/components/Button';
+import { burnApp } from '~/store/app/actions';
 import { finalizeNewAccount } from '~/store/onboarding/actions';
-
-import {
-  burnApp,
-  hideSpinnerOverlay,
-  showSpinnerOverlay,
-} from '~/store/app/actions';
 
 import Header, {
   HeaderCenterStyle,
@@ -76,9 +71,7 @@ const DebugButtons = () => {
   const dispatch = useDispatch();
 
   const onDeploy = async () => {
-    dispatch(showSpinnerOverlay());
     await dispatch(finalizeNewAccount());
-    dispatch(hideSpinnerOverlay());
   };
 
   return (
