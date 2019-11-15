@@ -27,6 +27,8 @@ const tokenReducer = (state = initialState, action) => {
       return update(state, {
         isLoading: { $set: false },
       });
+    case ActionTypes.TOKEN_RESET:
+      return update(state, { $set: initialState });
     default:
       return state;
   }

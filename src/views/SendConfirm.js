@@ -12,10 +12,10 @@ import MiniProfile from '~/components/MiniProfile';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import resolveUsernames from '~/services/username';
 import { BackgroundOrangeTop } from '~/styles/Background';
 import { InputNumberStyle } from '~/styles/Inputs';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
-import { resolveUsernames } from '~/services/username';
 import { transferCircles, checkCurrentBalance } from '~/store/token/actions';
 
 import Header, {

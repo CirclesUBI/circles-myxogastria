@@ -44,18 +44,20 @@ export function checkTokenState() {
   return async (dispatch, getState) => {
     const { safe, token } = getState();
 
-    // Safe address is not known yet
-    if (!safe.address) {
+    // Safe address is not known or deployed yet
+    if (!safe.address || safe.nonce) {
+      // ... reset Token when it was set before
+      if (token.address) {
+        dispatch({
+          type: ActionTypes.TOKEN_RESET,
+        });
+      }
+
       return;
     }
 
     // Token address already exists
     if (token.address) {
-      return;
-    }
-
-    // Safe is not deployed yet
-    if (safe.nonce) {
       return;
     }
 
@@ -100,7 +102,7 @@ export function checkCurrentBalance() {
     });
 
     try {
-      const balance = await core.token.getBalance(safe.address, token.address);
+      const balance = await core.token.getBalance(safe.address);
 
       dispatch({
         type: ActionTypes.TOKEN_BALANCE_UPDATE_SUCCESS,

@@ -54,6 +54,7 @@ export function checkAppState() {
     await dispatch(checkSafeState());
     await dispatch(checkTrustState());
     await dispatch(checkOnboardingState());
+    await dispatch(checkAuthState());
 
     // In-app states
     await dispatch(checkTokenState());
@@ -63,19 +64,16 @@ export function checkAppState() {
 
 export function checkAuthState() {
   return async (dispatch, getState) => {
-    const { safe, wallet } = getState();
+    const { safe, wallet, app } = getState();
+    const isValid = safe.address && wallet.address;
 
-    dispatch({
-      type: ActionTypes.APP_AUTHORIZE,
-    });
-
-    if (safe.address && wallet.address) {
+    if (isValid && !app.isAuthorized) {
       dispatch({
-        type: ActionTypes.APP_AUTHORIZE_SUCCESS,
+        type: ActionTypes.APP_AUTHORIZE,
       });
-    } else {
+    } else if (!isValid && app.isAuthorized) {
       dispatch({
-        type: ActionTypes.APP_AUTHORIZE_ERROR,
+        type: ActionTypes.APP_UNAUTHORIZE,
       });
     }
   };

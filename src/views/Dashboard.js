@@ -18,6 +18,11 @@ import { IconQR, IconShare, IconActivities } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
 
 const Dashboard = () => {
+  const safe = useSelector(state => state.safe);
+
+  // We consider someone "trusted" when Safe got deployed
+  const isTrusted = !safe.nonce;
+
   // @TODO: Show unread / pending transactions or notifications count
   const count = 0;
 
@@ -36,7 +41,7 @@ const Dashboard = () => {
         </HeaderButton>
       </Header>
 
-      <DashboardView />
+      <DashboardView isTrusted={isTrusted} />
     </BackgroundWhirlyOrange>
   );
 };
@@ -44,12 +49,12 @@ const Dashboard = () => {
 const DashboardView = (props, context) => {
   const safe = useSelector(state => state.safe);
 
-  if (safe.nonce) {
+  if (!props.isTrusted) {
     return (
       <Fragment>
         <View isHeader>
           <SpacingStyle>
-            <TrustHealthDisplay />
+            <TrustHealthDisplay isTrusted={false} />
           </SpacingStyle>
 
           <SpacingStyle>
@@ -83,7 +88,7 @@ const DashboardView = (props, context) => {
   return (
     <Fragment>
       <View isHeader>
-        <TrustHealthDisplay />
+        <TrustHealthDisplay isTrusted />
         <TrustNetwork />
       </View>
 
@@ -102,6 +107,10 @@ const DashboardActivityCounter = props => {
       <span>{props.count}</span>
     </ActivityCounterStyle>
   );
+};
+
+DashboardView.propTypes = {
+  isTrusted: PropTypes.bool.isRequired,
 };
 
 DashboardView.contextTypes = {

@@ -66,7 +66,7 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
 
   background: ${props => {
     if (props.isOutline) {
-      return styles.monochrome.white;
+      return 'transparent';
     }
 
     if (props.disabled) {

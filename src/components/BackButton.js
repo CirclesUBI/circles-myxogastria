@@ -14,7 +14,8 @@ const BackButton = ({ isDark, ...props }) => {
 
 BackButton.propTypes = {
   isDark: PropTypes.bool,
-  to: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  to: PropTypes.string,
 };
 
 export default BackButton;

@@ -41,6 +41,7 @@ export default createGlobalStyle`
     padding: 0;
 
     font-weight: ${typography.weightBold};
+    font-size: 1.5em;
 
     line-height: 1.1;
   }

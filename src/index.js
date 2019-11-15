@@ -1,5 +1,3 @@
-import 'normalize.css';
-
 import I18n from 'redux-i18n';
 import PropTypes from 'prop-types';
 import React from 'react';

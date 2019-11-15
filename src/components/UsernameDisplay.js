@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
-import { resolveUsernames } from '~/services/username';
+import resolveUsernames from '~/services/username';
 
 const UsernameDisplay = props => {
   const [username, setUsername] = useState('');

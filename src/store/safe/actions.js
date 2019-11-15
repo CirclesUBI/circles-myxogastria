@@ -1,6 +1,7 @@
 import ActionTypes from '~/store/safe/types';
 import core from '~/services/core';
 import isDeployed from '~/utils/isDeployed';
+import web3 from '~/services/web3';
 
 import {
   generateNonce,
@@ -87,25 +88,35 @@ export function checkSafeState() {
   return async (dispatch, getState) => {
     const { safe, wallet } = getState();
 
-    // Waiting to deploy a Safe ..
-    if (safe.nonce) {
+    // Something went wrong as we have a nonce
+    // but no Safe address, reset it!
+    if (safe.nonce && !safe.address) {
+      dispatch(resetSafe());
       return;
     }
 
-    // Already knows Safe address ..
-    if (safe.address) {
+    // Waiting to deploy a Safe ..
+    if (safe.nonce) {
       return;
     }
 
     // Try to find a Safe owned by us
     const address = await core.safe.getAddress(wallet.address);
 
-    if (address) {
+    if (address && !safe.address) {
+      setSafeAddress(address);
+
       dispatch({
-        type: ActionTypes.SAFE_FOUND,
+        type: ActionTypes.SAFE_REMOTE_FOUND,
         meta: {
           address,
         },
+      });
+    } else if (!address && safe.address) {
+      removeSafeAddress();
+
+      dispatch({
+        type: ActionTypes.SAFE_REMOTE_REMOVED,
       });
     }
   };
@@ -185,6 +196,19 @@ export function addSafeOwner(address) {
     });
 
     try {
+      // Check if wallet already owns a Safe
+      const safeAddress = await core.safe.getAddress(address);
+
+      if (safeAddress) {
+        throw new Error('Wallet already owns another Safe');
+      }
+
+      // Check if address is a wallet
+      if ((await web3.eth.getCode(address)) !== '0x') {
+        throw new Error('Address is not an EOA');
+      }
+
+      // Add owner to Safe
       await core.safe.addOwner(safe.address, address);
 
       dispatch({

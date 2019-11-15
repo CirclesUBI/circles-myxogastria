@@ -14,14 +14,14 @@ import resolveUsernames from '~/services/username';
 import { BackgroundPurpleTop } from '~/styles/Background';
 import { checkCurrentBalance } from '~/store/token/actions';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
-import { trustUser } from '~/store/trust/actions';
+import { untrustUser } from '~/store/trust/actions';
 
 import Header, {
   HeaderCenterStyle,
   HeaderTitleStyle,
 } from '~/components/Header';
 
-const TrustConfirm = (props, context) => {
+const TrustRevokeConfirm = (props, context) => {
   const { address } = props.match.params;
 
   const [isSent, setIsSent] = useState(false);
@@ -41,11 +41,11 @@ const TrustConfirm = (props, context) => {
     dispatch(showSpinnerOverlay());
 
     try {
-      await dispatch(trustUser(address));
+      await dispatch(untrustUser(address));
 
       dispatch(
         notify({
-          text: context.t('TrustConfirm.successMessage', { receiver }),
+          text: context.t('TrustRevokeConfirm.successMessage', { receiver }),
         }),
       );
 
@@ -57,7 +57,7 @@ const TrustConfirm = (props, context) => {
 
       dispatch(
         notify({
-          text: context.t('TrustConfirm.errorMessage'),
+          text: context.t('TrustRevokeConfirm.errorMessage'),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -75,11 +75,11 @@ const TrustConfirm = (props, context) => {
   return (
     <BackgroundPurpleTop>
       <Header>
-        <BackButton to="/trust" />
+        <BackButton to={`/profile/${address}`} />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle>
-            {context.t('TrustConfirm.trustSomeone')}
+            {context.t('TrustRevokeConfirm.revokeTrust')}
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
@@ -87,24 +87,24 @@ const TrustConfirm = (props, context) => {
       </Header>
 
       <View isFooter isHeader>
-        <p>{context.t('TrustConfirm.confirmationText', { receiver })}</p>
+        <p>{context.t('TrustRevokeConfirm.confirmationText', { receiver })}</p>
       </View>
 
       <Footer>
         <ButtonPrimary onClick={onSubmit}>
-          {context.t('TrustConfirm.confirm')}
+          {context.t('TrustRevokeConfirm.confirm')}
         </ButtonPrimary>
       </Footer>
     </BackgroundPurpleTop>
   );
 };
 
-TrustConfirm.contextTypes = {
+TrustRevokeConfirm.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
-TrustConfirm.propTypes = {
+TrustRevokeConfirm.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-export default withRouter(TrustConfirm);
+export default withRouter(TrustRevokeConfirm);

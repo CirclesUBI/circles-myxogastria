@@ -13,7 +13,7 @@ export function checkOnboardingState() {
   return async (dispatch, getState) => {
     const { trust, safe } = getState();
 
-    // @TODO: We could check the error state here where no nonce is given but also no Safe is deployed yet
+    // Safe is not deployed yet, check if we can do it
     if (trust.isTrusted && safe.nonce) {
       await finalizeNewAccount();
     }

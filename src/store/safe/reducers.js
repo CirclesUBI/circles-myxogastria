@@ -22,9 +22,13 @@ const safeReducer = (state = initialState, action) => {
         address: { $set: action.meta.address },
         nonce: { $set: action.meta.nonce },
       });
-    case ActionTypes.SAFE_FOUND:
+    case ActionTypes.SAFE_REMOTE_FOUND:
       return update(state, {
         address: { $set: action.meta.address },
+      });
+    case ActionTypes.SAFE_REMOTE_REMOVED:
+      return update(state, {
+        address: { $set: initialState.address },
       });
     case ActionTypes.SAFE_DEPLOY:
       return update(state, {

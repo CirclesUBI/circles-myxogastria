@@ -2,8 +2,7 @@ import createTypes from 'redux-create-action-types';
 
 export default createTypes(
   'APP_AUTHORIZE',
-  'APP_AUTHORIZE_ERROR',
-  'APP_AUTHORIZE_SUCCESS',
+  'APP_UNAUTHORIZE',
   'APP_CONNECT',
   'APP_CONNECT_ERROR',
   'APP_CONNECT_SUCCESS',
