@@ -46,6 +46,10 @@ export function finalizeNewAccount() {
   return async (dispatch, getState) => {
     const { safe } = getState();
 
+    if (safe.isLocked) {
+      return;
+    }
+
     // Inform the user about this activity
     dispatch(
       addPendingActivity({

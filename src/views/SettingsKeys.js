@@ -76,7 +76,11 @@ const DebugButtons = () => {
 
   return (
     <Fragment>
-      <ButtonPrimary disabled={!safe.nonce} isOutline onClick={onDeploy}>
+      <ButtonPrimary
+        disabled={!safe.nonce || safe.isLocked}
+        isOutline
+        onClick={onDeploy}
+      >
         Debug: Deploy Safe
       </ButtonPrimary>
     </Fragment>
