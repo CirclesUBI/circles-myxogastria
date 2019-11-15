@@ -45,6 +45,30 @@ const taskReducer = (state = initialState, action) => {
       return update(state, {
         tasks: { $set: [] },
       });
+    case ActionTypes.TASKS_UPDATE: {
+      const index = state.tasks.findIndex(item => {
+        return item.id === action.meta.id;
+      });
+
+      if (index === -1) {
+        return state;
+      }
+
+      const { isPending, isError } = action.meta;
+
+      const updatedTask = Object.assign({}, state.tasks[index], {
+        isPending,
+        isError,
+      });
+
+      return update(state, {
+        tasks: {
+          [index]: {
+            $set: updatedTask,
+          },
+        },
+      });
+    }
     default:
       return state;
   }
