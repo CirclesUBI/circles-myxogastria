@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -7,12 +7,11 @@ import BackButton from '~/components/BackButton';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import HomeButton from '~/components/HomeButton';
+import MiniProfile from '~/components/MiniProfile';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import resolveUsernames from '~/services/username';
 import { BackgroundPurpleTop } from '~/styles/Background';
-import { checkCurrentBalance } from '~/store/token/actions';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { trustUser } from '~/store/trust/actions';
 
@@ -23,19 +22,8 @@ import Header, {
 
 const TrustConfirm = (props, context) => {
   const { address } = props.match.params;
-
   const [isSent, setIsSent] = useState(false);
-  const [receiver, setReceiver] = useState(address);
-
   const dispatch = useDispatch();
-
-  const resolveAddress = safeAddress => {
-    resolveUsernames([safeAddress]).then(result => {
-      if (safeAddress in result) {
-        setReceiver(result[safeAddress]);
-      }
-    });
-  };
 
   const onSubmit = async () => {
     dispatch(showSpinnerOverlay());
@@ -45,11 +33,9 @@ const TrustConfirm = (props, context) => {
 
       dispatch(
         notify({
-          text: context.t('TrustConfirm.successMessage', { receiver }),
+          text: context.t('TrustConfirm.successMessage'),
         }),
       );
-
-      await dispatch(checkCurrentBalance());
 
       setIsSent(true);
     } catch (error) {
@@ -65,8 +51,6 @@ const TrustConfirm = (props, context) => {
 
     dispatch(hideSpinnerOverlay());
   };
-
-  useEffect(resolveAddress, [address]);
 
   if (isSent) {
     return <Redirect to="/" />;
@@ -87,7 +71,8 @@ const TrustConfirm = (props, context) => {
       </Header>
 
       <View isFooter isHeader>
-        <p>{context.t('TrustConfirm.confirmationText', { receiver })}</p>
+        <p>{context.t('TrustConfirm.confirmationText')}</p>
+        <MiniProfile address={address} />
       </View>
 
       <Footer>

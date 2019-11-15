@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -12,11 +12,10 @@ import MiniProfile from '~/components/MiniProfile';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import resolveUsernames from '~/services/username';
 import { BackgroundOrangeTop } from '~/styles/Background';
 import { InputNumberStyle } from '~/styles/Inputs';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
-import { transfer, checkCurrentBalance } from '~/store/token/actions';
+import { transfer } from '~/store/token/actions';
 
 import Header, {
   HeaderCenterStyle,
@@ -29,17 +28,7 @@ const SendConfirm = (props, context) => {
   const [amount, setAmount] = useState(0);
   const [isConfirmationShown, setIsConfirmationShown] = useState(false);
   const [isSent, setIsSent] = useState(false);
-  const [receiver, setReceiver] = useState(address);
-
   const dispatch = useDispatch();
-
-  const resolveAddress = safeAddress => {
-    resolveUsernames([safeAddress]).then(result => {
-      if (safeAddress in result) {
-        setReceiver(result[safeAddress]);
-      }
-    });
-  };
 
   const onAmountChange = event => {
     setAmount(event.target.value);
@@ -65,8 +54,6 @@ const SendConfirm = (props, context) => {
         }),
       );
 
-      await dispatch(checkCurrentBalance());
-
       setIsSent(true);
     } catch (error) {
       logError(error);
@@ -82,8 +69,6 @@ const SendConfirm = (props, context) => {
     dispatch(hideSpinnerOverlay());
   };
 
-  useEffect(resolveAddress, [address]);
-
   if (isSent) {
     return <Redirect to="/" />;
   }
@@ -97,7 +82,8 @@ const SendConfirm = (props, context) => {
 
         <View isFooter isHeader>
           <p>
-            {context.t('SendConfirm.confirmationText', { receiver, amount })}
+            {context.t('SendConfirm.confirmationText', { amount })}
+            <MiniProfile address={address} />
           </p>
         </View>
 
