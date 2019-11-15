@@ -2,7 +2,7 @@ import ActionTypes from '~/store/token/types';
 import core from '~/services/core';
 import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
-import { addTask } from '~/store/task/actions';
+import { addPendingActivity } from '~/store/activity/actions';
 
 const { ActivityTypes } = core.activity;
 
@@ -138,7 +138,7 @@ export function transfer(to, amount) {
       const txHash = await core.token.transfer(from, to, value);
 
       dispatch(
-        addTask({
+        addPendingActivity({
           txHash,
           type: ActivityTypes.TRANSFER,
           data: {

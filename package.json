@@ -68,6 +68,7 @@
     "immutability-helper": "^3.0.1",
     "isomorphic-fetch": "^2.2.1",
     "jazzicon": "^1.5.0",
+    "luxon": "^1.21.1",
     "qr-scanner": "^1.1.1",
     "qrcode": "^1.4.4",
     "react": "^16.12.0",

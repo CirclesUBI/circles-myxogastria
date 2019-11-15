@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,20 +26,12 @@ import Header, {
 } from '~/components/Header';
 
 const SettingsKeys = (props, context) => {
-  const safe = useSelector(state => state.safe);
   const dispatch = useDispatch();
 
   const onBurnClick = () => {
     if (window.confirm(context.t('SettingsKeys.areYouSure'))) {
       dispatch(burnApp());
     }
-  };
-
-  // @TODO: Remove this when we've implemented all of the onboarding flows
-  const onDeploy = async () => {
-    dispatch(showSpinnerOverlay());
-    await dispatch(finalizeNewAccount());
-    dispatch(hideSpinnerOverlay());
   };
 
   return (
@@ -63,9 +55,7 @@ const SettingsKeys = (props, context) => {
           {context.t('SettingsKeys.endSession')}
         </DangerButtonStyle>
 
-        <ButtonPrimary disabled={!safe.nonce} isOutline onClick={onDeploy}>
-          Debug: Deploy Safe
-        </ButtonPrimary>
+        <DebugButtons />
       </View>
 
       <Footer>
@@ -74,6 +64,29 @@ const SettingsKeys = (props, context) => {
         </ButtonPrimary>
       </Footer>
     </BackgroundGreen>
+  );
+};
+
+const DebugButtons = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
+
+  const safe = useSelector(state => state.safe);
+  const dispatch = useDispatch();
+
+  const onDeploy = async () => {
+    dispatch(showSpinnerOverlay());
+    await dispatch(finalizeNewAccount());
+    dispatch(hideSpinnerOverlay());
+  };
+
+  return (
+    <Fragment>
+      <ButtonPrimary disabled={!safe.nonce} isOutline onClick={onDeploy}>
+        Debug: Deploy Safe
+      </ButtonPrimary>
+    </Fragment>
   );
 };
 

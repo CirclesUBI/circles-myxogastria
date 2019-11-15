@@ -1,7 +1,7 @@
 import ActionTypes from '~/store/trust/types';
 import core from '~/services/core';
 import resolveUsernames from '~/services/username';
-import { addTask } from '~/store/task/actions';
+import { addPendingActivity } from '~/store/activity/actions';
 
 const { ActivityTypes } = core.activity;
 
@@ -69,7 +69,7 @@ export function trustUser(safeAddress) {
     const txHash = await core.trust.addConnection(from, to);
 
     dispatch(
-      addTask({
+      addPendingActivity({
         txHash,
         type: ActivityTypes.ADD_CONNECTION,
         data: {
@@ -95,7 +95,7 @@ export function untrustUser(safeAddress) {
     const txHash = await core.trust.removeConnection(from, to);
 
     dispatch(
-      addTask({
+      addPendingActivity({
         txHash,
         type: ActivityTypes.REMOVE_CONNECTION,
         data: {

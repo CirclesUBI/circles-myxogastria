@@ -2,7 +2,7 @@ import ActionTypes from '~/store/safe/types';
 import core from '~/services/core';
 import isDeployed from '~/utils/isDeployed';
 import web3 from '~/services/web3';
-import { addTask } from '~/store/task/actions';
+import { addPendingActivity } from '~/store/activity/actions';
 
 import {
   generateNonce,
@@ -140,9 +140,7 @@ export function deploySafe() {
     try {
       await core.safe.deploy(safe.address);
 
-      // @TODO: Remove this and have task queue instead
-      await isDeployed(safe.address);
-
+      // @TODO: Remove nonce when Safe deployment got successfully mined
       removeNonce();
 
       dispatch({
@@ -218,7 +216,7 @@ export function addSafeOwner(address) {
       const txHash = await core.safe.addOwner(safeAddress, ownerAddress);
 
       dispatch(
-        addTask({
+        addPendingActivity({
           txHash,
           type: ActivityTypes.ADD_OWNER,
           data: {
@@ -259,7 +257,7 @@ export function removeSafeOwner(address) {
       const txHash = await core.safe.removeOwner(safeAddress, ownerAddress);
 
       dispatch(
-        addTask({
+        addPendingActivity({
           txHash,
           type: ActivityTypes.REMOVE_OWNER,
           data: {

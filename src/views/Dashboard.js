@@ -9,6 +9,7 @@ import Header from '~/components/Header';
 import HeaderButton from '~/components/HeaderButton';
 import QRCode from '~/components/QRCode';
 import RoundButton from '~/components/RoundButton';
+import Spinner from '~/components/Spinner';
 import TrustHealthDisplay from '~/components/TrustHealthDisplay';
 import TrustNetwork from '~/components/TrustNetwork';
 import View from '~/components/View';
@@ -23,9 +24,6 @@ const Dashboard = () => {
   // We consider someone "trusted" when Safe got deployed
   const isTrusted = !safe.nonce;
 
-  // @TODO: Show unread / pending transactions or notifications count
-  const count = 0;
-
   return (
     <BackgroundWhirlyOrange>
       <Header>
@@ -36,13 +34,44 @@ const Dashboard = () => {
         <BalanceDisplay />
 
         <HeaderButton to="/activities">
-          <IconActivities />
-          <DashboardActivityCounter count={count} />
+          <DashboardActivityIcon />
         </HeaderButton>
       </Header>
 
       <DashboardView isTrusted={isTrusted} />
     </BackgroundWhirlyOrange>
+  );
+};
+
+const DashboardActivityIcon = () => {
+  const { activities, lastSeen } = useSelector(state => {
+    return state.activity;
+  });
+
+  // Is there any pending transactions?
+  const isPending =
+    activities.findIndex(activity => {
+      return activity.isPending;
+    }) > -1;
+
+  if (isPending) {
+    return <Spinner />;
+  }
+
+  // Count how many activities we haven't seen yet
+  const count = activities.reduce((acc, activity) => {
+    if (activity.timestamp > lastSeen) {
+      return acc + 1;
+    }
+
+    return acc;
+  }, 0);
+
+  return (
+    <Fragment>
+      <IconActivities />
+      <DashboardActivityCounter count={count} />
+    </Fragment>
   );
 };
 

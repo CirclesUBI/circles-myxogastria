@@ -15,6 +15,10 @@ const rotate = keyframes`
 `;
 
 const Spinner = props => {
+  if (props.isHidden) {
+    return null;
+  }
+
   return (
     <SpinnerStyle>
       <IconSpinner isDark={props.isDark} />
@@ -23,7 +27,8 @@ const Spinner = props => {
 };
 
 Spinner.propTypes = {
-  isDark: PropTypes.bool.isRequired,
+  isDark: PropTypes.bool,
+  isHidden: PropTypes.bool,
 };
 
 export const SpinnerStyle = styled.div`
