@@ -6,6 +6,7 @@ import green from '%/images/background-green.svg';
 import greenBottom from '%/images/background-green-bottom.svg';
 import orangeBottom from '%/images/background-orange-bottom.svg';
 import orangeTop from '%/images/background-orange-top.svg';
+import purple from '%/images/background-purple.svg';
 import purpleTop from '%/images/background-purple-top.svg';
 import whirlyGreen from '%/images/background-whirly-green.svg';
 import whirlyOrange from '%/images/background-whirly-orange.svg';
@@ -83,10 +84,16 @@ export const BackgroundPurpleTop = styled(BackgroundBase)`
   background-size: contain;
 `;
 
-export const BackgroundPurple = styled(BackgroundBase)`
+export const BackgroundPurplePlain = styled(BackgroundBase)`
   background: linear-gradient(
     180deg,
     ${styles.colors.primaryDark} 0%,
     ${styles.colors.primary} 100%
   );
+`;
+
+export const BackgroundPurple = styled(BackgroundBase)`
+  background-image: url(${purple});
+  background-position: -1rem -1rem;
+  background-size: 110%;
 `;

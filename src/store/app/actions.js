@@ -6,6 +6,13 @@ import { initializeLocale } from '~/store/locale/actions';
 import { initializeWallet, burnWallet } from '~/store/wallet/actions';
 
 import {
+  checkFinishedActivities,
+  checkPendingActivities,
+  initializeActivities,
+  resetActivities,
+} from '~/store/activity/actions';
+
+import {
   checkSafeState,
   initializeSafe,
   resetSafe,
@@ -27,6 +34,7 @@ export function initializeApp() {
       await dispatch(initializeLocale());
       await dispatch(initializeWallet());
       await dispatch(initializeSafe());
+      await dispatch(initializeActivities());
       await dispatch(checkAuthState());
 
       dispatch({
@@ -59,6 +67,8 @@ export function checkAppState() {
     // In-app states
     await dispatch(checkTokenState());
     await dispatch(checkCurrentBalance());
+    await dispatch(checkFinishedActivities());
+    await dispatch(checkPendingActivities());
   };
 }
 
@@ -83,6 +93,8 @@ export function burnApp() {
   return async dispatch => {
     await dispatch(burnWallet());
     await dispatch(resetSafe());
+    await dispatch(resetSafe());
+    await dispatch(resetActivities());
 
     window.location.reload();
   };

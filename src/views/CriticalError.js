@@ -18,7 +18,7 @@ const CriticalError = (props, context) => {
   return (
     <Fragment>
       <View>
-        <p>{context.t('CriticalError.criticalErrorDesription')}</p>
+        <p>{context.t('CriticalError.criticalErrorDescription')}</p>
 
         <ButtonPrimary onClick={onBurnClick}>
           {context.t('CriticalError.reset')}

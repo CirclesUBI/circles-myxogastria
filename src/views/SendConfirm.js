@@ -16,7 +16,7 @@ import resolveUsernames from '~/services/username';
 import { BackgroundOrangeTop } from '~/styles/Background';
 import { InputNumberStyle } from '~/styles/Inputs';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
-import { transferCircles, checkCurrentBalance } from '~/store/token/actions';
+import { transfer, checkCurrentBalance } from '~/store/token/actions';
 
 import Header, {
   HeaderCenterStyle,
@@ -57,7 +57,7 @@ const SendConfirm = (props, context) => {
     dispatch(showSpinnerOverlay());
 
     try {
-      await dispatch(transferCircles(address, amount));
+      await dispatch(transfer(address, amount));
 
       dispatch(
         notify({

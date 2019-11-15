@@ -6,13 +6,13 @@ import Header from '~/components/Header';
 import HomeButton from '~/components/HomeButton';
 import ProfileBox from '~/components/ProfileBox';
 import View from '~/components/View';
-import { BackgroundPurple } from '~/styles/Background';
+import { BackgroundPurplePlain } from '~/styles/Background';
 
 const Profile = props => {
   const { address } = props.match.params;
 
   return (
-    <BackgroundPurple>
+    <BackgroundPurplePlain>
       <Header isAlignedRight>
         <HomeButton />
       </Header>
@@ -20,7 +20,7 @@ const Profile = props => {
       <View isHeader>
         <ProfileBox address={address} />
       </View>
-    </BackgroundPurple>
+    </BackgroundPurplePlain>
   );
 };
 

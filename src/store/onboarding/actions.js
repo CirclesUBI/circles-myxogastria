@@ -4,8 +4,14 @@ import { deployToken } from '~/store/token/actions';
 import { restoreWallet } from '~/store/wallet/actions';
 
 import {
-  deploySafe,
+  ONBOARDING_FINALIZATION,
+  addPendingActivity,
+} from '~/store/activity/actions';
+
+import {
   createSafeWithNonce,
+  deploySafe,
+  finalizeSafeDeployment,
   resetSafe,
 } from '~/store/safe/actions';
 
@@ -37,9 +43,27 @@ export function createNewAccount(username) {
 }
 
 export function finalizeNewAccount() {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    // Inform the user about this activity
+    dispatch(
+      addPendingActivity({
+        type: ONBOARDING_FINALIZATION,
+        data: {
+          safeAddress: safe.address,
+        },
+      }),
+    );
+
+    // Deploy Safe and Token
     await dispatch(deploySafe());
     await dispatch(deployToken());
+
+    // Change all states to final
+    await dispatch(finalizeSafeDeployment());
+
+    // Get latest updates
     await dispatch(checkAppState());
   };
 }

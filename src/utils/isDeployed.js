@@ -1,4 +1,6 @@
+import core from '~/services/core';
 import web3 from '~/services/web3';
+import { ZERO_ADDRESS } from '~/utils/constants';
 
 const LOOP_INTERVAL = 1000;
 
@@ -22,9 +24,22 @@ async function loop(request, condition) {
 
 export default async function isDeployed(address) {
   await loop(
-    () => web3.eth.getCode(address),
+    () => {
+      return web3.eth.getCode(address);
+    },
     code => {
       return code !== '0x';
+    },
+  );
+}
+
+export async function isTokenDeployed(safeAddress) {
+  await loop(
+    () => {
+      return core.token.getAddress(safeAddress);
+    },
+    address => {
+      return address !== ZERO_ADDRESS;
     },
   );
 }

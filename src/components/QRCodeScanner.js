@@ -64,7 +64,6 @@ const QRCodeScanner = (props, context) => {
 
   const initialize = () => {
     const checkCamera = async () => {
-      // @TODO: Find a better way to check if we have the permission to use camera
       const isAvailable = await QrScanner.hasCamera();
 
       if (!isAvailable) {
