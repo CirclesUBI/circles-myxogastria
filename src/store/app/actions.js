@@ -1,4 +1,5 @@
 import ActionTypes from '~/store/app/types';
+import { checkActivities } from '~/store/activity/actions';
 import { checkOnboardingState } from '~/store/onboarding/actions';
 import { checkTasksState } from '~/store/task/actions';
 import { checkTokenState, checkCurrentBalance } from '~/store/token/actions';
@@ -61,6 +62,7 @@ export function checkAppState() {
     await dispatch(checkTokenState());
     await dispatch(checkCurrentBalance());
     await dispatch(checkTasksState());
+    await dispatch(checkActivities());
   };
 }
 
