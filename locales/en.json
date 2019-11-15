@@ -29,6 +29,7 @@
   "Activities.meTrustedSomeone": "got trusted by you",
   "Activities.meUntrustedSomeone": "got untrusted by you",
   "Activities.myselfAddedToSafe": "You got added to this account",
+  "Activities.nothingHereYet": "No activities yet :-(",
   "Activities.notifications": "Notifications",
   "Activities.receivedCircles": "sent you {value} {denominator}",
   "Activities.receivedUBI": "You received {value} {denominator} as your UBI",

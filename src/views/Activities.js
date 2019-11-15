@@ -168,7 +168,7 @@ const Activities = (props, context) => {
   );
 };
 
-const ActivitiesList = () => {
+const ActivitiesList = (props, context) => {
   const { activities, lastSeen, safeAddress, walletAddress } = useSelector(
     state => {
       return {
@@ -179,6 +179,10 @@ const ActivitiesList = () => {
       };
     },
   );
+
+  if (activities.length === 0) {
+    return <p>{context.t('Activities.nothingHereYet')}</p>;
+  }
 
   return activities
     .sort((itemA, itemB) => {
@@ -267,6 +271,10 @@ const ActivitiesListIcon = props => {
 };
 
 Activities.contextTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+ActivitiesList.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
