@@ -17,6 +17,7 @@ module.exports = {
   SAFE_ADDRESS: '', // @TODO
   PROXY_FACTORY_ADDRESS: '', // @TODO
   HUB_ADDRESS: '', // @TODO
+  SAFE_FUNDER_ADDRESS: '', // @TODO
 
   // Graph node
   SUBGRAPH_NAME: 'CirclesUBI/circles-subgraph',
