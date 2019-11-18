@@ -13,7 +13,7 @@
     "url": "git://github.com/CirclesUBI/circles-baby-phoenix.git"
   },
   "scripts": {
-    "build": "npm run clear && env-cmd -f ./config/production.js webpack",
+    "build": "npm run clear && webpack",
     "clear": "rimraf ./build",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint './src/**/*.js'",
