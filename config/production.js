@@ -1,23 +1,24 @@
 module.exports = {
   // Base path
-  BASE_PATH: 'http://localhost:8080',
+  BASE_PATH: 'https://circles.garden',
 
   // Build environment
-  NODE_ENV: 'development',
+  NODE_ENV: 'production',
 
   // Blockchain API URL
-  ETHEREUM_NODE_ENDPOINT: 'ws://localhost:8545',
+  ETHEREUM_NODE_ENDPOINT:
+    'wss://kovan.infura.io/ws/v3/0a9d453d25754d52973ee1a69ea37937',
 
   // Service Endpoints
-  RELAY_SERVICE_ENDPOINT: 'http://relay.circles.local',
-  USERNAME_SERVICE_ENDPOINT: 'http://api.circles.local',
-  GRAPH_NODE_ENDPOINT: 'http://graph.circles.local',
+  RELAY_SERVICE_ENDPOINT: 'https://relay.circles.garden',
+  USERNAME_SERVICE_ENDPOINT: 'https://api.circles.garden',
+  GRAPH_NODE_ENDPOINT: 'https://graph.circles.garden',
 
   // Smart Contract addresses
-  SAFE_ADDRESS: '0xD833215cBcc3f914bD1C9ece3EE7BF8B14f841bb',
-  PROXY_FACTORY_ADDRESS: '0xC89Ce4735882C9F0f0FE26686c53074E09B0D550',
-  HUB_ADDRESS: '0xCfEB869F69431e42cdB54A4F4f105C19C080A601',
-  SAFE_FUNDER_ADDRESS: '0x1dF62f291b2E969fB0849d99D9Ce41e2F137006e',
+  SAFE_ADDRESS: '0x3a9AdAb04899e3E7D4cf5b280292565c50E089eE',
+  PROXY_FACTORY_ADDRESS: '0x99CD11810B7D9F4510554af8a38c694b72eb423A',
+  HUB_ADDRESS: '0xEe3E07092eA9a6f705c2b69F51119BB8A9471305',
+  SAFE_FUNDER_ADDRESS: '0x812D4e73eB6B8200A62469Ec3249fB02EAC58C91',
 
   // Graph node
   SUBGRAPH_NAME: 'CirclesUBI/circles-subgraph',
