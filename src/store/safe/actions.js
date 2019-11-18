@@ -103,10 +103,14 @@ export function checkSafeState() {
       return;
     }
 
+    if (safe.address) {
+      return;
+    }
+
     // Try to find a Safe owned by us
     const address = await core.safe.getAddress(wallet.address);
 
-    if (address && !safe.address) {
+    if (address) {
       setSafeAddress(address);
 
       dispatch({

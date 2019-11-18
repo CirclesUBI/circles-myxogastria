@@ -65,8 +65,12 @@ export function resetActivities() {
 
 export function checkPendingActivities() {
   return async (dispatch, getState) => {
-    const state = getState();
-    const { activities } = state.activity;
+    const { activity, safe } = getState();
+    const { activities } = activity;
+
+    if (!safe.address) {
+      return;
+    }
 
     for (let activity of activities) {
       if (!activity.isPending) {
