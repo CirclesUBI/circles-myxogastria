@@ -38,7 +38,8 @@ export function checkTrustState() {
         .map(connection => {
           return {
             ...connection,
-            username: usernames[connection.safeAddress],
+            username:
+              usernames[connection.safeAddress] || connection.safeAddress,
           };
         })
         .sort((itemA, itemB) => {
