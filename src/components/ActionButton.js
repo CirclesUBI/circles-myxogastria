@@ -200,6 +200,7 @@ const PanelButtonStyle = styled(ButtonStyle)`
 
   color: ${styles.components.button.color};
 
+  align-items: center;
   flex-direction: column;
   justify-content: center;
 

@@ -73,6 +73,7 @@ export const RoundButtonStyle = styled(ButtonStyle)`
 
   box-shadow: 1px 1px 7px ${styles.monochrome.grayDark};
 
+  align-items: center;
   flex-direction: column;
 
   &:hover {
