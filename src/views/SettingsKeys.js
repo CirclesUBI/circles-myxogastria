@@ -63,7 +63,10 @@ const SettingsKeys = (props, context) => {
 };
 
 const DebugButtons = () => {
-  if (process.env.NODE_ENV === 'production') {
+  if (
+    process.env.NODE_ENV === 'production' &&
+    !window.location.search.includes('?debug') // @TODO Remove this
+  ) {
     return null;
   }
 
