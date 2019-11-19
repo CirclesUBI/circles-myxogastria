@@ -1,6 +1,5 @@
 import path from 'path';
 
-import CompressionWebpackPlugin from 'compression-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
 
@@ -109,9 +108,6 @@ export default () => {
           },
           {},
         ),
-      }),
-      new CompressionWebpackPlugin({
-        algorithm: 'gzip',
       }),
     ],
   };
