@@ -4,7 +4,21 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import dotenv from 'dotenv';
 import webpack from 'webpack';
 
-const config = dotenv.config();
+dotenv.config();
+
+const CONFIG_KEYS = [
+  'BASE_PATH',
+  'NODE_ENV',
+  'ETHEREUM_NODE_ENDPOINT',
+  'RELAY_SERVICE_ENDPOINT',
+  'USERNAME_SERVICE_ENDPOINT',
+  'GRAPH_NODE_ENDPOINT',
+  'SAFE_ADDRESS',
+  'PROXY_FACTORY_ADDRESS',
+  'HUB_ADDRESS',
+  'SAFE_FUNDER_ADDRESS',
+  'SUBGRAPH_NAME',
+];
 
 const NODE_MODULES = 'node_modules';
 const PATH_ASSETS = './assets';
@@ -97,7 +111,7 @@ export default () => {
         template: getPath(`${PATH_SRC}/index.html`),
       }),
       new webpack.DefinePlugin({
-        'process.env': Object.keys(config.parsed).reduce((acc, key) => {
+        'process.env': CONFIG_KEYS.reduce((acc, key) => {
           // Check for missing config variables
           if (!process.env[key]) {
             throw new Error(`${key} not set for ${process.env.NODE_ENV}!`);
