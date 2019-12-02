@@ -2,6 +2,9 @@ module.exports = {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/config/'],
 
+  // Require .env file
+  setupFiles: ['dotenv/config'],
+
   // Resolve modules same as Webpack
   moduleNameMapper: {
     '^%(.*)$': '<rootDir>/test/mocks/fileMock.js',
