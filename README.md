@@ -23,8 +23,8 @@ Baby Phoenix is a webapp and mobile client running in the browser for [Circles](
 // Install dependencies
 npm install
 
-// Copy config file and edit it
-cp ./config/development.example.js ./config/development.js
+// Copy env file and edit it
+cp .env.example .env
 
 // Run tests
 npm run test
