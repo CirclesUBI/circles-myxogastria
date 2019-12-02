@@ -26,9 +26,16 @@ import TrustConfirm from '~/views/TrustConfirm';
 import TrustRevokeConfirm from '~/views/TrustRevokeConfirm';
 import Welcome from '~/views/Welcome';
 
-const SessionContainer = ({ component: Component, isSessionRequired }) => {
-  const app = useSelector(state => {
-    return state.app;
+const SessionContainer = ({
+  component: Component,
+  isSessionRequired,
+  isSafeRequired,
+}) => {
+  const { app, safe } = useSelector(state => {
+    return {
+      app: state.app,
+      safe: state.safe,
+    };
   });
 
   // Did something bad happen?
@@ -41,16 +48,30 @@ const SessionContainer = ({ component: Component, isSessionRequired }) => {
     return null;
   }
 
-  if (
-    (isSessionRequired && app.isAuthorized) ||
-    (!isSessionRequired && !app.isAuthorized)
-  ) {
-    return <Component />;
-  } else if (!isSessionRequired && app.isAuthorized) {
-    return <Redirect to="/" />;
-  } else if (isSessionRequired && !app.isAuthorized) {
-    return <Redirect to="/welcome" />;
+  let isFailed = false;
+
+  if (isSessionRequired && !app.isAuthorized) {
+    isFailed = true;
   }
+
+  if (!isSessionRequired && app.isAuthorized) {
+    isFailed = true;
+  }
+
+  // Is Safe not deployed yet?
+  if (isSafeRequired && safe.nonce) {
+    isFailed = true;
+  }
+
+  if (!isFailed) {
+    return <Component />;
+  }
+
+  if (app.isAuthorized) {
+    return <Redirect to="/" />;
+  }
+
+  return <Redirect to="/welcome" />;
 };
 
 const OnboardingRoute = ({ component, path }) => {
@@ -64,7 +85,19 @@ const OnboardingRoute = ({ component, path }) => {
 const SessionRoute = ({ component, path }) => {
   return (
     <Route path={path}>
-      <SessionContainer component={component} isSessionRequired={true} />
+      <SessionContainer component={component} isSessionRequired />
+    </Route>
+  );
+};
+
+const TrustedRoute = ({ component, path }) => {
+  return (
+    <Route path={path}>
+      <SessionContainer
+        component={component}
+        isSafeRequired
+        isSessionRequired
+      />
     </Route>
   );
 };
@@ -74,18 +107,18 @@ const Routes = () => (
     <SessionRoute component={Dashboard} exact path="/" />
     <SessionRoute component={Invite} path="/invite" />
     <SessionRoute component={Activities} path="/activities" />
-    <SessionRoute
+    <TrustedRoute
       component={TrustRevokeConfirm}
       path="/trust/revoke/:address"
     />
-    <SessionRoute component={TrustConfirm} path="/trust/:address" />
-    <SessionRoute component={Trust} path="/trust" />
-    <SessionRoute component={SendConfirm} path="/send/:address" />
-    <SessionRoute component={Send} path="/send" />
+    <TrustedRoute component={TrustConfirm} path="/trust/:address" />
+    <TrustedRoute component={Trust} path="/trust" />
+    <TrustedRoute component={SendConfirm} path="/send/:address" />
+    <TrustedRoute component={Send} path="/send" />
     <SessionRoute component={ReceiveShare} path="/receive/share" />
     <SessionRoute component={Receive} path="/receive" />
     <SessionRoute component={Profile} path="/profile/:address" />
-    <SessionRoute component={SettingsKeysAdd} path="/settings/keys/add" />
+    <TrustedRoute component={SettingsKeysAdd} path="/settings/keys/add" />
     <SessionRoute component={SettingsKeysExport} path="/settings/keys/export" />
     <SessionRoute component={SettingsKeys} path="/settings/keys" />
     <SessionRoute component={SettingsShare} path="/settings/share" />
@@ -98,12 +131,24 @@ const Routes = () => (
   </Switch>
 );
 
+SessionContainer.propTypes = {
+  component: PropTypes.elementType.isRequired,
+  isSafeRequired: PropTypes.bool,
+  isSessionRequired: PropTypes.bool,
+  path: PropTypes.string.isRequired,
+};
+
 OnboardingRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
   path: PropTypes.string.isRequired,
 };
 
 SessionRoute.propTypes = {
+  component: PropTypes.elementType.isRequired,
+  path: PropTypes.string.isRequired,
+};
+
+TrustedRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
   path: PropTypes.string.isRequired,
 };
