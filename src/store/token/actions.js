@@ -1,5 +1,6 @@
 import ActionTypes from '~/store/token/types';
 import core from '~/services/core';
+import logError from '~/utils/debug';
 import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import { addPendingActivity } from '~/store/activity/actions';
@@ -32,6 +33,8 @@ export function deployToken() {
       dispatch({
         type: ActionTypes.TOKEN_DEPLOY_ERROR,
       });
+
+      logError(error);
 
       throw error;
     }

@@ -153,8 +153,18 @@ const utils = {
   toFreckles,
 };
 
+// Errors
+
+const { CoreError, RequestError } = core;
+
+const errors = {
+  CoreError,
+  RequestError,
+};
+
 export default {
   activity,
+  errors,
   safe,
   token,
   trust,
