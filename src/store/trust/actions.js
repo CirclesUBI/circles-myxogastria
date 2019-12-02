@@ -13,7 +13,7 @@ export function checkTrustState() {
     const { safe } = getState();
 
     // Safe address does not exist or is not deployed yet
-    if (!safe.address || safe.nonce) {
+    if (!safe.address) {
       return;
     }
 

@@ -21,7 +21,7 @@ export function checkOnboardingState() {
 
     // Safe is not deployed yet, check if we can do it
     if (trust.isTrusted && safe.nonce) {
-      await finalizeNewAccount();
+      await dispatch(finalizeNewAccount());
     }
   };
 }
