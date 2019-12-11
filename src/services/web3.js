@@ -3,7 +3,7 @@ import Web3 from 'web3';
 const REPEAT_CONNECTION_CHECK = 10 * 1000;
 
 const provider = new Web3.providers.WebsocketProvider(
-  process.env.ETHEREUM_NODE_ENDPOINT,
+  process.env.ETHEREUM_NODE_ENDPOINT_WS,
 );
 
 const web3 = new Web3();
