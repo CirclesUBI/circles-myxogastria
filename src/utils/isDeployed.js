@@ -33,6 +33,17 @@ export default async function isDeployed(address) {
   );
 }
 
+export async function hasEnoughBalance(safeAddress, estimate) {
+  await loop(
+    () => {
+      return web3.eth.getBalance(safeAddress);
+    },
+    balance => {
+      return balance >= estimate;
+    },
+  );
+}
+
 export async function isTokenDeployed(safeAddress) {
   await loop(
     () => {
