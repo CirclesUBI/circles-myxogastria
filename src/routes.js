@@ -135,7 +135,6 @@ SessionContainer.propTypes = {
   component: PropTypes.elementType.isRequired,
   isSafeRequired: PropTypes.bool,
   isSessionRequired: PropTypes.bool,
-  path: PropTypes.string.isRequired,
 };
 
 OnboardingRoute.propTypes = {
