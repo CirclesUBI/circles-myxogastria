@@ -43,7 +43,7 @@ const ProfileBox = (props, context) => {
 
 const SendButton = ({ address }, context) => {
   const safe = useSelector(state => state.safe);
-  const disabled = safe.address === address;
+  const disabled = safe.address === address || safe.nonce !== null;
 
   return (
     <RoundButton disabled={disabled} to={`/send/${address}`}>
@@ -70,7 +70,7 @@ const TrustButton = ({ connection, address }, context) => {
   }
 
   return (
-    <RoundButton to={`/trust/${address}`}>
+    <RoundButton disabled={safe.nonce !== null} to={`/trust/${address}`}>
       <IconTrust />
       <span>{context.t('ProfileBox.trustUser')}</span>
     </RoundButton>

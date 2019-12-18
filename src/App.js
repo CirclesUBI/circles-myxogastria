@@ -32,6 +32,9 @@ const App = (props, context) => {
 
     initialize();
 
+    const checkFrequency =
+      process.env.NODE_ENV === 'production' ? APP_CHECK_FRQUENCY : 1000 * 10;
+
     window.setInterval(async () => {
       try {
         await dispatch(checkAppState());
@@ -45,7 +48,7 @@ const App = (props, context) => {
           }),
         );
       }
-    }, APP_CHECK_FRQUENCY);
+    }, checkFrequency);
   };
 
   useEffect(onAppStart, []);

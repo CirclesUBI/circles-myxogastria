@@ -1,9 +1,11 @@
 import ActionTypes from '~/store/app/types';
+import resolveUsernames from '~/services/username';
 import { checkOnboardingState } from '~/store/onboarding/actions';
 import { checkTokenState, checkCurrentBalance } from '~/store/token/actions';
 import { checkTrustState } from '~/store/trust/actions';
 import { initializeLocale } from '~/store/locale/actions';
 import { initializeWallet, burnWallet } from '~/store/wallet/actions';
+import { setUser } from '~/services/sentry';
 
 import {
   checkFinishedActivities,
@@ -52,7 +54,7 @@ export function initializeApp() {
 
 export function checkAppState() {
   return async (dispatch, getState) => {
-    const { app } = getState();
+    const { app, safe } = getState();
 
     if (!app.isReady || app.isError) {
       return;
@@ -69,6 +71,11 @@ export function checkAppState() {
     await dispatch(checkCurrentBalance());
     await dispatch(checkFinishedActivities());
     await dispatch(checkPendingActivities());
+
+    // Debug information
+    await resolveUsernames([safe.address]).then(result => {
+      setUser(safe.address, result[safe.address]);
+    });
   };
 }
 
