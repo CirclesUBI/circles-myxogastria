@@ -13,7 +13,7 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
 import { checkAppState, initializeApp } from '~/store/app/actions';
 
-const APP_CHECK_FRQUENCY = 1000 * (process.env.ENV === 'production' ? 4 : 10);
+const APP_CHECK_FRQUENCY = 1000 * 4;
 
 const App = (props, context) => {
   const app = useSelector(state => state.app);
@@ -32,6 +32,9 @@ const App = (props, context) => {
 
     initialize();
 
+    const checkFrequency =
+      process.env.NODE_ENV === 'production' ? APP_CHECK_FRQUENCY : 1000 * 10;
+
     window.setInterval(async () => {
       try {
         await dispatch(checkAppState());
@@ -45,7 +48,7 @@ const App = (props, context) => {
           }),
         );
       }
-    }, APP_CHECK_FRQUENCY);
+    }, checkFrequency);
   };
 
   useEffect(onAppStart, []);
