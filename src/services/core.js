@@ -155,10 +155,11 @@ const utils = {
 
 // Errors
 
-const { CoreError, RequestError } = core;
+const { CoreError, TransferError, RequestError } = core;
 
 const errors = {
   CoreError,
+  TransferError,
   RequestError,
 };
 
