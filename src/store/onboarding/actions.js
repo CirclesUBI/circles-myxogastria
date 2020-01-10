@@ -1,5 +1,4 @@
 import core from '~/services/core';
-import { DEPLOY_TOKEN_GAS_COSTS } from '~/utils/constants';
 import { checkAppState, checkAuthState } from '~/store/app/actions';
 import { deployToken } from '~/store/token/actions';
 import { restoreWallet } from '~/store/wallet/actions';
