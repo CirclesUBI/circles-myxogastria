@@ -11,7 +11,7 @@ export default function initializeSentry() {
   Sentry.init({
     dsn: process.env.SENTRY_DSN_URL,
     environment: process.env.NODE_ENV,
-    release: process.env.RELEASE_VERSION,
+    release: `${process.env.RELEASE_VERSION} (${process.env.CORE_RELEASE_VERSION})`,
     beforeSend: (event, hint) => {
       const exception = hint.originalException;
 

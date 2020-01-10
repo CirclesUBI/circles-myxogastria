@@ -51,7 +51,10 @@ const SettingsKeys = (props, context) => {
         </DangerButtonStyle>
 
         <DebugButtons />
-        <small>v. {process.env.RELEASE_VERSION}</small>
+
+        <small>
+          v. {process.env.RELEASE_VERSION} ({process.env.CORE_RELEASE_VERSION})
+        </small>
       </View>
 
       <Footer>

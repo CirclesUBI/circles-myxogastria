@@ -51,8 +51,10 @@ CONFIG_KEYS_OPTIONAL.forEach(key => {
 });
 
 const pkg = require('./package.json');
+const corePkg = require('./node_modules/@circles/core/package.json');
 
 envData.RELEASE_VERSION = `"${pkg.version}"`;
+envData.CORE_RELEASE_VERSION = `"${corePkg.version}"`;
 
 export default () => {
   const isDevelopment = process.env.NODE_ENV === 'development';
