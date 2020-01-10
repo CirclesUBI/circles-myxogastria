@@ -2,7 +2,6 @@ import core from '~/services/core';
 import { DEPLOY_TOKEN_GAS_COSTS } from '~/utils/constants';
 import { checkAppState, checkAuthState } from '~/store/app/actions';
 import { deployToken } from '~/store/token/actions';
-import { hasEnoughBalance } from '~/utils/isDeployed';
 import { restoreWallet } from '~/store/wallet/actions';
 
 import {
@@ -64,10 +63,6 @@ export function finalizeNewAccount() {
 
     // Deploy Safe and Token
     await dispatch(deploySafe());
-
-    // @TODO: Calculate gas costs automatically
-    await hasEnoughBalance(safe.address, DEPLOY_TOKEN_GAS_COSTS);
-
     await dispatch(deployToken());
 
     // Change all states to final
