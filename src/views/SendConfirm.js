@@ -81,10 +81,8 @@ const SendConfirm = (props, context) => {
         </SendConfirmHeader>
 
         <View isFooter isHeader>
-          <p>
-            {context.t('SendConfirm.confirmationText', { amount })}
-            <MiniProfile address={address} />
-          </p>
+          <p>{context.t('SendConfirm.confirmationText', { amount })}</p>
+          <MiniProfile address={address} />
         </View>
 
         <Footer>
