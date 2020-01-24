@@ -31,24 +31,24 @@ function formatMessage(props) {
   let messageId;
 
   if (props.type === ActivityTypes.ADD_CONNECTION) {
-    if (props.data.from === props.safeAddress) {
+    if (props.data.canSendTo === props.safeAddress) {
       // I've created a trust connection
       messageId = 'meTrustedSomeone';
-      actorAddress = props.data.to;
+      actorAddress = props.data.user;
     } else {
       // Someone created a trust connection with you
       messageId = 'trustedBySomeone';
-      actorAddress = props.data.from;
+      actorAddress = props.data.canSendTo;
     }
   } else if (props.type === ActivityTypes.REMOVE_CONNECTION) {
-    if (props.data.from === props.safeAddress) {
+    if (props.data.canSendTo === props.safeAddress) {
       // I've removed a trust connection
       messageId = 'meUntrustedSomeone';
-      actorAddress = props.data.to;
+      actorAddress = props.data.user;
     } else {
       // Someone removed a trust connection with you
       messageId = 'untrustedBySomeone';
-      actorAddress = props.data.from;
+      actorAddress = props.data.canSendTo;
     }
   } else if (props.type === ActivityTypes.TRANSFER) {
     if (props.data.from === ZERO_ADDRESS) {

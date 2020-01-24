@@ -13,6 +13,7 @@
   "AccountCreate.errorMessage": "Irgendetwas ist schiefgelaufen. Bitte versuche es nochmal!",
   "AccountCreate.submit": "Erstellen",
   "AccountCreate.username": "Nutzername",
+  "AccountCreate.email": "E-mail Adresse",
   "AccountCreate.welcomeMessage": "Willkommen zu Circles!",
   "ActionButton.receive": "Empfangen",
   "ActionButton.send": "Senden",

@@ -20,7 +20,7 @@ const ProfileBox = (props, context) => {
   });
 
   return (
-    <ProfileBoxStyle isTrustedByMe={connection && connection.isTrustedByMe}>
+    <ProfileBoxStyle isIncoming={connection && connection.isIncoming}>
       <ProfileBoxHeaderStyle>
         <MiniProfile address={props.address} isInline isLarge />
         <TrustState connection={connection} />
@@ -60,7 +60,7 @@ const TrustButton = ({ connection, address }, context) => {
     return null;
   }
 
-  if (connection && connection.isTrustedByMe) {
+  if (connection && connection.isIncoming) {
     return (
       <RoundButton disabled isConfirmed>
         <IconTrust />
@@ -78,7 +78,7 @@ const TrustButton = ({ connection, address }, context) => {
 };
 
 const RevokeTrustButton = ({ connection }, context) => {
-  if (!connection || !connection.isTrustedByMe) {
+  if (!connection || !connection.isIncoming) {
     return null;
   }
 
@@ -95,11 +95,11 @@ const RevokeTrustButton = ({ connection }, context) => {
   );
 };
 const TrustState = ({ connection }, context) => {
-  if (!connection || !connection.isTrustingMe) {
+  if (!connection || !connection.isOutgoing) {
     return null;
   }
 
-  if (connection.isTrustedByMe) {
+  if (connection.isIncoming) {
     return (
       <TrustStateStyle isMutual>
         {context.t('ProfileBox.isMutualTrust')}
@@ -155,7 +155,7 @@ TrustState.propTypes = {
 
 const ProfileBoxStyle = styled(BackgroundGreenBottom)`
   height: ${props => {
-    return props.isTrustedByMe ? '39rem' : '34rem';
+    return props.isIncoming ? '39rem' : '34rem';
   }};
 
   padding: 1rem;

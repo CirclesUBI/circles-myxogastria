@@ -16,17 +16,25 @@ import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 
 const AccountCreate = (props, context) => {
   const dispatch = useDispatch();
+
   const [username, setUsername] = useState('');
+  const [email, setEMail] = useState('');
 
   const onChange = event => {
-    setUsername(event.target.value);
+    const { name, value } = event.target;
+
+    if (name === 'username') {
+      setUsername(value);
+    } else if (name === 'email') {
+      setEMail(value);
+    }
   };
 
   const onSubmit = async () => {
     dispatch(showSpinnerOverlay());
 
     try {
-      await dispatch(createNewAccount(username));
+      await dispatch(createNewAccount(username, email));
 
       dispatch(
         notify({
@@ -82,16 +90,32 @@ const AccountCreate = (props, context) => {
 
             <InputStyle
               id="username"
+              name="username"
               required
               type="text"
               value={username}
               onChange={onChange}
             />
           </FieldsetStyle>
+
+          <FieldsetStyle>
+            <LabelStyle htmlFor="email">
+              {context.t('AccountCreate.email')}
+            </LabelStyle>
+
+            <InputStyle
+              id="email"
+              name="email"
+              required
+              type="email"
+              value={email}
+              onChange={onChange}
+            />
+          </FieldsetStyle>
         </SpacingStyle>
 
         <ButtonPrimary
-          disabled={username.length < 3}
+          disabled={username.length < 3 || email.length === 0}
           type="submit"
           onClick={onSubmit}
         >

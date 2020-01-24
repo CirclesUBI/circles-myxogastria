@@ -26,12 +26,12 @@ export function checkOnboardingState() {
   };
 }
 
-export function createNewAccount(username) {
+export function createNewAccount(username, email) {
   return async (dispatch, getState) => {
     try {
       await dispatch(createSafeWithNonce());
       const { safe } = getState();
-      await core.user.register(safe.nonce, safe.address, username);
+      await core.user.register(safe.nonce, safe.address, username, email);
       await dispatch(checkAppState());
       await dispatch(checkAuthState());
     } catch (error) {
