@@ -11,6 +11,7 @@
   "AccountCreate.errorMessage": "Something went wrong. Please try again!",
   "AccountCreate.submit": "Submit",
   "AccountCreate.username": "Username",
+  "AccountCreate.email": "Email address",
   "AccountCreate.welcomeMessage": "Welcome to Circles!",
   "AccountCreate.yourUsernameDescription": "Your username is one way your friends can search for you on the Circles App. You can only set this once.",
   "AccountImport.connectToYourWallet": "Connect to wallet",
