@@ -69,18 +69,18 @@ export function trustUser(safeAddress) {
       return;
     }
 
-    const from = safe.address;
-    const to = safeAddress;
+    const user = safeAddress;
+    const canSendTo = safe.address;
 
-    const txHash = await core.trust.addConnection(from, to);
+    const txHash = await core.trust.addConnection(user, canSendTo);
 
     dispatch(
       addPendingActivity({
         txHash,
         type: ActivityTypes.ADD_CONNECTION,
         data: {
-          from,
-          to,
+          user,
+          canSendTo,
         },
       }),
     );
@@ -95,18 +95,18 @@ export function untrustUser(safeAddress) {
       return;
     }
 
-    const from = safe.address;
-    const to = safeAddress;
+    const user = safeAddress;
+    const canSendTo = safe.address;
 
-    const txHash = await core.trust.removeConnection(from, to);
+    const txHash = await core.trust.removeConnection(user, canSendTo);
 
     dispatch(
       addPendingActivity({
         txHash,
         type: ActivityTypes.REMOVE_CONNECTION,
         data: {
-          from,
-          to,
+          user,
+          canSendTo,
         },
       }),
     );

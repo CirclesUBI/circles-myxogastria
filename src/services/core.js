@@ -62,9 +62,10 @@ const safe = {
 // User module
 
 const user = {
-  register: async (nonce, safeAddress, username) => {
+  register: async (nonce, safeAddress, username, email) => {
     return await requestCore('user', 'register', {
       nonce,
+      email,
       safeAddress,
       username,
     });
@@ -86,17 +87,17 @@ const trust = {
     });
   },
 
-  addConnection: async (from, to) => {
+  addConnection: async (user, canSendTo) => {
     return await requestCore('trust', 'addConnection', {
-      from,
-      to,
+      user,
+      canSendTo,
     });
   },
 
-  removeConnection: async (from, to) => {
+  removeConnection: async (user, canSendTo) => {
     return await requestCore('trust', 'removeConnection', {
-      from,
-      to,
+      user,
+      canSendTo,
     });
   },
 };
