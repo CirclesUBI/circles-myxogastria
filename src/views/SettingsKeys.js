@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import ButtonPrimary from '~/components/ButtonPrimary';
@@ -13,7 +13,6 @@ import styles from '~/styles/variables';
 import { BackgroundGreen } from '~/styles/Background';
 import { ButtonStyle } from '~/components/Button';
 import { burnApp } from '~/store/app/actions';
-import { finalizeNewAccount } from '~/store/onboarding/actions';
 
 import Header, {
   HeaderCenterStyle,
@@ -50,8 +49,6 @@ const SettingsKeys = (props, context) => {
           {context.t('SettingsKeys.endSession')}
         </DangerButtonStyle>
 
-        <DebugButtons />
-
         <small>
           v. {process.env.RELEASE_VERSION} ({process.env.CORE_RELEASE_VERSION})
         </small>
@@ -63,34 +60,6 @@ const SettingsKeys = (props, context) => {
         </ButtonPrimary>
       </Footer>
     </BackgroundGreen>
-  );
-};
-
-const DebugButtons = () => {
-  if (
-    process.env.NODE_ENV === 'production' &&
-    !window.location.search.includes('?debug') // @TODO Remove this
-  ) {
-    return null;
-  }
-
-  const safe = useSelector(state => state.safe);
-  const dispatch = useDispatch();
-
-  const onDeploy = async () => {
-    await dispatch(finalizeNewAccount());
-  };
-
-  return (
-    <Fragment>
-      <ButtonPrimary
-        disabled={!safe.nonce || safe.isLocked}
-        isOutline
-        onClick={onDeploy}
-      >
-        Debug: Deploy Safe
-      </ButtonPrimary>
-    </Fragment>
   );
 };
 
