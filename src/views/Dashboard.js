@@ -28,7 +28,7 @@ const Dashboard = (props, context) => {
   const token = useSelector(state => state.token);
 
   useEffect(() => {
-    if (token.isPayoutChecked) {
+    if (token.isPayoutChecked || !token.address) {
       return;
     }
 
