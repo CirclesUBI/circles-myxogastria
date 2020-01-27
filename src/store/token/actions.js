@@ -121,6 +121,35 @@ export function checkCurrentBalance() {
   };
 }
 
+export function requestUBIPayout() {
+  return async (dispatch, getState) => {
+    const { safe, token } = getState();
+
+    // No token address given yet
+    if (!token.address) {
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.TOKEN_PAYOUT_CHECK,
+    });
+
+    try {
+      await core.token.requestUBIPayout(safe.address);
+
+      dispatch({
+        type: ActionTypes.TOKEN_UBI_PAYOUT_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.TOKEN_UBI_PAYOUT_ERROR,
+      });
+
+      throw error;
+    }
+  };
+}
+
 export function transfer(to, amount) {
   return async (dispatch, getState) => {
     dispatch({

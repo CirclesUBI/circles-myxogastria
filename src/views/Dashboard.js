@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ActionButton from '~/components/ActionButton';
 import BalanceDisplay from '~/components/BalanceDisplay';
@@ -13,13 +13,48 @@ import Spinner from '~/components/Spinner';
 import TrustHealthDisplay from '~/components/TrustHealthDisplay';
 import TrustNetwork from '~/components/TrustNetwork';
 import View from '~/components/View';
+import core from '~/services/core';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
 import { BackgroundWhirlyOrange } from '~/styles/Background';
 import { IconQR, IconShare, IconActivities } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
+import { requestUBIPayout } from '~/store/token/actions';
 
-const Dashboard = () => {
+const Dashboard = (props, context) => {
+  const dispatch = useDispatch();
+
   const safe = useSelector(state => state.safe);
+  const token = useSelector(state => state.token);
+
+  useEffect(() => {
+    if (token.isPayoutChecked) {
+      return;
+    }
+
+    // Check if we can collect some UBI
+    const checkUBIPayout = async () => {
+      const payout = await core.token.checkUBIPayout(safe.address);
+
+      if (payout.isZero()) {
+        return;
+      }
+
+      await dispatch(requestUBIPayout());
+
+      dispatch(
+        notify({
+          text: context.t('Dashboard.ubiPayoutReceived', {
+            payout: core.utils.fromFreckles(payout.toString()),
+          }),
+          type: NotificationsTypes.INFO,
+          timeout: 10000,
+        }),
+      );
+    };
+
+    checkUBIPayout();
+  }, []);
 
   // We consider someone "trusted" when Safe got deployed
   const isTrusted = !safe.nonce;
@@ -136,6 +171,10 @@ const DashboardActivityCounter = props => {
       <span>{props.count}</span>
     </ActivityCounterStyle>
   );
+};
+
+Dashboard.contextTypes = {
+  t: PropTypes.func.isRequired,
 };
 
 DashboardView.propTypes = {

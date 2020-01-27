@@ -53,6 +53,7 @@
   "Dashboard.share": "Share",
   "Dashboard.showThisQR": "Show this QR to receive trust or Circles",
   "Dashboard.trustDescription": "Three people must trust you in order for you to recieve your Circles UBI.",
+  "Dashboard.ubiPayoutReceived": "You received {payout} Circles as your UBI since you last visited!",
   "Dashboard.welcomeToCircles": "Welcome to Circles!",
   "ExternalLinkList.about": "About",
   "ExternalLinkList.contact": "Contact",

@@ -130,6 +130,18 @@ const token = {
       value,
     });
   },
+
+  checkUBIPayout: async safeAddress => {
+    return await requestCore('token', 'checkUBIPayout', {
+      safeAddress,
+    });
+  },
+
+  requestUBIPayout: async safeAddress => {
+    return await requestCore('token', 'requestUBIPayout', {
+      safeAddress,
+    });
+  },
 };
 
 // Activity module
