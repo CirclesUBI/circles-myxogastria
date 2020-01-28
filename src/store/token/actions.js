@@ -131,7 +131,7 @@ export function requestUBIPayout() {
     }
 
     dispatch({
-      type: ActionTypes.TOKEN_PAYOUT_CHECK,
+      type: ActionTypes.TOKEN_UBI_PAYOUT,
     });
 
     try {
