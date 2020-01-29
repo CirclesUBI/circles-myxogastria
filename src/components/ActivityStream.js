@@ -11,6 +11,7 @@ import core from '~/services/core';
 import styles from '~/styles/variables';
 import { ONBOARDING_FINALIZATION } from '~/store/activity/actions';
 import { ZERO_ADDRESS } from '~/utils/constants';
+import { formatCirclesValue } from '~/utils/format';
 
 import {
   IconBase,
@@ -92,23 +93,11 @@ function formatMessage(props) {
   const data = Object.assign({}, props.data);
 
   if ('value' in data) {
-    let value;
-    let denominator;
-
     // Convert the value according to its denominator
-    const valueInFreckles = data.value.toString();
-    const valueInCircles = core.utils.fromFreckles(data.value).toString();
+    const valueInCircles = formatCirclesValue(data.value, 4);
 
-    if (valueInCircles !== '0') {
-      value = valueInCircles;
-      denominator = 'Circles';
-    } else {
-      value = valueInFreckles;
-      denominator = 'Freckles';
-    }
-
-    data.denominator = denominator;
-    data.value = value;
+    data.denominator = 'Circles';
+    data.value = valueInCircles;
   }
 
   if (!messageId) {
@@ -152,8 +141,16 @@ const ActivityStreamList = (props, context) => {
     .sort((itemA, itemB) => {
       return itemB.timestamp - itemA.timestamp;
     })
-    .map(({ data, id, timestamp, type, txHash, isPending = false }) => {
-      return (
+    .reduce((acc, { data, id, timestamp, type, txHash, isPending = false }) => {
+      // Filter Gas transfers
+      if (
+        type === ActivityTypes.TRANSFER &&
+        data.to === process.env.SAFE_FUNDER_ADDRESS
+      ) {
+        return acc;
+      }
+
+      const item = (
         <ActivityStreamItem
           data={data}
           isPending={isPending}
@@ -165,7 +162,11 @@ const ActivityStreamList = (props, context) => {
           walletAddress={walletAddress}
         />
       );
-    });
+
+      acc.push(item);
+
+      return acc;
+    }, []);
 };
 
 const ActivityStreamItem = (props, context) => {

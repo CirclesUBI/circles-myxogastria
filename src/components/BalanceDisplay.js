@@ -5,16 +5,7 @@ import { useSelector } from 'react-redux';
 import styles from '~/styles/variables';
 import web3 from '~/services/web3';
 import { IconCircles } from '~/styles/Icons';
-
-function formatBalance(value, decimals = 2) {
-  const splitted = value.split('.');
-
-  if (splitted.length === 1) {
-    return splitted;
-  }
-
-  return `${splitted[0]}.${splitted[1].slice(0, decimals)}`;
-}
+import { formatCirclesValue } from '~/utils/format';
 
 const BalanceDisplay = () => {
   const token = useSelector(state => state.token);
@@ -28,7 +19,7 @@ const BalanceDisplay = () => {
   return (
     <BalanceStyle title={balance}>
       <IconCircles />
-      <span>{formatBalance(balance)}</span>
+      <span>{formatCirclesValue(token.balance)}</span>
     </BalanceStyle>
   );
 };
