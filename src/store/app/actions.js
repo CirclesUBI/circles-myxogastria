@@ -1,11 +1,16 @@
 import ActionTypes from '~/store/app/types';
 import resolveUsernames from '~/services/username';
 import { checkOnboardingState } from '~/store/onboarding/actions';
-import { checkTokenState, checkCurrentBalance } from '~/store/token/actions';
 import { checkTrustState } from '~/store/trust/actions';
 import { initializeLocale } from '~/store/locale/actions';
 import { initializeWallet, burnWallet } from '~/store/wallet/actions';
 import { setUser } from '~/services/sentry';
+
+import {
+  checkCurrentBalance,
+  checkTokenState,
+  resetToken,
+} from '~/store/token/actions';
 
 import {
   checkFinishedActivities,
@@ -100,7 +105,7 @@ export function burnApp() {
   return async dispatch => {
     await dispatch(burnWallet());
     await dispatch(resetSafe());
-    await dispatch(resetSafe());
+    await dispatch(resetToken());
     await dispatch(resetActivities());
 
     window.location.reload();

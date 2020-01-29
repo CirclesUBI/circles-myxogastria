@@ -6,7 +6,7 @@ const initialState = {
   address: null,
   balance: null,
   isLoading: false,
-  isPayoutChecked: false,
+  lastPayout: 0,
 };
 
 const tokenReducer = (state = initialState, action) => {
@@ -14,7 +14,7 @@ const tokenReducer = (state = initialState, action) => {
     case ActionTypes.TOKEN_UPDATE_SUCCESS:
       return update(state, {
         address: { $set: action.meta.address },
-        isPayoutChecked: { $set: false },
+        lastPayout: { $set: action.meta.lastPayout },
       });
     case ActionTypes.TOKEN_BALANCE_UPDATE:
       return update(state, {
@@ -30,9 +30,8 @@ const tokenReducer = (state = initialState, action) => {
         isLoading: { $set: false },
       });
     case ActionTypes.TOKEN_UBI_PAYOUT_SUCCESS:
-    case ActionTypes.TOKEN_UBI_PAYOUT_ERROR:
       return update(state, {
-        isPayoutChecked: { $set: true },
+        lastPayout: { $set: action.meta.lastPayout },
       });
     case ActionTypes.TOKEN_RESET:
       return update(state, { $set: initialState });

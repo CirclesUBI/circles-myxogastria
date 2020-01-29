@@ -4,6 +4,7 @@ import logError from '~/utils/debug';
 import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import { addPendingActivity } from '~/store/activity/actions';
+import { getLastPayout, setLastPayout } from '~/services/token';
 import { isTokenDeployed } from '~/utils/isDeployed';
 
 const { ActivityTypes } = core.activity;
@@ -77,6 +78,7 @@ export function checkTokenState() {
         type: ActionTypes.TOKEN_UPDATE_SUCCESS,
         meta: {
           address,
+          lastPayout: getLastPayout(),
         },
       });
     } catch (error) {
@@ -137,8 +139,15 @@ export function requestUBIPayout() {
     try {
       await core.token.requestUBIPayout(safe.address);
 
+      const lastPayout = Date.now();
+
+      setLastPayout(lastPayout);
+
       dispatch({
         type: ActionTypes.TOKEN_UBI_PAYOUT_SUCCESS,
+        meta: {
+          lastPayout,
+        },
       });
     } catch (error) {
       dispatch({
@@ -186,5 +195,11 @@ export function transfer(to, amount) {
 
       throw error;
     }
+  };
+}
+
+export function resetToken() {
+  return {
+    type: ActionTypes.TOKEN_RESET,
   };
 }

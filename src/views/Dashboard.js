@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect } from 'react';
 import styled from 'styled-components';
+import { DateTime } from 'luxon';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ActionButton from '~/components/ActionButton';
@@ -16,7 +17,6 @@ import View from '~/components/View';
 import core from '~/services/core';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
-import web3 from '~/services/web3';
 import { BackgroundWhirlyOrange } from '~/styles/Background';
 import { IconQR, IconShare, IconActivities } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
@@ -30,7 +30,13 @@ const Dashboard = (props, context) => {
   const token = useSelector(state => state.token);
 
   useEffect(() => {
-    if (token.isPayoutChecked || !token.address) {
+    // We only collect UBI once every day
+    const isSameDay = DateTime.local().hasSame(
+      DateTime.fromMillis(token.lastPayout),
+      'day',
+    );
+
+    if (isSameDay || !token.address) {
       return;
     }
 
@@ -38,7 +44,7 @@ const Dashboard = (props, context) => {
       // Check if we can collect some UBI
       const payout = await core.token.checkUBIPayout(safe.address);
 
-      if (payout.lt(web3.utils.toBN(web3.utils.toWei('0.01', 'ether')))) {
+      if (payout.isZero()) {
         return;
       }
 
