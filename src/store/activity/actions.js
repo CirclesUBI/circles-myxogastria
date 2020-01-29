@@ -123,11 +123,15 @@ export function checkPendingActivities() {
 
 export function checkFinishedActivities() {
   return async (dispatch, getState) => {
+    const { safe, activity } = getState();
+
+    if (!safe.address) {
+      return;
+    }
+
     dispatch({
       type: ActionTypes.ACTIVITIES_UPDATE,
     });
-
-    const { safe, activity } = getState();
 
     try {
       const { activities, lastTimestamp } = await core.activity.getLatest(
