@@ -16,9 +16,11 @@ import View from '~/components/View';
 import core from '~/services/core';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
+import web3 from '~/services/web3';
 import { BackgroundWhirlyOrange } from '~/styles/Background';
 import { IconQR, IconShare, IconActivities } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
+import { formatCirclesValue } from '~/utils/format';
 import { requestUBIPayout } from '~/store/token/actions';
 
 const Dashboard = (props, context) => {
@@ -32,11 +34,11 @@ const Dashboard = (props, context) => {
       return;
     }
 
-    // Check if we can collect some UBI
     const checkUBIPayout = async () => {
+      // Check if we can collect some UBI
       const payout = await core.token.checkUBIPayout(safe.address);
 
-      if (payout.isZero()) {
+      if (payout.lt(web3.utils.toBN(web3.utils.toWei('0.01', 'ether')))) {
         return;
       }
 
@@ -44,7 +46,7 @@ const Dashboard = (props, context) => {
       dispatch(
         notify({
           text: context.t('Dashboard.ubiPayoutReceived', {
-            payout: core.utils.fromFreckles(payout.toString()),
+            payout: formatCirclesValue(payout, 4),
           }),
           type: NotificationsTypes.INFO,
           timeout: 10000,
