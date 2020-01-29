@@ -54,7 +54,7 @@ const Dashboard = (props, context) => {
     };
 
     checkUBIPayout();
-  }, []);
+  }, [token.address]);
 
   // We consider someone "trusted" when Safe got deployed
   const isTrusted = !safe.nonce;
