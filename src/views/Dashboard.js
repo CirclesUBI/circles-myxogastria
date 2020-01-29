@@ -40,8 +40,7 @@ const Dashboard = (props, context) => {
         return;
       }
 
-      await dispatch(requestUBIPayout());
-
+      // Display pending UBI to the user
       dispatch(
         notify({
           text: context.t('Dashboard.ubiPayoutReceived', {
@@ -51,6 +50,9 @@ const Dashboard = (props, context) => {
           timeout: 10000,
         }),
       );
+
+      // .. and get it!
+      await dispatch(requestUBIPayout());
     };
 
     checkUBIPayout();
