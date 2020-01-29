@@ -82,7 +82,7 @@ const AppStyle = styled.div`
 
   overflow: hidden;
 
-  min-width: 360px;
+  min-width: 320px;
   height: 100%;
 
   margin: 0 auto;
