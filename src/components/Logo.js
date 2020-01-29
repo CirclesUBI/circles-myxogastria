@@ -8,8 +8,8 @@ const Logo = () => {
 };
 
 const LogoStyle = styled.div`
-  width: 15rem;
-  height: 15rem;
+  width: 12rem;
+  height: 12rem;
 
   margin: 0 auto;
 

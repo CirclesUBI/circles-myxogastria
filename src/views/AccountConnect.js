@@ -5,10 +5,15 @@ import { useSelector } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import ButtonPrimary from '~/components/ButtonPrimary';
-import Header from '~/components/Header';
+import Footer from '~/components/Footer';
 import QRCode from '~/components/QRCode';
 import View from '~/components/View';
 import { SpacingStyle } from '~/styles/Layout';
+
+import Header, {
+  HeaderCenterStyle,
+  HeaderTitleStyle,
+} from '~/components/Header';
 
 const AccountConnect = (props, context) => {
   const { address } = useSelector(state => state.wallet);
@@ -17,16 +22,16 @@ const AccountConnect = (props, context) => {
     <Fragment>
       <Header>
         <BackButton isDark to="/welcome" />
+
+        <HeaderCenterStyle>
+          <HeaderTitleStyle isDark>
+            {context.t('AccountConnect.connectToYourWallet')}
+          </HeaderTitleStyle>
+        </HeaderCenterStyle>
       </Header>
 
-      <View isHeader>
-        <SpacingStyle>
-          <h1>{context.t('AccountConnect.connectToYourWallet')}</h1>
-        </SpacingStyle>
-
-        <SpacingStyle>
-          <QRCode data={address} />
-        </SpacingStyle>
+      <View isFooter isHeader>
+        <QRCode data={address} />
 
         <p>
           {context.t('AccountConnect.noSeedPhrase')}{' '}
@@ -39,11 +44,13 @@ const AccountConnect = (props, context) => {
           {context.t('AccountConnect.questions')}{' '}
           <a href="#">{context.t('AccountConnect.contactUs')}</a>
         </p>
+      </View>
 
+      <Footer>
         <ButtonPrimary to="/welcome/seed">
           {context.t('AccountConnect.restoreWithSeedPhrase')}
         </ButtonPrimary>
-      </View>
+      </Footer>
     </Fragment>
   );
 };

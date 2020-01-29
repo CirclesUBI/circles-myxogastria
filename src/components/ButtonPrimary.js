@@ -41,8 +41,7 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
 
   width: 100%;
 
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem auto;
   padding: 1rem;
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;

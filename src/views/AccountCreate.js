@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import BackButton from '~/components/BackButton';
 import ButtonPrimary from '~/components/ButtonPrimary';
+import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import Logo from '~/components/Logo';
 import View from '~/components/View';
@@ -73,8 +74,10 @@ const AccountCreate = (props, context) => {
         <BackButton isDark to="/welcome" />
       </Header>
 
-      <View isHeader>
-        <Logo />
+      <View isFooter>
+        <SpacingStyle isLargeTop>
+          <Logo />
+        </SpacingStyle>
 
         <SpacingStyle>
           <h1>{context.t('AccountCreate.createYourUsername')}</h1>
@@ -114,6 +117,9 @@ const AccountCreate = (props, context) => {
           </FieldsetStyle>
         </SpacingStyle>
 
+      </View>
+
+      <Footer>
         <ButtonPrimary
           disabled={username.length < 3 || email.length === 0}
           type="submit"
@@ -121,7 +127,7 @@ const AccountCreate = (props, context) => {
         >
           {context.t('AccountCreate.submit')}
         </ButtonPrimary>
-      </View>
+      </Footer>
     </Fragment>
   );
 };

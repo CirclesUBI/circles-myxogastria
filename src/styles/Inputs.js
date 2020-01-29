@@ -63,7 +63,7 @@ export const TextareaStyle = styled.textarea`
 
 export const InputStyle = styled.input`
   width: 100%;
-  max-width: 40rem;
+  max-width: 42rem;
 
   border-radius: 5px;
 
@@ -99,7 +99,7 @@ export const LabelStyle = styled.label`
 `;
 
 export const FieldsetStyle = styled.fieldset`
-  max-width: 40rem;
+  max-width: 42rem;
 
   margin: 0 auto;
 

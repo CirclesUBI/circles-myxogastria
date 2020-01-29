@@ -1,8 +1,8 @@
 // Definitions
 
 const dimensions = {
-  height: '500px',
-  width: '700px',
+  height: '600px',
+  width: '800px',
 };
 
 const monochrome = {

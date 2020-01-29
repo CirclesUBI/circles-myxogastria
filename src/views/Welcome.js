@@ -18,8 +18,10 @@ const Welcome = (props, context) => {
         <LocaleSelector />
       </WelcomeHeaderStyle>
 
-      <View isHeader isPushingToBottom>
-        <CirclesPeopleStyle />
+      <View isPushingToBottom>
+        <SpacingStyle>
+          <CirclesPeopleStyle />
+        </SpacingStyle>
 
         <SpacingStyle>
           <h1>{context.t('Welcome.welcomeToCircles')}</h1>
@@ -31,7 +33,7 @@ const Welcome = (props, context) => {
           {context.t('Welcome.connectYourWallet')}
         </ButtonPrimary>
 
-        <SpacingStyle>
+        <SpacingStyle isLargeBottom>
           <p>{context.t('Welcome.noCirclesWallet')}</p>
 
           <ButtonPrimary isOutline to="/welcome/new">
