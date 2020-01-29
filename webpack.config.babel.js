@@ -1,6 +1,7 @@
 import path from 'path';
 
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 import dotenv from 'dotenv';
 import webpack from 'webpack';
 
@@ -117,6 +118,14 @@ export default () => {
       liveReload: false,
     },
     optimization: {
+      minimize: !isDevelopment,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            safari10: true,
+          },
+        }),
+      ],
       splitChunks: {
         cacheGroups: {
           commons: {
