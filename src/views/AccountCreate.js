@@ -116,7 +116,6 @@ const AccountCreate = (props, context) => {
             />
           </FieldsetStyle>
         </SpacingStyle>
-
       </View>
 
       <Footer>

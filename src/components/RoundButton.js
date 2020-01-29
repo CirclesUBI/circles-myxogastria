@@ -75,6 +75,7 @@ export const RoundButtonStyle = styled(ButtonStyle)`
 
   align-items: center;
   flex-direction: column;
+  justify-content: center;
 
   &:hover {
     &::after {

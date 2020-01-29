@@ -8,7 +8,6 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import QRCode from '~/components/QRCode';
 import View from '~/components/View';
-import { SpacingStyle } from '~/styles/Layout';
 
 import Header, {
   HeaderCenterStyle,
