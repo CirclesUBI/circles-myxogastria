@@ -41,7 +41,9 @@ const AccountConnect = (props, context) => {
 
         <p>
           {context.t('AccountConnect.questions')}{' '}
-          <a href="mailto:hello@joincircles.net">{context.t('AccountConnect.contactUs')}</a>
+          <a href="mailto:hello@joincircles.net">
+            {context.t('AccountConnect.contactUs')}
+          </a>
         </p>
       </View>
 

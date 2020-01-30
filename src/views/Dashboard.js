@@ -137,7 +137,6 @@ const DashboardView = (props, context) => {
 
           <p>
             {context.t('Dashboard.trustDescription')}{' '}
-
             <a
               href="https://docs.google.com/document/d/1MS6IxQ3baMx_PJLJZ_KWpZYKHUKQ1JFkU4wHOW0P6OU/edit"
               rel="noopener noreferrer"

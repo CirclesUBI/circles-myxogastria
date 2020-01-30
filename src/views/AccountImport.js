@@ -82,7 +82,9 @@ const AccountImport = (props, context) => {
 
         <p>
           {context.t('AccountImport.questions')}{' '}
-          <a href="mailto:hello@joincircles.net">{context.t('AccountImport.contactUs')}</a>
+          <a href="mailto:hello@joincircles.net">
+            {context.t('AccountImport.contactUs')}
+          </a>
         </p>
       </View>
 
