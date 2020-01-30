@@ -12,31 +12,47 @@ const ExternalLinkList = (props, context) => {
 
       <ListStyle>
         <ListItemStyle>
-          <a href="#" target="_blank">
+          <a
+            href="https://joincircles.net/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             {context.t('ExternalLinkList.about')}
           </a>
         </ListItemStyle>
 
         <ListItemStyle>
-          <a href="#" target="_blank">
+          <a
+            href="https://docs.google.com/document/d/1MS6IxQ3baMx_PJLJZ_KWpZYKHUKQ1JFkU4wHOW0P6OU"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             {context.t('ExternalLinkList.faq')}
           </a>
         </ListItemStyle>
 
         <ListItemStyle>
-          <a href="#" target="_blank">
+          <a
+            href="https://chat.joincircles.net/group/marketplace-testphase"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             {context.t('ExternalLinkList.marketplace')}
           </a>
         </ListItemStyle>
 
         <ListItemStyle>
-          <a href="#" target="_blank">
-            {context.t('ExternalLinkList.meetups')}
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdunAf6EhAEizcsiopidKmLEiKyI3mCqU6YZS8V4makMxWVyA/viewform"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {context.t('ExternalLinkList.issue')}
           </a>
         </ListItemStyle>
 
         <ListItemStyle>
-          <a href="#" target="_blank">
+          <a href="mailto:hello@joincircles.net">
             {context.t('ExternalLinkList.contact')}
           </a>
         </ListItemStyle>
