@@ -116,7 +116,7 @@ const SendConfirm = (props, context) => {
       </View>
 
       <Footer>
-        <ButtonPrimary disabled={!amount > 0} onClick={onNext}>
+        <ButtonPrimary disabled={!(amount > 0)} onClick={onNext}>
           {context.t('SendConfirm.submitAmount')}
         </ButtonPrimary>
       </Footer>
