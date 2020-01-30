@@ -33,6 +33,7 @@ const ProfileImageStyle = styled.div`
   overflow: hidden;
 
   width: ${ICON_SIZE}px;
+  min-width: ${ICON_SIZE}px;
   height: ${ICON_SIZE}px;
 `;
 

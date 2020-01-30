@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ActivityStream from '~/components/ActivityStream';
 import BackButton from '~/components/BackButton';
-import Spinner from '~/components/Spinner';
 import View from '~/components/View';
 import { BackgroundPurple } from '~/styles/Background';
 import { updateLastSeen } from '~/store/activity/actions';
@@ -15,7 +14,6 @@ import Header, {
 } from '~/components/Header';
 
 const Activities = (props, context) => {
-  const { isLoading } = useSelector(state => state.activity);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,8 +33,6 @@ const Activities = (props, context) => {
             {context.t('Activities.notifications')}
           </HeaderTitleStyle>
         </HeaderCenterStyle>
-
-        <Spinner isHidden={!isLoading} />
       </Header>
 
       <View isHeader>

@@ -27,6 +27,8 @@ MiniProfile.propTypes = {
 const MiniProfileStyle = styled.div`
   display: inline-flex;
 
+  overflow: hidden;
+
   padding: 1rem;
 
   border-radius: 5px;
@@ -41,7 +43,13 @@ const MiniProfileStyle = styled.div`
 `;
 
 const UsernameDisplayStyle = styled.span`
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
   padding-left: 1rem;
+
+  white-space: nowrap;
 
   font-weight: ${styles.base.typography.weight};
   font-size: ${props => {
