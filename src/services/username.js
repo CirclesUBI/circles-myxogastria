@@ -27,11 +27,11 @@ export default async function resolveUsernames(addresses) {
           cache[user.safeAddress] = user.username;
           result[user.safeAddress] = user.username;
         });
+
+        resolve(result);
       })
       .catch(() => {
         // Do nothing ..
-      })
-      .finally(() => {
         resolve(result);
       });
   });
