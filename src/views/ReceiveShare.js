@@ -36,7 +36,7 @@ const ReceiveShare = (props, context) => {
 
       <View isHeader>
         <p>{context.t('ReceiveShare.description')}</p>
-        <ShareTextBox text={shareText} />
+        <ShareTextBox text={shareText} url={shareLink} />
       </View>
     </BackgroundWhirlyGreen>
   );

@@ -40,7 +40,7 @@ const SettingsKeysExport = (props, context) => {
 
       <View isHeader>
         <p>{context.t('SettingsKeysExport.description')}</p>
-        <ShareTextBox text={mnemonic} />
+        <ShareTextBox text={mnemonic} isClipboard />
       </View>
     </Fragment>
   );

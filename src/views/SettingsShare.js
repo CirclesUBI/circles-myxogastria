@@ -25,7 +25,7 @@ const SettingsShare = (props, context) => {
 
       <View isHeader>
         <p>{context.t('SettingsShare.description')}</p>
-        <ShareTextBox text={shareText} />
+        <ShareTextBox text={shareText} url={shareLink} />
       </View>
     </BackgroundWhirlyGreen>
   );

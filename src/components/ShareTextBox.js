@@ -3,7 +3,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ClipboardButton from '~/components/ClipboardButton';
+import ShareButton from '~/components/ShareButton';
 import { TextareaStyle } from '~/styles/Inputs';
+
+const SHARE_TITLE = 'Circles';
 
 const ShareTextBox = props => {
   return (
@@ -11,14 +14,33 @@ const ShareTextBox = props => {
       <ShareTextareaStyle readOnly={true} value={props.text} />
 
       <ButtonContainerStyle>
-        <ClipboardButton text={props.text} />
+        <ShareTextBoxButton {...props} />
       </ButtonContainerStyle>
     </ShareTextBoxStyle>
   );
 };
 
+const ShareTextBoxButton = props => {
+  // Fallback to ClipboardButton in case native share API does not exist
+  if (props.isClipboard || !window.navigator.share) {
+    return <ClipboardButton text={props.text} />;
+  }
+
+  return <ShareButton text={props.text} title={SHARE_TITLE} url={props.url} />;
+};
+
 ShareTextBox.propTypes = {
+  isClipboard: PropTypes.bool,
   text: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  url: PropTypes.string,
+};
+
+ShareTextBoxButton.propTypes = {
+  isClipboard: PropTypes.bool,
+  text: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  url: PropTypes.string,
 };
 
 const ShareTextBoxStyle = styled.div`
