@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import MiniProfile from '~/components/MiniProfile';
+import Spinner from '~/components/Spinner';
+import core from '~/services/core';
+import debounce from '~/utils/debounce';
 import web3 from '~/services/web3';
 import { InputStyle } from '~/styles/Inputs';
 import { SpacingStyle } from '~/styles/Layout';
@@ -11,10 +14,11 @@ import { SpacingStyle } from '~/styles/Layout';
 const MAX_SEARCH_RESULTS = 5;
 
 const UsernameFinder = (props, context) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isQueryEmpty, setIsQueryEmpty] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
 
-  const trust = useSelector(state => state.trust);
+  const safe = useSelector(state => state.safe);
 
   const onInputChange = event => {
     props.onInputChange(event.target.value);
@@ -24,37 +28,50 @@ const UsernameFinder = (props, context) => {
     props.onSelect(user);
   };
 
-  const search = () => {
-    setIsQueryEmpty(props.input.length === 0);
+  const debouncedSearch = useCallback(
+    debounce(async query => {
+      // Search the database for similar usernames
+      const response = await core.user.search(query);
 
-    if (props.input.length === 0) {
+      const result = response.data
+        .filter(item => {
+          return item.safeAddress !== safe.address;
+        })
+        .sort((itemA, itemB) => {
+          return itemA.username
+            .toLowerCase()
+            .localeCompare(itemB.username.toLowerCase());
+        })
+        .slice(0, MAX_SEARCH_RESULTS);
+
+      setSearchResults(result);
+      setIsLoading(false);
+    }),
+    [],
+  );
+
+  useEffect(() => {
+    const query = props.input;
+
+    setIsQueryEmpty(query.length === 0);
+
+    if (query.length === 0) {
       setSearchResults([]);
       return;
     }
 
-    if (web3.utils.isAddress(props.input)) {
+    // Shortcut for putting in a valid address directly
+    if (web3.utils.isAddress(query)) {
       props.onSelect({
-        safeAddress: props.input,
+        safeAddress: query,
       });
 
       return;
     }
 
-    const result = trust.network
-      .filter(connection => {
-        return connection.username.includes(props.input);
-      })
-      .sort((itemA, itemB) => {
-        return itemA.username
-          .toLowerCase()
-          .localeCompare(itemB.username.toLowerCase());
-      })
-      .slice(0, MAX_SEARCH_RESULTS);
-
-    setSearchResults(result);
-  };
-
-  useEffect(search, [props.input]);
+    setIsLoading(true);
+    debouncedSearch(query);
+  }, [props.input]);
 
   return (
     <Fragment>
@@ -68,6 +85,7 @@ const UsernameFinder = (props, context) => {
       <SpacingStyle>
         <ListStyle>
           <UsernameFinderResult
+            isLoading={isLoading}
             isQueryEmpty={isQueryEmpty}
             items={searchResults}
             onClick={onSelect}
@@ -83,8 +101,12 @@ const UsernameFinderResult = (props, context) => {
     props.onClick(user);
   };
 
-  if (!props.isQueryEmpty && props.items.length === 0) {
+  if (!props.isQueryEmpty && props.items.length === 0 && !props.isLoading) {
     return <p>{context.t('UsernameFinder.noResultsGiven')}</p>;
+  }
+
+  if (props.isLoading) {
+    return <Spinner />;
   }
 
   return props.items.map((item, index) => {
