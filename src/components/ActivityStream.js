@@ -325,6 +325,8 @@ const ItemStyle = styled.li`
 const ItemContentStyle = styled.div`
   display: flex;
 
+  overflow: hidden;
+
   margin-left: 2rem;
 
   font-weight: ${styles.base.typography.weightLight};
