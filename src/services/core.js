@@ -76,6 +76,12 @@ const user = {
       addresses,
     });
   },
+
+  search: async query => {
+    return await requestCore('user', 'search', {
+      query,
+    });
+  },
 };
 
 // Trust module
