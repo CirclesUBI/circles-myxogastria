@@ -111,7 +111,7 @@ const components = {
 // Media-query
 
 const media = {
-  desktop: `(min-width: ${dimensions.width}) and (min-height: ${dimensions.height})`,
+  desktop: `(min-width: ${dimensions.width})`,
 };
 
 // Z-index
