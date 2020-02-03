@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { DateTime } from 'luxon';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import ButtonAction from '~/components/ButtonAction';
 import BalanceDisplay from '~/components/BalanceDisplay';
@@ -14,57 +13,13 @@ import ButtonRound from '~/components/ButtonRound';
 import Spinner from '~/components/Spinner';
 import TrustNetwork from '~/components/TrustNetwork';
 import View from '~/components/View';
-import core from '~/services/core';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
 import { BackgroundWhirlyOrange } from '~/styles/Background';
 import { IconQR, IconShare, IconActivities } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
-import { formatCirclesValue } from '~/utils/format';
-import { requestUBIPayout } from '~/store/token/actions';
 
-const Dashboard = (props, context) => {
-  const dispatch = useDispatch();
-
+const Dashboard = () => {
   const safe = useSelector(state => state.safe);
-  const token = useSelector(state => state.token);
-
-  useEffect(() => {
-    // We only collect UBI once every day
-    const isSameDay = DateTime.local().hasSame(
-      DateTime.fromMillis(token.lastPayout),
-      'day',
-    );
-
-    if (isSameDay || !token.address) {
-      return;
-    }
-
-    const checkUBIPayout = async () => {
-      // Check if we can collect some UBI
-      const payout = await core.token.checkUBIPayout(safe.address);
-
-      if (payout.isZero()) {
-        return;
-      }
-
-      // Display pending UBI to the user
-      dispatch(
-        notify({
-          text: context.t('Dashboard.ubiPayoutReceived', {
-            payout: formatCirclesValue(payout, 4),
-          }),
-          type: NotificationsTypes.INFO,
-          timeout: 10000,
-        }),
-      );
-
-      // .. and get it!
-      await dispatch(requestUBIPayout());
-    };
-
-    checkUBIPayout();
-  }, [token.address]);
 
   // We consider someone "trusted" when Safe got deployed
   const isTrusted = !safe.nonce;
@@ -187,10 +142,6 @@ const DashboardActivityCounter = props => {
       <span>{props.count}</span>
     </ActivityCounterStyle>
   );
-};
-
-Dashboard.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 DashboardView.propTypes = {

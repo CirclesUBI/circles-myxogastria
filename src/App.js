@@ -8,6 +8,7 @@ import GlobalStyle from '~/styles';
 import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
 import SpinnerOverlay from '~/components/SpinnerOverlay';
+import UBI from '~/components/UBI';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
@@ -58,6 +59,7 @@ const App = (props, context) => {
       <GlobalStyle />
 
       <AppStyle>
+        <UBI />
         <Notifications />
         <SpinnerOverlay isVisible={app.isLoading} />
         <Routes />
