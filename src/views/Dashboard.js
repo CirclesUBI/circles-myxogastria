@@ -131,7 +131,7 @@ const DashboardView = (props, context) => {
             <Logo />
           </SpacingStyle>
 
-          <SpacingStyle>
+          <SpacingStyle isLargeTop>
             <h1>{context.t('Dashboard.welcomeToCircles')}</h1>
           </SpacingStyle>
 
