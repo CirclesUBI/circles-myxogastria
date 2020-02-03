@@ -31,7 +31,7 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
-    "@testing-library/jest-dom": "^5.0.2",
+    "@testing-library/jest-dom": "^5.1.0",
     "@testing-library/react": "^9.4.0",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
@@ -42,7 +42,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-loader": "^3.0.3",
     "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react": "^7.18.3",
     "file-loader": "^5.0.2",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.1",
@@ -61,7 +61,7 @@
     "truffle": "^5.1.11",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.1"
+    "webpack-dev-server": "^3.10.2"
   },
   "dependencies": {
     "@circles/core": "^0.8.1",
@@ -85,6 +85,6 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.0.0",
     "styled-normalize": "^8.0.7",
-    "web3": "^1.2.5"
+    "web3": "^1.2.6"
   }
 }
