@@ -39,6 +39,7 @@ export const ViewStyle = styled.main`
 
   overflow-x: hidden;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   padding-top: ${props => {
     return props.isHeader ? styles.components.header.height : 0;
