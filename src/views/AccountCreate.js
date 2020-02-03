@@ -76,7 +76,7 @@ const AccountCreate = (props, context) => {
 
       <View isFooter>
         <SpacingStyle isLargeTop>
-          <Logo />
+          <Logo isWithGang />
         </SpacingStyle>
 
         <SpacingStyle>

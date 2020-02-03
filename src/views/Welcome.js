@@ -5,11 +5,10 @@ import styled from 'styled-components';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import ExternalLinkList from '~/components/ExternalLinkList';
 import LocaleSelector from '~/components/LocaleSelector';
+import Logo from '~/components/Logo';
 import View from '~/components/View';
 import { HeaderStyle } from '~/components/Header';
 import { SpacingStyle } from '~/styles/Layout';
-
-import circlesPeople from '%/images/circles-people.png';
 
 const Welcome = (props, context) => {
   return (
@@ -20,7 +19,7 @@ const Welcome = (props, context) => {
 
       <View isPushingToBottom>
         <SpacingStyle>
-          <CirclesPeopleStyle />
+          <Logo isWithGang />
         </SpacingStyle>
 
         <SpacingStyle>
@@ -55,20 +54,6 @@ export const WelcomeHeaderStyle = styled(HeaderStyle)`
   padding-right: 2rem;
 
   justify-content: flex-end;
-`;
-
-export const CirclesPeopleStyle = styled.div`
-  width: 18rem;
-  height: 18rem;
-
-  margin: 0 auto;
-
-  background-image: url(${circlesPeople});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-
-  flex-shrink: 0;
 `;
 
 export default Welcome;

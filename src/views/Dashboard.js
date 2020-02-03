@@ -8,10 +8,10 @@ import ActionButton from '~/components/ActionButton';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import Header from '~/components/Header';
 import HeaderButton from '~/components/HeaderButton';
+import Logo from '~/components/Logo';
 import QRCode from '~/components/QRCode';
 import RoundButton from '~/components/RoundButton';
 import Spinner from '~/components/Spinner';
-import TrustHealthDisplay from '~/components/TrustHealthDisplay';
 import TrustNetwork from '~/components/TrustNetwork';
 import View from '~/components/View';
 import core from '~/services/core';
@@ -128,7 +128,7 @@ const DashboardView = (props, context) => {
       <Fragment>
         <View isHeader>
           <SpacingStyle>
-            <TrustHealthDisplay isTrusted={false} />
+            <Logo />
           </SpacingStyle>
 
           <SpacingStyle>
@@ -168,7 +168,7 @@ const DashboardView = (props, context) => {
   return (
     <Fragment>
       <View isHeader>
-        <TrustHealthDisplay isTrusted />
+        <Logo isWithGang />
         <TrustNetwork />
       </View>
 
