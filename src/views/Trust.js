@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import BackButton from '~/components/BackButton';
-import SafeFinderView from '~/components/SafeFinderView';
+import ButtonBack from '~/components/ButtonBack';
+import SafeFinder from '~/components/SafeFinder';
 import { BackgroundPurpleTop } from '~/styles/Background';
 
 import Header, {
@@ -24,14 +24,14 @@ const Trust = (props, context) => {
   return (
     <BackgroundPurpleTop>
       <Header>
-        <BackButton to="/" />
+        <ButtonBack to="/" />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle>{context.t('Trust.trustSomeone')}</HeaderTitleStyle>
         </HeaderCenterStyle>
       </Header>
 
-      <SafeFinderView isHeader onSelect={onSelect} />
+      <SafeFinder isHeader onSelect={onSelect} />
     </BackgroundPurpleTop>
   );
 };

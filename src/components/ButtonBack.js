@@ -2,20 +2,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { IconBack } from '~/styles/Icons';
-import HeaderButton from '~/components/HeaderButton';
+import ButtonHeader from '~/components/ButtonHeader';
 
-const BackButton = ({ isDark, ...props }) => {
+const ButtonBack = ({ isDark, ...props }) => {
   return (
-    <HeaderButton {...props}>
+    <ButtonHeader {...props}>
       <IconBack isDark={isDark} />
-    </HeaderButton>
+    </ButtonHeader>
   );
 };
 
-BackButton.propTypes = {
+ButtonBack.propTypes = {
   isDark: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
 };
 
-export default BackButton;
+export default ButtonBack;

@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import BackButton from '~/components/BackButton';
+import ButtonBack from '~/components/ButtonBack';
 import QRCode from '~/components/QRCode';
-import RoundButton from '~/components/RoundButton';
+import ButtonRound from '~/components/ButtonRound';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import { BackgroundGreen } from '~/styles/Background';
@@ -21,7 +21,7 @@ const Receive = (props, context) => {
   return (
     <BackgroundGreen>
       <Header>
-        <BackButton to="/" />
+        <ButtonBack to="/" />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle>
@@ -34,10 +34,10 @@ const Receive = (props, context) => {
         <QRCode data={safe.address} />
         <p>{context.t('Receive.showThisQR')}</p>
 
-        <RoundButton to="/receive/share">
+        <ButtonRound to="/receive/share">
           <IconShare />
           <span>{context.t('Receive.share')}</span>
-        </RoundButton>
+        </ButtonRound>
       </View>
     </BackgroundGreen>
   );

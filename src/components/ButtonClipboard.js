@@ -4,11 +4,11 @@ import React, { createRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import ButtonPrimary from '~/components/ButtonPrimary';
-import RoundButton from '~/components/RoundButton';
+import ButtonRound from '~/components/ButtonRound';
 import notify from '~/store/notifications/actions';
 import { IconShare } from '~/styles/Icons';
 
-const ClipboardButton = (props, context) => {
+const ButtonClipboard = (props, context) => {
   const dispatch = useDispatch();
   const ref = createRef();
 
@@ -22,7 +22,7 @@ const ClipboardButton = (props, context) => {
     clipboard.on('success', () => {
       dispatch(
         notify({
-          text: context.t('ClipboardButton.copiedMessage'),
+          text: context.t('ButtonClipboard.copiedMessage'),
         }),
       );
     });
@@ -36,27 +36,27 @@ const ClipboardButton = (props, context) => {
 
   if (!props.isPrimary) {
     return (
-      <RoundButton ref={ref}>
+      <ButtonRound ref={ref}>
         <IconShare />
-        <span>{context.t('ClipboardButton.share')}</span>
-      </RoundButton>
+        <span>{context.t('ButtonClipboard.share')}</span>
+      </ButtonRound>
     );
   }
 
   return (
     <ButtonPrimary ref={ref}>
-      {context.t('ClipboardButton.copyToClipboard')}
+      {context.t('ButtonClipboard.copyToClipboard')}
     </ButtonPrimary>
   );
 };
 
-ClipboardButton.contextTypes = {
+ButtonClipboard.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
-ClipboardButton.propTypes = {
+ButtonClipboard.propTypes = {
   isPrimary: PropTypes.bool,
   text: PropTypes.string.isRequired,
 };
 
-export default ClipboardButton;
+export default ButtonClipboard;

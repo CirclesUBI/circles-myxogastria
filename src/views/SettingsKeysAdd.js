@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import BackButton from '~/components/BackButton';
+import ButtonBack from '~/components/ButtonBack';
 import ButtonPrimary from '~/components/ButtonPrimary';
-import HomeButton from '~/components/HomeButton';
+import ButtonHome from '~/components/ButtonHome';
 import QRCodeScanner from '~/components/QRCodeScanner';
 import View from '~/components/View';
 import logError from '~/utils/debug';
@@ -70,7 +70,7 @@ const SettingsKeysAdd = (props, context) => {
     return (
       <BackgroundGreen>
         <Header>
-          <BackButton onClick={onPrevious} />
+          <ButtonBack onClick={onPrevious} />
 
           <HeaderCenterStyle>
             <HeaderTitleStyle>
@@ -78,7 +78,7 @@ const SettingsKeysAdd = (props, context) => {
             </HeaderTitleStyle>
           </HeaderCenterStyle>
 
-          <HomeButton />
+          <ButtonHome />
         </Header>
 
         <View isHeader>
@@ -99,7 +99,7 @@ const SettingsKeysAdd = (props, context) => {
   return (
     <BackgroundGreen>
       <Header>
-        <BackButton to="/settings/keys" />
+        <ButtonBack to="/settings/keys" />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle>
@@ -107,7 +107,7 @@ const SettingsKeysAdd = (props, context) => {
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
-        <HomeButton />
+        <ButtonHome />
       </Header>
 
       <View isHeader>

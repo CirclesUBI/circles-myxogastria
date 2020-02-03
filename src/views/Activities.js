@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import ActivityStream from '~/components/ActivityStream';
-import BackButton from '~/components/BackButton';
+import ButtonBack from '~/components/ButtonBack';
 import View from '~/components/View';
 import { BackgroundPurple } from '~/styles/Background';
 import { updateLastSeen } from '~/store/activity/actions';
@@ -26,7 +26,7 @@ const Activities = (props, context) => {
   return (
     <BackgroundPurple>
       <Header>
-        <BackButton to="/" />
+        <ButtonBack to="/" />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle>

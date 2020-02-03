@@ -8,25 +8,25 @@ import { ButtonStyle } from '~/components/Button';
 import { IconBase, IconSend } from '~/styles/Icons';
 
 // eslint-disable-next-line react/display-name
-const RoundButton = React.forwardRef(({ to, children, ...props }, ref) => {
+const ButtonRound = React.forwardRef(({ to, children, ...props }, ref) => {
   if (to) {
     return (
       <Link to={to}>
-        <RoundButtonStyle {...props} ref={ref}>
+        <ButtonRoundStyle {...props} ref={ref}>
           {children}
-        </RoundButtonStyle>
+        </ButtonRoundStyle>
       </Link>
     );
   }
 
   return (
-    <RoundButtonStyle {...props} ref={ref}>
+    <ButtonRoundStyle {...props} ref={ref}>
       {children}
-    </RoundButtonStyle>
+    </ButtonRoundStyle>
   );
 });
 
-RoundButton.propTypes = {
+ButtonRound.propTypes = {
   children: PropTypes.any.isRequired,
   disabled: PropTypes.bool,
   isConfirmed: PropTypes.bool,
@@ -34,7 +34,7 @@ RoundButton.propTypes = {
   to: PropTypes.string,
 };
 
-export const RoundButtonStyle = styled(ButtonStyle)`
+export const ButtonRoundStyle = styled(ButtonStyle)`
   position: relative;
 
   display: flex;
@@ -129,4 +129,4 @@ export const RoundButtonStyle = styled(ButtonStyle)`
   }
 `;
 
-export default RoundButton;
+export default ButtonRound;

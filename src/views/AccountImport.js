@@ -3,10 +3,10 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import BackButton from '~/components/BackButton';
+import ButtonBack from '~/components/ButtonBack';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
-import HomeButton from '~/components/HomeButton';
+import ButtonHome from '~/components/ButtonHome';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { SpacingStyle } from '~/styles/Layout';
@@ -53,7 +53,7 @@ const AccountImport = (props, context) => {
   return (
     <Fragment>
       <Header>
-        <BackButton isDark to="/welcome/connect" />
+        <ButtonBack isDark to="/welcome/connect" />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle isDark>
@@ -61,7 +61,7 @@ const AccountImport = (props, context) => {
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
-        <HomeButton isDark />
+        <ButtonHome isDark />
       </Header>
 
       <View isFooter isHeader>

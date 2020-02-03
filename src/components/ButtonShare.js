@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import ButtonPrimary from '~/components/ButtonPrimary';
-import RoundButton from '~/components/RoundButton';
+import ButtonRound from '~/components/ButtonRound';
 import { IconShare } from '~/styles/Icons';
 
-const ShareButton = (props, context) => {
+const ButtonShare = (props, context) => {
   const { title, text, url } = props;
 
   const onShare = () => {
@@ -19,29 +19,29 @@ const ShareButton = (props, context) => {
 
   if (!props.isPrimary) {
     return (
-      <RoundButton onClick={onShare}>
+      <ButtonRound onClick={onShare}>
         <IconShare />
-        <span>{context.t('ShareButton.share')}</span>
-      </RoundButton>
+        <span>{context.t('ButtonShare.share')}</span>
+      </ButtonRound>
     );
   }
 
   return (
     <ButtonPrimary onClick={onShare}>
-      {context.t('ShareButton.share')}
+      {context.t('ButtonShare.share')}
     </ButtonPrimary>
   );
 };
 
-ShareButton.contextTypes = {
+ButtonShare.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
-ShareButton.propTypes = {
+ButtonShare.propTypes = {
   isPrimary: PropTypes.bool,
   text: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
 };
 
-export default ShareButton;
+export default ButtonShare;

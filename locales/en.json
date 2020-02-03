@@ -80,7 +80,7 @@
   "ReceiveShare.description": "Share your profile info with the person you would like to receive Circles from:",
   "ReceiveShare.receive": "Receive Circles",
   "ReceiveShare.shareText": "Hey! Check out my profile at: {shareLink}",
-  "SafeFinderView.tapToScanQR": "Scan QR Code",
+  "SafeFinder.tapToScanQR": "Scan QR Code",
   "SafeOwnerManager.addNewDevice": "Add new device",
   "SafeOwnerManager.currentDevice": "Your current device",
   "SafeOwnerManager.devicesAccessingAccount": "Devices accessing this account:",

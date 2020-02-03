@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import ClipboardButton from '~/components/ClipboardButton';
-import ShareButton from '~/components/ShareButton';
+import ButtonClipboard from '~/components/ButtonClipboard';
+import ButtonShare from '~/components/ButtonShare';
 import { TextareaStyle } from '~/styles/Inputs';
 
 const SHARE_TITLE = 'Circles';
@@ -21,12 +21,12 @@ const ShareTextBox = props => {
 };
 
 const ShareTextBoxButton = props => {
-  // Fallback to ClipboardButton in case native share API does not exist
+  // Fallback to ButtonClipboard in case native share API does not exist
   if (props.isClipboard || !window.navigator.share) {
-    return <ClipboardButton text={props.text} />;
+    return <ButtonClipboard text={props.text} />;
   }
 
-  return <ShareButton text={props.text} title={SHARE_TITLE} url={props.url} />;
+  return <ButtonShare text={props.text} title={SHARE_TITLE} url={props.url} />;
 };
 
 ShareTextBox.propTypes = {

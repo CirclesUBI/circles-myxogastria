@@ -78,7 +78,7 @@
   "ReceiveShare.description": "Teile dein Profil mit anderen Nutzern, um Circles von Ihnen zu erhalten:",
   "ReceiveShare.receive": "Circles erhalten",
   "ReceiveShare.shareText": "Hallo! Schaue dir mein Profil an: {shareLink}",
-  "SafeFinderView.tapToScanQR": "QR-Code lesen",
+  "SafeFinder.tapToScanQR": "QR-Code lesen",
   "SafeOwnerManager.addNewDevice": "Neues Gerät hinzufügen",
   "SafeOwnerManager.currentDevice": "Dein aktuelles Gerät",
   "SafeOwnerManager.devicesAccessingAccount": "Geräte mit Zugang:",

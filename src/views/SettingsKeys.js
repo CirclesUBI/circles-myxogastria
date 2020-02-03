@@ -3,10 +3,10 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import BackButton from '~/components/BackButton';
+import ButtonBack from '~/components/ButtonBack';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
-import HomeButton from '~/components/HomeButton';
+import ButtonHome from '~/components/ButtonHome';
 import SafeOwnerManager from '~/components/SafeOwnerManager';
 import View from '~/components/View';
 import styles from '~/styles/variables';
@@ -32,7 +32,7 @@ const SettingsKeys = (props, context) => {
   return (
     <BackgroundGreen>
       <Header>
-        <BackButton to="/settings" />
+        <ButtonBack to="/settings" />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle>
@@ -40,7 +40,7 @@ const SettingsKeys = (props, context) => {
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
-        <HomeButton />
+        <ButtonHome />
       </Header>
 
       <View isFooter isHeader>

@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import BackButton from '~/components/BackButton';
-import HomeButton from '~/components/HomeButton';
+import ButtonBack from '~/components/ButtonBack';
+import ButtonHome from '~/components/ButtonHome';
 import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
 import { BackgroundWhirlyGreen } from '~/styles/Background';
@@ -23,7 +23,7 @@ const ReceiveShare = (props, context) => {
   return (
     <BackgroundWhirlyGreen>
       <Header>
-        <BackButton isDark to="/receive" />
+        <ButtonBack isDark to="/receive" />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle isDark>
@@ -31,7 +31,7 @@ const ReceiveShare = (props, context) => {
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
-        <HomeButton isDark />
+        <ButtonHome isDark />
       </Header>
 
       <View isHeader>

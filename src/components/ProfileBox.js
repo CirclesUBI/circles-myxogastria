@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import ButtonPrimary from '~/components/ButtonPrimary';
-import ClipboardButton from '~/components/ClipboardButton';
-import MiniProfile from '~/components/MiniProfile';
-import RoundButton, { RoundButtonStyle } from '~/components/RoundButton';
+import ButtonClipboard from '~/components/ButtonClipboard';
+import ProfileMini from '~/components/ProfileMini';
+import ButtonRound, { ButtonRoundStyle } from '~/components/ButtonRound';
 import styles from '~/styles/variables';
 import { BackgroundGreenBottom } from '~/styles/Background';
 import { IconSend, IconTrust } from '~/styles/Icons';
@@ -22,7 +22,7 @@ const ProfileBox = (props, context) => {
   return (
     <ProfileBoxStyle isIncoming={connection && connection.isIncoming}>
       <ProfileBoxHeaderStyle>
-        <MiniProfile address={props.address} isInline isLarge />
+        <ProfileMini address={props.address} isInline isLarge />
         <TrustState connection={connection} />
       </ProfileBoxHeaderStyle>
 
@@ -34,7 +34,7 @@ const ProfileBox = (props, context) => {
       <ProfileContentStyle>
         <p>{context.t('ProfileBox.publicAddress')}</p>
         <InputStyle readOnly value={props.address} />
-        <ClipboardButton isPrimary text={props.address} />
+        <ButtonClipboard isPrimary text={props.address} />
         <RevokeTrustButton connection={connection} />
       </ProfileContentStyle>
     </ProfileBoxStyle>
@@ -46,10 +46,10 @@ const SendButton = ({ address }, context) => {
   const disabled = safe.address === address || safe.nonce !== null;
 
   return (
-    <RoundButton disabled={disabled} to={`/send/${address}`}>
+    <ButtonRound disabled={disabled} to={`/send/${address}`}>
       <IconSend />
       <span>{context.t('ProfileBox.sendCircles')}</span>
-    </RoundButton>
+    </ButtonRound>
   );
 };
 
@@ -62,18 +62,18 @@ const TrustButton = ({ connection, address }, context) => {
 
   if (connection && connection.isIncoming) {
     return (
-      <RoundButton disabled isConfirmed>
+      <ButtonRound disabled isConfirmed>
         <IconTrust />
         <span>{context.t('ProfileBox.isTrusted')}</span>
-      </RoundButton>
+      </ButtonRound>
     );
   }
 
   return (
-    <RoundButton disabled={safe.nonce !== null} to={`/trust/${address}`}>
+    <ButtonRound disabled={safe.nonce !== null} to={`/trust/${address}`}>
       <IconTrust />
       <span>{context.t('ProfileBox.trustUser')}</span>
-    </RoundButton>
+    </ButtonRound>
   );
 };
 
@@ -204,7 +204,7 @@ const ProfileBoxActionsStyle = styled.div`
 
   justify-content: center;
 
-  ${RoundButtonStyle} {
+  ${ButtonRoundStyle} {
     margin-right: 1rem;
     margin-left: 1rem;
   }

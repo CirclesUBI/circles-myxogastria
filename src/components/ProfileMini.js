@@ -6,25 +6,25 @@ import ProfileImage from '~/components/ProfileImage';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import styles from '~/styles/variables';
 
-const MiniProfile = props => {
+const ProfileMini = props => {
   return (
-    <MiniProfileStyle isInline={props.isInline}>
+    <ProfileMiniStyle isInline={props.isInline}>
       <ProfileImage address={props.address} />
 
       <UsernameDisplayStyle isLarge={props.isLarge}>
         <UsernameDisplay address={props.address} />
       </UsernameDisplayStyle>
-    </MiniProfileStyle>
+    </ProfileMiniStyle>
   );
 };
 
-MiniProfile.propTypes = {
+ProfileMini.propTypes = {
   address: PropTypes.string.isRequired,
   isInline: PropTypes.bool,
   isLarge: PropTypes.bool,
 };
 
-const MiniProfileStyle = styled.div`
+const ProfileMiniStyle = styled.div`
   display: inline-flex;
 
   overflow: hidden;
@@ -57,4 +57,4 @@ const UsernameDisplayStyle = styled.span`
   }};
 `;
 
-export default MiniProfile;
+export default ProfileMini;

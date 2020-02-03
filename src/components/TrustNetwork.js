@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import MiniProfile from '~/components/MiniProfile';
+import ProfileMini from '~/components/ProfileMini';
 
 const TrustNetwork = () => {
   const { network } = useSelector(state => state.trust);
@@ -33,7 +33,7 @@ const TrustNetworkListItem = ({ connection }) => {
   return (
     <ListItemStyle>
       <LinkStyle to={`/profile/${safeAddress}`}>
-        <MiniProfile address={safeAddress} isInline />
+        <ProfileMini address={safeAddress} isInline />
       </LinkStyle>
     </ListItemStyle>
   );

@@ -3,7 +3,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Header from '~/components/Header';
-import HomeButton from '~/components/HomeButton';
+import ButtonHome from '~/components/ButtonHome';
 import ProfileBox from '~/components/ProfileBox';
 import View from '~/components/View';
 import { BackgroundPurplePlain } from '~/styles/Background';
@@ -14,7 +14,7 @@ const Profile = props => {
   return (
     <BackgroundPurplePlain>
       <Header isAlignedRight>
-        <HomeButton />
+        <ButtonHome />
       </Header>
 
       <View isHeader>

@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import { DateTime } from 'luxon';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ActionButton from '~/components/ActionButton';
+import ButtonAction from '~/components/ButtonAction';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import Header from '~/components/Header';
-import HeaderButton from '~/components/HeaderButton';
+import ButtonHeader from '~/components/ButtonHeader';
 import Logo from '~/components/Logo';
 import QRCode from '~/components/QRCode';
-import RoundButton from '~/components/RoundButton';
+import ButtonRound from '~/components/ButtonRound';
 import Spinner from '~/components/Spinner';
 import TrustNetwork from '~/components/TrustNetwork';
 import View from '~/components/View';
@@ -72,15 +72,15 @@ const Dashboard = (props, context) => {
   return (
     <BackgroundWhirlyOrange>
       <Header>
-        <HeaderButton to="/settings">
+        <ButtonHeader to="/settings">
           <IconQR />
-        </HeaderButton>
+        </ButtonHeader>
 
         <BalanceDisplay />
 
-        <HeaderButton to="/activities">
+        <ButtonHeader to="/activities">
           <DashboardActivityIcon />
-        </HeaderButton>
+        </ButtonHeader>
       </Header>
 
       <DashboardView isTrusted={isTrusted} />
@@ -155,10 +155,10 @@ const DashboardView = (props, context) => {
           </SpacingStyle>
 
           <SpacingStyle>
-            <RoundButton to="/invite">
+            <ButtonRound to="/invite">
               <IconShare />
               <span>{context.t('Dashboard.share')}</span>
-            </RoundButton>
+            </ButtonRound>
           </SpacingStyle>
         </View>
       </Fragment>
@@ -172,7 +172,7 @@ const DashboardView = (props, context) => {
         <TrustNetwork />
       </View>
 
-      <ActionButton />
+      <ButtonAction />
     </Fragment>
   );
 };

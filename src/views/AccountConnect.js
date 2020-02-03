@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import BackButton from '~/components/BackButton';
+import ButtonBack from '~/components/ButtonBack';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import QRCode from '~/components/QRCode';
@@ -20,7 +20,7 @@ const AccountConnect = (props, context) => {
   return (
     <Fragment>
       <Header>
-        <BackButton isDark to="/welcome" />
+        <ButtonBack isDark to="/welcome" />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle isDark>

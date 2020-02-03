@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState, useEffect } from 'react';
 
-import BackButton from '~/components/BackButton';
-import HomeButton from '~/components/HomeButton';
+import ButtonBack from '~/components/ButtonBack';
+import ButtonHome from '~/components/ButtonHome';
 import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
@@ -27,7 +27,7 @@ const SettingsKeysExport = (props, context) => {
   return (
     <Fragment>
       <Header>
-        <BackButton isDark to="/settings/keys" />
+        <ButtonBack isDark to="/settings/keys" />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle isDark>
@@ -35,7 +35,7 @@ const SettingsKeysExport = (props, context) => {
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
-        <HomeButton isDark />
+        <ButtonHome isDark />
       </Header>
 
       <View isHeader>

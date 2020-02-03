@@ -8,7 +8,7 @@ import { IconReceive, IconExit, IconSend, IconTrust } from '~/styles/Icons';
 
 const TRANSITION_DURATION = 500;
 
-const ActionButton = () => {
+const ButtonAction = () => {
   const [isExtended, setIsExtended] = useState(false);
 
   const onToggle = () => {
@@ -54,21 +54,21 @@ const Overlay = (props, context) => {
         <PanelItemStyle>
           <PanelButtonStyle to="/send">
             <IconSend />
-            <span>{context.t('ActionButton.send')}</span>
+            <span>{context.t('ButtonAction.send')}</span>
           </PanelButtonStyle>
         </PanelItemStyle>
 
         <PanelItemStyle>
           <PanelButtonStyle to="/trust">
             <IconTrust />
-            <span>{context.t('ActionButton.trust')}</span>
+            <span>{context.t('ButtonAction.trust')}</span>
           </PanelButtonStyle>
         </PanelItemStyle>
 
         <PanelItemStyle>
           <PanelButtonStyle to="/receive">
             <IconReceive />
-            <span>{context.t('ActionButton.receive')}</span>
+            <span>{context.t('ButtonAction.receive')}</span>
           </PanelButtonStyle>
         </PanelItemStyle>
       </PanelStyle>
@@ -93,7 +93,7 @@ const gradient = `linear-gradient(
   ${styles.colors.accentAlternative} 100%
 )`;
 
-const ActionButtonStyle = styled(ButtonStyle)`
+const ButtonActionStyle = styled(ButtonStyle)`
   width: ${actionButtonSize};
   height: ${actionButtonSize};
 
@@ -106,7 +106,7 @@ const ActionButtonStyle = styled(ButtonStyle)`
   box-shadow: 0 0 25px ${styles.monochrome.gray};
 `;
 
-const ToggleStyle = styled(ActionButtonStyle)`
+const ToggleStyle = styled(ButtonActionStyle)`
   position: absolute;
 
   right: 2rem;
@@ -219,4 +219,4 @@ const PanelButtonStyle = styled(ButtonStyle)`
   }
 `;
 
-export default ActionButton;
+export default ButtonAction;

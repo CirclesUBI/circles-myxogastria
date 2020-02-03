@@ -3,7 +3,7 @@ import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import MiniProfile from '~/components/MiniProfile';
+import ProfileMini from '~/components/ProfileMini';
 import Spinner from '~/components/Spinner';
 import core from '~/services/core';
 import debounce from '~/utils/debounce';
@@ -121,7 +121,7 @@ const UsernameFinderItem = props => {
 
   return (
     <ItemStyle onClick={onClick}>
-      <MiniProfile address={props.user.safeAddress} />
+      <ProfileMini address={props.user.safeAddress} />
     </ItemStyle>
   );
 };

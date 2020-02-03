@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import BackButton from '~/components/BackButton';
+import ButtonBack from '~/components/ButtonBack';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
-import HomeButton from '~/components/HomeButton';
-import MiniProfile from '~/components/MiniProfile';
+import ButtonHome from '~/components/ButtonHome';
+import ProfileMini from '~/components/ProfileMini';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -77,12 +77,12 @@ const SendConfirm = (props, context) => {
     return (
       <BackgroundOrangeTop>
         <SendConfirmHeader>
-          <BackButton onClick={onPrevious} />
+          <ButtonBack onClick={onPrevious} />
         </SendConfirmHeader>
 
         <View isFooter isHeader>
           <p>{context.t('SendConfirm.confirmationText', { amount })}</p>
-          <MiniProfile address={address} />
+          <ProfileMini address={address} />
         </View>
 
         <Footer>
@@ -97,13 +97,13 @@ const SendConfirm = (props, context) => {
   return (
     <BackgroundOrangeTop>
       <SendConfirmHeader>
-        <BackButton to="/send" />
+        <ButtonBack to="/send" />
       </SendConfirmHeader>
 
       <View isFooter isHeader>
         <ConfirmToStyle>
           <span>{context.t('SendConfirm.to')}</span>
-          <MiniProfile address={address} />
+          <ProfileMini address={address} />
         </ConfirmToStyle>
 
         <p>{context.t('SendConfirm.howMuch')}</p>
@@ -135,7 +135,7 @@ const SendConfirmHeader = (props, context) => {
         </HeaderTitleStyle>
       </HeaderCenterStyle>
 
-      <HomeButton />
+      <ButtonHome />
     </Header>
   );
 };

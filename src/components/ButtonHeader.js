@@ -5,18 +5,18 @@ import styled from 'styled-components';
 import { ButtonStyle } from '~/components/Button';
 import { IconBase, IconExit } from '~/styles/Icons';
 
-const HeaderButton = ({ children, ...props }) => {
-  return <HeaderButtonStyle {...props}>{children}</HeaderButtonStyle>;
+const ButtonHeader = ({ children, ...props }) => {
+  return <ButtonHeaderStyle {...props}>{children}</ButtonHeaderStyle>;
 };
 
-HeaderButton.propTypes = {
+ButtonHeader.propTypes = {
   children: PropTypes.any.isRequired,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
 };
 
-const HeaderButtonStyle = styled(ButtonStyle)`
+const ButtonHeaderStyle = styled(ButtonStyle)`
   padding: 1.5rem;
 
   ${IconBase} {
@@ -42,4 +42,4 @@ const HeaderButtonStyle = styled(ButtonStyle)`
   }
 `;
 
-export default HeaderButton;
+export default ButtonHeader;

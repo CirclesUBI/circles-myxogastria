@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import BackButton from '~/components/BackButton';
+import ButtonBack from '~/components/ButtonBack';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
-import HomeButton from '~/components/HomeButton';
-import MiniProfile from '~/components/MiniProfile';
+import ButtonHome from '~/components/ButtonHome';
+import ProfileMini from '~/components/ProfileMini';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -59,7 +59,7 @@ const TrustConfirm = (props, context) => {
   return (
     <BackgroundPurpleTop>
       <Header>
-        <BackButton to="/trust" />
+        <ButtonBack to="/trust" />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle>
@@ -67,12 +67,12 @@ const TrustConfirm = (props, context) => {
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
-        <HomeButton />
+        <ButtonHome />
       </Header>
 
       <View isFooter isHeader>
         <p>{context.t('TrustConfirm.confirmationText')}</p>
-        <MiniProfile address={address} />
+        <ProfileMini address={address} />
       </View>
 
       <Footer>

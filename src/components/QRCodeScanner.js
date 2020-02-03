@@ -9,7 +9,7 @@ import findAddress from '~/utils/findAddress';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
 import { IconScanner } from '~/styles/Icons';
-import { RoundButtonStyle } from '~/components/RoundButton';
+import { ButtonRoundStyle } from '~/components/ButtonRound';
 
 QrScanner.WORKER_PATH = QrScannerWorkerPath;
 
@@ -156,7 +156,7 @@ const QRCodeScannerVideoStyle = styled.video`
   }};
 `;
 
-const QRCodeScannerButtonStyle = styled(RoundButtonStyle)`
+const QRCodeScannerButtonStyle = styled(ButtonRoundStyle)`
   display: ${props => {
     return props.isVideoVisible ? 'none' : 'flex';
   }};

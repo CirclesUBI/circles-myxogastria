@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import BackButton from '~/components/BackButton';
+import ButtonBack from '~/components/ButtonBack';
 import ExternalLinkList from '~/components/ExternalLinkList';
-import HeaderButton from '~/components/HeaderButton';
+import ButtonHeader from '~/components/ButtonHeader';
 import LocaleSelector from '~/components/LocaleSelector';
 import QRCode from '~/components/QRCode';
-import RoundButton from '~/components/RoundButton';
+import ButtonRound from '~/components/ButtonRound';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import { BackgroundGreen } from '~/styles/Background';
@@ -25,7 +25,7 @@ const Settings = (props, context) => {
   return (
     <BackgroundGreen>
       <Header>
-        <BackButton to="/" />
+        <ButtonBack to="/" />
 
         <HeaderCenterStyle>
           <HeaderTitleStyle>
@@ -33,9 +33,9 @@ const Settings = (props, context) => {
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
-        <HeaderButton to="/settings/keys">
+        <ButtonHeader to="/settings/keys">
           <IconKeys />
-        </HeaderButton>
+        </ButtonHeader>
       </Header>
 
       <View isHeader>
@@ -47,10 +47,10 @@ const Settings = (props, context) => {
           <p>{context.t('Settings.showThisQR')}</p>
         </SpacingStyle>
 
-        <RoundButton to="/settings/share">
+        <ButtonRound to="/settings/share">
           <IconShare />
           <span>{context.t('Settings.share')}</span>
-        </RoundButton>
+        </ButtonRound>
 
         <SpacingStyle>
           <LocaleSelector />

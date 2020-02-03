@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import BackButton from '~/components/BackButton';
+import ButtonBack from '~/components/ButtonBack';
 import Header from '~/components/Header';
 import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
@@ -18,7 +18,7 @@ const Invite = (props, context) => {
   return (
     <BackgroundWhirlyGreen>
       <Header>
-        <BackButton isDark to="/" />
+        <ButtonBack isDark to="/" />
       </Header>
 
       <View isHeader>

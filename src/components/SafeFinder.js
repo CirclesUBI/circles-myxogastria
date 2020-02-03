@@ -10,7 +10,7 @@ import View from '~/components/View';
 const MODE_QR = Symbol('qr');
 const MODE_USERNAME = Symbol('username');
 
-const SafeFinderView = props => {
+const SafeFinder = props => {
   const [mode, setMode] = useState(MODE_QR);
   const [usernameInput, setUsernameInput] = useState('');
 
@@ -49,10 +49,7 @@ const SafeFinderView = props => {
         <SafeFinderQRScanner isHidden={mode !== MODE_QR} onSuccess={onSelect} />
       </View>
 
-      <SafeFinderViewFooter
-        isHidden={mode === MODE_QR}
-        onClick={onFooterClick}
-      />
+      <SafeFinderFooter isHidden={mode === MODE_QR} onClick={onFooterClick} />
     </Fragment>
   );
 };
@@ -69,7 +66,7 @@ const SafeFinderQRScanner = props => {
   return <QRCodeScanner onSuccess={onSuccess} />;
 };
 
-const SafeFinderViewFooter = (props, context) => {
+const SafeFinderFooter = (props, context) => {
   if (props.isHidden) {
     return null;
   }
@@ -81,13 +78,13 @@ const SafeFinderViewFooter = (props, context) => {
   return (
     <Footer>
       <ButtonPrimary onClick={onClick}>
-        {context.t('SafeFinderView.tapToScanQR')}
+        {context.t('SafeFinder.tapToScanQR')}
       </ButtonPrimary>
     </Footer>
   );
 };
 
-SafeFinderView.propTypes = {
+SafeFinder.propTypes = {
   isFooter: PropTypes.bool,
   isHeader: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
@@ -98,17 +95,17 @@ SafeFinderQRScanner.propTypes = {
   onSuccess: PropTypes.func.isRequired,
 };
 
-SafeFinderViewFooter.propTypes = {
+SafeFinderFooter.propTypes = {
   isHidden: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
-SafeFinderView.contextTypes = {
+SafeFinder.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
-SafeFinderViewFooter.contextTypes = {
+SafeFinderFooter.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default SafeFinderView;
+export default SafeFinder;

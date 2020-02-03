@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import BackButton from '~/components/BackButton';
+import ButtonBack from '~/components/ButtonBack';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
@@ -71,7 +71,7 @@ const AccountCreate = (props, context) => {
   return (
     <Fragment>
       <Header>
-        <BackButton isDark to="/welcome" />
+        <ButtonBack isDark to="/welcome" />
       </Header>
 
       <View isFooter>
