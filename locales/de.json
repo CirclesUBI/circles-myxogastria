@@ -80,6 +80,7 @@
   "ReceiveShare.shareText": "Hallo! Schaue dir mein Profil an: {shareLink}",
   "SafeFinder.tapToScanQR": "QR-Code lesen",
   "SafeOwnerManager.addNewDevice": "Neues Gerät hinzufügen",
+  "SafeOwnerManager.areYouSure": "Bist du dir sicher?",
   "SafeOwnerManager.currentDevice": "Dein aktuelles Gerät",
   "SafeOwnerManager.devicesAccessingAccount": "Geräte mit Zugang:",
   "SafeOwnerManager.errorMessage": "Das Gerät konnte nicht entfernt werden",

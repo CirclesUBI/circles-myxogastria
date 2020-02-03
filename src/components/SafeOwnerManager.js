@@ -74,7 +74,9 @@ const SafeOwnerManagerItem = (props, context) => {
   const wallet = useSelector(state => state.wallet);
 
   const onRemove = async () => {
-    props.onRemove(props.address);
+    if (window.confirm(context.t('SafeOwnerManager.areYouSure'))) {
+      props.onRemove(props.address);
+    }
   };
 
   if (props.address === wallet.address) {
