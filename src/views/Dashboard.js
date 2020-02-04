@@ -15,6 +15,7 @@ import TrustNetwork from '~/components/TrustNetwork';
 import View from '~/components/View';
 import styles from '~/styles/variables';
 import { BackgroundWhirlyOrange } from '~/styles/Background';
+import { FAQ_URL } from '~/components/ExternalLinkList';
 import { IconQR, IconShare, IconActivities } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
 
@@ -92,11 +93,7 @@ const DashboardView = (props, context) => {
 
           <p>
             {context.t('Dashboard.trustDescription')}{' '}
-            <a
-              href="https://docs.google.com/document/d/1MS6IxQ3baMx_PJLJZ_KWpZYKHUKQ1JFkU4wHOW0P6OU/edit"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            <a href={FAQ_URL} rel="noopener noreferrer" target="_blank">
               {context.t('Dashboard.learnMore')}
             </a>
           </p>

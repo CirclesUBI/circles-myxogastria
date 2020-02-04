@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import ButtonPrimary, { ButtonPrimaryStyle } from '~/components/ButtonPrimary';
 import styles from '~/styles/variables';
 import web3 from '~/services/web3';
+import { FAQ_URL } from '~/components/ExternalLinkList';
 import { IconCircles } from '~/styles/Icons';
 import { formatCirclesValue } from '~/utils/format';
 
@@ -45,7 +46,7 @@ const BalanceDisplay = (props, context) => {
         </ButtonPrimary>
 
         <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSdunAf6EhAEizcsiopidKmLEiKyI3mCqU6YZS8V4makMxWVyA/viewform"
+          href={FAQ_URL}
           rel="noopener noreferrer"
           target="_blank"
         >
