@@ -145,6 +145,8 @@ const QRCodeScannerStyle = styled.div`
     return props.isVideoVisible ? 'transparent' : styles.monochrome.grayLighter;
   }};
 
+  box-shadow: 0 2px 2px ${styles.monochrome.gray};
+
   align-items: center;
   flex-direction: column;
   justify-content: center;

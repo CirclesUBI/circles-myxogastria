@@ -3,12 +3,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
-import QRCode from '~/components/QRCode';
 import ButtonRound from '~/components/ButtonRound';
+import QRCode from '~/components/QRCode';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import { BackgroundGreen } from '~/styles/Background';
 import { IconShare } from '~/styles/Icons';
+import { SpacingStyle } from '~/styles/Layout';
 
 import Header, {
   HeaderCenterStyle,
@@ -32,7 +33,10 @@ const Receive = (props, context) => {
 
       <View isHeader>
         <QRCode data={safe.address} />
-        <p>{context.t('Receive.showThisQR')}</p>
+
+        <SpacingStyle>
+          <p>{context.t('Receive.showThisQR')}</p>
+        </SpacingStyle>
 
         <ButtonRound to="/receive/share">
           <IconShare />

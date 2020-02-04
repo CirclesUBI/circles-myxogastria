@@ -46,6 +46,8 @@ const QRCodeStyle = styled.div`
 
   background-color: ${styles.monochrome.white};
 
+  box-shadow: 0 2px 2px ${styles.monochrome.grayLight};
+
   align-items: center;
   justify-content: center;
 `;
