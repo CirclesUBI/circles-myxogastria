@@ -1,4 +1,5 @@
 import core from '~/services/core';
+import web3 from '~/services/web3';
 import { checkAppState, checkAuthState } from '~/store/app/actions';
 import { deployToken } from '~/store/token/actions';
 import { restoreWallet } from '~/store/wallet/actions';
@@ -15,26 +16,28 @@ import {
   resetSafe,
 } from '~/store/safe/actions';
 
-export function checkOnboardingState() {
-  return async (dispatch, getState) => {
-    const { trust, safe } = getState();
+const SAFE_FUND_ETHER = '0.008';
 
-    // Safe is not deployed yet, check if we can do it
-    if (trust.isTrusted && safe.nonce) {
-      await dispatch(finalizeNewAccount());
-    }
-  };
-}
-
+// Create a new account which means that we get into
+// a pending deployment state. The user has to get 3
+// incoming trust connections now or fund its on Safe
+// to finally be part of the Circles system.
 export function createNewAccount(username, email) {
   return async (dispatch, getState) => {
     try {
+      // Create an undeployed Safe
       await dispatch(createSafeWithNonce());
       const { safe } = getState();
+
+      // Register our username
       await core.user.register(safe.nonce, safe.address, username, email);
+
+      // Update our app states
       await dispatch(checkAppState());
       await dispatch(checkAuthState());
     } catch (error) {
+      // Roll back in case something went wrong on
+      // our way ..
       dispatch(resetSafe());
 
       throw error;
@@ -42,6 +45,32 @@ export function createNewAccount(username, email) {
   };
 }
 
+// We want to find out if the Safe and Token can
+// be deployed ..
+export function checkOnboardingState() {
+  return async (dispatch, getState) => {
+    const { trust, safe } = getState();
+
+    // Check if we have enough funds on the Safe
+    const balance = await web3.eth.getBalance(safe.address);
+
+    const isFunded = web3.utils
+      .toBN(balance)
+      .gte(web3.utils.toWei(SAFE_FUND_ETHER, 'ether'));
+
+    // We can attempt an deployment if one of two
+    // conditions is met:
+    //
+    // 1. We have enough incoming trust connections,
+    // therefore the Relayer will pay for our fees
+    // 2. We funded the Safe ourselves manually
+    if (safe.nonce && (trust.isTrusted || isFunded)) {
+      await dispatch(finalizeNewAccount());
+    }
+  };
+}
+
+// Finally deploy the Safe and Token for this user!
 export function finalizeNewAccount() {
   return async (dispatch, getState) => {
     const { safe } = getState();
@@ -72,9 +101,13 @@ export function finalizeNewAccount() {
   };
 }
 
+// Recover an account via a seed phrase. We check if we
+// can find an undeployed / deployed Safe related to this
+// wallet.
 export function restoreAccount(seedPhrase) {
   return async dispatch => {
     await dispatch(restoreWallet(seedPhrase));
+
     await dispatch(checkAppState());
     await dispatch(checkAuthState());
   };
