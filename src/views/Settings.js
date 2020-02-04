@@ -11,7 +11,7 @@ import ButtonRound from '~/components/ButtonRound';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import { BackgroundGreen } from '~/styles/Background';
-import { IconKeys, IconShare } from '~/styles/Icons';
+import { IconDevices, IconShare } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
 
 import Header, {
@@ -34,7 +34,7 @@ const Settings = (props, context) => {
         </HeaderCenterStyle>
 
         <ButtonHeader to="/settings/keys">
-          <IconKeys />
+          <IconDevices />
         </ButtonHeader>
       </Header>
 
