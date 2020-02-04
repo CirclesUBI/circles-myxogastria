@@ -40,7 +40,7 @@
   "ActivityStream.untrustedBySomeone": "untrusted you",
   "App.updateErrorMessage": "Something went wrong .. are you connected to the internet?",
   "BalanceDisplay.gotIt": "Got it, thanks",
-  "BalanceDisplay.issuanceRate": "Your basic income is issued continuously at the rate of circa 50 Circles a month.",
+  "BalanceDisplay.issuanceRate": "Your basic income is issued continuously at the rate of circa {rate} Circles a month.",
   "BalanceDisplay.learnMore": "Learn More",
   "BalanceDisplay.thisIsYourUBI": "This is your Circles balance.",
   "ButtonAction.receive": "Receive",

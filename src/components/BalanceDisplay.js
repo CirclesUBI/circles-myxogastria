@@ -12,6 +12,8 @@ import { formatCirclesValue } from '~/utils/format';
 
 import person from '%/images/person.svg';
 
+const ISSUANCE_RATE_MONTH = process.env.ISSUANCE_RATE_MONTH || 50;
+
 const BalanceDisplay = (props, context) => {
   const token = useSelector(state => state.token);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
@@ -39,17 +41,17 @@ const BalanceDisplay = (props, context) => {
         <BalancePersonStyle />
 
         <h3>{context.t('BalanceDisplay.thisIsYourUBI')}</h3>
-        <p>{context.t('BalanceDisplay.issuanceRate')}</p>
+        <p>
+          {context.t('BalanceDisplay.issuanceRate', {
+            rate: ISSUANCE_RATE_MONTH,
+          })}
+        </p>
 
         <ButtonPrimary onClick={onCloseClick}>
           {context.t('BalanceDisplay.gotIt')}
         </ButtonPrimary>
 
-        <a
-          href={FAQ_URL}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
+        <a href={FAQ_URL} rel="noopener noreferrer" target="_blank">
           <ButtonPrimaryStyle isOutline>
             {context.t('BalanceDisplay.learnMore')}
           </ButtonPrimaryStyle>
