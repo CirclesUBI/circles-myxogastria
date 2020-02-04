@@ -123,6 +123,8 @@
   "TrustRevokeConfirm.errorMessage": "Could not revoke trust ..",
   "TrustRevokeConfirm.revokeTrust": "Revoke trust",
   "TrustRevokeConfirm.successMessage": "Success! You've revoked your trust connection",
+  "Tutorial.finish": "Got it!",
+  "Tutorial.nextStep": "Next",
   "UsernameFinder.inputPlaceholder": "Search by username or paste address",
   "UsernameFinder.noResultsGiven": "Could not find any user ..",
   "Welcome.connectYourWallet": "Connect to wallet",

@@ -51,6 +51,10 @@ export function checkOnboardingState() {
   return async (dispatch, getState) => {
     const { trust, safe } = getState();
 
+    if (!safe.address) {
+      return;
+    }
+
     // Check if we have enough funds on the Safe
     const balance = await web3.eth.getBalance(safe.address);
 

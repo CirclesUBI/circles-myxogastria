@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -24,7 +24,10 @@ import SettingsShare from '~/views/SettingsShare';
 import Trust from '~/views/Trust';
 import TrustConfirm from '~/views/TrustConfirm';
 import TrustRevokeConfirm from '~/views/TrustRevokeConfirm';
+import TutorialAccountCreate from '~/views/TutorialAccountCreate';
+import TutorialSettingsKeys from '~/views/TutorialSettingsKeys';
 import Welcome from '~/views/Welcome';
+import { ACCOUNT_CREATE, SETTINGS_KEYS } from '~/store/tutorial/actions';
 
 const SessionContainer = ({
   component: Component,
@@ -102,6 +105,52 @@ const TrustedRoute = ({ component, path }) => {
   );
 };
 
+const TutorialContainer = props => {
+  const [redirect, setRedirect] = useState(false);
+
+  const { isFinished } = useSelector(state => {
+    return state.tutorial[props.name];
+  });
+
+  if (redirect) {
+    return <Redirect to={props.exitPath} />;
+  }
+
+  if (!isFinished) {
+    const onExit = () => {
+      setRedirect(true);
+    };
+
+    const TutorialComponent = props.componentTutorial;
+
+    return <TutorialComponent onExit={onExit} />;
+  }
+
+  return props.componentFinal;
+};
+
+const AccountCreateContainer = () => {
+  return (
+    <TutorialContainer
+      componentFinal={AccountCreate}
+      componentTutorial={TutorialAccountCreate}
+      exitPath="/welcome"
+      name={ACCOUNT_CREATE}
+    />
+  );
+};
+
+const SettingsKeysContainer = () => {
+  return (
+    <TutorialContainer
+      componentFinal={SettingsKeys}
+      componentTutorial={TutorialSettingsKeys}
+      exitPath="/settings"
+      name={SETTINGS_KEYS}
+    />
+  );
+};
+
 const Routes = () => (
   <Switch>
     <SessionRoute component={Dashboard} exact path="/" />
@@ -120,10 +169,10 @@ const Routes = () => (
     <SessionRoute component={Profile} path="/profile/:address" />
     <TrustedRoute component={SettingsKeysAdd} path="/settings/keys/add" />
     <SessionRoute component={SettingsKeysExport} path="/settings/keys/export" />
-    <SessionRoute component={SettingsKeys} path="/settings/keys" />
+    <SessionRoute component={SettingsKeysContainer} path="/settings/keys" />
     <SessionRoute component={SettingsShare} path="/settings/share" />
     <SessionRoute component={Settings} path="/settings" />
-    <OnboardingRoute component={AccountCreate} path="/welcome/new" />
+    <OnboardingRoute component={AccountCreateContainer} path="/welcome/new" />
     <OnboardingRoute component={AccountConnect} path="/welcome/connect" />
     <OnboardingRoute component={AccountImport} path="/welcome/seed" />
     <OnboardingRoute component={Welcome} path="/welcome" />

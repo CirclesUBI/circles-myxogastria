@@ -3,6 +3,7 @@ import resolveUsernames from '~/services/username';
 import { checkOnboardingState } from '~/store/onboarding/actions';
 import { checkTrustState } from '~/store/trust/actions';
 import { initializeLocale } from '~/store/locale/actions';
+import { initializeTutorials } from '~/store/tutorial/actions';
 import { initializeWallet, burnWallet } from '~/store/wallet/actions';
 import { setUser } from '~/services/sentry';
 
@@ -39,6 +40,7 @@ export function initializeApp() {
     // Initialize and gather important app states (auth etc.)
     try {
       await dispatch(initializeLocale());
+      await dispatch(initializeTutorials());
       await dispatch(initializeWallet());
       await dispatch(initializeSafe());
       await dispatch(initializeActivities());
