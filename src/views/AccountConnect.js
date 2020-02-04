@@ -8,6 +8,7 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import QRCode from '~/components/QRCode';
 import View from '~/components/View';
+import { SpacingStyle } from '~/styles/Layout';
 
 import Header, {
   HeaderCenterStyle,
@@ -32,19 +33,21 @@ const AccountConnect = (props, context) => {
       <View isFooter isHeader>
         <QRCode data={address} />
 
-        <p>
-          {context.t('AccountConnect.noSeedPhrase')}{' '}
-          <Link to="/welcome/new">
-            {context.t('AccountConnect.createNewWallet')}
-          </Link>
-        </p>
+        <SpacingStyle>
+          <p>
+            {context.t('AccountConnect.noSeedPhrase')}{' '}
+            <Link to="/welcome/new">
+              {context.t('AccountConnect.createNewWallet')}
+            </Link>
+          </p>
 
-        <p>
-          {context.t('AccountConnect.questions')}{' '}
-          <a href="mailto:hello@joincircles.net">
-            {context.t('AccountConnect.contactUs')}
-          </a>
-        </p>
+          <p>
+            {context.t('AccountConnect.questions')}{' '}
+            <a href="mailto:hello@joincircles.net">
+              {context.t('AccountConnect.contactUs')}
+            </a>
+          </p>
+        </SpacingStyle>
       </View>
 
       <Footer>

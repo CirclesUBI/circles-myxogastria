@@ -84,7 +84,7 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
   }};
 
   font-weight: ${styles.base.typography.weightSemiBold};
-  font-size: 1.1em;
+  font-size: 1em;
 
   &:hover {
     &::after {

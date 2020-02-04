@@ -16,7 +16,7 @@ import {
   resetSafe,
 } from '~/store/safe/actions';
 
-const SAFE_FUND_ETHER = '0.008';
+const SAFE_FUND_ETHER = '0.002';
 
 // Create a new account which means that we get into
 // a pending deployment state. The user has to get 3
@@ -51,12 +51,14 @@ export function checkOnboardingState() {
   return async (dispatch, getState) => {
     const { trust, safe } = getState();
 
+    if (!safe.address) {
+      return;
+    }
+
     // Check if we have enough funds on the Safe
     const balance = await web3.eth.getBalance(safe.address);
 
-    const isFunded = web3.utils
-      .toBN(balance)
-      .gte(web3.utils.toWei(SAFE_FUND_ETHER, 'ether'));
+    const isFunded = balance > web3.utils.toWei(SAFE_FUND_ETHER, 'ether');
 
     // We can attempt an deployment if one of two
     // conditions is met:

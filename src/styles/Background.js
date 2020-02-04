@@ -50,6 +50,29 @@ export const BackgroundGreen = styled(BackgroundBase)`
   background-size: 100%;
 `;
 
+export const BackgroundGreenCircle = styled(BackgroundBase)`
+  position: relative;
+
+  background: linear-gradient(180deg, #48b2b7 0%, #06fc9d 100%);
+
+  &::after {
+    position: absolute;
+
+    top: ${styles.components.header.height};
+    right: -10rem;
+    bottom: ${styles.components.footer.height};
+    left: -10rem;
+
+    display: block;
+
+    border-radius: 50%;
+
+    content: '';
+
+    background-color: ${styles.monochrome.white};
+  }
+`;
+
 export const BackgroundGreenBottom = styled(BackgroundBase)`
   background-image: url(${greenBottom});
   background-position: 0 10rem;

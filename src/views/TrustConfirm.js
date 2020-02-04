@@ -72,6 +72,7 @@ const TrustConfirm = (props, context) => {
 
       <View isFooter isHeader>
         <p>{context.t('TrustConfirm.confirmationText')}</p>
+        <br />
         <ProfileMini address={address} />
       </View>
 

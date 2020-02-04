@@ -10,7 +10,7 @@ export default createGlobalStyle`
   }
 
   body {
-    font-weight: ${typography.weight};
+    font-weight: ${typography.weightLight};
     font-style: ${typography.style};
     font-size: ${typography.size};
     font-family: ${typography.family}, sans-serif;
@@ -40,8 +40,8 @@ export default createGlobalStyle`
     margin: 0 auto;
     padding: 0;
 
-    font-weight: ${typography.weightBold};
-    font-size: 1.5em;
+    font-weight: ${typography.weightSemiBold};
+    font-size: 1.8em;
 
     line-height: 1.1;
   }
