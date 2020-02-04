@@ -40,17 +40,9 @@ export default createGlobalStyle`
     margin: 0 auto;
     padding: 0;
 
-    font-weight: ${typography.weightSemibold};
-    font-size: 3.2em;
+    font-weight: ${typography.weightSemiBold};
+    font-size: 2.4em;
 
     line-height: 1.1;
-  }
-
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: 2.4em;
   }
 `;

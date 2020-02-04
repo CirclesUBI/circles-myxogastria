@@ -66,7 +66,7 @@ export const HeaderTitleStyle = styled.h1`
   }};
 
   font-weight: ${styles.base.typography.weightSemiBold};
-  font-size: 1.1em;
+  font-size: 1em;
 
   pointer-events: initial;
 `;
