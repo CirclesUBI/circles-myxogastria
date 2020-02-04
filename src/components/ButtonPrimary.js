@@ -116,7 +116,13 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
   }
 
   a {
-    color: ${styles.components.button.color};
+    display: block;
+
+    color: ${props => {
+      return props.isOutline
+        ? styles.colors.primary
+        : styles.components.button.color;
+    }};
   }
 `;
 

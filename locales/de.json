@@ -1,6 +1,10 @@
 {
   "AccountConnect.connectToYourWallet": "Verbinde dich mit deinem Wallet",
   "AccountConnect.contactUs": "Schreibe uns.",
+  "BalanceDisplay.gotIt": "Ok, Danke",
+  "BalanceDisplay.issuanceRate": "Du erhälst circa 50 Circles pro Monat als dein Grundeinkommen.",
+  "BalanceDisplay.learnMore": "Mehr erfahren",
+  "BalanceDisplay.thisIsYourUBI": "Das ist dein Circles Kontostand.",
   "AccountConnect.createNewWallet": "Erstelle ein neues Wallet.",
   "AccountConnect.noSeedPhrase": "Keine Seed-Phrase vorhanden?",
   "AccountConnect.questions": "Fragen?",
