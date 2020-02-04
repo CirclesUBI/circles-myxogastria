@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
@@ -8,6 +8,7 @@ import Footer from '~/components/Footer';
 import Header, { HeaderCenterStyle } from '~/components/Header';
 import TutorialSteps from '~/components/TutorialSteps';
 import View from '~/components/View';
+import { BackgroundGreenCircle } from '~/styles/Background';
 
 const Tutorial = props => {
   const [current, setCurrent] = useState(0);
@@ -30,7 +31,7 @@ const Tutorial = props => {
   };
 
   return (
-    <Fragment>
+    <BackgroundGreenCircle>
       <TutorialHeader
         current={current}
         total={total}
@@ -48,7 +49,7 @@ const Tutorial = props => {
         onFinish={onFinish}
         onNext={onNext}
       />
-    </Fragment>
+    </BackgroundGreenCircle>
   );
 };
 

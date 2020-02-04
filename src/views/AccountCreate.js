@@ -83,39 +83,39 @@ const AccountCreate = (props, context) => {
           <h1>{context.t('AccountCreate.createYourUsername')}</h1>
         </SpacingStyle>
 
-        <p>{context.t('AccountCreate.yourUsernameDescription')}</p>
-
         <SpacingStyle>
-          <FieldsetStyle>
-            <LabelStyle htmlFor="username">
-              {context.t('AccountCreate.username')}
-            </LabelStyle>
-
-            <InputStyle
-              id="username"
-              name="username"
-              required
-              type="text"
-              value={username}
-              onChange={onChange}
-            />
-          </FieldsetStyle>
-
-          <FieldsetStyle>
-            <LabelStyle htmlFor="email">
-              {context.t('AccountCreate.email')}
-            </LabelStyle>
-
-            <InputStyle
-              id="email"
-              name="email"
-              required
-              type="email"
-              value={email}
-              onChange={onChange}
-            />
-          </FieldsetStyle>
+          <p>{context.t('AccountCreate.yourUsernameDescription')}</p>
         </SpacingStyle>
+
+        <FieldsetStyle>
+          <LabelStyle htmlFor="username">
+            {context.t('AccountCreate.username')}
+          </LabelStyle>
+
+          <InputStyle
+            id="username"
+            name="username"
+            required
+            type="text"
+            value={username}
+            onChange={onChange}
+          />
+        </FieldsetStyle>
+
+        <FieldsetStyle>
+          <LabelStyle htmlFor="email">
+            {context.t('AccountCreate.email')}
+          </LabelStyle>
+
+          <InputStyle
+            id="email"
+            name="email"
+            required
+            type="email"
+            value={email}
+            onChange={onChange}
+          />
+        </FieldsetStyle>
       </View>
 
       <Footer>

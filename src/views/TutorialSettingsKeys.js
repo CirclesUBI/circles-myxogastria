@@ -3,7 +3,9 @@ import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Tutorial from '~/components/Tutorial';
-import { ACCOUNT_CREATE, finishTutorial } from '~/store/tutorial/actions';
+import { SETTINGS_KEYS, finishTutorial } from '~/store/tutorial/actions';
+import { IconKeys, IconDevices, IconSeed } from '~/styles/Icons';
+import { SpacingStyle } from '~/styles/Layout';
 
 const TutorialSettingsKeys = props => {
   const dispatch = useDispatch();
@@ -19,38 +21,80 @@ const TutorialSettingsKeys = props => {
   };
 
   const onFinish = () => {
-    dispatch(finishTutorial(ACCOUNT_CREATE));
+    dispatch(finishTutorial(SETTINGS_KEYS));
   };
 
   return <Tutorial slides={slides} onExit={onExit} onFinish={onFinish} />;
 };
 
-const SlideAccountRecovery = () => {
+const SlideAccountRecovery = (props, context) => {
   return (
     <Fragment>
-      <h3>Test A</h3>
+      <SpacingStyle isLargeTop>
+        <IconKeys isDark isLarge />
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <h2>{context.t('TutorialSettingsKeys.accountRecoveryTitle')}</h2>
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <p>{context.t('TutorialSettingsKeys.accountRecovery')}</p>
+      </SpacingStyle>
     </Fragment>
   );
 };
 
-const SlideLinkingDevices = () => {
+const SlideLinkingDevices = (props, context) => {
   return (
     <Fragment>
-      <h3>Test B</h3>
+      <SpacingStyle isLargeTop>
+        <IconDevices isDark isLarge />
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <h2>{context.t('TutorialSettingsKeys.linkingDevicesTitle')}</h2>
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <p>{context.t('TutorialSettingsKeys.linkingDevices')}</p>
+      </SpacingStyle>
     </Fragment>
   );
 };
 
-const SlideSeedPhrase = () => {
+const SlideSeedPhrase = (props, context) => {
   return (
     <Fragment>
-      <h3>Test C</h3>
+      <SpacingStyle isLargeTop>
+        <IconSeed isDark isLarge />
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <h2>{context.t('TutorialSettingsKeys.seedPhraseTitle')}</h2>
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <p>{context.t('TutorialSettingsKeys.seedPhrase')}</p>
+      </SpacingStyle>
     </Fragment>
   );
 };
 
 TutorialSettingsKeys.propTypes = {
   onExit: PropTypes.func.isRequired,
+};
+
+SlideAccountRecovery.contextTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+SlideLinkingDevices.contextTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+SlideSeedPhrase.contextTypes = {
+  t: PropTypes.func.isRequired,
 };
 
 export default TutorialSettingsKeys;

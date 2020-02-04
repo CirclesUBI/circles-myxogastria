@@ -6,7 +6,7 @@ import ButtonHeader from '~/components/ButtonHeader';
 
 const ButtonHome = ({ isDark, ...props }) => {
   return (
-    <ButtonHeader {...props} to="/">
+    <ButtonHeader {...props} to={props.onClick ? null : '/'}>
       <IconExit isDark={isDark} />
     </ButtonHeader>
   );
@@ -14,6 +14,8 @@ const ButtonHome = ({ isDark, ...props }) => {
 
 ButtonHome.propTypes = {
   isDark: PropTypes.bool,
+  onClick: PropTypes.func,
+  to: PropTypes.string,
 };
 
 export default ButtonHome;

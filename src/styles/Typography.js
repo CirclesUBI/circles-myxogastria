@@ -41,7 +41,7 @@ export default createGlobalStyle`
     padding: 0;
 
     font-weight: ${typography.weightSemiBold};
-    font-size: 2.4em;
+    font-size: 1.8em;
 
     line-height: 1.1;
   }

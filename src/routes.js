@@ -126,7 +126,9 @@ const TutorialContainer = props => {
     return <TutorialComponent onExit={onExit} />;
   }
 
-  return props.componentFinal;
+  const FinalComponent = props.componentFinal;
+
+  return <FinalComponent />;
 };
 
 const AccountCreateContainer = () => {
@@ -199,6 +201,13 @@ SessionRoute.propTypes = {
 TrustedRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
   path: PropTypes.string.isRequired,
+};
+
+TutorialContainer.propTypes = {
+  componentFinal: PropTypes.elementType.isRequired,
+  componentTutorial: PropTypes.elementType.isRequired,
+  exitPath: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default Routes;

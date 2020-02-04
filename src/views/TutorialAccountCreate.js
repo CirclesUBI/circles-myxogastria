@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import Tutorial from '~/components/Tutorial';
 import { ACCOUNT_CREATE, finishTutorial } from '~/store/tutorial/actions';
+import { IconSupport, IconNetwork, IconFriendship } from '~/styles/Icons';
+import { SpacingStyle } from '~/styles/Layout';
 
 const TutorialAccountCreate = props => {
   const dispatch = useDispatch();
@@ -25,28 +27,70 @@ const TutorialAccountCreate = props => {
   return <Tutorial slides={slides} onExit={onExit} onFinish={onFinish} />;
 };
 
-const SlideCircles = () => {
+const SlideCircles = (props, context) => {
   return (
     <Fragment>
-      <h3>Test A</h3>
+      <SpacingStyle isLargeTop>
+        <IconSupport isDark isLarge />
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <h2>{context.t('TutorialAccountCreate.joiningCirclesTitle')}</h2>
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <p>{context.t('TutorialAccountCreate.joiningCircles')}</p>
+      </SpacingStyle>
     </Fragment>
   );
 };
 
-const SlideWebOfTrust = () => {
+const SlideWebOfTrust = (props, context) => {
   return (
     <Fragment>
-      <h3>Test B</h3>
+      <SpacingStyle isLargeTop>
+        <IconNetwork isDark isLarge />
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <h2>{context.t('TutorialAccountCreate.webOfTrustTitle')}</h2>
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <p>{context.t('TutorialAccountCreate.webOfTrust')}</p>
+      </SpacingStyle>
     </Fragment>
   );
 };
 
-const SlideUnderConstruction = () => {
+const SlideUnderConstruction = (props, context) => {
   return (
     <Fragment>
-      <h3>Test C</h3>
+      <SpacingStyle isLargeTop>
+        <IconFriendship isDark isLarge />
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <h2>{context.t('TutorialAccountCreate.underConstructionTitle')}</h2>
+      </SpacingStyle>
+
+      <SpacingStyle>
+        <p>{context.t('TutorialAccountCreate.underConstruction')}</p>
+      </SpacingStyle>
     </Fragment>
   );
+};
+
+SlideCircles.contextTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+SlideWebOfTrust.contextTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+SlideUnderConstruction.contextTypes = {
+  t: PropTypes.func.isRequired,
 };
 
 TutorialAccountCreate.propTypes = {

@@ -30,6 +30,9 @@ export const IconBase = styled.i`
   font-weight: normal;
   font-style: normal;
   font-variant: normal;
+  font-size: ${props => {
+    return props.isLarge ? '8em' : '1em';
+  }};
   font-family: 'Circles', sans-serif;
 
   line-height: 1;

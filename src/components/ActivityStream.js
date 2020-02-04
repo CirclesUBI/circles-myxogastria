@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import Pill from '~/components/Pill';
 import Spinner from '~/components/Spinner';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import core from '~/services/core';
@@ -134,11 +135,7 @@ const ActivityStreamList = (props, context) => {
   );
 
   if (activities.length === 0) {
-    return (
-      <ActivityStreamEmptyStyle>
-        {context.t('ActivityStream.nothingHereYet')}
-      </ActivityStreamEmptyStyle>
-    );
+    return <Pill>{context.t('ActivityStream.nothingHereYet')}</Pill>;
   }
 
   return activities
@@ -273,22 +270,6 @@ ActivityStreamIcon.propTypes = {
 
 const ActivityStreamStyle = styled.ul`
   list-style: none;
-`;
-
-const ActivityStreamEmptyStyle = styled.p`
-  padding: 10px;
-
-  border-radius: 1rem;
-
-  color: ${styles.monochrome.grayDarkest};
-
-  background-color: ${styles.monochrome.grayLight};
-
-  font-weight: ${styles.base.typography.weightSemiBold};
-
-  text-align: center;
-
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 `;
 
 const ItemStyle = styled.li`

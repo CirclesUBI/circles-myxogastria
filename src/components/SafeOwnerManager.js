@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ButtonPrimary from '~/components/ButtonPrimary';
+import Pill from '~/components/Pill';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
 import { ButtonStyle } from '~/components/Button';
@@ -40,7 +41,7 @@ const SafeOwnerManager = (props, context) => {
 
   // Safe is not deployed yet ...
   if (safe.nonce) {
-    return null;
+    return <Pill>{context.t('SafeOwnerManager.notDeployedYet')}</Pill>;
   }
 
   return (
