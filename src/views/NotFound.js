@@ -16,7 +16,9 @@ const NotFound = (props, context) => {
         <ButtonHome isDark />
 
         <HeaderCenterStyle>
-          <HeaderTitleStyle isDark>{context.t('NotFound.title')}</HeaderTitleStyle>
+          <HeaderTitleStyle isDark>
+            {context.t('NotFound.title')}
+          </HeaderTitleStyle>
         </HeaderCenterStyle>
       </Header>
 

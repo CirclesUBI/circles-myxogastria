@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
 import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
+import { BackgroundGreen } from '~/styles/Background';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
 
 import Header, {
@@ -25,24 +26,24 @@ const SettingsKeysExport = (props, context) => {
   useEffect(generateMnemonic, []);
 
   return (
-    <Fragment>
+    <BackgroundGreen>
       <Header>
-        <ButtonBack isDark to="/settings/keys" />
+        <ButtonBack to="/settings/keys" />
 
         <HeaderCenterStyle>
-          <HeaderTitleStyle isDark>
+          <HeaderTitleStyle>
             {context.t('SettingsKeysExport.exportSeedPhrase')}
           </HeaderTitleStyle>
         </HeaderCenterStyle>
 
-        <ButtonHome isDark />
+        <ButtonHome />
       </Header>
 
       <View isHeader>
         <p>{context.t('SettingsKeysExport.description')}</p>
         <ShareTextBox isClipboard text={mnemonic} />
       </View>
-    </Fragment>
+    </BackgroundGreen>
   );
 };
 
