@@ -3,6 +3,7 @@ import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
+import Pill from '~/components/Pill';
 import ProfileMini from '~/components/ProfileMini';
 import Spinner from '~/components/Spinner';
 import core from '~/services/core';
@@ -102,7 +103,7 @@ const UsernameFinderResult = (props, context) => {
   };
 
   if (!props.isQueryEmpty && props.items.length === 0 && !props.isLoading) {
-    return <p>{context.t('UsernameFinder.noResultsGiven')}</p>;
+    return <Pill>{context.t('UsernameFinder.noResultsGiven')}</Pill>;
   }
 
   if (props.isLoading) {

@@ -14,6 +14,7 @@ import NotFound from '~/views/NotFound';
 import Profile from '~/views/Profile';
 import Receive from '~/views/Receive';
 import ReceiveShare from '~/views/ReceiveShare';
+import Search from '~/views/Search';
 import Send from '~/views/Send';
 import SendConfirm from '~/views/SendConfirm';
 import Settings from '~/views/Settings';
@@ -166,6 +167,7 @@ const Routes = () => (
     <TrustedRoute component={Trust} path="/trust" />
     <TrustedRoute component={SendConfirm} path="/send/:address" />
     <TrustedRoute component={Send} path="/send" />
+    <TrustedRoute component={Search} path="/search" />
     <SessionRoute component={ReceiveShare} path="/receive/share" />
     <SessionRoute component={Receive} path="/receive" />
     <SessionRoute component={Profile} path="/profile/:address" />

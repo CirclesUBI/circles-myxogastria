@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import styles from '~/styles/variables';
 import { ButtonStyle } from '~/components/Button';
-import { IconReceive, IconExit, IconSend, IconTrust } from '~/styles/Icons';
+import { IconReceive, IconExit, IconSend, IconSearch } from '~/styles/Icons';
 
 const TRANSITION_DURATION = 500;
 
@@ -52,16 +52,16 @@ const Overlay = (props, context) => {
     <OverlayStyle isVisible={isPanelVisible}>
       <PanelStyle isVisible={isPanelVisible}>
         <PanelItemStyle>
-          <PanelButtonStyle to="/send">
-            <IconSend />
-            <span>{context.t('ButtonAction.send')}</span>
+          <PanelButtonStyle to="/search">
+            <IconSearch />
+            <span>{context.t('ButtonAction.search')}</span>
           </PanelButtonStyle>
         </PanelItemStyle>
 
         <PanelItemStyle>
-          <PanelButtonStyle to="/trust">
-            <IconTrust />
-            <span>{context.t('ButtonAction.trust')}</span>
+          <PanelButtonStyle to="/send">
+            <IconSend />
+            <span>{context.t('ButtonAction.send')}</span>
           </PanelButtonStyle>
         </PanelItemStyle>
 
@@ -206,7 +206,7 @@ const PanelButtonStyle = styled(ButtonStyle)`
 
   ${/* sc-selector */ IconReceive},
   ${/* sc-selector */ IconSend},
-  ${/* sc-selector */ IconTrust} {
+  ${/* sc-selector */ IconSearch} {
     &::before {
       font-size: 5rem;
     }

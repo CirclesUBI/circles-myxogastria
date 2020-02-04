@@ -37,6 +37,8 @@ const SafeFinder = props => {
     props.onSelect(user.safeAddress);
   };
 
+  const isHidden = mode !== MODE_QR;
+
   return (
     <Fragment>
       <View isFooter={props.isFooter} isHeader={props.isHeader}>
@@ -46,10 +48,10 @@ const SafeFinder = props => {
           onSelect={onUserSelect}
         />
 
-        <SafeFinderQRScanner isHidden={mode !== MODE_QR} onSuccess={onSelect} />
+        <SafeFinderQRScanner isHidden={isHidden} onSuccess={onSelect} />
       </View>
 
-      <SafeFinderFooter isHidden={mode === MODE_QR} onClick={onFooterClick} />
+      <SafeFinderFooter isHidden={!isHidden} onClick={onFooterClick} />
     </Fragment>
   );
 };
@@ -87,6 +89,7 @@ const SafeFinderFooter = (props, context) => {
 SafeFinder.propTypes = {
   isFooter: PropTypes.bool,
   isHeader: PropTypes.bool,
+  isOnlyText: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
 };
 
