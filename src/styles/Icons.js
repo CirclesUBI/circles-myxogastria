@@ -114,3 +114,39 @@ export const IconScanner = styled(IconBase)`
     content: '\\e90C';
   }
 `;
+
+export const IconSearch = styled(IconBase)`
+  &::before {
+    content: '\\e90D';
+  }
+`;
+
+export const IconSeed = styled(IconBase)`
+  &::before {
+    content: '\\e90E';
+  }
+`;
+
+export const IconFriendship = styled(IconBase)`
+  &::before {
+    content: '\\e90F';
+  }
+`;
+
+export const IconNetwork = styled(IconBase)`
+  &::before {
+    content: '\\e910';
+  }
+`;
+
+export const IconSupport = styled(IconBase)`
+  &::before {
+    content: '\\e911';
+  }
+`;
+
+export const IconDevices = styled(IconBase)`
+  &::before {
+    content: '\\e912';
+  }
+`;
