@@ -3,15 +3,16 @@ import React, { useState } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import Bubble from '~/components/Bubble';
+import UsernameDisplay from '~/components/UsernameDisplay';
 import ButtonBack from '~/components/ButtonBack';
+import ButtonHome from '~/components/ButtonHome';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
-import ButtonHome from '~/components/ButtonHome';
-import ProfileMini from '~/components/ProfileMini';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import { BackgroundPurpleTop } from '~/styles/Background';
+import { BackgroundPurpleCircle } from '~/styles/Background';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { trustUser } from '~/store/trust/actions';
 
@@ -57,7 +58,7 @@ const TrustConfirm = (props, context) => {
   }
 
   return (
-    <BackgroundPurpleTop>
+    <BackgroundPurpleCircle>
       <Header>
         <ButtonBack to="/trust" />
 
@@ -70,10 +71,14 @@ const TrustConfirm = (props, context) => {
         <ButtonHome />
       </Header>
 
-      <View isFooter isHeader>
-        <p>{context.t('TrustConfirm.confirmationText')}</p>
-        <br />
-        <ProfileMini address={address} />
+      <View isCentered isFooter isHeader>
+        <Bubble>
+          <p>
+            {context.t('TrustConfirm.confirmationText')}
+            <UsernameDisplay address={address} />
+            {context.t('TrustConfirm.confirmationTextAfter')}
+          </p>
+        </Bubble>
       </View>
 
       <Footer>
@@ -81,7 +86,7 @@ const TrustConfirm = (props, context) => {
           {context.t('TrustConfirm.confirm')}
         </ButtonPrimary>
       </Footer>
-    </BackgroundPurpleTop>
+    </BackgroundPurpleCircle>
   );
 };
 

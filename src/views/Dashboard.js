@@ -3,13 +3,13 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import ButtonAction from '~/components/ButtonAction';
 import BalanceDisplay from '~/components/BalanceDisplay';
-import Header from '~/components/Header';
+import ButtonAction from '~/components/ButtonAction';
 import ButtonHeader from '~/components/ButtonHeader';
+import ButtonRound from '~/components/ButtonRound';
+import Header from '~/components/Header';
 import Logo from '~/components/Logo';
 import QRCode from '~/components/QRCode';
-import ButtonRound from '~/components/ButtonRound';
 import Spinner from '~/components/Spinner';
 import TrustNetwork from '~/components/TrustNetwork';
 import View from '~/components/View';

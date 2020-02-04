@@ -96,6 +96,29 @@ export const BackgroundOrangeTop = styled(BackgroundBase)`
   background-size: contain;
 `;
 
+export const BackgroundOrangeCircle = styled(BackgroundBase)`
+  position: relative;
+
+  background: linear-gradient(180deg, #d73a53 0%, #fb8609 100%);
+
+  &::after {
+    position: absolute;
+
+    top: ${styles.components.header.height};
+    right: -10rem;
+    bottom: ${styles.components.footer.height};
+    left: -10rem;
+
+    display: block;
+
+    border-radius: 50%;
+
+    content: '';
+
+    background: linear-gradient(180deg, #13f3b5 29.69%, #5ee6ec 81.77%);
+  }
+`;
+
 export const BackgroundPurpleTop = styled(BackgroundBase)`
   @media ${styles.media.desktop} {
     background-position: 0 -40rem;
@@ -113,6 +136,27 @@ export const BackgroundPurplePlain = styled(BackgroundBase)`
     ${styles.colors.primaryDark} 0%,
     ${styles.colors.primary} 100%
   );
+`;
+
+export const BackgroundPurpleCircle = styled(BackgroundPurplePlain)`
+  position: relative;
+
+  &::after {
+    position: absolute;
+
+    top: ${styles.components.header.height};
+    right: -10rem;
+    bottom: ${styles.components.footer.height};
+    left: -10rem;
+
+    display: block;
+
+    border-radius: 50%;
+
+    content: '';
+
+    background: linear-gradient(180deg, #13f3b5 29.69%, #5ee6ec 81.77%);
+  }
 `;
 
 export const BackgroundPurple = styled(BackgroundBase)`

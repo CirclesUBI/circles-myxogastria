@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
+import ButtonHome from '~/components/ButtonHome';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
-import ButtonHome from '~/components/ButtonHome';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { SpacingStyle } from '~/styles/Layout';

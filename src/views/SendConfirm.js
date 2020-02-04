@@ -4,15 +4,17 @@ import styled from 'styled-components';
 import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import Bubble from '~/components/Bubble';
 import ButtonBack from '~/components/ButtonBack';
+import ButtonHome from '~/components/ButtonHome';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
-import ButtonHome from '~/components/ButtonHome';
 import ProfileMini from '~/components/ProfileMini';
+import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import { BackgroundOrangeTop } from '~/styles/Background';
+import { BackgroundOrangeCircle } from '~/styles/Background';
 import { InputNumberStyle } from '~/styles/Inputs';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { transfer } from '~/store/token/actions';
@@ -75,14 +77,19 @@ const SendConfirm = (props, context) => {
 
   if (isConfirmationShown) {
     return (
-      <BackgroundOrangeTop>
+      <BackgroundOrangeCircle isWithCircle>
         <SendConfirmHeader>
           <ButtonBack onClick={onPrevious} />
         </SendConfirmHeader>
 
-        <View isFooter isHeader>
-          <p>{context.t('SendConfirm.confirmationText', { amount })}</p>
-          <ProfileMini address={address} />
+        <View isCentered isFooter isHeader>
+          <Bubble>
+            <p>
+              {context.t('SendConfirm.confirmationText', { amount })}
+              <UsernameDisplay address={address} />
+              {context.t('SendConfirm.confirmationTextAfter')}
+            </p>
+          </Bubble>
         </View>
 
         <Footer>
@@ -90,17 +97,17 @@ const SendConfirm = (props, context) => {
             {context.t('SendConfirm.confirm')}
           </ButtonPrimary>
         </Footer>
-      </BackgroundOrangeTop>
+      </BackgroundOrangeCircle>
     );
   }
 
   return (
-    <BackgroundOrangeTop>
+    <BackgroundOrangeCircle isWithCircle>
       <SendConfirmHeader>
         <ButtonBack to="/send" />
       </SendConfirmHeader>
 
-      <View isFooter isHeader>
+      <View isCentered isFooter isHeader>
         <ConfirmToStyle>
           <span>{context.t('SendConfirm.to')}</span>
           <ProfileMini address={address} />
@@ -120,7 +127,7 @@ const SendConfirm = (props, context) => {
           {context.t('SendConfirm.submitAmount')}
         </ButtonPrimary>
       </Footer>
-    </BackgroundOrangeTop>
+    </BackgroundOrangeCircle>
   );
 };
 

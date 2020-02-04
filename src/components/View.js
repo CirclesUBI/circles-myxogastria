@@ -7,6 +7,7 @@ import styles from '~/styles/variables';
 const View = props => {
   return (
     <ViewStyle
+      isCentered={props.isCentered}
       isFooter={props.isFooter}
       isHeader={props.isHeader}
       isPushingToBottom={props.isPushingToBottom}
@@ -18,6 +19,7 @@ const View = props => {
 
 View.propTypes = {
   children: PropTypes.node.isRequired,
+  isCentered: PropTypes.bool,
   isFooter: PropTypes.bool,
   isHeader: PropTypes.bool,
   isPushingToBottom: PropTypes.bool,
@@ -34,7 +36,7 @@ export const ViewStyle = styled.main`
   z-index: ${styles.zIndex.view};
 
   display: ${props => {
-    return props.isPushingToBottom ? 'flex' : 'block';
+    return props.isPushingToBottom || props.isCentered ? 'flex' : 'block';
   }};
 
   overflow-x: hidden;
@@ -50,6 +52,16 @@ export const ViewStyle = styled.main`
   text-align: center;
 
   flex-direction: column;
+
+  ${props => {
+    if (!props.isCentered) {
+      return;
+    }
+
+    return `
+      justify-content: center;
+    `;
+  }};
 
   &::after {
     display: block;
