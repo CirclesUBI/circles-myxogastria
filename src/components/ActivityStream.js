@@ -176,6 +176,12 @@ const ActivityStreamItem = (props, context) => {
     props,
   );
 
+  // Check if we should display the address on the left or right hand side
+  const isAddressRightSide = [
+    'meUntrustedSomeone',
+    'meTrustedSomeone',
+  ].includes(messageId);
+
   return (
     <ItemStyle isSeen={props.isSeen}>
       <ActivityStreamIcon isPending={props.isPending} type={props.type} />
@@ -184,10 +190,17 @@ const ActivityStreamItem = (props, context) => {
         <ItemMessageStyle>
           <ActivityStreamActor
             address={actorAddress}
+            isHidden={isAddressRightSide}
             isOwnerAddress={isOwnerAddress}
           />
 
           {context.t(`ActivityStream.${messageId}`, { ...data })}
+
+          <ActivityStreamActor
+            address={actorAddress}
+            isHidden={!isAddressRightSide}
+            isOwnerAddress={isOwnerAddress}
+          />
         </ItemMessageStyle>
 
         <ItemDateStyle>{date}</ItemDateStyle>
@@ -197,6 +210,10 @@ const ActivityStreamItem = (props, context) => {
 };
 
 const ActivityStreamActor = props => {
+  if (props.isHidden) {
+    return null;
+  }
+
   if (!props.address) {
     return null;
   }
@@ -260,6 +277,7 @@ ActivityStreamItem.propTypes = {
 
 ActivityStreamActor.propTypes = {
   address: PropTypes.string,
+  isHidden: PropTypes.bool,
   isOwnerAddress: PropTypes.bool.isRequired,
 };
 
@@ -287,8 +305,8 @@ const ItemStyle = styled.li`
     if (!props.isSeen) {
       return `linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0.9) 0%,
-        rgba(255, 255, 255, 0.8) 100%
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(255, 255, 255, 0.85) 100%
       );`;
     }
 
