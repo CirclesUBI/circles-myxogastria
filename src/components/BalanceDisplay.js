@@ -37,26 +37,32 @@ const BalanceDisplay = (props, context) => {
       <IconCircles />
       <span>{formatCirclesValue(token.balance)}</span>
 
-      <BalanceTooltipStyle isVisible={isTooltipVisible}>
-        <BalancePersonStyle />
+      <BalanceTooltipWrapperStyle isVisible={isTooltipVisible}>
+        <BalanceTooltipStyle isVisible={isTooltipVisible}>
+          <BalancePersonStyle />
 
-        <h3>{context.t('BalanceDisplay.thisIsYourUBI')}</h3>
-        <p>
-          {context.t('BalanceDisplay.issuanceRate', {
-            rate: ISSUANCE_RATE_MONTH,
-          })}
-        </p>
+          <BalanceTooltipContentStyle>
+            <h3>{context.t('BalanceDisplay.thisIsYourUBI')}</h3>
+            <p>
+              {context.t('BalanceDisplay.issuanceRate', {
+                rate: ISSUANCE_RATE_MONTH,
+              })}
+            </p>
+          </BalanceTooltipContentStyle>
 
-        <ButtonPrimary onClick={onCloseClick}>
-          {context.t('BalanceDisplay.gotIt')}
-        </ButtonPrimary>
+          <BalanceTooltipButtonsStyle>
+            <ButtonPrimary onClick={onCloseClick}>
+              {context.t('BalanceDisplay.gotIt')}
+            </ButtonPrimary>
 
-        <a href={FAQ_URL} rel="noopener noreferrer" target="_blank">
-          <ButtonPrimaryStyle isOutline>
-            {context.t('BalanceDisplay.learnMore')}
-          </ButtonPrimaryStyle>
-        </a>
-      </BalanceTooltipStyle>
+            <a href={FAQ_URL} rel="noopener noreferrer" target="_blank">
+              <ButtonPrimaryStyle isOutline>
+                {context.t('BalanceDisplay.learnMore')}
+              </ButtonPrimaryStyle>
+            </a>
+          </BalanceTooltipButtonsStyle>
+        </BalanceTooltipStyle>
+      </BalanceTooltipWrapperStyle>
     </BalanceStyle>
   );
 };
@@ -88,12 +94,7 @@ const BalanceStyle = styled.div`
   }
 `;
 
-const BalanceTooltipStyle = styled.div`
-  @media ${styles.media.desktop} {
-    right: 20%;
-    left: 20%;
-  }
-
+const BalanceTooltipWrapperStyle = styled.div`
   position: absolute;
 
   top: ${styles.components.header.height};
@@ -103,7 +104,14 @@ const BalanceTooltipStyle = styled.div`
   display: ${props => {
     return props.isVisible ? 'block' : 'none';
   }};
+`;
 
+const BalanceTooltipStyle = styled.div`
+  display: flex;
+
+  max-width: 50rem;
+
+  margin: 0 auto;
   padding: 2rem;
 
   border-radius: 1.6rem;
@@ -112,7 +120,9 @@ const BalanceTooltipStyle = styled.div`
 
   background-color: ${styles.monochrome.white};
 
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+
+  flex-wrap: wrap;
 
   h3 {
     margin-top: 0.5rem;
@@ -126,7 +136,7 @@ const BalanceTooltipStyle = styled.div`
     position: absolute;
 
     top: -2rem;
-    left: 48%;
+    left: 50%;
 
     display: block;
 
@@ -138,6 +148,8 @@ const BalanceTooltipStyle = styled.div`
     border-left: 1.5rem solid transparent;
 
     content: '';
+
+    transform: translate3d(-50%, 0, 0);
   }
 `;
 
@@ -155,6 +167,22 @@ const BalancePersonStyle = styled.div`
   background-size: contain;
 
   transform: scaleX(-1);
+`;
+
+const BalanceTooltipContentStyle = styled.div`
+  text-align: left;
+
+  flex: 1;
+
+  h3,
+  p {
+    margin-right: 0;
+    margin-left: 0;
+  }
+`;
+
+const BalanceTooltipButtonsStyle = styled.div`
+  width: 100%;
 `;
 
 BalanceDisplay.contextTypes = {
