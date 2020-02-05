@@ -19,7 +19,7 @@ const Search = (props, context) => {
   };
 
   if (safeAddress) {
-    return <Redirect to={`/profiles/${safeAddress}`} />;
+    return <Redirect to={`/profile/${safeAddress}`} />;
   }
 
   return (
