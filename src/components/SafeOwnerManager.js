@@ -5,10 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import ButtonPrimary from '~/components/ButtonPrimary';
 import Pill from '~/components/Pill';
+import Spinner from '~/components/Spinner';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
 import { ButtonStyle } from '~/components/Button';
 import { IconExit } from '~/styles/Icons';
+import { SpacingStyle } from '~/styles/Layout';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { removeSafeOwner, getSafeOwners } from '~/store/safe/actions';
 
@@ -60,6 +62,14 @@ const SafeOwnerManager = (props, context) => {
 };
 
 const SafeOwnerManagerList = props => {
+  if (props.owners.length === 0) {
+    return (
+      <SpacingStyle>
+        <Spinner />
+      </SpacingStyle>
+    );
+  }
+
   return props.owners.map(address => {
     return (
       <SafeOwnerManagerItem
