@@ -3,11 +3,16 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
-import Header from '~/components/Header';
 import ButtonHome from '~/components/ButtonHome';
 import ShareTextBox from '~/components/ShareTextBox';
+import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import { BackgroundWhirlyGreen } from '~/styles/Background';
+
+import Header, {
+  HeaderCenterStyle,
+  HeaderTitleStyle,
+} from '~/components/Header';
 
 const SettingsShare = (props, context) => {
   const safe = useSelector(state => state.safe);
@@ -20,6 +25,13 @@ const SettingsShare = (props, context) => {
     <BackgroundWhirlyGreen>
       <Header>
         <ButtonBack isDark to="/settings" />
+
+        <HeaderCenterStyle>
+          <HeaderTitleStyle isDark>
+            <UsernameDisplay address={safe.address} />
+          </HeaderTitleStyle>
+        </HeaderCenterStyle>
+
         <ButtonHome isDark />
       </Header>
 
