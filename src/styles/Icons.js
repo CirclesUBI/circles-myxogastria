@@ -25,7 +25,7 @@ export default createGlobalStyle`
 export const IconBase = styled.i`
   @media ${styles.media.desktop} {
     font-size: ${props => {
-      return props.isLarge ? '4em' : '1em';
+      return props.isLarge ? '8em' : '1em';
     }};
   }
 
@@ -37,7 +37,7 @@ export const IconBase = styled.i`
   font-style: normal;
   font-variant: normal;
   font-size: ${props => {
-    return props.isLarge ? '8em' : '1em';
+    return props.isLarge ? '4em' : '1em';
   }};
   font-family: 'Circles', sans-serif;
 
