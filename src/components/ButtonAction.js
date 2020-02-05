@@ -15,9 +15,16 @@ const ButtonAction = () => {
     setIsExtended(!isExtended);
   };
 
+  const onOverlayClick = () => {
+    setIsExtended(false);
+  };
+
   return (
     <Fragment>
-      <Overlay isExtended={isExtended} />
+      <ButtonActionPanel
+        isExtended={isExtended}
+        onOverlayClick={onOverlayClick}
+      />
 
       <ToggleStyle isExtended={isExtended} onClick={onToggle}>
         <IconExit />
@@ -26,7 +33,7 @@ const ButtonAction = () => {
   );
 };
 
-const Overlay = (props, context) => {
+const ButtonActionPanel = (props, context) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isPanelVisible, setIsPanelVisible] = useState(false);
 
@@ -44,12 +51,16 @@ const Overlay = (props, context) => {
     }, TRANSITION_DURATION / 20);
   }, [props.isExtended]);
 
+  const onOverlayClick = () => {
+    props.onOverlayClick();
+  };
+
   if (!isVisible) {
     return null;
   }
 
   return (
-    <OverlayStyle isVisible={isPanelVisible}>
+    <OverlayStyle isVisible={isPanelVisible} onClick={onOverlayClick}>
       <PanelStyle isVisible={isPanelVisible}>
         <PanelItemStyle>
           <PanelButtonStyle to="/search">
@@ -76,11 +87,12 @@ const Overlay = (props, context) => {
   );
 };
 
-Overlay.propTypes = {
+ButtonActionPanel.propTypes = {
   isExtended: PropTypes.bool.isRequired,
+  onOverlayClick: PropTypes.func.isRequired,
 };
 
-Overlay.contextTypes = {
+ButtonActionPanel.contextTypes = {
   t: PropTypes.func.isRequired,
 };
 
