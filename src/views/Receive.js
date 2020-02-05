@@ -7,7 +7,7 @@ import ButtonRound from '~/components/ButtonRound';
 import QRCode from '~/components/QRCode';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
-import { BackgroundGreen } from '~/styles/Background';
+import { BackgroundGreenTop } from '~/styles/Background';
 import { IconShare } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
 
@@ -20,7 +20,7 @@ const Receive = (props, context) => {
   const safe = useSelector(state => state.safe);
 
   return (
-    <BackgroundGreen>
+    <BackgroundGreenTop>
       <Header>
         <ButtonBack to="/" />
 
@@ -43,7 +43,7 @@ const Receive = (props, context) => {
           <span>{context.t('Receive.share')}</span>
         </ButtonRound>
       </View>
-    </BackgroundGreen>
+    </BackgroundGreenTop>
   );
 };
 

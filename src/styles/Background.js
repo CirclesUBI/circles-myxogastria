@@ -63,19 +63,23 @@ export const BackgroundWhirlyOrange = styled(BackgroundBase)`
 `;
 
 export const BackgroundWhirlyGreen = styled(BackgroundBase)`
+  @media ${styles.media.desktop} {
+    background-position: top center;
+  }
+
   background-image: url(${whirlyGreen});
-  background-position: top center;
+  background-position: 0 7rem;
   background-size: cover;
 `;
 
-export const BackgroundGreen = styled(BackgroundBase)`
+export const BackgroundGreenTop = styled(BackgroundBase)`
   @media ${styles.media.desktop} {
     background-position: 0 -50rem;
   }
 
   background-image: url(${green});
-  background-position: 0 -20rem;
-  background-size: 100%;
+  background-position: 50% -50rem;
+  background-size: cover;
 `;
 
 export const BackgroundGreenCircle = styled(BackgroundCircleBase)`
@@ -101,8 +105,8 @@ export const BackgroundOrangeTop = styled(BackgroundBase)`
   }
 
   background-image: url(${orangeTop});
-  background-position: 0 -10rem;
-  background-size: contain;
+  background-position: 50% -40rem;
+  background-size: cover;
 `;
 
 export const BackgroundOrangeCircle = styled(BackgroundCircleBase)`
@@ -120,7 +124,7 @@ export const BackgroundPurpleTop = styled(BackgroundBase)`
   }
 
   background-image: url(${purpleTop});
-  background-position: 50% -30rem;
+  background-position: 50% -40rem;
   background-size: cover;
 `;
 

@@ -5,7 +5,7 @@ import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
 import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
-import { BackgroundGreen } from '~/styles/Background';
+import { BackgroundGreenTop } from '~/styles/Background';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
 
 import Header, {
@@ -26,7 +26,7 @@ const SettingsKeysExport = (props, context) => {
   useEffect(generateMnemonic, []);
 
   return (
-    <BackgroundGreen>
+    <BackgroundGreenTop>
       <Header>
         <ButtonBack to="/settings/keys" />
 
@@ -43,7 +43,7 @@ const SettingsKeysExport = (props, context) => {
         <p>{context.t('SettingsKeysExport.description')}</p>
         <ShareTextBox isClipboard text={mnemonic} />
       </View>
-    </BackgroundGreen>
+    </BackgroundGreenTop>
   );
 };
 

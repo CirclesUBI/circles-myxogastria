@@ -10,7 +10,7 @@ import ButtonHome from '~/components/ButtonHome';
 import SafeOwnerManager from '~/components/SafeOwnerManager';
 import View from '~/components/View';
 import styles from '~/styles/variables';
-import { BackgroundGreen } from '~/styles/Background';
+import { BackgroundGreenTop } from '~/styles/Background';
 import { ButtonStyle } from '~/components/Button';
 import { burnApp } from '~/store/app/actions';
 
@@ -29,7 +29,7 @@ const SettingsKeys = (props, context) => {
   };
 
   return (
-    <BackgroundGreen>
+    <BackgroundGreenTop>
       <Header>
         <ButtonBack to="/settings" />
 
@@ -59,7 +59,7 @@ const SettingsKeys = (props, context) => {
           {context.t('SettingsKeys.exportSeedPhrase')}
         </ButtonPrimary>
       </Footer>
-    </BackgroundGreen>
+    </BackgroundGreenTop>
   );
 };
 

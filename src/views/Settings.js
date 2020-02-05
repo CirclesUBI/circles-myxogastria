@@ -3,14 +3,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
-import ExternalLinkList from '~/components/ExternalLinkList';
 import ButtonHeader from '~/components/ButtonHeader';
+import ButtonRound from '~/components/ButtonRound';
+import ExternalLinkList from '~/components/ExternalLinkList';
 import LocaleSelector from '~/components/LocaleSelector';
 import QRCode from '~/components/QRCode';
-import ButtonRound from '~/components/ButtonRound';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
-import { BackgroundGreen } from '~/styles/Background';
+import { BackgroundGreenTop } from '~/styles/Background';
 import { IconDevices, IconShare } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
 
@@ -23,7 +23,7 @@ const Settings = (props, context) => {
   const safe = useSelector(state => state.safe);
 
   return (
-    <BackgroundGreen>
+    <BackgroundGreenTop>
       <Header>
         <ButtonBack to="/" />
 
@@ -58,7 +58,7 @@ const Settings = (props, context) => {
 
         <ExternalLinkList />
       </View>
-    </BackgroundGreen>
+    </BackgroundGreenTop>
   );
 };
 

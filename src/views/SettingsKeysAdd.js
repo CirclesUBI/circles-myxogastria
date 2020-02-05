@@ -4,13 +4,13 @@ import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
-import ButtonPrimary from '~/components/ButtonPrimary';
 import ButtonHome from '~/components/ButtonHome';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import QRCodeScanner from '~/components/QRCodeScanner';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import { BackgroundGreen } from '~/styles/Background';
+import { BackgroundGreenTop } from '~/styles/Background';
 import { addSafeOwner } from '~/store/safe/actions';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 
@@ -68,7 +68,7 @@ const SettingsKeysAdd = (props, context) => {
 
   if (isConfirmationShown) {
     return (
-      <BackgroundGreen>
+      <BackgroundGreenTop>
         <Header>
           <ButtonBack onClick={onPrevious} />
 
@@ -92,12 +92,12 @@ const SettingsKeysAdd = (props, context) => {
             {context.t('SettingsKeysAdd.submit')}
           </ButtonPrimary>
         </View>
-      </BackgroundGreen>
+      </BackgroundGreenTop>
     );
   }
 
   return (
-    <BackgroundGreen>
+    <BackgroundGreenTop>
       <Header>
         <ButtonBack to="/settings/keys" />
 
@@ -113,7 +113,7 @@ const SettingsKeysAdd = (props, context) => {
       <View isHeader>
         <QRCodeScanner onSuccess={onQRCodeScanned} />
       </View>
-    </BackgroundGreen>
+    </BackgroundGreenTop>
   );
 };
 
