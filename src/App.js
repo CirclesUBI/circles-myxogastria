@@ -17,6 +17,8 @@ import { checkAppState, initializeApp } from '~/store/app/actions';
 const APP_CHECK_FRQUENCY = 1000 * 4;
 
 const App = (props, context) => {
+  let checkInterval;
+
   const app = useSelector(state => state.app);
 
   const dispatch = useDispatch();
@@ -36,7 +38,7 @@ const App = (props, context) => {
     const checkFrequency =
       process.env.NODE_ENV === 'production' ? APP_CHECK_FRQUENCY : 1000 * 10;
 
-    window.setInterval(async () => {
+    checkInterval = window.setInterval(async () => {
       try {
         await dispatch(checkAppState());
       } catch (error) {
@@ -53,6 +55,12 @@ const App = (props, context) => {
   };
 
   useEffect(onAppStart, []);
+
+  // Register an event to disable state checks
+  // when we are leaving the application
+  window.addEventListener('unload', () => {
+    window.clearInterval(checkInterval);
+  });
 
   return (
     <Router>

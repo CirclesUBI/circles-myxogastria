@@ -67,7 +67,7 @@ export function checkAppState() {
   return async (dispatch, getState) => {
     const { app, safe } = getState();
 
-    if (!app.isReady || app.isError) {
+    if (!app.isReady || app.isError || !app.isConnected) {
       return;
     }
 
