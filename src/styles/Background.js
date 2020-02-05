@@ -30,7 +30,7 @@ const BackgroundCircleBase = styled(BackgroundBase)`
 
   &::after {
     @media ${styles.media.desktop} {
-      top: 1rem;
+      top: -1rem;
     }
 
     position: absolute;
@@ -40,8 +40,8 @@ const BackgroundCircleBase = styled(BackgroundBase)`
 
     display: block;
 
-    width: 60rem;
-    height: 60rem;
+    width: 62rem;
+    height: 62rem;
 
     border-radius: 50%;
 
@@ -53,6 +53,8 @@ const BackgroundCircleBase = styled(BackgroundBase)`
   }
 `;
 
+// Orange
+
 export const BackgroundWhirlyOrange = styled(BackgroundBase)`
   @media ${styles.media.desktop} {
     background-position: 0 -17.5rem;
@@ -61,6 +63,33 @@ export const BackgroundWhirlyOrange = styled(BackgroundBase)`
   background-image: url(${whirlyOrange});
   background-size: contain;
 `;
+
+export const BackgroundOrangeBottom = styled(BackgroundBase)`
+  background-image: url(${orangeBottom});
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
+export const BackgroundOrangeTop = styled(BackgroundBase)`
+  @media ${styles.media.desktop} {
+    background-position: 0 -40rem;
+    background-size: cover;
+  }
+
+  background-image: url(${orangeTop});
+  background-position: 50% -40rem;
+  background-size: cover;
+`;
+
+export const BackgroundOrangeCircle = styled(BackgroundCircleBase)`
+  background: linear-gradient(181deg, #d73a53 0%, #fb8609 100%);
+
+  &::after {
+    background: linear-gradient(180deg, #13f3b5 29.69%, #5ee6ec 81.77%);
+  }
+`;
+
+// Green
 
 export const BackgroundWhirlyGreen = styled(BackgroundBase)`
   @media ${styles.media.desktop} {
@@ -92,29 +121,12 @@ export const BackgroundGreenBottom = styled(BackgroundBase)`
   background-size: 100% 100%;
 `;
 
-export const BackgroundOrangeBottom = styled(BackgroundBase)`
-  background-image: url(${orangeBottom});
-  background-repeat: no-repeat;
-  background-size: cover;
-`;
+// Purple
 
-export const BackgroundOrangeTop = styled(BackgroundBase)`
-  @media ${styles.media.desktop} {
-    background-position: 0 -40rem;
-    background-size: cover;
-  }
-
-  background-image: url(${orangeTop});
-  background-position: 50% -40rem;
-  background-size: cover;
-`;
-
-export const BackgroundOrangeCircle = styled(BackgroundCircleBase)`
-  background: linear-gradient(181deg, #d73a53 0%, #fb8609 100%);
-
-  &::after {
-    background: linear-gradient(180deg, #13f3b5 29.69%, #5ee6ec 81.77%);
-  }
+export const BackgroundPurple = styled(BackgroundBase)`
+  background-image: url(${purple});
+  background-position: -1rem -1rem;
+  background-size: 130%;
 `;
 
 export const BackgroundPurpleTop = styled(BackgroundBase)`
@@ -136,29 +148,14 @@ export const BackgroundPurplePlain = styled(BackgroundBase)`
   );
 `;
 
-export const BackgroundPurpleCircle = styled(BackgroundPurplePlain)`
-  position: relative;
+export const BackgroundPurpleCircle = styled(BackgroundCircleBase)`
+  background: linear-gradient(
+    180deg,
+    ${styles.colors.primaryDark} 0%,
+    ${styles.colors.primary} 100%
+  );
 
   &::after {
-    position: absolute;
-
-    top: ${styles.components.header.height};
-    right: -10rem;
-    bottom: ${styles.components.footer.height};
-    left: -10rem;
-
-    display: block;
-
-    border-radius: 50%;
-
-    content: '';
-
     background: linear-gradient(180deg, #13f3b5 29.69%, #5ee6ec 81.77%);
   }
-`;
-
-export const BackgroundPurple = styled(BackgroundBase)`
-  background-image: url(${purple});
-  background-position: -1rem -1rem;
-  background-size: 130%;
 `;
