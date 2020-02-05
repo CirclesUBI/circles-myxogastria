@@ -110,7 +110,7 @@ export const BackgroundOrangeTop = styled(BackgroundBase)`
 `;
 
 export const BackgroundOrangeCircle = styled(BackgroundCircleBase)`
-  background: linear-gradient(180deg, #d73a53 0%, #fb8609 100%);
+  background: linear-gradient(181deg, #d73a53 0%, #fb8609 100%);
 
   &::after {
     background: linear-gradient(180deg, #13f3b5 29.69%, #5ee6ec 81.77%);
@@ -160,5 +160,5 @@ export const BackgroundPurpleCircle = styled(BackgroundPurplePlain)`
 export const BackgroundPurple = styled(BackgroundBase)`
   background-image: url(${purple});
   background-position: -1rem -1rem;
-  background-size: 110%;
+  background-size: 130%;
 `;
