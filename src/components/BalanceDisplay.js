@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import ButtonPrimary, { ButtonPrimaryStyle } from '~/components/ButtonPrimary';
+import Spinner from '~/components/Spinner';
 import styles from '~/styles/variables';
 import web3 from '~/services/web3';
 import { FAQ_URL } from '~/components/ExternalLinkList';
@@ -16,10 +17,16 @@ const ISSUANCE_RATE_MONTH = process.env.ISSUANCE_RATE_MONTH || 50;
 
 const BalanceDisplay = (props, context) => {
   const token = useSelector(state => state.token);
+  const safe = useSelector(state => state.safe);
+
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
   if (token.balance === null) {
-    return null;
+    if (!safe.nonce) {
+      return <Spinner />;
+    } else {
+      return null;
+    }
   }
 
   const balance = web3.utils.fromWei(token.balance);
@@ -100,6 +107,8 @@ const BalanceTooltipWrapperStyle = styled.div`
   top: ${styles.components.header.height};
   right: 0;
   left: 0;
+
+  z-index: ${styles.zIndex.balanceTooltip};
 
   display: ${props => {
     return props.isVisible ? 'block' : 'none';
