@@ -24,7 +24,7 @@ export function checkTrustState() {
       // final Safe deployment)
       const isTrusted =
         network.reduce((acc, connection) => {
-          return connection.isTrustingMe ? acc + 1 : acc;
+          return connection.isIncoming ? acc + 1 : acc;
         }, 0) >= TRUST_CONNECTION_LIMIT;
 
       // Resolve usernames
