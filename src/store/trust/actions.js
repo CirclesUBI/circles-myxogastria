@@ -6,8 +6,6 @@ import { addPendingActivity } from '~/store/activity/actions';
 
 const { ActivityTypes } = core.activity;
 
-const TRUST_CONNECTION_LIMIT = 3;
-
 export function checkTrustState() {
   return async (dispatch, getState) => {
     const { safe } = getState();
@@ -22,10 +20,7 @@ export function checkTrustState() {
 
       // Check if we reached a trusted status (to be ready for
       // final Safe deployment)
-      const isTrusted =
-        network.reduce((acc, connection) => {
-          return connection.isIncoming ? acc + 1 : acc;
-        }, 0) >= TRUST_CONNECTION_LIMIT;
+      const isTrusted = await core.trust.isTrusted(safe.address);
 
       // Resolve usernames
       const usernames = await resolveUsernames(

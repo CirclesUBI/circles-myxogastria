@@ -87,6 +87,12 @@ const user = {
 // Trust module
 
 const trust = {
+  isTrusted: async safeAddress => {
+    return await requestCore('trust', 'isTrusted', {
+      safeAddress,
+    });
+  },
+
   getNetwork: async safeAddress => {
     return await requestCore('trust', 'getNetwork', {
       safeAddress,
