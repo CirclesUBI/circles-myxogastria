@@ -5,6 +5,7 @@ import {
   generatePrivateKey,
   getPublicAddress,
   removePrivateKey,
+  setPrivateKey,
   toSeedPhrase,
 } from '~/services/wallet';
 
@@ -15,6 +16,7 @@ describe('Wallet service', () => {
 
   beforeEach(() => {
     privateKey = generatePrivateKey();
+    setPrivateKey(privateKey);
   });
 
   describe('when generating a private key', () => {
@@ -25,7 +27,7 @@ describe('Wallet service', () => {
 
   describe('when converting a private key to a seed phrase', () => {
     it('should be able to restore it', () => {
-      const address = getPublicAddress(privateKey);
+      const address = getPublicAddress();
       const seedPhrase = toSeedPhrase(privateKey);
       const restored = fromSeedPhrase(seedPhrase);
 
