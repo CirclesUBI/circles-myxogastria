@@ -128,12 +128,8 @@ const QRCodeScannerStyle = styled.div`
 
   overflow: hidden;
 
-  width: ${props => {
-    return props.isVideoVisible ? '30rem' : '30rem';
-  }};
-  height: ${props => {
-    return props.isVideoVisible ? '30rem' : '30rem';
-  }};
+  width: 28rem;
+  height: 28rem;
 
   margin: ${props => {
     return props.isVideoVisible ? '2rem auto' : '2rem auto';

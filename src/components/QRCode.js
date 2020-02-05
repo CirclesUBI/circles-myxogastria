@@ -37,8 +37,8 @@ QRCode.propTypes = {
 const QRCodeStyle = styled.div`
   display: flex;
 
-  width: 30rem;
-  height: 30rem;
+  width: 28rem;
+  height: 28rem;
 
   margin: 0 auto;
 
