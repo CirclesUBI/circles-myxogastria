@@ -3,6 +3,7 @@ import web3 from '~/services/web3';
 import {
   fromSeedPhrase,
   generatePrivateKey,
+  getPublicAddress,
   removePrivateKey,
   toSeedPhrase,
 } from '~/services/wallet';
@@ -10,10 +11,12 @@ import {
 import { hasItem } from '~/services/storage';
 
 describe('Wallet service', () => {
+  let address;
   let privateKey;
 
   beforeEach(() => {
     privateKey = generatePrivateKey();
+    address = getPublicAddress(privateKey);
   });
 
   describe('when generating a private key', () => {
@@ -25,9 +28,9 @@ describe('Wallet service', () => {
   describe('when converting a private key to a seed phrase', () => {
     it('should be able to restore it', () => {
       const seedPhrase = toSeedPhrase(privateKey);
-      const restoredKey = fromSeedPhrase(seedPhrase);
+      const restored = fromSeedPhrase(seedPhrase);
 
-      expect(restoredKey).toBe(privateKey);
+      expect(restored).toBe(address);
     });
   });
 

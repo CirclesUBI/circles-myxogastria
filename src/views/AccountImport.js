@@ -44,6 +44,7 @@ const AccountImport = (props, context) => {
         notify({
           text: context.t('AccountImport.errorMessage'),
           type: NotificationsTypes.ERROR,
+          lifetime: 10000,
         }),
       );
     }

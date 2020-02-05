@@ -104,8 +104,8 @@ export function finalizeNewAccount() {
 }
 
 // Recover an account via a seed phrase. We check if we
-// can find an undeployed / deployed Safe related to this
-// wallet.
+// can find an deployed Safe related to this
+// wallet. Undeployed Safes can not be recovered.
 export function restoreAccount(seedPhrase) {
   return async dispatch => {
     await dispatch(restoreWallet(seedPhrase));

@@ -1,4 +1,5 @@
 import ActionTypes from '~/store/wallet/types';
+import core from '~/services/core';
 
 import {
   fromSeedPhrase,
@@ -34,8 +35,14 @@ export function initializeWallet() {
 }
 
 export function restoreWallet(seedPhrase) {
-  return dispatch => {
-    fromSeedPhrase(seedPhrase);
+  return async dispatch => {
+    const address = fromSeedPhrase(seedPhrase);
+
+    const safeAddress = await core.safe.getAddress(address);
+
+    if (!safeAddress) {
+      throw new Error('Can not restore undeployed Safe');
+    }
 
     dispatch(initializeWallet());
   };

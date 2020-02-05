@@ -57,7 +57,7 @@ export function fromSeedPhrase(seedPhrase) {
 
   setPrivateKey(privateKey);
 
-  return privateKey;
+  return getPublicAddress();
 }
 
 export function toSeedPhrase(privateKey) {

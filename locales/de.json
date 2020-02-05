@@ -18,7 +18,7 @@
   "AccountImport.contactUs": "Schreibe uns.",
   "AccountImport.createNewWallet": "Erstelle ein neues Wallet.",
   "AccountImport.enterYourSeedPhrase": "Gebe deine Seed-Phrase ein",
-  "AccountImport.errorMessage": "Wir konnten dein Wallet leider nicht wiederherstellen. Bitte überprüfe deine Seed-Phrase.",
+  "AccountImport.errorMessage": "Wir konnten dein Wallet leider nicht wiederherstellen. Bist du dir sicher, dass dein Profil schon erstellt wurde? Wenn ja, überprüfe bitte deine Seed-Phrase.",
   "AccountImport.lostYourSeedPhrase": "Hast du deine Seed-Phrase verloren?",
   "AccountImport.questions": "Fragen?",
   "AccountImport.submit": "Abschicken",

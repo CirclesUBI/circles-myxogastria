@@ -18,7 +18,7 @@
   "AccountImport.contactUs": "Contact us.",
   "AccountImport.createNewWallet": "Create a new wallet.",
   "AccountImport.enterYourSeedPhrase": "Enter your seed phrase below",
-  "AccountImport.errorMessage": "We could not recover your wallet! Please check your seed phrase.",
+  "AccountImport.errorMessage": "We could not recover your wallet! Are you sure your account was already created? If yes, please check your seed phrase.",
   "AccountImport.lostYourSeedPhrase": "Lost your seed phrase?",
   "AccountImport.questions": "Questions?",
   "AccountImport.submit": "Submit",
