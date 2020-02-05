@@ -23,6 +23,12 @@ export default createGlobalStyle`
 `;
 
 export const IconBase = styled.i`
+  @media ${styles.media.desktop} {
+    font-size: ${props => {
+      return props.isLarge ? '4em' : '1em';
+    }};
+  }
+
   color: ${props => {
     return props.isDark ? styles.monochrome.black : styles.monochrome.white;
   }};
