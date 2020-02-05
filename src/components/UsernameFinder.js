@@ -110,6 +110,10 @@ const UsernameFinderResult = (props, context) => {
     return <Spinner />;
   }
 
+  if (props.isQueryEmpty) {
+    return null;
+  }
+
   return props.items.map((item, index) => {
     return <UsernameFinderItem key={index} user={item} onClick={onClick} />;
   });
