@@ -178,8 +178,9 @@ const ActivityStreamItem = (props, context) => {
 
   // Check if we should display the address on the left or right hand side
   const isAddressRightSide = [
-    'meUntrustedSomeone',
     'meTrustedSomeone',
+    'meUntrustedSomeone',
+    'sentCircles',
   ].includes(messageId);
 
   return (

@@ -38,7 +38,7 @@
   "ActivityStream.removedFromSafe": "wurde von diesem Profil entfernt",
   "ActivityStream.removedTrustConnection": "erhält {value} {denominator} von dir",
   "ActivityStream.safeAndTokenDeployed": "Dein Profil wurde erstellt",
-  "ActivityStream.sentCircles": "erhält {value} {denominator} von dir",
+  "ActivityStream.sentCircles": "Du hast {value} {denominator} gesendet an ",
   "ActivityStream.trustedBySomeone": "vertraut dir",
   "ActivityStream.untrustedBySomeone": "vertraut dir nicht mehr",
   "App.updateErrorMessage": "Ein Fehler ist aufgetreten, bist du mit dem Internet verbunden?",
