@@ -9,6 +9,7 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { CONTACT_URL } from '~/components/ExternalLinkList';
 import { SpacingStyle } from '~/styles/Layout';
 import { TextareaStyle } from '~/styles/Inputs';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
@@ -82,7 +83,7 @@ const AccountImport = (props, context) => {
 
         <p>
           {context.t('AccountImport.questions')}{' '}
-          <a href="mailto:hello@joincircles.net">
+          <a href={CONTACT_URL}>
             {context.t('AccountImport.contactUs')}
           </a>
         </p>
