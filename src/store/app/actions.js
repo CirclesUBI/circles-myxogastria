@@ -3,9 +3,13 @@ import resolveUsernames from '~/services/username';
 import { checkOnboardingState } from '~/store/onboarding/actions';
 import { checkTrustState } from '~/store/trust/actions';
 import { initializeLocale } from '~/store/locale/actions';
-import { initializeTutorials } from '~/store/tutorial/actions';
 import { initializeWallet, burnWallet } from '~/store/wallet/actions';
 import { setUser } from '~/services/sentry';
+
+import {
+  initializeTutorials,
+  resetAllTutorials,
+} from '~/store/tutorial/actions';
 
 import {
   checkCurrentBalance,
@@ -106,9 +110,11 @@ export function checkAuthState() {
 export function burnApp() {
   return async dispatch => {
     await dispatch(burnWallet());
+
     await dispatch(resetSafe());
     await dispatch(resetToken());
     await dispatch(resetActivities());
+    await dispatch(resetAllTutorials());
 
     window.location.reload();
   };
