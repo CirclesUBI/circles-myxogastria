@@ -25,6 +25,37 @@ const BackgroundBase = styled.div`
   background-repeat: no-repeat;
 `;
 
+const BackgroundCircleBase = styled(BackgroundBase)`
+  position: relative;
+
+  &::after {
+    @media ${styles.media.desktop} {
+      top: -10rem;
+
+      width: 80rem;
+      height: 80rem;
+    }
+
+    position: absolute;
+
+    top: 1rem;
+    left: 50%;
+
+    display: block;
+
+    width: 65rem;
+    height: 65rem;
+
+    border-radius: 50%;
+
+    content: '';
+
+    background-color: ${styles.monochrome.white};
+
+    transform: translate3d(-50%, 0, 0);
+  }
+`;
+
 export const BackgroundWhirlyOrange = styled(BackgroundBase)`
   @media ${styles.media.desktop} {
     background-position: 0 -17.5rem;
@@ -50,27 +81,8 @@ export const BackgroundGreen = styled(BackgroundBase)`
   background-size: 100%;
 `;
 
-export const BackgroundGreenCircle = styled(BackgroundBase)`
-  position: relative;
-
+export const BackgroundGreenCircle = styled(BackgroundCircleBase)`
   background: linear-gradient(180deg, #48b2b7 0%, #06fc9d 100%);
-
-  &::after {
-    position: absolute;
-
-    top: ${styles.components.header.height};
-    right: -10rem;
-    bottom: ${styles.components.footer.height};
-    left: -10rem;
-
-    display: block;
-
-    border-radius: 50%;
-
-    content: '';
-
-    background-color: ${styles.monochrome.white};
-  }
 `;
 
 export const BackgroundGreenBottom = styled(BackgroundBase)`
@@ -96,25 +108,10 @@ export const BackgroundOrangeTop = styled(BackgroundBase)`
   background-size: contain;
 `;
 
-export const BackgroundOrangeCircle = styled(BackgroundBase)`
-  position: relative;
-
+export const BackgroundOrangeCircle = styled(BackgroundCircleBase)`
   background: linear-gradient(180deg, #d73a53 0%, #fb8609 100%);
 
   &::after {
-    position: absolute;
-
-    top: ${styles.components.header.height};
-    right: -10rem;
-    bottom: ${styles.components.footer.height};
-    left: -10rem;
-
-    display: block;
-
-    border-radius: 50%;
-
-    content: '';
-
     background: linear-gradient(180deg, #13f3b5 29.69%, #5ee6ec 81.77%);
   }
 `;

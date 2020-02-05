@@ -43,7 +43,9 @@ const TutorialStepsItemStyle = styled.li`
   border-radius: 50%;
 
   background-color: ${props => {
-    return props.isCurrent ? styles.monochrome.black : styles.monochrome.white;
+    return props.isCurrent
+      ? styles.monochrome.black
+      : styles.monochrome.grayLight;
   }};
 `;
 
