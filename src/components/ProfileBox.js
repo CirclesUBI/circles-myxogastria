@@ -1,23 +1,37 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import ButtonPrimary from '~/components/ButtonPrimary';
 import ButtonClipboard from '~/components/ButtonClipboard';
-import ProfileMini from '~/components/ProfileMini';
+import ButtonPrimary from '~/components/ButtonPrimary';
 import ButtonRound, { ButtonRoundStyle } from '~/components/ButtonRound';
+import ProfileMini from '~/components/ProfileMini';
 import styles from '~/styles/variables';
+import web3 from '~/services/web3';
 import { BackgroundGreenBottom } from '~/styles/Background';
 import { IconSend, IconTrust } from '~/styles/Icons';
 import { InputStyle } from '~/styles/Inputs';
 
 const ProfileBox = (props, context) => {
+  const [isDeployed, setIsDeployed] = useState(true);
+
   const { network } = useSelector(state => state.trust);
 
   const connection = network.find(item => {
     return item.safeAddress === props.address;
   });
+
+  useEffect(() => {
+    // Find out if Safe is deployed
+    const checkSafeDeployment = async () => {
+      const response = await web3.eth.getCode(props.address);
+
+      setIsDeployed(response !== '0x');
+    };
+
+    checkSafeDeployment();
+  }, [props.address]);
 
   return (
     <ProfileBoxStyle isIncoming={connection && connection.isIncoming}>
@@ -27,7 +41,7 @@ const ProfileBox = (props, context) => {
       </ProfileBoxHeaderStyle>
 
       <ProfileBoxActionsStyle>
-        <SendButton address={props.address} />
+        <SendButton address={props.address} isDeployed={isDeployed} />
         <TrustButton address={props.address} connection={connection} />
       </ProfileBoxActionsStyle>
 
@@ -41,9 +55,16 @@ const ProfileBox = (props, context) => {
   );
 };
 
-const SendButton = ({ address }, context) => {
+const SendButton = ({ address, isDeployed }, context) => {
   const safe = useSelector(state => state.safe);
-  const disabled = safe.address === address || safe.nonce !== null;
+
+  // Check against these three cases where we can't send Circles
+  //
+  // a) We look at our own profile
+  // b) Our Safe is not deployed yet
+  // c) The profiles Safe is not deployed yet
+  const disabled =
+    safe.address === address || safe.nonce !== null || !isDeployed;
 
   return (
     <ButtonRound disabled={disabled} to={`/send/${address}`}>
@@ -126,6 +147,7 @@ SendButton.contextTypes = {
 
 SendButton.propTypes = {
   address: PropTypes.string.isRequired,
+  isDeployed: PropTypes.bool.isRequired,
 };
 
 TrustButton.contextTypes = {
