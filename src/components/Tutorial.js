@@ -39,8 +39,8 @@ const Tutorial = props => {
         onPrevious={onPrevious}
       />
 
-      <View isFooter isHeader>
-        {props.slides[current]}
+      <View isCentered isFooter isHeader>
+        <div>{props.slides[current]}</div>
       </View>
 
       <TutorialFooter

@@ -30,7 +30,7 @@ const TutorialAccountCreate = props => {
 const SlideCircles = (props, context) => {
   return (
     <Fragment>
-      <SpacingStyle isLargeTop>
+      <SpacingStyle>
         <IconSupport isDark isLarge />
       </SpacingStyle>
 
@@ -48,7 +48,7 @@ const SlideCircles = (props, context) => {
 const SlideWebOfTrust = (props, context) => {
   return (
     <Fragment>
-      <SpacingStyle isLargeTop>
+      <SpacingStyle>
         <IconNetwork isDark isLarge />
       </SpacingStyle>
 
@@ -66,7 +66,7 @@ const SlideWebOfTrust = (props, context) => {
 const SlideUnderConstruction = (props, context) => {
   return (
     <Fragment>
-      <SpacingStyle isLargeTop>
+      <SpacingStyle>
         <IconFriendship isDark isLarge />
       </SpacingStyle>
 

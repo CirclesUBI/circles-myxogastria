@@ -30,21 +30,18 @@ const BackgroundCircleBase = styled(BackgroundBase)`
 
   &::after {
     @media ${styles.media.desktop} {
-      top: -10rem;
-
-      width: 80rem;
-      height: 80rem;
+      top: 1rem;
     }
 
     position: absolute;
 
-    top: 1rem;
+    top: 7rem;
     left: 50%;
 
     display: block;
 
-    width: 65rem;
-    height: 65rem;
+    width: 60rem;
+    height: 60rem;
 
     border-radius: 50%;
 

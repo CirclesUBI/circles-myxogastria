@@ -30,7 +30,7 @@ const TutorialSettingsKeys = props => {
 const SlideAccountRecovery = (props, context) => {
   return (
     <Fragment>
-      <SpacingStyle isLargeTop>
+      <SpacingStyle>
         <IconKeys isDark isLarge />
       </SpacingStyle>
 
@@ -48,7 +48,7 @@ const SlideAccountRecovery = (props, context) => {
 const SlideLinkingDevices = (props, context) => {
   return (
     <Fragment>
-      <SpacingStyle isLargeTop>
+      <SpacingStyle>
         <IconDevices isDark isLarge />
       </SpacingStyle>
 
@@ -66,7 +66,7 @@ const SlideLinkingDevices = (props, context) => {
 const SlideSeedPhrase = (props, context) => {
   return (
     <Fragment>
-      <SpacingStyle isLargeTop>
+      <SpacingStyle>
         <IconSeed isDark isLarge />
       </SpacingStyle>
 
