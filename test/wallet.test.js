@@ -16,7 +16,6 @@ describe('Wallet service', () => {
 
   beforeEach(() => {
     privateKey = generatePrivateKey();
-    address = getPublicAddress(privateKey);
   });
 
   describe('when generating a private key', () => {
@@ -27,6 +26,7 @@ describe('Wallet service', () => {
 
   describe('when converting a private key to a seed phrase', () => {
     it('should be able to restore it', () => {
+      const address = getPublicAddress(privateKey);
       const seedPhrase = toSeedPhrase(privateKey);
       const restored = fromSeedPhrase(seedPhrase);
 
