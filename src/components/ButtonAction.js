@@ -173,6 +173,8 @@ const OverlayStyle = styled.div`
   }};
 
   transition: ${TRANSITION_DURATION}ms background ease-in-out;
+
+  cursor: pointer;
 `;
 
 const PanelStyle = styled.ul`
