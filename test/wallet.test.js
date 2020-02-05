@@ -11,7 +11,6 @@ import {
 import { hasItem } from '~/services/storage';
 
 describe('Wallet service', () => {
-  let address;
   let privateKey;
 
   beforeEach(() => {
