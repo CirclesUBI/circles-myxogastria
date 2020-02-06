@@ -57,8 +57,12 @@ function formatMessage(props) {
       // I've received Circles from the Hub (UBI)
       messageId = 'receivedUBI';
     } else if (props.data.to === process.env.SAFE_FUNDER_ADDRESS) {
+      // I've paid Gas fees for a transaction
+      // @TODO: Right now not covered by the core
       messageId = 'paidGasCosts';
-    } else if (props.data.to === props.safeAddress) {
+    }
+  } else if (props.type === ActivityTypes.HUB_TRANSFER) {
+    if (props.data.to === props.safeAddress) {
       // I've received Circles from someone
       messageId = 'receivedCircles';
       actorAddress = props.data.from;
