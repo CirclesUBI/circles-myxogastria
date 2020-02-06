@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { ZERO_ADDRESS } from '~/utils/constants';
 import { useSelector } from 'react-redux';
 
 import ButtonClipboard from '~/components/ButtonClipboard';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import ButtonRound, { ButtonRoundStyle } from '~/components/ButtonRound';
 import ProfileMini from '~/components/ProfileMini';
+import core from '~/services/core';
 import styles from '~/styles/variables';
-import web3 from '~/services/web3';
 import { BackgroundGreenBottom } from '~/styles/Background';
 import { IconSend, IconTrust } from '~/styles/Icons';
 import { InputStyle } from '~/styles/Inputs';
@@ -25,9 +26,13 @@ const ProfileBox = (props, context) => {
   useEffect(() => {
     // Find out if Safe is deployed
     const checkSafeDeployment = async () => {
-      const response = await web3.eth.getCode(props.address);
+      try {
+        const tokenAddress = await core.token.getAddress(props.address);
 
-      setIsDeployed(response !== '0x');
+        setIsDeployed(tokenAddress !== ZERO_ADDRESS);
+      } catch {
+        setIsDeployed(false);
+      }
     };
 
     checkSafeDeployment();
@@ -38,6 +43,7 @@ const ProfileBox = (props, context) => {
       <ProfileBoxHeaderStyle>
         <ProfileMini address={props.address} isInline isLarge />
         <TrustState connection={connection} />
+        <DeployState isDeployed={isDeployed} />
       </ProfileBoxHeaderStyle>
 
       <ProfileBoxActionsStyle>
@@ -115,6 +121,7 @@ const RevokeTrustButton = ({ connection }, context) => {
     </ButtonPrimary>
   );
 };
+
 const TrustState = ({ connection }, context) => {
   if (!connection || !connection.isOutgoing) {
     return null;
@@ -130,6 +137,16 @@ const TrustState = ({ connection }, context) => {
 
   return (
     <TrustStateStyle>{context.t('ProfileBox.isTrustingYou')}</TrustStateStyle>
+  );
+};
+
+const DeployState = ({ isDeployed }, context) => {
+  if (isDeployed) {
+    return null;
+  }
+
+  return (
+    <TrustStateStyle>{context.t('ProfileBox.isNotDeployed')}</TrustStateStyle>
   );
 };
 
@@ -173,6 +190,14 @@ TrustState.contextTypes = {
 
 TrustState.propTypes = {
   connection: PropTypes.object,
+};
+
+DeployState.propTypes = {
+  isDeployed: PropTypes.bool.isRequired,
+};
+
+DeployState.contextTypes = {
+  t: PropTypes.func.isRequired,
 };
 
 const ProfileBoxStyle = styled(BackgroundGreenBottom)`

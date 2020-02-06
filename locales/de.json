@@ -72,6 +72,7 @@
   "Profile.invalidAddress": "Das Profil kann nicht geöffnet werden, da die Adresse nicht korrekt ist",
   "Profile.send": "Circles überweisen",
   "ProfileBox.isMutualTrust": "ihr vertraut euch gegenseitig",
+  "ProfileBox.isNotDeployed": "ist Circles noch nicht beigetreten",
   "ProfileBox.isTrusted": "Du vertraust",
   "ProfileBox.isTrustingYou": "vertraut dir",
   "ProfileBox.publicAddress": "Adresse",
