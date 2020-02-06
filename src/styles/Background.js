@@ -77,7 +77,7 @@ export const BackgroundOrangeTop = styled(BackgroundBase)`
   }
 
   background-image: url(${orangeTop});
-  background-position: 50% -40rem;
+  background-position: 50% -30rem;
   background-size: cover;
 `;
 
@@ -107,7 +107,7 @@ export const BackgroundGreenTop = styled(BackgroundBase)`
   }
 
   background-image: url(${green});
-  background-position: 50% -50rem;
+  background-position: 50% -30rem;
   background-size: cover;
 `;
 
@@ -136,7 +136,7 @@ export const BackgroundPurpleTop = styled(BackgroundBase)`
   }
 
   background-image: url(${purpleTop});
-  background-position: 50% -40rem;
+  background-position: 50% -30rem;
   background-size: cover;
 `;
 
