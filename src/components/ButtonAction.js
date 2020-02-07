@@ -196,9 +196,13 @@ const PanelStyle = styled.ul`
       : `translate3d(0, ${panelHeight}, 0)`;
   }};
   transition: ${TRANSITION_DURATION}ms transform ease-in-out;
+
+  align-items: center;
 `;
 
 const PanelItemStyle = styled.li`
+  height: 100%;
+
   flex: 1;
 
   &:hover {
