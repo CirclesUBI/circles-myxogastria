@@ -101,7 +101,12 @@ const QRCodeScanner = (props, context) => {
         onChange={onImageSelected}
       />
 
-      <QRCodeScannerVideoStyle isVideoVisible={isVideoVisible} ref={refVideo} />
+      <QRCodeScannerVideoStyle
+        isVideoVisible={isVideoVisible}
+        muted
+        playsinline
+        ref={refVideo}
+      />
 
       <QRCodeScannerButtonStyle
         isVideoVisible={isVideoVisible}
