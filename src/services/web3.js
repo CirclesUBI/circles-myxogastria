@@ -1,19 +1,51 @@
 import Web3 from 'web3';
 
-const REPEAT_CONNECTION_CHECK = 10 * 1000;
-
 const provider = new Web3.providers.WebsocketProvider(
   process.env.ETHEREUM_NODE_WS,
 );
 
 const web3 = new Web3();
 
-let checkInterval;
 let connectionChangeCallback;
 let isConnected = false;
+let isWatching = true;
+
+function registerEvents() {
+  provider.on('connect', () => {
+    isConnected = true;
+    notifyConnectionState(true);
+  });
+
+  provider.on('error', () => {
+    isConnected = false;
+    notifyConnectionState(false);
+    connectToProvider();
+  });
+
+  provider.on('end', () => {
+    isConnected = false;
+    notifyConnectionState(false);
+    connectToProvider();
+  });
+}
+
+function restartWatchEvents() {
+  if (isWatching) {
+    return;
+  }
+
+  if (web3._provider.connected) {
+    registerEvents();
+  } else {
+    window.setTimeout(() => {
+      restartWatchEvents();
+    }, 1000);
+  }
+}
 
 function connectToProvider() {
   web3.setProvider(provider);
+  restartWatchEvents();
 }
 
 function notifyConnectionState(newState) {
@@ -22,26 +54,6 @@ function notifyConnectionState(newState) {
   }
 
   connectionChangeCallback(newState);
-}
-
-function checkConnectionState() {
-  web3.eth.net
-    .isListening()
-    .then(() => {
-      if (!isConnected) {
-        isConnected = true;
-        notifyConnectionState(isConnected);
-      }
-    })
-    .catch(() => {
-      // Try to reconnect ..
-      connectToProvider();
-
-      if (isConnected) {
-        isConnected = false;
-        notifyConnectionState(isConnected);
-      }
-    });
 }
 
 export function connect(callback) {
@@ -55,16 +67,8 @@ export function connect(callback) {
   }
 
   // Connect to Blockchain
+  registerEvents();
   connectToProvider();
-
-  // Check frequently for connection state from now on
-  checkConnectionState();
-
-  if (!checkInterval) {
-    checkInterval = window.setInterval(() => {
-      checkConnectionState();
-    }, REPEAT_CONNECTION_CHECK);
-  }
 }
 
 export default web3;
