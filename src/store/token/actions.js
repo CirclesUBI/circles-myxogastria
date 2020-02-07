@@ -176,7 +176,7 @@ export function transfer(to, amount) {
       dispatch(
         addPendingActivity({
           txHash,
-          type: ActivityTypes.TRANSFER,
+          type: ActivityTypes.HUB_TRANSFER,
           data: {
             from,
             to,
