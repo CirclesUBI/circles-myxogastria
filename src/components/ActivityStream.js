@@ -127,16 +127,25 @@ const ActivityStream = () => {
 };
 
 const ActivityStreamList = (props, context) => {
-  const { activities, lastSeen, safeAddress, walletAddress } = useSelector(
-    state => {
-      return {
-        activities: state.activity.activities,
-        lastSeen: state.activity.lastSeen,
-        safeAddress: state.safe.address,
-        walletAddress: state.wallet.address,
-      };
-    },
-  );
+  const {
+    activities,
+    lastUpdated,
+    lastSeen,
+    safeAddress,
+    walletAddress,
+  } = useSelector(state => {
+    return {
+      activities: state.activity.activities,
+      lastSeen: state.activity.lastSeen,
+      lastUpdated: state.activity.lastUpdated,
+      safeAddress: state.safe.address,
+      walletAddress: state.wallet.address,
+    };
+  });
+
+  if (lastUpdated === 0) {
+    return <Spinner />;
+  }
 
   if (activities.length === 0) {
     return <Pill>{context.t('ActivityStream.nothingHereYet')}</Pill>;
