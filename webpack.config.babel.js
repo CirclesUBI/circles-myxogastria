@@ -84,6 +84,10 @@ export default () => {
     module: {
       rules: [
         {
+          test: /\.worker\.js$/,
+          use: ['babel-loader', 'worker-loader'],
+        },
+        {
           test: /\.js$/,
           exclude,
           use: [

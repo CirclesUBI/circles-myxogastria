@@ -1,17 +1,14 @@
 import PropTypes from 'prop-types';
-import QrScanner from 'qr-scanner';
-import QrScannerWorkerPath from '!!file-loader!qr-scanner/qr-scanner-worker.min.js';
 import React, { useState, useEffect, createRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
+import QrScanner, { hasCamera } from '~/services/qr-scanner';
 import findAddress from '~/utils/findAddress';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
-import { IconScanner } from '~/styles/Icons';
 import { ButtonRoundStyle } from '~/components/ButtonRound';
-
-QrScanner.WORKER_PATH = QrScannerWorkerPath;
+import { IconScanner } from '~/styles/Icons';
 
 const QRCodeScanner = (props, context) => {
   const dispatch = useDispatch();
@@ -64,7 +61,7 @@ const QRCodeScanner = (props, context) => {
 
   const initialize = () => {
     const checkCamera = async () => {
-      const isAvailable = await QrScanner.hasCamera();
+      const isAvailable = await hasCamera();
 
       if (!isAvailable) {
         setIsOnlyUpload(true);
