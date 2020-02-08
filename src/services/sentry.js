@@ -1,6 +1,8 @@
 import * as Sentry from '@sentry/browser';
 import core from '~/services/core';
 
+const ERROR_BLACKLIST = ['connection not open', 'NetworkError', 'AbortError'];
+
 const { TransferError, RequestError, CoreError } = core.errors;
 
 export default function initializeSentry() {
@@ -12,9 +14,14 @@ export default function initializeSentry() {
     dsn: process.env.SENTRY_DSN_URL,
     environment: process.env.NODE_ENV,
     release: `${process.env.RELEASE_VERSION} (${process.env.CORE_RELEASE_VERSION})`,
-    ignoreErrors: [/connection not open/, /NetworkError/, /AbortError/],
     beforeSend: (event, hint) => {
       const exception = hint.originalException;
+
+      if ('message' in exception) {
+        if (ERROR_BLACKLIST.includes(exception.message)) {
+          return null;
+        }
+      }
 
       if (exception instanceof RequestError) {
         event.fingerprint = [
