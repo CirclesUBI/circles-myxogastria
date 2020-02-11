@@ -66,6 +66,7 @@
   "Invite.inviteText": "Join me in receiving a basic income using the Circles App! {shareLink}",
   "LocaleSelector.de": "DE",
   "LocaleSelector.en": "EN",
+  "LocaleSelector.es": "ES",
   "LocaleSelector.localeChangedMessage": "Language changed successfully!",
   "NotFound.description": "We could not find this page ..",
   "NotFound.title": "404",
