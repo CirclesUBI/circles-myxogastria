@@ -10,7 +10,7 @@ import TutorialSteps from '~/components/TutorialSteps';
 import View from '~/components/View';
 import { BackgroundGreenCircle } from '~/styles/Background';
 
-const Tutorial = props => {
+const Tutorial = (props) => {
   const [current, setCurrent] = useState(0);
   const total = props.slides.length;
 
@@ -53,7 +53,7 @@ const Tutorial = props => {
   );
 };
 
-const TutorialHeader = props => {
+const TutorialHeader = (props) => {
   return (
     <Header>
       <TutorialHeaderButton
@@ -69,7 +69,7 @@ const TutorialHeader = props => {
   );
 };
 
-const TutorialHeaderButton = props => {
+const TutorialHeaderButton = (props) => {
   if (props.isFirstSlide) {
     return <ButtonHome isDark onClick={props.onExit} />;
   }
@@ -77,7 +77,7 @@ const TutorialHeaderButton = props => {
   return <ButtonBack isDark onClick={props.onPrevious} />;
 };
 
-const TutorialFooter = props => {
+const TutorialFooter = (props) => {
   return (
     <Footer>
       <TutorialFooterButton

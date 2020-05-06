@@ -32,7 +32,7 @@ const SendConfirm = (props, context) => {
   const [isSent, setIsSent] = useState(false);
   const dispatch = useDispatch();
 
-  const onAmountChange = event => {
+  const onAmountChange = (event) => {
     setAmount(event.target.value);
   };
 

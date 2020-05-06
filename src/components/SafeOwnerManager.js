@@ -15,7 +15,7 @@ import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { removeSafeOwner, getSafeOwners } from '~/store/safe/actions';
 
 const SafeOwnerManager = (props, context) => {
-  const safe = useSelector(state => state.safe);
+  const safe = useSelector((state) => state.safe);
   const dispatch = useDispatch();
 
   const isDisabled = safe.nonce !== null;
@@ -24,7 +24,7 @@ const SafeOwnerManager = (props, context) => {
     dispatch(getSafeOwners());
   }, []);
 
-  const onRemove = async address => {
+  const onRemove = async (address) => {
     dispatch(showSpinnerOverlay());
 
     try {
@@ -61,7 +61,7 @@ const SafeOwnerManager = (props, context) => {
   );
 };
 
-const SafeOwnerManagerList = props => {
+const SafeOwnerManagerList = (props) => {
   if (props.owners.length === 0) {
     return (
       <SpacingStyle>
@@ -70,7 +70,7 @@ const SafeOwnerManagerList = props => {
     );
   }
 
-  return props.owners.map(address => {
+  return props.owners.map((address) => {
     return (
       <SafeOwnerManagerItem
         address={address}
@@ -82,7 +82,7 @@ const SafeOwnerManagerList = props => {
 };
 
 const SafeOwnerManagerItem = (props, context) => {
-  const wallet = useSelector(state => state.wallet);
+  const wallet = useSelector((state) => state.wallet);
 
   const onRemove = async () => {
     if (window.confirm(context.t('SafeOwnerManager.areYouSure'))) {
@@ -139,7 +139,7 @@ const OwnerStyle = styled.li`
 
   background-color: ${styles.monochrome.grayLighter};
 
-  flex-wrap: ${props => {
+  flex-wrap: ${(props) => {
     return props.isWrap ? 'wrap' : 'none';
   }};
   justify-content: space-between;

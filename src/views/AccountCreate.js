@@ -21,7 +21,7 @@ const AccountCreate = (props, context) => {
   const [username, setUsername] = useState('');
   const [email, setEMail] = useState('');
 
-  const onChange = event => {
+  const onChange = (event) => {
     const { name, value } = event.target;
 
     if (name === 'username') {

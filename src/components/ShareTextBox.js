@@ -8,7 +8,7 @@ import { TextareaStyle } from '~/styles/Inputs';
 
 const SHARE_TITLE = 'Circles';
 
-const ShareTextBox = props => {
+const ShareTextBox = (props) => {
   return (
     <ShareTextBoxStyle>
       <ShareTextareaStyle readOnly={true} value={props.text} />
@@ -20,7 +20,7 @@ const ShareTextBox = props => {
   );
 };
 
-const ShareTextBoxButton = props => {
+const ShareTextBoxButton = (props) => {
   // Fallback to ButtonClipboard in case native share API does not exist
   if (props.isClipboard || !window.navigator.share) {
     return <ButtonClipboard text={props.text} />;

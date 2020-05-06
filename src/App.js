@@ -19,7 +19,7 @@ const APP_CHECK_FRQUENCY = 1000 * 4;
 const App = (props, context) => {
   let checkInterval;
 
-  const app = useSelector(state => state.app);
+  const app = useSelector((state) => state.app);
 
   const dispatch = useDispatch();
 

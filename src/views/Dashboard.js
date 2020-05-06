@@ -20,7 +20,7 @@ import { IconQR, IconShare, IconActivities } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
 
 const Dashboard = () => {
-  const safe = useSelector(state => state.safe);
+  const safe = useSelector((state) => state.safe);
 
   // We consider someone "trusted" when Safe got deployed
   const isTrusted = !safe.nonce;
@@ -45,13 +45,13 @@ const Dashboard = () => {
 };
 
 const DashboardActivityIcon = () => {
-  const { activities, lastSeen } = useSelector(state => {
+  const { activities, lastSeen } = useSelector((state) => {
     return state.activity;
   });
 
   // Is there any pending transactions?
   const isPending =
-    activities.findIndex(activity => {
+    activities.findIndex((activity) => {
       return activity.isPending;
     }) > -1;
 
@@ -77,7 +77,7 @@ const DashboardActivityIcon = () => {
 };
 
 const DashboardView = (props, context) => {
-  const safe = useSelector(state => state.safe);
+  const safe = useSelector((state) => state.safe);
 
   if (!props.isTrusted) {
     return (
@@ -129,7 +129,7 @@ const DashboardView = (props, context) => {
   );
 };
 
-const DashboardActivityCounter = props => {
+const DashboardActivityCounter = (props) => {
   if (props.count === 0) {
     return null;
   }

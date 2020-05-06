@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import styles from '~/styles/variables';
 
-const TutorialSteps = props => {
+const TutorialSteps = (props) => {
   return (
     <TutorialStepsStyle>
       <TutorialStepsItems current={props.current} total={props.total} />
@@ -12,7 +12,7 @@ const TutorialSteps = props => {
   );
 };
 
-const TutorialStepsItems = props => {
+const TutorialStepsItems = (props) => {
   return new Array(props.total).fill(0).map((item, index) => {
     return (
       <TutorialStepsItemStyle isCurrent={props.current === index} key={index} />
@@ -42,7 +42,7 @@ const TutorialStepsItemStyle = styled.li`
 
   border-radius: 50%;
 
-  background-color: ${props => {
+  background-color: ${(props) => {
     return props.isCurrent
       ? styles.monochrome.black
       : styles.monochrome.grayLight;

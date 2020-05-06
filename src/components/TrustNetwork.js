@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import ProfileMini from '~/components/ProfileMini';
 
 const TrustNetwork = () => {
-  const { network } = useSelector(state => state.trust);
+  const { network } = useSelector((state) => state.trust);
 
   return (
     <ListStyle>
@@ -16,8 +16,8 @@ const TrustNetwork = () => {
   );
 };
 
-const TrustNetworkList = props => {
-  return props.connections.map(connection => {
+const TrustNetworkList = (props) => {
+  return props.connections.map((connection) => {
     return (
       <TrustNetworkListItem
         connection={connection}

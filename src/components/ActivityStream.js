@@ -133,7 +133,7 @@ const ActivityStreamList = (props, context) => {
     lastSeen,
     safeAddress,
     walletAddress,
-  } = useSelector(state => {
+  } = useSelector((state) => {
     return {
       activities: state.activity.activities,
       lastSeen: state.activity.lastSeen,
@@ -223,7 +223,7 @@ const ActivityStreamItem = (props, context) => {
   );
 };
 
-const ActivityStreamActor = props => {
+const ActivityStreamActor = (props) => {
   if (props.isHidden) {
     return null;
   }
@@ -245,7 +245,7 @@ const ActivityStreamActor = props => {
   );
 };
 
-const ActivityStreamIcon = props => {
+const ActivityStreamIcon = (props) => {
   if (props.isPending) {
     return <Spinner />;
   }
@@ -315,7 +315,7 @@ const ItemStyle = styled.li`
 
   border-radius: 5rem;
 
-  background: ${props => {
+  background: ${(props) => {
     if (!props.isSeen) {
       return `linear-gradient(
         180deg,

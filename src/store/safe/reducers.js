@@ -58,7 +58,7 @@ const safeReducer = (state = initialState, action) => {
         isLoading: { $set: false },
       });
     case ActionTypes.SAFE_OWNERS_REMOVE_SUCCESS: {
-      const index = state.owners.findIndex(address => {
+      const index = state.owners.findIndex((address) => {
         return address === action.meta.address;
       });
 

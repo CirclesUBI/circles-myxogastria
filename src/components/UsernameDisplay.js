@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 
 import resolveUsernames from '~/services/username';
 
-const UsernameDisplay = props => {
+const UsernameDisplay = (props) => {
   const [username, setUsername] = useState('');
 
   const resolveAddress = () => {
-    resolveUsernames([props.address]).then(result => {
+    resolveUsernames([props.address]).then((result) => {
       setUsername(result[props.address]);
     });
   };

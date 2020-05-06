@@ -16,8 +16,8 @@ import person from '%/images/person.svg';
 const ISSUANCE_RATE_MONTH = process.env.ISSUANCE_RATE_MONTH || 50;
 
 const BalanceDisplay = (props, context) => {
-  const token = useSelector(state => state.token);
-  const safe = useSelector(state => state.safe);
+  const token = useSelector((state) => state.token);
+  const safe = useSelector((state) => state.safe);
 
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
@@ -110,7 +110,7 @@ const BalanceTooltipWrapperStyle = styled.div`
 
   z-index: ${styles.zIndex.balanceTooltip};
 
-  display: ${props => {
+  display: ${(props) => {
     return props.isVisible ? 'block' : 'none';
   }};
 `;

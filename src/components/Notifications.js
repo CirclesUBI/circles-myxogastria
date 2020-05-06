@@ -8,7 +8,7 @@ import { IconNotification } from '~/styles/Icons';
 import { removeNotification } from '~/store/notifications/actions';
 
 const Notifications = () => {
-  const { messages } = useSelector(state => state.notifications);
+  const { messages } = useSelector((state) => state.notifications);
 
   if (messages.length === 0) {
     return null;
@@ -21,8 +21,8 @@ const Notifications = () => {
   );
 };
 
-const NotificationsList = props => {
-  return props.items.map(item => {
+const NotificationsList = (props) => {
+  return props.items.map((item) => {
     return (
       <NotificationsItem
         id={item.id}
@@ -35,7 +35,7 @@ const NotificationsList = props => {
   });
 };
 
-const NotificationsItem = props => {
+const NotificationsItem = (props) => {
   const dispatch = useDispatch();
 
   const onRemove = () => {

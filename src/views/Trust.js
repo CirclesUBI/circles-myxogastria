@@ -14,7 +14,7 @@ import Header, {
 const Trust = (props, context) => {
   const [safeAddress, setSafeAddress] = useState('');
 
-  const onSelect = address => {
+  const onSelect = (address) => {
     setSafeAddress(address);
   };
 

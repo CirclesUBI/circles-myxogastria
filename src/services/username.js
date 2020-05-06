@@ -3,11 +3,11 @@ import core from '~/services/core';
 const cache = {};
 
 export default async function resolveUsernames(addresses) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const result = {};
     const toBeFetched = [];
 
-    addresses.forEach(address => {
+    addresses.forEach((address) => {
       if (address in cache) {
         result[address] = cache[address];
       } else {
@@ -23,7 +23,7 @@ export default async function resolveUsernames(addresses) {
     core.user
       .resolve(toBeFetched)
       .then(({ data }) => {
-        data.forEach(user => {
+        data.forEach((user) => {
           cache[user.safeAddress] = user.username;
           result[user.safeAddress] = user.username;
         });

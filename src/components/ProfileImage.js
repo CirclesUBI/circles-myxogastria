@@ -7,7 +7,7 @@ import web3 from '~/services/web3';
 
 const ICON_SIZE = 30;
 
-const ProfileImage = props => {
+const ProfileImage = (props) => {
   const ref = createRef();
 
   const generate = () => {

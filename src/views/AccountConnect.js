@@ -16,7 +16,7 @@ import Header, {
 } from '~/components/Header';
 
 const AccountConnect = (props, context) => {
-  const { address } = useSelector(state => state.wallet);
+  const { address } = useSelector((state) => state.wallet);
 
   return (
     <Fragment>

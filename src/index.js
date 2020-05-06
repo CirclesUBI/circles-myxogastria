@@ -12,7 +12,7 @@ import locales from 'locales';
 
 initializeSentry();
 
-const Root = props => (
+const Root = (props) => (
   <Provider store={props.store}>
     <I18n translations={props.locales}>
       <App />

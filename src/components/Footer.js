@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import styles from '~/styles/variables';
 
-const Footer = props => {
+const Footer = (props) => {
   return <FooterStyle>{props.children}</FooterStyle>;
 };
 

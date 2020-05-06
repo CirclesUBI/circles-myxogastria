@@ -45,7 +45,7 @@ const envData = CONFIG_KEYS.reduce((acc, key) => {
   return acc;
 }, {});
 
-CONFIG_KEYS_OPTIONAL.forEach(key => {
+CONFIG_KEYS_OPTIONAL.forEach((key) => {
   if (process.env[key]) {
     envData[key] = JSON.stringify(process.env[key]);
   }

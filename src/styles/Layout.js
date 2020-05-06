@@ -34,10 +34,10 @@ export default createGlobalStyle`
 `;
 
 export const SpacingStyle = styled.div`
-  margin-top: ${props => {
+  margin-top: ${(props) => {
     return props.isLargeTop ? '5rem' : styles.base.layout.spacing;
   }};
-  margin-bottom: ${props => {
+  margin-bottom: ${(props) => {
     return props.isLargeBottom ? '5rem' : styles.base.layout.spacing;
   }};
 `;

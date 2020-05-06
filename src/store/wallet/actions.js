@@ -8,7 +8,7 @@ import {
 } from '~/services/wallet';
 
 export function initializeWallet() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({
       type: ActionTypes.WALLET_INITIALIZE,
     });
@@ -35,7 +35,7 @@ export function initializeWallet() {
 }
 
 export function restoreWallet(seedPhrase) {
-  return async dispatch => {
+  return async (dispatch) => {
     const address = fromSeedPhrase(seedPhrase);
 
     const safeAddress = await core.safe.getAddress(address);

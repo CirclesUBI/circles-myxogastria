@@ -47,7 +47,7 @@ export const ButtonRoundStyle = styled(ButtonStyle)`
 
   border-radius: 50%;
 
-  background: ${props => {
+  background: ${(props) => {
     if (props.isConfirmed) {
       return `linear-gradient(
         90deg,

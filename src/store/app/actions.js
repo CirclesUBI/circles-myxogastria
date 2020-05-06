@@ -31,7 +31,7 @@ import {
 } from '~/store/safe/actions';
 
 export function initializeApp() {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({
       type: ActionTypes.APP_INITIALIZE,
     });
@@ -84,7 +84,7 @@ export function checkAppState() {
     await dispatch(checkPendingActivities());
 
     // Debug information
-    await resolveUsernames([safe.address]).then(result => {
+    await resolveUsernames([safe.address]).then((result) => {
       setUser(safe.address, result[safe.address]);
     });
   };
@@ -108,7 +108,7 @@ export function checkAuthState() {
 }
 
 export function burnApp() {
-  return async dispatch => {
+  return async (dispatch) => {
     await dispatch(burnWallet());
 
     await dispatch(resetSafe());

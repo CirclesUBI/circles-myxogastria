@@ -19,10 +19,10 @@ const LocaleSelector = () => {
 };
 
 const LocaleSelectorList = (props, context) => {
-  const { lang } = useSelector(state => state.i18nState);
+  const { lang } = useSelector((state) => state.i18nState);
   const dispatch = useDispatch();
 
-  const onSelect = locale => {
+  const onSelect = (locale) => {
     dispatch(selectLocale(locale));
 
     dispatch(
@@ -32,7 +32,7 @@ const LocaleSelectorList = (props, context) => {
     );
   };
 
-  return LOCALES.map(locale => {
+  return LOCALES.map((locale) => {
     const isSelected = lang === locale;
 
     return (
@@ -92,7 +92,7 @@ const LocaleListItemStyle = styled.li`
 `;
 
 const LocaleButtonStyle = styled(ButtonStyle)`
-  color: ${props => {
+  color: ${(props) => {
     return props.disabled ? styles.monochrome.black : styles.monochrome.gray;
   }};
 

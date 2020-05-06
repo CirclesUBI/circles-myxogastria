@@ -14,7 +14,7 @@ const rotate = keyframes`
   }
 `;
 
-const Spinner = props => {
+const Spinner = (props) => {
   if (props.isHidden) {
     return null;
   }

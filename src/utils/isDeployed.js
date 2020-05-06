@@ -27,7 +27,7 @@ export default async function isDeployed(address) {
     () => {
       return web3.eth.getCode(address);
     },
-    code => {
+    (code) => {
       return code !== '0x';
     },
   );
@@ -38,7 +38,7 @@ export async function hasEnoughBalance(safeAddress, estimate) {
     () => {
       return web3.eth.getBalance(safeAddress);
     },
-    balance => {
+    (balance) => {
       return balance >= estimate;
     },
   );
@@ -49,7 +49,7 @@ export async function isTokenDeployed(safeAddress) {
     () => {
       return core.token.getAddress(safeAddress);
     },
-    address => {
+    (address) => {
       return address !== ZERO_ADDRESS;
     },
   );

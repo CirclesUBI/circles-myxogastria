@@ -15,10 +15,7 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "react",
-    "prettier"
-  ],
+  "plugins": ["react", "prettier"],
   "rules": {
     "no-console": "error",
     "react/jsx-sort-props": [

@@ -6,7 +6,7 @@ import styles from '~/styles/variables';
 
 import logo from '%/images/person.svg';
 
-const Bubble = props => {
+const Bubble = (props) => {
   return <BubbleStyle>{props.children}</BubbleStyle>;
 };
 

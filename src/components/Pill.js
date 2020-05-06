@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import styles from '~/styles/variables';
 
-const Pill = props => {
+const Pill = (props) => {
   return <PillStyle>{props.children}</PillStyle>;
 };
 

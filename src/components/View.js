@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import styles from '~/styles/variables';
 
-const View = props => {
+const View = (props) => {
   return (
     <ViewStyle
       isCentered={props.isCentered}
@@ -35,7 +35,7 @@ export const ViewStyle = styled.main`
 
   z-index: ${styles.zIndex.view};
 
-  display: ${props => {
+  display: ${(props) => {
     return props.isPushingToBottom || props.isCentered ? 'flex' : 'block';
   }};
 
@@ -43,7 +43,7 @@ export const ViewStyle = styled.main`
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 
-  padding-top: ${props => {
+  padding-top: ${(props) => {
     return props.isHeader ? styles.components.header.height : 0;
   }};
   padding-right: ${styles.base.layout.spacing};
@@ -53,20 +53,18 @@ export const ViewStyle = styled.main`
 
   flex-direction: column;
 
-  ${props => {
+  ${(props) => {
     if (!props.isCentered) {
-      return;
+      return '';
     }
 
-    return `
-      justify-content: center;
-    `;
+    return 'justify-content: center;';
   }};
 
   &::after {
     display: block;
 
-    height: ${props => {
+    height: ${(props) => {
       return props.isFooter ? styles.components.footer.height : 0;
     }};
 

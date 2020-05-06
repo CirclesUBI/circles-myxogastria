@@ -17,9 +17,9 @@ import { InputStyle } from '~/styles/Inputs';
 const ProfileBox = (props, context) => {
   const [isDeployed, setIsDeployed] = useState(true);
 
-  const { network } = useSelector(state => state.trust);
+  const { network } = useSelector((state) => state.trust);
 
-  const connection = network.find(item => {
+  const connection = network.find((item) => {
     return item.safeAddress === props.address;
   });
 
@@ -62,7 +62,7 @@ const ProfileBox = (props, context) => {
 };
 
 const SendButton = ({ address, isDeployed }, context) => {
-  const safe = useSelector(state => state.safe);
+  const safe = useSelector((state) => state.safe);
 
   // Check against these three cases where we can't send Circles
   //
@@ -81,7 +81,7 @@ const SendButton = ({ address, isDeployed }, context) => {
 };
 
 const TrustButton = ({ connection, address }, context) => {
-  const safe = useSelector(state => state.safe);
+  const safe = useSelector((state) => state.safe);
 
   if (safe.address === address) {
     return null;
@@ -109,7 +109,7 @@ const RevokeTrustButton = ({ connection }, context) => {
     return null;
   }
 
-  const safe = useSelector(state => state.safe);
+  const safe = useSelector((state) => state.safe);
 
   if (safe.address === connection.safeAddress) {
     return null;
@@ -201,7 +201,7 @@ DeployState.contextTypes = {
 };
 
 const ProfileBoxStyle = styled(BackgroundGreenBottom)`
-  height: ${props => {
+  height: ${(props) => {
     return props.isIncoming ? '39rem' : '34rem';
   }};
 
@@ -230,13 +230,13 @@ const TrustStateStyle = styled.span`
 
   border-radius: 5px;
 
-  color: ${props => {
+  color: ${(props) => {
     return props.isMutual
       ? styles.monochrome.white
       : styles.monochrome.grayDarker;
   }};
 
-  background-color: ${props => {
+  background-color: ${(props) => {
     return props.isMutual
       ? styles.colors.secondary
       : styles.monochrome.grayLighter;

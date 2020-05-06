@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import styles from '~/styles/variables';
 
-const Header = props => {
+const Header = (props) => {
   return (
     <HeaderStyle isAlignedRight={props.isAlignedRight}>
       {props.children}
@@ -34,7 +34,7 @@ export const HeaderStyle = styled.header`
   margin-left: 1rem;
 
   align-items: center;
-  justify-content: ${props => {
+  justify-content: ${(props) => {
     return props.isAlignedRight ? 'flex-end' : 'space-between';
   }};
 `;
@@ -61,7 +61,7 @@ export const HeaderTitleStyle = styled.h1`
     font-size: 1.5em;
   }
 
-  color: ${props => {
+  color: ${(props) => {
     return props.isDark ? styles.monochrome.black : styles.monochrome.white;
   }};
 

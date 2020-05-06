@@ -26,7 +26,7 @@ const SettingsKeysAdd = (props, context) => {
   const [isDone, setIsDone] = useState(false);
   const [ownerAddress, setOwnerAddress] = useState('');
 
-  const onQRCodeScanned = address => {
+  const onQRCodeScanned = (address) => {
     setOwnerAddress(address);
     setIsConfirmationShown(true);
   };

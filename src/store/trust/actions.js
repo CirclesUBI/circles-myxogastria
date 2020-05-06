@@ -24,13 +24,13 @@ export function checkTrustState() {
 
       // Resolve usernames
       const usernames = await resolveUsernames(
-        network.map(connection => {
+        network.map((connection) => {
           return connection.safeAddress;
         }),
       );
 
       const resolvedNetwork = network
-        .map(connection => {
+        .map((connection) => {
           return {
             ...connection,
             username:

@@ -24,7 +24,7 @@ const QRCodeScanner = (props, context) => {
 
   let scanner;
 
-  const onImageSelected = async event => {
+  const onImageSelected = async (event) => {
     const image = event.target.files[0];
 
     if (!image) {
@@ -48,7 +48,7 @@ const QRCodeScanner = (props, context) => {
 
   const startCameraStream = async () => {
     try {
-      scanner = new QrScanner(refVideo.current, result => {
+      scanner = new QrScanner(refVideo.current, (result) => {
         const address = findAddress(result);
         props.onSuccess(address);
       });
@@ -136,13 +136,13 @@ const QRCodeScannerStyle = styled.div`
   width: 28rem;
   height: 28rem;
 
-  margin: ${props => {
+  margin: ${(props) => {
     return props.isVideoVisible ? '2rem auto' : '2rem auto';
   }};
 
   border-radius: 25px;
 
-  background-color: ${props => {
+  background-color: ${(props) => {
     return props.isVideoVisible ? 'transparent' : styles.monochrome.grayLighter;
   }};
 
@@ -154,13 +154,13 @@ const QRCodeScannerStyle = styled.div`
 `;
 
 const QRCodeScannerVideoStyle = styled.video`
-  display: ${props => {
+  display: ${(props) => {
     return props.isVideoVisible ? 'block' : 'none';
   }};
 `;
 
 const QRCodeScannerButtonStyle = styled(ButtonRoundStyle)`
-  display: ${props => {
+  display: ${(props) => {
     return props.isVideoVisible ? 'none' : 'flex';
   }};
 

@@ -19,23 +19,23 @@ const UsernameFinder = (props, context) => {
   const [isQueryEmpty, setIsQueryEmpty] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
 
-  const safe = useSelector(state => state.safe);
+  const safe = useSelector((state) => state.safe);
 
-  const onInputChange = event => {
+  const onInputChange = (event) => {
     props.onInputChange(event.target.value);
   };
 
-  const onSelect = user => {
+  const onSelect = (user) => {
     props.onSelect(user);
   };
 
   const debouncedSearch = useCallback(
-    debounce(async query => {
+    debounce(async (query) => {
       // Search the database for similar usernames
       const response = await core.user.search(query);
 
       const result = response.data
-        .filter(item => {
+        .filter((item) => {
           return item.safeAddress !== safe.address;
         })
         .sort((itemA, itemB) => {
@@ -98,7 +98,7 @@ const UsernameFinder = (props, context) => {
 };
 
 const UsernameFinderResult = (props, context) => {
-  const onClick = user => {
+  const onClick = (user) => {
     props.onClick(user);
   };
 
@@ -119,7 +119,7 @@ const UsernameFinderResult = (props, context) => {
   });
 };
 
-const UsernameFinderItem = props => {
+const UsernameFinderItem = (props) => {
   const onClick = () => {
     props.onClick(props.user);
   };

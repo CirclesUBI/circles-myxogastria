@@ -20,7 +20,7 @@ import Header, {
 } from '~/components/Header';
 
 const Settings = (props, context) => {
-  const safe = useSelector(state => state.safe);
+  const safe = useSelector((state) => state.safe);
 
   return (
     <BackgroundGreenTop>

@@ -24,7 +24,7 @@ const AccountImport = (props, context) => {
   const [seedPhrase, setSeedPhrase] = useState('');
   const dispatch = useDispatch();
 
-  const onChange = event => {
+  const onChange = (event) => {
     setSeedPhrase(event.target.value);
   };
 

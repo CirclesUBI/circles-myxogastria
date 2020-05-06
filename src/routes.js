@@ -35,7 +35,7 @@ const SessionContainer = ({
   isSessionRequired,
   isSafeRequired,
 }) => {
-  const { app, safe } = useSelector(state => {
+  const { app, safe } = useSelector((state) => {
     return {
       app: state.app,
       safe: state.safe,
@@ -106,10 +106,10 @@ const TrustedRoute = ({ component, path }) => {
   );
 };
 
-const TutorialContainer = props => {
+const TutorialContainer = (props) => {
   const [redirect, setRedirect] = useState(false);
 
-  const { isFinished } = useSelector(state => {
+  const { isFinished } = useSelector((state) => {
     return state.tutorial[props.name];
   });
 

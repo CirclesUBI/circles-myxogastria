@@ -9,7 +9,7 @@ import View from '~/components/View';
 import { BackgroundWhirlyGreen } from '~/styles/Background';
 
 const Invite = (props, context) => {
-  const safe = useSelector(state => state.safe);
+  const safe = useSelector((state) => state.safe);
 
   const shareLink = `${process.env.BASE_PATH}/profile/${safe.address}`;
 

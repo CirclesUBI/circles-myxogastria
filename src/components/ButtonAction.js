@@ -130,12 +130,12 @@ const ToggleStyle = styled(ButtonActionStyle)`
   font-size: 2.5em;
 
   transform: translate3d(
-      ${props => {
+      ${(props) => {
         return props.isExtended ? '0, -14rem, 0' : '0, 0, 0';
       }}
     )
     rotate(
-      ${props => {
+      ${(props) => {
         return props.isExtended ? '0deg' : '45deg';
       }}
     );
@@ -166,7 +166,7 @@ const OverlayStyle = styled.div`
 
   overflow: hidden;
 
-  background: ${props => {
+  background: ${(props) => {
     return props.isVisible
       ? `rgba(255, 255, 255, 0.9)`
       : `rgba(255, 255, 255, 0)`;
@@ -190,7 +190,7 @@ const PanelStyle = styled.ul`
 
   background: ${gradient};
 
-  transform: ${props => {
+  transform: ${(props) => {
     return props.isVisible
       ? 'translate3d(0, 0, 0)'
       : `translate3d(0, ${panelHeight}, 0)`;

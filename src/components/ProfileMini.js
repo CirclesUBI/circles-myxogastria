@@ -6,7 +6,7 @@ import ProfileImage from '~/components/ProfileImage';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import styles from '~/styles/variables';
 
-const ProfileMini = props => {
+const ProfileMini = (props) => {
   return (
     <ProfileMiniStyle isInline={props.isInline}>
       <ProfileImage address={props.address} />
@@ -35,7 +35,7 @@ const ProfileMiniStyle = styled.div`
 
   background-color: ${styles.monochrome.white};
 
-  box-shadow: ${props => {
+  box-shadow: ${(props) => {
     return props.isInline ? '0' : `1px 1px 4px ${styles.monochrome.grayDark}`;
   }};
 
@@ -52,7 +52,7 @@ const UsernameDisplayStyle = styled.span`
   white-space: nowrap;
 
   font-weight: ${styles.base.typography.weight};
-  font-size: ${props => {
+  font-size: ${(props) => {
     return props.isLarge ? '1.5em' : '1em';
   }};
 `;

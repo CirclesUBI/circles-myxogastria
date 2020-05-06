@@ -9,7 +9,7 @@ export function initializeLocale() {
 }
 
 export function selectLocale(locale) {
-  return dispatch => {
+  return (dispatch) => {
     setLocale(locale);
 
     dispatch(setLanguage(locale));

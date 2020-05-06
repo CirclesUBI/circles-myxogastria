@@ -28,7 +28,7 @@ const notificationsReducer = (state = initialState, action) => {
       });
     }
     case ActionTypes.NOTIFICATIONS_REMOVE: {
-      const index = state.messages.findIndex(item => {
+      const index = state.messages.findIndex((item) => {
         return item.id === action.meta.id;
       });
 

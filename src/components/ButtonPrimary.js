@@ -46,7 +46,7 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
 
-  border: ${props => {
+  border: ${(props) => {
     if (props.disabled) {
       return props.isOutline ? `1px solid ${styles.monochrome.gray}` : 0;
     }
@@ -55,7 +55,7 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
   }};
   border-radius: 1.6rem;
 
-  color: ${props => {
+  color: ${(props) => {
     if (props.disabled) {
       return styles.monochrome.gray;
     }
@@ -63,7 +63,7 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
     return props.isOutline ? styles.colors.primary : styles.monochrome.white;
   }};
 
-  background: ${props => {
+  background: ${(props) => {
     if (props.isOutline) {
       return 'transparent';
     }
@@ -118,7 +118,7 @@ export const ButtonPrimaryStyle = styled(ButtonStyle)`
   a {
     display: block;
 
-    color: ${props => {
+    color: ${(props) => {
       return props.isOutline
         ? styles.colors.primary
         : styles.components.button.color;

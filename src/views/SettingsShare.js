@@ -15,7 +15,7 @@ import Header, {
 } from '~/components/Header';
 
 const SettingsShare = (props, context) => {
-  const safe = useSelector(state => state.safe);
+  const safe = useSelector((state) => state.safe);
 
   const shareLink = `${process.env.BASE_PATH}/profile/${safe.address}`;
 

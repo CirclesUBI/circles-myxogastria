@@ -7,7 +7,7 @@ import { ACCOUNT_CREATE, finishTutorial } from '~/store/tutorial/actions';
 import { IconSupport, IconNetwork, IconFriendship } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
 
-const TutorialAccountCreate = props => {
+const TutorialAccountCreate = (props) => {
   const dispatch = useDispatch();
 
   const slides = [

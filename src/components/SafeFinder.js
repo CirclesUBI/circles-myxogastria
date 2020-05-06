@@ -10,7 +10,7 @@ import View from '~/components/View';
 const MODE_QR = Symbol('qr');
 const MODE_USERNAME = Symbol('username');
 
-const SafeFinder = props => {
+const SafeFinder = (props) => {
   const [mode, setMode] = useState(MODE_QR);
   const [usernameInput, setUsernameInput] = useState('');
 
@@ -19,7 +19,7 @@ const SafeFinder = props => {
     setUsernameInput('');
   };
 
-  const onUserInputChange = value => {
+  const onUserInputChange = (value) => {
     if (mode !== MODE_USERNAME) {
       setMode(MODE_USERNAME);
     }
@@ -27,13 +27,13 @@ const SafeFinder = props => {
     setUsernameInput(value);
   };
 
-  const onSelect = safeAddress => {
+  const onSelect = (safeAddress) => {
     setUsernameInput('');
 
     props.onSelect(safeAddress);
   };
 
-  const onUserSelect = user => {
+  const onUserSelect = (user) => {
     props.onSelect(user.safeAddress);
   };
 
@@ -56,12 +56,12 @@ const SafeFinder = props => {
   );
 };
 
-const SafeFinderQRScanner = props => {
+const SafeFinderQRScanner = (props) => {
   if (props.isHidden) {
     return null;
   }
 
-  const onSuccess = result => {
+  const onSuccess = (result) => {
     props.onSuccess(result);
   };
 

@@ -7,8 +7,8 @@ export const SETTINGS_KEYS = 'settingsKeys';
 const TUTORIALS = [ACCOUNT_CREATE, SETTINGS_KEYS];
 
 export function initializeTutorials() {
-  return dispatch => {
-    TUTORIALS.forEach(name => {
+  return (dispatch) => {
+    TUTORIALS.forEach((name) => {
       dispatch({
         type: ActionTypes.TUTORIAL_UPDATE,
         meta: {
@@ -21,7 +21,7 @@ export function initializeTutorials() {
 }
 
 export function resetAllTutorials() {
-  return dispatch => {
+  return (dispatch) => {
     resetTutorials();
     dispatch(initializeTutorials());
   };

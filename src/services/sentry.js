@@ -52,7 +52,7 @@ export function setUser(safeAddress, username) {
     return;
   }
 
-  Sentry.configureScope(scope => {
+  Sentry.configureScope((scope) => {
     scope.setUser({
       id: safeAddress,
       username,
@@ -65,8 +65,8 @@ export function captureException(error, data = {}) {
     return;
   }
 
-  Sentry.configureScope(scope => {
-    Object.keys(data).forEach(key => {
+  Sentry.configureScope((scope) => {
+    Object.keys(data).forEach((key) => {
       scope.setExtra(key, data[key]);
     });
 

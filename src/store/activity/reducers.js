@@ -54,7 +54,7 @@ const activityReducer = (state = initialState, action) => {
       });
     }
     case ActionTypes.ACTIVITIES_REMOVE: {
-      const index = state.activities.findIndex(item => {
+      const index = state.activities.findIndex((item) => {
         return item.id === action.meta.id;
       });
 
@@ -105,7 +105,7 @@ const activityReducer = (state = initialState, action) => {
           // Check if item already exists (maybe we've
           // added it manually as a pending task and
           // now it got mined!
-          const isDuplicate = state.activities.find(item => {
+          const isDuplicate = state.activities.find((item) => {
             return item.hash === newActivity.hash;
           });
 
@@ -135,7 +135,7 @@ const activityReducer = (state = initialState, action) => {
     case ActionTypes.ACTIVITIES_REMOVE_ALL:
       return update(state, { $set: initialState });
     case ActionTypes.ACTIVITIES_SET_STATUS: {
-      const index = state.activities.findIndex(item => {
+      const index = state.activities.findIndex((item) => {
         return item.id === action.meta.id;
       });
 

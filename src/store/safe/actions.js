@@ -19,7 +19,7 @@ import {
 const { ActivityTypes } = core.activity;
 
 export function initializeSafe() {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({
       type: ActionTypes.SAFE_INITIALIZE,
     });
@@ -46,7 +46,7 @@ export function initializeSafe() {
 }
 
 export function createSafeWithNonce() {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       if (hasNonce()) {
         dispatch({

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import circlesGang from '%/images/circles-gang.svg';
 import logo from '%/images/logo.png';
 
-const Logo = props => {
+const Logo = (props) => {
   if (props.isWithGang) {
     return <LogoGangStyle />;
   }

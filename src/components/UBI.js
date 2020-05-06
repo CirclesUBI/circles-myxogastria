@@ -11,8 +11,8 @@ import { requestUBIPayout } from '~/store/token/actions';
 const UBI = (props, context) => {
   const dispatch = useDispatch();
 
-  const safe = useSelector(state => state.safe);
-  const token = useSelector(state => state.token);
+  const safe = useSelector((state) => state.safe);
+  const token = useSelector((state) => state.token);
 
   useEffect(() => {
     // We only collect UBI once every day

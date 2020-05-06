@@ -8,7 +8,7 @@ import { IconSpinner } from '~/styles/Icons';
 
 const TRANSITION_DURATION = 250;
 
-const SpinnerOverlay = props => {
+const SpinnerOverlay = (props) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isSpinnerVisible, setIsSpinnerVisible] = useState(false);
 
@@ -57,7 +57,7 @@ export const SpinnerOverlayStyle = styled.div`
 
   background-color: rgba(255, 255, 255, 0.9);
 
-  opacity: ${props => {
+  opacity: ${(props) => {
     return props.isVisible ? 1 : 0;
   }};
 

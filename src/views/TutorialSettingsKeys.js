@@ -7,7 +7,7 @@ import { SETTINGS_KEYS, finishTutorial } from '~/store/tutorial/actions';
 import { IconKeys, IconDevices, IconSeed } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
 
-const TutorialSettingsKeys = props => {
+const TutorialSettingsKeys = (props) => {
   const dispatch = useDispatch();
 
   const slides = [

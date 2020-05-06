@@ -7,7 +7,7 @@ import styles from '~/styles/variables';
 
 const QR_CODE_SIZE = 230;
 
-const QRCode = props => {
+const QRCode = (props) => {
   const ref = createRef();
 
   const generateQRCode = () => {
