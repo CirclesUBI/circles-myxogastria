@@ -11,6 +11,7 @@
     "stylelint-processor-styled-components"
   ],
   "rules": {
+    "value-keyword-case": null,
     "at-rule-no-unknown": [
       true,
       {
