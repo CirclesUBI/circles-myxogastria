@@ -1,6 +1,6 @@
 {
   "name": "circles-baby-phoenix",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Webapp and mobile client for Circles",
   "main": "src/index.js",
   "private": true,
