@@ -17,6 +17,10 @@
 
 Baby Phoenix is a webapp and mobile client running in the browser for [Circles](https://joincircles.net/) to receive Circles UBI, manage your wallet and organize your trust connections.
 
+## Requirements
+
+* Node v11
+
 ## Development
 
 ```
