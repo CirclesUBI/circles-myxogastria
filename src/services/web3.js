@@ -2,6 +2,12 @@ import Web3 from 'web3';
 
 const provider = new Web3.providers.WebsocketProvider(
   process.env.ETHEREUM_NODE_WS,
+  {
+    clientConfig: {
+      keepalive: true,
+      keepaliveInterval: 60000,
+    },
+  },
 );
 
 const web3 = new Web3();
