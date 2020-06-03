@@ -12,6 +12,7 @@ export default createGlobalStyle`
     font-weight: normal;
     font-style: normal;
     font-display: block;
+
     font-family: 'Circles';
 
     src: url('${iconsEot}?vxg1ru');
