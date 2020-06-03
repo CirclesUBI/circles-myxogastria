@@ -44,9 +44,19 @@ const App = (props, context) => {
       } catch (error) {
         logError(error);
 
+        // Display internal error message to user for debugging purposes
+        let errorMessage = '';
+        if (error && error.message) {
+          errorMessage = error.message;
+          if (error.code) {
+            errorMessage += ` (${error.code})`;
+          }
+          errorMessage = ` [${errorMessage}]`;
+        }
+
         dispatch(
           notify({
-            text: context.t('App.updateErrorMessage'),
+            text: `${context.t('App.updateErrorMessage')}${errorMessage}`,
             type: NotificationsTypes.ERROR,
           }),
         );
