@@ -9,7 +9,7 @@ import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
 import SpinnerOverlay from '~/components/SpinnerOverlay';
 import UBI from '~/components/UBI';
-import logError from '~/utils/debug';
+import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
 import { checkAppState, initializeApp } from '~/store/app/actions';
@@ -44,15 +44,7 @@ const App = (props, context) => {
       } catch (error) {
         logError(error);
 
-        // Display internal error message to user for debugging purposes
-        let errorMessage = '';
-        if (error && error.message) {
-          errorMessage = error.message;
-          if (error.code) {
-            errorMessage += ` (${error.code})`;
-          }
-          errorMessage = ` [${errorMessage}]`;
-        }
+        const errorMessage = formatErrorMessage(error);
 
         dispatch(
           notify({

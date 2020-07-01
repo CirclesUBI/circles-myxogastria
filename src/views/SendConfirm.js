@@ -12,7 +12,8 @@ import Footer from '~/components/Footer';
 import ProfileMini from '~/components/ProfileMini';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
-import logError from '~/utils/debug';
+import core from '~/services/core';
+import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { BackgroundOrangeCircle } from '~/styles/Background';
 import { InputNumberStyle } from '~/styles/Inputs';
@@ -59,10 +60,18 @@ const SendConfirm = (props, context) => {
       setIsSent(true);
     } catch (error) {
       logError(error);
+      let text;
+
+      if (error instanceof core.errors.TransferError) {
+        text = context.t('SendConfirm.errorMessageTransfer');
+      } else {
+        const errorMessage = formatErrorMessage(error);
+        text = `${context.t('SendConfirm.errorMessage')}${errorMessage}`;
+      }
 
       dispatch(
         notify({
-          text: context.t('SendConfirm.errorMessage'),
+          text,
           type: NotificationsTypes.ERROR,
         }),
       );
