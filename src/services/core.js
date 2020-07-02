@@ -26,6 +26,12 @@ const safe = {
     });
   },
 
+  isFunded: async (safeAddress) => {
+    return await requestCore('safe', 'isFunded', {
+      safeAddress,
+    });
+  },
+
   deploy: async (safeAddress) => {
     return await requestCore('safe', 'deploy', {
       safeAddress,
@@ -117,6 +123,12 @@ const trust = {
 // Token module
 
 const token = {
+  isFunded: async (safeAddress) => {
+    return await requestCore('token', 'isFunded', {
+      safeAddress,
+    });
+  },
+
   deploy: async (safeAddress) => {
     return await requestCore('token', 'deploy', {
       safeAddress,
@@ -152,6 +164,22 @@ const token = {
   requestUBIPayout: async (safeAddress) => {
     return await requestCore('token', 'requestUBIPayout', {
       safeAddress,
+    });
+  },
+
+  getNetwork: async (from, to) => {
+    return await requestCore('token', 'getNetwork', {
+      from,
+      to,
+    });
+  },
+
+  findTransitiveTransactions: async (from, to, value, network) => {
+    return await requestCore('token', 'findTransitiveTransactions', {
+      from,
+      to,
+      value,
+      network,
     });
   },
 };
