@@ -55,10 +55,16 @@ export function checkOnboardingState() {
       return;
     }
 
+    if (!safe.nonce) {
+      return;
+    }
+
     // Check if we have enough funds on the Safe
     const balance = await web3.eth.getBalance(safe.address);
 
-    const isFunded = balance > web3.utils.toWei(SAFE_FUND_ETHER, 'ether');
+    const isFunded = web3.utils
+      .toBN(balance)
+      .gt(web3.utils.toBN(web3.utils.toWei(SAFE_FUND_ETHER, 'ether')));
 
     // We can attempt an deployment if one of two
     // conditions is met:
@@ -66,7 +72,7 @@ export function checkOnboardingState() {
     // 1. We have enough incoming trust connections,
     // therefore the Relayer will pay for our fees
     // 2. We funded the Safe ourselves manually
-    if (safe.nonce && (trust.isTrusted || isFunded)) {
+    if (trust.isTrusted || isFunded) {
       await dispatch(finalizeNewAccount());
     }
   };
