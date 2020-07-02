@@ -100,6 +100,7 @@
   "SendConfirm.confirmationText": "Möchtest du wirklich {amount} Circles an ",
   "SendConfirm.confirmationTextAfter": "überweisen?",
   "SendConfirm.errorMessage": "Leider hat das nicht funktioniert ..",
+  "SendConfirm.errorMessageTransfer": "Leider hat das nicht funktioniert ..",
   "SendConfirm.howMuch": "Wieviel möchtest du überweisen?",
   "SendConfirm.sendCircles": "Circles überweisen",
   "SendConfirm.submitAmount": "Weiter",
