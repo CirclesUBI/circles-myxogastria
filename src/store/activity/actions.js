@@ -9,6 +9,8 @@ import {
   setLastSeen,
 } from '~/services/activities';
 
+const PAGE_SIZE = 20;
+
 export const ONBOARDING_FINALIZATION = Symbol('ONBOARDING_FINALIZATION');
 
 export function initializeActivities() {
@@ -121,9 +123,9 @@ export function checkPendingActivities() {
   };
 }
 
-export function checkFinishedActivities() {
+function loadActivities(offset = 0) {
   return async (dispatch, getState) => {
-    const { safe, activity } = getState();
+    const { safe } = getState();
 
     if (!safe.address) {
       return;
@@ -131,12 +133,16 @@ export function checkFinishedActivities() {
 
     dispatch({
       type: ActionTypes.ACTIVITIES_UPDATE,
+      meta: {
+        offset,
+      },
     });
 
     try {
       const { activities, lastTimestamp } = await core.activity.getLatest(
         safe.address,
-        activity.lastTimestamp,
+        PAGE_SIZE,
+        offset,
       );
 
       dispatch({
@@ -144,6 +150,7 @@ export function checkFinishedActivities() {
         meta: {
           activities,
           lastTimestamp,
+          offset,
         },
       });
     } catch (error) {
@@ -154,4 +161,15 @@ export function checkFinishedActivities() {
       return error;
     }
   };
+}
+
+export function loadOlderActivities() {
+  return async (dispatch, getState) => {
+    const { activity } = getState();
+    dispatch(loadActivities(activity.offset + PAGE_SIZE));
+  };
+}
+
+export function checkFinishedActivities() {
+  return loadActivities();
 }

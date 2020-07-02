@@ -9,6 +9,7 @@ const Pill = (props) => {
 };
 
 const PillStyle = styled.p`
+  margin-bottom: 1rem;
   padding: 10px;
 
   border-radius: 1rem;

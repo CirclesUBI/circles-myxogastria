@@ -25,6 +25,7 @@
   "AccountImport.welcomeMessage": "You successfully restored your wallet. Welcome to Circles!",
   "Activities.notifications": "Notifications",
   "ActivityStream.addedToSafe": "was added to this account",
+  "ActivityStream.loadMore": "Load more",
   "ActivityStream.meTrustedSomeone": "You trusted ",
   "ActivityStream.meUntrustedSomeone": "You untrusted ",
   "ActivityStream.myselfAddedToSafe": "You linked this device to this account",
