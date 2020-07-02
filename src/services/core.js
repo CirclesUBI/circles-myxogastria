@@ -161,10 +161,11 @@ const token = {
 const activity = {
   ActivityTypes: core.activity.ActivityTypes,
 
-  getLatest: async (safeAddress, timestamp) => {
+  getLatest: async (safeAddress, limit, offset) => {
     return await requestCore('activity', 'getLatest', {
       safeAddress,
-      timestamp,
+      limit,
+      offset,
     });
   },
 };

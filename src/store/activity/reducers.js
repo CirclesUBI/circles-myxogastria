@@ -13,10 +13,13 @@ const initialState = {
   activities: [],
   isError: false,
   isLoading: false,
+  isLoadingMore: false,
+  isMore: true,
   lastSeen: 0,
   lastTimestamp: 0,
   lastUpdated: 0,
   nextId: 1,
+  offset: 0,
 };
 
 const initialStateActivity = {
@@ -48,8 +51,14 @@ const activityReducer = (state = initialState, action) => {
       // incoming activities
       activity.hash = generateHash(activity);
 
+      const newActivities = state.activities
+        .concat([activity])
+        .sort((itemA, itemB) => {
+          return itemB.timestamp - itemA.timestamp;
+        });
+
       return update(state, {
-        activities: { $push: [activity] },
+        activities: { $set: newActivities },
         nextId: { $set: state.nextId + 1 },
       });
     }
@@ -73,20 +82,28 @@ const activityReducer = (state = initialState, action) => {
     case ActionTypes.ACTIVITIES_UPDATE:
       return update(state, {
         isLoading: { $set: true },
+        isLoadingMore: { $set: action.meta.offset > 0 },
         isError: { $set: false },
+        offset: {
+          $set: action.meta.offset === 0 ? state.offset : action.meta.offset,
+        },
       });
     case ActionTypes.ACTIVITIES_UPDATE_SUCCESS: {
       // Nothing to add .. array is empty
       if (action.meta.activities.length === 0) {
         return update(state, {
           isLoading: { $set: false },
+          isLoadingMore: {
+            $set: action.meta.offset > 0 ? false : state.isLoadingMore,
+          },
           lastUpdated: { $set: Date.now() },
+          isMore: { $set: action.meta.offset > 0 ? false : state.isMore },
         });
       }
 
       // Create new activities
-      const newActivities = action.meta.activities.reduce(
-        (acc, activity, index) => {
+      const newActivities = action.meta.activities
+        .reduce((acc, activity, index) => {
           // We get the timestamp in seconds from the graph service
           const timestamp = parseInt(`${activity.timestamp}000`);
 
@@ -114,14 +131,18 @@ const activityReducer = (state = initialState, action) => {
           }
 
           return acc;
-        },
-        [],
-      );
+        }, [])
+        .sort((itemA, itemB) => {
+          return itemB.timestamp - itemA.timestamp;
+        });
 
       // Update timestamps and add new objects
       return update(state, {
         activities: { $push: newActivities },
         isLoading: { $set: false },
+        isLoadingMore: {
+          $set: action.meta.offset > 0 ? false : state.isLoadingMore,
+        },
         lastTimestamp: { $set: action.meta.lastTimestamp },
         lastUpdated: { $set: Date.now() },
         nextId: { $set: state.nextId + newActivities.length },

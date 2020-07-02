@@ -3,14 +3,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
+import ButtonPrimary from '~/components/ButtonPrimary';
 import Pill from '~/components/Pill';
 import Spinner from '~/components/Spinner';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import core from '~/services/core';
 import styles from '~/styles/variables';
-import { ONBOARDING_FINALIZATION } from '~/store/activity/actions';
+import {
+  ONBOARDING_FINALIZATION,
+  loadOlderActivities,
+} from '~/store/activity/actions';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import { formatCirclesValue } from '~/utils/format';
 
@@ -118,10 +122,26 @@ function formatMessage(props) {
   };
 }
 
-const ActivityStream = () => {
+const ActivityStream = (props, context) => {
+  const activity = useSelector((state) => state.activity);
+  const dispatch = useDispatch();
+  const isLoading = activity.isLoadingMore || activity.lastUpdated === 0;
+
+  const onLoadMore = () => {
+    dispatch(loadOlderActivities());
+  };
+
   return (
     <ActivityStreamStyle>
       <ActivityStreamList />
+      {isLoading ? <Spinner /> : null}
+
+      <ButtonPrimary
+        disabled={isLoading || !activity.isMore}
+        onClick={onLoadMore}
+      >
+        {context.t('ActivityStream.loadMore')}
+      </ButtonPrimary>
     </ActivityStreamStyle>
   );
 };
@@ -144,18 +164,15 @@ const ActivityStreamList = (props, context) => {
   });
 
   if (lastUpdated === 0) {
-    return <Spinner />;
+    return null;
   }
 
   if (activities.length === 0) {
     return <Pill>{context.t('ActivityStream.nothingHereYet')}</Pill>;
   }
 
-  return activities
-    .sort((itemA, itemB) => {
-      return itemB.timestamp - itemA.timestamp;
-    })
-    .reduce((acc, { data, id, timestamp, type, txHash, isPending = false }) => {
+  return activities.reduce(
+    (acc, { data, id, timestamp, type, txHash, isPending = false }) => {
       // Filter Gas transfers
       if (
         type === ActivityTypes.TRANSFER &&
@@ -180,7 +197,9 @@ const ActivityStreamList = (props, context) => {
       acc.push(item);
 
       return acc;
-    }, []);
+    },
+    [],
+  );
 };
 
 const ActivityStreamItem = (props, context) => {
