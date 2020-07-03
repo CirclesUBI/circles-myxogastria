@@ -48,23 +48,6 @@ export function addPendingActivity({ txHash, type, data }) {
   };
 }
 
-export function removeActivity(id) {
-  return {
-    type: ActionTypes.ACTIVITIES_REMOVE,
-    meta: {
-      id,
-    },
-  };
-}
-
-export function resetActivities() {
-  removeLastSeen();
-
-  return {
-    type: ActionTypes.ACTIVITIES_REMOVE_ALL,
-  };
-}
-
 export function checkPendingActivities() {
   return async (dispatch, getState) => {
     const { activity, safe } = getState();
@@ -88,10 +71,9 @@ export function checkPendingActivities() {
 
         try {
           // Check if both Safe and Token are deployed
-          const isSafeDeployed = await web3.eth.getCode(safeAddress);
-
-          const tokenAddress = await core.token.getAddress(safeAddress);
-          const isTokenDeployed = tokenAddress !== ZERO_ADDRESS;
+          const isSafeDeployed = (await web3.eth.getCode(safeAddress)) !== '0x';
+          const isTokenDeployed =
+            (await core.token.getAddress(safeAddress)) !== ZERO_ADDRESS;
 
           isError = false;
           isPending = !(isSafeDeployed && isTokenDeployed);
@@ -107,13 +89,13 @@ export function checkPendingActivities() {
         isError = !isPending && !receipt.status;
       }
 
-      const { id } = activity;
+      const { hash } = activity;
 
       if (activity.isPending !== isPending || activity.isError !== isError) {
         dispatch({
           type: ActionTypes.ACTIVITIES_SET_STATUS,
           meta: {
-            id,
+            hash,
             isError,
             isPending,
           },
@@ -123,9 +105,9 @@ export function checkPendingActivities() {
   };
 }
 
-function loadActivities(offset = 0) {
+function loadActivities() {
   return async (dispatch, getState) => {
-    const { safe } = getState();
+    const { safe, activity } = getState();
 
     if (!safe.address) {
       return;
@@ -133,16 +115,13 @@ function loadActivities(offset = 0) {
 
     dispatch({
       type: ActionTypes.ACTIVITIES_UPDATE,
-      meta: {
-        offset,
-      },
     });
 
     try {
       const { activities, lastTimestamp } = await core.activity.getLatest(
         safe.address,
         PAGE_SIZE,
-        offset,
+        activity.lastTimestamp,
       );
 
       dispatch({
@@ -150,26 +129,61 @@ function loadActivities(offset = 0) {
         meta: {
           activities,
           lastTimestamp,
-          offset,
         },
       });
     } catch (error) {
       dispatch({
         type: ActionTypes.ACTIVITIES_UPDATE_ERROR,
       });
-
-      return error;
     }
   };
 }
 
-export function loadOlderActivities() {
+export function loadMoreActivities() {
   return async (dispatch, getState) => {
-    const { activity } = getState();
-    dispatch(loadActivities(activity.offset + PAGE_SIZE));
+    const { safe, activity } = getState();
+
+    if (!safe.address) {
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.ACTIVITIES_LOAD_MORE,
+    });
+
+    const offset = activity.offset + PAGE_SIZE;
+
+    try {
+      const { activities } = await core.activity.getLatest(
+        safe.address,
+        PAGE_SIZE,
+        0,
+        offset,
+      );
+
+      dispatch({
+        type: ActionTypes.ACTIVITIES_LOAD_MORE_SUCCESS,
+        meta: {
+          activities,
+          offset,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.ACTIVITIES_LOAD_MORE_ERROR,
+      });
+    }
   };
 }
 
 export function checkFinishedActivities() {
   return loadActivities();
+}
+
+export function resetActivities() {
+  removeLastSeen();
+
+  return {
+    type: ActionTypes.ACTIVITIES_RESET,
+  };
 }

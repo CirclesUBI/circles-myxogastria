@@ -21,7 +21,7 @@ import {
   checkFinishedActivities,
   checkPendingActivities,
   initializeActivities,
-  loadOlderActivities,
+  loadMoreActivities,
   resetActivities,
 } from '~/store/activity/actions';
 
@@ -44,18 +44,20 @@ export function initializeApp() {
 
     // Initialize and gather important app states (auth etc.)
     try {
-      await dispatch(initializeLocale());
-      await dispatch(initializeTutorials());
-      await dispatch(initializeWallet());
-      await dispatch(initializeSafe());
-      await dispatch(initializeActivities());
-      await dispatch(checkAuthState());
+      dispatch(initializeLocale());
+      dispatch(initializeTutorials());
+      dispatch(initializeWallet());
+      dispatch(initializeSafe());
+      dispatch(initializeActivities());
+      dispatch(checkAuthState());
 
       // Check only once in the beginning if Safe is funded (since this is an
       // edge-case and we don't want to waste requests)
-      await dispatch(checkOnboardingState());
+      dispatch(checkOnboardingState());
 
-      await dispatch(loadOlderActivities());
+      // Already check for older activities to see if we can hide the "Load
+      // More" button
+      dispatch(loadMoreActivities());
 
       dispatch({
         type: ActionTypes.APP_INITIALIZE_SUCCESS,
@@ -79,18 +81,18 @@ export function checkAppState() {
     }
 
     // Onboarding / permission states
-    await dispatch(checkSafeState());
-    await dispatch(checkTrustState());
-    await dispatch(checkAuthState());
+    dispatch(checkSafeState());
+    dispatch(checkTrustState());
+    dispatch(checkAuthState());
 
     // In-app states
-    await dispatch(checkTokenState());
-    await dispatch(checkCurrentBalance());
-    await dispatch(checkFinishedActivities());
-    await dispatch(checkPendingActivities());
+    dispatch(checkTokenState());
+    dispatch(checkCurrentBalance());
+    dispatch(checkFinishedActivities());
+    dispatch(checkPendingActivities());
 
     // Debug information
-    await resolveUsernames([safe.address]).then((result) => {
+    resolveUsernames([safe.address]).then((result) => {
       setUser(safe.address, result[safe.address]);
     });
   };
@@ -115,12 +117,12 @@ export function checkAuthState() {
 
 export function burnApp() {
   return async (dispatch) => {
-    await dispatch(burnWallet());
+    dispatch(burnWallet());
 
-    await dispatch(resetSafe());
-    await dispatch(resetToken());
-    await dispatch(resetActivities());
-    await dispatch(resetAllTutorials());
+    dispatch(resetSafe());
+    dispatch(resetToken());
+    dispatch(resetActivities());
+    dispatch(resetAllTutorials());
 
     window.location.reload();
   };

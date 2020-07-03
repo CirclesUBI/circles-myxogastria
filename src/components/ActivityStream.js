@@ -13,7 +13,7 @@ import core from '~/services/core';
 import styles from '~/styles/variables';
 import {
   ONBOARDING_FINALIZATION,
-  loadOlderActivities,
+  loadMoreActivities,
 } from '~/store/activity/actions';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import { formatCirclesValue } from '~/utils/format';
@@ -128,7 +128,7 @@ const ActivityStream = (props, context) => {
   const isLoading = activity.isLoadingMore || activity.lastUpdated === 0;
 
   const onLoadMore = () => {
-    dispatch(loadOlderActivities());
+    dispatch(loadMoreActivities());
   };
 
   return (
@@ -136,12 +136,11 @@ const ActivityStream = (props, context) => {
       <ActivityStreamList />
       {isLoading ? <Spinner /> : null}
 
-      <ButtonPrimary
-        disabled={isLoading || !activity.isMore}
-        onClick={onLoadMore}
-      >
-        {context.t('ActivityStream.loadMore')}
-      </ButtonPrimary>
+      {activity.isMoreAvailable ? (
+        <ButtonPrimary disabled={isLoading} onClick={onLoadMore}>
+          {context.t('ActivityStream.loadMore')}
+        </ButtonPrimary>
+      ) : null}
     </ActivityStreamStyle>
   );
 };
@@ -172,7 +171,7 @@ const ActivityStreamList = (props, context) => {
   }
 
   return activities.reduce(
-    (acc, { data, id, timestamp, type, txHash, isPending = false }) => {
+    (acc, { data, hash, timestamp, type, isPending = false }) => {
       // Filter Gas transfers
       if (
         type === ActivityTypes.TRANSFER &&
@@ -186,7 +185,7 @@ const ActivityStreamList = (props, context) => {
           data={data}
           isPending={isPending}
           isSeen={timestamp < lastSeen}
-          key={`${txHash}${id}${timestamp}`}
+          key={hash}
           safeAddress={safeAddress}
           timestamp={timestamp}
           type={type}
