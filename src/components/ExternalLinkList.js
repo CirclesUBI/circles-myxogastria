@@ -10,7 +10,7 @@ export const CONTACT_URL = 'mailto:hello@joincircles.net';
 export const FAQ_URL =
   'https://docs.google.com/document/d/1MS6IxQ3baMx_PJLJZ_KWpZYKHUKQ1JFkU4wHOW0P6OU';
 export const FEEDBACK_URL = 'https://forms.gle/vWzF1NcAEb3qzjyd7';
-export const MARKETPLACE_URL = 'https://t.me/CirclesBazaar';
+export const MARKETPLACE_URL = 'https://t.me/CirclesUBI';
 
 const ExternalLinkList = (props, context) => {
   return (
