@@ -42,6 +42,15 @@ export function deployToken() {
   };
 }
 
+export function updateTokenFundedState(isFunded) {
+  return {
+    type: ActionTypes.TOKEN_FUNDED_UPDATE,
+    meta: {
+      isFunded,
+    },
+  };
+}
+
 export function checkTokenState() {
   return async (dispatch, getState) => {
     const { safe, token } = getState();

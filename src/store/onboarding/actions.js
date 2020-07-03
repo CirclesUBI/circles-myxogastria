@@ -1,7 +1,6 @@
 import core from '~/services/core';
-import web3 from '~/services/web3';
 import { checkAppState, checkAuthState } from '~/store/app/actions';
-import { deployToken } from '~/store/token/actions';
+import { deployToken, updateTokenFundedState } from '~/store/token/actions';
 import { restoreWallet } from '~/store/wallet/actions';
 
 import {
@@ -14,9 +13,8 @@ import {
   deploySafe,
   finalizeSafeDeployment,
   resetSafe,
+  updateSafeFundedState,
 } from '~/store/safe/actions';
-
-const SAFE_FUND_ETHER = '0.002';
 
 // Create a new account which means that we get into
 // a pending deployment state. The user has to get 3
@@ -49,7 +47,7 @@ export function createNewAccount(username, email) {
 // be deployed ..
 export function checkOnboardingState() {
   return async (dispatch, getState) => {
-    const { trust, safe } = getState();
+    const { safe } = getState();
 
     if (!safe.address) {
       return;
@@ -59,22 +57,15 @@ export function checkOnboardingState() {
       return;
     }
 
-    // Check if we have enough funds on the Safe
-    const balance = await web3.eth.getBalance(safe.address);
+    // Check if we have enough funds for Token / Safe deployment
+    const [isSafeFunded, isTokenFunded] = await Promise.all([
+      core.safe.isFunded(safe.address),
+      core.token.isFunded(safe.address),
+    ]);
 
-    const isFunded = web3.utils
-      .toBN(balance)
-      .gt(web3.utils.toBN(web3.utils.toWei(SAFE_FUND_ETHER, 'ether')));
-
-    // We can attempt an deployment if one of two
-    // conditions is met:
-    //
-    // 1. We have enough incoming trust connections,
-    // therefore the Relayer will pay for our fees
-    // 2. We funded the Safe ourselves manually
-    if (trust.isTrusted || isFunded) {
-      await dispatch(finalizeNewAccount());
-    }
+    // ... and update the status accordingly
+    dispatch(updateSafeFundedState(isSafeFunded));
+    dispatch(updateTokenFundedState(isTokenFunded));
   };
 }
 

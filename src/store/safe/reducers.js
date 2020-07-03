@@ -4,6 +4,7 @@ import ActionTypes from '~/store/safe/types';
 
 const initialState = {
   address: null,
+  isFunded: false,
   isLoading: false,
   isLocked: false,
   nonce: null,
@@ -16,6 +17,10 @@ const safeReducer = (state = initialState, action) => {
       return update(state, {
         address: { $set: action.meta.address },
         nonce: { $set: action.meta.nonce },
+      });
+    case ActionTypes.SAFE_FUNDED_UPDATE:
+      return update(state, {
+        isFunded: { $set: action.meta.isFunded },
       });
     case ActionTypes.SAFE_CREATE_SUCCESS:
       return update(state, {

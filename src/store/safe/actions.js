@@ -87,6 +87,15 @@ export function createSafeWithNonce() {
   };
 }
 
+export function updateSafeFundedState(isFunded) {
+  return {
+    type: ActionTypes.SAFE_FUNDED_UPDATE,
+    meta: {
+      isFunded,
+    },
+  };
+}
+
 export function checkSafeState() {
   return async (dispatch, getState) => {
     const { safe, wallet } = getState();

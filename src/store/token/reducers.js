@@ -5,12 +5,17 @@ import ActionTypes from '~/store/token/types';
 const initialState = {
   address: null,
   balance: null,
+  isFunded: false,
   isLoading: false,
   lastPayout: 0,
 };
 
 const tokenReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionTypes.TOKEN_FUNDED_UPDATE:
+      return update(state, {
+        isFunded: { $set: action.meta.isFunded },
+      });
     case ActionTypes.TOKEN_UPDATE_SUCCESS:
       return update(state, {
         address: { $set: action.meta.address },
