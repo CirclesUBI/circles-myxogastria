@@ -8,7 +8,7 @@ const { ActivityTypes } = core.activity;
 
 export function checkTrustState() {
   return async (dispatch, getState) => {
-    const { safe } = getState();
+    const { safe, trust } = getState();
 
     // Safe address does not exist or is not deployed yet
     if (!safe.address) {
@@ -18,11 +18,16 @@ export function checkTrustState() {
     try {
       const network = await core.trust.getNetwork(safe.address);
 
-      // Check if we reached a trusted status (to be ready for
-      // final Safe deployment)
-      const { isTrusted, trustConnections } = await core.trust.isTrusted(
-        safe.address,
-      );
+      // Check if we reached a trusted status (to be ready for final Safe
+      // deployment)
+      let isTrusted = trust.isTrusted;
+      let trustConnections = trust.trustConnections;
+
+      if (!trust.isTrusted) {
+        const result = await core.trust.isTrusted(safe.address);
+        isTrusted = result.isTrusted;
+        trustConnections = result.trustConnections;
+      }
 
       // Resolve usernames
       const usernames = await resolveUsernames(
