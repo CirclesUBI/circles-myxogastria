@@ -21,6 +21,7 @@ import {
   checkFinishedActivities,
   checkPendingActivities,
   initializeActivities,
+  loadOlderActivities,
   resetActivities,
 } from '~/store/activity/actions';
 
@@ -50,6 +51,12 @@ export function initializeApp() {
       await dispatch(initializeActivities());
       await dispatch(checkAuthState());
 
+      // Check only once in the beginning if Safe is funded (since this is an
+      // edge-case and we don't want to waste requests)
+      await dispatch(checkOnboardingState());
+
+      await dispatch(loadOlderActivities());
+
       dispatch({
         type: ActionTypes.APP_INITIALIZE_SUCCESS,
       });
@@ -74,7 +81,6 @@ export function checkAppState() {
     // Onboarding / permission states
     await dispatch(checkSafeState());
     await dispatch(checkTrustState());
-    await dispatch(checkOnboardingState());
     await dispatch(checkAuthState());
 
     // In-app states

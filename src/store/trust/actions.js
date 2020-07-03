@@ -20,7 +20,9 @@ export function checkTrustState() {
 
       // Check if we reached a trusted status (to be ready for
       // final Safe deployment)
-      const isTrusted = await core.trust.isTrusted(safe.address);
+      const { isTrusted, trustConnections } = await core.trust.isTrusted(
+        safe.address,
+      );
 
       // Resolve usernames
       const usernames = await resolveUsernames(
@@ -48,6 +50,7 @@ export function checkTrustState() {
         meta: {
           isTrusted,
           network: resolvedNetwork,
+          trustConnections,
         },
       });
     } catch (error) {

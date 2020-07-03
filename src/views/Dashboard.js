@@ -9,13 +9,13 @@ import ButtonHeader from '~/components/ButtonHeader';
 import ButtonRound from '~/components/ButtonRound';
 import Header from '~/components/Header';
 import Logo from '~/components/Logo';
+import OnboardingStatus from '~/components/OnboardingStatus';
 import QRCode from '~/components/QRCode';
 import Spinner from '~/components/Spinner';
 import TrustNetwork from '~/components/TrustNetwork';
 import View from '~/components/View';
 import styles from '~/styles/variables';
 import { BackgroundWhirlyOrange } from '~/styles/Background';
-import { FAQ_URL } from '~/components/ExternalLinkList';
 import { IconQR, IconShare, IconActivities } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
 
@@ -91,12 +91,7 @@ const DashboardView = (props, context) => {
             <h1>{context.t('Dashboard.welcomeToCircles')}</h1>
           </SpacingStyle>
 
-          <p>
-            {context.t('Dashboard.trustDescription')}{' '}
-            <a href={FAQ_URL} rel="noopener noreferrer" target="_blank">
-              {context.t('Dashboard.learnMore')}
-            </a>
-          </p>
+          <OnboardingStatus />
 
           <SpacingStyle>
             <QRCode data={safe.address} />
