@@ -179,7 +179,6 @@ export function transfer(to, amount) {
 
     try {
       const value = new web3.utils.BN(core.utils.toFreckles(amount));
-
       const txHash = await core.token.transfer(from, to, value);
 
       dispatch(

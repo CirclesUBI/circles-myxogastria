@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ZERO_ADDRESS } from '~/utils/constants';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ButtonClipboard from '~/components/ButtonClipboard';
 import ButtonPrimary from '~/components/ButtonPrimary';
@@ -13,29 +13,32 @@ import styles from '~/styles/variables';
 import { BackgroundGreenBottom } from '~/styles/Background';
 import { IconSend, IconTrust } from '~/styles/Icons';
 import { InputStyle } from '~/styles/Inputs';
+import { checkTrustState } from '~/store/trust/actions';
 
 const ProfileBox = (props, context) => {
   const [isDeployed, setIsDeployed] = useState(true);
-
   const { network } = useSelector((state) => state.trust);
+  const dispatch = useDispatch();
 
   const connection = network.find((item) => {
     return item.safeAddress === props.address;
   });
 
   useEffect(() => {
-    // Find out if Safe is deployed
-    const checkSafeDeployment = async () => {
+    // Update trust connection info
+    dispatch(checkTrustState());
+
+    // Find out if Token is deployed
+    const checkTokenDeployment = async () => {
       try {
         const tokenAddress = await core.token.getAddress(props.address);
-
         setIsDeployed(tokenAddress !== ZERO_ADDRESS);
       } catch {
         setIsDeployed(false);
       }
     };
 
-    checkSafeDeployment();
+    checkTokenDeployment();
   }, [props.address]);
 
   return (
