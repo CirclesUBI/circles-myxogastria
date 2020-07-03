@@ -8,6 +8,8 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { formatCirclesValue } from '~/utils/format';
 import { requestUBIPayout } from '~/store/token/actions';
 
+const MIN_UBI_PAYOUT = '0.5';
+
 const UBI = (props, context) => {
   const dispatch = useDispatch();
 
@@ -29,7 +31,7 @@ const UBI = (props, context) => {
       // Check if we can collect some UBI
       const payout = await core.token.checkUBIPayout(safe.address);
 
-      if (payout.isZero()) {
+      if (payout.gte(core.utils.toFreckles(MIN_UBI_PAYOUT))) {
         return;
       }
 
