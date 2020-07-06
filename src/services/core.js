@@ -166,22 +166,6 @@ const token = {
       safeAddress,
     });
   },
-
-  getNetwork: async (from, to) => {
-    return await requestCore('token', 'getNetwork', {
-      from,
-      to,
-    });
-  },
-
-  findTransitiveTransactions: async (from, to, value, network) => {
-    return await requestCore('token', 'findTransitiveTransactions', {
-      from,
-      to,
-      value,
-      network,
-    });
-  },
 };
 
 // Activity module
