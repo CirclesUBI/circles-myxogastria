@@ -44,20 +44,20 @@ export function initializeApp() {
 
     // Initialize and gather important app states (auth etc.)
     try {
-      dispatch(initializeLocale());
-      dispatch(initializeTutorials());
-      dispatch(initializeWallet());
-      dispatch(initializeSafe());
-      dispatch(initializeActivities());
-      dispatch(checkAuthState());
+      await dispatch(initializeLocale());
+      await dispatch(initializeTutorials());
+      await dispatch(initializeWallet());
+      await dispatch(initializeSafe());
+      await dispatch(initializeActivities());
+      await dispatch(checkAuthState());
 
       // Check only once in the beginning if Safe is funded (since this is an
       // edge-case and we don't want to waste requests)
-      dispatch(checkOnboardingState());
+      await dispatch(checkOnboardingState());
 
       // Already check for older activities to see if we can hide the "Load
       // More" button
-      dispatch(loadMoreActivities());
+      await dispatch(loadMoreActivities());
 
       dispatch({
         type: ActionTypes.APP_INITIALIZE_SUCCESS,
@@ -81,15 +81,15 @@ export function checkAppState() {
     }
 
     // Onboarding / permission states
-    dispatch(checkSafeState());
-    dispatch(checkTrustState());
-    dispatch(checkAuthState());
+    await dispatch(checkSafeState());
+    await dispatch(checkTrustState());
+    await dispatch(checkAuthState());
 
     // In-app states
-    dispatch(checkTokenState());
-    dispatch(checkCurrentBalance());
-    dispatch(checkFinishedActivities());
-    dispatch(checkPendingActivities());
+    await dispatch(checkTokenState());
+    await dispatch(checkCurrentBalance());
+    await dispatch(checkFinishedActivities());
+    await dispatch(checkPendingActivities());
 
     // Debug information
     resolveUsernames([safe.address]).then((result) => {
@@ -117,12 +117,12 @@ export function checkAuthState() {
 
 export function burnApp() {
   return async (dispatch) => {
-    dispatch(burnWallet());
+    await dispatch(burnWallet());
 
-    dispatch(resetSafe());
-    dispatch(resetToken());
-    dispatch(resetActivities());
-    dispatch(resetAllTutorials());
+    await dispatch(resetSafe());
+    await dispatch(resetToken());
+    await dispatch(resetActivities());
+    await dispatch(resetAllTutorials());
 
     window.location.reload();
   };
