@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import core from '~/services/core';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import web3 from '~/services/web3';
 import { formatCirclesValue } from '~/utils/format';
 import { requestUBIPayout } from '~/store/token/actions';
 
@@ -31,7 +32,9 @@ const UBI = (props, context) => {
       // Check if we can collect some UBI
       const payout = await core.token.checkUBIPayout(safe.address);
 
-      if (payout.lt(core.utils.toFreckles(MIN_UBI_PAYOUT))) {
+      if (
+        payout.lt(web3.utils.toBN(web3.utils.toWei(MIN_UBI_PAYOUT, 'ether')))
+      ) {
         return;
       }
 
