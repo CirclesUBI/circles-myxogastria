@@ -31,7 +31,7 @@ const UBI = (props, context) => {
       // Check if we can collect some UBI
       const payout = await core.token.checkUBIPayout(safe.address);
 
-      if (payout.gte(core.utils.toFreckles(MIN_UBI_PAYOUT))) {
+      if (payout.lt(core.utils.toFreckles(MIN_UBI_PAYOUT))) {
         return;
       }
 
