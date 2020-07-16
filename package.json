@@ -72,7 +72,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jazzicon": "^1.5.0",
     "luxon": "^1.24.1",
-    "qr-scanner": "^1.1.1",
+    "qr-scanner": "^1.2.0",
     "qrcode": "^1.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
