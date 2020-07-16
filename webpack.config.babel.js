@@ -8,6 +8,7 @@ import webpack from 'webpack';
 dotenv.config();
 
 const CONFIG_KEYS = [
+  'API_SERVICE_EXTERNAL',
   'BASE_PATH',
   'ETHEREUM_NODE_WS',
   'GRAPH_NODE_EXTERNAL',
@@ -18,7 +19,6 @@ const CONFIG_KEYS = [
   'SAFE_ADDRESS',
   'SAFE_FUNDER_ADDRESS',
   'SUBGRAPH_NAME',
-  'USERNAME_SERVICE_EXTERNAL',
 ];
 
 const CONFIG_KEYS_OPTIONAL = ['SENTRY_DSN_URL'];

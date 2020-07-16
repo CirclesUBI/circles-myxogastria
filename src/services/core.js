@@ -4,12 +4,12 @@ import web3 from '~/services/web3';
 import { getAccount } from '~/services/wallet';
 
 const core = new CirclesCore(web3, {
-  safeMasterAddress: process.env.SAFE_ADDRESS,
+  apiServiceEndpoint: process.env.API_SERVICE_EXTERNAL,
+  graphNodeEndpoint: process.env.GRAPH_NODE_EXTERNAL,
   hubAddress: process.env.HUB_ADDRESS,
   proxyFactoryAddress: process.env.PROXY_FACTORY_ADDRESS,
-  usernameServiceEndpoint: process.env.USERNAME_SERVICE_EXTERNAL,
   relayServiceEndpoint: process.env.RELAY_SERVICE_EXTERNAL,
-  graphNodeEndpoint: process.env.GRAPH_NODE_EXTERNAL,
+  safeMasterAddress: process.env.SAFE_ADDRESS,
   subgraphName: process.env.SUBGRAPH_NAME,
 });
 
