@@ -10,6 +10,10 @@ const provider = new Web3.providers.WebsocketProvider(
       maxAttempts: 5,
       onTimeout: false,
     },
+    clientConfig: {
+      keepalive: true,
+      keepaliveInterval: 60000,
+    },
   },
 );
 
