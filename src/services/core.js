@@ -58,8 +58,8 @@ const safe = {
     });
   },
 
-  getAddress: async (ownerAddress) => {
-    return await requestCore('safe', 'getAddress', {
+  getAddresses: async (ownerAddress) => {
+    return await requestCore('safe', 'getAddresses', {
       ownerAddress,
     });
   },

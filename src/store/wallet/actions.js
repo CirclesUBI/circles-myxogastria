@@ -38,7 +38,7 @@ export function restoreWallet(seedPhrase) {
   return async (dispatch) => {
     const address = fromSeedPhrase(seedPhrase);
 
-    const safeAddress = await core.safe.getAddress(address);
+    const [safeAddress] = await core.safe.getAddresses(address);
 
     if (!safeAddress) {
       throw new Error('Can not restore undeployed Safe');
