@@ -117,9 +117,10 @@ export function checkSafeState() {
     }
 
     // Try to find a Safe owned by us
-    const [address] = await core.safe.getAddresses(wallet.address);
+    const safeAddresses = await core.safe.getAddresses(wallet.address);
 
-    if (address) {
+    if (safeAddresses.length > 0) {
+      const address = safeAddresses[0];
       setSafeAddress(address);
 
       dispatch({
@@ -212,9 +213,9 @@ export function addSafeOwner(address) {
 
     try {
       // Check if wallet already owns a Safe
-      const [ownerSafeAddress] = await core.safe.getAddresses(address);
+      const ownerSafeAddresses = await core.safe.getAddresses(address);
 
-      if (ownerSafeAddress) {
+      if (ownerSafeAddresses.length > 0) {
         throw new Error('Wallet already owns another Safe');
       }
 
