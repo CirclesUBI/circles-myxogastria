@@ -20,10 +20,10 @@ import { IconQR, IconShare, IconActivities } from '~/styles/Icons';
 import { SpacingStyle } from '~/styles/Layout';
 
 const Dashboard = () => {
-  const safe = useSelector((state) => state.safe);
+  const { safe, token } = useSelector((state) => state);
 
   // We consider someone "trusted" when Safe got deployed
-  const isTrusted = !safe.nonce;
+  const isOnboardingComplete = !safe.nonce && safe.address && token.address;
 
   return (
     <BackgroundWhirlyOrange>
@@ -39,7 +39,7 @@ const Dashboard = () => {
         </ButtonHeader>
       </Header>
 
-      <DashboardView isTrusted={isTrusted} />
+      <DashboardView isOnboardingComplete={isOnboardingComplete} />
     </BackgroundWhirlyOrange>
   );
 };
@@ -79,7 +79,7 @@ const DashboardActivityIcon = () => {
 const DashboardView = (props, context) => {
   const safe = useSelector((state) => state.safe);
 
-  if (!props.isTrusted) {
+  if (!props.isOnboardingComplete) {
     return (
       <Fragment>
         <View isHeader>
@@ -137,7 +137,7 @@ const DashboardActivityCounter = (props) => {
 };
 
 DashboardView.propTypes = {
-  isTrusted: PropTypes.bool.isRequired,
+  isOnboardingComplete: PropTypes.bool.isRequired,
 };
 
 DashboardView.contextTypes = {
