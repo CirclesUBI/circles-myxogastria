@@ -63,7 +63,7 @@ const Onboarding = () => {
       );
     } catch (error) {
       // @TODO Show error to user
-      console.error(error);
+      // console.error(error);
     }
 
     dispatch(hideSpinnerOverlay());
@@ -462,6 +462,15 @@ OnboardingStepSeedChallenge.propTypes = {
 
 OnboardingStepAvatar.propTypes = {
   ...stepProps,
+};
+
+OnboardingInput.propTypes = {
+  errorMessage: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  isError: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.any.isRequired,
 };
 
 export default Onboarding;
