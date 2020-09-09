@@ -1,5 +1,4 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
-import I18n from 'redux-i18n';
 import NoSsr from '@material-ui/core/NoSsr';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -12,20 +11,16 @@ import initializeSentry from '~/services/sentry';
 import store from '~/configureStore';
 import theme from '~/styles/theme';
 
-import locales from 'locales';
-
 initializeSentry();
 
 const Root = (props) => (
   <Provider store={props.store}>
-    <I18n translations={props.locales}>
-      <NoSsr>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
-      </NoSsr>
-    </I18n>
+    <NoSsr>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </NoSsr>
   </Provider>
 );
 
@@ -34,7 +29,4 @@ Root.propTypes = {
   store: PropTypes.object.isRequired,
 };
 
-ReactDOM.render(
-  <Root locales={locales} store={store} />,
-  document.getElementById('app'),
-);
+ReactDOM.render(<Root store={store} />, document.getElementById('app'));

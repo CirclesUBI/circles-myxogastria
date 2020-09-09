@@ -19,7 +19,6 @@ import {
   resetSafe,
 } from '~/store/safe/actions';
 import { checkTrustState } from '~/store/trust/actions';
-import { initializeLocale } from '~/store/locale/actions';
 import {
   initializeTutorials,
   resetAllTutorials,
@@ -60,7 +59,6 @@ export function initializeApp() {
 
     // Initialize and gather important app states (auth etc.)
     try {
-      await dispatch(initializeLocale());
       await dispatch(initializeTutorials());
       await dispatch(initializeWallet());
       await dispatch(initializeSafe());

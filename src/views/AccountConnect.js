@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,10 +8,11 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
 import View from '~/components/View';
+import translate from '~/services/locale';
 import { SpacingStyle } from '~/styles/Layout';
 import { switchAccount } from '~/store/onboarding/actions';
 
-const AccountConnect = (props, context) => {
+const AccountConnect = () => {
   const dispatch = useDispatch();
   const { wallet, safe } = useSelector((state) => state);
 
@@ -24,7 +24,7 @@ const AccountConnect = (props, context) => {
     <Fragment>
       <Header>
         <ButtonBack to="/welcome" />
-        {context.t('AccountConnect.connectToYourWallet')}
+        {translate('AccountConnect.connectToYourWallet')}
       </Header>
 
       <View>
@@ -46,16 +46,16 @@ const AccountConnect = (props, context) => {
 
         <SpacingStyle>
           <p>
-            {context.t('AccountConnect.noSeedPhrase')}{' '}
+            {translate('AccountConnect.noSeedPhrase')}{' '}
             <Link to="/welcome/onboarding">
-              {context.t('AccountConnect.createNewWallet')}
+              {translate('AccountConnect.createNewWallet')}
             </Link>
           </p>
 
           <p>
-            {context.t('AccountConnect.questions')}{' '}
+            {translate('AccountConnect.questions')}{' '}
             <a href="mailto:hello@joincircles.net">
-              {context.t('AccountConnect.contactUs')}
+              {translate('AccountConnect.contactUs')}
             </a>
           </p>
         </SpacingStyle>
@@ -63,15 +63,11 @@ const AccountConnect = (props, context) => {
 
       <Footer>
         <ButtonPrimary to="/welcome/seed">
-          {context.t('AccountConnect.restoreWithSeedPhrase')}
+          {translate('AccountConnect.restoreWithSeedPhrase')}
         </ButtonPrimary>
       </Footer>
     </Fragment>
   );
-};
-
-AccountConnect.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default AccountConnect;

@@ -4,7 +4,6 @@ import isDeployed from '~/utils/isDeployed';
 import web3 from '~/services/web3';
 import { addPendingActivity } from '~/store/activity/actions';
 import {
-  generateNonce,
   getCurrentAccount,
   getNonce,
   getSafeAddress,
@@ -58,26 +57,6 @@ export function initializeSafe() {
       meta: {
         currentAccount,
         pendingAddress,
-        pendingNonce,
-      },
-    });
-  };
-}
-
-export function generateAndStoreNonce() {
-  return async (dispatch) => {
-    if (hasNonce()) {
-      return;
-    }
-
-    // Generate and store a new nonce to use it later to predict the future Safe
-    // address and prepare onboarding.
-    const pendingNonce = generateNonce();
-    setNonce(pendingNonce);
-
-    dispatch({
-      type: ActionTypes.SAFE_UPDATE_NONCE,
-      meta: {
         pendingNonce,
       },
     });

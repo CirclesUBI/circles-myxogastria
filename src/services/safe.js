@@ -12,8 +12,14 @@ const SAFE_CURRENT_ACCOUNT = 'currentAccount';
 
 export const MAX_NONCE = 10000;
 
-export function generateNonce() {
+export function generateRandomNonce() {
   return Math.round(Math.random() * MAX_NONCE);
+}
+
+export function generateDeterministicNonce(address) {
+  // Returns a deterministic CREATE2 nonce to predict a to-be-deployed Safe
+  // address
+  return parseInt(address.slice(30), 16);
 }
 
 export function getNonce() {

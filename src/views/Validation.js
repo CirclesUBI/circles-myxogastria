@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, Avatar } from '@material-ui/core';
@@ -11,9 +10,10 @@ import Header from '~/components/Header';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import ValidationStatus from '~/components/ValidationStatus';
 import View from '~/components/View';
+import translate from '~/services/locale';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 
-const Validation = (props, context) => {
+const Validation = () => {
   const trust = useSelector((state) => state.trust);
 
   const leftTrustConnections = Math.max(
@@ -37,7 +37,7 @@ const Validation = (props, context) => {
         <ValidationStatus />
 
         <ButtonPrimary to="/validation/share">
-          {context.t('Validation.buttonShare')}
+          {translate('Validation.buttonShare')}
         </ButtonPrimary>
       </View>
     </Fragment>
@@ -52,10 +52,6 @@ const ValidationProfile = () => {
       <UsernameDisplay address={safe.pendingAddress} />
     </Typography>
   );
-};
-
-Validation.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default Validation;

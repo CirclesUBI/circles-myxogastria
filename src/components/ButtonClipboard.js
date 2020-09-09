@@ -6,8 +6,9 @@ import { useDispatch } from 'react-redux';
 import ButtonPrimary from '~/components/ButtonPrimary';
 import ButtonRound from '~/components/ButtonRound';
 import notify from '~/store/notifications/actions';
+import translate from '~/services/locale';
 
-const ButtonClipboard = (props, context) => {
+const ButtonClipboard = (props) => {
   const dispatch = useDispatch();
   const ref = createRef();
 
@@ -21,7 +22,7 @@ const ButtonClipboard = (props, context) => {
     clipboard.on('success', () => {
       dispatch(
         notify({
-          text: context.t('ButtonClipboard.copiedMessage'),
+          text: translate('ButtonClipboard.copiedMessage'),
         }),
       );
     });
@@ -36,20 +37,16 @@ const ButtonClipboard = (props, context) => {
   if (!props.isPrimary) {
     return (
       <ButtonRound ref={ref}>
-        <span>{context.t('ButtonClipboard.share')}</span>
+        <span>{translate('ButtonClipboard.share')}</span>
       </ButtonRound>
     );
   }
 
   return (
     <ButtonPrimary ref={ref}>
-      {context.t('ButtonClipboard.copyToClipboard')}
+      {translate('ButtonClipboard.copyToClipboard')}
     </ButtonPrimary>
   );
-};
-
-ButtonClipboard.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 ButtonClipboard.propTypes = {

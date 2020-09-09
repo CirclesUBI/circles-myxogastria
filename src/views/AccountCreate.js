@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -10,12 +9,13 @@ import Logo from '~/components/Logo';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import translate from '~/services/locale';
 import { InputStyle, FieldsetStyle, LabelStyle } from '~/styles/Inputs';
 import { SpacingStyle } from '~/styles/Layout';
 import { createNewAccount } from '~/store/onboarding/actions';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 
-const AccountCreate = (props, context) => {
+const AccountCreate = () => {
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState('');
@@ -39,19 +39,19 @@ const AccountCreate = (props, context) => {
 
       dispatch(
         notify({
-          text: context.t('AccountCreate.welcomeMessage'),
+          text: translate('AccountCreate.welcomeMessage'),
         }),
       );
     } catch (error) {
-      let text = context.t('AccountCreate.errorMessage');
+      let text = translate('AccountCreate.errorMessage');
 
       if (error.message.includes('409')) {
-        text = context.t('AccountCreate.errorExistsAlready');
+        text = translate('AccountCreate.errorExistsAlready');
       } else if (
         error.message.includes('400') ||
         error.message.includes('invalid type')
       ) {
-        text = context.t('AccountCreate.errorLengthOrFormat');
+        text = translate('AccountCreate.errorLengthOrFormat');
       }
 
       dispatch(
@@ -80,16 +80,16 @@ const AccountCreate = (props, context) => {
         </SpacingStyle>
 
         <SpacingStyle>
-          <h1>{context.t('AccountCreate.createYourUsername')}</h1>
+          <h1>{translate('AccountCreate.createYourUsername')}</h1>
         </SpacingStyle>
 
         <SpacingStyle>
-          <p>{context.t('AccountCreate.yourUsernameDescription')}</p>
+          <p>{translate('AccountCreate.yourUsernameDescription')}</p>
         </SpacingStyle>
 
         <FieldsetStyle>
           <LabelStyle htmlFor="username">
-            {context.t('AccountCreate.username')}
+            {translate('AccountCreate.username')}
           </LabelStyle>
 
           <InputStyle
@@ -104,7 +104,7 @@ const AccountCreate = (props, context) => {
 
         <FieldsetStyle>
           <LabelStyle htmlFor="email">
-            {context.t('AccountCreate.email')}
+            {translate('AccountCreate.email')}
           </LabelStyle>
 
           <InputStyle
@@ -124,15 +124,11 @@ const AccountCreate = (props, context) => {
           type="submit"
           onClick={onSubmit}
         >
-          {context.t('AccountCreate.submit')}
+          {translate('AccountCreate.submit')}
         </ButtonPrimary>
       </Footer>
     </Fragment>
   );
-};
-
-AccountCreate.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default AccountCreate;

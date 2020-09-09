@@ -3,8 +3,9 @@ import React from 'react';
 
 import ButtonPrimary from '~/components/ButtonPrimary';
 import ButtonRound from '~/components/ButtonRound';
+import translate from '~/services/locale';
 
-const ButtonShare = (props, context) => {
+const ButtonShare = (props) => {
   const { title, text, url } = props;
 
   const onShare = () => {
@@ -19,20 +20,16 @@ const ButtonShare = (props, context) => {
   if (!props.isPrimary) {
     return (
       <ButtonRound onClick={onShare}>
-        <span>{context.t('ButtonShare.share')}</span>
+        <span>{translate('ButtonShare.share')}</span>
       </ButtonRound>
     );
   }
 
   return (
     <ButtonPrimary onClick={onShare}>
-      {context.t('ButtonShare.share')}
+      {translate('ButtonShare.share')}
     </ButtonPrimary>
   );
-};
-
-ButtonShare.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 ButtonShare.propTypes = {

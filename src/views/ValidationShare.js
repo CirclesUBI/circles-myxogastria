@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -6,12 +5,12 @@ import ButtonBack from '~/components/ButtonBack';
 import Header from '~/components/Header';
 import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
+import translate from '~/services/locale';
 
-const ValidationShare = (props, context) => {
+const ValidationShare = () => {
   const safe = useSelector((state) => state.safe);
-
   const shareLink = `${process.env.BASE_PATH}/profile/${safe.pendingAddress}`;
-  const shareText = context.t('ValidationShare.shareText', { shareLink });
+  const shareText = translate('ValidationShare.shareText', { shareLink });
 
   return (
     <Fragment>
@@ -20,15 +19,11 @@ const ValidationShare = (props, context) => {
       </Header>
 
       <View>
-        <p>{context.t('ValidationShare.description')}</p>
+        <p>{translate('ValidationShare.description')}</p>
         <ShareTextBox text={shareText} url={shareLink} />
       </View>
     </Fragment>
   );
-};
-
-ValidationShare.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default ValidationShare;

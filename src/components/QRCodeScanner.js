@@ -8,11 +8,12 @@ import { useDispatch } from 'react-redux';
 import findAddress from '~/utils/findAddress';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
+import translate from '~/services/locale';
 import { ButtonRoundStyle } from '~/components/ButtonRound';
 
 QrScanner.WORKER_PATH = QrScannerWorkerPath;
 
-const QRCodeScanner = (props, context) => {
+const QRCodeScanner = (props) => {
   const dispatch = useDispatch();
 
   const [isOnlyUpload, setIsOnlyUpload] = useState(false);
@@ -38,7 +39,7 @@ const QRCodeScanner = (props, context) => {
     } catch {
       dispatch(
         notify({
-          text: context.t('QRCodeScanner.qrNotFound'),
+          text: translate('QRCodeScanner.qrNotFound'),
           type: NotificationsTypes.WARNING,
         }),
       );
@@ -111,14 +112,10 @@ const QRCodeScanner = (props, context) => {
         isVideoVisible={isVideoVisible}
         onClick={onClick}
       >
-        <span>{context.t('QRCodeScanner.tapToScan')}</span>
+        <span>{translate('QRCodeScanner.tapToScan')}</span>
       </QRCodeScannerButtonStyle>
     </QRCodeScannerStyle>
   );
-};
-
-QRCodeScanner.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 QRCodeScanner.propTypes = {

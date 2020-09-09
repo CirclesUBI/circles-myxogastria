@@ -8,13 +8,14 @@ import Pill from '~/components/Pill';
 import ProfileMini from '~/components/ProfileMini';
 import core from '~/services/core';
 import debounce from '~/utils/debounce';
+import translate from '~/services/locale';
 import web3 from '~/services/web3';
 import { InputStyle } from '~/styles/Inputs';
 import { SpacingStyle } from '~/styles/Layout';
 
 const MAX_SEARCH_RESULTS = 5;
 
-const UsernameFinder = (props, context) => {
+const UsernameFinder = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isQueryEmpty, setIsQueryEmpty] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
@@ -77,7 +78,7 @@ const UsernameFinder = (props, context) => {
   return (
     <Fragment>
       <InputStyle
-        placeholder={context.t('UsernameFinder.inputPlaceholder')}
+        placeholder={translate('UsernameFinder.inputPlaceholder')}
         type="text"
         value={props.input}
         onChange={onInputChange}
@@ -97,13 +98,13 @@ const UsernameFinder = (props, context) => {
   );
 };
 
-const UsernameFinderResult = (props, context) => {
+const UsernameFinderResult = (props) => {
   const onClick = (user) => {
     props.onClick(user);
   };
 
   if (!props.isQueryEmpty && props.items.length === 0 && !props.isLoading) {
-    return <Pill>{context.t('UsernameFinder.noResultsGiven')}</Pill>;
+    return <Pill>{translate('UsernameFinder.noResultsGiven')}</Pill>;
   }
 
   if (props.isLoading) {
@@ -144,14 +145,6 @@ UsernameFinderResult.propTypes = {
 UsernameFinderItem.propTypes = {
   onClick: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-};
-
-UsernameFinder.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-UsernameFinderResult.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 const ListStyle = styled.ul`

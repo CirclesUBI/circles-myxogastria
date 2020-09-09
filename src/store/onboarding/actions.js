@@ -13,6 +13,7 @@ import {
   updateSafeFundedState,
 } from '~/store/safe/actions';
 import { deployToken, updateTokenFundedState } from '~/store/token/actions';
+import { generateDeterministicNonce } from '~/services/safe';
 import { restoreWallet } from '~/store/wallet/actions';
 
 // Create a new account which means that we get into a pending deployment
@@ -20,16 +21,15 @@ import { restoreWallet } from '~/store/wallet/actions';
 // Safe to finally be part of the Circles system.
 export function createNewAccount(username, email, avatarUrl) {
   return async (dispatch, getState) => {
-    const { safe } = getState();
+    const { wallet } = getState();
 
     // Create an undeployed Safe
-    const pendingAddress = await dispatch(
-      createSafeWithNonce(safe.pendingNonce),
-    );
+    const pendingNonce = generateDeterministicNonce(wallet.address);
+    const pendingAddress = await dispatch(createSafeWithNonce(pendingNonce));
 
     // Register user in on-chain database
     await core.user.register(
-      safe.pendingNonce,
+      pendingNonce,
       pendingAddress,
       username,
       email,
@@ -110,21 +110,22 @@ export function switchAccount(address) {
 
 // Recover an account via a seed phrase. We check if we can find an deployed
 // Safe related to this wallet.
-export function restoreAccount(seedPhrase, nonce) {
+export function restoreAccount(seedPhrase) {
   return async (dispatch, getState) => {
     await dispatch(restoreWallet(seedPhrase));
 
-    if (nonce) {
-      await dispatch(createSafeWithNonce(nonce));
+    // Find out if Safe is already deployed and has recovered address as an
+    // owner
+    await dispatch(checkSafeState());
+    const { safe, wallet } = getState();
+    if (safe.accounts.length > 0) {
+      await dispatch(switchCurrentAccount(safe.accounts[0]));
     } else {
-      await dispatch(checkSafeState());
-
-      const { safe } = getState();
-      if (safe.accounts.length > 0) {
-        await dispatch(switchCurrentAccount(safe.accounts[0]));
-      } else {
-        throw new Error('Can not recover undeployed Safe without nonce');
-      }
+      // If no Safe was found, try to predict safe address via deterministic
+      // nonce
+      await dispatch(
+        createSafeWithNonce(generateDeterministicNonce(wallet.address)),
+      );
     }
 
     await dispatch(checkAppState());

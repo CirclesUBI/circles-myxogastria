@@ -1,28 +1,23 @@
-import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 
 import ButtonHome from '~/components/ButtonHome';
-import View from '~/components/View';
-
 import Header from '~/components/Header';
+import View from '~/components/View';
+import translate from '~/services/locale';
 
-const NotFound = (props, context) => {
+const NotFound = () => {
   return (
     <Fragment>
       <Header>
         <ButtonHome />
-        {context.t('NotFound.title')}
+        {translate('NotFound.title')}
       </Header>
 
       <View>
-        <p>{context.t('NotFound.description')}</p>
+        <p>{translate('NotFound.description')}</p>
       </View>
     </Fragment>
   );
-};
-
-NotFound.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default NotFound;

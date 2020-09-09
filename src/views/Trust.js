@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import ButtonBack from '~/components/ButtonBack';
 import Header from '~/components/Header';
 import SafeFinder from '~/components/SafeFinder';
+import translate from '~/services/locale';
 
-const Trust = (props, context) => {
+const Trust = () => {
   const [safeAddress, setSafeAddress] = useState('');
 
   const onSelect = (address) => {
@@ -21,16 +21,12 @@ const Trust = (props, context) => {
     <Fragment>
       <Header>
         <ButtonBack to="/" />
-        {context.t('Trust.trustSomeone')}
+        {translate('Trust.trustSomeone')}
       </Header>
 
       <SafeFinder onSelect={onSelect} />
     </Fragment>
   );
-};
-
-Trust.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default Trust;

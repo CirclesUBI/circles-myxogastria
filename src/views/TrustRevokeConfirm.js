@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -12,13 +12,13 @@ import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import { BackgroundPurpleCircle } from '~/styles/Background';
+import translate from '~/services/locale';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { untrustUser } from '~/store/trust/actions';
 
 import Header from '~/components/Header';
 
-const TrustRevokeConfirm = (props, context) => {
+const TrustRevokeConfirm = (props) => {
   const { address } = props.match.params;
   const [isSent, setIsSent] = useState(false);
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const TrustRevokeConfirm = (props, context) => {
 
       dispatch(
         notify({
-          text: context.t('TrustRevokeConfirm.successMessage'),
+          text: translate('TrustRevokeConfirm.successMessage'),
         }),
       );
 
@@ -41,7 +41,7 @@ const TrustRevokeConfirm = (props, context) => {
 
       dispatch(
         notify({
-          text: context.t('TrustRevokeConfirm.errorMessage'),
+          text: translate('TrustRevokeConfirm.errorMessage'),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -55,34 +55,30 @@ const TrustRevokeConfirm = (props, context) => {
   }
 
   return (
-    <BackgroundPurpleCircle>
+    <Fragment>
       <Header>
         <ButtonBack to={`/profile/${address}`} />
-        {context.t('TrustRevokeConfirm.revokeTrust')}
+        {translate('TrustRevokeConfirm.revokeTrust')}
         <ButtonHome />
       </Header>
 
       <View>
         <Bubble>
           <p>
-            {context.t('TrustRevokeConfirm.confirmationText')}
+            {translate('TrustRevokeConfirm.confirmationText')}
             <UsernameDisplay address={address} />
-            {context.t('TrustRevokeConfirm.confirmationTextAfter')}
+            {translate('TrustRevokeConfirm.confirmationTextAfter')}
           </p>
         </Bubble>
       </View>
 
       <Footer>
         <ButtonPrimary onClick={onSubmit}>
-          {context.t('TrustRevokeConfirm.confirm')}
+          {translate('TrustRevokeConfirm.confirm')}
         </ButtonPrimary>
       </Footer>
-    </BackgroundPurpleCircle>
+    </Fragment>
   );
-};
-
-TrustRevokeConfirm.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 TrustRevokeConfirm.propTypes = {

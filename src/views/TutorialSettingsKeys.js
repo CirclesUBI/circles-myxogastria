@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Tutorial from '~/components/Tutorial';
+import translate from '~/services/locale';
 import { SETTINGS_KEYS, finishTutorial } from '~/store/tutorial/actions';
 import { SpacingStyle } from '~/styles/Layout';
 
@@ -28,43 +29,43 @@ const TutorialSettingsKeys = (props) => {
   );
 };
 
-const SlideAccountRecovery = (props, context) => {
+const SlideAccountRecovery = () => {
   return (
     <Fragment>
       <SpacingStyle>
-        <h2>{context.t('TutorialSettingsKeys.accountRecoveryTitle')}</h2>
+        <h2>{translate('TutorialSettingsKeys.accountRecoveryTitle')}</h2>
       </SpacingStyle>
 
       <SpacingStyle>
-        <p>{context.t('TutorialSettingsKeys.accountRecovery')}</p>
+        <p>{translate('TutorialSettingsKeys.accountRecovery')}</p>
       </SpacingStyle>
     </Fragment>
   );
 };
 
-const SlideLinkingDevices = (props, context) => {
+const SlideLinkingDevices = () => {
   return (
     <Fragment>
       <SpacingStyle>
-        <h2>{context.t('TutorialSettingsKeys.linkingDevicesTitle')}</h2>
+        <h2>{translate('TutorialSettingsKeys.linkingDevicesTitle')}</h2>
       </SpacingStyle>
 
       <SpacingStyle>
-        <p>{context.t('TutorialSettingsKeys.linkingDevices')}</p>
+        <p>{translate('TutorialSettingsKeys.linkingDevices')}</p>
       </SpacingStyle>
     </Fragment>
   );
 };
 
-const SlideSeedPhrase = (props, context) => {
+const SlideSeedPhrase = () => {
   return (
     <Fragment>
       <SpacingStyle>
-        <h2>{context.t('TutorialSettingsKeys.seedPhraseTitle')}</h2>
+        <h2>{translate('TutorialSettingsKeys.seedPhraseTitle')}</h2>
       </SpacingStyle>
 
       <SpacingStyle>
-        <p>{context.t('TutorialSettingsKeys.seedPhrase')}</p>
+        <p>{translate('TutorialSettingsKeys.seedPhrase')}</p>
       </SpacingStyle>
     </Fragment>
   );
@@ -72,18 +73,6 @@ const SlideSeedPhrase = (props, context) => {
 
 TutorialSettingsKeys.propTypes = {
   onExit: PropTypes.func.isRequired,
-};
-
-SlideAccountRecovery.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-SlideLinkingDevices.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-SlideSeedPhrase.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default TutorialSettingsKeys;

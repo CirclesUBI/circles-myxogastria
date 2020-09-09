@@ -1,9 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import styled from 'styled-components';
+import React, { Fragment } from 'react';
 
-import styles from '~/styles/variables';
-import { BackgroundOrangeBottom } from '~/styles/Background';
+import translate from '~/services/locale';
 
 export const ABOUT_URL = 'https://joincircles.net';
 export const CONTACT_URL = 'mailto:hello@joincircles.net';
@@ -12,69 +9,40 @@ export const FAQ_URL =
 export const FEEDBACK_URL = 'https://forms.gle/vWzF1NcAEb3qzjyd7';
 export const MARKETPLACE_URL = 'https://t.me/CirclesUBI';
 
-const ExternalLinkList = (props, context) => {
+const ExternalLinkList = () => {
   return (
-    <Background>
-      <PushToBottomStyle />
-
-      <ListStyle>
-        <ListItemStyle>
+    <Fragment>
+      <ul>
+        <li>
           <a href={ABOUT_URL} rel="noopener noreferrer" target="_blank">
-            {context.t('ExternalLinkList.about')}
+            {translate('ExternalLinkList.about')}
           </a>
-        </ListItemStyle>
+        </li>
 
-        <ListItemStyle>
+        <li>
           <a href={FAQ_URL} rel="noopener noreferrer" target="_blank">
-            {context.t('ExternalLinkList.faq')}
+            {translate('ExternalLinkList.faq')}
           </a>
-        </ListItemStyle>
+        </li>
 
-        <ListItemStyle>
+        <li>
           <a href={MARKETPLACE_URL} rel="noopener noreferrer" target="_blank">
-            {context.t('ExternalLinkList.marketplace')}
+            {translate('ExternalLinkList.marketplace')}
           </a>
-        </ListItemStyle>
+        </li>
 
-        <ListItemStyle>
+        <li>
           <a href={FEEDBACK_URL} rel="noopener noreferrer" target="_blank">
-            {context.t('ExternalLinkList.issue')}
+            {translate('ExternalLinkList.issue')}
           </a>
-        </ListItemStyle>
+        </li>
 
-        <ListItemStyle>
-          <a href={CONTACT_URL}>{context.t('ExternalLinkList.contact')}</a>
-        </ListItemStyle>
-      </ListStyle>
-    </Background>
+        <li>
+          <a href={CONTACT_URL}>{translate('ExternalLinkList.contact')}</a>
+        </li>
+      </ul>
+    </Fragment>
   );
 };
-
-ExternalLinkList.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-const PushToBottomStyle = styled.div`
-  flex: 1 0 auto;
-`;
-
-const Background = styled(BackgroundOrangeBottom)`
-  height: auto;
-
-  margin-right: -${styles.base.layout.spacing};
-  margin-left: -${styles.base.layout.spacing};
-`;
-
-const ListStyle = styled.ul`
-  padding: 2rem;
-  padding-top: 3rem;
-
-  flex-shrink: 0;
-`;
-
-const ListItemStyle = styled.li`
-  font-weight: ${styles.base.typography.weightLight};
-  font-size: 1.1em;
-`;
 
 export default ExternalLinkList;

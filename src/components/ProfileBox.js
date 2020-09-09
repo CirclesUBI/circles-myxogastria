@@ -10,10 +10,11 @@ import ButtonRound, { ButtonRoundStyle } from '~/components/ButtonRound';
 import ProfileMini from '~/components/ProfileMini';
 import core from '~/services/core';
 import styles from '~/styles/variables';
+import translate from '~/services/locale';
 import { InputStyle } from '~/styles/Inputs';
 import { checkTrustState } from '~/store/trust/actions';
 
-const ProfileBox = (props, context) => {
+const ProfileBox = (props) => {
   const [isDeployed, setIsDeployed] = useState(true);
   const { network } = useSelector((state) => state.trust);
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const ProfileBox = (props, context) => {
       </ProfileBoxActionsStyle>
 
       <ProfileContentStyle>
-        <p>{context.t('ProfileBox.publicAddress')}</p>
+        <p>{translate('ProfileBox.publicAddress')}</p>
         <InputStyle readOnly value={props.address} />
         <ButtonClipboard isPrimary text={props.address} />
         <RevokeTrustButton connection={connection} />
@@ -62,7 +63,7 @@ const ProfileBox = (props, context) => {
   );
 };
 
-const SendButton = ({ address, isDeployed }, context) => {
+const SendButton = ({ address, isDeployed }) => {
   const safe = useSelector((state) => state.safe);
 
   // Check against these three cases where we can't send Circles
@@ -77,12 +78,12 @@ const SendButton = ({ address, isDeployed }, context) => {
 
   return (
     <ButtonRound disabled={disabled} to={`/send/${address}`}>
-      <span>{context.t('ProfileBox.sendCircles')}</span>
+      <span>{translate('ProfileBox.sendCircles')}</span>
     </ButtonRound>
   );
 };
 
-const TrustButton = ({ connection, address }, context) => {
+const TrustButton = ({ connection, address }) => {
   const safe = useSelector((state) => state.safe);
 
   if (safe.currentAccount === address) {
@@ -92,19 +93,19 @@ const TrustButton = ({ connection, address }, context) => {
   if (connection && connection.isIncoming) {
     return (
       <ButtonRound disabled isConfirmed>
-        <span>{context.t('ProfileBox.isTrusted')}</span>
+        <span>{translate('ProfileBox.isTrusted')}</span>
       </ButtonRound>
     );
   }
 
   return (
     <ButtonRound disabled={safe.nonce !== null} to={`/trust/${address}`}>
-      <span>{context.t('ProfileBox.trustUser')}</span>
+      <span>{translate('ProfileBox.trustUser')}</span>
     </ButtonRound>
   );
 };
 
-const RevokeTrustButton = ({ connection }, context) => {
+const RevokeTrustButton = ({ connection }) => {
   if (!connection || !connection.isIncoming) {
     return null;
   }
@@ -117,12 +118,12 @@ const RevokeTrustButton = ({ connection }, context) => {
 
   return (
     <ButtonPrimary isOutline to={`/trust/revoke/${connection.safeAddress}`}>
-      {context.t('ProfileBox.revokeTrustUser')}
+      {translate('ProfileBox.revokeTrustUser')}
     </ButtonPrimary>
   );
 };
 
-const TrustState = ({ connection }, context) => {
+const TrustState = ({ connection }) => {
   if (!connection || !connection.isOutgoing) {
     return null;
   }
@@ -130,36 +131,28 @@ const TrustState = ({ connection }, context) => {
   if (connection.isIncoming) {
     return (
       <TrustStateStyle isMutual>
-        {context.t('ProfileBox.isMutualTrust')}
+        {translate('ProfileBox.isMutualTrust')}
       </TrustStateStyle>
     );
   }
 
   return (
-    <TrustStateStyle>{context.t('ProfileBox.isTrustingYou')}</TrustStateStyle>
+    <TrustStateStyle>{translate('ProfileBox.isTrustingYou')}</TrustStateStyle>
   );
 };
 
-const DeployState = ({ isDeployed }, context) => {
+const DeployState = ({ isDeployed }) => {
   if (isDeployed) {
     return null;
   }
 
   return (
-    <TrustStateStyle>{context.t('ProfileBox.isNotDeployed')}</TrustStateStyle>
+    <TrustStateStyle>{translate('ProfileBox.isNotDeployed')}</TrustStateStyle>
   );
-};
-
-ProfileBox.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 ProfileBox.propTypes = {
   address: PropTypes.string.isRequired,
-};
-
-SendButton.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 SendButton.propTypes = {
@@ -167,25 +160,13 @@ SendButton.propTypes = {
   isDeployed: PropTypes.bool.isRequired,
 };
 
-TrustButton.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
 TrustButton.propTypes = {
   address: PropTypes.string.isRequired,
   connection: PropTypes.object,
 };
 
-RevokeTrustButton.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
 RevokeTrustButton.propTypes = {
   connection: PropTypes.object,
-};
-
-TrustState.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 TrustState.propTypes = {
@@ -194,10 +175,6 @@ TrustState.propTypes = {
 
 DeployState.propTypes = {
   isDeployed: PropTypes.bool.isRequired,
-};
-
-DeployState.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 const ProfileBoxStyle = styled.div`

@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
 import React, { Fragment, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import ActivityStream from '~/components/ActivityStream';
 import ButtonBack from '~/components/ButtonBack';
-import View from '~/components/View';
-import { updateLastSeen } from '~/store/activity/actions';
 import Header from '~/components/Header';
+import View from '~/components/View';
+import translate from '~/services/locale';
+import { updateLastSeen } from '~/store/activity/actions';
 
-const Activities = (props, context) => {
+const Activities = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Activities = (props, context) => {
     <Fragment>
       <Header>
         <ButtonBack to="/" />
-        {context.t('Activities.notifications')}
+        {translate('Activities.notifications')}
       </Header>
 
       <View>
@@ -30,10 +30,6 @@ const Activities = (props, context) => {
       </View>
     </Fragment>
   );
-};
-
-Activities.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default Activities;

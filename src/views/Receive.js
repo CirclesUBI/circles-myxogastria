@@ -1,22 +1,20 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
 import ButtonRound from '~/components/ButtonRound';
+import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
-import { BackgroundGreenTop } from '~/styles/Background';
+import translate from '~/services/locale';
 import { SpacingStyle } from '~/styles/Layout';
 
-import Header from '~/components/Header';
-
-const Receive = (props, context) => {
+const Receive = () => {
   const safe = useSelector((state) => state.safe);
 
   return (
-    <BackgroundGreenTop>
+    <Fragment>
       <Header>
         <ButtonBack to="/" />
         <UsernameDisplay address={safe.currentAccount} />
@@ -26,19 +24,15 @@ const Receive = (props, context) => {
         <QRCode data={safe.currentAccount} />
 
         <SpacingStyle>
-          <p>{context.t('Receive.showThisQR')}</p>
+          <p>{translate('Receive.showThisQR')}</p>
         </SpacingStyle>
 
         <ButtonRound to="/receive/share">
-          <span>{context.t('Receive.share')}</span>
+          <span>{translate('Receive.share')}</span>
         </ButtonRound>
       </View>
-    </BackgroundGreenTop>
+    </Fragment>
   );
-};
-
-Receive.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default Receive;

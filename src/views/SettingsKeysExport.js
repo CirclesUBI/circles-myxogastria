@@ -1,42 +1,36 @@
-import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
 import ButtonHome from '~/components/ButtonHome';
 import Header from '~/components/Header';
 import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
-import { BackgroundGreenTop } from '~/styles/Background';
+import translate from '~/services/locale';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
 
-const SettingsKeysExport = (props, context) => {
+const SettingsKeysExport = () => {
   const [mnemonic, setMnemonic] = useState('');
 
   const generateMnemonic = () => {
     const privateKey = getPrivateKey();
     const seedPhrase = toSeedPhrase(privateKey);
-
     setMnemonic(seedPhrase);
   };
 
   useEffect(generateMnemonic, []);
 
   return (
-    <BackgroundGreenTop>
+    <Fragment>
       <Header>
-        {context.t('SettingsKeysExport.exportSeedPhrase')}
+        {translate('SettingsKeysExport.exportSeedPhrase')}
         <ButtonHome />
       </Header>
 
       <View>
-        <p>{context.t('SettingsKeysExport.description')}</p>
+        <p>{translate('SettingsKeysExport.description')}</p>
         <ShareTextBox isClipboard text={mnemonic} />
       </View>
-    </BackgroundGreenTop>
+    </Fragment>
   );
-};
-
-SettingsKeysExport.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default SettingsKeysExport;

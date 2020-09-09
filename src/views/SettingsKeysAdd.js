@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -11,10 +10,11 @@ import QRCodeScanner from '~/components/QRCodeScanner';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import translate from '~/services/locale';
 import { addSafeOwner } from '~/store/safe/actions';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 
-const SettingsKeysAdd = (props, context) => {
+const SettingsKeysAdd = () => {
   const dispatch = useDispatch();
 
   const [isConfirmationShown, setIsConfirmationShown] = useState(false);
@@ -34,7 +34,7 @@ const SettingsKeysAdd = (props, context) => {
 
       dispatch(
         notify({
-          text: context.t('SettingsKeysAdd.successMessage'),
+          text: translate('SettingsKeysAdd.successMessage'),
         }),
       );
 
@@ -44,7 +44,7 @@ const SettingsKeysAdd = (props, context) => {
 
       dispatch(
         notify({
-          text: context.t('SettingsKeysAdd.errorMessage'),
+          text: translate('SettingsKeysAdd.errorMessage'),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -66,19 +66,19 @@ const SettingsKeysAdd = (props, context) => {
       <Fragment>
         <Header>
           <ButtonBack onClick={onPrevious} />
-          {context.t('SettingsKeysAdd.addDevice')}
+          {translate('SettingsKeysAdd.addDevice')}
           <ButtonHome />
         </Header>
 
         <View>
           <p>
-            {context.t('SettingsKeysAdd.confirmationText', {
+            {translate('SettingsKeysAdd.confirmationText', {
               address: ownerAddress,
             })}
           </p>
 
           <ButtonPrimary onClick={onSubmit}>
-            {context.t('SettingsKeysAdd.submit')}
+            {translate('SettingsKeysAdd.submit')}
           </ButtonPrimary>
         </View>
       </Fragment>
@@ -89,7 +89,7 @@ const SettingsKeysAdd = (props, context) => {
     <Fragment>
       <Header>
         <ButtonBack to="/settings/keys" />
-        {context.t('SettingsKeysAdd.addDevice')}
+        {translate('SettingsKeysAdd.addDevice')}
         <ButtonHome />
       </Header>
 
@@ -98,10 +98,6 @@ const SettingsKeysAdd = (props, context) => {
       </View>
     </Fragment>
   );
-};
-
-SettingsKeysAdd.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default SettingsKeysAdd;

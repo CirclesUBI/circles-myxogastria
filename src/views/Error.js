@@ -1,17 +1,17 @@
-import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ButtonPrimary from '~/components/ButtonPrimary';
 import View from '~/components/View';
+import translate from '~/services/locale';
 import { burnApp } from '~/store/app/actions';
 
-const CriticalError = (props, context) => {
+const CriticalError = () => {
   const dispatch = useDispatch();
   const app = useSelector((state) => state.app);
 
   const onBurnClick = () => {
-    if (window.confirm(context.t('CriticalError.areYouSure'))) {
+    if (window.confirm(translate('CriticalError.areYouSure'))) {
       dispatch(burnApp());
     }
   };
@@ -20,10 +20,10 @@ const CriticalError = (props, context) => {
     return (
       <Fragment>
         <View>
-          <p>{context.t('CriticalError.criticalErrorDescription')}</p>
+          <p>{translate('CriticalError.criticalErrorDescription')}</p>
 
           <ButtonPrimary onClick={onBurnClick}>
-            {context.t('CriticalError.reset')}
+            {translate('CriticalError.reset')}
           </ButtonPrimary>
         </View>
       </Fragment>
@@ -32,15 +32,11 @@ const CriticalError = (props, context) => {
     return (
       <Fragment>
         <View>
-          <p>{context.t('CriticalError.criticalErrorReload')}</p>
+          <p>{translate('CriticalError.criticalErrorReload')}</p>
         </View>
       </Fragment>
     );
   }
-};
-
-CriticalError.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default CriticalError;

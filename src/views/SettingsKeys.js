@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
@@ -8,23 +7,23 @@ import Header from '~/components/Header';
 import SafeOwnerManager from '~/components/SafeOwnerManager';
 import View from '~/components/View';
 import styles from '~/styles/variables';
-import { BackgroundGreenTop } from '~/styles/Background';
+import translate from '~/services/locale';
 import { ButtonStyle } from '~/components/Button';
 import { burnApp } from '~/store/app/actions';
 
-const SettingsKeys = (props, context) => {
+const SettingsKeys = () => {
   const dispatch = useDispatch();
 
   const onBurnClick = () => {
-    if (window.confirm(context.t('SettingsKeys.areYouSure'))) {
+    if (window.confirm(translate('SettingsKeys.areYouSure'))) {
       dispatch(burnApp());
     }
   };
 
   return (
-    <BackgroundGreenTop>
+    <Fragment>
       <Header>
-        {context.t('SettingsKeys.manageKeys')}
+        {translate('SettingsKeys.manageKeys')}
         <ButtonHome />
       </Header>
 
@@ -32,19 +31,15 @@ const SettingsKeys = (props, context) => {
         <SafeOwnerManager />
 
         <DangerButtonStyle onClick={onBurnClick}>
-          {context.t('SettingsKeys.endSession')}
+          {translate('SettingsKeys.endSession')}
         </DangerButtonStyle>
 
         <small>
           v. {process.env.RELEASE_VERSION} ({process.env.CORE_RELEASE_VERSION})
         </small>
       </View>
-    </BackgroundGreenTop>
+    </Fragment>
   );
-};
-
-SettingsKeys.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 const DangerButtonStyle = styled(ButtonStyle)`

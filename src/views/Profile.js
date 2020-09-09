@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import web3 from '~/services/web3';
 import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -9,16 +9,16 @@ import Header from '~/components/Header';
 import ProfileBox from '~/components/ProfileBox';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import { BackgroundPurplePlain } from '~/styles/Background';
+import translate from '~/services/locale';
 
-const Profile = (props, context) => {
+const Profile = (props) => {
   const dispatch = useDispatch();
   const { address } = props.match.params;
 
   if (!web3.utils.checkAddressChecksum(address)) {
     dispatch(
       notify({
-        text: context.t('Profile.invalidAddress'),
+        text: translate('Profile.invalidAddress'),
         type: NotificationsTypes.WARNING,
       }),
     );
@@ -27,7 +27,7 @@ const Profile = (props, context) => {
   }
 
   return (
-    <BackgroundPurplePlain>
+    <Fragment>
       <Header>
         <ButtonHome />
       </Header>
@@ -35,16 +35,12 @@ const Profile = (props, context) => {
       <View>
         <ProfileBox address={address} />
       </View>
-    </BackgroundPurplePlain>
+    </Fragment>
   );
 };
 
 Profile.propTypes = {
   match: PropTypes.object.isRequired,
-};
-
-Profile.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default withRouter(Profile);

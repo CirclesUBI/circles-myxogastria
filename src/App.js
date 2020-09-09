@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -11,6 +10,7 @@ import SpinnerOverlay from '~/components/SpinnerOverlay';
 import UBI from '~/components/UBI';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import translate from '~/services/locale';
 import { checkAppState, initializeApp } from '~/store/app/actions';
 
 const APP_CHECK_FREQUENCY = 1000 * 4;
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const App = (props, context) => {
+const App = () => {
   let checkInterval;
 
   const classes = useStyles();
@@ -53,7 +53,7 @@ const App = (props, context) => {
 
         dispatch(
           notify({
-            text: `${context.t('App.updateErrorMessage')}${errorMessage}`,
+            text: `${translate('App.updateErrorMessage')}${errorMessage}`,
             type: NotificationsTypes.ERROR,
           }),
         );
@@ -85,10 +85,6 @@ const App = (props, context) => {
       </Box>
     </Router>
   );
-};
-
-App.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default App;

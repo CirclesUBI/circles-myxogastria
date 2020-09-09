@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -10,51 +9,39 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import translate from '~/services/locale';
 import { CONTACT_URL } from '~/components/ExternalLinkList';
 import { SpacingStyle } from '~/styles/Layout';
 import { TextareaStyle } from '~/styles/Inputs';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { restoreAccount } from '~/store/onboarding/actions';
 
-const AccountImport = (props, context) => {
-  const [values, setValues] = useState({
-    seedPhrase: '',
-    nonce: '',
-  });
+const AccountImport = () => {
+  const [seedPhrase, setSeedPhrase] = useState('');
 
   const dispatch = useDispatch();
 
   const onChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
+    setSeedPhrase(event.target.value);
   };
 
   const onClick = async () => {
     dispatch(showSpinnerOverlay());
 
     try {
-      await dispatch(
-        restoreAccount(
-          values.seedPhrase,
-          values.nonce.length > 0 ? parseInt(values.nonce, 10) : null,
-        ),
-      );
+      await dispatch(restoreAccount(seedPhrase));
 
       dispatch(
         notify({
-          text: context.t('AccountImport.welcomeMessage'),
+          text: translate('AccountImport.welcomeMessage'),
         }),
       );
 
       dispatch(hideSpinnerOverlay());
     } catch (error) {
-      console.error(error);
-
       dispatch(
         notify({
-          text: context.t('AccountImport.errorMessage'),
+          text: translate('AccountImport.errorMessage'),
           type: NotificationsTypes.ERROR,
           lifetime: 10000,
         }),
@@ -64,58 +51,49 @@ const AccountImport = (props, context) => {
     }
   };
 
+  const isValid = seedPhrase.split(' ').length === 24;
+
   return (
     <Fragment>
       <Header>
         <ButtonBack to="/welcome/connect" />
-        {context.t('AccountImport.connectToYourWallet')}
+        {translate('AccountImport.connectToYourWallet')}
         <ButtonHome />
       </Header>
 
       <View>
-        <p>{context.t('AccountImport.enterYourSeedPhrase')}</p>
+        <p>{translate('AccountImport.enterYourSeedPhrase')}</p>
 
         <SpacingStyle>
           <TextareaStyle
             name="seedPhrase"
-            value={values.seedPhrase}
+            value={seedPhrase}
             onChange={onChange}
           />
-
-          <p>Nonce</p>
-
-          <input name="nonce" value={values.nonce} onChange={onChange} />
         </SpacingStyle>
 
         <p>
-          {context.t('AccountImport.lostYourSeedPhrase')}
+          {translate('AccountImport.lostYourSeedPhrase')}
           <br />
 
           <Link to="/welcome/onboarding">
-            {context.t('AccountImport.createNewWallet')}
+            {translate('AccountImport.createNewWallet')}
           </Link>
         </p>
 
         <p>
-          {context.t('AccountImport.questions')}{' '}
-          <a href={CONTACT_URL}>{context.t('AccountImport.contactUs')}</a>
+          {translate('AccountImport.questions')}{' '}
+          <a href={CONTACT_URL}>{translate('AccountImport.contactUs')}</a>
         </p>
       </View>
 
       <Footer>
-        <ButtonPrimary
-          disabled={values.seedPhrase.length === 0}
-          onClick={onClick}
-        >
-          {context.t('AccountImport.submit')}
+        <ButtonPrimary disabled={!isValid} onClick={onClick}>
+          {translate('AccountImport.submit')}
         </ButtonPrimary>
       </Footer>
     </Fragment>
   );
-};
-
-AccountImport.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default AccountImport;

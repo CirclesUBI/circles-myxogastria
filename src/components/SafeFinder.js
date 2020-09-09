@@ -6,6 +6,7 @@ import Footer from '~/components/Footer';
 import QRCodeScanner from '~/components/QRCodeScanner';
 import UsernameFinder from '~/components/UsernameFinder';
 import View from '~/components/View';
+import translate from '~/services/locale';
 
 const MODE_QR = Symbol('qr');
 const MODE_USERNAME = Symbol('username');
@@ -68,7 +69,7 @@ const SafeFinderQRScanner = (props) => {
   return <QRCodeScanner onSuccess={onSuccess} />;
 };
 
-const SafeFinderFooter = (props, context) => {
+const SafeFinderFooter = (props) => {
   if (props.isHidden) {
     return null;
   }
@@ -80,7 +81,7 @@ const SafeFinderFooter = (props, context) => {
   return (
     <Footer>
       <ButtonPrimary onClick={onClick}>
-        {context.t('SafeFinder.tapToScanQR')}
+        {translate('SafeFinder.tapToScanQR')}
       </ButtonPrimary>
     </Footer>
   );
@@ -99,14 +100,6 @@ SafeFinderQRScanner.propTypes = {
 SafeFinderFooter.propTypes = {
   isHidden: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-};
-
-SafeFinder.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-SafeFinderFooter.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default SafeFinder;

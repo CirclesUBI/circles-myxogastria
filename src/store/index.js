@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { i18nState } from 'redux-i18n';
 
 import activityReducer from '~/store/activity/reducers';
 import appReducer from '~/store/app/reducers';
@@ -11,7 +10,6 @@ import tutorialReducer from '~/store/tutorial/reducers';
 import walletReducer from '~/store/wallet/reducers';
 
 const rootReducer = combineReducers({
-  i18nState,
   activity: activityReducer,
   app: appReducer,
   notifications: notificationsReducer,

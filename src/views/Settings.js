@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
@@ -10,14 +9,14 @@ import LocaleSelector from '~/components/LocaleSelector';
 import QRCode from '~/components/QRCode';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
-import { BackgroundGreenTop } from '~/styles/Background';
+import translate from '~/services/locale';
 import { SpacingStyle } from '~/styles/Layout';
 
-const Settings = (props, context) => {
+const Settings = () => {
   const safe = useSelector((state) => state.safe);
 
   return (
-    <BackgroundGreenTop>
+    <Fragment>
       <Header>
         <ButtonBack to="/" />
         <UsernameDisplay address={safe.currentAccount} />
@@ -29,11 +28,11 @@ const Settings = (props, context) => {
         </SpacingStyle>
 
         <SpacingStyle>
-          <p>{context.t('Settings.showThisQR')}</p>
+          <p>{translate('Settings.showThisQR')}</p>
         </SpacingStyle>
 
         <ButtonRound to="/settings/share">
-          <span>{context.t('Settings.share')}</span>
+          <span>{translate('Settings.share')}</span>
         </ButtonRound>
 
         <SpacingStyle>
@@ -42,12 +41,8 @@ const Settings = (props, context) => {
 
         <ExternalLinkList />
       </View>
-    </BackgroundGreenTop>
+    </Fragment>
   );
-};
-
-Settings.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default Settings;

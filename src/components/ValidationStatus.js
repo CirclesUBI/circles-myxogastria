@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { CircularProgress } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ButtonRound from '~/components/ButtonRound';
+import translate from '~/services/locale';
 import { FAQ_URL } from '~/components/ExternalLinkList';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 import { finalizeNewAccount } from '~/store/onboarding/actions';
 import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
 
-const ValidationStatus = (props, context) => {
+const ValidationStatus = () => {
   const dispatch = useDispatch();
   const { app, safe, trust } = useSelector((state) => state);
 
@@ -38,15 +38,15 @@ const ValidationStatus = (props, context) => {
     <Fragment>
       {isPending ? (
         <Fragment>
-          <p>{context.t('ValidationStatus.pendingDeployment')}</p>
+          <p>{translate('ValidationStatus.pendingDeployment')}</p>
           <CircularProgress />
         </Fragment>
       ) : isReady ? (
         <Fragment>
-          <p>{context.t('ValidationStatus.readyForDeployment')}</p>
+          <p>{translate('ValidationStatus.readyForDeployment')}</p>
 
           <ButtonRound onClick={onDeploy}>
-            <span>{context.t('ValidationStatus.startDeploymentButton')}</span>
+            <span>{translate('ValidationStatus.startDeploymentButton')}</span>
           </ButtonRound>
         </Fragment>
       ) : trust.isReady ? (
@@ -60,12 +60,12 @@ const ValidationStatus = (props, context) => {
           })}
 
           <p>
-            {context.t('ValidationStatus.trustDescription', {
+            {translate('ValidationStatus.trustDescription', {
               connections: trust.connections,
               left: Math.max(0, NEEDED_TRUST_CONNECTIONS - trust.connections),
             })}{' '}
             <a href={FAQ_URL} rel="noopener noreferrer" target="_blank">
-              {context.t('ValidationStatus.learnMore')}
+              {translate('ValidationStatus.learnMore')}
             </a>
           </p>
         </Fragment>
@@ -74,10 +74,6 @@ const ValidationStatus = (props, context) => {
       )}
     </Fragment>
   );
-};
-
-ValidationStatus.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default ValidationStatus;

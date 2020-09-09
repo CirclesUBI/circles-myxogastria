@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Tutorial from '~/components/Tutorial';
+import translate from '~/services/locale';
 import { ACCOUNT_CREATE, finishTutorial } from '~/store/tutorial/actions';
 import { SpacingStyle } from '~/styles/Layout';
 
@@ -28,58 +29,46 @@ const TutorialAccountCreate = (props) => {
   );
 };
 
-const SlideCircles = (props, context) => {
+const SlideCircles = () => {
   return (
     <Fragment>
       <SpacingStyle>
-        <h2>{context.t('TutorialAccountCreate.joiningCirclesTitle')}</h2>
+        <h2>{translate('TutorialAccountCreate.joiningCirclesTitle')}</h2>
       </SpacingStyle>
 
       <SpacingStyle>
-        <p>{context.t('TutorialAccountCreate.joiningCircles')}</p>
+        <p>{translate('TutorialAccountCreate.joiningCircles')}</p>
       </SpacingStyle>
     </Fragment>
   );
 };
 
-const SlideWebOfTrust = (props, context) => {
+const SlideWebOfTrust = () => {
   return (
     <Fragment>
       <SpacingStyle>
-        <h2>{context.t('TutorialAccountCreate.webOfTrustTitle')}</h2>
+        <h2>{translate('TutorialAccountCreate.webOfTrustTitle')}</h2>
       </SpacingStyle>
 
       <SpacingStyle>
-        <p>{context.t('TutorialAccountCreate.webOfTrust')}</p>
+        <p>{translate('TutorialAccountCreate.webOfTrust')}</p>
       </SpacingStyle>
     </Fragment>
   );
 };
 
-const SlideUnderConstruction = (props, context) => {
+const SlideUnderConstruction = () => {
   return (
     <Fragment>
       <SpacingStyle>
-        <h2>{context.t('TutorialAccountCreate.underConstructionTitle')}</h2>
+        <h2>{translate('TutorialAccountCreate.underConstructionTitle')}</h2>
       </SpacingStyle>
 
       <SpacingStyle>
-        <p>{context.t('TutorialAccountCreate.underConstruction')}</p>
+        <p>{translate('TutorialAccountCreate.underConstruction')}</p>
       </SpacingStyle>
     </Fragment>
   );
-};
-
-SlideCircles.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-SlideWebOfTrust.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-SlideUnderConstruction.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 TutorialAccountCreate.propTypes = {

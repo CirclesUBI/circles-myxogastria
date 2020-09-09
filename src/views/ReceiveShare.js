@@ -1,39 +1,32 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
+import Header from '~/components/Header';
 import ShareTextBox from '~/components/ShareTextBox';
 import View from '~/components/View';
-import { BackgroundWhirlyGreen } from '~/styles/Background';
+import translate from '~/services/locale';
 
-import Header from '~/components/Header';
-
-const ReceiveShare = (props, context) => {
+const ReceiveShare = () => {
   const safe = useSelector((state) => state.safe);
-
   const shareLink = `${process.env.BASE_PATH}/profile/${safe.currentAccount}`;
-  const shareText = context.t('ReceiveShare.shareText', { shareLink });
+  const shareText = translate('ReceiveShare.shareText', { shareLink });
 
   return (
-    <BackgroundWhirlyGreen>
+    <Fragment>
       <Header>
         <ButtonBack to="/receive" />
-        {context.t('ReceiveShare.receive')}
+        {translate('ReceiveShare.receive')}
         <ButtonHome />
       </Header>
 
       <View>
-        <p>{context.t('ReceiveShare.description')}</p>
+        <p>{translate('ReceiveShare.description')}</p>
         <ShareTextBox text={shareText} url={shareLink} />
       </View>
-    </BackgroundWhirlyGreen>
+    </Fragment>
   );
-};
-
-ReceiveShare.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default ReceiveShare;

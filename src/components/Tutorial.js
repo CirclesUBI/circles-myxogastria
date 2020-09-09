@@ -6,6 +6,7 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import View from '~/components/View';
+import translate from '~/services/locale';
 
 const Tutorial = (props) => {
   const [current, setCurrent] = useState(0);
@@ -85,18 +86,18 @@ const TutorialFooter = (props) => {
   );
 };
 
-const TutorialFooterButton = (props, context) => {
+const TutorialFooterButton = (props) => {
   if (props.isLastSlide) {
     return (
       <ButtonPrimary onClick={props.onFinish}>
-        {context.t('Tutorial.finish')}
+        {translate('Tutorial.finish')}
       </ButtonPrimary>
     );
   }
 
   return (
     <ButtonPrimary onClick={props.onNext}>
-      {context.t('Tutorial.nextStep')}
+      {translate('Tutorial.nextStep')}
     </ButtonPrimary>
   );
 };
@@ -126,10 +127,6 @@ TutorialFooterButton.propTypes = {
   isLastSlide: PropTypes.bool.isRequired,
   onFinish: PropTypes.func.isRequired,
   onNext: PropTypes.func.isRequired,
-};
-
-TutorialFooterButton.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default Tutorial;

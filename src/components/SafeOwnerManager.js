@@ -8,16 +8,15 @@ import ButtonPrimary from '~/components/ButtonPrimary';
 import Pill from '~/components/Pill';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
+import translate from '~/services/locale';
 import { ButtonStyle } from '~/components/Button';
 import { SpacingStyle } from '~/styles/Layout';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { removeSafeOwner, getSafeOwners } from '~/store/safe/actions';
 
-const SafeOwnerManager = (props, context) => {
+const SafeOwnerManager = () => {
   const safe = useSelector((state) => state.safe);
   const dispatch = useDispatch();
-
-  const isDisabled = safe.nonce !== null;
 
   useEffect(() => {
     dispatch(getSafeOwners());
@@ -31,7 +30,7 @@ const SafeOwnerManager = (props, context) => {
     } catch {
       dispatch(
         notify({
-          text: context.t('SafeOwnerManager.errorMessage'),
+          text: translate('SafeOwnerManager.errorMessage'),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -42,19 +41,19 @@ const SafeOwnerManager = (props, context) => {
 
   // Safe is not deployed yet ...
   if (safe.nonce) {
-    return <Pill>{context.t('SafeOwnerManager.notDeployedYet')}</Pill>;
+    return <Pill>{translate('SafeOwnerManager.notDeployedYet')}</Pill>;
   }
 
   return (
     <Fragment>
-      <p>{context.t('SafeOwnerManager.devicesAccessingAccount')}</p>
+      <p>{translate('SafeOwnerManager.devicesAccessingAccount')}</p>
 
       <ul>
         <SafeOwnerManagerList owners={safe.owners} onRemove={onRemove} />
       </ul>
 
-      <ButtonPrimary disabled={isDisabled} to="/settings/keys/add">
-        {context.t('SafeOwnerManager.addNewDevice')}
+      <ButtonPrimary to="/settings/keys/add">
+        {translate('SafeOwnerManager.addNewDevice')}
       </ButtonPrimary>
     </Fragment>
   );
@@ -80,11 +79,11 @@ const SafeOwnerManagerList = (props) => {
   });
 };
 
-const SafeOwnerManagerItem = (props, context) => {
+const SafeOwnerManagerItem = (props) => {
   const wallet = useSelector((state) => state.wallet);
 
   const onRemove = async () => {
-    if (window.confirm(context.t('SafeOwnerManager.areYouSure'))) {
+    if (window.confirm(translate('SafeOwnerManager.areYouSure'))) {
       props.onRemove(props.address);
     }
   };
@@ -92,7 +91,7 @@ const SafeOwnerManagerItem = (props, context) => {
   if (props.address === wallet.address) {
     return (
       <OwnerStyle isWrap>
-        <p>{context.t('SafeOwnerManager.currentDevice')}</p>
+        <p>{translate('SafeOwnerManager.currentDevice')}</p>
         <span>{props.address}</span>
       </OwnerStyle>
     );
@@ -114,14 +113,6 @@ SafeOwnerManagerList.propTypes = {
 SafeOwnerManagerItem.propTypes = {
   address: PropTypes.string.isRequired,
   onRemove: PropTypes.func.isRequired,
-};
-
-SafeOwnerManager.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-SafeOwnerManagerItem.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 const OwnerStyle = styled.li`

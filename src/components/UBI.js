@@ -1,17 +1,17 @@
-import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { DateTime } from 'luxon';
 import { useDispatch, useSelector } from 'react-redux';
 
 import core from '~/services/core';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import translate from '~/services/locale';
 import web3 from '~/services/web3';
 import { formatCirclesValue } from '~/utils/format';
 import { requestUBIPayout } from '~/store/token/actions';
 
 const MIN_UBI_PAYOUT = '0.5';
 
-const UBI = (props, context) => {
+const UBI = () => {
   const dispatch = useDispatch();
   const { safe, token } = useSelector((state) => state);
 
@@ -39,7 +39,7 @@ const UBI = (props, context) => {
       // Display pending UBI to the user
       dispatch(
         notify({
-          text: context.t('Dashboard.ubiPayoutReceived', {
+          text: translate('Dashboard.ubiPayoutReceived', {
             payout: formatCirclesValue(payout, 4),
           }),
           type: NotificationsTypes.INFO,
@@ -55,10 +55,6 @@ const UBI = (props, context) => {
   }, [token.address]);
 
   return null;
-};
-
-UBI.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default UBI;

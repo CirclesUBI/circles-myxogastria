@@ -1,12 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import mime from 'mime/lite';
 import {
   Button,
@@ -27,9 +20,7 @@ import View from '~/components/View';
 import core from '~/services/core';
 import debounce from '~/utils/debounce';
 import { IconCheck } from '~/styles/icons';
-import { MAX_NONCE } from '~/services/safe';
 import { createNewAccount } from '~/store/onboarding/actions';
-import { generateAndStoreNonce } from '~/store/safe/actions';
 import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
 
@@ -128,7 +119,7 @@ const Onboarding = () => {
   );
 };
 
-const OnboardingStepUsername = (props, context) => {
+const OnboardingStepUsername = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -209,7 +200,7 @@ const OnboardingStepUsername = (props, context) => {
   );
 };
 
-const OnboardingStepEmail = (props, context) => {
+const OnboardingStepEmail = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -282,17 +273,10 @@ const OnboardingStepEmail = (props, context) => {
   );
 };
 
-const OnboardingStepSeedPhrase = (props, context) => {
-  const dispatch = useDispatch();
-  const { pendingNonce } = useSelector((state) => state.safe);
-
+const OnboardingStepSeedPhrase = (props) => {
   const mnemonic = useMemo(() => {
     const privateKey = getPrivateKey();
     return toSeedPhrase(privateKey);
-  }, []);
-
-  useEffect(() => {
-    dispatch(generateAndStoreNonce());
   }, []);
 
   return (
@@ -303,43 +287,29 @@ const OnboardingStepSeedPhrase = (props, context) => {
         return <span key={index}>{word} - </span>;
       })}
 
-      <p>Nonce</p>
-
-      {pendingNonce}
-
       <ButtonClipboard text={mnemonic}>Save to clipboard</ButtonClipboard>
       <Button onClick={props.onNext}>I saved it!</Button>
     </Fragment>
   );
 };
 
-const OnboardingStepSeedChallenge = (props, context) => {
+const OnboardingStepSeedChallenge = (props) => {
   const { pendingNonce } = useSelector((state) => state.safe);
-
-  const [values, setValues] = useState({
-    challenge: '',
-    nonce: 0,
-  });
+  const [challenge, setChallenge] = useState('');
 
   const wordIndex = useMemo(() => {
     return Math.floor(Math.random() * 24);
   }, []);
 
   const onChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
+    setChallenge(event.target.value);
   };
 
   const isValid = useMemo(() => {
     const privateKey = getPrivateKey();
     const answer = toSeedPhrase(privateKey).split(' ')[wordIndex];
-
-    return (
-      values.challenge === answer && parseInt(values.nonce, 10) === pendingNonce
-    );
-  }, [values.challenge, values.nonce, pendingNonce, wordIndex]);
+    return challenge === answer;
+  }, [challenge, pendingNonce, wordIndex]);
 
   return (
     <Fragment>
@@ -350,20 +320,7 @@ const OnboardingStepSeedChallenge = (props, context) => {
         label="Word"
         name="challenge"
         type="text"
-        value={values.challenge}
-        onChange={onChange}
-      />
-
-      <p>Please enter your nonce</p>
-
-      <OnboardingInput
-        id="nonce"
-        label="Nonce"
-        max={MAX_NONCE}
-        min={0}
-        name="nonce"
-        type="number"
-        value={values.nonce}
+        value={challenge}
         onChange={onChange}
       />
 
@@ -374,7 +331,7 @@ const OnboardingStepSeedChallenge = (props, context) => {
   );
 };
 
-const OnboardingStepAvatar = (props, context) => {
+const OnboardingStepAvatar = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const fileInputElem = useRef();
 
@@ -445,6 +402,7 @@ const OnboardingStepAvatar = (props, context) => {
   );
 };
 
+// @TODO: Move this into own file
 const OnboardingInput = ({
   isError,
   id,
@@ -486,48 +444,20 @@ const stepProps = {
   values: PropTypes.object.isRequired,
 };
 
-const stepContext = {
-  t: PropTypes.func.isRequired,
-};
-
-Onboarding.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-OnboardingStepUsername.contextTypes = {
-  ...stepContext,
-};
-
 OnboardingStepUsername.propTypes = {
   ...stepProps,
-};
-
-OnboardingStepEmail.contextTypes = {
-  ...stepContext,
 };
 
 OnboardingStepEmail.propTypes = {
   ...stepProps,
 };
 
-OnboardingStepSeedPhrase.contextTypes = {
-  ...stepContext,
-};
-
 OnboardingStepSeedPhrase.propTypes = {
   ...stepProps,
 };
 
-OnboardingStepSeedChallenge.contextTypes = {
-  ...stepContext,
-};
-
 OnboardingStepSeedChallenge.propTypes = {
   ...stepProps,
-};
-
-OnboardingStepAvatar.contextTypes = {
-  ...stepContext,
 };
 
 OnboardingStepAvatar.propTypes = {

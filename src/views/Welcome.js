@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 
 import ButtonPrimary from '~/components/ButtonPrimary';
@@ -7,9 +6,10 @@ import Header from '~/components/Header';
 import LocaleSelector from '~/components/LocaleSelector';
 import Logo from '~/components/Logo';
 import View from '~/components/View';
+import translate from '~/services/locale';
 import { SpacingStyle } from '~/styles/Layout';
 
-const Welcome = (props, context) => {
+const Welcome = () => {
   return (
     <Fragment>
       <Header>
@@ -22,20 +22,20 @@ const Welcome = (props, context) => {
         </SpacingStyle>
 
         <SpacingStyle>
-          <h1>{context.t('Welcome.welcomeToCircles')}</h1>
+          <h1>{translate('Welcome.welcomeToCircles')}</h1>
         </SpacingStyle>
 
-        <p>{context.t('Welcome.haveWalletAlready')}</p>
+        <p>{translate('Welcome.haveWalletAlready')}</p>
 
         <ButtonPrimary to="/welcome/connect">
-          {context.t('Welcome.connectYourWallet')}
+          {translate('Welcome.connectYourWallet')}
         </ButtonPrimary>
 
         <SpacingStyle isLargeBottom>
-          <p>{context.t('Welcome.noCirclesWallet')}</p>
+          <p>{translate('Welcome.noCirclesWallet')}</p>
 
           <ButtonPrimary isOutline to="/welcome/onboarding">
-            {context.t('Welcome.createNewWallet')}
+            {translate('Welcome.createNewWallet')}
           </ButtonPrimary>
         </SpacingStyle>
 
@@ -43,10 +43,6 @@ const Welcome = (props, context) => {
       </View>
     </Fragment>
   );
-};
-
-Welcome.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 export default Welcome;

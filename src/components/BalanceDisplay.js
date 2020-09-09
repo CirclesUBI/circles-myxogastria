@@ -1,20 +1,19 @@
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CircularProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
 import ButtonPrimary, { ButtonPrimaryStyle } from '~/components/ButtonPrimary';
+import person from '%/images/person.svg';
 import styles from '~/styles/variables';
+import translate from '~/services/locale';
 import web3 from '~/services/web3';
 import { FAQ_URL } from '~/components/ExternalLinkList';
 import { formatCirclesValue } from '~/utils/format';
 
-import person from '%/images/person.svg';
-
 const ISSUANCE_RATE_MONTH = process.env.ISSUANCE_RATE_MONTH || 50;
 
-const BalanceDisplay = (props, context) => {
+const BalanceDisplay = () => {
   const { token, safe } = useSelector((state) => state);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
@@ -45,9 +44,9 @@ const BalanceDisplay = (props, context) => {
           <BalancePersonStyle />
 
           <BalanceTooltipContentStyle>
-            <h3>{context.t('BalanceDisplay.thisIsYourUBI')}</h3>
+            <h3>{translate('BalanceDisplay.thisIsYourUBI')}</h3>
             <p>
-              {context.t('BalanceDisplay.issuanceRate', {
+              {translate('BalanceDisplay.issuanceRate', {
                 rate: ISSUANCE_RATE_MONTH,
               })}
             </p>
@@ -55,12 +54,12 @@ const BalanceDisplay = (props, context) => {
 
           <BalanceTooltipButtonsStyle>
             <ButtonPrimary onClick={onCloseClick}>
-              {context.t('BalanceDisplay.gotIt')}
+              {translate('BalanceDisplay.gotIt')}
             </ButtonPrimary>
 
             <a href={FAQ_URL} rel="noopener noreferrer" target="_blank">
               <ButtonPrimaryStyle isOutline>
-                {context.t('BalanceDisplay.learnMore')}
+                {translate('BalanceDisplay.learnMore')}
               </ButtonPrimaryStyle>
             </a>
           </BalanceTooltipButtonsStyle>
@@ -175,9 +174,5 @@ const BalanceTooltipContentStyle = styled.div`
 const BalanceTooltipButtonsStyle = styled.div`
   width: 100%;
 `;
-
-BalanceDisplay.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
 
 export default BalanceDisplay;

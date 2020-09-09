@@ -13,10 +13,11 @@ import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import logError from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import translate from '~/services/locale';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { trustUser } from '~/store/trust/actions';
 
-const TrustConfirm = (props, context) => {
+const TrustConfirm = (props) => {
   const { address } = props.match.params;
   const [isSent, setIsSent] = useState(false);
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const TrustConfirm = (props, context) => {
 
       dispatch(
         notify({
-          text: context.t('TrustConfirm.successMessage'),
+          text: translate('TrustConfirm.successMessage'),
         }),
       );
 
@@ -39,7 +40,7 @@ const TrustConfirm = (props, context) => {
 
       dispatch(
         notify({
-          text: context.t('TrustConfirm.errorMessage'),
+          text: translate('TrustConfirm.errorMessage'),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -56,31 +57,27 @@ const TrustConfirm = (props, context) => {
     <Fragment>
       <Header>
         <ButtonBack to="/trust" />
-        {context.t('TrustConfirm.trustSomeone')}
+        {translate('TrustConfirm.trustSomeone')}
         <ButtonHome />
       </Header>
 
       <View>
         <Bubble>
           <p>
-            {context.t('TrustConfirm.confirmationText')}
+            {translate('TrustConfirm.confirmationText')}
             <UsernameDisplay address={address} />
-            {context.t('TrustConfirm.confirmationTextAfter')}
+            {translate('TrustConfirm.confirmationTextAfter')}
           </p>
         </Bubble>
       </View>
 
       <Footer>
         <ButtonPrimary onClick={onSubmit}>
-          {context.t('TrustConfirm.confirm')}
+          {translate('TrustConfirm.confirm')}
         </ButtonPrimary>
       </Footer>
     </Fragment>
   );
-};
-
-TrustConfirm.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 TrustConfirm.propTypes = {

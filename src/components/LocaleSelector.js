@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
 
-import notify from '~/store/notifications/actions';
 import styles from '~/styles/variables';
+import translate, { setLocale, getLocale } from '~/services/locale';
 import { ButtonStyle } from '~/components/Button';
-import { selectLocale } from '~/store/locale/actions';
-
 import { LOCALES } from 'locales';
 
 const LocaleSelector = () => {
@@ -18,22 +15,16 @@ const LocaleSelector = () => {
   );
 };
 
-const LocaleSelectorList = (props, context) => {
-  const { lang } = useSelector((state) => state.i18nState);
-  const dispatch = useDispatch();
+const LocaleSelectorList = () => {
+  const currentLocale = getLocale();
 
   const onSelect = (locale) => {
-    dispatch(selectLocale(locale));
-
-    dispatch(
-      notify({
-        text: context.t('LocaleSelector.localeChangedMessage'),
-      }),
-    );
+    setLocale(locale);
+    window.location.reload();
   };
 
   return LOCALES.map((locale) => {
-    const isSelected = lang === locale;
+    const isSelected = currentLocale === locale;
 
     return (
       <LocaleListItemStyle key={locale}>
@@ -47,24 +38,16 @@ const LocaleSelectorList = (props, context) => {
   });
 };
 
-const LocaleSelectorButton = (props, context) => {
+const LocaleSelectorButton = (props) => {
   const onSelect = () => {
     props.onSelect(props.locale);
   };
 
   return (
     <LocaleButtonStyle disabled={props.isSelected} onClick={onSelect}>
-      {context.t(`LocaleSelector.${props.locale}`)}
+      {translate(`LocaleSelector.${props.locale}`)}
     </LocaleButtonStyle>
   );
-};
-
-LocaleSelectorList.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-LocaleSelectorButton.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 LocaleSelectorButton.propTypes = {

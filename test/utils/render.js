@@ -1,26 +1,19 @@
-import I18n from 'redux-i18n';
 import PropTypes from 'prop-types';
 import React from 'react';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { i18nState } from 'redux-i18n';
 import { render } from '@testing-library/react';
 
 import locales from 'locales';
 
-const TestRoot = ({ store, translations, children }) => {
-  return (
-    <Provider store={store}>
-      <I18n translations={translations}>{children}</I18n>
-    </Provider>
-  );
+const TestRoot = ({ store, children }) => {
+  return <Provider store={store}>{children}</Provider>;
 };
 
 TestRoot.propTypes = {
   children: PropTypes.element.isRequired,
   store: PropTypes.object.isRequired,
-  translations: PropTypes.object.isRequired,
 };
 
 const middlewares = [thunk];
@@ -30,7 +23,6 @@ const renderWithRedux = (ui, options) => {
 
   const rootReducer = combineReducers({
     ...reducers,
-    i18nState,
   });
 
   const store = createStore(
@@ -46,7 +38,6 @@ const renderWithRedux = (ui, options) => {
       </TestRoot>,
     ),
     store,
-    translations: locales,
   };
 };
 

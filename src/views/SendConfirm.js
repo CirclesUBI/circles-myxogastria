@@ -16,11 +16,12 @@ import View from '~/components/View';
 import core from '~/services/core';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import translate from '~/services/locale';
 import { InputNumberStyle } from '~/styles/Inputs';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { transfer } from '~/store/token/actions';
 
-const SendConfirm = (props, context) => {
+const SendConfirm = (props) => {
   const { address } = props.match.params;
 
   const [amount, setAmount] = useState(0);
@@ -48,7 +49,7 @@ const SendConfirm = (props, context) => {
 
       dispatch(
         notify({
-          text: context.t('SendConfirm.successMessage'),
+          text: translate('SendConfirm.successMessage'),
         }),
       );
 
@@ -58,10 +59,10 @@ const SendConfirm = (props, context) => {
       let text;
 
       if (error instanceof core.errors.TransferError) {
-        text = context.t('SendConfirm.errorMessageTransfer');
+        text = translate('SendConfirm.errorMessageTransfer');
       } else {
         const errorMessage = formatErrorMessage(error);
-        text = `${context.t('SendConfirm.errorMessage')}${errorMessage}`;
+        text = `${translate('SendConfirm.errorMessage')}${errorMessage}`;
       }
 
       dispatch(
@@ -89,16 +90,16 @@ const SendConfirm = (props, context) => {
         <View>
           <Bubble>
             <p>
-              {context.t('SendConfirm.confirmationText', { amount })}
+              {translate('SendConfirm.confirmationText', { amount })}
               <UsernameDisplay address={address} />
-              {context.t('SendConfirm.confirmationTextAfter')}
+              {translate('SendConfirm.confirmationTextAfter')}
             </p>
           </Bubble>
         </View>
 
         <Footer>
           <ButtonPrimary onClick={onSubmit}>
-            {context.t('SendConfirm.confirm')}
+            {translate('SendConfirm.confirm')}
           </ButtonPrimary>
         </Footer>
       </Fragment>
@@ -113,11 +114,11 @@ const SendConfirm = (props, context) => {
 
       <View>
         <ConfirmToStyle>
-          <span>{context.t('SendConfirm.to')}</span>
+          <span>{translate('SendConfirm.to')}</span>
           <ProfileMini address={address} />
         </ConfirmToStyle>
 
-        <p>{context.t('SendConfirm.howMuch')}</p>
+        <p>{translate('SendConfirm.howMuch')}</p>
 
         <InputNumberStyle
           type="number"
@@ -128,33 +129,25 @@ const SendConfirm = (props, context) => {
 
       <Footer>
         <ButtonPrimary disabled={!(amount > 0)} onClick={onNext}>
-          {context.t('SendConfirm.submitAmount')}
+          {translate('SendConfirm.submitAmount')}
         </ButtonPrimary>
       </Footer>
     </Fragment>
   );
 };
 
-const SendConfirmHeader = (props, context) => {
+const SendConfirmHeader = (props) => {
   return (
     <Header>
       {props.children}
-      {context.t('SendConfirm.sendCircles')}
+      {translate('SendConfirm.sendCircles')}
       <ButtonHome />
     </Header>
   );
 };
 
-SendConfirm.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
 SendConfirm.propTypes = {
   match: PropTypes.object.isRequired,
-};
-
-SendConfirmHeader.contextTypes = {
-  t: PropTypes.func.isRequired,
 };
 
 SendConfirmHeader.propTypes = {

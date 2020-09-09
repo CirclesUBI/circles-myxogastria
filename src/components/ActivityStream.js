@@ -11,6 +11,7 @@ import Pill from '~/components/Pill';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import core from '~/services/core';
 import styles from '~/styles/variables';
+import translate from '~/services/locale';
 import {
   ONBOARDING_FINALIZATION,
   loadMoreActivities,
@@ -113,7 +114,7 @@ function formatMessage(props) {
   };
 }
 
-const ActivityStream = (props, context) => {
+const ActivityStream = () => {
   const activity = useSelector((state) => state.activity);
   const dispatch = useDispatch();
   const isLoading = activity.isLoadingMore || activity.lastUpdated === 0;
@@ -129,14 +130,14 @@ const ActivityStream = (props, context) => {
 
       {activity.isMoreAvailable ? (
         <ButtonPrimary disabled={isLoading} onClick={onLoadMore}>
-          {context.t('ActivityStream.loadMore')}
+          {translate('ActivityStream.loadMore')}
         </ButtonPrimary>
       ) : null}
     </ActivityStreamStyle>
   );
 };
 
-const ActivityStreamList = (props, context) => {
+const ActivityStreamList = () => {
   const {
     activities,
     lastUpdated,
@@ -158,7 +159,7 @@ const ActivityStreamList = (props, context) => {
   }
 
   if (activities.length === 0) {
-    return <Pill>{context.t('ActivityStream.nothingHereYet')}</Pill>;
+    return <Pill>{translate('ActivityStream.nothingHereYet')}</Pill>;
   }
 
   return activities.reduce(
@@ -192,7 +193,7 @@ const ActivityStreamList = (props, context) => {
   );
 };
 
-const ActivityStreamItem = (props, context) => {
+const ActivityStreamItem = (props) => {
   // Reformat the message for the user
   const { date, data, messageId, actorAddress, isOwnerAddress } = formatMessage(
     props,
@@ -215,7 +216,7 @@ const ActivityStreamItem = (props, context) => {
             isOwnerAddress={isOwnerAddress}
           />
 
-          {context.t(`ActivityStream.${messageId}`, { ...data })}
+          {translate(`ActivityStream.${messageId}`, { ...data })}
 
           <ActivityStreamActor
             address={actorAddress}
@@ -273,18 +274,6 @@ const ActivityStreamActor = (props) => {
 
 //   return <IconNotification />;
 // };
-
-ActivityStream.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-ActivityStreamList.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-ActivityStreamItem.contextTypes = {
-  t: PropTypes.func.isRequired,
-};
 
 ActivityStreamItem.propTypes = {
   data: PropTypes.object.isRequired,
