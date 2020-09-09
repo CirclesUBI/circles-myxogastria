@@ -1,0 +1,28 @@
+import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
+import { Box } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  offset: theme.mixins.toolbar,
+}));
+
+const View = ({ children, ...props }) => {
+  const classes = useStyles();
+
+  return (
+    <Fragment>
+      <Box className={classes.offset} />
+
+      <Box component="main" {...props}>
+        {children}
+      </Box>
+    </Fragment>
+  );
+};
+
+View.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default View;

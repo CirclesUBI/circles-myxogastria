@@ -1,0 +1,89 @@
+import {
+  getItem,
+  hasItem,
+  isAvailable,
+  removeItem,
+  setItem,
+} from '~/services/storage';
+
+const NONCE_NAME = 'nonce';
+const SAFE_ADDRESS_NAME = 'safeAddress';
+const SAFE_CURRENT_ACCOUNT = 'currentAccount';
+
+export const MAX_NONCE = 10000;
+
+export function generateNonce() {
+  return Math.round(Math.random() * MAX_NONCE);
+}
+
+export function getNonce() {
+  if (!isAvailable()) {
+    throw new Error('LocalStorage is not available');
+  }
+
+  if (hasNonce()) {
+    return parseInt(getItem(NONCE_NAME), 10);
+  }
+
+  return null;
+}
+
+export function hasNonce() {
+  return hasItem(NONCE_NAME);
+}
+
+export function setNonce(nonce) {
+  setItem(NONCE_NAME, nonce);
+}
+
+export function removeNonce() {
+  removeItem(NONCE_NAME);
+}
+
+export function getSafeAddress() {
+  if (!isAvailable()) {
+    throw new Error('LocalStorage is not available');
+  }
+
+  if (hasSafeAddress()) {
+    return getItem(SAFE_ADDRESS_NAME);
+  }
+
+  return null;
+}
+
+export function hasSafeAddress() {
+  return hasItem(SAFE_ADDRESS_NAME);
+}
+
+export function setSafeAddress(safeAddress) {
+  setItem(SAFE_ADDRESS_NAME, safeAddress);
+}
+
+export function removeSafeAddress() {
+  removeItem(SAFE_ADDRESS_NAME);
+}
+
+export function getCurrentAccount() {
+  if (!isAvailable()) {
+    throw new Error('LocalStorage is not available');
+  }
+
+  if (hasCurrentAccount()) {
+    return getItem(SAFE_CURRENT_ACCOUNT);
+  }
+
+  return null;
+}
+
+export function hasCurrentAccount() {
+  return hasItem(SAFE_CURRENT_ACCOUNT);
+}
+
+export function setCurrentAccount(safeAddress) {
+  setItem(SAFE_CURRENT_ACCOUNT, safeAddress);
+}
+
+export function removeCurrentAccount() {
+  removeItem(SAFE_CURRENT_ACCOUNT);
+}
