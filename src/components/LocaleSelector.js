@@ -1,85 +1,57 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
+import { Select, MenuItem, InputBase } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
-import styles from '~/styles/variables';
-import translate, { setLocale, getLocale } from '~/services/locale';
-import { ButtonStyle } from '~/components/Button';
+import translate, { setLocale, currentLocale } from '~/services/locale';
 import { LOCALES } from 'locales';
 
+const useStyles = makeStyles((theme) => ({
+  select: {
+    color: theme.palette.primary.contrastText,
+  },
+  selectIcon: {
+    fill: theme.palette.primary.contrastText,
+  },
+}));
+
 const LocaleSelector = () => {
-  return (
-    <ul>
-      <LocaleSelectorList />
-    </ul>
-  );
-};
+  const classes = useStyles();
 
-const LocaleSelectorList = () => {
-  const currentLocale = getLocale();
-
-  const onSelect = (locale) => {
-    setLocale(locale);
+  const onSelect = (event) => {
+    setLocale(event.target.value);
     window.location.reload();
   };
 
-  return LOCALES.map((locale) => {
-    const isSelected = currentLocale === locale;
-
-    return (
-      <LocaleListItemStyle key={locale}>
-        <LocaleSelectorButton
-          isSelected={isSelected}
-          locale={locale}
-          onSelect={onSelect}
-        />
-      </LocaleListItemStyle>
-    );
-  });
-};
-
-const LocaleSelectorButton = (props) => {
-  const onSelect = () => {
-    props.onSelect(props.locale);
-  };
-
   return (
-    <LocaleButtonStyle disabled={props.isSelected} onClick={onSelect}>
-      {translate(`LocaleSelector.${props.locale}`)}
-    </LocaleButtonStyle>
+    <Select
+      classes={{ root: classes.select, icon: classes.selectIcon }}
+      input={<LocaleSelectorInput />}
+      value={currentLocale}
+      variant="outlined"
+      onChange={onSelect}
+    >
+      {LOCALES.map((locale) => {
+        return (
+          <MenuItem key={locale} value={locale}>
+            {translate(`LocaleSelector.${locale}`)}
+          </MenuItem>
+        );
+      })}
+    </Select>
   );
 };
 
-LocaleSelectorButton.propTypes = {
-  isSelected: PropTypes.bool.isRequired,
-  locale: PropTypes.string.isRequired,
-  onSelect: PropTypes.func.isRequired,
-};
-
-const LocaleListItemStyle = styled.li`
-  display: inline;
-
-  & + & {
-    margin-left: 0.5rem;
-
-    &::before {
-      display: inline;
-
-      margin-right: 0.5rem;
-
-      content: '/';
-
-      color: ${styles.monochrome.gray};
-    }
-  }
-`;
-
-const LocaleButtonStyle = styled(ButtonStyle)`
-  color: ${(props) => {
-    return props.disabled ? styles.monochrome.black : styles.monochrome.gray;
-  }};
-
-  font-weight: ${styles.base.typography.weightSemiBold};
-`;
+const LocaleSelectorInput = withStyles((theme) => ({
+  input: {
+    padding: theme.spacing(1),
+    backgroundColor: 'transparent',
+    borderRadius: 5,
+    border: `1px solid ${theme.palette.primary.contrastText}`,
+    fontSize: 14,
+    '&:focus': {
+      borderRadius: 5,
+    },
+  },
+}))(InputBase);
 
 export default LocaleSelector;

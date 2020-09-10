@@ -16,45 +16,52 @@ import Header from '~/components/Header';
 import Navigation from '~/components/Navigation';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
-import { IconMenu, IconNotification } from '~/styles/icons';
+import { IconSend, IconMenu, IconNotification } from '~/styles/icons';
+
+const transitionMixin = ({ transitions }) => ({
+  transition: transitions.create(['transform'], {
+    easing: transitions.easing.sharp,
+    duration: transitions.duration.leavingScreen,
+  }),
+});
+
+const transitionExpandedMixin = ({ transitions, custom }) => ({
+  transform: `translate3d(${custom.components.navigationWidth}px, 0, 0)`,
+  transition: transitions.create(['transform'], {
+    easing: transitions.easing.easeOut,
+    duration: transitions.duration.enteringScreen,
+  }),
+});
 
 const useStyles = makeStyles((theme) => ({
   dashboardProfile: {
     flexGrow: 1,
   },
-  sendFab: {
+  fabSend: {
+    ...transitionMixin(theme),
     position: 'absolute',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
+    background: theme.custom.gradients.purple,
+  },
+  fabSendExpanded: {
+    ...transitionExpandedMixin(theme),
   },
   header: {
-    transition: theme.transitions.create(['transform'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+    ...transitionMixin(theme),
   },
   headerExpanded: {
-    transform: `translate3d(${theme.custom.navigationWidth}, 0, 0)`,
-    transition: theme.transitions.create(['transform'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+    ...transitionExpandedMixin(theme),
   },
   navigation: {
-    width: theme.custom.navigationWidth,
+    width: theme.custom.components.navigationWidth,
   },
   view: {
-    transition: theme.transitions.create(['transform'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+    ...transitionMixin(theme),
   },
   viewExpanded: {
-    transform: `translate3d(${theme.custom.navigationWidth}, 0, 0)`,
-    transition: theme.transitions.create(['transform'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+    ...transitionExpandedMixin(theme),
+    overflow: 'hidden',
   },
 }));
 
@@ -73,16 +80,13 @@ const Dashboard = () => {
           [classes.headerExpanded]: isMenuExpanded,
         })}
       >
-        <IconButton aria-label="menu" edge="start" onClick={handleMenuToggle}>
+        <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
           <IconMenu />
         </IconButton>
-
         <DashboardProfile />
         <DashboardActivityIcon />
       </Header>
-
       <Navigation className={classes.navigation} isExpanded={isMenuExpanded} />
-
       <View
         className={clsx(classes.view, {
           [classes.viewExpanded]: isMenuExpanded,
@@ -90,15 +94,16 @@ const Dashboard = () => {
       >
         <BalanceDisplay />
       </View>
-
       <Fab
-        aria-label="edit"
-        className={classes.sendFab}
-        color="secondary"
+        aria-label="Send"
+        className={clsx(classes.fabSend, {
+          [classes.fabSendExpanded]: isMenuExpanded,
+        })}
+        color="primary"
         component={Link}
         to="/send"
       >
-        Send
+        <IconSend />
       </Fab>
     </Fragment>
   );
@@ -146,9 +151,9 @@ const DashboardActivityIcon = () => {
 
   return (
     <IconButton
-      aria-label="menu"
+      aria-label="Activities"
       component={Link}
-      edge="start"
+      edge="end"
       to="/activities"
     >
       <Badge badgeContent={count} color="primary">

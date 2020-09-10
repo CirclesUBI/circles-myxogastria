@@ -19,8 +19,8 @@ const APP_CHECK_FREQUENCY_DEVELOPMENT = 1000 * 10;
 const useStyles = makeStyles((theme) => ({
   app: {
     overflow: 'hidden',
-    minWidth: theme.custom.widthMin,
-    maxWidth: theme.custom.widthMax,
+    minWidth: theme.custom.components.appMinWidth,
+    maxWidth: theme.custom.components.appMaxWidth,
     margin: '0 auto',
   },
 }));

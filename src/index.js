@@ -25,7 +25,6 @@ const Root = (props) => (
 );
 
 Root.propTypes = {
-  locales: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired,
 };
 

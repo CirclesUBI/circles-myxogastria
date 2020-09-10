@@ -1,2 +1,19 @@
 {
+  "Navigation": {
+    "buttonActivityLog": "Activity Log",
+    "buttonAddDevice": "Add Device",
+    "buttonExportSeedPhrase": "Export Seed Phrase",
+    "buttonMyQR": "My QR",
+    "buttonSendCircles": "Send Circles",
+    "linkAbout": "About",
+    "linkFAQ": "FAQ",
+    "linkMarketplace": "Marketplace",
+    "linkPrivacyLegal": "Privacy / Legal",
+    "linkSupport": "Support"
+  },
+  "LocaleSelector": {
+    "de": "DE",
+    "en": "EN",
+    "es": "ES"
+  }
 }

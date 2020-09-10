@@ -9,7 +9,9 @@ import locales, { DEFAULT_LOCALE, LOCALES } from 'locales';
 
 const LOCALE_NAME = 'locale';
 
-export function getLocale() {
+export const currentLocale = getLocale();
+
+function getLocale() {
   if (!isAvailable()) {
     return DEFAULT_LOCALE;
   }
@@ -21,7 +23,7 @@ export function getLocale() {
   return DEFAULT_LOCALE;
 }
 
-export function hasLocale() {
+function hasLocale() {
   return hasItem(LOCALE_NAME);
 }
 
@@ -114,7 +116,7 @@ function findTranslation(key, params) {
 }
 
 export default function translate(key, params = {}) {
-  const keyWithLocale = `${getLocale()}.${key}`;
+  const keyWithLocale = `${currentLocale}.${key}`;
   const translation = findTranslation(keyWithLocale, params);
   return translation ? translation : errorMessage(keyWithLocale);
 }

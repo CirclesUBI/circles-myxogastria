@@ -4,7 +4,9 @@ import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  offset: theme.mixins.toolbar,
+  offset: {
+    minHeight: theme.custom.components.appBarHeight,
+  },
 }));
 
 const View = ({ children, ...props }) => {
@@ -13,7 +15,6 @@ const View = ({ children, ...props }) => {
   return (
     <Fragment>
       <Box className={classes.offset} />
-
       <Box component="main" {...props}>
         {children}
       </Box>

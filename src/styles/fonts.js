@@ -11,24 +11,26 @@ import notoSansSemiBoldWoff2 from '%/fonts/notosans-semibold-webfont.woff2';
 import notoSansWoff from '%/fonts/notosans-regular-webfont.woff';
 import notoSansWoff2 from '%/fonts/notosans-regular-webfont.woff2';
 
+export const fontFamily = 'Noto Sans';
+
 export const fontWeightLight = 300;
-export const fontWeight = 400;
-export const fontWeightSemiBold = 500;
+export const fontWeightRegular = 400;
+export const fontWeightMedium = 500;
 export const fontWeightBold = 700;
 
 export const notoSans = {
-  fontWeight,
+  fontWeight: fontWeightRegular,
   fontStyle: 'normal',
-  fontFamily: 'Noto Sans',
+  fontFamily,
   src: `
     url(${notoSansWoff2}) format('woff2'),
     url(${notoSansWoff}) format('woff');
   `,
 };
 
-export const notoSansSemiBold = {
+export const notoSansMedium = {
   ...notoSans,
-  fontWeight: fontWeightSemiBold,
+  fontWeight: fontWeightMedium,
   src: `
     url(${notoSansSemiBoldWoff2}) format('woff2'),
     url(${notoSansSemiBoldWoff}) format('woff');
