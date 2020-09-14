@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { Container, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
@@ -11,30 +12,40 @@ const CriticalError = () => {
   const app = useSelector((state) => state.app);
 
   const onBurnClick = () => {
-    if (window.confirm(translate('CriticalError.areYouSure'))) {
+    if (window.confirm(translate('CriticalError.dialogAreYouSure'))) {
       dispatch(burnApp());
     }
   };
 
+  const onReload = () => {
+    window.location.reload();
+  };
+
   if (app.isErrorCritical) {
     return (
-      <Fragment>
-        <View>
-          <p>{translate('CriticalError.criticalErrorDescription')}</p>
-
-          <Button onClick={onBurnClick}>
-            {translate('CriticalError.reset')}
+      <View>
+        <Container maxWidth="sm">
+          <Typography align="center">
+            {translate('CriticalError.bodyCriticalErrorDescription')}
+          </Typography>
+          <Button fullWidth isPrimary onClick={onBurnClick}>
+            {translate('CriticalError.buttonBurnWallet')}
           </Button>
-        </View>
-      </Fragment>
+        </Container>
+      </View>
     );
   } else {
     return (
-      <Fragment>
-        <View>
-          <p>{translate('CriticalError.criticalErrorReload')}</p>
-        </View>
-      </Fragment>
+      <View>
+        <Container maxWidth="sm">
+          <Typography align="center">
+            {translate('CriticalError.bodyCriticalErrorTryAgain')}
+          </Typography>
+          <Button fullWidth isPrimary onClick={onReload}>
+            {translate('CriticalError.buttonReload')}
+          </Button>
+        </Container>
+      </View>
     );
   }
 };

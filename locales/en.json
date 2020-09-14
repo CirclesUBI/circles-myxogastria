@@ -6,6 +6,14 @@
     "buttonCopy": "Copy to clipboard",
     "infoCopiedMessage": "Text copied to clipboard"
   },
+  "CriticalError": {
+    "bodyCriticalErrorDescription": "Oh no! This looks bad. Your account seems to be corrupted and we can not recover from this current state.",
+    "bodyCriticalErrorTryAgain": "Oh no! Something went wrong while loading your account. Please reload this page and try again.",
+    "buttonBurnWallet": "Reset account",
+    "buttonReload": "Refresh page",
+    "dialogAreYouSure": "Do you really want to reset this wallet? You will not be able to recover without a seed phrase.",
+    "infoCopiedMessage": "Text copied to clipboard"
+  },
   "NotFound": {
     "bodyNotFound": "Ouch. We could not find the requested page. Did you maybe mistype the address?",
     "headingNotFound": "Not found"
@@ -18,7 +26,7 @@
   "Login": {
     "bodyCreateNewWallet": "No account yet?",
     "bodyNeedHelp": "Questions?",
-    "bodyUseThisQRCode": "Scan QR code to add this device to an already existing account:",
+    "bodyUseThisQRCode": "Scan QR code or copy device address to add this device to an already existing account:",
     "buttonCreateNewWallet": "Sign up here.",
     "buttonRestoreWithSeedPhrase": "Restore with Seed Phrase",
     "buttonShowSelector": "Show accounts to connect to",
@@ -26,6 +34,7 @@
     "dialogActionConnect": "Yes, connect",
     "dialogBodySelector": "Do you want to connect this device to the following accounts?",
     "dialogTitleSelector": "Connect device",
+    "formPublicAddress": "This device address",
     "headingLogin": "Login",
     "linkSupport": "Go to support.",
     "successWelcome": "Successfully connected to account. Welcome!"

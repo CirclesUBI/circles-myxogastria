@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import {
   Box,
+  TextField,
   Container,
   Dialog,
   List,
@@ -70,6 +71,14 @@ const Login = () => {
           </Typography>
           <Box my={2}>
             <QRCode data={wallet.address} />
+          </Box>
+          <Box mb={4}>
+            <TextField
+              fullWidth
+              label={translate('Login.formPublicAddress')}
+              readOnly
+              value={wallet.address}
+            />
           </Box>
           <Dialog
             aria-labelledby="form-dialog-title"
