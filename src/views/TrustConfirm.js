@@ -4,9 +4,9 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import Bubble from '~/components/Bubble';
+import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
-import ButtonPrimary from '~/components/ButtonPrimary';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import UsernameDisplay from '~/components/UsernameDisplay';
@@ -60,7 +60,6 @@ const TrustConfirm = (props) => {
         {translate('TrustConfirm.trustSomeone')}
         <ButtonHome />
       </Header>
-
       <View>
         <Bubble>
           <p>
@@ -70,11 +69,8 @@ const TrustConfirm = (props) => {
           </p>
         </Bubble>
       </View>
-
       <Footer>
-        <ButtonPrimary onClick={onSubmit}>
-          {translate('TrustConfirm.confirm')}
-        </ButtonPrimary>
+        <Button onClick={onSubmit}>{translate('TrustConfirm.confirm')}</Button>
       </Footer>
     </Fragment>
   );

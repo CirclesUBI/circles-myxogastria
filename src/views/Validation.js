@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import AvatarWithQR from '~/components/AvatarWithQR';
 import BalanceDisplay from '~/components/BalanceDisplay';
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import Header from '~/components/Header';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import ValidationStatus from '~/components/ValidationStatus';
@@ -36,9 +36,9 @@ const Validation = () => {
         <BalanceDisplay />
         <ValidationStatus />
 
-        <ButtonPrimary to="/validation/share">
+        <Button to="/validation/share">
           {translate('Validation.buttonShare')}
-        </ButtonPrimary>
+        </Button>
       </View>
     </Fragment>
   );

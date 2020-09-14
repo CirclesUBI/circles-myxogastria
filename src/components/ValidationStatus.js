@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { CircularProgress } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ButtonRound from '~/components/ButtonRound';
+import Button from '~/components/Button';
 import translate from '~/services/locale';
 import { FAQ_URL } from '~/components/ExternalLinkList';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
@@ -45,9 +45,9 @@ const ValidationStatus = () => {
         <Fragment>
           <p>{translate('ValidationStatus.readyForDeployment')}</p>
 
-          <ButtonRound onClick={onDeploy}>
+          <Button onClick={onDeploy}>
             <span>{translate('ValidationStatus.startDeploymentButton')}</span>
-          </ButtonRound>
+          </Button>
         </Fragment>
       ) : trust.isReady ? (
         <Fragment>

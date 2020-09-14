@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import Logo from '~/components/Logo';
@@ -119,13 +119,13 @@ const AccountCreate = () => {
       </View>
 
       <Footer>
-        <ButtonPrimary
+        <Button
           disabled={username.length < 3 || email.length === 0}
           type="submit"
           onClick={onSubmit}
         >
           {translate('AccountCreate.submit')}
-        </ButtonPrimary>
+        </Button>
       </Footer>
     </Fragment>
   );

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import Header from '~/components/Header';
 import QRCodeScanner from '~/components/QRCodeScanner';
 import View from '~/components/View';
@@ -77,9 +77,9 @@ const SettingsKeysAdd = () => {
             })}
           </p>
 
-          <ButtonPrimary onClick={onSubmit}>
+          <Button onClick={onSubmit}>
             {translate('SettingsKeysAdd.submit')}
-          </ButtonPrimary>
+          </Button>
         </View>
       </Fragment>
     );

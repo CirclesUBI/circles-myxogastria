@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     minWidth: theme.custom.components.appMinWidth,
     maxWidth: theme.custom.components.appMaxWidth,
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
     margin: '0 auto',
   },
 }));

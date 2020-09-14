@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import ButtonPrimary from '~/components/ButtonPrimary';
-import ButtonRound from '~/components/ButtonRound';
+import Button from '~/components/Button';
 import translate from '~/services/locale';
 
 const ButtonShare = (props) => {
@@ -17,23 +16,10 @@ const ButtonShare = (props) => {
     });
   };
 
-  if (!props.isPrimary) {
-    return (
-      <ButtonRound onClick={onShare}>
-        <span>{translate('ButtonShare.share')}</span>
-      </ButtonRound>
-    );
-  }
-
-  return (
-    <ButtonPrimary onClick={onShare}>
-      {translate('ButtonShare.share')}
-    </ButtonPrimary>
-  );
+  return <Button onClick={onShare}>{translate('ButtonShare.share')}</Button>;
 };
 
 ButtonShare.propTypes = {
-  isPrimary: PropTypes.bool,
   text: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,

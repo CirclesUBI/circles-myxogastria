@@ -5,11 +5,11 @@ import React, { useState, useEffect, createRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
+import Button from '~/components/Button';
 import findAddress from '~/utils/findAddress';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
 import translate from '~/services/locale';
-import { ButtonRoundStyle } from '~/components/ButtonRound';
 
 QrScanner.WORKER_PATH = QrScannerWorkerPath;
 
@@ -108,12 +108,9 @@ const QRCodeScanner = (props) => {
         ref={refVideo}
       />
 
-      <QRCodeScannerButtonStyle
-        isVideoVisible={isVideoVisible}
-        onClick={onClick}
-      >
+      <Button isVideoVisible={isVideoVisible} onClick={onClick}>
         <span>{translate('QRCodeScanner.tapToScan')}</span>
-      </QRCodeScannerButtonStyle>
+      </Button>
     </QRCodeScannerStyle>
   );
 };
@@ -152,17 +149,6 @@ const QRCodeScannerVideoStyle = styled.video`
   display: ${(props) => {
     return props.isVideoVisible ? 'block' : 'none';
   }};
-`;
-
-const QRCodeScannerButtonStyle = styled(ButtonRoundStyle)`
-  display: ${(props) => {
-    return props.isVideoVisible ? 'none' : 'flex';
-  }};
-
-  width: 12rem;
-  height: 12rem;
-
-  padding-top: 2.5rem;
 `;
 
 export default QRCodeScanner;

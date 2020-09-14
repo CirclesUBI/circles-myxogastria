@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import Bubble from '~/components/Bubble';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import ProfileMini from '~/components/ProfileMini';
@@ -98,9 +98,7 @@ const SendConfirm = (props) => {
         </View>
 
         <Footer>
-          <ButtonPrimary onClick={onSubmit}>
-            {translate('SendConfirm.confirm')}
-          </ButtonPrimary>
+          <Button onClick={onSubmit}>{translate('SendConfirm.confirm')}</Button>
         </Footer>
       </Fragment>
     );
@@ -128,9 +126,9 @@ const SendConfirm = (props) => {
       </View>
 
       <Footer>
-        <ButtonPrimary disabled={!(amount > 0)} onClick={onNext}>
+        <Button disabled={!(amount > 0)} onClick={onNext}>
           {translate('SendConfirm.submitAmount')}
-        </ButtonPrimary>
+        </Button>
       </Footer>
     </Fragment>
   );

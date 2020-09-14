@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 
+import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
-import ButtonRound from '~/components/ButtonRound';
 import ExternalLinkList from '~/components/ExternalLinkList';
 import Header from '~/components/Header';
 import LocaleSelector from '~/components/LocaleSelector';
@@ -21,24 +21,19 @@ const Settings = () => {
         <ButtonBack to="/" />
         <UsernameDisplay address={safe.currentAccount} />
       </Header>
-
       <View>
         <SpacingStyle>
           <QRCode data={safe.currentAccount} />
         </SpacingStyle>
-
         <SpacingStyle>
           <p>{translate('Settings.showThisQR')}</p>
         </SpacingStyle>
-
-        <ButtonRound to="/settings/share">
+        <Button to="/settings/share">
           <span>{translate('Settings.share')}</span>
-        </ButtonRound>
-
+        </Button>
         <SpacingStyle>
           <LocaleSelector />
         </SpacingStyle>
-
         <ExternalLinkList />
       </View>
     </Fragment>

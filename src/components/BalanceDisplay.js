@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { CircularProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
-import ButtonPrimary, { ButtonPrimaryStyle } from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import person from '%/images/person.svg';
 import styles from '~/styles/variables';
 import translate from '~/services/locale';
@@ -53,14 +53,12 @@ const BalanceDisplay = () => {
           </BalanceTooltipContentStyle>
 
           <BalanceTooltipButtonsStyle>
-            <ButtonPrimary onClick={onCloseClick}>
+            <Button onClick={onCloseClick}>
               {translate('BalanceDisplay.gotIt')}
-            </ButtonPrimary>
+            </Button>
 
             <a href={FAQ_URL} rel="noopener noreferrer" target="_blank">
-              <ButtonPrimaryStyle isOutline>
-                {translate('BalanceDisplay.learnMore')}
-              </ButtonPrimaryStyle>
+              <Button isOutline>{translate('BalanceDisplay.learnMore')}</Button>
             </a>
           </BalanceTooltipButtonsStyle>
         </BalanceTooltipStyle>

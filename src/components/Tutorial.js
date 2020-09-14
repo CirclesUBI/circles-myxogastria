@@ -1,12 +1,32 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
-import { Box, Button, MobileStepper } from '@material-ui/core';
+import { Container, MobileStepper, IconButton } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import translate from '~/services/locale';
+import { IconBack, IconClose } from '~/styles/icons';
+
+const useStyles = makeStyles((theme) => ({
+  tutorialMobileStepper: {
+    flexGrow: 1,
+    padding: 0,
+  },
+  tutorialMobileStepperDot: {
+    backgroundColor: 'transparent',
+    border: `1px solid ${theme.palette.text.primary}`,
+  },
+  tutorialMobileStepperDotActive: {
+    backgroundColor: theme.palette.text.primary,
+  },
+  tutorialSkipButton: {
+    fontWeight: theme.typography.fontWeightMedium,
+    textTransform: 'uppercase',
+  },
+}));
 
 const Tutorial = (props) => {
   const [current, setCurrent] = useState(0);
@@ -33,11 +53,9 @@ const Tutorial = (props) => {
         onPrevious={onPrevious}
         onSkip={onFinish}
       />
-
       <View>
-        <Box>{props.slides[current]}</Box>
+        <Container maxWidth="sm">{props.slides[current]}</Container>
       </View>
-
       <TutorialFooter
         current={current}
         total={total}
@@ -49,21 +67,31 @@ const Tutorial = (props) => {
 };
 
 const TutorialHeader = (props) => {
+  const classes = useStyles();
+
   return (
     <Header>
       <MobileStepper
         activeStep={props.current}
         backButton={
-          <Button
-            size="small"
+          <IconButton
             onClick={props.current === 0 ? props.onExit : props.onPrevious}
           >
-            Back
-          </Button>
+            {props.current === 0 ? <IconClose /> : <IconBack />}
+          </IconButton>
         }
+        classes={{
+          root: classes.tutorialMobileStepper,
+          dot: classes.tutorialMobileStepperDot,
+          dotActive: classes.tutorialMobileStepperDotActive,
+        }}
         nextButton={
-          <Button size="small" onClick={props.onSkip}>
-            Skip
+          <Button
+            className={classes.tutorialSkipButton}
+            isDark
+            onClick={props.onSkip}
+          >
+            {translate('Tutorial.buttonSkip')}
           </Button>
         }
         position="static"
@@ -75,30 +103,20 @@ const TutorialHeader = (props) => {
 };
 
 const TutorialFooter = (props) => {
+  const isLastSlide = props.current === props.total - 1;
+
   return (
     <Footer>
-      <TutorialFooterButton
-        isLastSlide={props.current === props.total - 1}
-        onFinish={props.onFinish}
-        onNext={props.onNext}
-      />
+      <Button
+        fullWidth
+        isPrimary
+        onClick={isLastSlide ? props.onFinish : props.onNext}
+      >
+        {isLastSlide
+          ? translate('Tutorial.buttonFinish')
+          : translate('Tutorial.buttonNextStep')}
+      </Button>
     </Footer>
-  );
-};
-
-const TutorialFooterButton = (props) => {
-  if (props.isLastSlide) {
-    return (
-      <ButtonPrimary onClick={props.onFinish}>
-        {translate('Tutorial.finish')}
-      </ButtonPrimary>
-    );
-  }
-
-  return (
-    <ButtonPrimary onClick={props.onNext}>
-      {translate('Tutorial.nextStep')}
-    </ButtonPrimary>
   );
 };
 
@@ -121,12 +139,6 @@ TutorialFooter.propTypes = {
   onFinish: PropTypes.func.isRequired,
   onNext: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
-};
-
-TutorialFooterButton.propTypes = {
-  isLastSlide: PropTypes.bool.isRequired,
-  onFinish: PropTypes.func.isRequired,
-  onNext: PropTypes.func.isRequired,
 };
 
 export default Tutorial;

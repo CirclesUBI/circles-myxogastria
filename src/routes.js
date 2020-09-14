@@ -25,12 +25,16 @@ import SettingsShare from '~/views/SettingsShare';
 import Trust from '~/views/Trust';
 import TrustConfirm from '~/views/TrustConfirm';
 import TrustRevokeConfirm from '~/views/TrustRevokeConfirm';
-import TutorialAccountCreate from '~/views/TutorialAccountCreate';
+import TutorialOnboarding from '~/views/TutorialOnboarding';
 import TutorialSettingsKeys from '~/views/TutorialSettingsKeys';
 import Validation from '~/views/Validation';
 import ValidationShare from '~/views/ValidationShare';
 import Welcome from '~/views/Welcome';
 import { ACCOUNT_CREATE, SETTINGS_KEYS } from '~/store/tutorial/actions';
+
+export const DASHBOARD_PATH = '/';
+export const ONBOARDING_PATH = '/welcome/onboarding';
+export const WELCOME_PATH = '/welcome';
 
 const SessionContainer = ({
   component: Component,
@@ -74,11 +78,13 @@ const SessionContainer = ({
       return <Redirect to="/validation" />;
     }
 
-    return <Redirect to="/" />;
+    return <Redirect to={DASHBOARD_PATH} />;
   }
 
-  return <Redirect to="/welcome" />;
+  return <Redirect to={WELCOME_PATH} />;
 };
+
+// Containers for routes with different permissions
 
 const OnboardingRoute = ({ component, path }) => {
   return (
@@ -108,9 +114,10 @@ const TrustedRoute = ({ component, path }) => {
   );
 };
 
+// Containers for Tutorials
+
 const TutorialContainer = (props) => {
   const [redirect, setRedirect] = useState(false);
-
   const { isFinished } = useSelector((state) => {
     return state.tutorial[props.name];
   });
@@ -132,12 +139,12 @@ const TutorialContainer = (props) => {
   return <FinalComponent />;
 };
 
-const AccountCreateContainer = () => {
+const OnboardingContainer = () => {
   return (
     <TutorialContainer
       componentFinal={Onboarding}
-      componentTutorial={TutorialAccountCreate}
-      exitPath="/welcome"
+      componentTutorial={TutorialOnboarding}
+      exitPath={WELCOME_PATH}
       name={ACCOUNT_CREATE}
     />
   );
@@ -153,6 +160,8 @@ const SettingsKeysContainer = () => {
     />
   );
 };
+
+// Routes
 
 const Routes = () => {
   const location = useLocation();
@@ -170,7 +179,7 @@ const Routes = () => {
 
   return (
     <Switch location={location}>
-      <TrustedRoute component={Dashboard} exact path="/" />
+      <TrustedRoute component={Dashboard} exact path={DASHBOARD_PATH} />
       <SessionRoute component={ValidationShare} path="/validation/share" />
       <SessionRoute component={Validation} path="/validation" />
       <TrustedRoute component={Invite} path="/invite" />
@@ -195,13 +204,10 @@ const Routes = () => {
       <TrustedRoute component={SettingsKeysContainer} path="/settings/keys" />
       <TrustedRoute component={SettingsShare} path="/settings/share" />
       <TrustedRoute component={Settings} path="/settings" />
-      <OnboardingRoute
-        component={AccountCreateContainer}
-        path="/welcome/onboarding"
-      />
+      <OnboardingRoute component={OnboardingContainer} path={ONBOARDING_PATH} />
       <OnboardingRoute component={AccountConnect} path="/welcome/connect" />
       <OnboardingRoute component={AccountImport} path="/welcome/seed" />
-      <OnboardingRoute component={Welcome} path="/welcome" />
+      <OnboardingRoute component={Welcome} path={WELCOME_PATH} />
       <Route component={NotFound} />
     </Switch>
   );

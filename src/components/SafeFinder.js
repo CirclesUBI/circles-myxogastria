@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import QRCodeScanner from '~/components/QRCodeScanner';
 import UsernameFinder from '~/components/UsernameFinder';
@@ -80,9 +80,7 @@ const SafeFinderFooter = (props) => {
 
   return (
     <Footer>
-      <ButtonPrimary onClick={onClick}>
-        {translate('SafeFinder.tapToScanQR')}
-      </ButtonPrimary>
+      <Button onClick={onClick}>{translate('SafeFinder.tapToScanQR')}</Button>
     </Footer>
   );
 };

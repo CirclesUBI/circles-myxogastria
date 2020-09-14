@@ -11,6 +11,53 @@
     "linkPrivacyLegal": "Privacy / Legal",
     "linkSupport": "Support"
   },
+  "Tutorial": {
+    "buttonFinish": "Got it.",
+    "buttonNextStep": "Next",
+    "buttonSkip": "Skip"
+  },
+  "ButtonClipboard": {
+    "buttonCopy": "Copy to clipboard"
+  },
+  "TutorialOnboarding": {
+    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support an alternative economy.",
+    "bodyUnconditionalIncome": "Circles is designed similar to a basic income. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
+    "bodyWebOfTrust": "You can spend Circles with people you trust, and the people they trust. ",
+    "headingBuildYourOwnEconomy": "Build Your Own Economy",
+    "headingUnconditionalIncome": "Unconditional Income",
+    "headingWebOfTrust": "A Web of Trust"
+  },
+  "Onboarding": {
+    "bodyAvatar": "Your photo is how your friends can search for you on the Circles App.",
+    "bodyEmail": "We never share your email address and only use it to inform you about important changes of the platform.",
+    "bodySeedPhrase": "This is your account password. Please save this somewhere private!",
+    "bodySeedPhraseChallenge": "Please enter word {wordIndex} in your seed phrase:",
+    "bodyUsername": "Your username is how your friends can search for you on the Circles App.",
+    "buttonFinish": "Sign me up!",
+    "buttonNextStep": "Submit",
+    "formEmail": "Email",
+    "formEmailInvalid": "Invalid email address",
+    "formSeedPhraseChallenge": "Your answer",
+    "formSeedPhraseChallengeInvalid": "Wrong answer",
+    "formUnknownError": "Unknown error ",
+    "formUsername": "Username",
+    "formUsernameInvalidFormat": "Only basic characters and numbers (A-Z, 0-9) allowed, no symbols or whitespace, 3-24 characters",
+    "formUsernameTaken": "Username is already taken",
+    "headingAvatar": "Add Photo",
+    "headingEmail": "Enter Email",
+    "headingSeedPhrase": "Save Seed Phrase",
+    "headingSeedPhraseChallenge": "Did you save your Seed Phrase?",
+    "headingUsername": "Create Your Username"
+  },
+  "Welcome": {
+    "buttonLogin": "Log in",
+    "buttonSignUp": "Sign up",
+    "headingWelcomeToCircles": "Welcome to Circles",
+    "linkAboutCircles": "About Circles",
+    "linkContactUs": "Contact us",
+    "linkFAQ": "FAQ",
+    "linkPrivacyLegal": "Privacy + Legal"
+  },
   "LocaleSelector": {
     "de": "DE",
     "en": "EN",

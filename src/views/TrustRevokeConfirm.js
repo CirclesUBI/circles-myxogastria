@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import Bubble from '~/components/Bubble';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
@@ -73,9 +73,9 @@ const TrustRevokeConfirm = (props) => {
       </View>
 
       <Footer>
-        <ButtonPrimary onClick={onSubmit}>
+        <Button onClick={onSubmit}>
           {translate('TrustRevokeConfirm.confirm')}
-        </ButtonPrimary>
+        </Button>
       </Footer>
     </Fragment>
   );

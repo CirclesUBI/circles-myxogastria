@@ -1,25 +1,38 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useCallback, useMemo, useRef, useState } from 'react';
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import mime from 'mime/lite';
 import {
-  Button,
-  CircularProgress,
-  FormControl,
-  FormHelperText,
-  Input,
-  InputAdornment,
-  InputLabel,
+  Avatar,
+  Box,
+  Container,
+  Grid,
+  IconButton,
   MobileStepper,
+  Paper,
+  Typography,
 } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Button from '~/components/Button';
 import ButtonClipboard from '~/components/ButtonClipboard';
+import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import Input from '~/components/Input';
+import Logo from '~/components/Logo';
 import View from '~/components/View';
 import core from '~/services/core';
 import debounce from '~/utils/debounce';
-import { IconCheck } from '~/styles/icons';
+import translate from '~/services/locale';
+import { IconBack, IconClose } from '~/styles/icons';
 import { createNewAccount } from '~/store/onboarding/actions';
 import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
@@ -27,11 +40,35 @@ import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
 const DEBOUNCE_DELAY = 500;
 const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
-const Onboarding = () => {
-  const dispatch = useDispatch();
+const useStyles = makeStyles((theme) => ({
+  onboardingMobileStepper: {
+    flexGrow: 1,
+    padding: 0,
+  },
+  mnemonicItem: {
+    width: theme.spacing(9),
+    padding: theme.spacing(0.5),
+    textAlign: 'center',
+  },
+  avatarUpload: {
+    margin: '0 auto',
+    width: theme.spacing(15),
+    height: theme.spacing(15),
+    color: theme.palette.text.primary,
+    fontSize: '30px',
+    fontWeight: theme.typography.fontWeightMedium,
+    backgroundColor: 'transparent',
+    border: `1px solid ${theme.palette.text.primary}`,
+    cursor: 'pointer',
+  },
+}));
 
+const Onboarding = () => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
   const [current, setCurrent] = useState(0);
   const [isRedirect, setIsRedirect] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const [values, setValues] = useState({
     avatarUrl: '',
@@ -46,8 +83,13 @@ const Onboarding = () => {
     });
   };
 
+  const onDisabledChange = (updatedValue) => {
+    setIsDisabled(updatedValue);
+  };
+
   const onNext = () => {
     setCurrent(current + 1);
+    setIsDisabled(true);
   };
 
   const onPrevious = () => {
@@ -83,6 +125,8 @@ const Onboarding = () => {
 
   const OnboardingCurrentStep = steps[current];
 
+  const isLastSlide = current === steps.length - 1;
+
   if (isRedirect) {
     return <Redirect to={'/welcome'} />;
   }
@@ -93,28 +137,50 @@ const Onboarding = () => {
         <MobileStepper
           activeStep={current}
           backButton={
-            <Button size="small" onClick={current === 0 ? onExit : onPrevious}>
-              Back
-            </Button>
+            <IconButton onClick={current === 0 ? onExit : onPrevious}>
+              <IconBack />
+            </IconButton>
           }
+          classes={{
+            root: classes.onboardingMobileStepper,
+            progress: classes.onboardingMobileStepperProgress,
+          }}
           nextButton={
-            <Button size="small" onClick={onExit}>
-              Exit
-            </Button>
+            <IconButton onClick={onExit}>
+              <IconClose />
+            </IconButton>
           }
           position="static"
           steps={steps.length + 1}
           variant="progress"
         />
       </Header>
-
       <View>
-        <OnboardingCurrentStep
-          values={values}
-          onChange={onChange}
-          onNext={current === steps.length - 1 ? onFinish : onNext}
-        />
+        <Container maxWidth="sm">
+          <Box my={6}>
+            <Logo />
+          </Box>
+          <Box textAlign="center">
+            <OnboardingCurrentStep
+              values={values}
+              onChange={onChange}
+              onDisabledChange={onDisabledChange}
+            />
+          </Box>
+        </Container>
       </View>
+      <Footer>
+        <Button
+          disabled={isDisabled}
+          fullWidth
+          isPrimary
+          onClick={isLastSlide ? onFinish : onNext}
+        >
+          {isLastSlide
+            ? translate('Onboarding.buttonFinish')
+            : translate('Onboarding.buttonNextStep')}
+        </Button>
+      </Footer>
     </Fragment>
   );
 };
@@ -122,10 +188,7 @@ const Onboarding = () => {
 const OnboardingStepUsername = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-
-  const onSubmit = () => {
-    props.onNext();
-  };
+  const [errorMessage, setErrorMessage] = useState('');
 
   const debouncedUsernameCheck = debounce(async (username) => {
     try {
@@ -139,12 +202,12 @@ const OnboardingStepUsername = (props) => {
 
       setIsError(false);
     } catch (error) {
-      if (error.code === 400) {
-        // @TODO: Show message
-        // Invalid format
-      } else if (error.code === 409) {
-        // @TODO: Show message
-        // Name already taken
+      if (error.request.status === 400) {
+        setErrorMessage(translate('Onboarding.formUsernameInvalidFormat'));
+      } else if (error.request.status === 409) {
+        setErrorMessage(translate('Onboarding.formUsernameTaken'));
+      } else {
+        setErrorMessage(translate('Onboarding.formUnknownError'));
       }
 
       setIsError(true);
@@ -154,48 +217,43 @@ const OnboardingStepUsername = (props) => {
   }, DEBOUNCE_DELAY);
 
   const verify = useCallback((username) => {
-    if (username.length < 3) {
-      // @TODO: Show message, too short
-      setIsError(true);
-      setIsLoading(false);
-      return;
-    }
-
     setIsError(false);
     setIsLoading(true);
-
     debouncedUsernameCheck(username);
   }, []);
 
   const onChange = (event) => {
     const { value: username } = event.target;
-
     props.onChange({
       username,
     });
-
     verify(username);
   };
 
-  const isEmpty = props.values.username.length === 0;
+  useEffect(() => {
+    const isEmpty = props.values.username.length === 0;
+    props.onDisabledChange(isEmpty || isError || isLoading);
+  }, [props.values, isError, isLoading]);
 
   return (
     <Fragment>
-      <OnboardingInput
-        errorMessage=""
-        id="username"
-        inputProps={{ maxLength: 24 }}
-        isError={isError}
-        isLoading={isLoading}
-        label="Username"
-        type="text"
-        value={props.values.username}
-        onChange={onChange}
-      />
-
-      <Button disabled={isEmpty || isError || isLoading} onClick={onSubmit}>
-        Submit
-      </Button>
+      <Typography align="center" gutterBottom variant="h2">
+        {translate('Onboarding.headingUsername')}
+      </Typography>
+      <Typography>{translate('Onboarding.bodyUsername')}</Typography>
+      <Box mt={4}>
+        <Input
+          errorMessage={errorMessage}
+          id="username"
+          inputProps={{ maxLength: 24 }}
+          isError={isError}
+          isLoading={isLoading}
+          label={translate('Onboarding.formUsername')}
+          type="text"
+          value={props.values.username}
+          onChange={onChange}
+        />
+      </Box>
     </Fragment>
   );
 };
@@ -203,10 +261,6 @@ const OnboardingStepUsername = (props) => {
 const OnboardingStepEmail = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-
-  const onSubmit = () => {
-    props.onNext();
-  };
 
   const debouncedEmailCheck = debounce(async (email) => {
     try {
@@ -228,7 +282,6 @@ const OnboardingStepEmail = (props) => {
 
   const verify = useCallback((email) => {
     if (email.length < 3) {
-      // @TODO: Show message, too short
       setIsError(true);
       setIsLoading(false);
       return;
@@ -242,53 +295,72 @@ const OnboardingStepEmail = (props) => {
 
   const onChange = (event) => {
     const { value: email } = event.target;
-
     props.onChange({
       email,
     });
-
     verify(email);
   };
 
+  useEffect(() => {
+    props.onDisabledChange(
+      !props.values.email.length > 0 || isError || isLoading,
+    );
+  }, [props.values.email, isError, isLoading]);
+
   return (
     <Fragment>
-      <OnboardingInput
-        errorMessage=""
-        id="email"
-        isError={isError}
-        isLoading={isLoading}
-        label="E-Mail-Address"
-        type="email"
-        value={props.values.email}
-        onChange={onChange}
-      />
-
-      <Button
-        disabled={!props.values.email || isError || isLoading}
-        onClick={onSubmit}
-      >
-        Submit
-      </Button>
+      <Typography align="center" gutterBottom variant="h2">
+        {translate('Onboarding.headingEmail')}
+      </Typography>
+      <Typography>{translate('Onboarding.bodyEmail')}</Typography>
+      <Box mt={4}>
+        <Input
+          errorMessage={translate('Onboarding.formEmailInvalid')}
+          id="email"
+          isError={isError}
+          isLoading={isLoading}
+          label={translate('Onboarding.formEmail')}
+          type="email"
+          value={props.values.email}
+          onChange={onChange}
+        />
+      </Box>
     </Fragment>
   );
 };
 
 const OnboardingStepSeedPhrase = (props) => {
+  const classes = useStyles();
+
   const mnemonic = useMemo(() => {
     const privateKey = getPrivateKey();
     return toSeedPhrase(privateKey);
   }, []);
 
+  useEffect(() => {
+    props.onDisabledChange(false);
+  }, []);
+
   return (
     <Fragment>
-      <p>Seed Phrase</p>
-
-      {mnemonic.split(' ').map((word, index) => {
-        return <span key={index}>{word} - </span>;
-      })}
-
-      <ButtonClipboard text={mnemonic}>Save to clipboard</ButtonClipboard>
-      <Button onClick={props.onNext}>I saved it!</Button>
+      <Typography align="center" gutterBottom variant="h2">
+        {translate('Onboarding.headingSeedPhrase')}
+      </Typography>
+      <Typography>{translate('Onboarding.bodySeedPhrase')}</Typography>
+      <Box my={4}>
+        <Grid container spacing={2}>
+          {mnemonic.split(' ').map((word, index) => {
+            return (
+              <Grid item key={index} xs>
+                <Paper className={classes.mnemonicItem}>{word}</Paper>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Box>
+      <ButtonClipboard fullWidth isOutline text={mnemonic}>
+        {translate('Onboarding.buttonCopyToClipboard')}
+      </ButtonClipboard>
     </Fragment>
   );
 };
@@ -311,27 +383,39 @@ const OnboardingStepSeedChallenge = (props) => {
     return challenge === answer;
   }, [challenge, pendingNonce, wordIndex]);
 
+  useEffect(() => {
+    props.onDisabledChange(!isValid);
+  }, [isValid]);
+
   return (
     <Fragment>
-      <p>Please enter word {wordIndex + 1} in your seed phrase</p>
-
-      <OnboardingInput
-        id="challenge"
-        label="Word"
-        name="challenge"
-        type="text"
-        value={challenge}
-        onChange={onChange}
-      />
-
-      <Button disabled={!isValid} onClick={props.onNext}>
-        Submit
-      </Button>
+      <Typography align="center" gutterBottom variant="h2">
+        {translate('Onboarding.headingSeedPhraseChallenge')}
+      </Typography>
+      <Typography>
+        {translate('Onboarding.bodySeedPhraseChallenge', {
+          wordIndex: wordIndex + 1,
+        })}
+      </Typography>
+      <Box mt={4}>
+        <Input
+          errorMessage={translate('Onboarding.formSeedPhraseChallengeInvalid')}
+          id="challenge"
+          isError={!isValid && challenge.length > 0}
+          label={translate('Onboarding.formSeedPhraseChallenge')}
+          name="challenge"
+          type="text"
+          value={challenge}
+          onChange={onChange}
+        />
+      </Box>
     </Fragment>
   );
 };
 
 const OnboardingStepAvatar = (props) => {
+  const classes = useStyles();
+
   const [isLoading, setIsLoading] = useState(false);
   const fileInputElem = useRef();
 
@@ -372,75 +456,39 @@ const OnboardingStepAvatar = (props) => {
     return mime.getType(ext);
   }).join(',');
 
+  useEffect(() => {
+    props.onDisabledChange(!props.values.avatarUrl || isLoading);
+  }, [props.values.avatarUrl, isLoading]);
+
   return (
     <Fragment>
-      <p>Profile image</p>
-
-      {props.values.avatarUrl && (
-        <img src={props.values.avatarUrl} width="100" />
-      )}
-
-      <input
-        accept={fileTypesStr}
-        ref={fileInputElem}
-        style={{ display: 'none' }}
-        type="file"
-        onChange={onChangeFiles}
-      />
-
-      <Button disabled={isLoading} onClick={onUpload}>
-        Upload
-      </Button>
-
-      <Button
-        disabled={!props.values.avatarUrl || isLoading}
-        onClick={props.onNext}
-      >
-        Continue
-      </Button>
+      <Typography align="center" gutterBottom variant="h2">
+        {translate('Onboarding.headingAvatar')}
+      </Typography>
+      <Typography>{translate('Onboarding.bodyAvatar')}</Typography>
+      <Box mt={4}>
+        <Avatar
+          className={classes.avatarUpload}
+          src={props.values.avatarUrl}
+          onClick={onUpload}
+        >
+          +
+        </Avatar>
+        <input
+          accept={fileTypesStr}
+          ref={fileInputElem}
+          style={{ display: 'none' }}
+          type="file"
+          onChange={onChangeFiles}
+        />
+      </Box>
     </Fragment>
-  );
-};
-
-// @TODO: Move this into own file
-const OnboardingInput = ({
-  isError,
-  id,
-  errorMessage,
-  label,
-  isLoading,
-  value,
-  ...props
-}) => {
-  return (
-    <FormControl error={isError} fullWidth>
-      <InputLabel htmlFor={id}>{label}</InputLabel>
-
-      <Input
-        endAdornment={
-          isLoading ? (
-            <InputAdornment position="end">
-              <CircularProgress size={15} />
-            </InputAdornment>
-          ) : (
-            !isError && !value.length === 0 && <IconCheck />
-          )
-        }
-        id={id}
-        value={value}
-        {...props}
-      />
-
-      {isError && errorMessage && (
-        <FormHelperText>{errorMessage}</FormHelperText>
-      )}
-    </FormControl>
   );
 };
 
 const stepProps = {
   onChange: PropTypes.func.isRequired,
-  onNext: PropTypes.func.isRequired,
+  onDisabledChange: PropTypes.func.isRequired,
   values: PropTypes.object.isRequired,
 };
 
@@ -462,15 +510,6 @@ OnboardingStepSeedChallenge.propTypes = {
 
 OnboardingStepAvatar.propTypes = {
   ...stepProps,
-};
-
-OnboardingInput.propTypes = {
-  errorMessage: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  isError: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.any.isRequired,
 };
 
 export default Onboarding;

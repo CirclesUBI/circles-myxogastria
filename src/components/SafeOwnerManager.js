@@ -4,12 +4,11 @@ import styled from 'styled-components';
 import { CircularProgress } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import Pill from '~/components/Pill';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import styles from '~/styles/variables';
 import translate from '~/services/locale';
-import { ButtonStyle } from '~/components/Button';
 import { SpacingStyle } from '~/styles/Layout';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { removeSafeOwner, getSafeOwners } from '~/store/safe/actions';
@@ -52,9 +51,9 @@ const SafeOwnerManager = () => {
         <SafeOwnerManagerList owners={safe.owners} onRemove={onRemove} />
       </ul>
 
-      <ButtonPrimary to="/settings/keys/add">
+      <Button to="/settings/keys/add">
         {translate('SafeOwnerManager.addNewDevice')}
-      </ButtonPrimary>
+      </Button>
     </Fragment>
   );
 };
@@ -100,7 +99,7 @@ const SafeOwnerManagerItem = (props) => {
   return (
     <OwnerStyle>
       <span>{props.address}</span>
-      <ButtonStyle onClick={onRemove}>Remove</ButtonStyle>
+      <Button onClick={onRemove}>Remove</Button>
     </OwnerStyle>
   );
 };

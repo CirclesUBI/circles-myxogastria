@@ -28,6 +28,7 @@ const monochrome = {
 
 export const colors = {
   ...monochrome,
+  red: '#cc0000',
   green: '#45e6af',
   blue: '#2196f3',
   orange: '#faad26',
@@ -39,6 +40,7 @@ export const colors = {
 
 const gradients = {
   purple: `linear-gradient(280deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
+  gray: `linear-gradient(280deg, ${colors.grayDark} 0%, ${colors.gray} 100%)`,
 };
 
 const components = {
@@ -65,7 +67,7 @@ export default createMuiTheme({
       dark: colors.turquoiseDark,
     },
     error: {
-      main: colors.green,
+      main: colors.red,
     },
     warning: {
       main: colors.orange,
@@ -86,6 +88,19 @@ export default createMuiTheme({
     fontWeightRegular,
     fontWeightMedium,
     fontWeightBold,
+    body1: {
+      fontWeight: fontWeightLight,
+    },
+    h1: {
+      fontSize: '32px',
+      fontWeight: fontWeightMedium,
+      lineHeight: '44px',
+    },
+    h2: {
+      fontSize: '24px',
+      fontWeight: fontWeightMedium,
+      lineHeight: '33px',
+    },
   },
   overrides: {
     MuiCssBaseline: {
@@ -102,6 +117,11 @@ export default createMuiTheme({
           notoSansMedium,
         ],
         fontFamily,
+      },
+    },
+    MuiDivider: {
+      root: {
+        backgroundColor: colors.black,
       },
     },
   },

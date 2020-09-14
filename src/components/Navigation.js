@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link as MuiLink, Drawer, Grid, Button, Box } from '@material-ui/core';
+import { Drawer, Grid, Button, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
+import ExternalLink from '~/components/ExternalLink';
 import LocaleSelector from '~/components/LocaleSelector';
 import translate from '~/services/locale';
 import {
@@ -201,14 +202,9 @@ const NavigationExternalLink = ({ children, href }) => {
   const classes = useStyles();
 
   return (
-    <MuiLink
-      className={classes.navigationExternalLink}
-      href={href}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
+    <ExternalLink className={classes.navigationExternalLink} href={href}>
       {children}
-    </MuiLink>
+    </ExternalLink>
   );
 };
 

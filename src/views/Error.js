@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import { burnApp } from '~/store/app/actions';
@@ -22,9 +22,9 @@ const CriticalError = () => {
         <View>
           <p>{translate('CriticalError.criticalErrorDescription')}</p>
 
-          <ButtonPrimary onClick={onBurnClick}>
+          <Button onClick={onBurnClick}>
             {translate('CriticalError.reset')}
-          </ButtonPrimary>
+          </Button>
         </View>
       </Fragment>
     );

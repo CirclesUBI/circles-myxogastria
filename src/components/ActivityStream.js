@@ -6,7 +6,7 @@ import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import Pill from '~/components/Pill';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import core from '~/services/core';
@@ -129,9 +129,9 @@ const ActivityStream = () => {
       {isLoading ? <CircularProgress /> : null}
 
       {activity.isMoreAvailable ? (
-        <ButtonPrimary disabled={isLoading} onClick={onLoadMore}>
+        <Button disabled={isLoading} onClick={onLoadMore}>
           {translate('ActivityStream.loadMore')}
-        </ButtonPrimary>
+        </Button>
       ) : null}
     </ActivityStreamStyle>
   );

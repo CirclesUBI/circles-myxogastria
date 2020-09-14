@@ -5,8 +5,7 @@ import { ZERO_ADDRESS } from '~/utils/constants';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ButtonClipboard from '~/components/ButtonClipboard';
-import ButtonPrimary from '~/components/ButtonPrimary';
-import ButtonRound, { ButtonRoundStyle } from '~/components/ButtonRound';
+import Button from '~/components/Button';
 import ProfileMini from '~/components/ProfileMini';
 import core from '~/services/core';
 import styles from '~/styles/variables';
@@ -77,9 +76,9 @@ const SendButton = ({ address, isDeployed }) => {
     !isDeployed;
 
   return (
-    <ButtonRound disabled={disabled} to={`/send/${address}`}>
+    <Button disabled={disabled} to={`/send/${address}`}>
       <span>{translate('ProfileBox.sendCircles')}</span>
-    </ButtonRound>
+    </Button>
   );
 };
 
@@ -92,16 +91,16 @@ const TrustButton = ({ connection, address }) => {
 
   if (connection && connection.isIncoming) {
     return (
-      <ButtonRound disabled isConfirmed>
+      <Button disabled isConfirmed>
         <span>{translate('ProfileBox.isTrusted')}</span>
-      </ButtonRound>
+      </Button>
     );
   }
 
   return (
-    <ButtonRound disabled={safe.nonce !== null} to={`/trust/${address}`}>
+    <Button disabled={safe.nonce !== null} to={`/trust/${address}`}>
       <span>{translate('ProfileBox.trustUser')}</span>
-    </ButtonRound>
+    </Button>
   );
 };
 
@@ -117,9 +116,9 @@ const RevokeTrustButton = ({ connection }) => {
   }
 
   return (
-    <ButtonPrimary isOutline to={`/trust/revoke/${connection.safeAddress}`}>
+    <Button isOutline to={`/trust/revoke/${connection.safeAddress}`}>
       {translate('ProfileBox.revokeTrustUser')}
-    </ButtonPrimary>
+    </Button>
   );
 };
 
@@ -227,11 +226,6 @@ const ProfileBoxActionsStyle = styled.div`
   display: flex;
 
   justify-content: center;
-
-  ${ButtonRoundStyle} {
-    margin-right: 1rem;
-    margin-left: 1rem;
-  }
 `;
 
 const ProfileContentStyle = styled.div`

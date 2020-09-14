@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
@@ -40,7 +40,7 @@ const AccountConnect = () => {
               })}
             </ul>
 
-            <ButtonPrimary onClick={onConnect}>Connect</ButtonPrimary>
+            <Button onClick={onConnect}>Connect</Button>
           </Fragment>
         )}
 
@@ -62,9 +62,9 @@ const AccountConnect = () => {
       </View>
 
       <Footer>
-        <ButtonPrimary to="/welcome/seed">
+        <Button to="/welcome/seed">
           {translate('AccountConnect.restoreWithSeedPhrase')}
-        </ButtonPrimary>
+        </Button>
       </Footer>
     </Fragment>
   );

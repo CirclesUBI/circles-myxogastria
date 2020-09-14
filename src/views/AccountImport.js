@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
-import ButtonPrimary from '~/components/ButtonPrimary';
+import Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import View from '~/components/View';
@@ -88,9 +88,9 @@ const AccountImport = () => {
       </View>
 
       <Footer>
-        <ButtonPrimary disabled={!isValid} onClick={onClick}>
+        <Button disabled={!isValid} onClick={onClick}>
           {translate('AccountImport.submit')}
-        </ButtonPrimary>
+        </Button>
       </Footer>
     </Fragment>
   );

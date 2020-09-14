@@ -1,74 +1,89 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 import { Button as MuiButton } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    fontWeight: theme.typography.fontWeightRegular,
+    textTransform: 'none',
+    borderRadius: 16,
+  },
+  buttonDark: {
+    color: theme.palette.text.primary,
+  },
+  buttonOutline: {
+    color: theme.palette.primary.main,
+    border: `${theme.palette.primary.main} 2px solid`,
+  },
+  buttonPrimary: {
+    background: theme.custom.gradients.purple,
+    color: theme.palette.primary.contrastText,
+    '&.Mui-disabled': {
+      background: theme.custom.gradients.gray,
+    },
+  },
+}));
 
 // eslint-disable-next-line react/display-name
-const Button = React.forwardRef((props, ref) => {
-  if (props.to) {
+const Button = React.forwardRef(
+  (
+    {
+      children,
+      className: classNameExternal,
+      isDark,
+      isOutline,
+      isPrimary,
+      to,
+      ...props
+    },
+    ref,
+  ) => {
+    const classes = useStyles();
+
+    const className = clsx(classes.button, classNameExternal, {
+      [classes.buttonDark]: isDark,
+      [classes.buttonOutline]: isOutline,
+      [classes.buttonPrimary]: isPrimary,
+    });
+
+    if (to) {
+      return (
+        <MuiButton
+          className={className}
+          component={Link}
+          ref={ref}
+          to={to}
+          {...props}
+        >
+          {children}
+        </MuiButton>
+      );
+    }
+
     return (
       <MuiButton
-        className={props.className}
-        component={Link}
-        disabled={props.disabled}
+        className={className}
         ref={ref}
-        to={props.to}
-        type={props.type}
+        onClick={props.onClick}
+        {...props}
       >
-        {props.children}
+        {children}
       </MuiButton>
     );
-  }
-
-  return (
-    <MuiButton
-      className={props.className}
-      disabled={props.disabled}
-      ref={ref}
-      type={props.type}
-      onClick={props.onClick}
-    >
-      {props.children}
-    </MuiButton>
-  );
-});
+  },
+);
 
 Button.propTypes = {
   children: PropTypes.any.isRequired,
   className: PropTypes.string,
-  disabled: PropTypes.bool,
+  isDark: PropTypes.bool,
+  isOutline: PropTypes.bool,
+  isPrimary: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
-  type: PropTypes.string,
 };
-
-export const ButtonStyle = styled(Button)`
-  position: relative;
-
-  display: inline-block;
-
-  padding: 0;
-
-  border: 0;
-  border-radius: 0;
-
-  background: transparent;
-
-  outline: 0;
-
-  text-align: center;
-  text-decoration: none;
-
-  cursor: pointer;
-
-  &:focus {
-    outline: 0;
-  }
-
-  &[disabled] {
-    cursor: not-allowed;
-  }
-`;
 
 export default Button;

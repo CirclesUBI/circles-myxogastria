@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import React, { createRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import ButtonPrimary from '~/components/ButtonPrimary';
-import ButtonRound from '~/components/ButtonRound';
+import Button from '~/components/Button';
 import notify from '~/store/notifications/actions';
 import translate from '~/services/locale';
 
-const ButtonClipboard = (props) => {
+const ButtonClipboard = ({ text, ...props }) => {
   const dispatch = useDispatch();
   const ref = createRef();
 
-  const initializeClipboard = () => {
+  useEffect(() => {
     const clipboard = new Clipboard(ref.current, {
       text: () => {
-        return props.text;
+        return text;
       },
     });
 
@@ -30,27 +29,16 @@ const ButtonClipboard = (props) => {
     return () => {
       clipboard.destroy();
     };
-  };
-
-  useEffect(initializeClipboard, [props.text]);
-
-  if (!props.isPrimary) {
-    return (
-      <ButtonRound ref={ref}>
-        <span>{translate('ButtonClipboard.share')}</span>
-      </ButtonRound>
-    );
-  }
+  }, [text]);
 
   return (
-    <ButtonPrimary ref={ref}>
-      {translate('ButtonClipboard.copyToClipboard')}
-    </ButtonPrimary>
+    <Button {...props} ref={ref}>
+      {translate('ButtonClipboard.buttonCopy')}
+    </Button>
   );
 };
 
 ButtonClipboard.propTypes = {
-  isPrimary: PropTypes.bool,
   text: PropTypes.string.isRequired,
 };
 

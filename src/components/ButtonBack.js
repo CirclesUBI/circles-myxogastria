@@ -7,7 +7,7 @@ import { IconBack } from '~/styles/icons';
 
 const ButtonBack = (props) => {
   return (
-    <IconButton {...props} aria-label="menu" component={Link}>
+    <IconButton {...props} aria-label="Return" component={Link}>
       <IconBack />
     </IconButton>
   );

@@ -1,67 +1,45 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
+import clsx from 'clsx';
+import { Box } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-import circlesGang from '%/images/circles-gang.svg';
+import CirclesGangSVG from '%/images/group.svg';
 import logo from '%/images/logo.png';
 
+const useStyles = makeStyles(() => ({
+  logo: {
+    width: '10rem',
+    height: '10rem',
+    backgroundImage: `url(${logo})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundSize: 'contain',
+  },
+  logoWithGang: {
+    width: '12rem',
+    height: '12rem',
+    position: 'relative',
+    backgroundImage: 'none',
+  },
+}));
+
 const Logo = (props) => {
-  if (props.isWithGang) {
-    return <LogoGangStyle />;
-  }
+  const classes = useStyles();
 
-  return <LogoStyle />;
+  return (
+    <Box
+      className={clsx(classes.logo, {
+        [classes.logoWithGang]: props.isWithGang,
+      })}
+      mx="auto"
+    >
+      {props.isWithGang && (
+        <CirclesGangSVG className={classes.logoGang} viewport="0 0 311 272" />
+      )}
+    </Box>
+  );
 };
-
-const LogoStyle = styled.div`
-  width: 12rem;
-  height: 12rem;
-
-  margin: 0 auto;
-
-  background-image: url(${logo});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-`;
-
-const LogoGangStyle = styled.div`
-  position: relative;
-
-  width: 14rem;
-  height: 14rem;
-
-  margin: 0 auto;
-  margin-top: 4rem;
-
-  background-image: url(${logo});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-
-  transform: rotate(90deg);
-
-  &::after {
-    position: absolute;
-
-    top: -20px;
-    right: 0;
-
-    display: block;
-
-    width: 18rem;
-    height: 18rem;
-
-    content: '';
-
-    background-image: url(${circlesGang});
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-
-    transform: rotate(-90deg);
-  }
-`;
 
 Logo.propTypes = {
   isWithGang: PropTypes.bool,
