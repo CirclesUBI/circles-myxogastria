@@ -5,9 +5,10 @@ const DEFAULT_LIFETIME = 5000;
 export const NOTIFY = Symbol('Notifications');
 
 export const NotificationsTypes = {
-  INFO: Symbol('NotificationsTypesInfo'),
-  WARNING: Symbol('NotificationsTypesWarning'),
-  ERROR: Symbol('NotificationsTypesError'),
+  SUCCESS: 'success',
+  INFO: 'info',
+  WARNING: 'warning',
+  ERROR: 'error',
 };
 
 export default function notify(options) {
@@ -23,6 +24,15 @@ export default function notify(options) {
       lifetime,
       text,
       type,
+    },
+  };
+}
+
+export function dismissNotification(id) {
+  return {
+    type: ActionTypes.NOTIFICATIONS_DISMISS,
+    meta: {
+      id,
     },
   };
 }

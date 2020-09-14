@@ -11,6 +11,7 @@ import mime from 'mime/lite';
 import {
   Avatar,
   Box,
+  CircularProgress,
   Container,
   Grid,
   IconButton,
@@ -31,6 +32,8 @@ import Logo from '~/components/Logo';
 import View from '~/components/View';
 import core from '~/services/core';
 import debounce from '~/utils/debounce';
+import logError, { formatErrorMessage } from '~/utils/debug';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
 import { createNewAccount } from '~/store/onboarding/actions';
@@ -103,9 +106,26 @@ const Onboarding = () => {
       await dispatch(
         createNewAccount(values.username, values.email, values.avatarUrl),
       );
+
+      dispatch(
+        notify({
+          text: translate('Onboarding.successOnboardingComplete'),
+          type: NotificationsTypes.SUCCESS,
+        }),
+      );
     } catch (error) {
-      // @TODO Show error to user
-      // console.error(error);
+      logError(error);
+
+      const errorMessage = formatErrorMessage(error);
+
+      dispatch(
+        notify({
+          text: translate('Onboarding.errorSignup', {
+            errorMessage,
+          }),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
     }
 
     dispatch(hideSpinnerOverlay());
@@ -416,6 +436,7 @@ const OnboardingStepSeedChallenge = (props) => {
 const OnboardingStepAvatar = (props) => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const fileInputElem = useRef();
 
@@ -446,7 +467,12 @@ const OnboardingStepAvatar = (props) => {
         avatarUrl: result.data.url,
       });
     } catch (error) {
-      // @TODO: Show warning
+      dispatch(
+        notify({
+          text: translate('Onboarding.errorAvatarUpload'),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
     }
 
     setIsLoading(false);
@@ -469,10 +495,10 @@ const OnboardingStepAvatar = (props) => {
       <Box mt={4}>
         <Avatar
           className={classes.avatarUpload}
-          src={props.values.avatarUrl}
+          src={isLoading ? null : props.values.avatarUrl}
           onClick={onUpload}
         >
-          +
+          {isLoading ? <CircularProgress /> : '+'}
         </Avatar>
         <input
           accept={fileTypesStr}

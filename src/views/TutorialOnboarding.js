@@ -41,7 +41,7 @@ const SlideUnconditionalIncome = () => {
       <Typography align="center" gutterBottom variant="h2">
         {translate('TutorialOnboarding.headingUnconditionalIncome')}
       </Typography>
-      <Typography>
+      <Typography align="center">
         {translate('TutorialOnboarding.bodyUnconditionalIncome')}
       </Typography>
     </Fragment>
@@ -57,7 +57,9 @@ const SlideWebOfTrust = () => {
       <Typography align="center" gutterBottom variant="h2">
         {translate('TutorialOnboarding.headingWebOfTrust')}
       </Typography>
-      <Typography>{translate('TutorialOnboarding.bodyWebOfTrust')}</Typography>
+      <Typography align="center">
+        {translate('TutorialOnboarding.bodyWebOfTrust')}
+      </Typography>
     </Fragment>
   );
 };
@@ -71,7 +73,7 @@ const SlideBuildYourOwnEconomy = () => {
       <Typography align="center" gutterBottom variant="h2">
         {translate('TutorialOnboarding.headingBuildYourOwnEconomy')}
       </Typography>
-      <Typography>
+      <Typography align="center">
         {translate('TutorialOnboarding.bodyBuildYourOwnEconomy')}
       </Typography>
     </Fragment>

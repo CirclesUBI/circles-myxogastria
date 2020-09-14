@@ -56,7 +56,9 @@ const App = () => {
 
         dispatch(
           notify({
-            text: `${translate('App.updateErrorMessage')}${errorMessage}`,
+            text: `${translate('App.errorUpdate', {
+              errorMessage,
+            })}`,
             type: NotificationsTypes.ERROR,
           }),
         );

@@ -1,115 +1,64 @@
-import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
+import { useSnackbar } from 'notistack';
 
-import styles from '~/styles/variables';
+import Button from '~/components/Button';
+import translate from '~/services/locale';
 import { removeNotification } from '~/store/notifications/actions';
 
+let displayed = [];
+
 const Notifications = () => {
-  const { messages } = useSelector((state) => state.notifications);
-
-  if (messages.length === 0) {
-    return null;
-  }
-
-  return (
-    <NotificationsListStyle>
-      <NotificationsList items={messages} />
-    </NotificationsListStyle>
-  );
-};
-
-const NotificationsList = (props) => {
-  return props.items.map((item) => {
-    return (
-      <NotificationsItem
-        id={item.id}
-        key={item.id}
-        lifetime={item.lifetime}
-        text={item.text}
-        type={item.type}
-      />
-    );
-  });
-};
-
-const NotificationsItem = (props) => {
   const dispatch = useDispatch();
+  const { messages } = useSelector((state) => state.notifications);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const onRemove = () => {
-    dispatch(removeNotification(props.id));
+  const storeDisplayed = (id) => {
+    displayed = [...displayed, id];
+  };
+
+  const removeDisplayed = (id) => {
+    displayed = [...displayed.filter((key) => id !== key)];
   };
 
   useEffect(() => {
-    let timeout;
-
-    if (props.lifetime > 0) {
-      timeout = window.setTimeout(() => {
-        onRemove();
-      }, props.lifetime);
-    }
-
-    return () => {
-      if (timeout) {
-        window.clearTimeout(timeout);
+    messages.forEach(({ id, text, lifetime, type, isDismissed }) => {
+      if (isDismissed) {
+        closeSnackbar(id);
+        return;
       }
-    };
-  }, []);
 
-  return (
-    <NotificationsItemStyle onClick={onRemove}>
-      {props.text}
-    </NotificationsItemStyle>
-  );
+      // Do nothing if snackbar is already displayed
+      if (displayed.includes(id)) {
+        return;
+      }
+
+      // Display snackbar using notistack
+      enqueueSnackbar(text, {
+        // eslint-disable-next-line react/display-name
+        action: (notificationId) => (
+          <Fragment>
+            <Button onClick={() => closeSnackbar(notificationId)}>
+              {translate('Notifications.buttonDismiss')}
+            </Button>
+          </Fragment>
+        ),
+        key: id,
+        autoHideDuration: lifetime,
+        variant: type,
+        onExited: (event, notificationId) => {
+          // Remove this snackbar from redux store
+          dispatch(removeNotification(notificationId));
+          removeDisplayed(notificationId);
+        },
+      });
+
+      // Keep track of snackbars that we've displayed
+      storeDisplayed(id);
+    });
+  }, [messages]);
+
+  return null;
 };
-
-NotificationsList.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      lifetime: PropTypes.number,
-      text: PropTypes.string,
-      type: PropTypes.symbol,
-    }),
-  ).isRequired,
-};
-
-NotificationsItem.propTypes = {
-  id: PropTypes.number.isRequired,
-  lifetime: PropTypes.number,
-  text: PropTypes.string.isRequired,
-  type: PropTypes.symbol.isRequired,
-};
-
-const NotificationsListStyle = styled.ul`
-  position: absolute;
-
-  top: 0;
-  right: 0;
-  left: 0;
-
-  z-index: ${styles.zIndex.notifications};
-`;
-
-const NotificationsItemStyle = styled.li`
-  display: flex;
-
-  margin: ${styles.base.layout.spacing};
-  padding: 2rem;
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
-
-  border-radius: 5px;
-
-  background-color: ${styles.monochrome.white};
-
-  font-weight: ${styles.base.typography.weightLight};
-
-  box-shadow: 1px 5px 5px ${styles.monochrome.gray};
-
-  align-items: center;
-
-  cursor: pointer;
-`;
 
 export default Notifications;

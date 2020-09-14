@@ -13,6 +13,7 @@ const initialStateMessage = {
   lifetime: 0,
   text: '',
   type: NotificationsTypes.INFO,
+  isDismissed: false,
 };
 
 const notificationsReducer = (state = initialState, action) => {
@@ -38,6 +39,22 @@ const notificationsReducer = (state = initialState, action) => {
 
       return update(state, {
         messages: { $splice: [[index, 1]] },
+      });
+    }
+    case ActionTypes.NOTIFICATIONS_DISMISS: {
+      return update(state, {
+        messages: {
+          $set: state.messages.map((message) => {
+            if (message.id === action.meta.id) {
+              return {
+                ...message,
+                isDismissed: true,
+              };
+            }
+
+            return message;
+          }),
+        },
       });
     }
     case ActionTypes.NOTIFICATIONS_REMOVE_ALL:

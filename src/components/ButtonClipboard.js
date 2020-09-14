@@ -21,7 +21,7 @@ const ButtonClipboard = ({ text, ...props }) => {
     clipboard.on('success', () => {
       dispatch(
         notify({
-          text: translate('ButtonClipboard.copiedMessage'),
+          text: translate('ButtonClipboard.infoCopiedMessage'),
         }),
       );
     });
