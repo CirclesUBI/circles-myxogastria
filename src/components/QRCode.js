@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import QRCodeGenerator from 'qrcode';
 import React, { createRef, useEffect } from 'react';
-import styled from 'styled-components';
-
-import styles from '~/styles/variables';
+import { Box } from '@material-ui/core';
 
 const QR_CODE_SIZE = 230;
 
@@ -23,9 +21,9 @@ const QRCode = (props) => {
   useEffect(generateQRCode, [props.data]);
 
   return (
-    <QRCodeStyle>
-      <canvas ref={ref} />
-    </QRCodeStyle>
+    <Box display="flex" justifyContent="center">
+      <Box component="canvas" m={2} ref={ref} />
+    </Box>
   );
 };
 
@@ -33,23 +31,5 @@ QRCode.propTypes = {
   data: PropTypes.string.isRequired,
   scale: PropTypes.number,
 };
-
-const QRCodeStyle = styled.div`
-  display: flex;
-
-  width: 28rem;
-  height: 28rem;
-
-  margin: 0 auto;
-
-  border-radius: 25px;
-
-  background-color: ${styles.monochrome.white};
-
-  box-shadow: 0 2px 2px ${styles.monochrome.grayLight};
-
-  align-items: center;
-  justify-content: center;
-`;
 
 export default QRCode;

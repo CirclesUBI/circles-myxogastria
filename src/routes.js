@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import AccountConnect from '~/views/AccountConnect';
-import AccountImport from '~/views/AccountImport';
 import Activities from '~/views/Activities';
 import Dashboard from '~/views/Dashboard';
 import Error from '~/views/Error';
 import Invite from '~/views/Invite';
+import Login from '~/views/Login';
+import LoginSeedPhrase from '~/views/LoginSeedPhrase';
 import NotFound from '~/views/NotFound';
 import Onboarding from '~/views/Onboarding';
 import Profile from '~/views/Profile';
@@ -33,6 +33,8 @@ import Welcome from '~/views/Welcome';
 import { ACCOUNT_CREATE, SETTINGS_KEYS } from '~/store/tutorial/actions';
 
 export const DASHBOARD_PATH = '/';
+export const LOGIN_PATH = '/welcome/login';
+export const LOGIN_SEED_PHRASE_PATH = '/welcome/seedphrase';
 export const ONBOARDING_PATH = '/welcome/onboarding';
 export const WELCOME_PATH = '/welcome';
 
@@ -123,7 +125,7 @@ const TutorialContainer = (props) => {
   });
 
   if (redirect) {
-    return <Redirect to={props.exitPath} />;
+    return <Redirect push to={props.exitPath} />;
   }
 
   if (!isFinished) {
@@ -204,10 +206,18 @@ const Routes = () => {
       <TrustedRoute component={SettingsKeysContainer} path="/settings/keys" />
       <TrustedRoute component={SettingsShare} path="/settings/share" />
       <TrustedRoute component={Settings} path="/settings" />
-      <OnboardingRoute component={OnboardingContainer} path={ONBOARDING_PATH} />
-      <OnboardingRoute component={AccountConnect} path="/welcome/connect" />
-      <OnboardingRoute component={AccountImport} path="/welcome/seed" />
-      <OnboardingRoute component={Welcome} path={WELCOME_PATH} />
+      <OnboardingRoute
+        component={OnboardingContainer}
+        exact
+        path={ONBOARDING_PATH}
+      />
+      <OnboardingRoute component={Welcome} exact path={WELCOME_PATH} />
+      <OnboardingRoute component={Login} exact path={LOGIN_PATH} />
+      <OnboardingRoute
+        component={LoginSeedPhrase}
+        exact
+        path={LOGIN_SEED_PHRASE_PATH}
+      />
       <Route component={NotFound} />
     </Switch>
   );

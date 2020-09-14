@@ -16,7 +16,7 @@ import {
   PRIVACY_LEGAL_URL,
   SUPPORT_URL,
 } from '~/utils/constants';
-import { ONBOARDING_PATH } from '~/routes';
+import { ONBOARDING_PATH, LOGIN_PATH } from '~/routes';
 
 const useStyles = makeStyles((theme) => ({
   welcomeButton: {
@@ -58,11 +58,7 @@ const Welcome = () => {
             {translate('Welcome.buttonSignUp')}
           </Button>
           <Divider flexItem orientation="vertical" variant="middle" />
-          <Button
-            className={classes.welcomeButton}
-            isPrimary
-            to="/welcome/login"
-          >
+          <Button className={classes.welcomeButton} isPrimary to={LOGIN_PATH}>
             {translate('Welcome.buttonLogin')}
           </Button>
         </Grid>

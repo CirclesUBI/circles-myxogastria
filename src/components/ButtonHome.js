@@ -3,15 +3,16 @@ import React from 'react';
 import { IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
+import { DASHBOARD_PATH } from '~/routes';
 import { IconClose } from '~/styles/icons';
 
 const ButtonHome = (props) => {
   return (
     <IconButton
       {...props}
-      aria-label="menu"
+      aria-label="Back to home"
       component={Link}
-      to={props.onClick ? null : '/'}
+      to={props.to ? null : DASHBOARD_PATH}
     >
       <IconClose />
     </IconButton>
@@ -19,7 +20,6 @@ const ButtonHome = (props) => {
 };
 
 ButtonHome.propTypes = {
-  onClick: PropTypes.func,
   to: PropTypes.string,
 };
 

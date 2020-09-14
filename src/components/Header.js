@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     minHeight: theme.custom.components.appBarHeight,
+    justifyContent: 'space-between',
   },
 }));
 

@@ -2,6 +2,42 @@
   "App": {
     "errorUpdate": "Something went wrong, are you connected to the internet? {errorMessage}"
   },
+  "ButtonClipboard": {
+    "buttonCopy": "Copy to clipboard",
+    "infoCopiedMessage": "Text copied to clipboard"
+  },
+  "LocaleSelector": {
+    "de": "DE",
+    "en": "EN",
+    "es": "ES"
+  },
+  "Login": {
+    "bodyCreateNewWallet": "No account yet?",
+    "bodyNeedHelp": "Questions?",
+    "bodyUseThisQRCode": "Scan QR code to add this device to an already existing account:",
+    "buttonCreateNewWallet": "Sign up here.",
+    "buttonRestoreWithSeedPhrase": "Restore with Seed Phrase",
+    "buttonShowSelector": "Show accounts to connect to",
+    "dialogActionClose": "Cancel",
+    "dialogActionConnect": "Yes, connect",
+    "dialogBodySelector": "Do you want to connect this device to the following accounts?",
+    "dialogTitleSelector": "Connect device",
+    "headingLogin": "Login",
+    "linkSupport": "Go to support.",
+    "successWelcome": "Successfully connected to account. Welcome!"
+  },
+  "LoginSeedPhrase": {
+    "bodyEnterYourSeedPhrase": "Enter your seed phrase below to restore your wallet:",
+    "bodyLostYourSeedPhrase": "Lost your seed phrase?",
+    "bodyNeedHelp": "Questions?",
+    "buttonCreateNewWallet": "Create new wallet",
+    "buttonSubmit": "Submit",
+    "errorRestoreFailed": "Could not restore account",
+    "formSeedPhrase": "Seed Phrase",
+    "headingLoginSeedPhrase": "Login via Seed Phrase",
+    "linkSupport": "Go to support.",
+    "successWelcome": "Successfully restored wallet. Welcome!"
+  },
   "Navigation": {
     "buttonActivityLog": "Activity Log",
     "buttonAddDevice": "Add Device",
@@ -14,22 +50,8 @@
     "linkPrivacyLegal": "Privacy / Legal",
     "linkSupport": "Support"
   },
-  "Tutorial": {
-    "buttonFinish": "Got it.",
-    "buttonNextStep": "Next",
-    "buttonSkip": "Skip"
-  },
-  "ButtonClipboard": {
-    "buttonCopy": "Copy to clipboard",
-    "infoCopiedMessage": "Text copied to clipboard"
-  },
-  "TutorialOnboarding": {
-    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support an alternative economy.",
-    "bodyUnconditionalIncome": "Circles is designed similar to a basic income. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
-    "bodyWebOfTrust": "You can spend Circles with people you trust, and the people they trust. ",
-    "headingBuildYourOwnEconomy": "Build Your Own Economy",
-    "headingUnconditionalIncome": "Unconditional Income",
-    "headingWebOfTrust": "A Web of Trust"
+  "Notifications": {
+    "buttonDismiss": "Dismiss"
   },
   "Onboarding": {
     "bodyAvatar": "Your photo is how your friends can search for you on the Circles App.",
@@ -56,8 +78,18 @@
     "headingUsername": "Create Your Username",
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },
-  "Notifications": {
-    "buttonDismiss": "Dismiss"
+  "Tutorial": {
+    "buttonFinish": "Got it.",
+    "buttonNextStep": "Next",
+    "buttonSkip": "Skip"
+  },
+  "TutorialOnboarding": {
+    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support an alternative economy.",
+    "bodyUnconditionalIncome": "Circles is designed similar to a basic income. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
+    "bodyWebOfTrust": "You can spend Circles with people you trust, and the people they trust. ",
+    "headingBuildYourOwnEconomy": "Build Your Own Economy",
+    "headingUnconditionalIncome": "Unconditional Income",
+    "headingWebOfTrust": "A Web of Trust"
   },
   "Welcome": {
     "buttonLogin": "Log in",
@@ -67,10 +99,5 @@
     "linkContactUs": "Contact us",
     "linkFAQ": "FAQ",
     "linkPrivacyLegal": "Privacy + Legal"
-  },
-  "LocaleSelector": {
-    "de": "DE",
-    "en": "EN",
-    "es": "ES"
   }
 }

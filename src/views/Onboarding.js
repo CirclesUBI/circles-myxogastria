@@ -24,6 +24,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '~/components/Button';
+import ButtonBack from '~/components/ButtonBack';
 import ButtonClipboard from '~/components/ButtonClipboard';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
@@ -36,6 +37,7 @@ import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
+import { WELCOME_PATH } from '~/routes';
 import { createNewAccount } from '~/store/onboarding/actions';
 import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
@@ -148,7 +150,7 @@ const Onboarding = () => {
   const isLastSlide = current === steps.length - 1;
 
   if (isRedirect) {
-    return <Redirect to={'/welcome'} />;
+    return <Redirect push to={WELCOME_PATH} />;
   }
 
   return (
@@ -157,9 +159,13 @@ const Onboarding = () => {
         <MobileStepper
           activeStep={current}
           backButton={
-            <IconButton onClick={current === 0 ? onExit : onPrevious}>
-              <IconBack />
-            </IconButton>
+            current === 0 ? (
+              <ButtonBack />
+            ) : (
+              <IconButton onClick={onPrevious}>
+                <IconBack />
+              </IconButton>
+            )
           }
           classes={{
             root: classes.onboardingMobileStepper,

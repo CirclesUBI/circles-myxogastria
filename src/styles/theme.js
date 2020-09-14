@@ -101,6 +101,11 @@ export default createMuiTheme({
       fontWeight: fontWeightMedium,
       lineHeight: '33px',
     },
+    h6: {
+      fontSize: '18px',
+      fontWeight: fontWeightMedium,
+      lineHeight: '25px',
+    },
   },
   overrides: {
     MuiCssBaseline: {

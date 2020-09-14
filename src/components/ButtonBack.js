@@ -1,21 +1,21 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { IconButton } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { IconBack } from '~/styles/icons';
 
 const ButtonBack = (props) => {
+  const history = useHistory();
+
+  const onClick = () => {
+    history.goBack();
+  };
+
   return (
-    <IconButton {...props} aria-label="Return" component={Link}>
+    <IconButton {...props} aria-label="Return" onClick={onClick}>
       <IconBack />
     </IconButton>
   );
-};
-
-ButtonBack.propTypes = {
-  onClick: PropTypes.func,
-  to: PropTypes.string,
 };
 
 export default ButtonBack;
