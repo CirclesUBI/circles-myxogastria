@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
+import { Container, Typography } from '@material-ui/core';
 
 import ButtonHome from '~/components/ButtonHome';
+import CenteredHeading from '~/components/CenteredHeading';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import translate from '~/services/locale';
@@ -10,11 +12,16 @@ const NotFound = () => {
     <Fragment>
       <Header>
         <ButtonHome />
-        {translate('NotFound.title')}
+        <CenteredHeading>
+          {translate('NotFound.headingNotFound')}
+        </CenteredHeading>
       </Header>
-
       <View>
-        <p>{translate('NotFound.description')}</p>
+        <Container maxWidth="sm">
+          <Typography align="center">
+            {translate('NotFound.bodyNotFound')}
+          </Typography>
+        </Container>
       </View>
     </Fragment>
   );

@@ -1,6 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Container, Typography, Link as MuiLink } from '@material-ui/core';
+import {
+  Box,
+  Paper,
+  Container,
+  Typography,
+  Link as MuiLink,
+} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import Button from '~/components/Button';
@@ -69,17 +75,17 @@ const LoginSeedPhrase = () => {
             {translate('LoginSeedPhrase.bodyEnterYourSeedPhrase')}
           </Typography>
           <Box my={7}>
-            <Input
-              fullWidth
-              id="seedPhrase"
-              isShowingCheck={false}
-              label={translate('LoginSeedPhrase.formSeedPhrase')}
-              multiline
-              rows={4}
-              value={seedPhrase}
-              variant="outlined"
-              onChange={onChange}
-            />
+            <Paper p={2}>
+              <Input
+                fullWidth
+                id="seedPhrase"
+                isShowingCheck={false}
+                multiline
+                rows={4}
+                value={seedPhrase}
+                onChange={onChange}
+              />
+            </Paper>
           </Box>
           <Typography align="center">
             {translate('LoginSeedPhrase.bodyLostYourSeedPhrase')}{' '}

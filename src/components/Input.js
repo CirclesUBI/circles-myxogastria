@@ -45,9 +45,11 @@ const Input = ({
 
   return (
     <FormControl error={isError} fullWidth>
-      <InputLabel className={classes.inputLabel} htmlFor={id}>
-        {label}
-      </InputLabel>
+      {label && (
+        <InputLabel className={classes.inputLabel} htmlFor={id}>
+          {label}
+        </InputLabel>
+      )}
       <MuiInput
         classes={{
           underline: classes.inputUnderline,
@@ -80,7 +82,7 @@ Input.propTypes = {
   isError: PropTypes.bool,
   isLoading: PropTypes.bool,
   isShowingCheck: PropTypes.bool,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   value: PropTypes.any.isRequired,
 };
 

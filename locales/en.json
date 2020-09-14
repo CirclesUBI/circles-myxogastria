@@ -6,6 +6,10 @@
     "buttonCopy": "Copy to clipboard",
     "infoCopiedMessage": "Text copied to clipboard"
   },
+  "NotFound": {
+    "bodyNotFound": "Ouch. We could not find the requested page. Did you maybe mistype the address?",
+    "headingNotFound": "Not found"
+  },
   "LocaleSelector": {
     "de": "DE",
     "en": "EN",
