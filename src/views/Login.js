@@ -69,10 +69,10 @@ const Login = () => {
           <Typography align="center">
             {translate('Login.bodyUseThisQRCode')}
           </Typography>
-          <Box my={2}>
+          <Box mb={2} mt={4}>
             <QRCode data={wallet.address} />
           </Box>
-          <Box mb={4}>
+          <Box m="2rem auto" width={375}>
             <TextField
               fullWidth
               label={translate('Login.formPublicAddress')}

@@ -48,7 +48,7 @@ const LoginSeedPhrase = () => {
     } catch (error) {
       dispatch(
         notify({
-          text: translate('LoginSeedPhrase.errorMessage'),
+          text: translate('LoginSeedPhrase.errorRestoreFailed'),
           type: NotificationsTypes.ERROR,
           lifetime: 10000,
         }),
@@ -74,14 +74,15 @@ const LoginSeedPhrase = () => {
           <Typography align="center">
             {translate('LoginSeedPhrase.bodyEnterYourSeedPhrase')}
           </Typography>
-          <Box my={7}>
+          <Box mb={7} mt={4}>
             <Paper p={2}>
               <Input
                 fullWidth
                 id="seedPhrase"
-                isShowingCheck={false}
+                isError={seedPhrase.length > 0 && !isValid}
                 multiline
                 rows={4}
+                style={{ padding: '1rem' }}
                 value={seedPhrase}
                 onChange={onChange}
               />

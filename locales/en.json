@@ -45,8 +45,7 @@
     "bodyNeedHelp": "Questions?",
     "buttonCreateNewWallet": "Create new wallet",
     "buttonSubmit": "Submit",
-    "errorRestoreFailed": "Could not restore account",
-    "formSeedPhrase": "Seed Phrase",
+    "errorRestoreFailed": "Could not restore account. Is your seed phrase correct?",
     "headingLoginSeedPhrase": "Login via Seed Phrase",
     "linkSupport": "Go to support.",
     "successWelcome": "Successfully restored wallet. Welcome!"

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import QRCodeGenerator from 'qrcode';
 import React, { createRef, useEffect } from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Paper } from '@material-ui/core';
 
 const QR_CODE_SIZE = 230;
 
@@ -22,7 +22,9 @@ const QRCode = (props) => {
 
   return (
     <Box display="flex" justifyContent="center">
-      <Box component="canvas" m={2} ref={ref} />
+      <Paper>
+        <Box component="canvas" m={3} ref={ref} />
+      </Paper>
     </Box>
   );
 };
