@@ -25,7 +25,7 @@ const CriticalError = () => {
     return (
       <View>
         <Container maxWidth="sm">
-          <Typography align="center">
+          <Typography align="center" gutterBottom>
             {translate('CriticalError.bodyCriticalErrorDescription')}
           </Typography>
           <Button fullWidth isPrimary onClick={onBurnClick}>
@@ -38,7 +38,7 @@ const CriticalError = () => {
     return (
       <View>
         <Container maxWidth="sm">
-          <Typography align="center">
+          <Typography align="center" gutterBottom>
             {translate('CriticalError.bodyCriticalErrorTryAgain')}
           </Typography>
           <Button fullWidth isPrimary onClick={onReload}>

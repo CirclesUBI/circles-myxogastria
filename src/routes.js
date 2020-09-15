@@ -36,6 +36,9 @@ export const DASHBOARD_PATH = '/';
 export const LOGIN_PATH = '/welcome/login';
 export const LOGIN_SEED_PHRASE_PATH = '/welcome/seedphrase';
 export const ONBOARDING_PATH = '/welcome/onboarding';
+export const PROFILE_PATH = '/profile/:address';
+export const VALIDATION_PATH = '/validation';
+export const VALIDATION_SHARE_PATH = '/validation/share';
 export const WELCOME_PATH = '/welcome';
 
 const SessionContainer = ({
@@ -77,7 +80,7 @@ const SessionContainer = ({
   // Redirect to fallback routes ..
   if (app.isAuthorized) {
     if (isValidationRequired) {
-      return <Redirect to="/validation" />;
+      return <Redirect to={VALIDATION_PATH} />;
     }
 
     return <Redirect to={DASHBOARD_PATH} />;
@@ -182,8 +185,12 @@ const Routes = () => {
   return (
     <Switch location={location}>
       <TrustedRoute component={Dashboard} exact path={DASHBOARD_PATH} />
-      <SessionRoute component={ValidationShare} path="/validation/share" />
-      <SessionRoute component={Validation} path="/validation" />
+      <SessionRoute
+        component={ValidationShare}
+        exact
+        path={VALIDATION_SHARE_PATH}
+      />
+      <SessionRoute component={Validation} exact path={VALIDATION_PATH} />
       <TrustedRoute component={Invite} path="/invite" />
       <TrustedRoute component={Activities} path="/activities" />
       <TrustedRoute
@@ -197,7 +204,7 @@ const Routes = () => {
       <TrustedRoute component={Search} path="/search" />
       <TrustedRoute component={ReceiveShare} path="/receive/share" />
       <TrustedRoute component={Receive} path="/receive" />
-      <TrustedRoute component={Profile} path="/profile/:address" />
+      <TrustedRoute component={Profile} path={PROFILE_PATH} />
       <TrustedRoute component={SettingsKeysAdd} path="/settings/keys/add" />
       <TrustedRoute
         component={SettingsKeysExport}

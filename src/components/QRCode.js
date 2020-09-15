@@ -5,7 +5,7 @@ import { Box, Paper } from '@material-ui/core';
 
 const QR_CODE_SIZE = 230;
 
-const QRCode = (props) => {
+const QRCode = ({ children, ...props }) => {
   const ref = createRef();
 
   const generateQRCode = () => {
@@ -23,13 +23,17 @@ const QRCode = (props) => {
   return (
     <Box display="flex" justifyContent="center">
       <Paper>
-        <Box component="canvas" m={3} ref={ref} />
+        <Box alignItems="center" display="flex" flexDirection="column" m={3}>
+          {children}
+          <Box component="canvas" mt={children ? 3 : 0} ref={ref} />
+        </Box>
       </Paper>
     </Box>
   );
 };
 
 QRCode.propTypes = {
+  children: PropTypes.node,
   data: PropTypes.string.isRequired,
   scale: PropTypes.number,
 };

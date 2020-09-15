@@ -16,25 +16,33 @@ const useStyles = makeStyles(() => ({
     backgroundPosition: 'center',
     backgroundSize: 'contain',
   },
-  logoWithGang: {
+  logoSmall: {
+    width: '5rem',
+    height: '5rem',
+  },
+  logoLarge: {
     width: '12rem',
     height: '12rem',
+  },
+  logoWithGang: {
     position: 'relative',
     backgroundImage: 'none',
   },
 }));
 
-const Logo = (props) => {
+const Logo = ({ isWithGang, size = 'default' }) => {
   const classes = useStyles();
 
   return (
     <Box
       className={clsx(classes.logo, {
-        [classes.logoWithGang]: props.isWithGang,
+        [classes.logoWithGang]: isWithGang,
+        [classes.logoSmall]: size === 'small',
+        [classes.logoLarge]: size === 'large' || isWithGang,
       })}
       mx="auto"
     >
-      {props.isWithGang && (
+      {isWithGang && (
         <CirclesGangSVG className={classes.logoGang} viewport="0 0 311 272" />
       )}
     </Box>
@@ -43,6 +51,7 @@ const Logo = (props) => {
 
 Logo.propTypes = {
   isWithGang: PropTypes.bool,
+  size: PropTypes.string,
 };
 
 export default Logo;

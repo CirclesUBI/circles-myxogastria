@@ -72,7 +72,7 @@ const Login = () => {
           <Box mb={2} mt={4}>
             <QRCode data={wallet.address} />
           </Box>
-          <Box m="2rem auto" width={375}>
+          <Box m="2rem auto" maxWidth={375}>
             <TextField
               fullWidth
               label={translate('Login.formPublicAddress')}

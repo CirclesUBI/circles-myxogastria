@@ -2,6 +2,7 @@ import ActionTypes from '~/store/trust/types';
 import core from '~/services/core';
 import logError from '~/utils/debug.js';
 import resolveUsernames from '~/services/username';
+import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 import { addPendingActivity } from '~/store/activity/actions';
 
 const { ActivityTypes } = core.activity;
@@ -25,7 +26,9 @@ export function checkTrustState() {
       let trustConnections = trust.trustConnections;
 
       if (!trust.isTrusted) {
-        const result = await core.trust.isTrusted(safeAddress);
+        const result = await core.trust.isTrusted(safeAddress, {
+          limit: NEEDED_TRUST_CONNECTIONS,
+        });
         isTrusted = result.isTrusted;
         trustConnections = result.trustConnections;
       }

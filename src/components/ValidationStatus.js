@@ -1,15 +1,50 @@
 import React, { Fragment } from 'react';
-import { CircularProgress } from '@material-ui/core';
+import clsx from 'clsx';
+import {
+  Avatar,
+  Box,
+  Typography,
+  Stepper,
+  Step,
+  StepConnector,
+  StepIcon,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
 import translate from '~/services/locale';
-import { FAQ_URL } from '~/components/ExternalLinkList';
+import { IconCheck } from '~/styles/icons';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 import { finalizeNewAccount } from '~/store/onboarding/actions';
 import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
 
+const useStyles = makeStyles((theme) => ({
+  stepper: {
+    maxWidth: theme.spacing(40),
+    margin: '0 auto',
+  },
+  connectorLine: {
+    borderColor: theme.palette.secondary.main,
+    borderTopWidth: '2px',
+  },
+  step: {
+    padding: 0,
+  },
+  stepAvatar: {
+    background: 'transparent',
+    border: `2px solid ${theme.palette.secondary.main}`,
+    color: theme.palette.secondary.main,
+  },
+  stepAvatarChecked: {
+    background: theme.custom.gradients.turquoise,
+    border: 0,
+    color: theme.palette.common.white,
+  },
+}));
+
 const ValidationStatus = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { app, safe, trust } = useSelector((state) => state);
 
@@ -30,47 +65,55 @@ const ValidationStatus = () => {
   };
 
   // Safe and Token is already deployed?
-  if (app.isValidated) {
+  if (app.isValidated || isPending) {
     return null;
   }
 
   return (
     <Fragment>
-      {isPending ? (
+      <Stepper
+        activeStep={trust.connections}
+        className={classes.stepper}
+        connector={<StepConnector classes={{ line: classes.connectorLine }} />}
+      >
+        {new Array(NEEDED_TRUST_CONNECTIONS).fill({}).map((item, index) => {
+          const isChecked = index <= trust.connections - 1;
+          return (
+            <Step className={classes.step} key={index}>
+              <StepIcon
+                icon={
+                  <Avatar
+                    className={clsx(classes.stepAvatar, {
+                      [classes.stepAvatarChecked]: isChecked,
+                    })}
+                  >
+                    {isChecked ? <IconCheck /> : index + 1}
+                  </Avatar>
+                }
+              ></StepIcon>
+              ;
+            </Step>
+          );
+        })}
+      </Stepper>
+      {isReady ? (
         <Fragment>
-          <p>{translate('ValidationStatus.pendingDeployment')}</p>
-          <CircularProgress />
-        </Fragment>
-      ) : isReady ? (
-        <Fragment>
-          <p>{translate('ValidationStatus.readyForDeployment')}</p>
-
-          <Button onClick={onDeploy}>
-            <span>{translate('ValidationStatus.startDeploymentButton')}</span>
-          </Button>
-        </Fragment>
-      ) : trust.isReady ? (
-        <Fragment>
-          {new Array(NEEDED_TRUST_CONNECTIONS).fill({}).map((item, index) => {
-            return (
-              <div key={index}>
-                {index <= trust.connections - 1 ? 'x' : '-'}
-              </div>
-            );
-          })}
-
-          <p>
-            {translate('ValidationStatus.trustDescription', {
-              connections: trust.connections,
-              left: Math.max(0, NEEDED_TRUST_CONNECTIONS - trust.connections),
-            })}{' '}
-            <a href={FAQ_URL} rel="noopener noreferrer" target="_blank">
-              {translate('ValidationStatus.learnMore')}
-            </a>
-          </p>
+          <Typography align="center" gutterBottom>
+            {translate('ValidationStatus.bodyReadyForDeployment')}
+          </Typography>
+          <Box my={4}>
+            <Button fullWidth isPrimary onClick={onDeploy}>
+              {translate('ValidationStatus.buttonStartDeployment')}
+            </Button>
+          </Box>
         </Fragment>
       ) : (
-        <CircularProgress />
+        <Typography align="center">
+          {translate('Validation.bodyTrustDescription')}{' '}
+          <strong>
+            {translate('Validation.bodyTrustDescriptionEmphasize')}
+          </strong>
+        </Typography>
       )}
     </Fragment>
   );

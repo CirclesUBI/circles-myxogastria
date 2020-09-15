@@ -2,6 +2,9 @@
   "App": {
     "errorUpdate": "Something went wrong, are you connected to the internet? {errorMessage}"
   },
+  "BalanceDisplay": {
+    "tooltipYourBalance": "Your basic income is issued continuously at the rate of circa {rate} Circles a month."
+  },
   "ButtonClipboard": {
     "buttonCopy": "Copy to clipboard",
     "infoCopiedMessage": "Text copied to clipboard"
@@ -71,6 +74,7 @@
     "bodySeedPhrase": "This is your account password. Please save this somewhere private!",
     "bodySeedPhraseChallenge": "Please enter word {wordIndex} in your seed phrase:",
     "bodyUsername": "Your username is how your friends can search for you on the Circles App.",
+    "buttonCopyToClipboard": "Copy to clipboard",
     "buttonFinish": "Sign me up!",
     "buttonNextStep": "Submit",
     "errorAvatarUpload": "Could not upload image. Is it the right format and size?",
@@ -102,6 +106,23 @@
     "headingBuildYourOwnEconomy": "Build Your Own Economy",
     "headingUnconditionalIncome": "Unconditional Income",
     "headingWebOfTrust": "A Web of Trust"
+  },
+  "Validation": {
+    "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your seed phrase.",
+    "bodyTrustDescription": "To receive your basic income,",
+    "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
+    "buttonShareProfileLink": "Share Profile Link",
+    "headingBuildYourWebOfTrust": "Build your web of trust",
+    "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
+  },
+  "ValidationStatus": {
+    "bodyReadyForDeployment": "Your account is ready now, click the button below to create it:",
+    "buttonStartDeployment": "Create account"
+  },
+  "ValidationShare": {
+    "buttonShareProfileLink": "Share Profile Link",
+    "shareText": "Hey! Check out my profile at: {shareLink}",
+    "headingShowYourQR": "Show your QR code or profile to others to receive trust."
   },
   "Welcome": {
     "buttonLogin": "Log in",

@@ -39,8 +39,9 @@ export const colors = {
 };
 
 const gradients = {
-  purple: `linear-gradient(280deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
   gray: `linear-gradient(280deg, ${colors.grayDark} 0%, ${colors.gray} 100%)`,
+  purple: `linear-gradient(280deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
+  turquoise: `linear-gradient(0deg, ${colors.green} 0%, ${colors.turquoise} 100%)`,
 };
 
 const components = {

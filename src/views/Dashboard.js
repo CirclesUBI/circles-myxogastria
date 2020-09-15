@@ -2,16 +2,17 @@ import React, { Fragment, useState } from 'react';
 import clsx from 'clsx';
 import {
   Badge,
+  Container,
   CircularProgress,
   Fab,
   IconButton,
-  Typography,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
 import BalanceDisplay from '~/components/BalanceDisplay';
+import CenteredHeading from '~/components/CenteredHeading';
 import Header from '~/components/Header';
 import Navigation from '~/components/Navigation';
 import UsernameDisplay from '~/components/UsernameDisplay';
@@ -68,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
+  const safe = useSelector((state) => state.safe);
 
   const handleMenuToggle = () => {
     setIsMenuExpanded(!isMenuExpanded);
@@ -83,7 +85,9 @@ const Dashboard = () => {
         <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
           <IconMenu />
         </IconButton>
-        <DashboardProfile />
+        <CenteredHeading>
+          <UsernameDisplay address={safe.currentAccount} />
+        </CenteredHeading>
         <DashboardActivityIcon />
       </Header>
       <Navigation className={classes.navigation} isExpanded={isMenuExpanded} />
@@ -92,7 +96,9 @@ const Dashboard = () => {
           [classes.viewExpanded]: isMenuExpanded,
         })}
       >
-        <BalanceDisplay />
+        <Container maxWidth="sm">
+          <BalanceDisplay />
+        </Container>
       </View>
       <Fab
         aria-label="Send"
@@ -106,22 +112,6 @@ const Dashboard = () => {
         <IconSend />
       </Fab>
     </Fragment>
-  );
-};
-
-const DashboardProfile = () => {
-  const classes = useStyles();
-  const safe = useSelector((state) => state.safe);
-
-  return (
-    <Typography
-      align="center"
-      className={classes.dashboardProfile}
-      noWrap
-      variant="h6"
-    >
-      <UsernameDisplay address={safe.currentAccount} />
-    </Typography>
   );
 };
 
@@ -145,7 +135,6 @@ const DashboardActivityIcon = () => {
     if (activity.timestamp > lastSeen) {
       return acc + 1;
     }
-
     return acc;
   }, 0);
 

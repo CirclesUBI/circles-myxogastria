@@ -58,6 +58,7 @@
   "dependencies": {
     "@circles/core": "^1.1.2",
     "@material-ui/core": "^4.11.0",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@sentry/browser": "^5.23.0",
     "@types/react-transition-group": "^4.4.0",
     "bip39": "^3.0.2",

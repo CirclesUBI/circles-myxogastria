@@ -1,20 +1,10 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
 
-import resolveUsernames from '~/services/username';
+import { useUserdata } from '~/hooks/username';
 
 const UsernameDisplay = (props) => {
-  const [username, setUsername] = useState('');
-
-  const resolveAddress = () => {
-    resolveUsernames([props.address]).then((result) => {
-      setUsername(result[props.address]);
-    });
-  };
-
-  useEffect(resolveAddress, [props.address]);
-
-  return username ? `@${username}` : props.address.slice(0, 10);
+  const { username } = useUserdata(props.address);
+  return username;
 };
 
 UsernameDisplay.propTypes = {

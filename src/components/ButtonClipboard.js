@@ -7,7 +7,7 @@ import Button from '~/components/Button';
 import notify from '~/store/notifications/actions';
 import translate from '~/services/locale';
 
-const ButtonClipboard = ({ text, ...props }) => {
+const ButtonClipboard = ({ text, children, ...props }) => {
   const dispatch = useDispatch();
   const ref = createRef();
 
@@ -33,12 +33,13 @@ const ButtonClipboard = ({ text, ...props }) => {
 
   return (
     <Button {...props} ref={ref}>
-      {translate('ButtonClipboard.buttonCopy')}
+      {children ? children : translate('ButtonClipboard.buttonCopy')}
     </Button>
   );
 };
 
 ButtonClipboard.propTypes = {
+  children: PropTypes.node,
   text: PropTypes.string.isRequired,
 };
 
