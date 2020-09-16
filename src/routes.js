@@ -16,9 +16,6 @@ import SeedPhrase from '~/views/SeedPhrase';
 import Send from '~/views/Send';
 import SendConfirm from '~/views/SendConfirm';
 import Share from '~/views/Share';
-import Trust from '~/views/Trust';
-import TrustConfirm from '~/views/TrustConfirm';
-import TrustRevokeConfirm from '~/views/TrustRevokeConfirm';
 import TutorialOnboarding from '~/views/TutorialOnboarding';
 import TutorialRecovery from '~/views/TutorialRecovery';
 import Validation from '~/views/Validation';
@@ -47,8 +44,6 @@ export const SEED_PHRASE_PATH = '/seedphrase';
 export const SEND_CONFIRM_PATH = '/send/:address';
 export const SEND_PATH = '/send';
 export const SHARE_PATH = '/share';
-export const TRUST_CONFIRM_PATH = '/trust/:address';
-export const TRUST_PATH = '/trust';
 
 const SessionContainer = ({
   component: Component,
@@ -215,13 +210,6 @@ const Routes = () => {
         component={ValidationShare}
         exact
         path={VALIDATION_SHARE_PATH}
-      />
-      <TrustedRoute component={Trust} exact path={TRUST_PATH} />
-      <TrustedRoute component={TrustConfirm} exact path={TRUST_CONFIRM_PATH} />
-      <TrustedRoute
-        component={TrustRevokeConfirm}
-        exact
-        path="/trust/revoke/:address"
       />
       <TrustedRoute component={Send} exact path={SEND_PATH} />
       <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />

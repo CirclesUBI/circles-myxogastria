@@ -1,23 +1,30 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import styled from 'styled-components';
-import { CircularProgress } from '@material-ui/core';
+import React, { useMemo, useEffect } from 'react';
+import {
+  Box,
+  Card,
+  CardHeader,
+  CircularProgress,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
-import Pill from '~/components/Pill';
-import UsernameDisplay from '~/components/UsernameDisplay';
 import core from '~/services/core';
-import styles from '~/styles/variables';
 import translate from '~/services/locale';
 import {
   ONBOARDING_FINALIZATION,
   loadMoreActivities,
+  updateLastSeen,
 } from '~/store/activity/actions';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import { formatCirclesValue } from '~/utils/format';
+import { useRelativeProfileLink } from '~/hooks/url';
+import { useUserdata } from '~/hooks/username';
 
 const { ActivityTypes } = core.activity;
 
@@ -31,60 +38,60 @@ function formatMessage(props) {
   if (props.type === ActivityTypes.ADD_CONNECTION) {
     if (props.data.canSendTo === props.safeAddress) {
       // I've created a trust connection
-      messageId = 'meTrustedSomeone';
+      messageId = 'MeTrustedSomeone';
       actorAddress = props.data.user;
     } else {
       // Someone created a trust connection with you
-      messageId = 'trustedBySomeone';
+      messageId = 'TrustedBySomeone';
       actorAddress = props.data.canSendTo;
     }
   } else if (props.type === ActivityTypes.REMOVE_CONNECTION) {
     if (props.data.canSendTo === props.safeAddress) {
       // I've removed a trust connection
-      messageId = 'meUntrustedSomeone';
+      messageId = 'MeUntrustedSomeone';
       actorAddress = props.data.user;
     } else {
       // Someone removed a trust connection with you
-      messageId = 'untrustedBySomeone';
+      messageId = 'UntrustedBySomeone';
       actorAddress = props.data.canSendTo;
     }
   } else if (props.type === ActivityTypes.TRANSFER) {
     if (props.data.from === ZERO_ADDRESS) {
       // I've received Circles from the Hub (UBI)
-      messageId = 'receivedUBI';
+      messageId = 'ReceivedUBI';
     } else if (props.data.to === process.env.SAFE_FUNDER_ADDRESS) {
       // I've paid Gas fees for a transaction
       // @TODO: Right now not covered by the core
-      messageId = 'paidGasCosts';
+      messageId = 'PaidGasCosts';
     }
   } else if (props.type === ActivityTypes.HUB_TRANSFER) {
     if (props.data.to === props.safeAddress) {
       // I've received Circles from someone
-      messageId = 'receivedCircles';
+      messageId = 'ReceivedCircles';
       actorAddress = props.data.from;
     } else {
       // I've sent Circles to someone
-      messageId = 'sentCircles';
+      messageId = 'SentCircles';
       actorAddress = props.data.to;
     }
   } else if (props.type === ActivityTypes.ADD_OWNER) {
     if (props.data.ownerAddress === props.walletAddress) {
       // I've got added to a Safe (usually during Safe creation)
-      messageId = 'myselfAddedToSafe';
+      messageId = 'MyselfAddedToSafe';
     } else {
       // I've added someone to my Safe
-      messageId = 'addedToSafe';
+      messageId = 'AddedToSafe';
       isOwnerAddress = true;
       actorAddress = props.data.ownerAddress;
     }
   } else if (props.type === ActivityTypes.REMOVE_OWNER) {
     // I've removed someone from my Safe
-    messageId = 'removedFromSafe';
+    messageId = 'RemovedFromSafe';
     isOwnerAddress = true;
     actorAddress = props.data.ownerAddress;
   } else if (props.type === ONBOARDING_FINALIZATION) {
     // I've just finished onboarding
-    messageId = 'safeAndTokenDeployed';
+    messageId = 'SafeAndTokenDeployed';
   }
 
   // Format the given timestamp to a readable string
@@ -96,7 +103,6 @@ function formatMessage(props) {
   if ('value' in data) {
     // Convert the value according to its denominator
     const valueInCircles = formatCirclesValue(data.value, 4);
-
     data.denominator = 'Circles';
     data.value = valueInCircles;
   }
@@ -123,17 +129,31 @@ const ActivityStream = () => {
     dispatch(loadMoreActivities());
   };
 
-  return (
-    <ActivityStreamStyle>
-      <ActivityStreamList />
-      {isLoading ? <CircularProgress /> : null}
+  useEffect(() => {
+    // Update last seen timestamp when we leave
+    return () => {
+      dispatch(updateLastSeen());
+    };
+  }, []);
 
-      {activity.isMoreAvailable ? (
-        <Button disabled={isLoading} onClick={onLoadMore}>
-          {translate('ActivityStream.loadMore')}
-        </Button>
-      ) : null}
-    </ActivityStreamStyle>
+  return (
+    <Grid container spacing={2}>
+      <ActivityStreamList />
+      {isLoading && (
+        <Grid item xs={12}>
+          <Box m="auto">
+            <CircularProgress />
+          </Box>
+        </Grid>
+      )}
+      {activity.isMoreAvailable && (
+        <Grid item xs={12}>
+          <Button disabled={isLoading} fullWidth isOutline onClick={onLoadMore}>
+            {translate('ActivityStream.buttonLoadMore')}
+          </Button>
+        </Grid>
+      )}
+    </Grid>
   );
 };
 
@@ -159,7 +179,11 @@ const ActivityStreamList = () => {
   }
 
   if (activities.length === 0) {
-    return <Pill>{translate('ActivityStream.nothingHereYet')}</Pill>;
+    return (
+      <Typography align="center">
+        {translate('ActivityStream.bodyNothingHereYet')}
+      </Typography>
+    );
   }
 
   return activities.reduce(
@@ -173,16 +197,17 @@ const ActivityStreamList = () => {
       }
 
       const item = (
-        <ActivityStreamItem
-          data={data}
-          isPending={isPending}
-          isSeen={timestamp < lastSeen}
-          key={hash}
-          safeAddress={safeAddress}
-          timestamp={timestamp}
-          type={type}
-          walletAddress={walletAddress}
-        />
+        <Grid item key={hash} xs={12}>
+          <ActivityStreamItem
+            data={data}
+            isPending={isPending}
+            isSeen={timestamp < lastSeen}
+            safeAddress={safeAddress}
+            timestamp={timestamp}
+            type={type}
+            walletAddress={walletAddress}
+          />
+        </Grid>
       );
 
       acc.push(item);
@@ -199,81 +224,42 @@ const ActivityStreamItem = (props) => {
     props,
   );
 
-  // Check if we should display the address on the left or right hand side
-  const isAddressRightSide = [
-    'meTrustedSomeone',
-    'meUntrustedSomeone',
-    'sentCircles',
-  ].includes(messageId);
+  const actor = actorAddress
+    ? isOwnerAddress
+      ? actorAddress.slice(0, 10)
+      : useUserdata(actorAddress).username
+    : '';
+
+  const profilePath =
+    actorAddress && !isOwnerAddress && useRelativeProfileLink(actorAddress);
+
+  const message = useMemo(() => {
+    return translate(`ActivityStream.bodyActivity${messageId}`, {
+      ...data,
+      actor,
+    });
+  }, [actor]);
 
   return (
-    <ItemStyle isSeen={props.isSeen}>
-      <ItemContentStyle>
-        <ItemMessageStyle>
-          <ActivityStreamActor
-            address={actorAddress}
-            isHidden={isAddressRightSide}
-            isOwnerAddress={isOwnerAddress}
-          />
-
-          {translate(`ActivityStream.${messageId}`, { ...data })}
-
-          <ActivityStreamActor
-            address={actorAddress}
-            isHidden={!isAddressRightSide}
-            isOwnerAddress={isOwnerAddress}
-          />
-        </ItemMessageStyle>
-
-        <ItemDateStyle>{date}</ItemDateStyle>
-      </ItemContentStyle>
-    </ItemStyle>
+    <Card>
+      <CardHeader
+        avatar={
+          props.isPending ? (
+            <CircularProgress fontSize="small" />
+          ) : (
+            actorAddress && (
+              <Link to={profilePath}>
+                <Avatar address={actorAddress} />
+              </Link>
+            )
+          )
+        }
+        subheader={date}
+        title={<Typography>{message}</Typography>}
+      />
+    </Card>
   );
 };
-
-const ActivityStreamActor = (props) => {
-  if (props.isHidden) {
-    return null;
-  }
-
-  if (!props.address) {
-    return null;
-  }
-
-  if (props.isOwnerAddress) {
-    return <ItemActorStyle>{props.address.slice(0, 10)}</ItemActorStyle>;
-  }
-
-  return (
-    <ItemActorStyle>
-      <Link to={`/profile/${props.address}`}>
-        <UsernameDisplay address={props.address} />
-      </Link>
-    </ItemActorStyle>
-  );
-};
-
-// const ActivityStreamIcon = (props) => {
-//   if (props.isPending) {
-//     return <Spinner />;
-//   }
-
-//   if (props.type === ActivityTypes.TRANSFER) {
-//     return <IconReceive />;
-//   } else if (
-//     props.type === ActivityTypes.ADD_CONNECTION ||
-//     props.type === ActivityTypes.REMOVE_CONNECTION
-//   ) {
-//     return <IconTrust />;
-//   } else if (
-//     props.type === ActivityTypes.ADD_OWNER ||
-//     props.type === ActivityTypes.REMOVE_OWNER
-//   ) {
-//     return <IconKeys />;
-//   }
-
-//   return <IconNotification />;
-// };
 
 ActivityStreamItem.propTypes = {
   data: PropTypes.object.isRequired,
@@ -284,101 +270,5 @@ ActivityStreamItem.propTypes = {
   type: PropTypes.symbol.isRequired,
   walletAddress: PropTypes.string.isRequired,
 };
-
-ActivityStreamActor.propTypes = {
-  address: PropTypes.string,
-  isHidden: PropTypes.bool,
-  isOwnerAddress: PropTypes.bool.isRequired,
-};
-
-// ActivityStreamIcon.propTypes = {
-//   isPending: PropTypes.bool.isRequired,
-//   type: PropTypes.symbol.isRequired,
-// };
-
-const ActivityStreamStyle = styled.ul`
-  list-style: none;
-`;
-
-const ItemStyle = styled.li`
-  display: flex;
-
-  height: 5rem;
-
-  margin-bottom: 1rem;
-  padding-right: 3rem;
-  padding-left: 3rem;
-
-  border-radius: 5rem;
-
-  background: ${(props) => {
-    if (!props.isSeen) {
-      return `linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.95) 0%,
-        rgba(255, 255, 255, 0.85) 100%
-      );`;
-    }
-
-    return `linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.9) 0%,
-      rgba(255, 255, 255, 0.72) 100%
-    );`;
-  }};
-
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-
-  align-items: center;
-  justify-content: flex-start;
-`;
-
-const ItemContentStyle = styled.div`
-  display: flex;
-
-  overflow: hidden;
-
-  margin-left: 2rem;
-
-  font-weight: ${styles.base.typography.weightLight};
-
-  line-height: 1.25;
-
-  text-align: left;
-
-  flex: 1;
-  flex-direction: column;
-  justify-content: flex-start;
-`;
-
-const ItemMessageStyle = styled.p`
-  overflow: hidden;
-
-  max-width: initial;
-
-  margin: 0;
-
-  text-overflow: ellipsis;
-`;
-
-const ItemDateStyle = styled.p`
-  max-width: initial;
-
-  margin: 0;
-`;
-
-const ItemActorStyle = styled.span`
-  margin-right: 0.5rem;
-
-  color: ${styles.colors.primary};
-
-  font-weight: ${styles.base.typography.weightLight};
-
-  a {
-    color: ${styles.colors.primary};
-
-    font-weight: ${styles.base.typography.weightLight};
-  }
-`;
 
 export default ActivityStream;

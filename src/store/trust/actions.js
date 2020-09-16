@@ -34,7 +34,7 @@ export function checkTrustState() {
       }
 
       // Resolve usernames
-      const usernames = await resolveUsernames(
+      const results = await resolveUsernames(
         network.map((connection) => {
           return connection.safeAddress;
         }),
@@ -44,8 +44,7 @@ export function checkTrustState() {
         .map((connection) => {
           return {
             ...connection,
-            username:
-              usernames[connection.safeAddress] || connection.safeAddress,
+            username: results[connection.safeAddress].username,
           };
         })
         .sort((itemA, itemB) => {

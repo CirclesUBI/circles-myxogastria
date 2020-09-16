@@ -12,7 +12,7 @@ const ButtonBack = (props) => {
   };
 
   return (
-    <IconButton {...props} aria-label="Return" onClick={onClick}>
+    <IconButton {...props} aria-label="Return" edge="start" onClick={onClick}>
       <IconBack />
     </IconButton>
   );

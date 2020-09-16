@@ -186,12 +186,13 @@ const activity = {
 
 // Utils module
 
-const { fromFreckles, toFreckles, requestAPI } = core.utils;
+const { fromFreckles, toFreckles, requestAPI, matchAddress } = core.utils;
 
 const utils = {
   fromFreckles,
-  toFreckles,
+  matchAddress,
   requestAPI,
+  toFreckles,
 };
 
 // Errors

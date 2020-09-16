@@ -108,6 +108,11 @@ export default createMuiTheme({
       lineHeight: '25px',
     },
   },
+  zIndex: {
+    qrCodeScannerBackdrop: 10000,
+    qrCodeScannerSpinner: 11000,
+    qrCodeScannerVideo: 12000,
+  },
   overrides: {
     MuiCssBaseline: {
       '@global': {

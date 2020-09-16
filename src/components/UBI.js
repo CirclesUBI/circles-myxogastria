@@ -39,7 +39,7 @@ const UBI = () => {
       // Display pending UBI to the user
       dispatch(
         notify({
-          text: translate('Dashboard.ubiPayoutReceived', {
+          text: translate('UBI.infoUbiPayoutReceived', {
             payout: formatCirclesValue(payout, 4),
           }),
           type: NotificationsTypes.INFO,

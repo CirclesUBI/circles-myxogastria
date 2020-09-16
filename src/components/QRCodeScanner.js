@@ -1,154 +1,153 @@
 import PropTypes from 'prop-types';
-import QrScanner from 'qr-scanner';
-import QrScannerWorkerPath from '!!file-loader!qr-scanner/qr-scanner-worker.min.js';
-import React, { useState, useEffect, createRef } from 'react';
-import styled from 'styled-components';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
+import { Box, Backdrop, CircularProgress } from '@material-ui/core';
+import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
+import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 
-import Button from '~/components/Button';
-import findAddress from '~/utils/findAddress';
+import core from '~/services/core';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import styles from '~/styles/variables';
 import translate from '~/services/locale';
 
-QrScanner.WORKER_PATH = QrScannerWorkerPath;
+let scanner;
 
-const QRCodeScanner = (props) => {
-  const dispatch = useDispatch();
+const fixedStyle = {
+  position: 'fixed',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  userSelect: 'none',
+  pointerEvents: 'none',
+};
 
-  const [isOnlyUpload, setIsOnlyUpload] = useState(false);
-  const [isVideoVisible, setIsVideoVisible] = useState(false);
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.qrCodeScannerBackdrop,
+  },
+  videoContainer: {
+    ...fixedStyle,
+    zIndex: theme.zIndex.qrCodeScannerVideo,
+  },
+  video: {
+    width: theme.spacing(80),
+    height: theme.spacing(80),
+    maxWidth: '100%',
+  },
+  spinner: {
+    ...fixedStyle,
+    zIndex: theme.zIndex.qrCodeScannerSpinner,
+  },
+}));
 
-  const refVideo = createRef();
-  const refInput = createRef();
-
-  let scanner;
-
-  const onImageSelected = async (event) => {
-    const image = event.target.files[0];
-
-    if (!image) {
-      return;
-    }
-
-    try {
-      const result = await QrScanner.scanImage(image);
-      const address = findAddress(result);
-
-      props.onSuccess(address);
-    } catch {
-      dispatch(
-        notify({
-          text: translate('QRCodeScanner.qrNotFound'),
-          type: NotificationsTypes.WARNING,
-        }),
-      );
-    }
-  };
-
-  const startCameraStream = async () => {
-    try {
-      scanner = new QrScanner(refVideo.current, (result) => {
-        const address = findAddress(result);
-        props.onSuccess(address);
-      });
-
-      await scanner.start();
-
-      setIsVideoVisible(true);
-    } catch (error) {
-      // .. fall back on manual upload option
-      setIsOnlyUpload(true);
-    }
-  };
-
-  const initialize = () => {
-    const checkCamera = async () => {
-      const isAvailable = await QrScanner.hasCamera();
-
-      if (!isAvailable) {
-        setIsOnlyUpload(true);
-      }
-    };
-
-    checkCamera();
-
-    return () => {
-      if (scanner) {
-        scanner.destroy();
-      }
-    };
-  };
-
-  const onClick = () => {
-    if (isOnlyUpload) {
-      refInput.current.click();
-    } else {
-      startCameraStream();
-    }
-  };
-
-  useEffect(initialize, []);
+const QRCodeScanner = ({ children, isOpen, onClose, onSuccess, onError }) => {
+  const classes = useStyles();
 
   return (
-    <QRCodeScannerStyle isVideoVisible={isVideoVisible}>
-      <input
-        accept="image/*"
-        capture="camera"
-        ref={refInput}
-        style={{ display: 'none' }}
-        type="file"
-        onChange={onImageSelected}
-      />
-
-      <QRCodeScannerVideoStyle
-        isVideoVisible={isVideoVisible}
-        muted
-        playsinline
-        ref={refVideo}
-      />
-
-      <Button isVideoVisible={isVideoVisible} onClick={onClick}>
-        <span>{translate('QRCodeScanner.tapToScan')}</span>
-      </Button>
-    </QRCodeScannerStyle>
+    <Box>
+      <Backdrop className={classes.backdrop} open={isOpen} onClick={onClose}>
+        {isOpen && (
+          <QRCodeScannerInner onError={onError} onSuccess={onSuccess} />
+        )}
+      </Backdrop>
+      {children}
+    </Box>
   );
 };
 
+const QRCodeScannerInner = ({ onSuccess, onError }) => {
+  const ref = useRef();
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const [isError, setIsError] = useState(false);
+
+  const handleDetection = (result) => {
+    const match = core.utils.matchAddress(result);
+    if (match) {
+      onSuccess(match);
+    }
+  };
+
+  useEffect(() => {
+    const initializeScanner = async () => {
+      try {
+        scanner = new BrowserMultiFormatReader();
+
+        const devices = await scanner.getVideoInputDevices();
+        if (devices.length === 0) {
+          throw new Error('No devices found');
+        }
+
+        if (!ref.current) {
+          return;
+        }
+
+        scanner.decodeFromVideoDevice(
+          undefined,
+          ref.current,
+          (result, error) => {
+            if (result) {
+              handleDetection(result.text);
+            }
+
+            if (error && !(error instanceof NotFoundException)) {
+              throw error;
+            }
+          },
+        );
+      } catch (error) {
+        dispatch(
+          notify({
+            text: translate('QRCodeScanner.notificationError', {
+              error: error.message || 'Undefined error',
+            }),
+            type: NotificationsTypes.ERROR,
+          }),
+        );
+
+        setIsError(true);
+
+        if (onError) {
+          onError(error);
+        }
+      }
+    };
+
+    initializeScanner();
+
+    return () => {
+      if (scanner) {
+        scanner.reset();
+      }
+    };
+  }, []);
+
+  return !isError ? (
+    <Fragment>
+      <Box className={classes.videoContainer}>
+        <video className={classes.video} ref={ref} />
+      </Box>
+      <Box className={classes.spinner}>
+        <CircularProgress />
+      </Box>
+    </Fragment>
+  ) : null;
+};
+
 QRCodeScanner.propTypes = {
-  disabled: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired,
 };
 
-const QRCodeScannerStyle = styled.div`
-  display: flex;
-
-  overflow: hidden;
-
-  width: 28rem;
-  height: 28rem;
-
-  margin: ${(props) => {
-    return props.isVideoVisible ? '2rem auto' : '2rem auto';
-  }};
-
-  border-radius: 25px;
-
-  background-color: ${(props) => {
-    return props.isVideoVisible ? 'transparent' : styles.monochrome.grayLighter;
-  }};
-
-  box-shadow: 0 2px 2px ${styles.monochrome.gray};
-
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const QRCodeScannerVideoStyle = styled.video`
-  display: ${(props) => {
-    return props.isVideoVisible ? 'block' : 'none';
-  }};
-`;
+QRCodeScannerInner.propTypes = {
+  onError: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+};
 
 export default QRCodeScanner;

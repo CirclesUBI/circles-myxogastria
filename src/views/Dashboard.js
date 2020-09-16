@@ -5,7 +5,6 @@ import {
   Box,
   CircularProgress,
   Container,
-  Fab,
   IconButton,
   InputAdornment,
   Input,
@@ -15,19 +14,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
 import BalanceDisplay from '~/components/BalanceDisplay';
+import ButtonSend from '~/components/ButtonSend';
 import CenteredHeading from '~/components/CenteredHeading';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
+import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import translate from '~/services/locale';
-import {
-  IconMenu,
-  IconNotification,
-  IconSearch,
-  IconSend,
-} from '~/styles/icons';
+import { IconMenu, IconNotification, IconSearch } from '~/styles/icons';
 import { MY_PROFILE_PATH, SEARCH_PATH } from '~/routes';
 
 const transitionMixin = ({ transitions }) => ({
@@ -55,13 +51,14 @@ const useStyles = makeStyles((theme) => ({
   },
   fabSend: {
     ...transitionMixin(theme),
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-    background: theme.custom.gradients.purple,
   },
   fabSendExpanded: {
     ...transitionExpandedMixin(theme),
+  },
+  fabSendIcon: {
+    position: 'relative',
+    top: 1,
+    left: -1,
   },
   header: {
     ...transitionMixin(theme),
@@ -132,19 +129,15 @@ const Dashboard = () => {
           <Box my={2}>
             <DashboardSearch />
           </Box>
+          <LastInteractions />
         </Container>
       </View>
-      <Fab
-        aria-label="Send"
+      <ButtonSend
         className={clsx(classes.fabSend, {
           [classes.fabSendExpanded]: isMenuExpanded,
         })}
-        color="primary"
-        component={Link}
         to="/send"
-      >
-        <IconSend />
-      </Fab>
+      />
       <Drawer />
     </Fragment>
   );
@@ -160,10 +153,6 @@ const DashboardActivityIcon = () => {
     activities.findIndex((activity) => {
       return activity.isPending;
     }) > -1;
-
-  if (isPending) {
-    return <CircularProgress />;
-  }
 
   // Count how many activities we haven't seen yet
   const count = activities.reduce((acc, activity) => {
@@ -181,7 +170,11 @@ const DashboardActivityIcon = () => {
       to="/activities"
     >
       <Badge badgeContent={count} color="primary">
-        <IconNotification />
+        {isPending ? (
+          <CircularProgress fontSize="small" />
+        ) : (
+          <IconNotification />
+        )}
       </Badge>
     </IconButton>
   );

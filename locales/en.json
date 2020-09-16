@@ -2,6 +2,21 @@
   "App": {
     "errorUpdate": "Something went wrong, are you connected to the internet? {errorMessage}"
   },
+  "ActivityStream": {
+    "bodyActivityAddedToSafe": "was added to this account",
+    "bodyActivityMeTrustedSomeone": "You trusted {actor}",
+    "bodyActivityMeUntrustedSomeone": "You untrusted {actor}",
+    "bodyActivityMyselfAddedToSafe": "You linked this device to this account",
+    "bodyActivityReceivedCircles": "{actor} sent you {value} {denominator}",
+    "bodyActivityReceivedUBI": "You received {value} {denominator} as your UBI",
+    "bodyActivityRemovedFromSafe": "{actor} was removed from this account",
+    "bodyActivitySafeAndTokenDeployed": "You started a new account",
+    "bodyActivitySentCircles": "You sent {value} {denominator} to {actor}",
+    "bodyActivityTrustedBySomeone": "{actor} trusted you",
+    "bodyActivityUntrustedBySomeone": "{actor} untrusted you",
+    "bodyNothingHereYet": "There are no activities to display yet",
+    "buttonLoadMore": "Load more"
+  },
   "BalanceDisplay": {
     "tooltipYourBalance": "Your basic income is issued continuously at the rate of circa {rate} Circles a month."
   },
@@ -18,6 +33,9 @@
     "infoCopiedMessage": "Text copied to clipboard"
   },
   "Dashboard": {
+    "formSearch": "Search"
+  },
+  "Finder": {
     "formSearch": "Search"
   },
   "NotFound": {
@@ -94,6 +112,10 @@
     "headingUsername": "Create Your Username",
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },
+  "Share": {
+    "headingShare": "My QR Code",
+    "buttonShareProfileLink": "Share"
+  },
   "Tutorial": {
     "buttonFinish": "Got it.",
     "buttonNextStep": "Next",
@@ -106,6 +128,10 @@
     "headingBuildYourOwnEconomy": "Build Your Own Economy",
     "headingUnconditionalIncome": "Unconditional Income",
     "headingWebOfTrust": "A Web of Trust"
+  },
+  "MyProfile": {
+    "buttonShowProfile": "Show Profile",
+    "buttonShowQR": "Show QR Code"
   },
   "Validation": {
     "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your seed phrase.",
@@ -123,10 +149,28 @@
     "bodyThisMayTakeMinutes": "This may take a few minutes. Please keep your browser open.",
     "bodyYourCirclesLoading": "Your Circles account is loading!"
   },
+  "Profile": {
+    "dialogTrustCancel": "Cancel",
+    "dialogTrustConfirm": "Trust",
+    "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can effect the security of the app. In order to stay safe only trust people you know.",
+    "dialogTrustRevokeCancel": "Cancel",
+    "dialogTrustRevokeConfirm": "Revoke trust",
+    "dialogTrustRevokeDescription": "Are you sure you want to revoke your trust with {username}?",
+    "dialogTrustRevokeTitle": "Untrust {username}",
+    "dialogTrustTitle": "Do you trust {username}?",
+    "errorRevokeTrust": "Something went wrong when you tried to untrust {username} ...",
+    "errorTrust": "Something went wrong when you tried to trust {username} ...",
+    "shareText": "Check out my Circles UBI profile: {shareLink}",
+    "successRevokeTrust": "You successfully revoked your trust from {username}!",
+    "successTrust": "Nice. You trusted {username}!"
+  },
   "ValidationShare": {
     "buttonShareProfileLink": "Share Profile Link",
     "shareText": "Hey! Check out my profile at: {shareLink}",
     "headingShowYourQR": "Show your QR code or profile to others to receive trust."
+  },
+  "UBI": {
+    "infoUbiPayoutReceived": "You received {payout} Circles UBI!"
   },
   "Welcome": {
     "buttonLogin": "Log in",

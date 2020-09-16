@@ -13,7 +13,7 @@ import { formatCirclesValue } from '~/utils/format';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    maxWidth: theme.spacing(50),
+    maxWidth: theme.spacing(70),
     margin: '0 auto',
   },
   grid: {
