@@ -9,11 +9,11 @@ import View from '~/components/View';
 import translate from '~/services/locale';
 import { burnApp } from '~/store/app/actions';
 
-const SettingsKeys = () => {
+const Devices = () => {
   const dispatch = useDispatch();
 
   const onBurnClick = () => {
-    if (window.confirm(translate('SettingsKeys.areYouSure'))) {
+    if (window.confirm(translate('Devices.areYouSure'))) {
       dispatch(burnApp());
     }
   };
@@ -21,14 +21,12 @@ const SettingsKeys = () => {
   return (
     <Fragment>
       <Header>
-        {translate('SettingsKeys.manageKeys')}
+        {translate('Devices.manageKeys')}
         <ButtonHome />
       </Header>
       <View>
         <SafeOwnerManager />
-        <Button onClick={onBurnClick}>
-          {translate('SettingsKeys.endSession')}
-        </Button>
+        <Button onClick={onBurnClick}>{translate('Devices.endSession')}</Button>
         <small>
           v. {process.env.RELEASE_VERSION} ({process.env.CORE_RELEASE_VERSION})
         </small>
@@ -37,4 +35,4 @@ const SettingsKeys = () => {
   );
 };
 
-export default SettingsKeys;
+export default Devices;

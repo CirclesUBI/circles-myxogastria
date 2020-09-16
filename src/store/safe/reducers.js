@@ -59,9 +59,12 @@ const safeReducer = (state = initialState, action) => {
         accounts: {
           $push: [action.meta.address],
         },
-        pendingIsLocked: { $set: false },
         pendingAddress: { $set: null },
         pendingNonce: { $set: null },
+      });
+    case ActionTypes.SAFE_DEPLOY_UNLOCK:
+      return update(state, {
+        pendingIsLocked: { $set: false },
       });
     case ActionTypes.SAFE_OWNERS:
       return update(state, {

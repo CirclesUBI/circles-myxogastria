@@ -17,6 +17,9 @@
     "dialogAreYouSure": "Do you really want to reset this wallet? You will not be able to recover without a seed phrase.",
     "infoCopiedMessage": "Text copied to clipboard"
   },
+  "Dashboard": {
+    "formSearch": "Search"
+  },
   "NotFound": {
     "bodyNotFound": "Ouch. We could not find the requested page. Did you maybe mistype the address?",
     "headingNotFound": "Not found"
@@ -64,9 +67,6 @@
     "linkMarketplace": "Marketplace",
     "linkPrivacyLegal": "Privacy / Legal",
     "linkSupport": "Support"
-  },
-  "Notifications": {
-    "buttonDismiss": "Dismiss"
   },
   "Onboarding": {
     "bodyAvatar": "Your photo is how your friends can search for you on the Circles App.",
@@ -118,6 +118,10 @@
   "ValidationStatus": {
     "bodyReadyForDeployment": "Your account is ready now, click the button below to create it:",
     "buttonStartDeployment": "Create account"
+  },
+  "ValidationLock": {
+    "bodyThisMayTakeMinutes": "This may take a few minutes. Please keep your browser open.",
+    "bodyYourCirclesLoading": "Your Circles account is loading!"
   },
   "ValidationShare": {
     "buttonShareProfileLink": "Share Profile Link",

@@ -47,11 +47,11 @@ const BalanceDisplay = () => {
   return (
     <Tooltip
       arrow
-      open={isPending || balance === '0' ? false : undefined}
       title={translate('BalanceDisplay.tooltipYourBalance', {
         balance,
         rate: ISSUANCE_RATE_MONTH,
       })}
+      {...(isPending || balance === 0 ? { open: false } : null)}
     >
       <Paper className={classes.paper} variant="outlined">
         <Box p={2.5}>

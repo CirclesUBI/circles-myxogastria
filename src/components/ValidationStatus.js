@@ -17,7 +17,6 @@ import translate from '~/services/locale';
 import { IconCheck } from '~/styles/icons';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 import { finalizeNewAccount } from '~/store/onboarding/actions';
-import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
 
 const useStyles = makeStyles((theme) => ({
   stepper: {
@@ -55,17 +54,12 @@ const ValidationStatus = () => {
   // 2. We funded the Safe ourselves manually
   const isReady = safe.pendingIsFunded || trust.isTrusted;
 
-  // Is deployment currently happening?!
-  const isPending = safe.pendingIsLocked;
-
   const onDeploy = async () => {
-    dispatch(showSpinnerOverlay());
     await dispatch(finalizeNewAccount());
-    dispatch(hideSpinnerOverlay());
   };
 
-  // Safe and Token is already deployed?
-  if (app.isValidated || isPending) {
+  // Safe and Token is already deployed or being deployed right now?
+  if (app.isValidated || safe.pendingIsLocked) {
     return null;
   }
 

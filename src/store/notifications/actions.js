@@ -1,6 +1,6 @@
 import ActionTypes from '~/store/notifications/types';
 
-const DEFAULT_LIFETIME = 5000;
+const DEFAULT_LIFETIME = 50000;
 
 export const NOTIFY = Symbol('Notifications');
 

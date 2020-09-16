@@ -10,6 +10,7 @@ import {
   deploySafe,
   finalizeSafeDeployment,
   switchCurrentAccount,
+  unlockSafeDeployment,
   updateSafeFundedState,
 } from '~/store/safe/actions';
 import { deployToken, updateTokenFundedState } from '~/store/token/actions';
@@ -92,6 +93,9 @@ export function finalizeNewAccount() {
     // Get latest updates
     await dispatch(checkAuthState());
     await dispatch(checkAppState());
+
+    // Finally unlock the Safe (enable UI again)
+    await dispatch(unlockSafeDeployment());
   };
 }
 

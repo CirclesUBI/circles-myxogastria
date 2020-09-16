@@ -43,6 +43,10 @@ const LocaleSelector = (props) => {
     window.location.reload();
   };
 
+  if (LOCALES.length === 1) {
+    return null;
+  }
+
   return (
     <Select
       classes={

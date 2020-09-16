@@ -7,7 +7,7 @@ import View from '~/components/View';
 import translate from '~/services/locale';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
 
-const SettingsKeysExport = () => {
+const SeedPhrase = () => {
   const [mnemonic, setMnemonic] = useState('');
 
   const generateMnemonic = () => {
@@ -21,16 +21,15 @@ const SettingsKeysExport = () => {
   return (
     <Fragment>
       <Header>
-        {translate('SettingsKeysExport.exportSeedPhrase')}
+        {translate('SeedPhrase.exportSeedPhrase')}
         <ButtonHome />
       </Header>
-
       <View>
-        <p>{translate('SettingsKeysExport.description')}</p>
+        <p>{translate('SeedPhrase.description')}</p>
         <ShareTextBox isClipboard text={mnemonic} />
       </View>
     </Fragment>
   );
 };
 
-export default SettingsKeysExport;
+export default SeedPhrase;

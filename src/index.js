@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { SnackbarProvider } from 'notistack';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 import App from '~/App';
@@ -18,10 +17,8 @@ const Root = (props) => (
   <Provider store={props.store}>
     <NoSsr>
       <ThemeProvider theme={theme}>
-        <SnackbarProvider>
-          <CssBaseline />
-          <App />
-        </SnackbarProvider>
+        <CssBaseline />
+        <App />
       </ThemeProvider>
     </NoSsr>
   </Provider>

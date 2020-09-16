@@ -1,9 +1,7 @@
-import React, { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
-import Button from '~/components/Button';
-import translate from '~/services/locale';
 import { removeNotification } from '~/store/notifications/actions';
 
 let displayed = [];
@@ -35,14 +33,6 @@ const Notifications = () => {
 
       // Display snackbar using notistack
       enqueueSnackbar(text, {
-        // eslint-disable-next-line react/display-name
-        action: (notificationId) => (
-          <Fragment>
-            <Button onClick={() => closeSnackbar(notificationId)}>
-              {translate('Notifications.buttonDismiss')}
-            </Button>
-          </Fragment>
-        ),
         key: id,
         autoHideDuration: lifetime,
         variant: type,

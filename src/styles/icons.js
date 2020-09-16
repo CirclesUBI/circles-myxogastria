@@ -11,6 +11,7 @@ import mail from '%/images/mail.svg';
 import menu from '%/images/menu.svg';
 import notification from '%/images/notification.svg';
 import qr from '%/images/qr.svg';
+import search from '%/images/search.svg';
 import send from '%/images/send.svg';
 import telegram from '%/images/telegram.svg';
 import twitter from '%/images/twitter.svg';
@@ -53,6 +54,10 @@ export const IconAlert = (props) => {
 
 export const IconQR = (props) => {
   return <SvgIcon component={qr} viewBox="0 0 18 18" {...props} />;
+};
+
+export const IconSearch = (props) => {
+  return <SvgIcon component={search} {...props} viewBox="0 0 23 22" />;
 };
 
 export const IconSend = (props) => {

@@ -200,6 +200,12 @@ export function finalizeSafeDeployment() {
   };
 }
 
+export function unlockSafeDeployment() {
+  return {
+    type: ActionTypes.SAFE_DEPLOY_UNLOCK,
+  };
+}
+
 export function getSafeOwners() {
   return async (dispatch, getState) => {
     const { safe } = getState();

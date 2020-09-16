@@ -1,12 +1,23 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Drawer, Grid, Button, Box } from '@material-ui/core';
+import { Typography, Drawer, Grid, Button, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
 
+import AvatarWithQR from '~/components/AvatarWithQR';
 import ExternalLink from '~/components/ExternalLink';
 import LocaleSelector from '~/components/LocaleSelector';
+import UsernameDisplay from '~/components/UsernameDisplay';
 import translate from '~/services/locale';
+import {
+  ACTIVITIES_PATH,
+  DEVICES_PATH,
+  MY_PROFILE_PATH,
+  SEED_PHRASE_PATH,
+  SEND_PATH,
+  SHARE_PATH,
+} from '~/routes';
 import {
   ABOUT_URL,
   FAQ_URL,
@@ -35,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
   navigationHeader: {
-    paddingTop: theme.spacing(1),
+    paddingTop: theme.spacing(1.5),
     paddingRight: theme.spacing(3),
     paddingBottom: theme.spacing(3),
     paddingLeft: theme.spacing(3),
@@ -53,6 +64,10 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
     justifyContent: 'flex-start',
+  },
+  navigationProfileLink: {
+    textDecoration: 'none',
+    color: theme.palette.text.primary,
   },
   navigationExternalLink: {
     display: 'block',
@@ -78,37 +93,53 @@ const Navigation = ({ isExpanded, ...props }) => {
       variant="persistent"
       {...props}
     >
-      <NavigationHeader />
-      <NavigationMain />
+      <NavigationHeader onClick={props.onClick} />
+      <NavigationMain onClick={props.onClick} />
       <NavigationFooter />
     </Drawer>
   );
 };
 
-const NavigationHeader = () => {
+const NavigationHeader = ({ onClick }) => {
   const classes = useStyles();
+  const safe = useSelector((state) => state.safe);
 
-  return <Box className={classes.navigationHeader} component="header" />;
+  return (
+    <Box className={classes.navigationHeader} component="header">
+      <Link
+        className={classes.navigationProfileLink}
+        to={MY_PROFILE_PATH}
+        onClick={onClick}
+      >
+        <AvatarWithQR address={safe.currentAccount} />
+        <Box mt={1.5}>
+          <Typography variant="h6">
+            <UsernameDisplay address={safe.currentAccount} />
+          </Typography>
+        </Box>
+      </Link>
+    </Box>
+  );
 };
 
-const NavigationMain = () => {
+const NavigationMain = ({ onClick }) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.navigationMain} component="main">
-      <NavigationLink to="/receive">
+      <NavigationLink to={SHARE_PATH} onClick={onClick}>
         {translate('Navigation.buttonMyQR')}
       </NavigationLink>
-      <NavigationLink to="/activities">
+      <NavigationLink to={ACTIVITIES_PATH} onClick={onClick}>
         {translate('Navigation.buttonActivityLog')}
       </NavigationLink>
-      <NavigationLink to="/send">
+      <NavigationLink to={SEND_PATH} onClick={onClick}>
         {translate('Navigation.buttonSendCircles')}
       </NavigationLink>
-      <NavigationLink to="/settings/keys">
+      <NavigationLink to={DEVICES_PATH} onClick={onClick}>
         {translate('Navigation.buttonAddDevice')}
       </NavigationLink>
-      <NavigationLink to="/settings/keys/export">
+      <NavigationLink to={SEED_PHRASE_PATH} onClick={onClick}>
         {translate('Navigation.buttonExportSeedPhrase')}
       </NavigationLink>
     </Box>
@@ -210,6 +241,15 @@ const NavigationExternalLink = ({ children, href }) => {
 
 Navigation.propTypes = {
   isExpanded: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+NavigationHeader.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
+
+NavigationMain.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 
 NavigationLink.propTypes = {

@@ -1,23 +1,34 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import clsx from 'clsx';
 import {
   Badge,
-  Container,
+  Box,
   CircularProgress,
+  Container,
   Fab,
   IconButton,
+  InputAdornment,
+  Input,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
 import BalanceDisplay from '~/components/BalanceDisplay';
 import CenteredHeading from '~/components/CenteredHeading';
+import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
 import Navigation from '~/components/Navigation';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
-import { IconSend, IconMenu, IconNotification } from '~/styles/icons';
+import translate from '~/services/locale';
+import {
+  IconMenu,
+  IconNotification,
+  IconSearch,
+  IconSend,
+} from '~/styles/icons';
+import { MY_PROFILE_PATH, SEARCH_PATH } from '~/routes';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {
@@ -37,6 +48,10 @@ const transitionExpandedMixin = ({ transitions, custom }) => ({
 const useStyles = makeStyles((theme) => ({
   dashboardProfile: {
     flexGrow: 1,
+  },
+  profileLink: {
+    textDecoration: 'none',
+    color: theme.palette.text.primary,
   },
   fabSend: {
     ...transitionMixin(theme),
@@ -64,6 +79,12 @@ const useStyles = makeStyles((theme) => ({
     ...transitionExpandedMixin(theme),
     overflow: 'hidden',
   },
+  searchInput: {
+    padding: theme.spacing(1, 2),
+    borderRadius: 10,
+    backgroundColor: theme.palette.grey['50'],
+    color: theme.palette.grey['500'],
+  },
 }));
 
 const Dashboard = () => {
@@ -73,6 +94,10 @@ const Dashboard = () => {
 
   const handleMenuToggle = () => {
     setIsMenuExpanded(!isMenuExpanded);
+  };
+
+  const handleMenuClick = () => {
+    setIsMenuExpanded(false);
   };
 
   return (
@@ -86,11 +111,17 @@ const Dashboard = () => {
           <IconMenu />
         </IconButton>
         <CenteredHeading>
-          <UsernameDisplay address={safe.currentAccount} />
+          <Link className={classes.profileLink} to={MY_PROFILE_PATH}>
+            <UsernameDisplay address={safe.currentAccount} />
+          </Link>
         </CenteredHeading>
         <DashboardActivityIcon />
       </Header>
-      <Navigation className={classes.navigation} isExpanded={isMenuExpanded} />
+      <Navigation
+        className={classes.navigation}
+        isExpanded={isMenuExpanded}
+        onClick={handleMenuClick}
+      />
       <View
         className={clsx(classes.view, {
           [classes.viewExpanded]: isMenuExpanded,
@@ -98,6 +129,9 @@ const Dashboard = () => {
       >
         <Container maxWidth="sm">
           <BalanceDisplay />
+          <Box my={2}>
+            <DashboardSearch />
+          </Box>
         </Container>
       </View>
       <Fab
@@ -111,6 +145,7 @@ const Dashboard = () => {
       >
         <IconSend />
       </Fab>
+      <Drawer />
     </Fragment>
   );
 };
@@ -149,6 +184,35 @@ const DashboardActivityIcon = () => {
         <IconNotification />
       </Badge>
     </IconButton>
+  );
+};
+
+const DashboardSearch = () => {
+  const classes = useStyles();
+  const history = useHistory();
+  const ref = useRef();
+
+  const handleSearchSelect = () => {
+    ref.current.blur();
+    history.push(SEARCH_PATH);
+  };
+
+  return (
+    <Input
+      className={classes.searchInput}
+      disableUnderline={true}
+      endAdornment={
+        <InputAdornment position="end">
+          <IconSearch fontSize="small" />
+        </InputAdornment>
+      }
+      fullWidth
+      id="search"
+      placeholder={translate('Dashboard.formSearch')}
+      readOnly
+      ref={ref}
+      onClick={handleSearchSelect}
+    />
   );
 };
 

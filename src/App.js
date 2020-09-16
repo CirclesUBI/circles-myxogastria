@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
-import { Box } from '@material-ui/core';
+import React, { useEffect, useRef } from 'react';
+import { Box, IconButton } from '@material-ui/core';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { IconAlert, IconClose } from '~/styles/icons';
+import { SnackbarProvider } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,6 +28,27 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     margin: '0 auto',
   },
+  // @NOTE: Hacky use of !important, see related issue:
+  // https://github.com/iamhosseindhv/notistack/issues/305
+  snackbarInfo: {
+    backgroundColor: `${theme.palette.info.main} !important`,
+    color: `${theme.palette.info.contrastText} !important`,
+  },
+  snackbarWarning: {
+    backgroundColor: `${theme.palette.warning.main} !important`,
+    color: `${theme.palette.warning.contrastText} !important`,
+  },
+  snackbarError: {
+    backgroundColor: `${theme.palette.error.main} !important`,
+    color: `${theme.palette.error.contrastText} !important`,
+  },
+  snackbarSuccess: {
+    backgroundColor: `${theme.palette.success.main} !important`,
+    color: `${theme.palette.success.contrastText} !important`,
+  },
+  snackbarIconVariant: {
+    marginRight: theme.spacing(1),
+  },
 }));
 
 const App = () => {
@@ -34,6 +57,11 @@ const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const app = useSelector((state) => state.app);
+
+  const notistackRef = useRef();
+  const onClickDismiss = (notificationId) => () => {
+    notistackRef.current.closeSnackbar(notificationId);
+  };
 
   useEffect(() => {
     // Initialize app state in redux store
@@ -80,15 +108,40 @@ const App = () => {
     window.clearInterval(checkInterval);
   });
 
+  const SnackbarIcon = <IconAlert className={classes.snackbarIconVariant} />;
+
   return (
-    <Router>
-      <Box className={classes.app}>
-        <UBI />
-        <Notifications />
-        <SpinnerOverlay isVisible={app.isLoading} />
-        <Routes />
-      </Box>
-    </Router>
+    <SnackbarProvider
+      action={(notificationId) => (
+        // eslint-disable-next-line react/display-name
+        <IconButton color="inherit" onClick={onClickDismiss(notificationId)}>
+          <IconClose fontSize="small" />
+        </IconButton>
+      )}
+      classes={{
+        variantSuccess: classes.snackbarSuccess,
+        variantError: classes.snackbarError,
+        variantWarning: classes.snackbarWarning,
+        variantInfo: classes.snackbarInfo,
+      }}
+      iconVariant={{
+        info: SnackbarIcon,
+        default: SnackbarIcon,
+        error: SnackbarIcon,
+        success: SnackbarIcon,
+        warning: SnackbarIcon,
+      }}
+      ref={notistackRef}
+    >
+      <Router>
+        <Box className={classes.app}>
+          <UBI />
+          <Notifications />
+          <SpinnerOverlay isVisible={app.isLoading} />
+          <Routes />
+        </Box>
+      </Router>
+    </SnackbarProvider>
   );
 };
 

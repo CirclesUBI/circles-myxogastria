@@ -3,43 +3,52 @@ import React, { useState } from 'react';
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import Activities from '~/views/Activities';
 import Dashboard from '~/views/Dashboard';
+import Devices from '~/views/Devices';
+import DevicesAdd from '~/views/DevicesAdd';
 import Error from '~/views/Error';
-import Invite from '~/views/Invite';
 import Login from '~/views/Login';
 import LoginSeedPhrase from '~/views/LoginSeedPhrase';
 import NotFound from '~/views/NotFound';
 import Onboarding from '~/views/Onboarding';
 import Profile from '~/views/Profile';
-import Receive from '~/views/Receive';
-import ReceiveShare from '~/views/ReceiveShare';
-import Search from '~/views/Search';
+import SeedPhrase from '~/views/SeedPhrase';
 import Send from '~/views/Send';
 import SendConfirm from '~/views/SendConfirm';
-import Settings from '~/views/Settings';
-import SettingsKeys from '~/views/SettingsKeys';
-import SettingsKeysAdd from '~/views/SettingsKeysAdd';
-import SettingsKeysExport from '~/views/SettingsKeysExport';
-import SettingsShare from '~/views/SettingsShare';
+import Share from '~/views/Share';
 import Trust from '~/views/Trust';
 import TrustConfirm from '~/views/TrustConfirm';
 import TrustRevokeConfirm from '~/views/TrustRevokeConfirm';
 import TutorialOnboarding from '~/views/TutorialOnboarding';
-import TutorialSettingsKeys from '~/views/TutorialSettingsKeys';
+import TutorialRecovery from '~/views/TutorialRecovery';
 import Validation from '~/views/Validation';
+import ValidationLock from '~/views/ValidationLock';
 import ValidationShare from '~/views/ValidationShare';
 import Welcome from '~/views/Welcome';
 import { ACCOUNT_CREATE, SETTINGS_KEYS } from '~/store/tutorial/actions';
 
-export const DASHBOARD_PATH = '/';
+// Routes in Drawer component
+export const ACTIVITIES_PATH = '/activities';
+export const MY_PROFILE_PATH = '/profile';
+export const SEARCH_PATH = '/search';
+
+// Main routes
+export const WELCOME_PATH = '/welcome';
 export const LOGIN_PATH = '/welcome/login';
 export const LOGIN_SEED_PHRASE_PATH = '/welcome/seedphrase';
 export const ONBOARDING_PATH = '/welcome/onboarding';
-export const PROFILE_PATH = '/profile/:address';
 export const VALIDATION_PATH = '/validation';
 export const VALIDATION_SHARE_PATH = '/validation/share';
-export const WELCOME_PATH = '/welcome';
+export const DASHBOARD_PATH = '/';
+export const DEVICES_PATH = '/devices';
+export const DEVICES_ADD_PATH = '/devices/add';
+export const PROFILE_PATH = '/profile/:address';
+export const SEED_PHRASE_PATH = '/seedphrase';
+export const SEND_CONFIRM_PATH = '/send/:address';
+export const SEND_PATH = '/send';
+export const SHARE_PATH = '/share';
+export const TRUST_CONFIRM_PATH = '/trust/:address';
+export const TRUST_PATH = '/trust';
 
 const SessionContainer = ({
   component: Component,
@@ -155,12 +164,12 @@ const OnboardingContainer = () => {
   );
 };
 
-const SettingsKeysContainer = () => {
+const DevicesContainer = () => {
   return (
     <TutorialContainer
-      componentFinal={SettingsKeys}
-      componentTutorial={TutorialSettingsKeys}
-      exitPath="/settings"
+      componentFinal={Devices}
+      componentTutorial={TutorialRecovery}
+      exitPath={DASHBOARD_PATH}
       name={SETTINGS_KEYS}
     />
   );
@@ -170,7 +179,7 @@ const SettingsKeysContainer = () => {
 
 const Routes = () => {
   const location = useLocation();
-  const app = useSelector((state) => state.app);
+  const { app, safe } = useSelector((state) => state);
 
   // Did something bad happen?
   if (app.isError) {
@@ -178,53 +187,50 @@ const Routes = () => {
   }
 
   // Do not do anything yet when we are not ready
-  if (!app.isReady || app.isLoading) {
+  if (!app.isReady) {
     return null;
+  }
+
+  // Show locked view when Safe is being deployed
+  if (safe.pendingIsLocked) {
+    return <ValidationLock />;
   }
 
   return (
     <Switch location={location}>
-      <TrustedRoute component={Dashboard} exact path={DASHBOARD_PATH} />
-      <SessionRoute
-        component={ValidationShare}
-        exact
-        path={VALIDATION_SHARE_PATH}
-      />
-      <SessionRoute component={Validation} exact path={VALIDATION_PATH} />
-      <TrustedRoute component={Invite} path="/invite" />
-      <TrustedRoute component={Activities} path="/activities" />
-      <TrustedRoute
-        component={TrustRevokeConfirm}
-        path="/trust/revoke/:address"
-      />
-      <TrustedRoute component={TrustConfirm} path="/trust/:address" />
-      <TrustedRoute component={Trust} path="/trust" />
-      <TrustedRoute component={SendConfirm} path="/send/:address" />
-      <TrustedRoute component={Send} path="/send" />
-      <TrustedRoute component={Search} path="/search" />
-      <TrustedRoute component={ReceiveShare} path="/receive/share" />
-      <TrustedRoute component={Receive} path="/receive" />
-      <TrustedRoute component={Profile} path={PROFILE_PATH} />
-      <TrustedRoute component={SettingsKeysAdd} path="/settings/keys/add" />
-      <TrustedRoute
-        component={SettingsKeysExport}
-        path="/settings/keys/export"
-      />
-      <TrustedRoute component={SettingsKeysContainer} path="/settings/keys" />
-      <TrustedRoute component={SettingsShare} path="/settings/share" />
-      <TrustedRoute component={Settings} path="/settings" />
+      <OnboardingRoute component={Welcome} exact path={WELCOME_PATH} />
       <OnboardingRoute
         component={OnboardingContainer}
         exact
         path={ONBOARDING_PATH}
       />
-      <OnboardingRoute component={Welcome} exact path={WELCOME_PATH} />
       <OnboardingRoute component={Login} exact path={LOGIN_PATH} />
       <OnboardingRoute
         component={LoginSeedPhrase}
         exact
         path={LOGIN_SEED_PHRASE_PATH}
       />
+      <SessionRoute component={Validation} exact path={VALIDATION_PATH} />
+      <SessionRoute
+        component={ValidationShare}
+        exact
+        path={VALIDATION_SHARE_PATH}
+      />
+      <TrustedRoute component={Trust} exact path={TRUST_PATH} />
+      <TrustedRoute component={TrustConfirm} exact path={TRUST_CONFIRM_PATH} />
+      <TrustedRoute
+        component={TrustRevokeConfirm}
+        exact
+        path="/trust/revoke/:address"
+      />
+      <TrustedRoute component={Send} exact path={SEND_PATH} />
+      <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
+      <TrustedRoute component={DevicesContainer} exact path={DEVICES_PATH} />
+      <TrustedRoute component={DevicesAdd} exact path={DEVICES_ADD_PATH} />
+      <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
+      <TrustedRoute component={Share} exact path={SHARE_PATH} />
+      <TrustedRoute component={Profile} exact path={PROFILE_PATH} />
+      <TrustedRoute component={Dashboard} path={DASHBOARD_PATH} />
       <Route component={NotFound} />
     </Switch>
   );

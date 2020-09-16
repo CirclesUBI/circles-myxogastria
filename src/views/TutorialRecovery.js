@@ -7,7 +7,7 @@ import translate from '~/services/locale';
 import { SETTINGS_KEYS, finishTutorial } from '~/store/tutorial/actions';
 import { SpacingStyle } from '~/styles/Layout';
 
-const TutorialSettingsKeys = (props) => {
+const TutorialRecovery = (props) => {
   const dispatch = useDispatch();
 
   const slides = [
@@ -33,11 +33,11 @@ const SlideAccountRecovery = () => {
   return (
     <Fragment>
       <SpacingStyle>
-        <h2>{translate('TutorialSettingsKeys.accountRecoveryTitle')}</h2>
+        <h2>{translate('TutorialRecovery.accountRecoveryTitle')}</h2>
       </SpacingStyle>
 
       <SpacingStyle>
-        <p>{translate('TutorialSettingsKeys.accountRecovery')}</p>
+        <p>{translate('TutorialRecovery.accountRecovery')}</p>
       </SpacingStyle>
     </Fragment>
   );
@@ -47,11 +47,11 @@ const SlideLinkingDevices = () => {
   return (
     <Fragment>
       <SpacingStyle>
-        <h2>{translate('TutorialSettingsKeys.linkingDevicesTitle')}</h2>
+        <h2>{translate('TutorialRecovery.linkingDevicesTitle')}</h2>
       </SpacingStyle>
 
       <SpacingStyle>
-        <p>{translate('TutorialSettingsKeys.linkingDevices')}</p>
+        <p>{translate('TutorialRecovery.linkingDevices')}</p>
       </SpacingStyle>
     </Fragment>
   );
@@ -61,18 +61,18 @@ const SlideSeedPhrase = () => {
   return (
     <Fragment>
       <SpacingStyle>
-        <h2>{translate('TutorialSettingsKeys.seedPhraseTitle')}</h2>
+        <h2>{translate('TutorialRecovery.seedPhraseTitle')}</h2>
       </SpacingStyle>
 
       <SpacingStyle>
-        <p>{translate('TutorialSettingsKeys.seedPhrase')}</p>
+        <p>{translate('TutorialRecovery.seedPhrase')}</p>
       </SpacingStyle>
     </Fragment>
   );
 };
 
-TutorialSettingsKeys.propTypes = {
+TutorialRecovery.propTypes = {
   onExit: PropTypes.func.isRequired,
 };
 
-export default TutorialSettingsKeys;
+export default TutorialRecovery;
