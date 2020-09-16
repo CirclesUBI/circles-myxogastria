@@ -46,10 +46,10 @@
     "html-webpack-plugin": "^4.4.1",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
-    "prettier": "^2.1.1",
+    "prettier": "^2.1.2",
     "rimraf": "^3.0.2",
     "style-loader": "^1.2.1",
-    "terser-webpack-plugin": "^4.2.0",
+    "terser-webpack-plugin": "^4.2.1",
     "truffle": "^5.1.44",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
@@ -79,6 +79,6 @@
     "redux-create-action-types": "^2.1.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "web3": "^1.2.11"
+    "web3": "^1.3.0"
   }
 }
