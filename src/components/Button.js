@@ -18,9 +18,13 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     border: `${theme.palette.primary.main} 2px solid`,
   },
+  buttonDanger: {
+    background: theme.palette.error.main,
+    color: theme.palette.common.white,
+  },
   buttonPrimary: {
     background: theme.custom.gradients.purple,
-    color: theme.palette.primary.contrastText,
+    color: theme.palette.common.white,
     '&.Mui-disabled': {
       background: theme.custom.gradients.gray,
     },
@@ -33,6 +37,7 @@ const Button = React.forwardRef(
     {
       children,
       className: classNameExternal,
+      isDanger,
       isDark,
       isOutline,
       isPrimary,
@@ -44,6 +49,7 @@ const Button = React.forwardRef(
     const classes = useStyles();
 
     const className = clsx(classes.button, classNameExternal, {
+      [classes.buttonDanger]: isDanger,
       [classes.buttonDark]: isDark,
       [classes.buttonOutline]: isOutline,
       [classes.buttonPrimary]: isPrimary,
@@ -79,6 +85,7 @@ const Button = React.forwardRef(
 Button.propTypes = {
   children: PropTypes.any.isRequired,
   className: PropTypes.string,
+  isDanger: PropTypes.bool,
   isDark: PropTypes.bool,
   isOutline: PropTypes.bool,
   isPrimary: PropTypes.bool,

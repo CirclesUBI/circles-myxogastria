@@ -1,55 +1,72 @@
-import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
-import styled from 'styled-components';
-import { Redirect, withRouter } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
+import {
+  Box,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Paper,
+  Input,
+  Typography,
+} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
-import Bubble from '~/components/Bubble';
+import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
-import Button from '~/components/Button';
+import CenteredHeading from '~/components/CenteredHeading';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import ProfileMini from '~/components/ProfileMini';
-import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import core from '~/services/core';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
-import { InputNumberStyle } from '~/styles/Inputs';
+import { DASHBOARD_PATH } from '~/routes';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { transfer } from '~/store/token/actions';
+import { useUserdata } from '~/hooks/username';
 
-const SendConfirm = (props) => {
-  const { address } = props.match.params;
+const SendConfirm = () => {
+  const { address } = useParams();
+  const dispatch = useDispatch();
 
   const [amount, setAmount] = useState(0);
-  const [isConfirmationShown, setIsConfirmationShown] = useState(false);
   const [isSent, setIsSent] = useState(false);
-  const dispatch = useDispatch();
+  const [isConfirmationShown, setIsConfirmationShown] = useState(false);
+
+  const { username } = useUserdata(address);
 
   const onAmountChange = (event) => {
     setAmount(event.target.value);
   };
 
-  const onNext = () => {
+  const handleConfirmOpen = () => {
     setIsConfirmationShown(true);
   };
 
-  const onPrevious = () => {
+  const handleConfirmClose = () => {
     setIsConfirmationShown(false);
   };
 
-  const onSubmit = async () => {
+  const handleSend = async () => {
     dispatch(showSpinnerOverlay());
+    setIsConfirmationShown(false);
 
     try {
       await dispatch(transfer(address, amount));
 
       dispatch(
         notify({
-          text: translate('SendConfirm.successMessage'),
+          text: translate('SendConfirm.successMessage', {
+            amount,
+            username,
+          }),
+          type: NotificationsTypes.SUCCESS,
         }),
       );
 
@@ -59,7 +76,10 @@ const SendConfirm = (props) => {
       let text;
 
       if (error instanceof core.errors.TransferError) {
-        text = translate('SendConfirm.errorMessageTransfer');
+        text = translate('SendConfirm.errorMessageTransfer', {
+          amount,
+          username,
+        });
       } else {
         const errorMessage = formatErrorMessage(error);
         text = `${translate('SendConfirm.errorMessage')}${errorMessage}`;
@@ -77,92 +97,83 @@ const SendConfirm = (props) => {
   };
 
   if (isSent) {
-    return <Redirect to="/" />;
-  }
-
-  if (isConfirmationShown) {
-    return (
-      <Fragment>
-        <SendConfirmHeader>
-          <ButtonBack onClick={onPrevious} />
-        </SendConfirmHeader>
-
-        <View>
-          <Bubble>
-            <p>
-              {translate('SendConfirm.confirmationText', { amount })}
-              <UsernameDisplay address={address} />
-              {translate('SendConfirm.confirmationTextAfter')}
-            </p>
-          </Bubble>
-        </View>
-
-        <Footer>
-          <Button onClick={onSubmit}>{translate('SendConfirm.confirm')}</Button>
-        </Footer>
-      </Fragment>
-    );
+    return <Redirect to={DASHBOARD_PATH} />;
   }
 
   return (
     <Fragment>
-      <SendConfirmHeader>
-        <ButtonBack to="/send" />
-      </SendConfirmHeader>
-
+      <Dialog
+        aria-describedby="alert-send-description"
+        aria-labelledby="alert-send-title"
+        open={isConfirmationShown}
+        onClose={handleConfirmClose}
+      >
+        <DialogTitle id="alert-send-title">
+          {translate('SendConfirm.dialogSendTitle', { amount, username })}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-send-description">
+            {translate('SendConfirm.dialogSendDescription', {
+              amount,
+              username,
+            })}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button isOutline onClick={handleConfirmClose}>
+            {translate('SendConfirm.dialogSendCancel')}
+          </Button>
+          <Button autoFocus isPrimary onClick={handleSend}>
+            {translate('SendConfirm.dialogSendConfirm')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Header>
+        <ButtonBack />
+        <CenteredHeading>
+          {translate('SendConfirm.headingSendCircles')}
+        </CenteredHeading>
+        <ButtonHome edge="end" />
+      </Header>
       <View>
-        <ConfirmToStyle>
-          <span>{translate('SendConfirm.to')}</span>
-          <ProfileMini address={address} />
-        </ConfirmToStyle>
-
-        <p>{translate('SendConfirm.howMuch')}</p>
-
-        <InputNumberStyle
-          type="number"
-          value={amount}
-          onChange={onAmountChange}
-        />
+        <Container maxWidth="sm">
+          <Box my={4}>
+            <Typography align="center" gutterBottom>
+              {translate('SendConfirm.bodyTo')}
+            </Typography>
+            <ProfileMini address={address} />
+          </Box>
+          <Typography align="center" gutterBottom>
+            {translate('SendConfirm.bodyHowMuch')}
+          </Typography>
+          <Paper>
+            <Box p={2}>
+              <Input
+                disableUnderline={true}
+                fullWidth
+                inputProps={{
+                  min: 0,
+                }}
+                type="number"
+                value={amount}
+                onChange={onAmountChange}
+              />
+            </Box>
+          </Paper>
+        </Container>
       </View>
-
       <Footer>
-        <Button disabled={!(amount > 0)} onClick={onNext}>
-          {translate('SendConfirm.submitAmount')}
+        <Button
+          disabled={!(amount > 0)}
+          fullWidth
+          isPrimary
+          onClick={handleConfirmOpen}
+        >
+          {translate('SendConfirm.buttonSubmitAmount')}
         </Button>
       </Footer>
     </Fragment>
   );
 };
 
-const SendConfirmHeader = (props) => {
-  return (
-    <Header>
-      {props.children}
-      {translate('SendConfirm.sendCircles')}
-      <ButtonHome />
-    </Header>
-  );
-};
-
-SendConfirm.propTypes = {
-  match: PropTypes.object.isRequired,
-};
-
-SendConfirmHeader.propTypes = {
-  children: PropTypes.any.isRequired,
-};
-
-const ConfirmToStyle = styled.div`
-  display: flex;
-
-  margin-bottom: 2rem;
-
-  align-items: center;
-  justify-content: center;
-
-  span {
-    margin-right: 1rem;
-  }
-`;
-
-export default withRouter(SendConfirm);
+export default SendConfirm;

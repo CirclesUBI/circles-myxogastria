@@ -1,33 +1,43 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useMemo } from 'react';
+import { Typography, Container } from '@material-ui/core';
 
-import ButtonHome from '~/components/ButtonHome';
+import ButtonBack from '~/components/ButtonBack';
+import ButtonClipboard from '~/components/ButtonClipboard';
+import CenteredHeading from '~/components/CenteredHeading';
+import Footer from '~/components/Footer';
 import Header from '~/components/Header';
-import ShareTextBox from '~/components/ShareTextBox';
+import Mnemonic from '~/components/Mnemonic';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
 
 const SeedPhrase = () => {
-  const [mnemonic, setMnemonic] = useState('');
-
-  const generateMnemonic = () => {
+  const mnemonic = useMemo(() => {
     const privateKey = getPrivateKey();
-    const seedPhrase = toSeedPhrase(privateKey);
-    setMnemonic(seedPhrase);
-  };
-
-  useEffect(generateMnemonic, []);
+    return toSeedPhrase(privateKey);
+  }, []);
 
   return (
     <Fragment>
       <Header>
-        {translate('SeedPhrase.exportSeedPhrase')}
-        <ButtonHome />
+        <ButtonBack />
+        <CenteredHeading>
+          {translate('SeedPhrase.headingExportSeedPhrase')}
+        </CenteredHeading>
       </Header>
       <View>
-        <p>{translate('SeedPhrase.description')}</p>
-        <ShareTextBox isClipboard text={mnemonic} />
+        <Container maxWidth="sm">
+          <Typography align="center" gutterBottom>
+            {translate('SeedPhrase.bodyDescription')}
+          </Typography>
+          <Mnemonic text={mnemonic} />
+        </Container>
       </View>
+      <Footer>
+        <ButtonClipboard fullWidth isPrimary text={mnemonic}>
+          {translate('SeedPhrase.buttonCopyToClipboard')}
+        </ButtonClipboard>
+      </Footer>
     </Fragment>
   );
 };

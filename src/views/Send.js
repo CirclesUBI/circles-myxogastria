@@ -1,28 +1,44 @@
 import React, { Fragment, useState } from 'react';
+import { Container } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
+import { generatePath } from 'react-router';
 
 import ButtonBack from '~/components/ButtonBack';
+import Finder from '~/components/Finder';
 import Header from '~/components/Header';
+import View from '~/components/View';
 import translate from '~/services/locale';
+import CenteredHeading from '~/components/CenteredHeading';
+import { SEND_CONFIRM_PATH } from '~/routes';
 
 const Send = () => {
-  const [safeAddress, setSafeAddress] = useState('');
+  const [redirectPath, setRedirectPath] = useState(null);
 
-  const onSelect = (address) => {
-    setSafeAddress(address);
+  const handleSelect = (address) => {
+    setRedirectPath(
+      generatePath(SEND_CONFIRM_PATH, {
+        address,
+      }),
+    );
   };
 
-  if (safeAddress) {
-    return <Redirect to={`/send/${safeAddress}`} />;
+  if (redirectPath) {
+    return <Redirect push to={redirectPath} />;
   }
 
   return (
     <Fragment>
       <Header>
-        <ButtonBack to="/" />
-        {translate('Send.sendCircles')}
+        <ButtonBack />
+        <CenteredHeading>
+          {translate('Send.headingSendCircles')}
+        </CenteredHeading>
       </Header>
-      {/* <SafeFinder onSelect={onSelect} /> */}
+      <View>
+        <Container maxWidth="sm">
+          <Finder onSelect={handleSelect} />
+        </Container>
+      </View>
     </Fragment>
   );
 };

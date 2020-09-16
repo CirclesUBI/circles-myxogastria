@@ -13,10 +13,8 @@ import {
   Box,
   CircularProgress,
   Container,
-  Grid,
   IconButton,
   MobileStepper,
-  Paper,
   Typography,
 } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
@@ -30,6 +28,7 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import Input from '~/components/Input';
 import Logo from '~/components/Logo';
+import Mnemonic from '~/components/Mnemonic';
 import View from '~/components/View';
 import core from '~/services/core';
 import debounce from '~/utils/debounce';
@@ -49,11 +48,6 @@ const useStyles = makeStyles((theme) => ({
   onboardingMobileStepper: {
     flexGrow: 1,
     padding: 0,
-  },
-  mnemonicItem: {
-    width: theme.spacing(9),
-    padding: theme.spacing(0.5),
-    textAlign: 'center',
   },
   avatarUpload: {
     margin: '0 auto',
@@ -356,8 +350,6 @@ const OnboardingStepEmail = (props) => {
 };
 
 const OnboardingStepSeedPhrase = (props) => {
-  const classes = useStyles();
-
   const mnemonic = useMemo(() => {
     const privateKey = getPrivateKey();
     return toSeedPhrase(privateKey);
@@ -374,15 +366,7 @@ const OnboardingStepSeedPhrase = (props) => {
       </Typography>
       <Typography>{translate('Onboarding.bodySeedPhrase')}</Typography>
       <Box my={4}>
-        <Grid container spacing={2}>
-          {mnemonic.split(' ').map((word, index) => {
-            return (
-              <Grid item key={index} xs>
-                <Paper className={classes.mnemonicItem}>{word}</Paper>
-              </Grid>
-            );
-          })}
-        </Grid>
+        <Mnemonic text={mnemonic} />
       </Box>
       <ButtonClipboard fullWidth isOutline text={mnemonic}>
         {translate('Onboarding.buttonCopyToClipboard')}

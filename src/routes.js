@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 
 import Dashboard from '~/views/Dashboard';
 import Devices from '~/views/Devices';
-import DevicesAdd from '~/views/DevicesAdd';
 import Error from '~/views/Error';
 import Login from '~/views/Login';
 import LoginSeedPhrase from '~/views/LoginSeedPhrase';
@@ -17,12 +16,11 @@ import Send from '~/views/Send';
 import SendConfirm from '~/views/SendConfirm';
 import Share from '~/views/Share';
 import TutorialOnboarding from '~/views/TutorialOnboarding';
-import TutorialRecovery from '~/views/TutorialRecovery';
 import Validation from '~/views/Validation';
 import ValidationLock from '~/views/ValidationLock';
 import ValidationShare from '~/views/ValidationShare';
 import Welcome from '~/views/Welcome';
-import { ACCOUNT_CREATE, SETTINGS_KEYS } from '~/store/tutorial/actions';
+import { ACCOUNT_CREATE } from '~/store/tutorial/actions';
 
 // Routes in Drawer component
 export const ACTIVITIES_PATH = '/activities';
@@ -38,7 +36,6 @@ export const VALIDATION_PATH = '/validation';
 export const VALIDATION_SHARE_PATH = '/validation/share';
 export const DASHBOARD_PATH = '/';
 export const DEVICES_PATH = '/devices';
-export const DEVICES_ADD_PATH = '/devices/add';
 export const PROFILE_PATH = '/profile/:address';
 export const SEED_PHRASE_PATH = '/seedphrase';
 export const SEND_CONFIRM_PATH = '/send/:address';
@@ -159,17 +156,6 @@ const OnboardingContainer = () => {
   );
 };
 
-const DevicesContainer = () => {
-  return (
-    <TutorialContainer
-      componentFinal={Devices}
-      componentTutorial={TutorialRecovery}
-      exitPath={DASHBOARD_PATH}
-      name={SETTINGS_KEYS}
-    />
-  );
-};
-
 // Routes
 
 const Routes = () => {
@@ -213,8 +199,7 @@ const Routes = () => {
       />
       <TrustedRoute component={Send} exact path={SEND_PATH} />
       <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
-      <TrustedRoute component={DevicesContainer} exact path={DEVICES_PATH} />
-      <TrustedRoute component={DevicesAdd} exact path={DEVICES_ADD_PATH} />
+      <TrustedRoute component={Devices} exact path={DEVICES_PATH} />
       <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
       <TrustedRoute component={Share} exact path={SHARE_PATH} />
       <TrustedRoute component={Profile} exact path={PROFILE_PATH} />

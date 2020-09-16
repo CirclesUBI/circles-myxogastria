@@ -13,7 +13,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
@@ -159,6 +159,7 @@ const ProfileTrustButton = ({ address, isDisabled }) => {
 
   const [isTrustConfirmOpen, setIsTrustConfirmOpen] = useState(false);
   const [isTrustRevokeOpen, setIsTrustRevokeOpen] = useState(false);
+  const [isSent, setIsSent] = useState(false);
 
   const connection = network.find(({ safeAddress }) => {
     return safeAddress === address;
@@ -240,7 +241,7 @@ const ProfileTrustButton = ({ address, isDisabled }) => {
         }),
       );
 
-      history.push(DASHBOARD_PATH);
+      setIsSent(true);
     } catch (error) {
       logError(error);
 
@@ -256,6 +257,10 @@ const ProfileTrustButton = ({ address, isDisabled }) => {
 
     dispatch(hideSpinnerOverlay());
   };
+
+  if (isSent) {
+    return <Redirect push to={DASHBOARD_PATH} />;
+  }
 
   return (
     <Fragment>

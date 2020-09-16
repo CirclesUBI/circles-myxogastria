@@ -1,7 +1,4 @@
 {
-  "App": {
-    "errorUpdate": "Something went wrong, are you connected to the internet? {errorMessage}"
-  },
   "ActivityStream": {
     "bodyActivityAddedToSafe": "was added to this account",
     "bodyActivityMeTrustedSomeone": "You trusted {actor}",
@@ -16,6 +13,9 @@
     "bodyActivityUntrustedBySomeone": "{actor} untrusted you",
     "bodyNothingHereYet": "There are no activities to display yet",
     "buttonLoadMore": "Load more"
+  },
+  "App": {
+    "errorUpdate": "Something went wrong, are you connected to the internet? {errorMessage}"
   },
   "BalanceDisplay": {
     "tooltipYourBalance": "Your basic income is issued continuously at the rate of circa {rate} Circles a month."
@@ -35,12 +35,17 @@
   "Dashboard": {
     "formSearch": "Search"
   },
+  "Devices": {
+    "buttonBurnWallet": "End Session",
+    "dialogBurnCancel": "Cancel",
+    "dialogBurnConfirm": "End Session",
+    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have a Seed Phrase!",
+    "dialogBurnTitle": "Warning!",
+    "headingDangerZone": "Danger Zone",
+    "headingManageDevices": "Settings"
+  },
   "Finder": {
     "formSearch": "Search"
-  },
-  "NotFound": {
-    "bodyNotFound": "Ouch. We could not find the requested page. Did you maybe mistype the address?",
-    "headingNotFound": "Not found"
   },
   "LocaleSelector": {
     "de": "DE",
@@ -74,9 +79,13 @@
     "linkSupport": "Go to support.",
     "successWelcome": "Successfully restored wallet. Welcome!"
   },
+  "MyProfile": {
+    "buttonShowProfile": "Show Profile",
+    "buttonShowQR": "Show QR Code"
+  },
   "Navigation": {
     "buttonActivityLog": "Activity Log",
-    "buttonAddDevice": "Add Device",
+    "buttonAddDevice": "Settings",
     "buttonExportSeedPhrase": "Export Seed Phrase",
     "buttonMyQR": "My QR",
     "buttonSendCircles": "Send Circles",
@@ -85,6 +94,10 @@
     "linkMarketplace": "Marketplace",
     "linkPrivacyLegal": "Privacy / Legal",
     "linkSupport": "Support"
+  },
+  "NotFound": {
+    "bodyNotFound": "Ouch. We could not find the requested page. Did you maybe mistype the address?",
+    "headingNotFound": "Not found"
   },
   "Onboarding": {
     "bodyAvatar": "Your photo is how your friends can search for you on the Circles App.",
@@ -112,43 +125,6 @@
     "headingUsername": "Create Your Username",
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },
-  "Share": {
-    "headingShare": "My QR Code",
-    "buttonShareProfileLink": "Share"
-  },
-  "Tutorial": {
-    "buttonFinish": "Got it.",
-    "buttonNextStep": "Next",
-    "buttonSkip": "Skip"
-  },
-  "TutorialOnboarding": {
-    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support an alternative economy.",
-    "bodyUnconditionalIncome": "Circles is designed similar to a basic income. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
-    "bodyWebOfTrust": "You can spend Circles with people you trust, and the people they trust. ",
-    "headingBuildYourOwnEconomy": "Build Your Own Economy",
-    "headingUnconditionalIncome": "Unconditional Income",
-    "headingWebOfTrust": "A Web of Trust"
-  },
-  "MyProfile": {
-    "buttonShowProfile": "Show Profile",
-    "buttonShowQR": "Show QR Code"
-  },
-  "Validation": {
-    "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your seed phrase.",
-    "bodyTrustDescription": "To receive your basic income,",
-    "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
-    "buttonShareProfileLink": "Share Profile Link",
-    "headingBuildYourWebOfTrust": "Build your web of trust",
-    "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
-  },
-  "ValidationStatus": {
-    "bodyReadyForDeployment": "Your account is ready now, click the button below to create it:",
-    "buttonStartDeployment": "Create account"
-  },
-  "ValidationLock": {
-    "bodyThisMayTakeMinutes": "This may take a few minutes. Please keep your browser open.",
-    "bodyYourCirclesLoading": "Your Circles account is loading!"
-  },
   "Profile": {
     "dialogTrustCancel": "Cancel",
     "dialogTrustConfirm": "Trust",
@@ -164,13 +140,68 @@
     "successRevokeTrust": "You successfully revoked your trust from {username}!",
     "successTrust": "Nice. You trusted {username}!"
   },
-  "ValidationShare": {
-    "buttonShareProfileLink": "Share Profile Link",
-    "shareText": "Hey! Check out my profile at: {shareLink}",
-    "headingShowYourQR": "Show your QR code or profile to others to receive trust."
+  "SeedPhrase": {
+    "bodyDescription": "Print this and store it safely:",
+    "buttonCopyToClipboard": "Copy to clipboard",
+    "headingExportSeedPhrase": "Export Seed Phrase"
+  },
+  "Send": {
+    "headingSendCircles": "Send Circles"
+  },
+  "SendConfirm": {
+    "bodyHowMuch": "How much would you like to send?",
+    "bodyTo": "To:",
+    "buttonSubmitAmount": "Next",
+    "dialogSendCancel": "Cancel",
+    "dialogSendConfirm": "Send",
+    "dialogSendDescription": "Are you sure you want to send {amount} Circles to {username}?",
+    "dialogSendTitle": "Send Circles",
+    "errorMessage": "Something went wrong ..",
+    "errorMessageTransfer": "Could not transfer Circles as there is currently no complete trust path between {username} and you ..",
+    "headingSendCircles": "Send Circles",
+    "successSend": "You transferred {amount} Circles successfully to {username}!"
+  },
+  "Share": {
+    "buttonShareProfileLink": "Share",
+    "headingShare": "My QR Code",
+    "shareText": "Hey! Check out my Circles UBI profile: {shareLink}"
+  },
+  "Tutorial": {
+    "buttonFinish": "Got it.",
+    "buttonNextStep": "Next",
+    "buttonSkip": "Skip"
+  },
+  "TutorialOnboarding": {
+    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support an alternative economy.",
+    "bodyUnconditionalIncome": "Circles is designed similar to a basic income. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
+    "bodyWebOfTrust": "You can spend Circles with people you trust, and the people they trust. ",
+    "headingBuildYourOwnEconomy": "Build Your Own Economy",
+    "headingUnconditionalIncome": "Unconditional Income",
+    "headingWebOfTrust": "A Web of Trust"
   },
   "UBI": {
     "infoUbiPayoutReceived": "You received {payout} Circles UBI!"
+  },
+  "Validation": {
+    "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your seed phrase.",
+    "bodyTrustDescription": "To receive your basic income,",
+    "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
+    "buttonShareProfileLink": "Share Profile Link",
+    "headingBuildYourWebOfTrust": "Build your web of trust",
+    "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
+  },
+  "ValidationLock": {
+    "bodyThisMayTakeMinutes": "This may take a few minutes. Please keep your browser open.",
+    "bodyYourCirclesLoading": "Your Circles account is loading!"
+  },
+  "ValidationShare": {
+    "buttonShareProfileLink": "Share Profile Link",
+    "headingShowYourQR": "Show your QR code or profile to others to receive trust.",
+    "shareText": "Hey! Check out my profile at: {shareLink}"
+  },
+  "ValidationStatus": {
+    "bodyReadyForDeployment": "Your account is ready now, click the button below to create it:",
+    "buttonStartDeployment": "Create account"
   },
   "Welcome": {
     "buttonLogin": "Log in",
