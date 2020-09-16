@@ -11,7 +11,6 @@ import { useDispatch } from 'react-redux';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
-import ButtonHome from '~/components/ButtonHome';
 import CenteredHeading from '~/components/CenteredHeading';
 import ExternalLink from '~/components/ExternalLink';
 import Footer from '~/components/Footer';
@@ -67,7 +66,6 @@ const LoginSeedPhrase = () => {
         <CenteredHeading>
           {translate('LoginSeedPhrase.headingLoginSeedPhrase')}
         </CenteredHeading>
-        <ButtonHome />
       </Header>
       <View>
         <Container maxWidth="sm">
