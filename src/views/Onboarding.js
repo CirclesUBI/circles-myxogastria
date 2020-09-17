@@ -26,6 +26,7 @@ import ButtonBack from '~/components/ButtonBack';
 import ButtonClipboard from '~/components/ButtonClipboard';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import HumbleAlert from '~/components/HumbleAlert';
 import Input from '~/components/Input';
 import Logo from '~/components/Logo';
 import Mnemonic from '~/components/Mnemonic';
@@ -190,6 +191,13 @@ const Onboarding = () => {
         </Container>
       </View>
       <Footer>
+        {process.env.STAGING_NOTIFICATION && (
+          <Box mb={2}>
+            <HumbleAlert>
+              {translate('default.bodyStagingNotification')}
+            </HumbleAlert>
+          </Box>
+        )}
         <Button
           disabled={isDisabled}
           fullWidth

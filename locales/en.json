@@ -1,4 +1,7 @@
 {
+  "default": {
+    "bodyStagingNotification": "Please note that you're currently using Circles in a test network which is used for developers to experiment with the system. This means that errors can occur as we're experimenting with new instable features, your Circles can only be used for testing and you can loose your profile, tokens and data anytime."
+  },
   "ActivityStream": {
     "bodyActivityAddedToSafe": "was added to this account",
     "bodyActivityMeTrustedSomeone": "You trusted {actor}",

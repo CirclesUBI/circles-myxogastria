@@ -18,6 +18,7 @@ import ButtonSend from '~/components/ButtonSend';
 import CenteredHeading from '~/components/CenteredHeading';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
+import HumbleAlert from '~/components/HumbleAlert';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import UsernameDisplay from '~/components/UsernameDisplay';
@@ -126,6 +127,13 @@ const Dashboard = () => {
       >
         <Container maxWidth="sm">
           <BalanceDisplay />
+          {process.env.STAGING_NOTIFICATION && (
+            <Box mb={2}>
+              <HumbleAlert>
+                {translate('default.bodyStagingNotification')}
+              </HumbleAlert>
+            </Box>
+          )}
           <Box my={2}>
             <DashboardSearch />
           </Box>
