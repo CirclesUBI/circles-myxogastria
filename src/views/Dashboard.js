@@ -80,8 +80,8 @@ const useStyles = makeStyles((theme) => ({
   searchInput: {
     padding: theme.spacing(1, 2),
     borderRadius: 10,
-    backgroundColor: theme.palette.grey['50'],
-    color: theme.palette.grey['500'],
+    backgroundColor: theme.palette.grey['100'],
+    color: theme.palette.grey['800'],
   },
 }));
 
@@ -127,8 +127,8 @@ const Dashboard = () => {
       >
         <Container maxWidth="sm">
           <BalanceDisplay />
-          {process.env.STAGING_NOTIFICATION && (
-            <Box mb={2}>
+          {process.env.STAGING_NOTIFICATION === '1' && (
+            <Box my={2}>
               <HumbleAlert>
                 {translate('default.bodyStagingNotification')}
               </HumbleAlert>
@@ -178,11 +178,7 @@ const DashboardActivityIcon = () => {
       to="/activities"
     >
       <Badge badgeContent={count} color="primary">
-        {isPending ? (
-          <CircularProgress fontSize="small" />
-        ) : (
-          <IconNotification />
-        )}
+        {isPending ? <CircularProgress size={25} /> : <IconNotification />}
       </Badge>
     </IconButton>
   );

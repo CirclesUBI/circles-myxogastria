@@ -78,10 +78,10 @@ const ValidationStatus = () => {
                 icon={
                   <Avatar
                     className={clsx(classes.stepAvatar, {
-                      [classes.stepAvatarChecked]: isChecked,
+                      [classes.stepAvatarChecked]: isChecked || isReady,
                     })}
                   >
-                    {isChecked ? <IconCheck /> : index + 1}
+                    {isChecked || isReady ? <IconCheck /> : index + 1}
                   </Avatar>
                 }
               ></StepIcon>

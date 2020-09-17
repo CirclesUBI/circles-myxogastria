@@ -1,20 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  Box,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Paper,
-  Typography,
-} from '@material-ui/core';
+import { Box, Container, Paper, Typography } from '@material-ui/core';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import CenteredHeading from '~/components/CenteredHeading';
+import Dialog from '~/components/Dialog';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import translate from '~/services/locale';
@@ -39,28 +30,15 @@ const Devices = () => {
   return (
     <Fragment>
       <Dialog
-        aria-describedby="alert-burn-description"
-        aria-labelledby="alert-burn-title"
+        cancelLabel={translate('Devices.dialogBurnCancel')}
+        confirmLabel={translate('Devices.dialogBurnConfirm')}
+        id="burn"
         open={isConfirmationShown}
+        text={translate('Devices.dialogBurnDescription')}
+        title={translate('Devices.dialogBurnTitle')}
         onClose={handleConfirmClose}
-      >
-        <DialogTitle id="alert-burn-title">
-          {translate('Devices.dialogBurnTitle')}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-burn-description">
-            {translate('Devices.dialogBurnDescription')}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button isOutline onClick={handleConfirmClose}>
-            {translate('Devices.dialogBurnCancel')}
-          </Button>
-          <Button autoFocus isPrimary onClick={handleBurn}>
-            {translate('Devices.dialogBurnConfirm')}
-          </Button>
-        </DialogActions>
-      </Dialog>
+        onConfirm={handleBurn}
+      />
       <Header>
         <ButtonBack />
         <CenteredHeading>

@@ -48,6 +48,7 @@
     "headingManageDevices": "Settings"
   },
   "Finder": {
+    "bodyNoResultsGiven": "No results given ...",
     "formSearch": "Search"
   },
   "LocaleSelector": {
@@ -162,7 +163,7 @@
     "errorMessage": "Something went wrong ..",
     "errorMessageTransfer": "Could not transfer Circles as there is currently no complete trust path between {username} and you ..",
     "headingSendCircles": "Send Circles",
-    "successSend": "You transferred {amount} Circles successfully to {username}!"
+    "successMessage": "You transferred {amount} Circles successfully to {username}!"
   },
   "Share": {
     "buttonShareProfileLink": "Share",

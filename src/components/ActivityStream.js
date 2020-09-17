@@ -245,7 +245,7 @@ const ActivityStreamItem = (props) => {
       <CardHeader
         avatar={
           props.isPending ? (
-            <CircularProgress fontSize="small" />
+            <CircularProgress size={30} />
           ) : (
             actorAddress && (
               <Link to={profilePath}>

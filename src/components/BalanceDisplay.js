@@ -51,7 +51,7 @@ const BalanceDisplay = () => {
         balance,
         rate: ISSUANCE_RATE_MONTH,
       })}
-      {...(isPending || balance === 0 ? { open: false } : null)}
+      {...(isPending || balance === '0' ? { open: false } : null)}
     >
       <Paper className={classes.paper} variant="outlined">
         <Box p={2.5}>

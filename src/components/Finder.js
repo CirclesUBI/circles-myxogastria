@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     padding: theme.spacing(1, 2),
     borderRadius: 10,
-    backgroundColor: theme.palette.grey['50'],
-    color: theme.palette.grey['500'],
+    backgroundColor: theme.palette.grey['100'],
+    color: theme.palette.grey['800'],
   },
   searchItem: {
     cursor: 'pointer',
@@ -123,6 +123,7 @@ const Finder = (props) => {
     <Fragment>
       <Box display="flex" mb={2}>
         <Input
+          autoComplete="off"
           autoFocus
           className={classes.searchInput}
           disableUnderline={true}
@@ -165,7 +166,7 @@ const FinderResults = (props) => {
 
   if (props.isLoading) {
     return (
-      <Box m="auto">
+      <Box alignItems="center" display="flex" justifyContent="center">
         <CircularProgress />
       </Box>
     );

@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 import { SwipeableDrawer } from '@material-ui/core';
 import {
   Route,
@@ -22,12 +21,10 @@ import TrustNetwork from '~/components/TrustNetwork';
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
+    top: theme.custom.components.appBarHeight,
     padding: theme.spacing(2),
     paddingTop: theme.spacing(3),
     borderRadius: theme.spacing(2, 2, 0, 0),
-  },
-  drawerPaperFull: {
-    top: theme.custom.components.appBarHeight,
   },
 }));
 
@@ -38,10 +35,6 @@ const Drawer = () => {
 
   const isExpanded = !!useRouteMatch(
     `(${[ACTIVITIES_PATH, MY_PROFILE_PATH, SEARCH_PATH].join('|')})`,
-  );
-
-  const isFullyExpanded = !!useRouteMatch(
-    `(${[ACTIVITIES_PATH, SEARCH_PATH].join('|')})`,
   );
 
   const onOpen = () => {
@@ -56,9 +49,7 @@ const Drawer = () => {
     <SwipeableDrawer
       anchor="bottom"
       classes={{
-        paper: clsx(classes.drawerPaper, {
-          [classes.drawerPaperFull]: isFullyExpanded,
-        }),
+        paper: classes.drawerPaper,
       }}
       open={isExpanded}
       onClose={onClose}

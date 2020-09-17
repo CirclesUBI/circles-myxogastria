@@ -15,6 +15,7 @@ import UsernameDisplay from '~/components/UsernameDisplay';
 import ValidationStatus from '~/components/ValidationStatus';
 import View from '~/components/View';
 import translate from '~/services/locale';
+import { IconCheck } from '~/styles/icons';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 import { VALIDATION_SHARE_PATH } from '~/routes';
 
@@ -54,7 +55,7 @@ const Validation = () => {
           })}
         >
           <Avatar className={classes.leftTrustConnections}>
-            {leftTrustConnections}
+            {isDeploymentReady ? <IconCheck /> : leftTrustConnections}
           </Avatar>
         </Tooltip>
       </Header>

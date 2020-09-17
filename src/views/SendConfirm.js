@@ -1,23 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
-import {
-  Box,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Paper,
-  Input,
-  Typography,
-} from '@material-ui/core';
+import { Box, Container, Paper, Input, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
 import CenteredHeading from '~/components/CenteredHeading';
+import Dialog from '~/components/Dialog';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import ProfileMini from '~/components/ProfileMini';
@@ -103,31 +93,18 @@ const SendConfirm = () => {
   return (
     <Fragment>
       <Dialog
-        aria-describedby="alert-send-description"
-        aria-labelledby="alert-send-title"
+        cancelLabel={translate('SendConfirm.dialogSendCancel')}
+        confirmLabel={translate('SendConfirm.dialogSendConfirm')}
+        id="send"
         open={isConfirmationShown}
+        text={translate('SendConfirm.dialogSendDescription', {
+          amount,
+          username,
+        })}
+        title={translate('SendConfirm.dialogSendTitle', { amount, username })}
         onClose={handleConfirmClose}
-      >
-        <DialogTitle id="alert-send-title">
-          {translate('SendConfirm.dialogSendTitle', { amount, username })}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-send-description">
-            {translate('SendConfirm.dialogSendDescription', {
-              amount,
-              username,
-            })}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button isOutline onClick={handleConfirmClose}>
-            {translate('SendConfirm.dialogSendCancel')}
-          </Button>
-          <Button autoFocus isPrimary onClick={handleSend}>
-            {translate('SendConfirm.dialogSendConfirm')}
-          </Button>
-        </DialogActions>
-      </Dialog>
+        onConfirm={handleSend}
+      />
       <Header>
         <ButtonBack />
         <CenteredHeading>

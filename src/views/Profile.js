@@ -1,27 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState, useEffect } from 'react';
 import clsx from 'clsx';
-import {
-  Badge,
-  Box,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-} from '@material-ui/core';
+import { Badge, Box, CircularProgress, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
-import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonSend from '~/components/ButtonSend';
 import ButtonShare from '~/components/ButtonShare';
 import CenteredHeading from '~/components/CenteredHeading';
+import Dialog from '~/components/Dialog';
 import Header from '~/components/Header';
 import NotFound from '~/views/NotFound';
 import UsernameDisplay from '~/components/UsernameDisplay';
@@ -158,7 +148,7 @@ const ProfileTrustButton = ({ address, isDisabled }) => {
   const { network } = useSelector((state) => state.trust);
 
   const [isTrustConfirmOpen, setIsTrustConfirmOpen] = useState(false);
-  const [isTrustRevokeOpen, setIsTrustRevokeOpen] = useState(false);
+  const [isRevokeTrustOpen, setIsRevokeTrustOpen] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
   const connection = network.find(({ safeAddress }) => {
@@ -218,16 +208,16 @@ const ProfileTrustButton = ({ address, isDisabled }) => {
   };
 
   const handleRevokeTrustOpen = () => {
-    setIsTrustRevokeOpen(true);
+    setIsRevokeTrustOpen(true);
   };
 
   const handleRevokeTrustClose = () => {
-    setIsTrustRevokeOpen(false);
+    setIsRevokeTrustOpen(false);
   };
 
   const handleRevokeTrust = async () => {
     dispatch(showSpinnerOverlay());
-    setIsTrustRevokeOpen(false);
+    setIsRevokeTrustOpen(false);
 
     try {
       await dispatch(untrustUser(address));
@@ -265,45 +255,25 @@ const ProfileTrustButton = ({ address, isDisabled }) => {
   return (
     <Fragment>
       <Dialog
-        aria-describedby="alert-trust-description"
-        aria-labelledby="alert-trust-title"
-        open={isTrustConfirmOpen || isTrustRevokeOpen}
-        onClose={isTrustConfirmOpen ? handleTrustClose : handleRevokeTrustClose}
-      >
-        <DialogTitle id="alert-trust-title">
-          {isTrustConfirmOpen
-            ? translate('Profile.dialogTrustTitle', { username })
-            : translate('Profile.dialogTrustRevokeTitle', { username })}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-trust-description">
-            {isTrustConfirmOpen
-              ? translate('Profile.dialogTrustDescription', { username })
-              : translate('Profile.dialogTrustRevokeDescription', { username })}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            isOutline
-            onClick={
-              isTrustConfirmOpen ? handleTrustClose : handleRevokeTrustClose
-            }
-          >
-            {isTrustConfirmOpen
-              ? translate('Profile.dialogTrustCancel')
-              : translate('Profile.dialogTrustRevokeCancel')}
-          </Button>
-          <Button
-            autoFocus
-            isPrimary
-            onClick={isTrustConfirmOpen ? handleTrust : handleRevokeTrust}
-          >
-            {isTrustConfirmOpen
-              ? translate('Profile.dialogTrustConfirm')
-              : translate('Profile.dialogTrustRevokeConfirm')}
-          </Button>
-        </DialogActions>
-      </Dialog>
+        cancelLabel={translate('Profile.dialogTrustCancel')}
+        confirmLabel={translate('Profile.dialogTrustConfirm')}
+        id="trust"
+        open={isTrustConfirmOpen}
+        text={translate('Profile.dialogTrustDescription', { username })}
+        title={translate('Profile.dialogTrustTitle', { username })}
+        onClose={handleTrustClose}
+        onConfirm={handleTrust}
+      />
+      <Dialog
+        cancelLabel={translate('Profile.dialogRevokeTrustCancel')}
+        confirmLabel={translate('Profile.dialogRevokeTrustConfirm')}
+        id="trust"
+        open={isRevokeTrustOpen}
+        text={translate('Profile.dialogRevokeTrustDescription', { username })}
+        title={translate('Profile.dialogRevokeTrustTitle', { username })}
+        onClose={handleRevokeTrustClose}
+        onConfirm={handleRevokeTrust}
+      />
       <IconButton
         classes={{
           root: clsx(classes.trustButton, {
