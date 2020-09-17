@@ -28,6 +28,13 @@ const App = (props, context) => {
       try {
         await dispatch(initializeApp());
         await dispatch(checkAppState());
+
+        dispatch(
+          notify({
+            text: `${context.t('App.endOfLifeMessage')}`,
+            lifetime: 20000,
+          }),
+        );
       } catch (error) {
         logError(error);
       }

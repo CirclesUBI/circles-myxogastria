@@ -38,6 +38,7 @@
   "ActivityStream.trustedBySomeone": "trusted you",
   "ActivityStream.untrustedBySomeone": "untrusted you",
   "App.updateErrorMessage": "Something went wrong .. are you connected to the internet?",
+  "App.endOfLifeMessage": "Important: We're launching Circles officially 16.10. on the xDai network! Since this app is currently running on a test network your profile will be shut off on that same day. You will need to create a new profile for the official Circles network.",
   "BalanceDisplay.gotIt": "Got it, thanks",
   "BalanceDisplay.issuanceRate": "Your basic income is issued continuously at the rate of circa {rate} Circles a month.",
   "BalanceDisplay.learnMore": "Learn More",
