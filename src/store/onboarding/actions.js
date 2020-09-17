@@ -130,6 +130,7 @@ export function restoreAccount(seedPhrase) {
       await dispatch(
         createSafeWithNonce(generateDeterministicNonce(wallet.address)),
       );
+      // @TODO: Check if username exists in API
     }
 
     await dispatch(checkAppState());

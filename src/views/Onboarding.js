@@ -191,7 +191,7 @@ const Onboarding = () => {
         </Container>
       </View>
       <Footer>
-        {process.env.STAGING_NOTIFICATION === '1' && (
+        {process.env.STAGING_NOTIFICATION && (
           <Box mb={2}>
             <HumbleAlert>
               {translate('default.bodyStagingNotification')}

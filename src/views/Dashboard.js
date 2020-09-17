@@ -127,7 +127,7 @@ const Dashboard = () => {
       >
         <Container maxWidth="sm">
           <BalanceDisplay />
-          {process.env.STAGING_NOTIFICATION === '1' && (
+          {process.env.STAGING_NOTIFICATION && (
             <Box my={2}>
               <HumbleAlert>
                 {translate('default.bodyStagingNotification')}
