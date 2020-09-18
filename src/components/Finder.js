@@ -24,7 +24,7 @@ import debounce from '~/utils/debounce';
 import translate from '~/services/locale';
 import { IconScan } from '~/styles/icons';
 
-const MAX_SEARCH_RESULTS = 5;
+const MAX_SEARCH_RESULTS = 10;
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {

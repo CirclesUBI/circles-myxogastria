@@ -19,7 +19,11 @@ const Avatar = ({ address, size = 50, ...props }) => {
       }}
       {...props}
     >
-      {initials ? initials : <Jazzicon address={address} size={size} />}
+      {initials && !avatarUrl ? (
+        initials.toUpperCase()
+      ) : (
+        <Jazzicon address={address} size={size} />
+      )}
     </MuiAvatar>
   );
 };
