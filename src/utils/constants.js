@@ -1,6 +1,6 @@
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
-export const ISSUANCE_RATE_MONTH = 240;
+export const ISSUANCE_RATE_MONTH = process.env.ISSUANCE_RATE_MONTH || 240;
 export const NEEDED_TRUST_CONNECTIONS = 3;
 
 export const ABOUT_URL = 'https://joincircles.net';
