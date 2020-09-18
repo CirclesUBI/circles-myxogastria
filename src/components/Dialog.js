@@ -49,7 +49,6 @@ Dialog.propTypes = {
   cancelLabel: PropTypes.string.isRequired,
   confirmLabel: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  onCancel: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,

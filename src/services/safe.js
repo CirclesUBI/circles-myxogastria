@@ -79,6 +79,7 @@ export function getCurrentAccount() {
   // Move deprecated safeAddress (<=0.6.4.) to currentAccount
   if (hasItem(DEPRECATED_SAFE_ADDRESS_NAME)) {
     setCurrentAccount(getItem(DEPRECATED_SAFE_ADDRESS_NAME));
+    removeItem(DEPRECATED_SAFE_ADDRESS_NAME);
   }
 
   if (hasCurrentAccount()) {
@@ -89,6 +90,10 @@ export function getCurrentAccount() {
 }
 
 export function hasCurrentAccount() {
+  if (hasItem(DEPRECATED_SAFE_ADDRESS_NAME)) {
+    return true;
+  }
+
   return hasItem(SAFE_CURRENT_ACCOUNT);
 }
 
