@@ -19,7 +19,7 @@ const Avatar = ({ address, size = 50, ...props }) => {
       }}
       {...props}
     >
-      {initials && !avatarUrl ? (
+      {avatarUrl && initials ? (
         initials.toUpperCase()
       ) : (
         <Jazzicon address={address} size={size} />
