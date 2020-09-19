@@ -1,6 +1,7 @@
 {
   "default": {
-    "bodyStagingNotification": "Please note that you're currently using Circles in a test network which is used for developers to experiment with the system. This means that errors can occur as we're experimenting with new instable features, your Circles can only be used for testing and you can loose your profile, tokens and data anytime."
+    "bodyStagingNotification": "Please note that you're currently using Circles in a test network which is used for developers to experiment with the system. This means that errors can occur as we're experimenting with new instable features, your Circles can only be used for testing and you can loose your profile, tokens and data anytime.",
+    "bodyEOLNotification": "We're launching Circles officially 16.10. on the xDai network! Since this app is currently running on a test network your profile will be shut off on that same day. You will need to create a new profile for the official Circles network."
   },
   "ActivityStream": {
     "bodyActivityAddedToSafe": "was added to this account",
@@ -133,10 +134,10 @@
     "dialogTrustCancel": "Cancel",
     "dialogTrustConfirm": "Trust",
     "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can effect the security of the app. In order to stay safe only trust people you know.",
-    "dialogTrustRevokeCancel": "Cancel",
-    "dialogTrustRevokeConfirm": "Revoke trust",
-    "dialogTrustRevokeDescription": "Are you sure you want to revoke your trust with {username}?",
-    "dialogTrustRevokeTitle": "Untrust {username}",
+    "dialogRevokeTrustCancel": "Cancel",
+    "dialogRevokeTrustConfirm": "Revoke trust",
+    "dialogRevokeTrustDescription": "Are you sure you want to revoke your trust with {username}?",
+    "dialogRevokeTrustTitle": "Untrust {username}",
     "dialogTrustTitle": "Do you trust {username}?",
     "errorRevokeTrust": "Something went wrong when you tried to untrust {username} ...",
     "errorTrust": "Something went wrong when you tried to trust {username} ...",

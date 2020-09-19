@@ -21,12 +21,12 @@ import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 
+import AppNote from '~/components/AppNote';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonClipboard from '~/components/ButtonClipboard';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
-import HumbleAlert from '~/components/HumbleAlert';
 import Input from '~/components/Input';
 import Logo from '~/components/Logo';
 import Mnemonic from '~/components/Mnemonic';
@@ -191,13 +191,7 @@ const Onboarding = () => {
         </Container>
       </View>
       <Footer>
-        {process.env.STAGING_NOTIFICATION && (
-          <Box mb={2}>
-            <HumbleAlert>
-              {translate('default.bodyStagingNotification')}
-            </HumbleAlert>
-          </Box>
-        )}
+        <AppNote />
         <Button
           disabled={isDisabled}
           fullWidth

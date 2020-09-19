@@ -13,12 +13,12 @@ import { Link, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
+import AppNote from '~/components/AppNote';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import ButtonSend from '~/components/ButtonSend';
 import CenteredHeading from '~/components/CenteredHeading';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
-import HumbleAlert from '~/components/HumbleAlert';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import UsernameDisplay from '~/components/UsernameDisplay';
@@ -127,13 +127,7 @@ const Dashboard = () => {
       >
         <Container maxWidth="sm">
           <BalanceDisplay />
-          {process.env.STAGING_NOTIFICATION && (
-            <Box my={2}>
-              <HumbleAlert>
-                {translate('default.bodyStagingNotification')}
-              </HumbleAlert>
-            </Box>
-          )}
+          <AppNote />
           <Box my={2}>
             <DashboardSearch />
           </Box>

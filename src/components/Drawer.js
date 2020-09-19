@@ -1,5 +1,5 @@
 import React from 'react';
-import { SwipeableDrawer } from '@material-ui/core';
+import { Box, SwipeableDrawer } from '@material-ui/core';
 import {
   Route,
   Switch,
@@ -19,12 +19,17 @@ import ActivityStream from '~/components/ActivityStream';
 import MyProfile from '~/components/MyProfile';
 import TrustNetwork from '~/components/TrustNetwork';
 
+const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     top: theme.custom.components.appBarHeight,
     padding: theme.spacing(2),
     paddingTop: theme.spacing(3),
     borderRadius: theme.spacing(2, 2, 0, 0),
+  },
+  drawerContent: {
+    overflow: 'auto',
   },
 }));
 
@@ -51,15 +56,19 @@ const Drawer = () => {
       classes={{
         paper: classes.drawerPaper,
       }}
+      disableBackdropTransition={!iOS}
+      disableDiscovery={iOS}
       open={isExpanded}
       onClose={onClose}
       onOpen={onOpen}
     >
-      <Switch location={location}>
-        <Route component={ActivityStream} path={ACTIVITIES_PATH} />
-        <Route component={MyProfile} path={MY_PROFILE_PATH} />
-        <Route component={TrustNetwork} path={SEARCH_PATH} />
-      </Switch>
+      <Box className={classes.drawerContent}>
+        <Switch location={location}>
+          <Route component={ActivityStream} path={ACTIVITIES_PATH} />
+          <Route component={MyProfile} path={MY_PROFILE_PATH} />
+          <Route component={TrustNetwork} path={SEARCH_PATH} />
+        </Switch>
+      </Box>
     </SwipeableDrawer>
   );
 };

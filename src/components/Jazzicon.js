@@ -5,9 +5,7 @@ import { Box } from '@material-ui/core';
 
 import web3 from '~/services/web3';
 
-const DEFAULT_ICON_SIZE = 50;
-
-const Jazzicon = ({ size = DEFAULT_ICON_SIZE, ...props }) => {
+const Jazzicon = ({ size = 50, ...props }) => {
   const ref = createRef();
 
   useEffect(() => {
@@ -15,7 +13,7 @@ const Jazzicon = ({ size = DEFAULT_ICON_SIZE, ...props }) => {
     const identiconElem = jazzicon(size, seed);
     ref.current.innerHTML = '';
     ref.current.appendChild(identiconElem);
-  }, [props.address]);
+  }, [props.address, size]);
 
   return <Box ref={ref}></Box>;
 };
