@@ -50,7 +50,7 @@ const ButtonShare = ({
 ButtonShare.propTypes = {
   children: PropTypes.node.isRequired,
   isIcon: PropTypes.bool,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   title: PropTypes.string,
   url: PropTypes.string.isRequired,
 };
