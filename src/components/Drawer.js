@@ -28,9 +28,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(3),
     borderRadius: theme.spacing(2, 2, 0, 0),
   },
-  drawerContent: {
-    overflow: 'auto',
-  },
 }));
 
 const Drawer = () => {
@@ -62,7 +59,7 @@ const Drawer = () => {
       onClose={onClose}
       onOpen={onOpen}
     >
-      <Box className={classes.drawerContent}>
+      <Box>
         <Switch location={location}>
           <Route component={ActivityStream} path={ACTIVITIES_PATH} />
           <Route component={MyProfile} path={MY_PROFILE_PATH} />
