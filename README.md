@@ -1,7 +1,7 @@
 # Circles Myxogastria
 
 <p>
-  <a href="https://github.com/CirclesUBI/circles-myxogastria/blob/master/LICENSE">
+  <a href="https://github.com/CirclesUBI/circles-myxogastria/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-APGLv3-orange.svg" alt="License">
   </a>
   <a href="https://travis-ci.org/CirclesUBI/circles-myxogastria">
@@ -16,7 +16,7 @@ Webapp and mobile client running in the browser hosted on [Circles](https://circ
 
 ## Requirements
 
-* Node v11
+* Node v12
 
 ## Development
 
