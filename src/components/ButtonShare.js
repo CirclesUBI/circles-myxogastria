@@ -26,7 +26,7 @@ const ButtonShare = ({
 
   if (!window.navigator.share) {
     return (
-      <ButtonClipboard {...props} isIcon={isIcon} text={text}>
+      <ButtonClipboard {...props} isIcon={isIcon} text={title}>
         {children}
       </ButtonClipboard>
     );
