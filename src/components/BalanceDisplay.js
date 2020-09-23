@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 
 import Logo from '~/components/Logo';
 import translate from '~/services/locale';
-import web3 from '~/services/web3';
 import { ISSUANCE_RATE_MONTH } from '~/utils/constants';
 import { IconCircles } from '~/styles/icons';
 import { formatCirclesValue } from '~/utils/format';
@@ -39,19 +38,15 @@ const BalanceDisplay = () => {
   const { token, safe } = useSelector((state) => state);
 
   // Token is apparently deployed, wait for the incoming data
-  const isPending = token.balance === null && !safe.pendingNonce;
-
-  const balance =
-    token.balance !== null ? web3.utils.fromWei(token.balance) : '0';
+  const isLoading =
+    (token.balance === null || token.balance === '0') && !safe.pendingNonce;
 
   return (
     <Tooltip
       arrow
       title={translate('BalanceDisplay.tooltipYourBalance', {
-        balance,
         rate: ISSUANCE_RATE_MONTH,
       })}
-      {...(isPending || balance === '0' ? { open: false } : null)}
     >
       <Paper className={classes.paper} variant="outlined">
         <Box p={2.5}>
@@ -66,7 +61,7 @@ const BalanceDisplay = () => {
               <Logo size="small" />
             </Grid>
             <Grid item xs>
-              {isPending ? (
+              {isLoading ? (
                 <CircularProgress />
               ) : (
                 <Typography className={classes.balance} component="span">

@@ -11,7 +11,7 @@ const LastInteractions = () => {
   const { network } = useSelector((state) => state.trust);
 
   return (
-    <Grid alignItems="center" container justify="center" spacing={3}>
+    <Grid alignItems="center" container justify="center" spacing={1}>
       {network.map((connection) => {
         return (
           <LastInteractionsAccount
@@ -30,7 +30,7 @@ const LastInteractionsAccount = ({ address }) => {
   return (
     <Grid item>
       <Link to={profilePath}>
-        <Avatar address={address} size={100} />
+        <Avatar address={address} size="medium" />
       </Link>
     </Grid>
   );

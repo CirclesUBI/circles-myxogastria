@@ -1,4 +1,5 @@
 import update from 'immutability-helper';
+import { DateTime } from 'luxon';
 
 import ActionTypes from '~/store/token/types';
 
@@ -7,7 +8,8 @@ const initialState = {
   balance: null,
   isFunded: false,
   isLoading: false,
-  lastPayout: 0,
+  lastPayoutAt: null,
+  lastUpdateAt: null,
 };
 
 const tokenReducer = (state = initialState, action) => {
@@ -19,7 +21,7 @@ const tokenReducer = (state = initialState, action) => {
     case ActionTypes.TOKEN_UPDATE_SUCCESS:
       return update(state, {
         address: { $set: action.meta.address },
-        lastPayout: { $set: action.meta.lastPayout },
+        lastPayoutAt: { $set: action.meta.lastPayoutAt },
       });
     case ActionTypes.TOKEN_BALANCE_UPDATE:
       return update(state, {
@@ -29,6 +31,7 @@ const tokenReducer = (state = initialState, action) => {
       return update(state, {
         balance: { $set: action.meta.balance },
         isLoading: { $set: false },
+        lastUpdatedAt: { $set: DateTime.local().toISO() },
       });
     case ActionTypes.TOKEN_BALANCE_UPDATE_ERROR:
       return update(state, {
@@ -36,7 +39,7 @@ const tokenReducer = (state = initialState, action) => {
       });
     case ActionTypes.TOKEN_UBI_PAYOUT_SUCCESS:
       return update(state, {
-        lastPayout: { $set: action.meta.lastPayout },
+        lastPayoutAt: { $set: action.meta.lastPayoutAt },
       });
     case ActionTypes.TOKEN_RESET:
       return update(state, { $set: initialState });

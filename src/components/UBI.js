@@ -18,7 +18,7 @@ const UBI = () => {
   useEffect(() => {
     // We only collect UBI once every day
     const isSameDay = DateTime.local().hasSame(
-      DateTime.fromMillis(token.lastPayout),
+      DateTime.fromISO(token.lastPayoutAt),
       'day',
     );
 
@@ -36,6 +36,9 @@ const UBI = () => {
         return;
       }
 
+      // .. and get it!
+      await dispatch(requestUBIPayout(payout));
+
       // Display pending UBI to the user
       dispatch(
         notify({
@@ -46,9 +49,6 @@ const UBI = () => {
           timeout: 10000,
         }),
       );
-
-      // .. and get it!
-      await dispatch(requestUBIPayout());
     };
 
     checkUBIPayout();

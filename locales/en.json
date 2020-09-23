@@ -11,7 +11,6 @@
     "bodyActivityReceivedCircles": "{actor} sent you {value} {denominator}",
     "bodyActivityReceivedUBI": "You received {value} {denominator} as your UBI",
     "bodyActivityRemovedFromSafe": "{actor} was removed from this account",
-    "bodyActivitySafeAndTokenDeployed": "You started a new account",
     "bodyActivitySentCircles": "You sent {value} {denominator} to {actor}",
     "bodyActivityTrustedBySomeone": "{actor} trusted you",
     "bodyActivityUntrustedBySomeone": "{actor} untrusted you",
@@ -143,7 +142,9 @@
     "errorTrust": "Something went wrong when you tried to trust {username} ...",
     "shareText": "Check out my Circles UBI profile: {shareLink}",
     "successRevokeTrust": "You successfully revoked your trust from {username}!",
-    "successTrust": "Nice. You trusted {username}!"
+    "successTrust": "Nice. You trusted {username}!",
+    "tooltipSafeIsYou": "This is your own profile",
+    "tooltipSafeNotDeployed": "This user did not complete their Circles account yet"
   },
   "SeedPhrase": {
     "bodyDescription": "Print this and store it safely:",
@@ -161,7 +162,7 @@
     "dialogSendConfirm": "Send",
     "dialogSendDescription": "Are you sure you want to send {amount} Circles to {username}?",
     "dialogSendTitle": "Send Circles",
-    "errorMessage": "Something went wrong ..",
+    "errorMessage": "Something went wrong .. {errorMessage}",
     "errorMessageTransfer": "Could not transfer Circles as there is currently no complete trust path between {username} and you ..",
     "headingSendCircles": "Send Circles",
     "successMessage": "You transferred {amount} Circles successfully to {username}!"

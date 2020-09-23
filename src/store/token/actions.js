@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 import ActionTypes from '~/store/token/types';
 import core from '~/services/core';
 import logError from '~/utils/debug';
@@ -95,7 +97,7 @@ export function checkTokenState() {
         type: ActionTypes.TOKEN_UPDATE_SUCCESS,
         meta: {
           address,
-          lastPayout: getLastPayout(),
+          lastPayoutAt: getLastPayout(),
         },
       });
     } catch (error) {
@@ -122,12 +124,45 @@ export function checkCurrentBalance() {
     });
 
     try {
-      const balance = await core.token.getBalance(safe.currentAccount);
+      const currentValue = await core.token.getBalance(safe.currentAccount);
+      const { activity } = getState();
+
+      // Add value changes based on pending activities
+      const pendingValueDiff = activity.activities.reduce(
+        (acc, { type, data, isPending }) => {
+          if (!isPending) {
+            return acc;
+          }
+
+          if (type === ActivityTypes.TRANSFER && data.from === ZERO_ADDRESS) {
+            // UBI payout
+            return acc.add(web3.utils.toBN(data.value));
+          } else if (
+            type === ActivityTypes.HUB_TRANSFER &&
+            data.to === safe.currentAccount
+          ) {
+            // Received Circles
+            return acc.add(web3.utils.toBN(data.value));
+          } else if (
+            type === ActivityTypes.HUB_TRANSFER &&
+            data.from === safe.currentAccount
+          ) {
+            // Sent Circles
+            return acc.sub(web3.utils.toBN(data.value));
+          }
+
+          return acc;
+        },
+        new web3.utils.BN(),
+      );
+
+      // Add pending value changes to the current one
+      const mixedValue = currentValue.add(pendingValueDiff);
 
       dispatch({
         type: ActionTypes.TOKEN_BALANCE_UPDATE_SUCCESS,
         meta: {
-          balance,
+          balance: mixedValue.toString(),
         },
       });
     } catch {
@@ -138,7 +173,7 @@ export function checkCurrentBalance() {
   };
 }
 
-export function requestUBIPayout() {
+export function requestUBIPayout(payout) {
   return async (dispatch, getState) => {
     const { safe, token } = getState();
 
@@ -152,16 +187,29 @@ export function requestUBIPayout() {
     });
 
     try {
-      await core.token.requestUBIPayout(safe.currentAccount);
+      const txHash = await core.token.requestUBIPayout(safe.currentAccount);
 
-      const lastPayout = Date.now();
+      const lastPayoutAt = DateTime.local().toISO();
+      setLastPayout(lastPayoutAt);
 
-      setLastPayout(lastPayout);
+      dispatch(
+        addPendingActivity({
+          txHash,
+          type: ActivityTypes.TRANSFER,
+          data: {
+            from: ZERO_ADDRESS,
+            to: safe.currentAccount,
+            value: payout.toString(),
+          },
+        }),
+      );
+
+      dispatch(checkCurrentBalance());
 
       dispatch({
         type: ActionTypes.TOKEN_UBI_PAYOUT_SUCCESS,
         meta: {
-          lastPayout,
+          lastPayoutAt,
         },
       });
     } catch (error) {
@@ -194,10 +242,12 @@ export function transfer(to, amount) {
           data: {
             from,
             to,
-            value,
+            value: value.toString(),
           },
         }),
       );
+
+      dispatch(checkCurrentBalance());
 
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_SUCCESS,

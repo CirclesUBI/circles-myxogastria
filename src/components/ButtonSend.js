@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import clsx from 'clsx';
-import { Fab } from '@material-ui/core';
+import { Fab, CircularProgress } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -24,28 +24,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ButtonSend = ({ className, disabled, ...props }) => {
-  const classes = useStyles();
+// eslint-disable-next-line react/display-name
+const ButtonSend = React.forwardRef(
+  ({ className, disabled = false, isPending = false, ...props }, ref) => {
+    const classes = useStyles();
 
-  return (
-    <Fab
-      aria-label="Send"
-      className={clsx(classes.fabSend, className, {
-        [classes.fabSendDisabled]: disabled,
-      })}
-      color="primary"
-      component={Link}
-      disabled={disabled}
-      {...props}
-    >
-      <IconSend className={classes.fabSendIcon} />
-    </Fab>
-  );
-};
+    return (
+      <Fab
+        aria-label="Send"
+        className={clsx(classes.fabSend, className, {
+          [classes.fabSendDisabled]: disabled,
+        })}
+        color="primary"
+        component={Link}
+        disabled={disabled || isPending}
+        ref={ref}
+        style={disabled ? { pointerEvents: 'initial' } : {}}
+        {...props}
+      >
+        {isPending ? (
+          <CircularProgress size={24} />
+        ) : (
+          <IconSend className={classes.fabSendIcon} />
+        )}
+      </Fab>
+    );
+  },
+);
 
 ButtonSend.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  isPending: PropTypes.bool,
 };
 
 export default ButtonSend;

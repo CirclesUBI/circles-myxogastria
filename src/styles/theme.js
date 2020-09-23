@@ -48,6 +48,7 @@ const components = {
   appBarHeight: 64,
   appMaxWidth: 900,
   appMinWidth: 360,
+  avatarSize: 50,
   navigationWidth: 300,
 };
 

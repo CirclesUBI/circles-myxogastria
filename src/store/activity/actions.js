@@ -1,38 +1,32 @@
+import { DateTime } from 'luxon';
+
 import ActionTypes from '~/store/activity/types';
 import core from '~/services/core';
-import { ZERO_ADDRESS } from '~/utils/constants';
 import web3 from '~/services/web3';
-
-import {
-  getLastSeen,
-  removeLastSeen,
-  setLastSeen,
-} from '~/services/activities';
+import { getLastSeen, removeLastSeen, setLastSeen } from '~/services/activity';
 
 const PAGE_SIZE = 20;
 
-export const ONBOARDING_FINALIZATION = Symbol('ONBOARDING_FINALIZATION');
-
 export function initializeActivities() {
-  const lastSeen = getLastSeen();
+  const lastSeenAt = getLastSeen();
 
   return {
     type: ActionTypes.ACTIVITIES_INITIALIZE,
     meta: {
-      lastSeen,
+      lastSeenAt,
     },
   };
 }
 
 export function updateLastSeen() {
-  const lastSeen = Date.now();
+  const lastSeenAt = DateTime.local().toISO();
 
-  setLastSeen(lastSeen);
+  setLastSeen(lastSeenAt);
 
   return {
     type: ActionTypes.ACTIVITIES_SET_LAST_SEEN,
     meta: {
-      lastSeen,
+      lastSeenAt,
     },
   };
 }
@@ -62,42 +56,19 @@ export function checkPendingActivities() {
         continue;
       }
 
-      let isPending;
       let isError;
 
-      // Check special onboarding activity state
-      if (activity.type === ONBOARDING_FINALIZATION) {
-        const { safeAddress } = activity.data;
+      // Check transaction mining state
+      const receipt = await web3.eth.getTransactionReceipt(activity.txHash);
+      isError = receipt === null && !receipt.status;
 
-        try {
-          // Check if both Safe and Token are deployed
-          const isSafeDeployed = (await web3.eth.getCode(safeAddress)) !== '0x';
-          const isTokenDeployed =
-            (await core.token.getAddress(safeAddress)) !== ZERO_ADDRESS;
-
-          isError = false;
-          isPending = !(isSafeDeployed && isTokenDeployed);
-        } catch {
-          isError = true;
-          isPending = true;
-        }
-      } else {
-        // Check normal transaction mining state
-        const receipt = await web3.eth.getTransactionReceipt(activity.txHash);
-
-        isPending = receipt === null;
-        isError = !isPending && !receipt.status;
-      }
-
-      const { hash } = activity;
-
-      if (activity.isPending !== isPending || activity.isError !== isError) {
+      if (activity.isError !== isError) {
         dispatch({
           type: ActionTypes.ACTIVITIES_SET_STATUS,
           meta: {
-            hash,
+            hash: activity.hash,
             isError,
-            isPending,
+            isPending: true,
           },
         });
       }
@@ -105,7 +76,7 @@ export function checkPendingActivities() {
   };
 }
 
-function loadActivities() {
+export function checkFinishedActivities() {
   return async (dispatch, getState) => {
     const { safe, activity } = getState();
 
@@ -174,10 +145,6 @@ export function loadMoreActivities() {
       });
     }
   };
-}
-
-export function checkFinishedActivities() {
-  return loadActivities();
 }
 
 export function resetActivities() {

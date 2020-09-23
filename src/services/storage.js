@@ -20,7 +20,8 @@ export function getItem(key) {
 }
 
 export function hasItem(key) {
-  return getItem(key) !== null;
+  const value = getItem(key);
+  return value !== null && value !== 'null' && value !== 'undefined';
 }
 
 export function setItem(key, value) {

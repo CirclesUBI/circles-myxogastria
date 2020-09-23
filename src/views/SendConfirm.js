@@ -71,8 +71,9 @@ const SendConfirm = () => {
           username,
         });
       } else {
-        const errorMessage = formatErrorMessage(error);
-        text = `${translate('SendConfirm.errorMessage')}${errorMessage}`;
+        text = translate('SendConfirm.errorMessage', {
+          errorMessage: formatErrorMessage(error),
+        });
       }
 
       dispatch(

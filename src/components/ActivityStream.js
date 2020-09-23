@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useMemo, useEffect } from 'react';
 import {
+  Avatar as MuiAvatar,
   Box,
   Card,
   CardHeader,
@@ -10,23 +11,28 @@ import {
 } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import core from '~/services/core';
 import translate from '~/services/locale';
-import {
-  ONBOARDING_FINALIZATION,
-  loadMoreActivities,
-  updateLastSeen,
-} from '~/store/activity/actions';
+import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import { formatCirclesValue } from '~/utils/format';
 import { useRelativeProfileLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 
 const { ActivityTypes } = core.activity;
+
+const useStyles = makeStyles((theme) => ({
+  avatarPending: {
+    width: theme.custom.components.avatarSize,
+    height: theme.custom.components.avatarSize,
+    backgroundColor: 'transparent',
+  },
+}));
 
 // Parse the activity item and extract the most
 // interesting bits from it ..
@@ -89,13 +95,13 @@ function formatMessage(props) {
     messageId = 'RemovedFromSafe';
     isOwnerAddress = true;
     actorAddress = props.data.ownerAddress;
-  } else if (props.type === ONBOARDING_FINALIZATION) {
-    // I've just finished onboarding
-    messageId = 'SafeAndTokenDeployed';
   }
 
   // Format the given timestamp to a readable string
-  const date = DateTime.fromMillis(props.timestamp).toFormat('dd/LL/yy HH:mm');
+  let date = DateTime.fromISO(props.createdAt);
+  date = date.hasSame(DateTime.local(), 'day')
+    ? date.toRelative()
+    : date.toFormat('dd/LL/yy HH:mm');
 
   // Check if find a value in the data (during transfers)
   const data = Object.assign({}, props.data);
@@ -161,13 +167,13 @@ const ActivityStreamList = () => {
   const {
     activities,
     lastUpdated,
-    lastSeen,
+    lastSeenAt,
     safeAddress,
     walletAddress,
   } = useSelector((state) => {
     return {
       activities: state.activity.activities,
-      lastSeen: state.activity.lastSeen,
+      lastSeenAt: state.activity.lastSeenAt,
       lastUpdated: state.activity.lastUpdated,
       safeAddress: state.safe.currentAccount,
       walletAddress: state.wallet.address,
@@ -187,7 +193,7 @@ const ActivityStreamList = () => {
   }
 
   return activities.reduce(
-    (acc, { data, hash, timestamp, type, isPending = false }) => {
+    (acc, { data, hash, createdAt, type, isPending = false }) => {
       // Filter Gas transfers
       if (
         type === ActivityTypes.TRANSFER &&
@@ -199,11 +205,11 @@ const ActivityStreamList = () => {
       const item = (
         <Grid item key={hash} xs={12}>
           <ActivityStreamItem
+            createdAt={createdAt}
             data={data}
             isPending={isPending}
-            isSeen={timestamp < lastSeen}
+            isSeen={createdAt < lastSeenAt}
             safeAddress={safeAddress}
-            timestamp={timestamp}
             type={type}
             walletAddress={walletAddress}
           />
@@ -219,6 +225,8 @@ const ActivityStreamList = () => {
 };
 
 const ActivityStreamItem = (props) => {
+  const classes = useStyles();
+
   // Reformat the message for the user
   const { date, data, messageId, actorAddress, isOwnerAddress } = formatMessage(
     props,
@@ -231,7 +239,9 @@ const ActivityStreamItem = (props) => {
     : '';
 
   const profilePath =
-    actorAddress && !isOwnerAddress && useRelativeProfileLink(actorAddress);
+    actorAddress && !isOwnerAddress
+      ? useRelativeProfileLink(actorAddress)
+      : useRelativeProfileLink(props.safeAddress);
 
   const message = useMemo(() => {
     return translate(`ActivityStream.bodyActivity${messageId}`, {
@@ -244,15 +254,17 @@ const ActivityStreamItem = (props) => {
     <Card>
       <CardHeader
         avatar={
-          props.isPending ? (
-            <CircularProgress size={30} />
-          ) : (
-            actorAddress && (
-              <Link to={profilePath}>
-                <Avatar address={actorAddress} />
-              </Link>
-            )
-          )
+          <Link to={profilePath}>
+            {props.isPending ? (
+              <MuiAvatar className={classes.avatarPending}>
+                <CircularProgress size={40} />
+              </MuiAvatar>
+            ) : actorAddress ? (
+              <Avatar address={actorAddress} />
+            ) : (
+              <Avatar address={props.safeAddress} />
+            )}
+          </Link>
         }
         subheader={date}
         title={<Typography>{message}</Typography>}
@@ -262,11 +274,11 @@ const ActivityStreamItem = (props) => {
 };
 
 ActivityStreamItem.propTypes = {
+  createdAt: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
   isPending: PropTypes.bool.isRequired,
   isSeen: PropTypes.bool.isRequired,
   safeAddress: PropTypes.string.isRequired,
-  timestamp: PropTypes.number.isRequired,
   type: PropTypes.symbol.isRequired,
   walletAddress: PropTypes.string.isRequired,
 };

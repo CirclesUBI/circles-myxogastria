@@ -1,7 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState, useEffect } from 'react';
 import clsx from 'clsx';
-import { Badge, Box, CircularProgress, IconButton } from '@material-ui/core';
+import {
+  Badge,
+  Box,
+  CircularProgress,
+  IconButton,
+  Tooltip,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,6 +38,7 @@ import { ZERO_ADDRESS } from '~/utils/constants';
 import { checkTrustState } from '~/store/trust/actions';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { trustUser, untrustUser } from '~/store/trust/actions';
+import { usePendingTrust, usePendingTransfer } from '~/hooks/activity';
 import { useRelativeSendLink, useProfileLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 
@@ -58,11 +65,46 @@ const Profile = () => {
   const shareLink = useProfileLink(address);
   const shareText = translate('Profile.shareText', { shareLink });
 
+  if (!web3.utils.checkAddressChecksum(address)) {
+    return <NotFound />;
+  }
+
+  return (
+    <Fragment>
+      <Header>
+        <ButtonBack />
+        <CenteredHeading>
+          <UsernameDisplay address={address} />
+        </CenteredHeading>
+        <ButtonShare edge="end" isIcon title={shareText} url={shareLink}>
+          <IconShare />
+        </ButtonShare>
+      </Header>
+      <View>
+        <Box align="center" mb={2}>
+          <Badge
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            badgeContent={<ProfileTrustButton address={address} />}
+            overlap="circle"
+          >
+            <Avatar address={address} size="large" />
+          </Badge>
+        </Box>
+      </View>
+      <ProfileSendButton address={address} />
+    </Fragment>
+  );
+};
+
+const ProfileSendButton = ({ address }) => {
+  const isTransferPending = usePendingTransfer(address);
+  const sendPath = useRelativeSendLink(address);
+  const safe = useSelector((state) => state.safe);
+
   const [isDeployed, setIsDeployed] = useState(true);
   const [isReady, setIsReady] = useState(false);
 
   const dispatch = useDispatch();
-  const safe = useSelector((state) => state.safe);
 
   // Check against these three cases where we can't send Circles
   //
@@ -73,8 +115,6 @@ const Profile = () => {
     safe.currentAccount === address ||
     safe.pendingNonce !== null ||
     !isDeployed;
-
-  const isTrustDisabled = safe.currentAccount === address;
 
   useEffect(() => {
     // Update trust connection info
@@ -95,57 +135,34 @@ const Profile = () => {
     checkTokenDeployment();
   }, [address]);
 
-  if (!web3.utils.checkAddressChecksum(address)) {
-    return <NotFound />;
-  }
-
-  return (
-    <Fragment>
-      <Header>
-        <ButtonBack />
-        <CenteredHeading>
-          <UsernameDisplay address={address} />
-        </CenteredHeading>
-        <ButtonShare edge="end" isIcon title={shareText} url={shareLink}>
-          <IconShare />
-        </ButtonShare>
-      </Header>
-      <View>
-        <Box align="center" mb={2}>
-          <Badge
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            badgeContent={
-              <ProfileTrustButton
-                address={address}
-                isDisabled={isTrustDisabled}
-              />
-            }
-            overlap="circle"
-          >
-            <Avatar address={address} size={150} />
-          </Badge>
-        </Box>
-        {isReady ? (
-          <ProfileSendButton address={address} isDisabled={isSendDisabled} />
-        ) : (
-          <CircularProgress />
-        )}
-      </View>
-    </Fragment>
+  return !isReady || isTransferPending ? (
+    <ButtonSend isPending to={sendPath} />
+  ) : isSendDisabled ? (
+    <Tooltip
+      arrow
+      title={
+        !isDeployed
+          ? translate('Profile.tooltipSafeNotDeployed')
+          : translate('Profile.tooltipSafeIsYou')
+      }
+    >
+      <ButtonSend disabled to={sendPath} />
+    </Tooltip>
+  ) : (
+    <ButtonSend to={sendPath} />
   );
 };
 
-const ProfileSendButton = ({ address, isDisabled }) => {
-  const sendPath = useRelativeSendLink(address);
-  return <ButtonSend disabled={isDisabled} to={sendPath} />;
-};
-
-const ProfileTrustButton = ({ address, isDisabled }) => {
+const ProfileTrustButton = ({ address }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
 
   const { network } = useSelector((state) => state.trust);
+  const safe = useSelector((state) => state.safe);
+
+  const isPending = usePendingTrust(address);
+  const isDisabled = safe.currentAccount === address;
 
   const [isTrustConfirmOpen, setIsTrustConfirmOpen] = useState(false);
   const [isRevokeTrustOpen, setIsRevokeTrustOpen] = useState(false);
@@ -281,10 +298,14 @@ const ProfileTrustButton = ({ address, isDisabled }) => {
           }),
           disabled: classes.trustButtonDisabled,
         }}
-        disabled={isDisabled}
+        disabled={isDisabled || isPending}
         onClick={isMeTrusting ? handleRevokeTrustOpen : handleTrustOpen}
       >
-        <TrustIcon className={classes.trustButtonIcon} />
+        {isPending ? (
+          <CircularProgress size={24} />
+        ) : (
+          <TrustIcon className={classes.trustButtonIcon} />
+        )}
       </IconButton>
     </Fragment>
   );
@@ -292,12 +313,10 @@ const ProfileTrustButton = ({ address, isDisabled }) => {
 
 ProfileSendButton.propTypes = {
   address: PropTypes.string.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
 };
 
 ProfileTrustButton.propTypes = {
   address: PropTypes.string.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
 };
 
 export default Profile;
