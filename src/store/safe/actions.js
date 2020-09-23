@@ -30,15 +30,32 @@ export function initializeSafe() {
     // about pending Safe deployments is only stored locally in LocalStorage on
     // each device. It indicates that we've finished onboarding but wait for
     // the Safe to be deployed (eg. collecting trust connections).
-    const pendingNonce = hasNonce() ? getNonce() : null;
+    let pendingNonce = hasNonce() ? getNonce() : null;
     // If we have a stored pending (predicted) Safe address we apparently
     // finished onboarding and wait now for the Safe to be deployed (for
     // example after collecting all required trust connections).
-    const pendingAddress = hasSafeAddress() ? getSafeAddress() : null;
+    let pendingAddress = hasSafeAddress() ? getSafeAddress() : null;
 
     // Check if there is an deployed, currently selected account stored locally
     // in LocalStorage.
-    const currentAccount = hasCurrentAccount() ? getCurrentAccount() : null;
+    let currentAccount = hasCurrentAccount() ? getCurrentAccount() : null;
+
+    // Fix broken states where nonce is still in LocalStorage even though the
+    // safe was deployed successfully
+    if (pendingNonce) {
+      const isDeployed = (await web3.eth.getCode(pendingAddress)) !== '0x';
+      if (isDeployed) {
+        // Remove all pending states
+        removeNonce();
+        removeSafeAddress();
+        pendingAddress = null;
+        pendingNonce = null;
+
+        // Select current account, use pending safe as fallback
+        currentAccount = currentAccount || pendingAddress;
+        setCurrentAccount(currentAccount);
+      }
+    }
 
     if (
       (!pendingNonce && pendingAddress) ||
