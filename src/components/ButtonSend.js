@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import clsx from 'clsx';
-import { Fab } from '@material-ui/core';
+import { Fab, CircularProgress } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ButtonSend = ({ className, disabled, ...props }) => {
+const ButtonSend = ({ className, disabled, isPending, ...props }) => {
   const classes = useStyles();
 
   return (
@@ -35,10 +35,14 @@ const ButtonSend = ({ className, disabled, ...props }) => {
       })}
       color="primary"
       component={Link}
-      disabled={disabled}
+      disabled={disabled || isPending}
       {...props}
     >
-      <IconSend className={classes.fabSendIcon} />
+      {isPending ? (
+        <CircularProgress size={15} />
+      ) : (
+        <IconSend className={classes.fabSendIcon} />
+      )}
     </Fab>
   );
 };
@@ -46,6 +50,7 @@ const ButtonSend = ({ className, disabled, ...props }) => {
 ButtonSend.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  isPending: PropTypes.bool,
 };
 
 export default ButtonSend;

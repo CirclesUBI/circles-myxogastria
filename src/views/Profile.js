@@ -32,6 +32,7 @@ import { ZERO_ADDRESS } from '~/utils/constants';
 import { checkTrustState } from '~/store/trust/actions';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { trustUser, untrustUser } from '~/store/trust/actions';
+import { usePendingTrust, usePendingTransfer } from '~/hooks/activity';
 import { useRelativeSendLink, useProfileLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 
@@ -57,6 +58,8 @@ const Profile = () => {
 
   const shareLink = useProfileLink(address);
   const shareText = translate('Profile.shareText', { shareLink });
+
+  const isTransferPending = usePendingTransfer(address);
 
   const [isDeployed, setIsDeployed] = useState(true);
   const [isReady, setIsReady] = useState(false);
@@ -125,11 +128,11 @@ const Profile = () => {
             <Avatar address={address} size={150} />
           </Badge>
         </Box>
-        {isReady ? (
-          <ProfileSendButton address={address} isDisabled={isSendDisabled} />
-        ) : (
-          <CircularProgress />
-        )}
+        <ProfileSendButton
+          address={address}
+          isDisabled={isSendDisabled}
+          isPending={!isReady || isTransferPending}
+        />
       </View>
     </Fragment>
   );
@@ -146,6 +149,7 @@ const ProfileTrustButton = ({ address, isDisabled }) => {
   const history = useHistory();
 
   const { network } = useSelector((state) => state.trust);
+  const isPending = usePendingTrust(address);
 
   const [isTrustConfirmOpen, setIsTrustConfirmOpen] = useState(false);
   const [isRevokeTrustOpen, setIsRevokeTrustOpen] = useState(false);
@@ -281,10 +285,14 @@ const ProfileTrustButton = ({ address, isDisabled }) => {
           }),
           disabled: classes.trustButtonDisabled,
         }}
-        disabled={isDisabled}
+        disabled={isDisabled || isPending}
         onClick={isMeTrusting ? handleRevokeTrustOpen : handleTrustOpen}
       >
-        <TrustIcon className={classes.trustButtonIcon} />
+        {isPending ? (
+          <CircularProgress size={15} />
+        ) : (
+          <TrustIcon className={classes.trustButtonIcon} />
+        )}
       </IconButton>
     </Fragment>
   );
