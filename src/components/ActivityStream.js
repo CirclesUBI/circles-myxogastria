@@ -88,7 +88,10 @@ function formatMessage(props) {
   }
 
   // Format the given timestamp to a readable string
-  const date = DateTime.fromISO(props.createdAt).toFormat('dd/LL/yy HH:mm');
+  let date = DateTime.fromISO(props.createdAt);
+  date = date.hasSame(DateTime.local(), 'day')
+    ? date.toRelative()
+    : date.toFormat('dd/LL/yy HH:mm');
 
   // Check if find a value in the data (during transfers)
   const data = Object.assign({}, props.data);
