@@ -4,11 +4,7 @@ import ActionTypes from '~/store/activity/types';
 import core from '~/services/core';
 import web3 from '~/services/web3';
 import { checkCurrentBalance } from '~/store/token/actions';
-import {
-  getLastSeen,
-  removeLastSeen,
-  setLastSeen,
-} from '~/services/activities';
+import { getLastSeen, removeLastSeen, setLastSeen } from '~/services/activity';
 
 const { ActivityTypes } = core.activity;
 
