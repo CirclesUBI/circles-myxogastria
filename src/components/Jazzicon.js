@@ -10,7 +10,9 @@ const Jazzicon = ({ size = 50, ...props }) => {
 
   useEffect(() => {
     const seed = web3.utils.hexToNumber(props.address.slice(0, 15));
-    const identiconElem = jazzicon(size, seed);
+    const { firstChild: identiconElem } = jazzicon(size, seed);
+    identiconElem.setAttribute('width', size);
+    identiconElem.setAttribute('height', size);
     ref.current.innerHTML = '';
     ref.current.appendChild(identiconElem);
   }, [props.address, size]);
