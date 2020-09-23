@@ -24,28 +24,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ButtonSend = ({ className, disabled, isPending, ...props }) => {
-  const classes = useStyles();
+// eslint-disable-next-line react/display-name
+const ButtonSend = React.forwardRef(
+  ({ className, disabled = false, isPending = false, ...props }, ref) => {
+    const classes = useStyles();
 
-  return (
-    <Fab
-      aria-label="Send"
-      className={clsx(classes.fabSend, className, {
-        [classes.fabSendDisabled]: disabled,
-      })}
-      color="primary"
-      component={Link}
-      disabled={disabled || isPending}
-      {...props}
-    >
-      {isPending ? (
-        <CircularProgress size={24} />
-      ) : (
-        <IconSend className={classes.fabSendIcon} />
-      )}
-    </Fab>
-  );
-};
+    return (
+      <Fab
+        aria-label="Send"
+        className={clsx(classes.fabSend, className, {
+          [classes.fabSendDisabled]: disabled,
+        })}
+        color="primary"
+        component={Link}
+        disabled={disabled || isPending}
+        ref={ref}
+        style={disabled ? { pointerEvents: 'initial' } : {}}
+        {...props}
+      >
+        {isPending ? (
+          <CircularProgress size={24} />
+        ) : (
+          <IconSend className={classes.fabSendIcon} />
+        )}
+      </Fab>
+    );
+  },
+);
 
 ButtonSend.propTypes = {
   className: PropTypes.string,

@@ -142,7 +142,9 @@
     "errorTrust": "Something went wrong when you tried to trust {username} ...",
     "shareText": "Check out my Circles UBI profile: {shareLink}",
     "successRevokeTrust": "You successfully revoked your trust from {username}!",
-    "successTrust": "Nice. You trusted {username}!"
+    "successTrust": "Nice. You trusted {username}!",
+    "tooltipSafeIsYou": "This is your own profile",
+    "tooltipSafeNotDeployed": "This user did not complete their Circles account yet"
   },
   "SeedPhrase": {
     "bodyDescription": "Print this and store it safely:",
