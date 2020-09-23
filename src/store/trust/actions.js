@@ -5,6 +5,8 @@ import resolveUsernames from '~/services/username';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 import { addPendingActivity } from '~/store/activity/actions';
 
+const USER_RESOLVE_CHUNK_SIZE = 50;
+
 const { ActivityTypes } = core.activity;
 
 export function checkTrustState() {
@@ -33,12 +35,25 @@ export function checkTrustState() {
         trustConnections = result.trustConnections;
       }
 
-      // Resolve usernames
-      const results = await resolveUsernames(
-        network.map((connection) => {
-          return connection.safeAddress;
-        }),
-      );
+      // Resolve usernames in batches
+      const chunks = network
+        .reduce((acc, item, index) => {
+          const chunkIndex = Math.floor(index / USER_RESOLVE_CHUNK_SIZE);
+          if (!acc[chunkIndex]) {
+            acc[chunkIndex] = [];
+          }
+          acc[chunkIndex].push(item);
+          return acc;
+        }, [])
+        .map((chunk) => {
+          return resolveUsernames(
+            chunk.map((connection) => {
+              return connection.safeAddress;
+            }),
+          );
+        });
+
+      const results = (await Promise.all(chunks)).flat();
 
       const resolvedNetwork = network
         .map((connection) => {
