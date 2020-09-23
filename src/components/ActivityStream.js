@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useMemo, useEffect } from 'react';
 import {
+  Avatar as MuiAvatar,
   Box,
   Card,
   CardHeader,
@@ -10,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
@@ -23,6 +25,14 @@ import { useRelativeProfileLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 
 const { ActivityTypes } = core.activity;
+
+const useStyles = makeStyles((theme) => ({
+  avatarPending: {
+    width: theme.custom.components.avatarSize,
+    height: theme.custom.components.avatarSize,
+    backgroundColor: 'transparent',
+  },
+}));
 
 // Parse the activity item and extract the most
 // interesting bits from it ..
@@ -215,6 +225,8 @@ const ActivityStreamList = () => {
 };
 
 const ActivityStreamItem = (props) => {
+  const classes = useStyles();
+
   // Reformat the message for the user
   const { date, data, messageId, actorAddress, isOwnerAddress } = formatMessage(
     props,
@@ -227,7 +239,9 @@ const ActivityStreamItem = (props) => {
     : '';
 
   const profilePath =
-    actorAddress && !isOwnerAddress && useRelativeProfileLink(actorAddress);
+    actorAddress && !isOwnerAddress
+      ? useRelativeProfileLink(actorAddress)
+      : useRelativeProfileLink(props.safeAddress);
 
   const message = useMemo(() => {
     return translate(`ActivityStream.bodyActivity${messageId}`, {
@@ -240,15 +254,17 @@ const ActivityStreamItem = (props) => {
     <Card>
       <CardHeader
         avatar={
-          props.isPending ? (
-            <CircularProgress size={30} />
-          ) : actorAddress ? (
-            <Link to={profilePath}>
+          <Link to={profilePath}>
+            {props.isPending ? (
+              <MuiAvatar className={classes.avatarPending}>
+                <CircularProgress size={40} />
+              </MuiAvatar>
+            ) : actorAddress ? (
               <Avatar address={actorAddress} />
-            </Link>
-          ) : (
-            <Avatar address={props.safeAddress} />
-          )
+            ) : (
+              <Avatar address={props.safeAddress} />
+            )}
+          </Link>
         }
         subheader={date}
         title={<Typography>{message}</Typography>}

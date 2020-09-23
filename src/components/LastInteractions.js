@@ -30,7 +30,7 @@ const LastInteractionsAccount = ({ address }) => {
   return (
     <Grid item>
       <Link to={profilePath}>
-        <Avatar address={address} size={100} />
+        <Avatar address={address} size="medium" />
       </Link>
     </Grid>
   );

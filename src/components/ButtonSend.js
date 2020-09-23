@@ -39,7 +39,7 @@ const ButtonSend = ({ className, disabled, isPending, ...props }) => {
       {...props}
     >
       {isPending ? (
-        <CircularProgress size={15} />
+        <CircularProgress size={24} />
       ) : (
         <IconSend className={classes.fabSendIcon} />
       )}

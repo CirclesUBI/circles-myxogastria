@@ -14,7 +14,7 @@ const ShareBox = ({ address }) => {
     <Box mb={2} mt={4}>
       <QRCode data={shareLink}>
         <Box mb={2}>
-          <Avatar address={address} size={100} />
+          <Avatar address={address} size="medium" />
         </Box>
         <Typography align="center" component="span" variant="h6">
           <UsernameDisplay address={address} />

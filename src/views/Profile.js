@@ -125,7 +125,7 @@ const Profile = () => {
             }
             overlap="circle"
           >
-            <Avatar address={address} size={150} />
+            <Avatar address={address} size="large" />
           </Badge>
         </Box>
         <ProfileSendButton
@@ -289,7 +289,7 @@ const ProfileTrustButton = ({ address, isDisabled }) => {
         onClick={isMeTrusting ? handleRevokeTrustOpen : handleTrustOpen}
       >
         {isPending ? (
-          <CircularProgress size={15} />
+          <CircularProgress size={24} />
         ) : (
           <TrustIcon className={classes.trustButtonIcon} />
         )}
