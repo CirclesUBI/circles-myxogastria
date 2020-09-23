@@ -13,6 +13,11 @@ import theme from '~/styles/theme';
 
 initializeSentry();
 
+// https://docs.metamask.io/guide/ethereum-provider.html#ethereum-autorefreshonnetworkchange
+if (window.ethereum) {
+  window.ethereum.autoRefreshOnNetworkChange = false;
+}
+
 const Root = (props) => (
   <Provider store={props.store}>
     <NoSsr>
