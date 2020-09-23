@@ -12,7 +12,7 @@ export function formatErrorMessage(error) {
   if (error && error.message) {
     errorMessage = error.message;
     if (error.code) {
-      errorMessage += ` (${error.code})`;
+      errorMessage += ` (${error.code.toString()})`;
     }
     errorMessage = ` [${errorMessage}]`;
   }
@@ -28,8 +28,12 @@ export default function logError(error) {
     console.log(error.request);
     captureException(error, error.request);
   } else if (error instanceof TransferError) {
-    console.log(error.transfer);
-    captureException(error, error.transfer);
+    const data = {
+      ...error.transfer,
+      value: error.transfer.value.toString(),
+    };
+    console.log(data);
+    captureException(error, data);
   } else if (error instanceof CoreError) {
     console.log(error.code);
     captureException(error);
