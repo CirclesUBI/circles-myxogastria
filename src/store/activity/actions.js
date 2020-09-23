@@ -60,7 +60,7 @@ export function checkPendingActivities() {
 
       // Check transaction mining state
       const receipt = await web3.eth.getTransactionReceipt(activity.txHash);
-      isError = receipt === null && !receipt.status;
+      isError = receipt !== null && !receipt.status;
 
       if (activity.isError !== isError) {
         dispatch({
