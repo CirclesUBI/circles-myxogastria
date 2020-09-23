@@ -7,6 +7,8 @@ import webpack from 'webpack';
 
 dotenv.config();
 
+const PAGE_TITLE = 'Circles UBI | Wallet';
+
 const CONFIG_KEYS = [
   'API_SERVICE_EXTERNAL',
   'BASE_PATH',
@@ -148,6 +150,11 @@ export default () => {
           : {
               collapseWhitespace: true,
             },
+        title:
+          PAGE_TITLE +
+          (process.env.STAGING_NOTIFICATION || process.env.EOL_NOTIFICATION
+            ? ' [TEST NETWORK]'
+            : ''),
         favicon: getPath(`${PATH_ASSETS}/favicon.ico`),
         template: getPath(`${PATH_SRC}/index.html`),
       }),
