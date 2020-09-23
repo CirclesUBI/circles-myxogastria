@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 import ActionTypes from '~/store/token/types';
 import core from '~/services/core';
 import logError from '~/utils/debug';
@@ -95,7 +97,7 @@ export function checkTokenState() {
         type: ActionTypes.TOKEN_UPDATE_SUCCESS,
         meta: {
           address,
-          lastPayout: getLastPayout(),
+          lastPayoutAt: getLastPayout(),
         },
       });
     } catch (error) {
@@ -127,7 +129,7 @@ export function checkCurrentBalance() {
       dispatch({
         type: ActionTypes.TOKEN_BALANCE_UPDATE_SUCCESS,
         meta: {
-          balance,
+          balance: balance.toString(),
         },
       });
     } catch {
@@ -138,7 +140,7 @@ export function checkCurrentBalance() {
   };
 }
 
-export function requestUBIPayout() {
+export function requestUBIPayout(payout) {
   return async (dispatch, getState) => {
     const { safe, token } = getState();
 
@@ -152,16 +154,27 @@ export function requestUBIPayout() {
     });
 
     try {
-      await core.token.requestUBIPayout(safe.currentAccount);
+      const txHash = await core.token.requestUBIPayout(safe.currentAccount);
 
-      const lastPayout = Date.now();
+      const lastPayoutAt = DateTime.local().toISO();
+      setLastPayout(lastPayoutAt);
 
-      setLastPayout(lastPayout);
+      dispatch(
+        addPendingActivity({
+          txHash,
+          type: ActivityTypes.TRANSFER,
+          data: {
+            from: ZERO_ADDRESS,
+            to: safe.currentAccount,
+            value: payout.toString(),
+          },
+        }),
+      );
 
       dispatch({
         type: ActionTypes.TOKEN_UBI_PAYOUT_SUCCESS,
         meta: {
-          lastPayout,
+          lastPayoutAt,
         },
       });
     } catch (error) {
@@ -194,7 +207,7 @@ export function transfer(to, amount) {
           data: {
             from,
             to,
-            value,
+            value: value.toString(),
           },
         }),
       );

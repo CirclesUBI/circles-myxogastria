@@ -11,7 +11,6 @@
     "bodyActivityReceivedCircles": "{actor} sent you {value} {denominator}",
     "bodyActivityReceivedUBI": "You received {value} {denominator} as your UBI",
     "bodyActivityRemovedFromSafe": "{actor} was removed from this account",
-    "bodyActivitySafeAndTokenDeployed": "You started a new account",
     "bodyActivitySentCircles": "You sent {value} {denominator} to {actor}",
     "bodyActivityTrustedBySomeone": "{actor} trusted you",
     "bodyActivityUntrustedBySomeone": "{actor} untrusted you",

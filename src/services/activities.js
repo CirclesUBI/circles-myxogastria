@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 import {
   getItem,
   hasItem,
@@ -10,10 +12,19 @@ const LAST_SEEN_NAME = 'lastSeen';
 
 export function getLastSeen() {
   if (isAvailable() && hasLastSeen()) {
-    return parseInt(getItem(LAST_SEEN_NAME), 10);
+    const value = getItem(LAST_SEEN_NAME);
+
+    // Legacy (<=1.0.1): Check if value was a UNIX timestamp before
+    if (isNaN(value)) {
+      return value;
+    } else {
+      const converted = DateTime.fromMillis(parseInt(value, 10)).toISO();
+      setLastSeen(converted);
+      return converted;
+    }
   }
 
-  return 0;
+  return DateTime.fromMillis(0).toISO();
 }
 
 export function hasLastSeen() {

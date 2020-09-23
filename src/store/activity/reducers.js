@@ -1,4 +1,5 @@
 import update from 'immutability-helper';
+import { DateTime } from 'luxon';
 
 import ActionTypes from '~/store/activity/types';
 import web3 from '~/services/web3';
@@ -15,19 +16,19 @@ const initialState = {
   isLoading: false,
   isLoadingMore: false,
   isMoreAvailable: true,
-  lastSeen: 0,
+  lastSeenAt: null,
   lastTimestamp: 0,
-  lastUpdated: 0,
+  lastUpdatedAt: null,
   offset: 0,
 };
 
 const initialStateActivity = {
+  createdAt: null,
   data: {},
+  hash: null,
   isError: false,
   isPending: false,
-  timestamp: 0,
   txHash: null,
-  hash: null,
   type: null,
 };
 
@@ -36,13 +37,15 @@ const initialStateActivity = {
 function mergeActivities(currentActivities, newActivities) {
   return newActivities
     .reduce((acc, activity) => {
-      // We get the timestamp in seconds from the graph service
-      const timestamp = parseInt(`${activity.timestamp}000`);
+      // Do not store BN instances in redux
+      if (activity.data.value && web3.utils.BN.isBN(activity.data.value)) {
+        activity.data.value = activity.data.value.toString();
+      }
 
       // Reformat object
       const newActivity = Object.assign({}, initialStateActivity, {
+        createdAt: DateTime.fromSeconds(activity.timestamp).toISO(),
         data: activity.data,
-        timestamp,
         txHash: activity.transactionHash,
         type: activity.type,
       });
@@ -50,22 +53,29 @@ function mergeActivities(currentActivities, newActivities) {
       // Generate a hash so we can compare it
       newActivity.hash = generateHash(newActivity);
 
-      // Check if item already exists (maybe we've
-      // added it manually as a pending task and
-      // now it got mined!
-      const isDuplicate = currentActivities.find((item) => {
+      // Check if item already exists (maybe we've added it manually as a
+      // pending task and now it got mined!
+      const duplicateItemIndex = currentActivities.findIndex((item) => {
         return item.hash === newActivity.hash;
       });
 
-      if (!isDuplicate) {
+      if (duplicateItemIndex < 0) {
         acc.push(newActivity);
+      } else {
+        // Change pending state when remote activity was detected to false.
+        // Finding a remote activity means that the activity got already mined
+        // + indexed by the graph!
+        currentActivities[duplicateItemIndex].isPending = false;
       }
 
       return acc;
     }, [])
     .concat(currentActivities)
     .sort((itemA, itemB) => {
-      return itemB.timestamp - itemA.timestamp;
+      return DateTime.fromISO(itemB.createdAt) <
+        DateTime.fromISO(itemA.createdAt)
+        ? -1
+        : 1;
     });
 }
 
@@ -74,24 +84,26 @@ const activityReducer = (state = initialState, action) => {
     case ActionTypes.ACTIVITIES_INITIALIZE:
     case ActionTypes.ACTIVITIES_SET_LAST_SEEN:
       return update(state, {
-        lastSeen: { $set: action.meta.lastSeen },
+        lastSeenAt: { $set: action.meta.lastSeenAt },
       });
     case ActionTypes.ACTIVITIES_ADD: {
-      // Add a new activity which is still pending (we're
-      // waiting for this to be mined!)
+      // Add a new activity which is still pending (we're waiting for this to
+      // be mined!)
       const activity = Object.assign({}, initialStateActivity, action.meta, {
+        createdAt: DateTime.local().toISO(),
         isPending: true,
-        timestamp: Date.now(),
       });
 
-      // Generate a hash so we can compare it later with
-      // incoming activities
+      // Generate a hash so we can compare it later with incoming activities
       activity.hash = generateHash(activity);
 
       const newActivities = state.activities
         .concat([activity])
         .sort((itemA, itemB) => {
-          return itemB.timestamp - itemA.timestamp;
+          return DateTime.fromISO(itemB.createdAt) <
+            DateTime.fromISO(itemA.createdAt)
+            ? -1
+            : 1;
         });
 
       return update(state, {
@@ -139,7 +151,7 @@ const activityReducer = (state = initialState, action) => {
       if (action.meta.activities.length === 0) {
         return update(state, {
           isLoading: { $set: false },
-          lastUpdated: { $set: Date.now() },
+          lastUpdatedAt: { $set: DateTime.local().toISO() },
         });
       }
 
@@ -154,7 +166,7 @@ const activityReducer = (state = initialState, action) => {
         activities: { $set: newActivities },
         isLoading: { $set: false },
         lastTimestamp: { $set: action.meta.lastTimestamp },
-        lastUpdated: { $set: Date.now() },
+        lastUpdatedAt: { $set: DateTime.local().toISO() },
       });
     }
     case ActionTypes.ACTIVITIES_UPDATE_ERROR:

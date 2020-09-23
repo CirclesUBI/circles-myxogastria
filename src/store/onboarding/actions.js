@@ -1,8 +1,4 @@
 import core from '~/services/core';
-import {
-  ONBOARDING_FINALIZATION,
-  addPendingActivity,
-} from '~/store/activity/actions';
 import { checkAppState, checkAuthState } from '~/store/app/actions';
 import {
   checkSafeState,
@@ -71,16 +67,6 @@ export function finalizeNewAccount() {
     if (safe.pendingIsLocked) {
       return;
     }
-
-    // Inform the user about this activity
-    dispatch(
-      addPendingActivity({
-        type: ONBOARDING_FINALIZATION,
-        data: {
-          safeAddress: safe.pendingAddress,
-        },
-      }),
-    );
 
     // Deploy Safe and Token
     await dispatch(deploySafe());
