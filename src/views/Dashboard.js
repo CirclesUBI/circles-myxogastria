@@ -146,7 +146,7 @@ const Dashboard = () => {
 };
 
 const DashboardActivityIcon = () => {
-  const { activities, lastSeen } = useSelector((state) => {
+  const { activities, lastSeenAt } = useSelector((state) => {
     return state.activity;
   });
 
@@ -158,7 +158,7 @@ const DashboardActivityIcon = () => {
 
   // Count how many activities we haven't seen yet
   const count = activities.reduce((acc, activity) => {
-    if (activity.timestamp > lastSeen) {
+    if (activity.createdAt > lastSeenAt) {
       return acc + 1;
     }
     return acc;
