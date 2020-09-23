@@ -53,7 +53,13 @@ export function checkTrustState() {
           );
         });
 
-      const results = (await Promise.all(chunks)).flat();
+      // Merge all results to one object after they got loaded
+      const results = (await Promise.all(chunks)).reduce((acc, result) => {
+        Object.keys(result).forEach((safeAddress) => {
+          acc[safeAddress] = result[safeAddress];
+        });
+        return acc;
+      }, {});
 
       const resolvedNetwork = network
         .map((connection) => {
