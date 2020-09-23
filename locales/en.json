@@ -162,7 +162,7 @@
     "dialogSendConfirm": "Send",
     "dialogSendDescription": "Are you sure you want to send {amount} Circles to {username}?",
     "dialogSendTitle": "Send Circles",
-    "errorMessage": "Something went wrong ..",
+    "errorMessage": "Something went wrong .. {errorMessage}",
     "errorMessageTransfer": "Could not transfer Circles as there is currently no complete trust path between {username} and you ..",
     "headingSendCircles": "Send Circles",
     "successMessage": "You transferred {amount} Circles successfully to {username}!"

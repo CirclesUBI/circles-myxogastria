@@ -110,9 +110,9 @@ export function checkAppState() {
 
     // In-app states
     await dispatch(checkTokenState());
-    await dispatch(checkCurrentBalance());
     await dispatch(checkFinishedActivities());
     await dispatch(checkPendingActivities());
+    await dispatch(checkCurrentBalance());
 
     // Auth and validation state
     await dispatch(checkAuthState());

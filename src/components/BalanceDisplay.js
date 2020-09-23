@@ -5,14 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
 import Logo from '~/components/Logo';
-import core from '~/services/core';
 import translate from '~/services/locale';
-import web3 from '~/services/web3';
-import { ISSUANCE_RATE_MONTH, ZERO_ADDRESS } from '~/utils/constants';
+import { ISSUANCE_RATE_MONTH } from '~/utils/constants';
 import { IconCircles } from '~/styles/icons';
 import { formatCirclesValue } from '~/utils/format';
-
-const { ActivityTypes } = core.activity;
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,47 +35,11 @@ const useStyles = makeStyles((theme) => ({
 
 const BalanceDisplay = () => {
   const classes = useStyles();
-  const { token, safe, activity } = useSelector((state) => state);
+  const { token, safe } = useSelector((state) => state);
 
   // Token is apparently deployed, wait for the incoming data
   const isLoading =
     (token.balance === null || token.balance === '0') && !safe.pendingNonce;
-
-  // Add value changes based on pending activities
-  const pendingValueDiff = activity.activities.reduce((acc, activity) => {
-    if (!activity.isPending) {
-      return acc;
-    }
-
-    if (
-      activity.type === ActivityTypes.TRANSFER &&
-      activity.data.from === ZERO_ADDRESS
-    ) {
-      // UBI payout
-      return acc.add(web3.utils.toBN(activity.data.value));
-    } else if (
-      activity.type === ActivityTypes.HUB_TRANSFER &&
-      activity.data.to === safe.currentAccount
-    ) {
-      // Received Circles
-      return acc.add(web3.utils.toBN(activity.data.value));
-    } else if (
-      activity.type === ActivityTypes.HUB_TRANSFER &&
-      activity.data.from === safe.currentAccount
-    ) {
-      // Sent Circles
-      return acc.sub(web3.utils.toBN(activity.data.value));
-    }
-
-    return acc;
-  }, new web3.utils.BN());
-
-  // Add pending value changes to the current one
-  const currentValue = token.balance
-    ? web3.utils.toBN(token.balance)
-    : new web3.utils.BN();
-
-  const mixedValue = currentValue.add(pendingValueDiff);
 
   return (
     <Tooltip
@@ -106,7 +66,9 @@ const BalanceDisplay = () => {
               ) : (
                 <Typography className={classes.balance} component="span">
                   <IconCircles className={classes.balanceIcon} />
-                  {token.balance !== null ? formatCirclesValue(mixedValue) : 0}
+                  {token.balance !== null
+                    ? formatCirclesValue(token.balance)
+                    : 0}
                 </Typography>
               )}
             </Grid>

@@ -3,10 +3,7 @@ import { DateTime } from 'luxon';
 import ActionTypes from '~/store/activity/types';
 import core from '~/services/core';
 import web3 from '~/services/web3';
-import { checkCurrentBalance } from '~/store/token/actions';
 import { getLastSeen, removeLastSeen, setLastSeen } from '~/services/activity';
-
-const { ActivityTypes } = core.activity;
 
 const PAGE_SIZE = 20;
 
@@ -79,7 +76,7 @@ export function checkPendingActivities() {
   };
 }
 
-function loadActivities() {
+export function checkFinishedActivities() {
   return async (dispatch, getState) => {
     const { safe, activity } = getState();
 
@@ -97,15 +94,6 @@ function loadActivities() {
         PAGE_SIZE,
         activity.lastTimestamp,
       );
-
-      // Force checking current balance when there is new incoming transfer
-      // events
-      if (
-        activities.type === ActivityTypes.TRANSFER ||
-        activities.type === ActivityTypes.HUB_TRANSFER
-      ) {
-        await dispatch(checkCurrentBalance());
-      }
 
       dispatch({
         type: ActionTypes.ACTIVITIES_UPDATE_SUCCESS,
@@ -157,10 +145,6 @@ export function loadMoreActivities() {
       });
     }
   };
-}
-
-export function checkFinishedActivities() {
-  return loadActivities();
 }
 
 export function resetActivities() {

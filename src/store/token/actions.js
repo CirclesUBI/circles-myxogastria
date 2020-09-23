@@ -124,12 +124,45 @@ export function checkCurrentBalance() {
     });
 
     try {
-      const balance = await core.token.getBalance(safe.currentAccount);
+      const currentValue = await core.token.getBalance(safe.currentAccount);
+      const { activity } = getState();
+
+      // Add value changes based on pending activities
+      const pendingValueDiff = activity.activities.reduce(
+        (acc, { type, data, isPending }) => {
+          if (!isPending) {
+            return acc;
+          }
+
+          if (type === ActivityTypes.TRANSFER && data.from === ZERO_ADDRESS) {
+            // UBI payout
+            return acc.add(web3.utils.toBN(data.value));
+          } else if (
+            type === ActivityTypes.HUB_TRANSFER &&
+            data.to === safe.currentAccount
+          ) {
+            // Received Circles
+            return acc.add(web3.utils.toBN(data.value));
+          } else if (
+            type === ActivityTypes.HUB_TRANSFER &&
+            data.from === safe.currentAccount
+          ) {
+            // Sent Circles
+            return acc.sub(web3.utils.toBN(data.value));
+          }
+
+          return acc;
+        },
+        new web3.utils.BN(),
+      );
+
+      // Add pending value changes to the current one
+      const mixedValue = currentValue.add(pendingValueDiff);
 
       dispatch({
         type: ActionTypes.TOKEN_BALANCE_UPDATE_SUCCESS,
         meta: {
-          balance: balance.toString(),
+          balance: mixedValue.toString(),
         },
       });
     } catch {
@@ -171,6 +204,8 @@ export function requestUBIPayout(payout) {
         }),
       );
 
+      dispatch(checkCurrentBalance());
+
       dispatch({
         type: ActionTypes.TOKEN_UBI_PAYOUT_SUCCESS,
         meta: {
@@ -211,6 +246,8 @@ export function transfer(to, amount) {
           },
         }),
       );
+
+      dispatch(checkCurrentBalance());
 
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_SUCCESS,
