@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 // eslint-disable-next-line react/display-name
 const ButtonSend = React.forwardRef(
-  ({ className, disabled = false, isPending = false, ...props }, ref) => {
+  ({ className, disabled = false, isPending = false, to, ...props }, ref) => {
     const classes = useStyles();
 
     return (
@@ -36,10 +36,11 @@ const ButtonSend = React.forwardRef(
           [classes.fabSendDisabled]: disabled,
         })}
         color="primary"
-        component={Link}
+        component={disabled || isPending ? 'div' : Link}
         disabled={disabled || isPending}
         ref={ref}
         style={disabled ? { pointerEvents: 'initial' } : {}}
+        to={disabled || isPending ? null : to}
         {...props}
       >
         {isPending ? (
@@ -56,6 +57,7 @@ ButtonSend.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   isPending: PropTypes.bool,
+  to: PropTypes.string.isRequired,
 };
 
 export default ButtonSend;
