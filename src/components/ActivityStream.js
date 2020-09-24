@@ -98,12 +98,13 @@ function formatMessage(props) {
   }
 
   // Format the given timestamp to a readable string
-  let date = DateTime.fromISO(props.createdAt);
-  date = date.hasSame(DateTime.local(), 'week')
-    ? date.hasSame(DateTime.local(), 'minute')
-      ? translate('ActivityStream.bodyDateNow')
-      : date.toRelative()
-    : date.toFormat('dd/LL/yy HH:mm');
+  const createdAt = DateTime.fromISO(props.createdAt);
+  const date =
+    createdAt > DateTime.local().minus({ days: 7 })
+      ? createdAt > DateTime.local().minus({ minutes: 1 })
+        ? translate('ActivityStream.bodyDateNow')
+        : createdAt.toRelative()
+      : createdAt.toFormat('dd/LL/yy HH:mm');
 
   // Check if find a value in the data (during transfers)
   const data = Object.assign({}, props.data);

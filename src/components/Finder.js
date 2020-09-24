@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Finder = ({ onSelect, ...props }) => {
+const Finder = ({ onSelect }) => {
   const classes = useStyles();
   const ref = useRef();
 
@@ -56,12 +56,12 @@ const Finder = ({ onSelect, ...props }) => {
   };
 
   const handleSelect = (user) => {
-    props.onSelect(user.safeAddress);
+    onSelect(user.safeAddress);
   };
 
   const handleScan = (address) => {
     setIsScannerOpen(false);
-    props.onSelect(address);
+    onSelect(address);
   };
 
   const handleScannerError = () => {
@@ -118,7 +118,7 @@ const Finder = ({ onSelect, ...props }) => {
 
     setIsLoading(true);
     debouncedSearch(cleanInput);
-  }, [debouncedSearch, onSelect, input]);
+  }, [input]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Fragment>
