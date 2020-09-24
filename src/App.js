@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Box, IconButton } from '@material-ui/core';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { IconAlert, IconClose } from '~/styles/icons';
@@ -10,6 +10,7 @@ import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
 import SpinnerOverlay from '~/components/SpinnerOverlay';
 import UBI from '~/components/UBI';
+import debounce from '~/utils/debounce';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
@@ -58,10 +59,38 @@ const App = () => {
   const dispatch = useDispatch();
   const app = useSelector((state) => state.app);
 
+  const ref = useRef();
   const notistackRef = useRef();
+
   const onClickDismiss = (notificationId) => () => {
     notistackRef.current.closeSnackbar(notificationId);
   };
+
+  const adjustViewport = () => {
+    if (!ref.current) {
+      return;
+    }
+
+    // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+    const vh = window.innerHeight * 0.01;
+    ref.current.style.setProperty('--vh', `${vh}px`);
+  };
+
+  const handleResize = useCallback(
+    debounce(() => {
+      adjustViewport();
+    }, 100),
+    [],
+  );
+
+  useEffect(() => {
+    adjustViewport();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     // Initialize app state in redux store
@@ -134,7 +163,7 @@ const App = () => {
       ref={notistackRef}
     >
       <Router>
-        <Box className={classes.app}>
+        <Box className={classes.app} ref={ref}>
           <UBI />
           <Notifications />
           <SpinnerOverlay isVisible={app.isLoading} />
