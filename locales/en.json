@@ -18,7 +18,7 @@
     "errorUpdate": "Something went wrong, are you connected to the internet? {errorMessage}"
   },
   "BalanceDisplay": {
-    "tooltipYourBalance": "Your basic income is issued continuously at the rate of circa {rate} Circles a month."
+    "tooltipYourBalance": "Your basic income is issued continuously at the rate of {rate} Circles a month."
   },
   "ButtonClipboard": {
     "buttonCopy": "Copy to clipboard",
@@ -217,6 +217,6 @@
   },
   "default": {
     "bodyEOLNotification": "We're launching Circles officially 16.10. on the xDai network! Since this app is currently running on a test network your profile will be shut off on that same day. You will need to create a new profile for the official Circles network.",
-    "bodyStagingNotification": "Please note that you're currently using Circles in a test network which is used for developers to experiment with the system. This means that errors can occur as we're experimenting with new instable features, your Circles can only be used for testing and you can loose your profile, tokens and data anytime."
+    "bodyStagingNotification": "Please note that you're currently using Circles in a test network which is used for developers to experiment with the system. This means that errors can occur as we're experimenting with new unstable features, your Circles can only be used for testing and you can lose your profile, tokens and data anytime."
   }
 }
