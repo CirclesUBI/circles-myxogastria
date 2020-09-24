@@ -133,7 +133,7 @@ const ProfileSendButton = ({ address }) => {
     };
 
     checkTokenDeployment();
-  }, [address]);
+  }, [dispatch, address]);
 
   return !isReady || isTransferPending ? (
     <ButtonSend isPending to={sendPath} />

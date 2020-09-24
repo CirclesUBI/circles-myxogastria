@@ -142,7 +142,7 @@ const ActivityStream = () => {
     return () => {
       dispatch(updateLastSeen());
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <Grid container spacing={2}>
@@ -234,23 +234,18 @@ const ActivityStreamItem = (props) => {
     props,
   );
 
-  const actor = actorAddress
-    ? isOwnerAddress
-      ? actorAddress.slice(0, 10)
-      : useUserdata(actorAddress).username
-    : '';
+  const actor = useUserdata(actorAddress).username;
 
-  const profilePath =
-    actorAddress && !isOwnerAddress
-      ? useRelativeProfileLink(actorAddress)
-      : useRelativeProfileLink(props.safeAddress);
+  const profilePath = useRelativeProfileLink(
+    actorAddress && !isOwnerAddress ? actorAddress : props.safeAddress,
+  );
 
   const message = useMemo(() => {
     return translate(`ActivityStream.bodyActivity${messageId}`, {
       ...data,
       actor,
     });
-  }, [actor]);
+  }, [actor, data, messageId]);
 
   return (
     <Card>

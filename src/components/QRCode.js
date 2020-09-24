@@ -8,7 +8,7 @@ const QR_CODE_SIZE = 230;
 const QRCode = ({ children, ...props }) => {
   const ref = createRef();
 
-  const generateQRCode = () => {
+  useEffect(() => {
     const options = {
       margin: 0,
       scale: props.scale || null,
@@ -16,9 +16,7 @@ const QRCode = ({ children, ...props }) => {
     };
 
     QRCodeGenerator.toCanvas(ref.current, props.data, options);
-  };
-
-  useEffect(generateQRCode, [props.data]);
+  }, [ref, props.scale, props.data]);
 
   return (
     <Box display="flex" justifyContent="center">

@@ -52,7 +52,7 @@ const UBI = () => {
     };
 
     checkUBIPayout();
-  }, [token.address]);
+  }, [dispatch, safe.currentAccount, token.lastPayoutAt, token.address]);
 
   return null;
 };

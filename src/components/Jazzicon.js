@@ -15,7 +15,7 @@ const Jazzicon = ({ size = 50, ...props }) => {
     identiconElem.setAttribute('height', size);
     ref.current.innerHTML = '';
     ref.current.appendChild(identiconElem);
-  }, [props.address, size]);
+  }, [ref, props.address, size]);
 
   return <Box ref={ref}></Box>;
 };

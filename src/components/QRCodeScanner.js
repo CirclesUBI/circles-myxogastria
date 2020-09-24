@@ -123,7 +123,7 @@ const QRCodeScannerInner = ({ onSuccess, onError }) => {
         scanner.reset();
       }
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return !isError ? (
     <Fragment>

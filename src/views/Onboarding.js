@@ -19,7 +19,7 @@ import {
 } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import AppNote from '~/components/AppNote';
 import Button from '~/components/Button';
@@ -207,7 +207,7 @@ const Onboarding = () => {
   );
 };
 
-const OnboardingStepUsername = (props) => {
+const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -238,24 +238,27 @@ const OnboardingStepUsername = (props) => {
     setIsLoading(false);
   }, DEBOUNCE_DELAY);
 
-  const verify = useCallback((username) => {
-    setIsError(false);
-    setIsLoading(true);
-    debouncedUsernameCheck(username);
-  }, []);
+  const verify = useCallback(
+    (username) => {
+      setIsError(false);
+      setIsLoading(true);
+      debouncedUsernameCheck(username);
+    },
+    [debouncedUsernameCheck],
+  );
 
-  const onChange = (event) => {
+  const handleChange = (event) => {
     const { value: username } = event.target;
-    props.onChange({
+    onChange({
       username,
     });
     verify(username);
   };
 
   useEffect(() => {
-    const isEmpty = props.values.username.length === 0;
-    props.onDisabledChange(isEmpty || isError || isLoading);
-  }, [props.values, isError, isLoading]);
+    const isEmpty = values.username.length === 0;
+    onDisabledChange(isEmpty || isError || isLoading);
+  }, [values, onDisabledChange, isError, isLoading]);
 
   return (
     <Fragment>
@@ -272,15 +275,15 @@ const OnboardingStepUsername = (props) => {
           isLoading={isLoading}
           label={translate('Onboarding.formUsername')}
           type="text"
-          value={props.values.username}
-          onChange={onChange}
+          value={values.username}
+          onChange={handleChange}
         />
       </Box>
     </Fragment>
   );
 };
 
-const OnboardingStepEmail = (props) => {
+const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -302,32 +305,33 @@ const OnboardingStepEmail = (props) => {
     setIsLoading(false);
   }, DEBOUNCE_DELAY);
 
-  const verify = useCallback((email) => {
-    if (email.length < 3) {
-      setIsError(true);
-      setIsLoading(false);
-      return;
-    }
+  const verify = useCallback(
+    (email) => {
+      if (email.length < 3) {
+        setIsError(true);
+        setIsLoading(false);
+        return;
+      }
 
-    setIsError(false);
-    setIsLoading(true);
+      setIsError(false);
+      setIsLoading(true);
 
-    debouncedEmailCheck(email);
-  }, []);
+      debouncedEmailCheck(email);
+    },
+    [debouncedEmailCheck],
+  );
 
-  const onChange = (event) => {
+  const handleChange = (event) => {
     const { value: email } = event.target;
-    props.onChange({
+    onChange({
       email,
     });
     verify(email);
   };
 
   useEffect(() => {
-    props.onDisabledChange(
-      !props.values.email.length > 0 || isError || isLoading,
-    );
-  }, [props.values.email, isError, isLoading]);
+    onDisabledChange(!values.email.length > 0 || isError || isLoading);
+  }, [values.email, onDisabledChange, isError, isLoading]);
 
   return (
     <Fragment>
@@ -343,23 +347,23 @@ const OnboardingStepEmail = (props) => {
           isLoading={isLoading}
           label={translate('Onboarding.formEmail')}
           type="email"
-          value={props.values.email}
-          onChange={onChange}
+          value={values.email}
+          onChange={handleChange}
         />
       </Box>
     </Fragment>
   );
 };
 
-const OnboardingStepSeedPhrase = (props) => {
+const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
   const mnemonic = useMemo(() => {
     const privateKey = getPrivateKey();
     return toSeedPhrase(privateKey);
   }, []);
 
   useEffect(() => {
-    props.onDisabledChange(false);
-  }, []);
+    onDisabledChange(false);
+  }, [onDisabledChange]);
 
   return (
     <Fragment>
@@ -377,15 +381,14 @@ const OnboardingStepSeedPhrase = (props) => {
   );
 };
 
-const OnboardingStepSeedChallenge = (props) => {
-  const { pendingNonce } = useSelector((state) => state.safe);
+const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
   const [challenge, setChallenge] = useState('');
 
   const wordIndex = useMemo(() => {
     return Math.floor(Math.random() * 24);
   }, []);
 
-  const onChange = (event) => {
+  const handleChange = (event) => {
     setChallenge(event.target.value);
   };
 
@@ -393,11 +396,11 @@ const OnboardingStepSeedChallenge = (props) => {
     const privateKey = getPrivateKey();
     const answer = toSeedPhrase(privateKey).split(' ')[wordIndex];
     return challenge === answer;
-  }, [challenge, pendingNonce, wordIndex]);
+  }, [challenge, wordIndex]);
 
   useEffect(() => {
-    props.onDisabledChange(!isValid);
-  }, [isValid]);
+    onDisabledChange(!isValid);
+  }, [onDisabledChange, isValid]);
 
   return (
     <Fragment>
@@ -418,14 +421,14 @@ const OnboardingStepSeedChallenge = (props) => {
           name="challenge"
           type="text"
           value={challenge}
-          onChange={onChange}
+          onChange={handleChange}
         />
       </Box>
     </Fragment>
   );
 };
 
-const OnboardingStepAvatar = (props) => {
+const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -437,7 +440,7 @@ const OnboardingStepAvatar = (props) => {
     fileInputElem.current.click();
   };
 
-  const onChangeFiles = async (event) => {
+  const handleChange = async (event) => {
     setIsLoading(true);
 
     const { files } = event.target;
@@ -455,7 +458,7 @@ const OnboardingStepAvatar = (props) => {
         }, new FormData()),
       });
 
-      props.onChange({
+      onChange({
         avatarUrl: result.data.url,
       });
     } catch (error) {
@@ -475,8 +478,8 @@ const OnboardingStepAvatar = (props) => {
   }).join(',');
 
   useEffect(() => {
-    props.onDisabledChange(!props.values.avatarUrl || isLoading);
-  }, [props.values.avatarUrl, isLoading]);
+    onDisabledChange(!values.avatarUrl || isLoading);
+  }, [onDisabledChange, values.avatarUrl, isLoading]);
 
   return (
     <Fragment>
@@ -487,7 +490,7 @@ const OnboardingStepAvatar = (props) => {
       <Box mt={4}>
         <Avatar
           className={classes.avatarUpload}
-          src={isLoading ? null : props.values.avatarUrl}
+          src={isLoading ? null : values.avatarUrl}
           onClick={onUpload}
         >
           {isLoading ? <CircularProgress /> : '+'}
@@ -497,7 +500,7 @@ const OnboardingStepAvatar = (props) => {
           ref={fileInputElem}
           style={{ display: 'none' }}
           type="file"
-          onChange={onChangeFiles}
+          onChange={handleChange}
         />
       </Box>
     </Fragment>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Box, IconButton } from '@material-ui/core';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { IconAlert, IconClose } from '~/styles/icons';
@@ -53,8 +53,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const App = () => {
-  let checkInterval;
-
   const classes = useStyles();
   const dispatch = useDispatch();
   const app = useSelector((state) => state.app);
@@ -76,12 +74,9 @@ const App = () => {
     ref.current.style.setProperty('--vh', `${vh}px`);
   };
 
-  const handleResize = useCallback(
-    debounce(() => {
-      adjustViewport();
-    }, 100),
-    [],
-  );
+  const handleResize = debounce(() => {
+    adjustViewport();
+  }, 100);
 
   useEffect(() => {
     adjustViewport();
@@ -90,9 +85,12 @@ const App = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [handleResize]);
 
   useEffect(() => {
+    let checkInterval;
+    let isUnloading = false;
+
     // Initialize app state in redux store
     const initializeState = async () => {
       try {
@@ -107,6 +105,11 @@ const App = () => {
       try {
         await dispatch(checkAppState());
       } catch (error) {
+        if (isUnloading) {
+          // Ignore (connection) errors when unloading the app
+          return;
+        }
+
         logError(error);
 
         const errorMessage = formatErrorMessage(error);
@@ -130,12 +133,12 @@ const App = () => {
         : APP_CHECK_FREQUENCY_DEVELOPMENT;
 
     checkInterval = window.setInterval(updateState, checkFrequency);
-  }, []);
 
-  // Register an event to disable state checks when leaving application
-  window.addEventListener('unload', () => {
-    window.clearInterval(checkInterval);
-  });
+    return () => {
+      isUnloading = true;
+      window.clearInterval(checkInterval);
+    };
+  }, [dispatch]);
 
   const SnackbarIcon = <IconAlert className={classes.snackbarIconVariant} />;
 

@@ -30,7 +30,7 @@ const ButtonClipboard = ({ text, children, isIcon, ...props }) => {
     return () => {
       clipboard.destroy();
     };
-  }, [text]);
+  }, [dispatch, ref, text]);
 
   if (isIcon) {
     return (

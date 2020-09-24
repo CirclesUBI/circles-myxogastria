@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Finder = (props) => {
+const Finder = ({ onSelect, ...props }) => {
   const classes = useStyles();
   const ref = useRef();
 
@@ -77,6 +77,7 @@ const Finder = (props) => {
     setIsScannerOpen(false);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
     debounce(async (query) => {
       // Search the database for similar usernames
@@ -111,13 +112,13 @@ const Finder = (props) => {
     // Shortcut for putting in a valid address directly
     const matched = core.utils.matchAddress(cleanInput);
     if (matched) {
-      props.onSelect(matched);
+      onSelect(matched);
       return;
     }
 
     setIsLoading(true);
     debouncedSearch(cleanInput);
-  }, [input]);
+  }, [debouncedSearch, onSelect, input]);
 
   return (
     <Fragment>

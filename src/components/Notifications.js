@@ -46,7 +46,7 @@ const Notifications = () => {
       // Keep track of snackbars that we've displayed
       storeDisplayed(id);
     });
-  }, [messages]);
+  }, [dispatch, enqueueSnackbar, closeSnackbar, messages]);
 
   return null;
 };
