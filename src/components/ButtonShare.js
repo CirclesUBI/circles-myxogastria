@@ -5,7 +5,7 @@ import { IconButton } from '@material-ui/core';
 import Button from '~/components/Button';
 import ButtonClipboard from '~/components/ButtonClipboard';
 
-const DEFAULT_SHARE_TITLE = 'Circles';
+const DEFAULT_SHARE_TITLE = 'Circles UBI | Wallet';
 
 const ButtonShare = ({
   title = DEFAULT_SHARE_TITLE,
@@ -26,7 +26,7 @@ const ButtonShare = ({
 
   if (!window.navigator.share) {
     return (
-      <ButtonClipboard {...props} isIcon={isIcon} text={title}>
+      <ButtonClipboard {...props} isIcon={isIcon} text={`${text} ${url}`}>
         {children}
       </ButtonClipboard>
     );
@@ -50,7 +50,7 @@ const ButtonShare = ({
 ButtonShare.propTypes = {
   children: PropTypes.node.isRequired,
   isIcon: PropTypes.bool,
-  text: PropTypes.string,
+  text: PropTypes.string.isRequired,
   title: PropTypes.string,
   url: PropTypes.string.isRequired,
 };

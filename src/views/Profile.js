@@ -76,7 +76,7 @@ const Profile = () => {
         <CenteredHeading>
           <UsernameDisplay address={address} />
         </CenteredHeading>
-        <ButtonShare edge="end" isIcon title={shareText} url={shareLink}>
+        <ButtonShare edge="end" isIcon text={shareText} url={shareLink}>
           <IconShare />
         </ButtonShare>
       </Header>

@@ -33,7 +33,7 @@ const ValidationShare = () => {
         </Container>
       </View>
       <Footer>
-        <ButtonShare fullWidth isOutline title={shareText} url={shareLink}>
+        <ButtonShare fullWidth isOutline text={shareText} url={shareLink}>
           {translate('ValidationShare.buttonShareProfileLink')}
         </ButtonShare>
       </Footer>
