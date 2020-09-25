@@ -7,6 +7,7 @@ import Jazzicon from '~/components/Jazzicon';
 import { useUserdata } from '~/hooks/username';
 
 const SIZE_MULTIPLIERS = {
+  tiny: 0.8,
   small: 1,
   medium: 2,
   large: 3,

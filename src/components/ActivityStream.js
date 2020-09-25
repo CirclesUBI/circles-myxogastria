@@ -2,13 +2,16 @@ import PropTypes from 'prop-types';
 import React, { Fragment, useState, useMemo, useEffect } from 'react';
 import {
   Avatar as MuiAvatar,
+  Badge,
   BottomNavigation,
   BottomNavigationAction,
   Box,
   Card,
+  CardContent,
   CardHeader,
   CircularProgress,
   Grid,
+  IconButton,
   Typography,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -17,9 +20,16 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
+import ExternalLink from '~/components/ExternalLink';
+import Logo from '~/components/Logo';
 import core from '~/services/core';
 import translate from '~/services/locale';
-import { IconConnections, IconTransactions } from '~/styles/icons';
+import {
+  IconCloseOutline,
+  IconConnections,
+  IconTransactions,
+} from '~/styles/icons';
+import { ZERO_ADDRESS, FAQ_URL, ISSUANCE_RATE_MONTH } from '~/utils/constants';
 import { formatMessage } from '~/services/activity';
 import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
 import { useRelativeProfileLink } from '~/hooks/url';
@@ -30,7 +40,7 @@ const { ActivityTypes, ActivityFilterTypes } = core.activity;
 const DEFAULT_CATEGORY = ActivityFilterTypes.TRANSFERS;
 
 const useStyles = makeStyles((theme) => ({
-  avatarPending: {
+  avatarTransparent: {
     width: theme.custom.components.avatarSize,
     height: theme.custom.components.avatarSize,
     backgroundColor: 'transparent',
@@ -50,6 +60,34 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '0.9rem',
       borderBottom: `2px solid ${theme.palette.primary.main}`,
     },
+  },
+  cardHeader: {
+    cursor: 'pointer',
+  },
+  cardHeaderContent: {
+    fontWeight: theme.typography.fontWeight,
+  },
+  cardHeaderSubheader: {
+    fontWeight: theme.typography.fontWeightLight,
+    fontSize: '0.8rem',
+  },
+  cardHeaderAction: {
+    marginTop: 2,
+    marginRight: theme.spacing(0.25),
+    alignSelf: 'center',
+    fontSize: '2rem',
+    fontWeight: theme.typography.fontWeightLight,
+  },
+  cardContent: {
+    paddingTop: 0,
+    paddingBottom: `${theme.spacing(1.5)}px !important`,
+  },
+  cardContentText: {
+    fontSize: '0.8rem',
+    paddingBottom: theme.spacing(1),
+  },
+  cardContentCloseIcon: {
+    color: theme.palette.grey['700'],
   },
 }));
 
@@ -177,20 +215,37 @@ const ActivityStreamList = ({ activity, lastSeenAt }) => {
 
 const ActivityStreamItem = (props) => {
   const classes = useStyles();
+  const [isExpanded, setIsExanded] = useState(false);
+
+  const handleClick = () => {
+    setIsExanded(!isExpanded);
+  };
 
   // Reformat the message for the user
   const {
-    actorAddress,
+    addressActor,
+    addressOrigin,
+    addressTarget,
     data,
     formattedDate,
-    isOwnerAddress,
     messageId,
   } = formatMessage(props);
 
-  const actor = useUserdata(actorAddress).username;
+  const actor = useUserdata(addressActor).username;
   const profilePath = useRelativeProfileLink(
-    actorAddress && !isOwnerAddress ? actorAddress : props.safeAddress,
+    addressActor ? addressActor : props.safeAddress,
   );
+
+  const isUBIPayout =
+    props.type === ActivityTypes.TRANSFER && props.data.from === ZERO_ADDRESS;
+
+  const value = useMemo(() => {
+    if (!data.value) {
+      return;
+    }
+    const prefix = data.from === props.safeAddress ? '-' : '+';
+    return `${prefix}${data.value}`;
+  }, [data, props.safeAddress]);
 
   const message = useMemo(() => {
     return translate(`ActivityStream.bodyActivity${messageId}`, {
@@ -202,23 +257,103 @@ const ActivityStreamItem = (props) => {
   return (
     <Card>
       <CardHeader
+        action={value}
         avatar={
           <Link to={profilePath}>
             {props.isPending ? (
-              <MuiAvatar className={classes.avatarPending}>
+              <MuiAvatar className={classes.avatarTransparent}>
                 <CircularProgress size={40} />
               </MuiAvatar>
-            ) : actorAddress ? (
-              <Avatar address={actorAddress} />
+            ) : isUBIPayout ? (
+              <MuiAvatar className={classes.avatarTransparent}>
+                <Logo size="tiny" />
+              </MuiAvatar>
             ) : (
-              <Avatar address={props.safeAddress} />
+              <Box className={classes.avatarTransparent}>
+                <ActivityStreamAvatars
+                  addressOrigin={addressOrigin}
+                  addressTarget={addressTarget}
+                />
+              </Box>
             )}
           </Link>
         }
+        classes={{
+          root: classes.cardHeader,
+          action: classes.cardHeaderAction,
+          content: classes.cardHeaderContent,
+          subheader: classes.cardHeaderSubheader,
+        }}
         subheader={formattedDate}
-        title={<Typography>{message}</Typography>}
+        title={message}
+        onClick={handleClick}
       />
+      {isExpanded && (
+        <CardContent className={classes.cardContent}>
+          <ActivityStreamExplained
+            actor={actor}
+            data={data}
+            messageId={messageId}
+          />
+          <Box display="flex" justifyContent="center">
+            <IconButton onClick={handleClick}>
+              <IconCloseOutline className={classes.cardContentCloseIcon} />
+            </IconButton>
+          </Box>
+        </CardContent>
+      )}
     </Card>
+  );
+};
+
+const ActivityStreamExplained = ({ actor, data, messageId }) => {
+  const classes = useStyles();
+
+  const text = useMemo(() => {
+    return translate(`ActivityStream.bodyExplain${messageId}`, {
+      ...data,
+      actor,
+      rate: ISSUANCE_RATE_MONTH,
+    });
+  }, [actor, data, messageId]);
+
+  return (
+    <Fragment>
+      <Typography
+        className={classes.cardContentText}
+        color="textSecondary"
+        component="p"
+        variant="body1"
+      >
+        {text}
+      </Typography>
+      <Typography
+        className={classes.cardContentText}
+        color="textSecondary"
+        component="p"
+        variant="body1"
+      >
+        {translate('ActivityStream.bodyExplainSecondary')}{' '}
+        <ExternalLink href={FAQ_URL}>
+          {translate('ActivityStream.linkLearnMore')}
+        </ExternalLink>
+      </Typography>
+    </Fragment>
+  );
+};
+
+const ActivityStreamAvatars = ({ addressOrigin, addressTarget }) => {
+  return (
+    <Badge
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      badgeContent={<Avatar address={addressTarget} size="tiny" />}
+      overlap="circle"
+    >
+      <Avatar address={addressOrigin} size="tiny" />
+    </Badge>
   );
 };
 
@@ -235,6 +370,17 @@ ActivityStreamItem.propTypes = {
   safeAddress: PropTypes.string.isRequired,
   type: PropTypes.symbol.isRequired,
   walletAddress: PropTypes.string.isRequired,
+};
+
+ActivityStreamExplained.propTypes = {
+  actor: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  messageId: PropTypes.string.isRequired,
+};
+
+ActivityStreamAvatars.propTypes = {
+  addressOrigin: PropTypes.string.isRequired,
+  addressTarget: PropTypes.string.isRequired,
 };
 
 export default ActivityStream;

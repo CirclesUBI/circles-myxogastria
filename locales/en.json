@@ -1,20 +1,28 @@
 {
   "ActivityStream": {
     "bodyActivityAddedToSafe": "was added to this account",
-    "bodyActivityMeTrustedSomeone": "You trusted {actor}",
-    "bodyActivityMeUntrustedSomeone": "You untrusted {actor}",
+    "bodyActivityMeTrustedSomeone": "You trust @{actor}",
+    "bodyActivityMeUntrustedSomeone": "You untrust @{actor}",
     "bodyActivityMyselfAddedToSafe": "You linked this device to this account",
-    "bodyActivityReceivedCircles": "{actor} sent you {value} {denominator}",
-    "bodyActivityReceivedUBI": "You received {value} {denominator} as your UBI",
-    "bodyActivityRemovedFromSafe": "{actor} was removed from this account",
-    "bodyActivitySentCircles": "You sent {value} {denominator} to {actor}",
-    "bodyActivityTrustedBySomeone": "{actor} trusted you",
-    "bodyActivityUntrustedBySomeone": "{actor} untrusted you",
+    "bodyActivityReceivedCircles": "@{actor} sent you",
+    "bodyActivityReceivedUBI": "Circles UBI",
+    "bodyActivityRemovedFromSafe": "@{actor} was removed from this account",
+    "bodyActivitySentCircles": "Sent to @{actor}",
+    "bodyActivityTrustedBySomeone": "@{actor} trusts you",
     "bodyDateNow": "Now",
+    "bodyExplainReceivedCircles": "You received {value} {denominator} from @{actor} transitively.",
+    "bodyExplainReceivedUBI": "This is the Universal Basic Income minted with your own token. You receive circa {rate} per month.",
+    "bodyExplainSentCircles": "You sent {value} {denominator} to @{actor} transitively.",
+    "bodyExplainSecondary": "All activities carry a small fee used to maintain the Circles network.",
+    "bodyExplainMeTrustedSomeone": "You trusted @{actor} which means that ${actor} can send you their tokens.",
+    "bodyExplainMeUntrustedSomeone": "You untrusted @{actor} which means that you don't accept any tokens anymore of them.",
+    "bodyExplainTrustedBySomeone": "@{actor} trusts you. You can send your token to them now.",
+    "bodyExplainUntrustedBySomeone": "@{actor} untrusts you which means that they don't accept your token anymore.",
     "bodyFilterConnections": "Connections",
     "bodyFilterTransactions": "Transactions",
     "bodyNothingHereYet": "There are no activities to display yet",
-    "buttonLoadMore": "Load more"
+    "buttonLoadMore": "Load more",
+    "linkLearnMore": "Learn more."
   },
   "App": {
     "errorUpdate": "Something went wrong, are you connected to the internet? {errorMessage}"

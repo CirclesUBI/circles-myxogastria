@@ -72,64 +72,74 @@ export function formatMessage({
   safeAddress,
   walletAddress,
 }) {
-  let actorAddress;
-  let isOwnerAddress = false;
+  let addressActor;
+  let addressOrigin;
+  let addressTarget;
   let messageId;
 
   if (type === ActivityTypes.ADD_CONNECTION) {
     if (data.canSendTo === safeAddress) {
       // I've created a trust connection
       messageId = 'MeTrustedSomeone';
-      actorAddress = data.user;
+      addressActor = data.user;
+      addressOrigin = data.canSendTo;
+      addressTarget = data.user;
     } else {
       // Someone created a trust connection with you
       messageId = 'TrustedBySomeone';
-      actorAddress = data.canSendTo;
+      addressActor = data.canSendTo;
+      addressOrigin = data.user;
+      addressTarget = data.canSendTo;
     }
   } else if (type === ActivityTypes.REMOVE_CONNECTION) {
     if (data.canSendTo === safeAddress) {
       // I've removed a trust connection
       messageId = 'MeUntrustedSomeone';
-      actorAddress = data.user;
+      addressActor = data.user;
+      addressOrigin = data.canSendTo;
+      addressTarget = data.user;
     } else {
       // Someone removed a trust connection with you
       messageId = 'UntrustedBySomeone';
-      actorAddress = data.canSendTo;
+      addressActor = data.canSendTo;
+      addressOrigin = data.user;
+      addressTarget = data.canSendTo;
     }
   } else if (type === ActivityTypes.TRANSFER) {
+    addressOrigin = data.from;
+    addressTarget = data.to;
     if (data.from === ZERO_ADDRESS) {
       // I've received Circles from the Hub (UBI)
       messageId = 'ReceivedUBI';
     } else if (data.to === process.env.SAFE_FUNDER_ADDRESS) {
       // I've paid Gas fees for a transaction
-      // @TODO: Right now not covered by the core
       messageId = 'PaidGasCosts';
     }
   } else if (type === ActivityTypes.HUB_TRANSFER) {
+    addressOrigin = data.from;
+    addressTarget = data.to;
     if (data.to === safeAddress) {
       // I've received Circles from someone
       messageId = 'ReceivedCircles';
-      actorAddress = data.from;
+      addressActor = data.from;
     } else {
       // I've sent Circles to someone
       messageId = 'SentCircles';
-      actorAddress = data.to;
+      addressActor = data.to;
     }
   } else if (type === ActivityTypes.ADD_OWNER) {
+    addressOrigin = data.safeAddress;
+    addressTarget = data.ownerAddress;
     if (data.ownerAddress === walletAddress) {
       // I've got added to a Safe (usually during Safe creation)
       messageId = 'MyselfAddedToSafe';
     } else {
       // I've added someone to my Safe
       messageId = 'AddedToSafe';
-      isOwnerAddress = true;
-      actorAddress = data.ownerAddress;
     }
   } else if (type === ActivityTypes.REMOVE_OWNER) {
     // I've removed someone from my Safe
     messageId = 'RemovedFromSafe';
-    isOwnerAddress = true;
-    actorAddress = data.ownerAddress;
   }
 
   // Format the given timestamp to a readable string
@@ -157,10 +167,11 @@ export function formatMessage({
   }
 
   return {
-    actorAddress,
+    addressActor,
+    addressOrigin,
+    addressTarget,
     data: dataCopy,
     formattedDate,
-    isOwnerAddress,
     messageId,
   };
 }

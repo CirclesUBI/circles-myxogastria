@@ -6,6 +6,7 @@ import arrow from '%/images/arrow.svg';
 import check from '%/images/check.svg';
 import circles from '%/images/circles.svg';
 import close from '%/images/close.svg';
+import closeOutline from '%/images/close-outline.svg';
 import connections from '%/images/connections.svg';
 import facebook from '%/images/facebook.svg';
 import mail from '%/images/mail.svg';
@@ -41,6 +42,10 @@ export const IconCircles = (props) => {
 
 export const IconClose = (props) => {
   return <SvgIcon component={close} {...props} viewBox="0 0 20 20" />;
+};
+
+export const IconCloseOutline = (props) => {
+  return <SvgIcon component={closeOutline} {...props} viewBox="0 0 20 20" />;
 };
 
 export const IconConnections = (props) => {
