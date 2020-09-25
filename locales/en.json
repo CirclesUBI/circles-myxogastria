@@ -14,7 +14,7 @@
     "bodyExplainReceivedUBI": "This is the Universal Basic Income minted with your own token. You receive circa {rate} per month.",
     "bodyExplainSentCircles": "You sent {value} {denominator} to @{actor} transitively.",
     "bodyExplainSecondary": "All activities carry a small fee used to maintain the Circles network.",
-    "bodyExplainMeTrustedSomeone": "You trusted @{actor} which means that ${actor} can send you their tokens.",
+    "bodyExplainMeTrustedSomeone": "You trusted @{actor} which means that @{actor} can send you their tokens.",
     "bodyExplainMeUntrustedSomeone": "You untrusted @{actor} which means that you don't accept any tokens anymore of them.",
     "bodyExplainTrustedBySomeone": "@{actor} trusts you. You can send your token to them now.",
     "bodyExplainUntrustedBySomeone": "@{actor} untrusts you which means that they don't accept your token anymore.",
