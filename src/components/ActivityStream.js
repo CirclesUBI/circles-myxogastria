@@ -189,7 +189,7 @@ const ActivityStreamList = () => {
 
   if (activities.length === 0) {
     return (
-      <Typography align="center">
+      <Typography align="center" gutterBottom style={{ width: '100%' }}>
         {translate('ActivityStream.bodyNothingHereYet')}
       </Typography>
     );
