@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
-import React, { useMemo, useEffect } from 'react';
+import React, { Fragment, useState, useMemo, useEffect } from 'react';
 import {
   Avatar as MuiAvatar,
+  BottomNavigation,
+  BottomNavigationAction,
   Box,
   Card,
   CardHeader,
@@ -9,7 +11,6 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,13 +19,15 @@ import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import core from '~/services/core';
 import translate from '~/services/locale';
+import { IconConnections, IconTransactions } from '~/styles/icons';
+import { formatMessage } from '~/services/activity';
 import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
-import { ZERO_ADDRESS } from '~/utils/constants';
-import { formatCirclesValue } from '~/utils/format';
 import { useRelativeProfileLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 
-const { ActivityTypes } = core.activity;
+const { ActivityTypes, ActivityFilterTypes } = core.activity;
+
+const DEFAULT_CATEGORY = ActivityFilterTypes.TRANSFERS;
 
 const useStyles = makeStyles((theme) => ({
   avatarPending: {
@@ -32,110 +35,36 @@ const useStyles = makeStyles((theme) => ({
     height: theme.custom.components.avatarSize,
     backgroundColor: 'transparent',
   },
+  bottomNavigation: {
+    marginBottom: theme.spacing(2),
+  },
+  bottomNavigationAction: {
+    maxWidth: 'none',
+  },
+  bottomNavigationLabel: {
+    marginTop: theme.spacing(1),
+    fontWeight: theme.typography.fontWeightLight,
+    fontSize: '0.9rem',
+    borderBottom: '2px solid transparent',
+    '&.Mui-selected': {
+      fontSize: '0.9rem',
+      borderBottom: `2px solid ${theme.palette.primary.main}`,
+    },
+  },
 }));
 
-// Parse the activity item and extract the most
-// interesting bits from it ..
-function formatMessage(props) {
-  let actorAddress;
-  let isOwnerAddress = false;
-  let messageId;
-
-  if (props.type === ActivityTypes.ADD_CONNECTION) {
-    if (props.data.canSendTo === props.safeAddress) {
-      // I've created a trust connection
-      messageId = 'MeTrustedSomeone';
-      actorAddress = props.data.user;
-    } else {
-      // Someone created a trust connection with you
-      messageId = 'TrustedBySomeone';
-      actorAddress = props.data.canSendTo;
-    }
-  } else if (props.type === ActivityTypes.REMOVE_CONNECTION) {
-    if (props.data.canSendTo === props.safeAddress) {
-      // I've removed a trust connection
-      messageId = 'MeUntrustedSomeone';
-      actorAddress = props.data.user;
-    } else {
-      // Someone removed a trust connection with you
-      messageId = 'UntrustedBySomeone';
-      actorAddress = props.data.canSendTo;
-    }
-  } else if (props.type === ActivityTypes.TRANSFER) {
-    if (props.data.from === ZERO_ADDRESS) {
-      // I've received Circles from the Hub (UBI)
-      messageId = 'ReceivedUBI';
-    } else if (props.data.to === process.env.SAFE_FUNDER_ADDRESS) {
-      // I've paid Gas fees for a transaction
-      // @TODO: Right now not covered by the core
-      messageId = 'PaidGasCosts';
-    }
-  } else if (props.type === ActivityTypes.HUB_TRANSFER) {
-    if (props.data.to === props.safeAddress) {
-      // I've received Circles from someone
-      messageId = 'ReceivedCircles';
-      actorAddress = props.data.from;
-    } else {
-      // I've sent Circles to someone
-      messageId = 'SentCircles';
-      actorAddress = props.data.to;
-    }
-  } else if (props.type === ActivityTypes.ADD_OWNER) {
-    if (props.data.ownerAddress === props.walletAddress) {
-      // I've got added to a Safe (usually during Safe creation)
-      messageId = 'MyselfAddedToSafe';
-    } else {
-      // I've added someone to my Safe
-      messageId = 'AddedToSafe';
-      isOwnerAddress = true;
-      actorAddress = props.data.ownerAddress;
-    }
-  } else if (props.type === ActivityTypes.REMOVE_OWNER) {
-    // I've removed someone from my Safe
-    messageId = 'RemovedFromSafe';
-    isOwnerAddress = true;
-    actorAddress = props.data.ownerAddress;
-  }
-
-  // Format the given timestamp to a readable string
-  const createdAt = DateTime.fromISO(props.createdAt);
-  const date =
-    createdAt > DateTime.local().minus({ days: 7 })
-      ? createdAt > DateTime.local().minus({ minutes: 1 })
-        ? translate('ActivityStream.bodyDateNow')
-        : createdAt.toRelative()
-      : createdAt.toFormat('dd/LL/yy HH:mm');
-
-  // Check if find a value in the data (during transfers)
-  const data = Object.assign({}, props.data);
-
-  if ('value' in data) {
-    // Convert the value according to its denominator
-    const valueInCircles = formatCirclesValue(data.value, 4);
-    data.denominator = 'Circles';
-    data.value = valueInCircles;
-  }
-
-  if (!messageId) {
-    throw new Error('Unknown activity type');
-  }
-
-  return {
-    actorAddress,
-    data,
-    date,
-    isOwnerAddress,
-    messageId,
-  };
-}
-
 const ActivityStream = () => {
-  const activity = useSelector((state) => state.activity);
+  const classes = useStyles();
   const dispatch = useDispatch();
+
+  const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY);
+  const { categories, lastSeenAt } = useSelector((state) => state.activity);
+
+  const activity = categories[selectedCategory];
   const isLoading = activity.isLoadingMore || activity.lastUpdated === 0;
 
   const onLoadMore = () => {
-    dispatch(loadMoreActivities());
+    dispatch(loadMoreActivities(selectedCategory));
   };
 
   useEffect(() => {
@@ -146,42 +75,60 @@ const ActivityStream = () => {
   }, [dispatch]);
 
   return (
-    <Grid container spacing={2}>
-      <ActivityStreamList />
+    <Fragment>
+      <BottomNavigation
+        className={classes.bottomNavigation}
+        showLabels
+        value={selectedCategory}
+        onChange={(event, newCategory) => {
+          setSelectedCategory(newCategory);
+        }}
+      >
+        <BottomNavigationAction
+          classes={{
+            root: classes.bottomNavigationAction,
+            label: classes.bottomNavigationLabel,
+          }}
+          icon={<IconTransactions />}
+          label={translate('ActivityStream.bodyFilterTransactions')}
+          value={ActivityFilterTypes.TRANSFERS}
+        />
+        <BottomNavigationAction
+          classes={{
+            root: classes.bottomNavigationAction,
+            label: classes.bottomNavigationLabel,
+          }}
+          icon={<IconConnections />}
+          label={translate('ActivityStream.bodyFilterConnections')}
+          value={ActivityFilterTypes.CONNECTIONS}
+        />
+      </BottomNavigation>
+      <ActivityStreamList activity={activity} lastSeenAt={lastSeenAt} />
       {isLoading && (
-        <Grid item xs={12}>
-          <Box m="auto">
-            <CircularProgress />
-          </Box>
-        </Grid>
+        <Box m="auto">
+          <CircularProgress />
+        </Box>
       )}
       {activity.isMoreAvailable && (
-        <Grid item xs={12}>
+        <Box mt={2}>
           <Button disabled={isLoading} fullWidth isOutline onClick={onLoadMore}>
             {translate('ActivityStream.buttonLoadMore')}
           </Button>
-        </Grid>
+        </Box>
       )}
-    </Grid>
+    </Fragment>
   );
 };
 
-const ActivityStreamList = () => {
-  const {
-    activities,
-    lastUpdated,
-    lastSeenAt,
-    safeAddress,
-    walletAddress,
-  } = useSelector((state) => {
+const ActivityStreamList = ({ activity, lastSeenAt }) => {
+  const { safeAddress, walletAddress } = useSelector((state) => {
     return {
-      activities: state.activity.activities,
-      lastSeenAt: state.activity.lastSeenAt,
-      lastUpdated: state.activity.lastUpdated,
       safeAddress: state.safe.currentAccount,
       walletAddress: state.wallet.address,
     };
   });
+
+  const { activities, lastUpdated } = activity;
 
   if (lastUpdated === 0) {
     return null;
@@ -189,41 +136,42 @@ const ActivityStreamList = () => {
 
   if (activities.length === 0) {
     return (
-      <Typography align="center" gutterBottom style={{ width: '100%' }}>
+      <Typography align="center">
         {translate('ActivityStream.bodyNothingHereYet')}
       </Typography>
     );
   }
 
-  return activities.reduce(
-    (acc, { data, hash, createdAt, type, isPending = false }) => {
-      // Filter Gas transfers
-      if (
-        type === ActivityTypes.TRANSFER &&
-        data.to === process.env.SAFE_FUNDER_ADDRESS
-      ) {
+  return (
+    <Grid container spacing={2}>
+      {activities.reduce((acc, { data, hash, createdAt, type, isPending }) => {
+        // Always filter gas transfers
+        if (
+          type === ActivityTypes.TRANSFER &&
+          data.to === process.env.SAFE_FUNDER_ADDRESS
+        ) {
+          return acc;
+        }
+
+        const item = (
+          <Grid item key={hash} xs={12}>
+            <ActivityStreamItem
+              createdAt={createdAt}
+              data={data}
+              isPending={isPending}
+              isSeen={createdAt < lastSeenAt}
+              safeAddress={safeAddress}
+              type={type}
+              walletAddress={walletAddress}
+            />
+          </Grid>
+        );
+
+        acc.push(item);
+
         return acc;
-      }
-
-      const item = (
-        <Grid item key={hash} xs={12}>
-          <ActivityStreamItem
-            createdAt={createdAt}
-            data={data}
-            isPending={isPending}
-            isSeen={createdAt < lastSeenAt}
-            safeAddress={safeAddress}
-            type={type}
-            walletAddress={walletAddress}
-          />
-        </Grid>
-      );
-
-      acc.push(item);
-
-      return acc;
-    },
-    [],
+      }, [])}
+    </Grid>
   );
 };
 
@@ -231,12 +179,15 @@ const ActivityStreamItem = (props) => {
   const classes = useStyles();
 
   // Reformat the message for the user
-  const { date, data, messageId, actorAddress, isOwnerAddress } = formatMessage(
-    props,
-  );
+  const {
+    actorAddress,
+    data,
+    formattedDate,
+    isOwnerAddress,
+    messageId,
+  } = formatMessage(props);
 
   const actor = useUserdata(actorAddress).username;
-
   const profilePath = useRelativeProfileLink(
     actorAddress && !isOwnerAddress ? actorAddress : props.safeAddress,
   );
@@ -264,11 +215,16 @@ const ActivityStreamItem = (props) => {
             )}
           </Link>
         }
-        subheader={date}
+        subheader={formattedDate}
         title={<Typography>{message}</Typography>}
       />
     </Card>
   );
+};
+
+ActivityStreamList.propTypes = {
+  activity: PropTypes.object.isRequired,
+  lastSeenAt: PropTypes.string.isRequired,
 };
 
 ActivityStreamItem.propTypes = {

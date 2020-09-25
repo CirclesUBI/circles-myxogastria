@@ -6,6 +6,7 @@ import arrow from '%/images/arrow.svg';
 import check from '%/images/check.svg';
 import circles from '%/images/circles.svg';
 import close from '%/images/close.svg';
+import connections from '%/images/connections.svg';
 import facebook from '%/images/facebook.svg';
 import mail from '%/images/mail.svg';
 import menu from '%/images/menu.svg';
@@ -16,10 +17,15 @@ import search from '%/images/search.svg';
 import send from '%/images/send.svg';
 import share from '%/images/share.svg';
 import telegram from '%/images/telegram.svg';
+import transactions from '%/images/transactions.svg';
 import trust from '%/images/trust.svg';
 import trustActive from '%/images/trust-active.svg';
 import trustMutual from '%/images/trust-mutual.svg';
 import twitter from '%/images/twitter.svg';
+
+export const IconAlert = (props) => {
+  return <SvgIcon component={alert} {...props} viewBox="0 0 20 20" />;
+};
 
 export const IconBack = (props) => {
   return <SvgIcon component={arrow} {...props} viewBox="0 0 12 18" />;
@@ -35,6 +41,10 @@ export const IconCircles = (props) => {
 
 export const IconClose = (props) => {
   return <SvgIcon component={close} {...props} viewBox="0 0 20 20" />;
+};
+
+export const IconConnections = (props) => {
+  return <SvgIcon component={connections} {...props} viewBox="0 0 21 20" />;
 };
 
 export const IconFacebook = (props) => {
@@ -53,12 +63,12 @@ export const IconNotification = (props) => {
   return <SvgIcon component={notification} {...props} viewBox="0 0 29 34" />;
 };
 
-export const IconAlert = (props) => {
-  return <SvgIcon component={alert} {...props} viewBox="0 0 20 20" />;
-};
-
 export const IconQR = (props) => {
   return <SvgIcon component={qr} viewBox="0 0 18 18" {...props} />;
+};
+
+export const IconScan = (props) => {
+  return <SvgIcon component={scan} {...props} viewBox="0 0 21 21" />;
 };
 
 export const IconSearch = (props) => {
@@ -69,16 +79,16 @@ export const IconSend = (props) => {
   return <SvgIcon component={send} {...props} viewBox="0 0 36 36" />;
 };
 
-export const IconScan = (props) => {
-  return <SvgIcon component={scan} {...props} viewBox="0 0 21 21" />;
-};
-
 export const IconShare = (props) => {
   return <SvgIcon component={share} {...props} viewBox="0 0 26 28" />;
 };
 
 export const IconTelegram = (props) => {
   return <SvgIcon component={telegram} {...props} viewBox="0 0 21 20" />;
+};
+
+export const IconTransactions = (props) => {
+  return <SvgIcon component={transactions} {...props} viewBox="0 0 20 20" />;
 };
 
 export const IconTrust = (props) => {

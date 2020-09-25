@@ -11,6 +11,8 @@
     "bodyActivityTrustedBySomeone": "{actor} trusted you",
     "bodyActivityUntrustedBySomeone": "{actor} untrusted you",
     "bodyDateNow": "Now",
+    "bodyFilterConnections": "Connections",
+    "bodyFilterTransactions": "Transactions",
     "bodyNothingHereYet": "There are no activities to display yet",
     "buttonLoadMore": "Load more"
   },
