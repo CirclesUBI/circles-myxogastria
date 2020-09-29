@@ -212,31 +212,35 @@ const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const debouncedUsernameCheck = debounce(async (username) => {
-    try {
-      await core.utils.requestAPI({
-        path: ['users'],
-        method: 'POST',
-        data: {
-          username,
-        },
-      });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedUsernameCheck = useCallback(
+    debounce(async (username) => {
+      try {
+        await core.utils.requestAPI({
+          path: ['users'],
+          method: 'POST',
+          data: {
+            username,
+          },
+        });
 
-      setIsError(false);
-    } catch (error) {
-      if (error.request.status === 400) {
-        setErrorMessage(translate('Onboarding.formUsernameInvalidFormat'));
-      } else if (error.request.status === 409) {
-        setErrorMessage(translate('Onboarding.formUsernameTaken'));
-      } else {
-        setErrorMessage(translate('Onboarding.formUnknownError'));
+        setIsError(false);
+      } catch (error) {
+        if (error.request.status === 400) {
+          setErrorMessage(translate('Onboarding.formUsernameInvalidFormat'));
+        } else if (error.request.status === 409) {
+          setErrorMessage(translate('Onboarding.formUsernameTaken'));
+        } else {
+          setErrorMessage(translate('Onboarding.formUnknownError'));
+        }
+
+        setIsError(true);
       }
 
-      setIsError(true);
-    }
-
-    setIsLoading(false);
-  }, DEBOUNCE_DELAY);
+      setIsLoading(false);
+    }, DEBOUNCE_DELAY),
+    [],
+  );
 
   const verify = useCallback(
     (username) => {
@@ -287,23 +291,27 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const debouncedEmailCheck = debounce(async (email) => {
-    try {
-      await core.utils.requestAPI({
-        path: ['users'],
-        method: 'POST',
-        data: {
-          email,
-        },
-      });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedEmailCheck = useCallback(
+    debounce(async (email) => {
+      try {
+        await core.utils.requestAPI({
+          path: ['users'],
+          method: 'POST',
+          data: {
+            email,
+          },
+        });
 
-      setIsError(false);
-    } catch {
-      setIsError(true);
-    }
+        setIsError(false);
+      } catch {
+        setIsError(true);
+      }
 
-    setIsLoading(false);
-  }, DEBOUNCE_DELAY);
+      setIsLoading(false);
+    }, DEBOUNCE_DELAY),
+    [],
+  );
 
   const verify = useCallback(
     (email) => {
