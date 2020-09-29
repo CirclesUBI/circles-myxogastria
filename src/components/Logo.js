@@ -16,6 +16,10 @@ const useStyles = makeStyles(() => ({
     backgroundPosition: 'center',
     backgroundSize: 'contain',
   },
+  logoTiny: {
+    width: '3rem',
+    height: '3rem',
+  },
   logoSmall: {
     width: '5rem',
     height: '5rem',
@@ -37,6 +41,7 @@ const Logo = ({ isWithGang, size = 'default' }) => {
     <Box
       className={clsx(classes.logo, {
         [classes.logoWithGang]: isWithGang,
+        [classes.logoTiny]: size === 'tiny',
         [classes.logoSmall]: size === 'small',
         [classes.logoLarge]: size === 'large' || isWithGang,
       })}

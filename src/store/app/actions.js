@@ -9,7 +9,7 @@ import {
   checkFinishedActivities,
   checkPendingActivities,
   initializeActivities,
-  loadMoreActivities,
+  loadMoreAllActivities,
   resetActivities,
 } from '~/store/activity/actions';
 import { checkOnboardingState } from '~/store/onboarding/actions';
@@ -71,7 +71,7 @@ export function initializeApp() {
 
       // Already check for older activities to see if we can hide the "Load
       // More" button
-      await dispatch(loadMoreActivities());
+      await dispatch(loadMoreAllActivities());
 
       // Check for additional states ...
       await dispatch(checkAppState());

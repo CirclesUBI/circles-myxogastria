@@ -173,12 +173,14 @@ const token = {
 
 const activity = {
   ActivityTypes: core.activity.ActivityTypes,
+  ActivityFilterTypes: core.activity.ActivityFilterTypes,
 
-  getLatest: async (safeAddress, limit, timestamp = 0, offset = 0) => {
+  getLatest: async (safeAddress, filter, limit, timestamp = 0, offset = 0) => {
     return await requestCore('activity', 'getLatest', {
-      safeAddress,
+      filter,
       limit,
       offset,
+      safeAddress,
       timestamp,
     });
   },

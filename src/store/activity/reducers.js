@@ -2,6 +2,7 @@ import update from 'immutability-helper';
 import { DateTime } from 'luxon';
 
 import ActionTypes from '~/store/activity/types';
+import core from '~/services/core';
 import web3 from '~/services/web3';
 
 // Every item in the activities list has an unique hash identifier
@@ -10,13 +11,19 @@ function generateHash(activity) {
   return web3.utils.sha3(value);
 }
 
-const initialState = {
+const { ActivityFilterTypes } = core.activity;
+
+export const CATEGORIES = [
+  ActivityFilterTypes.CONNECTIONS,
+  ActivityFilterTypes.TRANSFERS,
+];
+
+const initialStateCategory = {
   activities: [],
   isError: false,
   isLoading: false,
   isLoadingMore: false,
   isMoreAvailable: true,
-  lastSeenAt: null,
   lastTimestamp: 0,
   lastUpdatedAt: null,
   offset: 0,
@@ -30,6 +37,14 @@ const initialStateActivity = {
   isPending: false,
   txHash: null,
   type: null,
+};
+
+const initialState = {
+  categories: CATEGORIES.reduce((acc, category) => {
+    acc[category] = initialStateCategory;
+    return acc;
+  }, {}),
+  lastSeenAt: null,
 };
 
 // Merge current and new activities together, avoid duplicates and sort them
@@ -97,7 +112,7 @@ const activityReducer = (state = initialState, action) => {
       // Generate a hash so we can compare it later with incoming activities
       activity.hash = generateHash(activity);
 
-      const newActivities = state.activities
+      const newActivities = state.categories[action.meta.category].activities
         .concat([activity])
         .sort((itemA, itemB) => {
           return DateTime.fromISO(itemB.createdAt) <
@@ -107,79 +122,117 @@ const activityReducer = (state = initialState, action) => {
         });
 
       return update(state, {
-        activities: { $set: newActivities },
+        categories: {
+          [action.meta.category]: {
+            activities: { $set: newActivities },
+          },
+        },
       });
     }
     case ActionTypes.ACTIVITIES_LOAD_MORE:
       return update(state, {
-        isError: { $set: false },
-        isLoadingMore: { $set: true },
+        categories: {
+          [action.meta.category]: {
+            isError: { $set: false },
+            isLoadingMore: { $set: true },
+          },
+        },
       });
     case ActionTypes.ACTIVITIES_LOAD_MORE_SUCCESS: {
       // Nothing more to add ..
       if (action.meta.activities.length === 0) {
         return update(state, {
-          isLoadingMore: { $set: false },
-          isMoreAvailable: { $set: false },
+          categories: {
+            [action.meta.category]: {
+              isLoadingMore: { $set: false },
+              isMoreAvailable: { $set: false },
+            },
+          },
         });
       }
 
       // Add new activities
       const newActivities = mergeActivities(
-        state.activities,
+        state.categories[action.meta.category].activities,
         action.meta.activities,
       );
 
       // Update offset and add new objects
       return update(state, {
-        activities: { $set: newActivities },
-        isLoadingMore: { $set: false },
-        offset: { $set: action.meta.offset },
+        categories: {
+          [action.meta.category]: {
+            activities: { $set: newActivities },
+            isLoadingMore: { $set: false },
+            offset: { $set: action.meta.offset },
+          },
+        },
       });
     }
     case ActionTypes.ACTIVITIES_LOAD_MORE_ERROR:
       return update(state, {
-        isLoadingMore: { $set: false },
+        categories: {
+          [action.meta.category]: {
+            isLoadingMore: { $set: false },
+          },
+        },
       });
     case ActionTypes.ACTIVITIES_UPDATE:
       return update(state, {
-        isLoading: { $set: true },
-        isError: { $set: false },
+        categories: {
+          [action.meta.category]: {
+            isLoading: { $set: true },
+            isError: { $set: false },
+          },
+        },
       });
     case ActionTypes.ACTIVITIES_UPDATE_SUCCESS: {
       // Nothing to add .. array is empty
       if (action.meta.activities.length === 0) {
         return update(state, {
-          isLoading: { $set: false },
-          lastUpdatedAt: { $set: DateTime.local().toISO() },
+          categories: {
+            [action.meta.category]: {
+              isLoading: { $set: false },
+              lastUpdatedAt: { $set: DateTime.local().toISO() },
+            },
+          },
         });
       }
 
       // Add new activities
       const newActivities = mergeActivities(
-        state.activities,
+        state.categories[action.meta.category].activities,
         action.meta.activities,
       );
 
       // Update timestamps and add new objects
       return update(state, {
-        activities: { $set: newActivities },
-        isLoading: { $set: false },
-        lastTimestamp: { $set: action.meta.lastTimestamp },
-        lastUpdatedAt: { $set: DateTime.local().toISO() },
+        categories: {
+          [action.meta.category]: {
+            activities: { $set: newActivities },
+            isLoading: { $set: false },
+            lastTimestamp: { $set: action.meta.lastTimestamp },
+            lastUpdatedAt: { $set: DateTime.local().toISO() },
+          },
+        },
       });
     }
     case ActionTypes.ACTIVITIES_UPDATE_ERROR:
       return update(state, {
-        isLoading: { $set: false },
-        isError: { $set: true },
+        categories: {
+          [action.meta.category]: {
+            isLoading: { $set: false },
+            isError: { $set: true },
+          },
+        },
       });
     case ActionTypes.ACTIVITIES_RESET:
       return update(state, { $set: initialState });
     case ActionTypes.ACTIVITIES_SET_STATUS: {
-      const index = state.activities.findIndex((item) => {
-        return item.hash === action.meta.hash;
-      });
+      const index = state.categories[action.meta.category].activities.findIndex(
+        (item) => {
+          return item.hash === action.meta.hash;
+        },
+      );
 
       if (index === -1) {
         return state;
@@ -188,12 +241,20 @@ const activityReducer = (state = initialState, action) => {
       const { isPending, isError } = action.meta;
 
       return update(state, {
-        activities: {
-          [index]: {
-            $set: Object.assign({}, state.activities[index], {
-              isPending,
-              isError,
-            }),
+        categories: {
+          [action.meta.category]: {
+            activities: {
+              [index]: {
+                $set: Object.assign(
+                  {},
+                  state.categories[action.meta.category].activities[index],
+                  {
+                    isPending,
+                    isError,
+                  },
+                ),
+              },
+            },
           },
         },
       });

@@ -1,3 +1,4 @@
+import Div100vh from 'react-div-100vh';
 import React, { useEffect, useRef } from 'react';
 import { Box, IconButton } from '@material-ui/core';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -10,7 +11,6 @@ import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
 import SpinnerOverlay from '~/components/SpinnerOverlay';
 import UBI from '~/components/UBI';
-import debounce from '~/utils/debounce';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
@@ -21,10 +21,9 @@ const APP_CHECK_FREQUENCY_DEVELOPMENT = 1000 * 10;
 
 const useStyles = makeStyles((theme) => ({
   app: {
-    overflow: 'hidden',
     minWidth: theme.custom.components.appMinWidth,
     maxWidth: theme.custom.components.appMaxWidth,
-    minHeight: '100vh',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     margin: '0 auto',
@@ -63,29 +62,6 @@ const App = () => {
   const onClickDismiss = (notificationId) => () => {
     notistackRef.current.closeSnackbar(notificationId);
   };
-
-  const adjustViewport = () => {
-    if (!ref.current) {
-      return;
-    }
-
-    // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
-    const vh = window.innerHeight * 0.01;
-    ref.current.style.setProperty('--vh', `${vh}px`);
-  };
-
-  const handleResize = debounce(() => {
-    adjustViewport();
-  }, 100);
-
-  useEffect(() => {
-    adjustViewport();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [handleResize]);
 
   useEffect(() => {
     let checkInterval;
@@ -166,12 +142,14 @@ const App = () => {
       ref={notistackRef}
     >
       <Router>
-        <Box className={classes.app} ref={ref}>
-          <UBI />
-          <Notifications />
-          <SpinnerOverlay isVisible={app.isLoading} />
-          <Routes />
-        </Box>
+        <Div100vh>
+          <Box className={classes.app} ref={ref}>
+            <UBI />
+            <Notifications />
+            <SpinnerOverlay isVisible={app.isLoading} />
+            <Routes />
+          </Box>
+        </Div100vh>
       </Router>
     </SnackbarProvider>
   );

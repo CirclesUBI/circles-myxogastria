@@ -24,6 +24,7 @@ import Navigation from '~/components/Navigation';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import translate from '~/services/locale';
+import { CATEGORIES } from '~/store/activity/reducers';
 import { IconMenu, IconNotification, IconSearch } from '~/styles/icons';
 import { MY_PROFILE_PATH, SEARCH_PATH } from '~/routes';
 
@@ -146,22 +147,25 @@ const Dashboard = () => {
 };
 
 const DashboardActivityIcon = () => {
-  const { activities, lastSeenAt } = useSelector((state) => {
+  const { categories, lastSeenAt } = useSelector((state) => {
     return state.activity;
   });
 
   // Is there any pending transactions?
-  const isPending =
-    activities.findIndex((activity) => {
+  const isPending = CATEGORIES.find((category) => {
+    return !!categories[category].activities.find((activity) => {
       return activity.isPending;
-    }) > -1;
+    });
+  });
 
   // Count how many activities we haven't seen yet
-  const count = activities.reduce((acc, activity) => {
-    if (activity.createdAt > lastSeenAt) {
-      return acc + 1;
-    }
-    return acc;
+  const count = CATEGORIES.reduce((acc, category) => {
+    return (
+      acc +
+      categories[category].activities.reduce((itemAcc, activity) => {
+        return activity.createdAt > lastSeenAt ? itemAcc + 1 : itemAcc;
+      }, 0)
+    );
   }, 0);
 
   return (

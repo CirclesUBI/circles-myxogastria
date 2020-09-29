@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, SwipeableDrawer } from '@material-ui/core';
+import { Container, SwipeableDrawer } from '@material-ui/core';
 import {
   Route,
   Switch,
@@ -59,13 +59,13 @@ const Drawer = () => {
       onClose={onClose}
       onOpen={onOpen}
     >
-      <Box>
+      <Container disableGutters maxWidth="sm">
         <Switch location={location}>
           <Route component={ActivityStream} path={ACTIVITIES_PATH} />
           <Route component={MyProfile} path={MY_PROFILE_PATH} />
           <Route component={TrustNetwork} path={SEARCH_PATH} />
         </Switch>
-      </Box>
+      </Container>
     </SwipeableDrawer>
   );
 };
