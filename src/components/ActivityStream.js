@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState, useMemo, useEffect } from 'react';
+import qs from 'qs';
 import {
   Avatar as MuiAvatar,
   Badge,
-  BottomNavigation,
-  BottomNavigationAction,
   Box,
   Card,
   CardContent,
@@ -14,7 +13,7 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, generatePath } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -22,6 +21,8 @@ import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
 import Logo from '~/components/Logo';
+import TabNavigation from '~/components/TabNavigation';
+import TabNavigationAction from '~/components/TabNavigationAction';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import {
@@ -29,37 +30,33 @@ import {
   IconConnections,
   IconTransactions,
 } from '~/styles/icons';
+import { ACTIVITIES_PATH } from '~/routes';
 import { ZERO_ADDRESS, FAQ_URL, ISSUANCE_RATE_MONTH } from '~/utils/constants';
 import { formatMessage } from '~/services/activity';
 import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
-import { useRelativeProfileLink } from '~/hooks/url';
+import { useRelativeProfileLink, useQuery } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 
 const { ActivityTypes, ActivityFilterTypes } = core.activity;
 
 const DEFAULT_CATEGORY = ActivityFilterTypes.TRANSFERS;
 
+const QUERY_FILTER_MAP = {
+  transfers: ActivityFilterTypes.TRANSFERS,
+  connections: ActivityFilterTypes.CONNECTIONS,
+};
+
+const filterToQuery = (filterName) => {
+  return Object.keys(QUERY_FILTER_MAP).find((key) => {
+    return QUERY_FILTER_MAP[key] === filterName;
+  });
+};
+
 const useStyles = makeStyles((theme) => ({
   avatarTransparent: {
     width: theme.custom.components.avatarSize,
     height: theme.custom.components.avatarSize,
     backgroundColor: 'transparent',
-  },
-  bottomNavigation: {
-    marginBottom: theme.spacing(2),
-  },
-  bottomNavigationAction: {
-    maxWidth: 'none',
-  },
-  bottomNavigationLabel: {
-    marginTop: theme.spacing(1),
-    fontWeight: theme.typography.fontWeightLight,
-    fontSize: '0.9rem',
-    borderBottom: '2px solid transparent',
-    '&.Mui-selected': {
-      fontSize: '0.9rem',
-      borderBottom: `2px solid ${theme.palette.primary.main}`,
-    },
   },
   cardHeader: {
     cursor: 'pointer',
@@ -92,17 +89,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ActivityStream = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY);
+  const { category } = useQuery();
+  const preselectedCategory =
+    category in QUERY_FILTER_MAP
+      ? QUERY_FILTER_MAP[category]
+      : DEFAULT_CATEGORY;
+
+  const [selectedCategory, setSelectedCategory] = useState(preselectedCategory);
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
 
   const activity = categories[selectedCategory];
   const isLoading = activity.isLoadingMore || activity.lastUpdated === 0;
 
-  const onLoadMore = () => {
+  const handleLoadMore = () => {
     dispatch(loadMoreActivities(selectedCategory));
+  };
+
+  const handleFilterSelection = (event, newFilter) => {
+    const query = qs.stringify({
+      category: filterToQuery(newFilter) || filterToQuery(DEFAULT_CATEGORY),
+    });
+
+    history.replace(`${generatePath(ACTIVITIES_PATH)}?${query}`);
+    setSelectedCategory(newFilter);
   };
 
   useEffect(() => {
@@ -114,33 +126,18 @@ const ActivityStream = () => {
 
   return (
     <Fragment>
-      <BottomNavigation
-        className={classes.bottomNavigation}
-        showLabels
-        value={selectedCategory}
-        onChange={(event, newCategory) => {
-          setSelectedCategory(newCategory);
-        }}
-      >
-        <BottomNavigationAction
-          classes={{
-            root: classes.bottomNavigationAction,
-            label: classes.bottomNavigationLabel,
-          }}
+      <TabNavigation value={selectedCategory} onChange={handleFilterSelection}>
+        <TabNavigationAction
           icon={<IconTransactions />}
           label={translate('ActivityStream.bodyFilterTransactions')}
           value={ActivityFilterTypes.TRANSFERS}
         />
-        <BottomNavigationAction
-          classes={{
-            root: classes.bottomNavigationAction,
-            label: classes.bottomNavigationLabel,
-          }}
+        <TabNavigationAction
           icon={<IconConnections />}
           label={translate('ActivityStream.bodyFilterConnections')}
           value={ActivityFilterTypes.CONNECTIONS}
         />
-      </BottomNavigation>
+      </TabNavigation>
       <ActivityStreamList activity={activity} lastSeenAt={lastSeenAt} />
       {isLoading && (
         <Box m="auto">
@@ -149,7 +146,12 @@ const ActivityStream = () => {
       )}
       {activity.isMoreAvailable && (
         <Box mt={2}>
-          <Button disabled={isLoading} fullWidth isOutline onClick={onLoadMore}>
+          <Button
+            disabled={isLoading}
+            fullWidth
+            isOutline
+            onClick={handleLoadMore}
+          >
             {translate('ActivityStream.buttonLoadMore')}
           </Button>
         </Box>

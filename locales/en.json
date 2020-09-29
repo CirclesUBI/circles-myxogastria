@@ -71,7 +71,10 @@
     "successRevokeTrust": "You successfully revoked your trust from @{username}!"
   },
   "Finder": {
-    "bodyNoResultsGiven": "No results given ...",
+    "bodyFilterDirect": "Directly trusted",
+    "bodyFilterExternal": "External",
+    "bodyFilterIndirect": "In your network",
+    "bodyNoResultsGiven": "No search results found!",
     "formSearch": "Search"
   },
   "LocaleSelector": {
