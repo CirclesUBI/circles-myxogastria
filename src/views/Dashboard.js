@@ -9,7 +9,7 @@ import {
   InputAdornment,
   Input,
 } from '@material-ui/core';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, generatePath } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
@@ -26,7 +26,7 @@ import View from '~/components/View';
 import translate from '~/services/locale';
 import { CATEGORIES } from '~/store/activity/reducers';
 import { IconMenu, IconNotification, IconSearch } from '~/styles/icons';
-import { MY_PROFILE_PATH, SEARCH_PATH } from '~/routes';
+import { MY_PROFILE_PATH, SEND_PATH, SEARCH_PATH } from '~/routes';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {
@@ -139,7 +139,7 @@ const Dashboard = () => {
         className={clsx(classes.fabSend, {
           [classes.fabSendExpanded]: isMenuExpanded,
         })}
-        to="/send"
+        to={generatePath(SEND_PATH)}
       />
       <Drawer />
     </Fragment>
@@ -189,7 +189,7 @@ const DashboardSearch = () => {
 
   const handleSearchSelect = () => {
     ref.current.blur();
-    history.push(SEARCH_PATH);
+    history.push(generatePath(SEARCH_PATH));
   };
 
   return (

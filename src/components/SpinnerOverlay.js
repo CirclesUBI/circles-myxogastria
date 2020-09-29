@@ -7,7 +7,7 @@ import { colors } from '~/styles/theme';
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.spinnerOverlay,
     backgroundColor: colors.white,
   },
 }));

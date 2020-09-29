@@ -15,15 +15,29 @@ export function useUserdata(address) {
   const [data, setData] = useState(defaultUserdata(address));
 
   useEffect(() => {
-    if (!address) {
-      setData(defaultUserdata(address));
-    }
+    let isUnloaded = false;
 
-    resolveUsernames([address]).then((result) => {
+    const request = async () => {
+      const result = await resolveUsernames([address]);
+
+      if (isUnloaded) {
+        return;
+      }
+
       if (address in result) {
         setData(result[address]);
       }
-    });
+    };
+
+    if (!address) {
+      setData(defaultUserdata(address));
+    } else {
+      request();
+    }
+
+    return () => {
+      isUnloaded = true;
+    };
   }, [address]);
 
   return data;

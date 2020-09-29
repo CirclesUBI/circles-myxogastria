@@ -20,7 +20,7 @@ const TrustNetwork = () => {
     return <Redirect push to={redirectPath} />;
   }
 
-  return <Finder onSelect={handleSelect} />;
+  return <Finder hasActions onSelect={handleSelect} />;
 };
 
 export default TrustNetwork;

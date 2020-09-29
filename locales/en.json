@@ -10,12 +10,12 @@
     "bodyActivitySentCircles": "Sent to @{actor}",
     "bodyActivityTrustedBySomeone": "@{actor} trusts you",
     "bodyDateNow": "Now",
-    "bodyExplainReceivedCircles": "You received {value} {denominator} from @{actor} transitively.",
-    "bodyExplainReceivedUBI": "This is the Universal Basic Income minted with your own token. You receive circa {rate} per month.",
-    "bodyExplainSentCircles": "You sent {value} {denominator} to @{actor} transitively.",
-    "bodyExplainSecondary": "All activities carry a small fee used to maintain the Circles network.",
     "bodyExplainMeTrustedSomeone": "You trusted @{actor} which means that @{actor} can send you their tokens.",
     "bodyExplainMeUntrustedSomeone": "You untrusted @{actor} which means that you don't accept any tokens anymore of them.",
+    "bodyExplainReceivedCircles": "You received {value} {denominator} from @{actor} transitively.",
+    "bodyExplainReceivedUBI": "This is the Universal Basic Income minted with your own token. You receive circa {rate} per month.",
+    "bodyExplainSecondary": "All activities carry a small fee used to maintain the Circles network.",
+    "bodyExplainSentCircles": "You sent {value} {denominator} to @{actor} transitively.",
     "bodyExplainTrustedBySomeone": "@{actor} trusts you. You can send your token to them now.",
     "bodyExplainUntrustedBySomeone": "@{actor} untrusts you which means that they don't accept your token anymore.",
     "bodyFilterConnections": "Connections",
@@ -54,8 +54,27 @@
     "headingDangerZone": "Danger Zone",
     "headingManageDevices": "Settings"
   },
+  "DialogTrust": {
+    "dialogTrustCancel": "Cancel",
+    "dialogTrustConfirm": "Trust",
+    "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can effect the security of the app. In order to stay safe only trust people you know.",
+    "dialogTrustTitle": "Do you trust @{username}?",
+    "errorTrust": "Something went wrong when you tried to trust @{username} ...",
+    "successTrust": "Nice. You trusted @{username}!"
+  },
+  "DialogTrustRevoke": {
+    "dialogRevokeTrustCancel": "Cancel",
+    "dialogRevokeTrustConfirm": "Revoke trust",
+    "dialogRevokeTrustDescription": "Are you sure you want to revoke your trust with @{username}?",
+    "dialogRevokeTrustTitle": "Untrust @{username}",
+    "errorRevokeTrust": "Something went wrong when you tried to untrust @{username} ...",
+    "successRevokeTrust": "You successfully revoked your trust from @{username}!"
+  },
   "Finder": {
-    "bodyNoResultsGiven": "No results given ...",
+    "bodyFilterDirect": "Directly trusted",
+    "bodyFilterExternal": "External",
+    "bodyFilterIndirect": "In your network",
+    "bodyNoResultsGiven": "No search results found!",
     "formSearch": "Search"
   },
   "LocaleSelector": {
@@ -137,21 +156,17 @@
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },
   "Profile": {
-    "dialogRevokeTrustCancel": "Cancel",
-    "dialogRevokeTrustConfirm": "Revoke trust",
-    "dialogRevokeTrustDescription": "Are you sure you want to revoke your trust with {username}?",
-    "dialogRevokeTrustTitle": "Untrust {username}",
-    "dialogTrustCancel": "Cancel",
-    "dialogTrustConfirm": "Trust",
-    "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can effect the security of the app. In order to stay safe only trust people you know.",
-    "dialogTrustTitle": "Do you trust {username}?",
-    "errorRevokeTrust": "Something went wrong when you tried to untrust {username} ...",
-    "errorTrust": "Something went wrong when you tried to trust {username} ...",
     "shareText": "Check out my Circles UBI profile!",
-    "successRevokeTrust": "You successfully revoked your trust from {username}!",
-    "successTrust": "Nice. You trusted {username}!",
     "tooltipSafeIsYou": "This is your own profile",
     "tooltipSafeNotDeployed": "This user did not complete their Circles account yet"
+  },
+  "ProfileMini": {
+    "bodyMutualFriends": {
+      "one": "You have one mututal friend in common with @{username}",
+      "other": "You have {count} mutual friends in common with @{username}",
+      "zero": "You have no mututal friends in common with @{username}"
+    },
+    "bodyUndeployedToken": "Profile not completed yet"
   },
   "SeedPhrase": {
     "bodyDescription": "Print this and store it safely:",

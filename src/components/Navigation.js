@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Typography, Drawer, Grid, Button, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { Typography, Drawer, Grid, Button, Box } from '@material-ui/core';
+import { generatePath } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
@@ -133,7 +134,7 @@ const NavigationMain = ({ onClick }) => {
       <NavigationLink to={ACTIVITIES_PATH} onClick={onClick}>
         {translate('Navigation.buttonActivityLog')}
       </NavigationLink>
-      <NavigationLink to={SEND_PATH} onClick={onClick}>
+      <NavigationLink to={generatePath(SEND_PATH)} onClick={onClick}>
         {translate('Navigation.buttonSendCircles')}
       </NavigationLink>
       <NavigationLink to={DEVICES_PATH} onClick={onClick}>
