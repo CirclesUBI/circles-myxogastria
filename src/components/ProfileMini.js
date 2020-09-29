@@ -17,7 +17,7 @@ import translate from '~/services/locale';
 import { IconFriends, IconSend, IconTrust } from '~/styles/icons';
 import { usePendingTransfer } from '~/hooks/activity';
 import { useRelativeSendLink } from '~/hooks/url';
-import { useTrustConnection } from '~/hooks/network';
+import { useTrustConnection, useDeploymentStatus } from '~/hooks/network';
 import { useUserdata } from '~/hooks/username';
 
 const useStyles = makeStyles((theme) => ({
@@ -55,12 +55,13 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
 
   const sendPath = useRelativeSendLink(address);
   const { username } = useUserdata(address);
+  const connection = useTrustConnection(address);
+  const { isReady, isDeployed } = useDeploymentStatus(address);
 
   const [isRedirect, setIsRedirect] = useState(false);
   const [isTrustOpen, setIsTrustOpen] = useState(false);
 
-  // @TODO
-  const mutualFriendsCount = 5;
+  const mutualFriendsCount = connection.mutualConnections.length;
 
   const handleSend = (event) => {
     event.stopPropagation();
@@ -94,6 +95,7 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
             hasActions && (
               <ProfileMiniActions
                 address={address}
+                connection={connection}
                 onSend={handleSend}
                 onTrust={handleTrust}
               />
@@ -105,19 +107,25 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
             action: classes.cardHeaderAction,
           }}
           subheader={
-            <Tooltip
-              arrow
-              placement="left"
-              title={translate('ProfileMini.bodyMutualFriends', {
-                count: mutualFriendsCount,
-                username,
-              })}
-            >
+            isReady && isDeployed ? (
+              <Tooltip
+                arrow
+                placement="left"
+                title={translate('ProfileMini.bodyMutualFriends', {
+                  count: mutualFriendsCount,
+                  username,
+                })}
+              >
+                <Typography className={classes.mututalFriends} component="span">
+                  <IconFriends className={classes.mutualFriendsIcon} />{' '}
+                  {mutualFriendsCount}
+                </Typography>
+              </Tooltip>
+            ) : (
               <Typography className={classes.mututalFriends} component="span">
-                <IconFriends className={classes.mutualFriendsIcon} />{' '}
-                {mutualFriendsCount}
+                {translate('ProfileMini.bodyUndeployedToken')}
               </Typography>
-            </Tooltip>
+            )
           }
           title={`@${username}`}
         />
@@ -126,12 +134,10 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
   );
 };
 
-const ProfileMiniActions = ({ address, onTrust, onSend }) => {
+const ProfileMiniActions = ({ address, onTrust, onSend, connection }) => {
   const classes = useStyles();
 
-  const { isPending: isPendingTrust, isMeTrusting } = useTrustConnection(
-    address,
-  );
+  const { isMeTrusting, isPendingTrust } = connection;
   const isPendingSend = usePendingTransfer(address);
 
   return (
@@ -168,6 +174,7 @@ ProfileMini.propTypes = {
 
 ProfileMiniActions.propTypes = {
   address: PropTypes.string.isRequired,
+  connection: PropTypes.object.isRequired,
   onSend: PropTypes.func.isRequired,
   onTrust: PropTypes.func.isRequired,
 };

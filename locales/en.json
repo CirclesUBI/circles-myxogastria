@@ -10,12 +10,12 @@
     "bodyActivitySentCircles": "Sent to @{actor}",
     "bodyActivityTrustedBySomeone": "@{actor} trusts you",
     "bodyDateNow": "Now",
-    "bodyExplainReceivedCircles": "You received {value} {denominator} from @{actor} transitively.",
-    "bodyExplainReceivedUBI": "This is the Universal Basic Income minted with your own token. You receive circa {rate} per month.",
-    "bodyExplainSentCircles": "You sent {value} {denominator} to @{actor} transitively.",
-    "bodyExplainSecondary": "All activities carry a small fee used to maintain the Circles network.",
     "bodyExplainMeTrustedSomeone": "You trusted @{actor} which means that @{actor} can send you their tokens.",
     "bodyExplainMeUntrustedSomeone": "You untrusted @{actor} which means that you don't accept any tokens anymore of them.",
+    "bodyExplainReceivedCircles": "You received {value} {denominator} from @{actor} transitively.",
+    "bodyExplainReceivedUBI": "This is the Universal Basic Income minted with your own token. You receive circa {rate} per month.",
+    "bodyExplainSecondary": "All activities carry a small fee used to maintain the Circles network.",
+    "bodyExplainSentCircles": "You sent {value} {denominator} to @{actor} transitively.",
     "bodyExplainTrustedBySomeone": "@{actor} trusts you. You can send your token to them now.",
     "bodyExplainUntrustedBySomeone": "@{actor} untrusts you which means that they don't accept your token anymore.",
     "bodyFilterConnections": "Connections",
@@ -109,13 +109,6 @@
     "linkSupport": "Go to support.",
     "successWelcome": "Successfully restored wallet. Welcome!"
   },
-  "ProfileMini": {
-    "bodyMutualFriends": {
-      "zero": "You have no mututal friends in common with @{username}",
-      "one": "You have one mututal friend in common with @{username}",
-      "other": "You have {count} mutual friends in common with @{username}"
-    }
-  },
   "MyProfile": {
     "buttonShowProfile": "Show Profile",
     "buttonShowQR": "Show QR Code"
@@ -166,6 +159,14 @@
     "shareText": "Check out my Circles UBI profile!",
     "tooltipSafeIsYou": "This is your own profile",
     "tooltipSafeNotDeployed": "This user did not complete their Circles account yet"
+  },
+  "ProfileMini": {
+    "bodyMutualFriends": {
+      "one": "You have one mututal friend in common with @{username}",
+      "other": "You have {count} mutual friends in common with @{username}",
+      "zero": "You have no mututal friends in common with @{username}"
+    },
+    "bodyUndeployedToken": "Profile not completed yet"
   },
   "SeedPhrase": {
     "bodyDescription": "Print this and store it safely:",

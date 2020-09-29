@@ -257,7 +257,7 @@ const FinderResults = ({ selectedFilter, onFilterChange, ...props }) => {
             case FILTER_DIRECT:
               return item.isIncoming;
             case FILTER_INDIRECT:
-              return item.isOutgoing;
+              return item.isOutgoing && !item.isIncoming;
             case FILTER_EXTERNAL:
               return !item.isIncoming && !item.isOutgoing;
             default:
@@ -279,7 +279,7 @@ const FinderResults = ({ selectedFilter, onFilterChange, ...props }) => {
 
   // Automatically select the filter with the only results
   useEffect(() => {
-    if (!props.isLoading) {
+    if (!props.isLoading && !props.isQueryEmpty) {
       const filterRank = [FILTER_DIRECT, FILTER_INDIRECT, FILTER_EXTERNAL]
         .map((key) => {
           return {
@@ -300,7 +300,7 @@ const FinderResults = ({ selectedFilter, onFilterChange, ...props }) => {
         handleFilterChange(bestFilter);
       }
     }
-  }, [props.isLoading]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [props.isLoading, props.isQueryEmpty]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!props.isQueryEmpty && props.items.length === 0 && !props.isLoading) {
     return (

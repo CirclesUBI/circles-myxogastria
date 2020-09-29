@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import clsx from 'clsx';
 import {
   Badge,
@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
 import ButtonBack from '~/components/ButtonBack';
@@ -23,7 +23,6 @@ import Header from '~/components/Header';
 import NotFound from '~/views/NotFound';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
-import core from '~/services/core';
 import translate from '~/services/locale';
 import web3 from '~/services/web3';
 import {
@@ -33,11 +32,9 @@ import {
   IconTrustMutual,
 } from '~/styles/icons';
 import { DASHBOARD_PATH } from '~/routes';
-import { ZERO_ADDRESS } from '~/utils/constants';
-import { checkTrustState } from '~/store/trust/actions';
 import { usePendingTransfer } from '~/hooks/activity';
 import { useRelativeSendLink, useProfileLink } from '~/hooks/url';
-import { useTrustConnection } from '~/hooks/network';
+import { useTrustConnection, useDeploymentStatus } from '~/hooks/network';
 
 const useStyles = makeStyles((theme) => ({
   trustButton: {
@@ -97,11 +94,7 @@ const ProfileSendButton = ({ address }) => {
   const isTransferPending = usePendingTransfer(address);
   const sendPath = useRelativeSendLink(address);
   const safe = useSelector((state) => state.safe);
-
-  const [isDeployed, setIsDeployed] = useState(true);
-  const [isReady, setIsReady] = useState(false);
-
-  const dispatch = useDispatch();
+  const { isReady, isDeployed } = useDeploymentStatus(address);
 
   // Check against these three cases where we can't send Circles
   //
@@ -112,25 +105,6 @@ const ProfileSendButton = ({ address }) => {
     safe.currentAccount === address ||
     safe.pendingNonce !== null ||
     !isDeployed;
-
-  useEffect(() => {
-    // Update trust connection info
-    dispatch(checkTrustState());
-
-    // Find out if Token is deployed
-    const checkTokenDeployment = async () => {
-      try {
-        const tokenAddress = await core.token.getAddress(address);
-        setIsDeployed(tokenAddress !== ZERO_ADDRESS);
-        setIsReady(true);
-      } catch {
-        setIsDeployed(false);
-        setIsReady(true);
-      }
-    };
-
-    checkTokenDeployment();
-  }, [dispatch, address]);
 
   return !isReady || isTransferPending ? (
     <ButtonSend isPending to={sendPath} />

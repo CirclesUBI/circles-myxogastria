@@ -33,7 +33,7 @@ const ButtonSend = React.forwardRef(
       <Fab
         aria-label="Send"
         className={clsx(classes.fabSend, className, {
-          [classes.fabSendDisabled]: disabled,
+          [classes.fabSendDisabled]: disabled || isPending,
         })}
         color="primary"
         component={disabled || isPending ? 'div' : Link}
