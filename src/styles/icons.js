@@ -9,6 +9,7 @@ import close from '%/images/close.svg';
 import closeOutline from '%/images/close-outline.svg';
 import connections from '%/images/connections.svg';
 import facebook from '%/images/facebook.svg';
+import friends from '%/images/friends.svg';
 import mail from '%/images/mail.svg';
 import menu from '%/images/menu.svg';
 import notification from '%/images/notification.svg';
@@ -54,6 +55,10 @@ export const IconConnections = (props) => {
 
 export const IconFacebook = (props) => {
   return <SvgIcon component={facebook} {...props} viewBox="0 0 11 20" />;
+};
+
+export const IconFriends = (props) => {
+  return <SvgIcon component={friends} {...props} viewBox="0 0 12 12" />;
 };
 
 export const IconMail = (props) => {

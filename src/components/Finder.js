@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Finder = ({ onSelect, basePath = SEARCH_PATH }) => {
+const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
   const classes = useStyles();
   const ref = useRef();
 
@@ -154,6 +154,7 @@ const Finder = ({ onSelect, basePath = SEARCH_PATH }) => {
         </QRCodeScanner>
       </Box>
       <FinderResults
+        hasActions={hasActions}
         isLoading={isLoading}
         isQueryEmpty={isQueryEmpty}
         items={searchResults}
@@ -189,7 +190,11 @@ const FinderResults = (props) => {
       {props.items.map((item, index) => {
         return (
           <Grid item key={index} xs={12}>
-            <FinderItem user={item} onClick={props.onClick} />
+            <FinderItem
+              hasActions={props.hasActions}
+              user={item}
+              onClick={props.onClick}
+            />
           </Grid>
         );
       })}
@@ -208,6 +213,7 @@ const FinderItem = (props) => {
     <ProfileMini
       address={props.user.safeAddress}
       className={classes.searchItem}
+      hasActions={props.hasActions}
       onClick={handleSelect}
     />
   );
@@ -215,10 +221,12 @@ const FinderItem = (props) => {
 
 Finder.propTypes = {
   basePath: PropTypes.string,
+  hasActions: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
 };
 
 FinderResults.propTypes = {
+  hasActions: PropTypes.bool,
   isLoading: PropTypes.bool.isRequired,
   isQueryEmpty: PropTypes.bool.isRequired,
   items: PropTypes.array,
@@ -226,6 +234,7 @@ FinderResults.propTypes = {
 };
 
 FinderItem.propTypes = {
+  hasActions: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };

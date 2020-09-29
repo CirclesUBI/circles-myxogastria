@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.8rem',
   },
   cardHeaderAction: {
-    marginTop: 2,
+    marginTop: 0,
     marginRight: theme.spacing(0.25),
     alignSelf: 'center',
     fontSize: '2rem',

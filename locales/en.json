@@ -54,6 +54,22 @@
     "headingDangerZone": "Danger Zone",
     "headingManageDevices": "Settings"
   },
+  "DialogTrust": {
+    "dialogTrustCancel": "Cancel",
+    "dialogTrustConfirm": "Trust",
+    "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can effect the security of the app. In order to stay safe only trust people you know.",
+    "dialogTrustTitle": "Do you trust @{username}?",
+    "errorTrust": "Something went wrong when you tried to trust @{username} ...",
+    "successTrust": "Nice. You trusted @{username}!"
+  },
+  "DialogTrustRevoke": {
+    "dialogRevokeTrustCancel": "Cancel",
+    "dialogRevokeTrustConfirm": "Revoke trust",
+    "dialogRevokeTrustDescription": "Are you sure you want to revoke your trust with @{username}?",
+    "dialogRevokeTrustTitle": "Untrust @{username}",
+    "errorRevokeTrust": "Something went wrong when you tried to untrust @{username} ...",
+    "successRevokeTrust": "You successfully revoked your trust from @{username}!"
+  },
   "Finder": {
     "bodyNoResultsGiven": "No results given ...",
     "formSearch": "Search"
@@ -89,6 +105,13 @@
     "headingLoginSeedPhrase": "Login via Seed Phrase",
     "linkSupport": "Go to support.",
     "successWelcome": "Successfully restored wallet. Welcome!"
+  },
+  "ProfileMini": {
+    "bodyMutualFriends": {
+      "zero": "You have no mututal friends in common with @{username}",
+      "one": "You have one mututal friend in common with @{username}",
+      "other": "You have {count} mutual friends in common with @{username}"
+    }
   },
   "MyProfile": {
     "buttonShowProfile": "Show Profile",
@@ -137,19 +160,7 @@
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },
   "Profile": {
-    "dialogRevokeTrustCancel": "Cancel",
-    "dialogRevokeTrustConfirm": "Revoke trust",
-    "dialogRevokeTrustDescription": "Are you sure you want to revoke your trust with {username}?",
-    "dialogRevokeTrustTitle": "Untrust {username}",
-    "dialogTrustCancel": "Cancel",
-    "dialogTrustConfirm": "Trust",
-    "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can effect the security of the app. In order to stay safe only trust people you know.",
-    "dialogTrustTitle": "Do you trust {username}?",
-    "errorRevokeTrust": "Something went wrong when you tried to untrust {username} ...",
-    "errorTrust": "Something went wrong when you tried to trust {username} ...",
     "shareText": "Check out my Circles UBI profile!",
-    "successRevokeTrust": "You successfully revoked your trust from {username}!",
-    "successTrust": "Nice. You trusted {username}!",
     "tooltipSafeIsYou": "This is your own profile",
     "tooltipSafeNotDeployed": "This user did not complete their Circles account yet"
   },
