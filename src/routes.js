@@ -38,7 +38,7 @@ export const DASHBOARD_PATH = '/';
 export const DEVICES_PATH = '/devices';
 export const PROFILE_PATH = '/profile/:address';
 export const SEED_PHRASE_PATH = '/seedphrase';
-export const SEND_CONFIRM_PATH = '/send/:address';
+export const SEND_CONFIRM_PATH = '/send/:address(0x[0-9a-fA-f]{40})';
 export const SEND_PATH = '/send/:input?';
 export const SHARE_PATH = '/share';
 
@@ -197,8 +197,8 @@ const Routes = () => {
         exact
         path={VALIDATION_SHARE_PATH}
       />
-      <TrustedRoute component={Send} exact path={SEND_PATH} />
       <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
+      <TrustedRoute component={Send} exact path={SEND_PATH} />
       <TrustedRoute component={Devices} exact path={DEVICES_PATH} />
       <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
       <TrustedRoute component={Share} exact path={SHARE_PATH} />

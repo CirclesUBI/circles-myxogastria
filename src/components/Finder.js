@@ -117,6 +117,8 @@ const Finder = ({ onSelect, basePath = SEARCH_PATH }) => {
     // Shortcut for putting in a valid address directly
     const matched = core.utils.matchAddress(cleanInput);
     if (matched) {
+      // Reset current input so we don't run into an redirect loop
+      history.replace(generatePath(basePath));
       onSelect(matched);
       return;
     }
