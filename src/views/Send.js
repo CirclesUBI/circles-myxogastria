@@ -9,7 +9,7 @@ import Header from '~/components/Header';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import CenteredHeading from '~/components/CenteredHeading';
-import { SEND_CONFIRM_PATH } from '~/routes';
+import { SEND_PATH, SEND_CONFIRM_PATH } from '~/routes';
 
 const Send = () => {
   const [redirectPath, setRedirectPath] = useState(null);
@@ -36,7 +36,7 @@ const Send = () => {
       </Header>
       <View>
         <Container maxWidth="sm">
-          <Finder onSelect={handleSelect} />
+          <Finder basePath={SEND_PATH} onSelect={handleSelect} />
         </Container>
       </View>
     </Fragment>

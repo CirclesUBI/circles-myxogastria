@@ -25,7 +25,7 @@ import { ACCOUNT_CREATE } from '~/store/tutorial/actions';
 // Routes in Drawer component
 export const ACTIVITIES_PATH = '/activities';
 export const MY_PROFILE_PATH = '/profile';
-export const SEARCH_PATH = '/search';
+export const SEARCH_PATH = '/search/:input?';
 
 // Main routes
 export const WELCOME_PATH = '/welcome';
@@ -39,7 +39,7 @@ export const DEVICES_PATH = '/devices';
 export const PROFILE_PATH = '/profile/:address';
 export const SEED_PHRASE_PATH = '/seedphrase';
 export const SEND_CONFIRM_PATH = '/send/:address';
-export const SEND_PATH = '/send';
+export const SEND_PATH = '/send/:input?';
 export const SHARE_PATH = '/share';
 
 const SessionContainer = ({

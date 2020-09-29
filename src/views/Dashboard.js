@@ -9,7 +9,7 @@ import {
   InputAdornment,
   Input,
 } from '@material-ui/core';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, generatePath } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
@@ -189,7 +189,7 @@ const DashboardSearch = () => {
 
   const handleSearchSelect = () => {
     ref.current.blur();
-    history.push(SEARCH_PATH);
+    history.push(generatePath(SEARCH_PATH));
   };
 
   return (

@@ -3,6 +3,7 @@ import { Container, SwipeableDrawer } from '@material-ui/core';
 import {
   Route,
   Switch,
+  generatePath,
   useHistory,
   useLocation,
   useRouteMatch,
@@ -36,7 +37,9 @@ const Drawer = () => {
   const history = useHistory();
 
   const isExpanded = !!useRouteMatch(
-    `(${[ACTIVITIES_PATH, MY_PROFILE_PATH, SEARCH_PATH].join('|')})`,
+    `(${[ACTIVITIES_PATH, MY_PROFILE_PATH, generatePath(SEARCH_PATH)].join(
+      '|',
+    )})`,
   );
 
   const onOpen = () => {

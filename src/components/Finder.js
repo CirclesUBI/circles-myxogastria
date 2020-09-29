@@ -15,6 +15,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useParams, useHistory, generatePath } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import ProfileMini from '~/components/ProfileMini';
@@ -23,6 +24,7 @@ import core from '~/services/core';
 import debounce from '~/utils/debounce';
 import translate from '~/services/locale';
 import { IconScan } from '~/styles/icons';
+import { SEARCH_PATH } from '~/routes';
 
 const MAX_SEARCH_RESULTS = 10;
 
@@ -39,20 +41,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Finder = ({ onSelect }) => {
+const Finder = ({ onSelect, basePath = SEARCH_PATH }) => {
   const classes = useStyles();
   const ref = useRef();
+
+  const { input = '' } = useParams();
+  const history = useHistory();
 
   const [isLoading, setIsLoading] = useState(false);
   const [isQueryEmpty, setIsQueryEmpty] = useState(true);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [input, setInput] = useState('');
 
   const safe = useSelector((state) => state.safe);
 
   const onInputChange = (event) => {
-    setInput(event.target.value);
+    const { value } = event.target;
+    history.replace(generatePath(basePath, value ? { input: value } : {}));
   };
 
   const handleSelect = (user) => {
@@ -207,6 +212,7 @@ const FinderItem = (props) => {
 };
 
 Finder.propTypes = {
+  basePath: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
 };
 
