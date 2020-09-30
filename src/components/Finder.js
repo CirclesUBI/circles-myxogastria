@@ -169,7 +169,7 @@ const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
   );
 
   useEffect(() => {
-    const cleanInput = input.trim().replaceAll('@', '');
+    const cleanInput = input.trim().replace(/@/g, '');
     setIsQueryEmpty(cleanInput.length === 0);
 
     if (cleanInput.length === 0) {
