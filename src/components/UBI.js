@@ -22,7 +22,7 @@ const UBI = () => {
       'day',
     );
 
-    if (isSameDay || !token.address) {
+    if (isSameDay || !token.address || !safe.currentAccount) {
       return;
     }
 

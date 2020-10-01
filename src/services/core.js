@@ -166,6 +166,14 @@ const token = {
     });
   },
 
+  findTransitiveTransfer: async (from, to, value) => {
+    return await requestCore('token', 'findTransitiveTransfer', {
+      from,
+      to,
+      value,
+    });
+  },
+
   transfer: async (from, to, value, paymentNote) => {
     return await requestCore('token', 'transfer', {
       from,

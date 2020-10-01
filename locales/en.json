@@ -169,17 +169,28 @@
     "headingSendCircles": "Send Circles"
   },
   "SendConfirm": {
-    "bodyHowMuch": "How much would you like to send?",
-    "bodyTo": "To:",
+    "bodyAmountTooHigh": {
+      "one": "You can currently only send a maximum of {amount} Circles to @{username}",
+      "other": "You can currently only send a maximum of {amount} Circles to @{username}",
+      "zero": "You can currently not send anything to @{username} which means that there is no trust path between you."
+    },
+    "bodyMaxFlow": "Maximum amount: {amount}",
+    "bodyTotalBalance": "Your total balance: {balance}",
     "buttonSubmitAmount": "Next",
     "dialogSendCancel": "Cancel",
     "dialogSendConfirm": "Send",
-    "dialogSendDescription": "Are you sure you want to send {amount} Circles to {username}?",
+    "dialogSendDescription": "Are you sure you want to send {amount} Circles to @{username}?",
     "dialogSendTitle": "Send Circles",
     "errorMessage": "Something went wrong .. {errorMessage}",
-    "errorMessageTransfer": "Could not transfer Circles as there is currently no complete trust path between {username} and you ..",
+    "errorMessageTransfer": "Could not transfer Circles as there is currently no complete trust path between @{username} and you ..",
+    "formAmount": "Enter amount",
+    "formPaymentNote": "Add note",
+    "formReceiver": "Send to",
+    "formSender": "Send from",
     "headingSendCircles": "Send Circles",
-    "successMessage": "You transferred {amount} Circles successfully to {username}!"
+    "successMessage": "You transferred {amount} Circles successfully to @{username}!",
+    "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}",
+    "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
   },
   "Share": {
     "buttonShareProfileLink": "Share",
