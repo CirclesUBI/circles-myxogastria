@@ -486,8 +486,8 @@ const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
   }).join(',');
 
   useEffect(() => {
-    onDisabledChange(!values.avatarUrl || isLoading);
-  }, [onDisabledChange, values.avatarUrl, isLoading]);
+    onDisabledChange(isLoading);
+  }, [onDisabledChange, isLoading]);
 
   return (
     <Fragment>
