@@ -4,7 +4,7 @@ import { useUserdata } from '~/hooks/username';
 
 const UsernameDisplay = (props) => {
   const { username } = useUserdata(props.address);
-  return username;
+  return `@${username}`;
 };
 
 UsernameDisplay.propTypes = {
