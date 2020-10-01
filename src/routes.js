@@ -7,7 +7,6 @@ import Dashboard from '~/views/Dashboard';
 import Devices from '~/views/Devices';
 import Error from '~/views/Error';
 import Login from '~/views/Login';
-import LoginSeedPhrase from '~/views/LoginSeedPhrase';
 import NotFound from '~/views/NotFound';
 import Onboarding from '~/views/Onboarding';
 import Profile from '~/views/Profile';
@@ -30,7 +29,6 @@ export const SEARCH_PATH = '/search';
 // Main routes
 export const WELCOME_PATH = '/welcome';
 export const LOGIN_PATH = '/welcome/login';
-export const LOGIN_SEED_PHRASE_PATH = '/welcome/seedphrase';
 export const ONBOARDING_PATH = '/welcome/onboarding';
 export const VALIDATION_PATH = '/validation';
 export const VALIDATION_SHARE_PATH = '/validation/share';
@@ -186,11 +184,6 @@ const Routes = () => {
         path={ONBOARDING_PATH}
       />
       <OnboardingRoute component={Login} exact path={LOGIN_PATH} />
-      <OnboardingRoute
-        component={LoginSeedPhrase}
-        exact
-        path={LOGIN_SEED_PHRASE_PATH}
-      />
       <SessionRoute component={Validation} exact path={VALIDATION_PATH} />
       <SessionRoute
         component={ValidationShare}
