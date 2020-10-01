@@ -107,24 +107,35 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
             action: classes.cardHeaderAction,
           }}
           subheader={
-            isReady && isDeployed ? (
-              <Tooltip
-                arrow
-                placement="left"
-                title={translate('ProfileMini.bodyMutualFriends', {
-                  count: mutualFriendsCount,
-                  username,
-                })}
-              >
-                <Typography className={classes.mututalFriends} component="span">
-                  <IconFriends className={classes.mutualFriendsIcon} />{' '}
-                  {mutualFriendsCount}
-                </Typography>
-              </Tooltip>
-            ) : (
-              <Typography className={classes.mututalFriends} component="span">
-                {translate('ProfileMini.bodyUndeployedToken')}
-              </Typography>
+            isReady &&
+            connection.isReady && (
+              <Fragment>
+                {isDeployed ? (
+                  <Tooltip
+                    arrow
+                    placement="left"
+                    title={translate('ProfileMini.bodyMutualFriends', {
+                      count: mutualFriendsCount,
+                      username,
+                    })}
+                  >
+                    <Typography
+                      className={classes.mututalFriends}
+                      component="span"
+                    >
+                      <IconFriends className={classes.mutualFriendsIcon} />{' '}
+                      {mutualFriendsCount}
+                    </Typography>
+                  </Tooltip>
+                ) : (
+                  <Typography
+                    className={classes.mututalFriends}
+                    component="span"
+                  >
+                    {translate('ProfileMini.bodyUndeployedToken')}
+                  </Typography>
+                )}
+              </Fragment>
             )
           }
           title={`@${username}`}

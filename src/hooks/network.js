@@ -19,6 +19,7 @@ export function useTrustConnection(address) {
 
     return {
       isPending,
+      isReady: !!connection,
       isMeTrusting,
       isTrustingMe,
       mutualConnections: connection ? connection.mutualConnections : [],
