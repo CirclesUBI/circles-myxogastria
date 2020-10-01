@@ -9,7 +9,9 @@ import {
   CardContent,
   CardHeader,
   CircularProgress,
+  Collapse,
   Grid,
+  Zoom,
   IconButton,
   Typography,
 } from '@material-ui/core';
@@ -290,20 +292,25 @@ const ActivityStreamItem = (props) => {
         title={message}
         onClick={handleClick}
       />
-      {isExpanded && (
+      <Collapse in={isExpanded}>
         <CardContent className={classes.cardContent}>
           <ActivityStreamExplained
             actor={actor}
             data={data}
             messageId={messageId}
           />
-          <Box display="flex" justifyContent="center">
-            <IconButton onClick={handleClick}>
-              <IconCloseOutline className={classes.cardContentCloseIcon} />
-            </IconButton>
-          </Box>
+          <Zoom
+            in={isExpanded}
+            style={{ transitionDelay: isExpanded ? '250ms' : '0ms' }}
+          >
+            <Box display="flex" justifyContent="center">
+              <IconButton onClick={handleClick}>
+                <IconCloseOutline className={classes.cardContentCloseIcon} />
+              </IconButton>
+            </Box>
+          </Zoom>
         </CardContent>
-      )}
+      </Collapse>
     </Card>
   );
 };
