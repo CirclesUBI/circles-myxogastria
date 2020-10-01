@@ -160,11 +160,18 @@ const token = {
     });
   },
 
-  transfer: async (from, to, value) => {
+  getPaymentNote: async (transactionHash) => {
+    return await requestCore('token', 'getPaymentNote', {
+      transactionHash,
+    });
+  },
+
+  transfer: async (from, to, value, paymentNote) => {
     return await requestCore('token', 'transfer', {
       from,
       to,
       value,
+      paymentNote,
     });
   },
 
