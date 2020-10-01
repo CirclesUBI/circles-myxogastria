@@ -54,7 +54,8 @@ const Drawer = () => {
         paper: classes.drawerPaper,
       }}
       disableBackdropTransition={!iOS}
-      disableDiscovery={iOS}
+      disableDiscovery
+      disableSwipeToOpen
       open={isExpanded}
       onClose={onClose}
       onOpen={onOpen}
