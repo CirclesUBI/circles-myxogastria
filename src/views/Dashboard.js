@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState } from 'react';
 import clsx from 'clsx';
 import {
-  Badge,
+  Avatar,
   Box,
   CircularProgress,
   Container,
@@ -84,6 +84,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey['100'],
     color: theme.palette.grey['800'],
   },
+  notificationCount: {
+    width: '25px',
+    height: '25px',
+    backgroundColor: 'transparent',
+    border: `1px solid ${theme.palette.primary.main}`,
+    color: theme.palette.primary.main,
+    fontSize: 11,
+    fontWeight: theme.typography.fontWeightMedium,
+  },
 }));
 
 const Dashboard = () => {
@@ -147,6 +156,7 @@ const Dashboard = () => {
 };
 
 const DashboardActivityIcon = () => {
+  const classes = useStyles();
   const { categories, lastSeenAt } = useSelector((state) => {
     return state.activity;
   });
@@ -175,9 +185,15 @@ const DashboardActivityIcon = () => {
       edge="end"
       to="/activities"
     >
-      <Badge badgeContent={count} color="primary">
-        {isPending ? <CircularProgress size={25} /> : <IconNotification />}
-      </Badge>
+      {isPending ? (
+        <CircularProgress size={25} />
+      ) : count > 0 ? (
+        <Avatar className={classes.notificationCount}>
+          {count > 99 ? '99+' : count}
+        </Avatar>
+      ) : (
+        <IconNotification />
+      )}
     </IconButton>
   );
 };
