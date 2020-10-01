@@ -1,41 +1,60 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Box,
-  TextField,
   Container,
   Dialog,
-  List,
-  ListItem,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
   Link as MuiLink,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Paper,
   Typography,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import CenteredHeading from '~/components/CenteredHeading';
 import ExternalLink from '~/components/ExternalLink';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
-import QRCode from '~/components/QRCode';
+import Input from '~/components/Input';
+import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
-import { LOGIN_SEED_PHRASE_PATH, ONBOARDING_PATH } from '~/routes';
+import { ONBOARDING_PATH } from '~/routes';
+import {
+  RESTORE_ACCOUNT_UNKNOWN_SAFE,
+  RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
+} from '~/utils/errors';
 import { SUPPORT_URL } from '~/utils/constants';
-import { switchAccount } from '~/store/onboarding/actions';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+import { restoreAccount, switchAccount } from '~/store/onboarding/actions';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { wallet, safe } = useSelector((state) => state);
+  const { safe } = useSelector((state) => state);
+
+  const [seedPhrase, setSeedPhrase] = useState('');
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
 
-  const onConnect = () => {
+  const handleSelectorOpen = () => {
+    setIsSelectorOpen(true);
+  };
+
+  const handleSelectorClose = () => {
+    setIsSelectorOpen(false);
+  };
+
+  const handleSelectAccount = () => {
     dispatch(switchAccount(safe.accounts[0]));
 
     dispatch(
@@ -46,20 +65,82 @@ const Login = () => {
     );
   };
 
-  const onSelectorOpen = () => {
-    setIsSelectorOpen(true);
+  const handleChange = (event) => {
+    setSeedPhrase(event.target.value);
   };
 
-  const onSelectorClose = () => {
-    setIsSelectorOpen(false);
+  const handleSubmitSeedPhrase = async () => {
+    dispatch(showSpinnerOverlay());
+
+    try {
+      await dispatch(restoreAccount(seedPhrase.trim()));
+
+      dispatch(
+        notify({
+          text: translate('Login.successWelcome'),
+          type: NotificationsTypes.SUCCESS,
+        }),
+      );
+    } catch (error) {
+      let translationId = 'Login.errorRestoreFailedUnknown';
+      if (error.message === RESTORE_ACCOUNT_INVALID_SEED_PHRASE) {
+        translationId = 'Login.errorRestoreFailedInvalidSeedphrase';
+      } else if (error.message === RESTORE_ACCOUNT_UNKNOWN_SAFE) {
+        translationId = 'Login.errorRestoreFailedUnknownSafe';
+      }
+
+      dispatch(
+        notify({
+          text: translate(translationId),
+          type: NotificationsTypes.ERROR,
+          lifetime: 10000,
+        }),
+      );
+    }
+
+    dispatch(hideSpinnerOverlay());
   };
 
-  useEffect(() => {
-    setIsSelectorOpen(safe.accounts.length > 0);
-  }, [safe.accounts]);
+  const isValid = seedPhrase.trim().split(' ').length === 24;
 
   return (
     <Fragment>
+      <Dialog
+        aria-labelledby="form-dialog-title"
+        open={isSelectorOpen}
+        onClose={handleSelectorClose}
+      >
+        <DialogTitle id="form-dialog-title">
+          {translate('Login.dialogTitleSelector')}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {translate('Login.dialogBodySelector')}
+          </DialogContentText>
+          <List>
+            {safe.accounts.map((account) => {
+              return (
+                <ListItem key={account}>
+                  <ListItemAvatar>
+                    <Avatar address={account} />
+                  </ListItemAvatar>
+                  <ListItemText>
+                    <UsernameDisplay address={account} />
+                  </ListItemText>
+                </ListItem>
+              );
+            })}
+          </List>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSelectorClose}>
+            {translate('Login.dialogActionClose')}
+          </Button>
+          <Button isPrimary onClick={handleSelectAccount}>
+            {translate('Login.dialogActionConnect')}
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Header>
         <ButtonBack />
         <CenteredHeading>{translate('Login.headingLogin')}</CenteredHeading>
@@ -67,55 +148,34 @@ const Login = () => {
       <View>
         <Container maxWidth="sm">
           <Typography align="center">
-            {translate('Login.bodyUseThisQRCode')}
+            {translate('Login.bodyEnterYourSeedPhrase')}
           </Typography>
-          <Box mb={2} mt={4}>
-            <QRCode data={wallet.address} />
+          <Box mb={7} mt={4}>
+            <Paper p={2}>
+              <Input
+                fullWidth
+                id="seedPhrase"
+                isError={seedPhrase.length > 0 && !isValid}
+                multiline
+                rows={4}
+                style={{ padding: '1rem' }}
+                value={seedPhrase}
+                onChange={handleChange}
+              />
+            </Paper>
           </Box>
-          <Box m="2rem auto" maxWidth={375}>
-            <TextField
-              fullWidth
-              label={translate('Login.formPublicAddress')}
-              readOnly
-              value={wallet.address}
-            />
-          </Box>
-          <Dialog
-            aria-labelledby="form-dialog-title"
-            open={isSelectorOpen}
-            onClose={onSelectorClose}
-          >
-            <DialogTitle id="form-dialog-title">
-              {translate('Login.dialogTitleSelector')}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                {translate('Login.dialogBodySelector')}
-              </DialogContentText>
-              <List>
-                {safe.accounts.map((account) => {
-                  return <ListItem key={account}>{account}</ListItem>;
-                })}
-              </List>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={onSelectorClose}>
-                {translate('Login.dialogActionClose')}
-              </Button>
-              <Button isPrimary onClick={onConnect}>
-                {translate('Login.dialogActionConnect')}
-              </Button>
-            </DialogActions>
-          </Dialog>
           {safe.accounts.length > 0 && (
             <Box my={2}>
-              <Button fullWidth isOutline onClick={onSelectorOpen}>
+              <Typography align="center" gutterBottom>
+                {translate('Login.bodyOrConnectToAccount')}
+              </Typography>
+              <Button fullWidth isOutline onClick={handleSelectorOpen}>
                 {translate('Login.buttonShowSelector')}
               </Button>
             </Box>
           )}
-          <Typography align="center" gutterBottom>
-            {translate('Login.bodyCreateNewWallet')}{' '}
+          <Typography align="center">
+            {translate('Login.bodyLostYourSeedPhrase')}{' '}
             <MuiLink component={Link} to={ONBOARDING_PATH}>
               {translate('Login.buttonCreateNewWallet')}
             </MuiLink>
@@ -129,8 +189,13 @@ const Login = () => {
         </Container>
       </View>
       <Footer>
-        <Button fullWidth isPrimary to={LOGIN_SEED_PHRASE_PATH}>
-          {translate('Login.buttonRestoreWithSeedPhrase')}
+        <Button
+          disabled={!isValid}
+          fullWidth
+          isPrimary
+          onClick={handleSubmitSeedPhrase}
+        >
+          {translate('Login.buttonSubmit')}
         </Button>
       </Footer>
     </Fragment>
