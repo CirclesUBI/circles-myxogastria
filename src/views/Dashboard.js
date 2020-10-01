@@ -85,8 +85,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey['800'],
   },
   notificationCount: {
-    width: '25px',
-    height: '25px',
+    width: '27px',
+    height: '27px',
     backgroundColor: 'transparent',
     border: `1px solid ${theme.palette.primary.main}`,
     color: theme.palette.primary.main,

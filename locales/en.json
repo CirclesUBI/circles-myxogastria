@@ -21,6 +21,7 @@
     "bodyFilterConnections": "Connections",
     "bodyFilterTransactions": "Transactions",
     "bodyNothingHereYet": "There are no activities to display yet",
+    "bodyPaymentNote": "Note: {note}",
     "buttonLoadMore": "Load more",
     "linkLearnMore": "Learn more."
   },
@@ -170,8 +171,8 @@
   },
   "SendConfirm": {
     "bodyAmountTooHigh": {
-      "one": "You can currently only send a maximum of {amount} Circles to @{username}",
-      "other": "You can currently only send a maximum of {amount} Circles to @{username}",
+      "one": "You can currently only send a maximum of {count} Circles to @{username}",
+      "other": "You can currently only send a maximum of {count} Circles to @{username}",
       "zero": "You can currently not send anything to @{username} which means that there is no trust path between you."
     },
     "bodyMaxFlow": "Maximum amount: {amount}",

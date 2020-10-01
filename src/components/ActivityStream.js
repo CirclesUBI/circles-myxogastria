@@ -10,6 +10,7 @@ import {
   CardHeader,
   CircularProgress,
   Collapse,
+  Divider,
   Grid,
   Zoom,
   IconButton,
@@ -85,8 +86,18 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.8rem',
     paddingBottom: theme.spacing(1),
   },
+  cardContentPaymentNote: {
+    margin: 0,
+    paddingBottom: 0,
+    fontSize: '0.8rem',
+    wordWrap: 'break-word',
+    fontWeight: theme.typography.fontWeightMedium,
+  },
   cardContentCloseIcon: {
     color: theme.palette.grey['700'],
+  },
+  divider: {
+    margin: theme.spacing(1, 0),
   },
 }));
 
@@ -186,33 +197,37 @@ const ActivityStreamList = ({ activity, lastSeenAt }) => {
 
   return (
     <Grid container spacing={2}>
-      {activities.reduce((acc, { data, hash, createdAt, type, isPending }) => {
-        // Always filter gas transfers
-        if (
-          type === ActivityTypes.TRANSFER &&
-          data.to === process.env.SAFE_FUNDER_ADDRESS
-        ) {
+      {activities.reduce(
+        (acc, { data, hash, createdAt, type, isPending, txHash }) => {
+          // Always filter gas transfers
+          if (
+            type === ActivityTypes.TRANSFER &&
+            data.to === process.env.SAFE_FUNDER_ADDRESS
+          ) {
+            return acc;
+          }
+
+          const item = (
+            <Grid item key={hash} xs={12}>
+              <ActivityStreamItem
+                createdAt={createdAt}
+                data={data}
+                isPending={isPending}
+                isSeen={createdAt < lastSeenAt}
+                safeAddress={safeAddress}
+                txHash={txHash}
+                type={type}
+                walletAddress={walletAddress}
+              />
+            </Grid>
+          );
+
+          acc.push(item);
+
           return acc;
-        }
-
-        const item = (
-          <Grid item key={hash} xs={12}>
-            <ActivityStreamItem
-              createdAt={createdAt}
-              data={data}
-              isPending={isPending}
-              isSeen={createdAt < lastSeenAt}
-              safeAddress={safeAddress}
-              type={type}
-              walletAddress={walletAddress}
-            />
-          </Grid>
-        );
-
-        acc.push(item);
-
-        return acc;
-      }, [])}
+        },
+        [],
+      )}
     </Grid>
   );
 };
@@ -220,6 +235,7 @@ const ActivityStreamList = ({ activity, lastSeenAt }) => {
 const ActivityStreamItem = (props) => {
   const classes = useStyles();
   const [isExpanded, setIsExanded] = useState(false);
+  const [paymentNote, setPaymentNote] = useState(null);
 
   const handleClick = () => {
     setIsExanded(!isExpanded);
@@ -257,6 +273,17 @@ const ActivityStreamItem = (props) => {
       actor,
     });
   }, [actor, data, messageId]);
+
+  useEffect(() => {
+    const updateValue = async () => {
+      const response = await core.token.getPaymentNote(props.txHash);
+      setPaymentNote(response);
+    };
+
+    if (props.type === ActivityTypes.HUB_TRANSFER) {
+      updateValue();
+    }
+  }, [props.txHash, props.type]);
 
   return (
     <Card>
@@ -298,6 +325,7 @@ const ActivityStreamItem = (props) => {
             actor={actor}
             data={data}
             messageId={messageId}
+            paymentNote={paymentNote}
           />
           <Zoom
             in={isExpanded}
@@ -315,7 +343,7 @@ const ActivityStreamItem = (props) => {
   );
 };
 
-const ActivityStreamExplained = ({ actor, data, messageId }) => {
+const ActivityStreamExplained = ({ actor, data, messageId, paymentNote }) => {
   const classes = useStyles();
 
   const text = useMemo(() => {
@@ -328,6 +356,22 @@ const ActivityStreamExplained = ({ actor, data, messageId }) => {
 
   return (
     <Fragment>
+      {paymentNote && (
+        <Fragment>
+          <Divider className={classes.divider} light />
+          <Typography
+            className={classes.cardContentPaymentNote}
+            color="textSecondary"
+            component="p"
+            variant="body1"
+          >
+            {translate('ActivityStream.bodyPaymentNote', {
+              note: paymentNote,
+            })}
+          </Typography>
+          <Divider className={classes.divider} light />
+        </Fragment>
+      )}
       <Typography
         className={classes.cardContentText}
         color="textSecondary"
@@ -377,6 +421,7 @@ ActivityStreamItem.propTypes = {
   isPending: PropTypes.bool.isRequired,
   isSeen: PropTypes.bool.isRequired,
   safeAddress: PropTypes.string.isRequired,
+  txHash: PropTypes.string.isRequired,
   type: PropTypes.symbol.isRequired,
   walletAddress: PropTypes.string.isRequired,
 };
@@ -385,6 +430,7 @@ ActivityStreamExplained.propTypes = {
   actor: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
   messageId: PropTypes.string.isRequired,
+  paymentNote: PropTypes.string,
 };
 
 ActivityStreamAvatars.propTypes = {

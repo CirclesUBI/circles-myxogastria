@@ -169,9 +169,9 @@ const SendConfirm = () => {
           address,
           new web3.utils.BN('1'), // Any amount works here
         );
-        setMaxFlow(new web3.utils.BN(response.maxFlow));
+        setMaxFlow(response.maxFlowValue);
       } catch (error) {
-        setMaxFlow(new web3.utils.BN('0'));
+        setMaxFlow(0);
       }
     };
 
@@ -266,7 +266,11 @@ const SendConfirm = () => {
                         <CirclesLogoSVG height="12" width="12" />
                         <span>
                           {translate('SendConfirm.bodyMaxFlow', {
-                            amount: maxFlow ? formatCirclesValue(maxFlow) : '',
+                            amount: maxFlow
+                              ? formatCirclesValue(
+                                  web3.utils.toWei(`${maxFlow}`, 'ether'),
+                                )
+                              : '',
                           })}
                         </span>
                         {maxFlow === null && <CircularProgress size={12} />}
@@ -304,7 +308,9 @@ const SendConfirm = () => {
                   {isAmountTooHigh && (
                     <FormHelperText error>
                       {translate('SendConfirm.bodyAmountTooHigh', {
-                        count: maxAmount,
+                        count: formatCirclesValue(
+                          web3.utils.toWei(`${maxAmount}`, 'ether'),
+                        ),
                         username: receiver,
                       })}
                     </FormHelperText>
