@@ -37,6 +37,7 @@ import { ACTIVITIES_PATH } from '~/routes';
 import { ZERO_ADDRESS, FAQ_URL, ISSUANCE_RATE_MONTH } from '~/utils/constants';
 import { formatMessage } from '~/services/activity';
 import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
+import { usePaymentNote } from '~/hooks/transfer';
 import { useRelativeProfileLink, useQuery } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 
@@ -235,7 +236,6 @@ const ActivityStreamList = ({ activity, lastSeenAt }) => {
 const ActivityStreamItem = (props) => {
   const classes = useStyles();
   const [isExpanded, setIsExanded] = useState(false);
-  const [paymentNote, setPaymentNote] = useState(null);
 
   const handleClick = () => {
     setIsExanded(!isExpanded);
@@ -273,17 +273,6 @@ const ActivityStreamItem = (props) => {
       actor,
     });
   }, [actor, data, messageId]);
-
-  useEffect(() => {
-    const updateValue = async () => {
-      const response = await core.token.getPaymentNote(props.txHash);
-      setPaymentNote(response);
-    };
-
-    if (props.type === ActivityTypes.HUB_TRANSFER) {
-      updateValue();
-    }
-  }, [props.txHash, props.type]);
 
   return (
     <Card>
@@ -324,8 +313,10 @@ const ActivityStreamItem = (props) => {
           <ActivityStreamExplained
             actor={actor}
             data={data}
+            isExpanded={isExpanded}
             messageId={messageId}
-            paymentNote={paymentNote}
+            txHash={props.txHash}
+            type={props.type}
           />
           <Zoom
             in={isExpanded}
@@ -343,7 +334,14 @@ const ActivityStreamItem = (props) => {
   );
 };
 
-const ActivityStreamExplained = ({ actor, data, messageId, paymentNote }) => {
+const ActivityStreamExplained = ({
+  actor,
+  data,
+  messageId,
+  type,
+  txHash,
+  isExpanded,
+}) => {
   const classes = useStyles();
 
   const text = useMemo(() => {
@@ -356,21 +354,8 @@ const ActivityStreamExplained = ({ actor, data, messageId, paymentNote }) => {
 
   return (
     <Fragment>
-      {paymentNote && (
-        <Fragment>
-          <Divider className={classes.divider} light />
-          <Typography
-            className={classes.cardContentPaymentNote}
-            color="textSecondary"
-            component="p"
-            variant="body1"
-          >
-            {translate('ActivityStream.bodyPaymentNote', {
-              note: paymentNote,
-            })}
-          </Typography>
-          <Divider className={classes.divider} light />
-        </Fragment>
+      {type === ActivityTypes.HUB_TRANSFER && isExpanded && (
+        <ActivityStreamPaymentNote txHash={txHash} />
       )}
       <Typography
         className={classes.cardContentText}
@@ -392,6 +377,30 @@ const ActivityStreamExplained = ({ actor, data, messageId, paymentNote }) => {
         </ExternalLink>
       </Typography>
     </Fragment>
+  );
+};
+
+const ActivityStreamPaymentNote = ({ txHash }) => {
+  const classes = useStyles();
+  const paymentNote = usePaymentNote(txHash);
+
+  return (
+    paymentNote && (
+      <Fragment>
+        <Divider className={classes.divider} light />
+        <Typography
+          className={classes.cardContentPaymentNote}
+          color="textSecondary"
+          component="p"
+          variant="body1"
+        >
+          {translate('ActivityStream.bodyPaymentNote', {
+            note: paymentNote,
+          })}
+        </Typography>
+        <Divider className={classes.divider} light />
+      </Fragment>
+    )
   );
 };
 
@@ -429,8 +438,14 @@ ActivityStreamItem.propTypes = {
 ActivityStreamExplained.propTypes = {
   actor: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
+  isExpanded: PropTypes.bool.isRequired,
   messageId: PropTypes.string.isRequired,
-  paymentNote: PropTypes.string,
+  txHash: PropTypes.string.isRequired,
+  type: PropTypes.symbol.isRequired,
+};
+
+ActivityStreamPaymentNote.propTypes = {
+  txHash: PropTypes.string.isRequired,
 };
 
 ActivityStreamAvatars.propTypes = {
