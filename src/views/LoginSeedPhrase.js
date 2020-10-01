@@ -20,6 +20,10 @@ import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import { ONBOARDING_PATH } from '~/routes';
+import {
+  RESTORE_ACCOUNT_UNKNOWN_SAFE,
+  RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
+} from '~/utils/errors';
 import { SUPPORT_URL } from '~/utils/constants';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { restoreAccount } from '~/store/onboarding/actions';
@@ -45,9 +49,16 @@ const LoginSeedPhrase = () => {
         }),
       );
     } catch (error) {
+      let translationId = 'LoginSeedPhrase.errorRestoreFailedUnknown';
+      if (error.message === RESTORE_ACCOUNT_INVALID_SEED_PHRASE) {
+        translationId = 'LoginSeedPhrase.errorRestoreFailedInvalidSeedphrase';
+      } else if (error.message === RESTORE_ACCOUNT_UNKNOWN_SAFE) {
+        translationId = 'LoginSeedPhrase.errorRestoreFailedUnknownSafe';
+      }
+
       dispatch(
         notify({
-          text: translate('LoginSeedPhrase.errorRestoreFailed'),
+          text: translate(translationId),
           type: NotificationsTypes.ERROR,
           lifetime: 10000,
         }),

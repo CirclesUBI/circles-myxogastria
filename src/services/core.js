@@ -20,6 +20,18 @@ async function requestCore(moduleName, method, options) {
 // Safe module
 
 const safe = {
+  getSafeStatus: async (safeAddress) => {
+    return await requestCore('safe', 'getSafeStatus', {
+      safeAddress,
+    });
+  },
+
+  predictAddress: async (nonce) => {
+    return await requestCore('safe', 'predictAddress', {
+      nonce,
+    });
+  },
+
   prepareDeploy: async (nonce) => {
     return await requestCore('safe', 'prepareDeploy', {
       nonce,

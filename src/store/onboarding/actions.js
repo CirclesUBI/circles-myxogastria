@@ -1,14 +1,19 @@
 import core from '~/services/core';
 import { checkAppState, checkAuthState } from '~/store/app/actions';
 import {
-  checkSafeState,
+  checkSharedSafeState,
   createSafeWithNonce,
   deploySafe,
   finalizeSafeDeployment,
+  recreateUndeployedSafe,
   switchCurrentAccount,
   unlockSafeDeployment,
   updateSafeFundedState,
 } from '~/store/safe/actions';
+import {
+  RESTORE_ACCOUNT_UNKNOWN_SAFE,
+  RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
+} from '~/utils/errors';
 import { deployToken, updateTokenFundedState } from '~/store/token/actions';
 import { generateDeterministicNonce } from '~/services/safe';
 import { restoreWallet } from '~/store/wallet/actions';
@@ -102,21 +107,26 @@ export function switchAccount(address) {
 // Safe related to this wallet.
 export function restoreAccount(seedPhrase) {
   return async (dispatch, getState) => {
-    await dispatch(restoreWallet(seedPhrase));
+    try {
+      await dispatch(restoreWallet(seedPhrase));
+    } catch {
+      throw new Error(RESTORE_ACCOUNT_INVALID_SEED_PHRASE);
+    }
 
     // Find out if Safe is already deployed and has recovered address as an
     // owner
-    await dispatch(checkSafeState());
-    const { safe, wallet } = getState();
+    await dispatch(checkSharedSafeState());
+    const { safe } = getState();
     if (safe.accounts.length > 0) {
+      // Found deployed account, switch to first one
       await dispatch(switchCurrentAccount(safe.accounts[0]));
     } else {
-      // If no Safe was found, try to predict safe address via deterministic
-      // nonce
-      await dispatch(
-        createSafeWithNonce(generateDeterministicNonce(wallet.address)),
-      );
-      // @TODO: Check if username exists in API
+      // Could not find deployed Safe, try to recover it
+      try {
+        await dispatch(recreateUndeployedSafe());
+      } catch {
+        throw new Error(RESTORE_ACCOUNT_UNKNOWN_SAFE);
+      }
     }
 
     await dispatch(checkAppState());

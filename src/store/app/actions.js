@@ -14,7 +14,7 @@ import {
 } from '~/store/activity/actions';
 import { checkOnboardingState } from '~/store/onboarding/actions';
 import {
-  checkSafeState,
+  checkSharedSafeState,
   initializeSafe,
   resetSafe,
 } from '~/store/safe/actions';
@@ -105,7 +105,7 @@ export function checkAppState() {
     }
 
     // Onboarding / validation states
-    await dispatch(checkSafeState());
+    await dispatch(checkSharedSafeState());
     await dispatch(checkTrustState());
 
     // In-app states

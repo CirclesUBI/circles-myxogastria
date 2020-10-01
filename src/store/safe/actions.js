@@ -4,6 +4,7 @@ import isDeployed from '~/utils/isDeployed';
 import web3 from '~/services/web3';
 import { addPendingActivity } from '~/store/activity/actions';
 import {
+  generateDeterministicNonce,
   getCurrentAccount,
   getNonce,
   getSafeAddress,
@@ -80,6 +81,60 @@ export function initializeSafe() {
   };
 }
 
+export function recreateUndeployedSafe() {
+  return async (dispatch, getState) => {
+    try {
+      if (hasSafeAddress()) {
+        dispatch({
+          type: ActionTypes.SAFE_CREATE_ERROR,
+        });
+
+        throw new Error('Invalid state to prepare Safe deployment');
+      }
+
+      const { wallet } = getState();
+
+      // Try to predict safe address via deterministic nonce. This action does
+      // NOT create a Safe!
+      const pendingNonce = generateDeterministicNonce(wallet.address);
+      const pendingAddress = await core.safe.predictAddress(pendingNonce);
+
+      // Check if precicted address exists in our system (it should be created,
+      // but not deployed yet).
+      const status = await core.safe.getSafeStatus(pendingAddress);
+      if (!status.isCreated) {
+        throw new Error('Safe is not known to system');
+      }
+
+      dispatch({
+        type: ActionTypes.SAFE_CREATE,
+      });
+
+      // Store address when successful
+      setSafeAddress(pendingAddress);
+
+      // Store nonce when restoring undeployed Safe
+      setNonce(pendingNonce);
+
+      dispatch({
+        type: ActionTypes.SAFE_CREATE_SUCCESS,
+        meta: {
+          pendingAddress,
+          pendingNonce,
+        },
+      });
+
+      return pendingAddress;
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.SAFE_CREATE_ERROR,
+      });
+
+      throw error;
+    }
+  };
+}
+
 export function createSafeWithNonce(pendingNonce) {
   return async (dispatch) => {
     try {
@@ -143,7 +198,7 @@ export function updateSafeFundedState(isFunded) {
   };
 }
 
-export function checkSafeState() {
+export function checkSharedSafeState() {
   return async (dispatch, getState) => {
     const { safe, wallet } = getState();
 

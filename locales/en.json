@@ -104,7 +104,9 @@
     "bodyNeedHelp": "Questions?",
     "buttonCreateNewWallet": "Create new wallet",
     "buttonSubmit": "Submit",
-    "errorRestoreFailed": "Could not restore account. Is your seed phrase correct?",
+    "errorRestoreFailedInvalidSeedphrase": "Your seed phrase is invalid.",
+    "errorRestoreFailedUnknown": "Could not restore account due to an unknown error.",
+    "errorRestoreFailedUnknownSafe": "The account you try to restore is not registered.",
     "headingLoginSeedPhrase": "Login via Seed Phrase",
     "linkSupport": "Go to support.",
     "successWelcome": "Successfully restored wallet. Welcome!"
