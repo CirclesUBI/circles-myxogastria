@@ -1,55 +1,48 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import clsx from 'clsx';
 import { Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
-import CirclesGangSVG from '%/images/group.svg';
-import logo from '%/images/logo.png';
-
-const useStyles = makeStyles(() => ({
-  logo: {
-    width: '10rem',
-    height: '10rem',
-    backgroundImage: `url(${logo})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundSize: 'contain',
-  },
-  logoTiny: {
-    width: '3rem',
-    height: '3rem',
-  },
-  logoSmall: {
-    width: '5rem',
-    height: '5rem',
-  },
-  logoLarge: {
-    width: '12rem',
-    height: '12rem',
-  },
-  logoWithGang: {
-    position: 'relative',
-    backgroundImage: 'none',
-  },
-}));
+import CirclesLogoGroupSVG from '%/images/logo-group.svg';
+import CirclesLogoSVG from '%/images/logo.svg';
 
 const Logo = ({ isWithGang, size = 'default' }) => {
-  const classes = useStyles();
+  const sizes = {
+    tiny: 50,
+    small: 100,
+    default: 150,
+    large: 200,
+  };
 
-  return (
+  return isWithGang ? (
     <Box
-      className={clsx(classes.logo, {
-        [classes.logoWithGang]: isWithGang,
-        [classes.logoTiny]: size === 'tiny',
-        [classes.logoSmall]: size === 'small',
-        [classes.logoLarge]: size === 'large' || isWithGang,
-      })}
-      mx="auto"
+      mx={'auto'}
+      style={{ position: 'relative', width: '202px', height: '180px' }}
     >
-      {isWithGang && (
-        <CirclesGangSVG className={classes.logoGang} viewport="0 0 311 272" />
-      )}
+      <CirclesLogoSVG
+        height={175}
+        style={{
+          position: 'absolute',
+          top: 15,
+          left: 15,
+          transform: 'rotate(90deg)',
+        }}
+        viewport="0 0 172 172"
+        width={175}
+      />
+      <CirclesLogoGroupSVG
+        height={173}
+        style={{ position: 'absolute', top: 0, left: 0 }}
+        viewport="0 0 311 272"
+        width={202}
+      />
+    </Box>
+  ) : (
+    <Box textAlign="center">
+      <CirclesLogoSVG
+        height={sizes[size]}
+        viewport="0 0 172 172"
+        width={sizes[size]}
+      />
     </Box>
   );
 };
