@@ -6,6 +6,8 @@ import {
   CardHeader,
   CircularProgress,
   Container,
+  Dialog,
+  DialogContent,
   FormHelperText,
   Grid,
   Input,
@@ -14,6 +16,7 @@ import {
   Paper,
   Tooltip,
   Typography,
+  Zoom,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,7 +27,6 @@ import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
 import CenteredHeading from '~/components/CenteredHeading';
 import CirclesLogoSVG from '%/images/logo.svg';
-import Dialog from '~/components/Dialog';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import View from '~/components/View';
@@ -34,7 +36,7 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import web3 from '~/services/web3';
 import { DASHBOARD_PATH } from '~/routes';
-import { IconCircles } from '~/styles/icons';
+import { IconCircles, IconSend } from '~/styles/icons';
 import { formatCirclesValue } from '~/utils/format';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { transfer } from '~/store/token/actions';
@@ -42,6 +44,8 @@ import { useUserdata } from '~/hooks/username';
 
 const PAYMENT_NOTE_REGEX = /^[\w\s!?:\-.,_*%@#&+)(]+$/;
 const PAYMENT_NOTE_MAX_LEN = 100;
+
+const { ErrorCodes, TransferError } = core.errors;
 
 const useStyles = makeStyles((theme) => ({
   cardHeader: {
@@ -69,6 +73,11 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     minHeight: 66,
+  },
+  dialogPaymentNote: {
+    fontWeight: theme.typography.fontWeightRegular,
+    color: theme.palette.grey['900'],
+    wordWrap: 'break-word',
   },
 }));
 
@@ -147,8 +156,17 @@ const SendConfirm = () => {
       logError(error);
       let text;
 
-      if (error instanceof core.errors.TransferError) {
-        text = translate('SendConfirm.errorMessageTransfer', {
+      if (error instanceof TransferError) {
+        // Convert TransferError codes into human readable error messages
+        let messageId = 'Unknown';
+        if (error.code === ErrorCodes.TOO_COMPLEX_TRANSFER) {
+          messageId = 'TooComplex';
+        } else if (error.code === ErrorCodes.INVALID_TRANSFER) {
+          messageId = 'Invalid';
+        } else if (error.code === ErrorCodes.TRANSFER_NOT_FOUND) {
+          messageId = 'NotFound';
+        }
+        text = translate('SendConfirm.errorMessageTransfer' + messageId, {
           amount,
           username: receiver,
         });
@@ -193,21 +211,51 @@ const SendConfirm = () => {
   return (
     <Fragment>
       <Dialog
-        cancelLabel={translate('SendConfirm.dialogSendCancel')}
-        confirmLabel={translate('SendConfirm.dialogSendConfirm')}
-        id="send"
+        aria-describedby={`dialog-send-text`}
+        aria-labelledby={`dialog-send-description`}
         open={isConfirmationShown}
-        text={translate('SendConfirm.dialogSendDescription', {
-          amount,
-          username: receiver,
-        })}
-        title={translate('SendConfirm.dialogSendTitle', {
-          amount,
-          username: receiver,
-        })}
         onClose={handleConfirmClose}
-        onConfirm={handleSend}
-      />
+      >
+        <DialogContent>
+          <Typography align="center" variant="h6">
+            @{sender}
+          </Typography>
+          <Zoom
+            in={isConfirmationShown}
+            style={{ transitionDelay: isConfirmationShown ? '250ms' : '0ms' }}
+          >
+            <Box
+              my={2}
+              style={{
+                textAlign: 'center',
+                fontSize: '100px',
+                height: '100px',
+              }}
+            >
+              <IconSend color="primary" fontSize="inherit" />
+            </Box>
+          </Zoom>
+          <Typography align="center" gutterBottom>
+            {translate('SendConfirm.dialogSendDescription', {
+              amount,
+              username: receiver,
+            })}
+          </Typography>
+          <Typography align="center" className={classes.dialogPaymentNote}>
+            {paymentNote}
+          </Typography>
+          <Box mb={1} mt={2}>
+            <Button autoFocus fullWidth isPrimary onClick={handleSend}>
+              {translate('SendConfirm.dialogSendConfirm')}
+            </Button>
+          </Box>
+          <Box mb={2}>
+            <Button fullWidth isOutline onClick={handleConfirmClose}>
+              {translate('SendConfirm.dialogSendCancel')}
+            </Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
       <Header>
         <ButtonBack />
         <CenteredHeading>

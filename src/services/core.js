@@ -226,12 +226,13 @@ const utils = {
 
 // Errors
 
-const { CoreError, TransferError, RequestError } = core;
+const { ErrorCodes, CoreError, TransferError, RequestError } = core;
 
 const errors = {
+  ErrorCodes,
   CoreError,
-  TransferError,
   RequestError,
+  TransferError,
 };
 
 export default {
