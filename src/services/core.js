@@ -160,11 +160,26 @@ const token = {
     });
   },
 
-  transfer: async (from, to, value) => {
+  getPaymentNote: async (transactionHash) => {
+    return await requestCore('token', 'getPaymentNote', {
+      transactionHash,
+    });
+  },
+
+  findTransitiveTransfer: async (from, to, value) => {
+    return await requestCore('token', 'findTransitiveTransfer', {
+      from,
+      to,
+      value,
+    });
+  },
+
+  transfer: async (from, to, value, paymentNote) => {
     return await requestCore('token', 'transfer', {
       from,
       to,
       value,
+      paymentNote,
     });
   },
 
@@ -211,12 +226,13 @@ const utils = {
 
 // Errors
 
-const { CoreError, TransferError, RequestError } = core;
+const { ErrorCodes, CoreError, TransferError, RequestError } = core;
 
 const errors = {
+  ErrorCodes,
   CoreError,
-  TransferError,
   RequestError,
+  TransferError,
 };
 
 export default {

@@ -21,6 +21,7 @@
     "bodyFilterConnections": "Connections",
     "bodyFilterTransactions": "Transactions",
     "bodyNothingHereYet": "There are no activities to display yet",
+    "bodyPaymentNote": "Note: {note}",
     "buttonLoadMore": "Load more",
     "linkLearnMore": "Learn more."
   },
@@ -169,17 +170,31 @@
     "headingSendCircles": "Send Circles"
   },
   "SendConfirm": {
-    "bodyHowMuch": "How much would you like to send?",
-    "bodyTo": "To:",
-    "buttonSubmitAmount": "Next",
+    "bodyAmountTooHigh": {
+      "one": "You can currently only send a maximum of {count} Circles to @{username}.",
+      "other": "You can currently only send a maximum of {count} Circles to @{username}.",
+      "zero": "You can currently not send anything to @{username} which means that there is no trust path between you."
+    },
+    "bodyMaxFlow": "Maximum amount: {amount}",
+    "bodyPaymentNoteInvalid": "You can not write special symbols like {}<>^ and more than 100 characters.",
+    "bodyTotalBalance": "Your total balance: {balance}",
+    "buttonSubmitAmount": "Send",
     "dialogSendCancel": "Cancel",
-    "dialogSendConfirm": "Send",
-    "dialogSendDescription": "Are you sure you want to send {amount} Circles to {username}?",
-    "dialogSendTitle": "Send Circles",
+    "dialogSendConfirm": "Confirm",
+    "dialogSendDescription": "Send @{username} {amount} Circles",
     "errorMessage": "Something went wrong .. {errorMessage}",
-    "errorMessageTransfer": "Could not transfer Circles as there is currently no complete trust path between {username} and you ..",
+    "errorMessageTransferInvalid": "Could not transfer Circles as it is invalid.",
+    "errorMessageTransferNotFound": "Could not transfer Circles as there is currently no complete trust path between @{username} and you ..",
+    "errorMessageTransferTooComplex": "Could not transfer Circles as there is too many transfer steps required to send Circles to @{username}. Consider sending a smaller amount and ask @{username} to trust you directly to make this transfer less complex.",
+    "errorMessageTransferUnknown": "Could not transfer Circles. Something went wrong!",
+    "formAmount": "Enter amount",
+    "formPaymentNote": "Add note",
+    "formReceiver": "Send to",
+    "formSender": "Send from",
     "headingSendCircles": "Send Circles",
-    "successMessage": "You transferred {amount} Circles successfully to {username}!"
+    "successMessage": "You transferred {amount} Circles successfully to @{username}!",
+    "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}",
+    "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
   },
   "Share": {
     "buttonShareProfileLink": "Share",

@@ -187,7 +187,7 @@ export function requestUBIPayout(payout) {
   };
 }
 
-export function transfer(to, amount) {
+export function transfer(to, amount, paymentNote = '') {
   return async (dispatch, getState) => {
     dispatch({
       type: ActionTypes.TOKEN_TRANSFER,
@@ -198,7 +198,7 @@ export function transfer(to, amount) {
 
     try {
       const value = new web3.utils.BN(core.utils.toFreckles(amount));
-      const txHash = await core.token.transfer(from, to, value);
+      const txHash = await core.token.transfer(from, to, value, paymentNote);
 
       dispatch(
         addPendingActivity({
