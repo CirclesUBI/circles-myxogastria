@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import clsx from 'clsx';
-import { BottomNavigation } from '@material-ui/core';
+import { Tabs } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  bottomNavigation: {
+  tabs: {
     marginBottom: theme.spacing(2),
   },
 }));
@@ -14,13 +14,14 @@ const TabNavigation = ({ className, children, ...props }) => {
   const classes = useStyles();
 
   return (
-    <BottomNavigation
-      className={clsx(className, classes.bottomNavigation)}
-      showLabels
+    <Tabs
+      centered
+      className={clsx(className, classes.tabs)}
+      indicatorColor="primary"
       {...props}
     >
       {children}
-    </BottomNavigation>
+    </Tabs>
   );
 };
 
