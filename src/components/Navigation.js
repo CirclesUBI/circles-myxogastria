@@ -91,7 +91,6 @@ const Navigation = ({ isExpanded, ...props }) => {
         paper: classes.drawerPaper,
       }}
       open={isExpanded}
-      variant="persistent"
       {...props}
     >
       <NavigationHeader onClick={props.onClick} />
