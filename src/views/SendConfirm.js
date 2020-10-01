@@ -40,6 +40,9 @@ import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { transfer } from '~/store/token/actions';
 import { useUserdata } from '~/hooks/username';
 
+const PAYMENT_NOTE_REGEX = /^[\w\s!?:\-.,_*%@#&+)(]+$/;
+const PAYMENT_NOTE_MAX_LEN = 100;
+
 const useStyles = makeStyles((theme) => ({
   cardHeader: {
     padding: theme.spacing(1),
@@ -97,6 +100,11 @@ const SendConfirm = () => {
   );
 
   const isAmountTooHigh = (amount ? parseFloat(amount) : 0) > maxAmount;
+
+  const isPaymentNoteInvalid =
+    paymentNote.length > 0 &&
+    (!paymentNote.match(PAYMENT_NOTE_REGEX) ||
+      paymentNote.length > PAYMENT_NOTE_MAX_LEN);
 
   const handleAmountChange = (event) => {
     if (isNaN(event.target.value)) {
@@ -167,7 +175,7 @@ const SendConfirm = () => {
         const response = await core.token.findTransitiveTransfer(
           safe.currentAccount,
           address,
-          new web3.utils.BN('1'), // Any amount works here
+          new web3.utils.BN(web3.utils.toWei('1', 'ether')), // Any amount works here
         );
         setMaxFlow(response.maxFlowValue);
       } catch (error) {
@@ -266,11 +274,12 @@ const SendConfirm = () => {
                         <CirclesLogoSVG height="12" width="12" />
                         <span>
                           {translate('SendConfirm.bodyMaxFlow', {
-                            amount: maxFlow
-                              ? formatCirclesValue(
-                                  web3.utils.toWei(`${maxFlow}`, 'ether'),
-                                )
-                              : '',
+                            amount:
+                              maxFlow !== null
+                                ? formatCirclesValue(
+                                    web3.utils.toWei(`${maxFlow}`, 'ether'),
+                                  )
+                                : '',
                           })}
                         </span>
                         {maxFlow === null && <CircularProgress size={12} />}
@@ -326,11 +335,17 @@ const SendConfirm = () => {
                 <Box p={2}>
                   <Input
                     disableUnderline
+                    error={isPaymentNoteInvalid}
                     fullWidth
                     id="payment-note"
                     value={paymentNote}
                     onChange={handlePaymentNoteChange}
                   />
+                  {isPaymentNoteInvalid && (
+                    <FormHelperText error>
+                      {translate('SendConfirm.bodyPaymentNoteInvalid')}
+                    </FormHelperText>
+                  )}
                 </Box>
               </Paper>
             </Grid>
@@ -339,7 +354,9 @@ const SendConfirm = () => {
       </View>
       <Footer>
         <Button
-          disabled={!amount || amount <= 0 || isAmountTooHigh}
+          disabled={
+            !amount || amount <= 0 || isAmountTooHigh || isPaymentNoteInvalid
+          }
           fullWidth
           isPrimary
           onClick={handleConfirmOpen}

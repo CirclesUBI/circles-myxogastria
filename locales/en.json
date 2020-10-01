@@ -171,11 +171,12 @@
   },
   "SendConfirm": {
     "bodyAmountTooHigh": {
-      "one": "You can currently only send a maximum of {count} Circles to @{username}",
-      "other": "You can currently only send a maximum of {count} Circles to @{username}",
+      "one": "You can currently only send a maximum of {count} Circles to @{username}.",
+      "other": "You can currently only send a maximum of {count} Circles to @{username}.",
       "zero": "You can currently not send anything to @{username} which means that there is no trust path between you."
     },
     "bodyMaxFlow": "Maximum amount: {amount}",
+    "bodyPaymentNoteInvalid": "You can not write special symbols like {}<>^ and more than 100 characters.",
     "bodyTotalBalance": "Your total balance: {balance}",
     "buttonSubmitAmount": "Next",
     "dialogSendCancel": "Cancel",
