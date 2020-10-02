@@ -36,4 +36,4 @@ QRCode.propTypes = {
   scale: PropTypes.number,
 };
 
-export default QRCode;
+export default React.memo(QRCode);

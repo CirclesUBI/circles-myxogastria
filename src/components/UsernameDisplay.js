@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useUserdata } from '~/hooks/username';
@@ -11,4 +12,4 @@ UsernameDisplay.propTypes = {
   address: PropTypes.string.isRequired,
 };
 
-export default UsernameDisplay;
+export default React.memo(UsernameDisplay);

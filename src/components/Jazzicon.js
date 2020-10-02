@@ -25,4 +25,4 @@ Jazzicon.propTypes = {
   size: PropTypes.number,
 };
 
-export default Jazzicon;
+export default React.memo(Jazzicon);

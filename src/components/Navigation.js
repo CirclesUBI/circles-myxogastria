@@ -262,4 +262,4 @@ NavigationExternalLink.propTypes = {
   href: PropTypes.string.isRequired,
 };
 
-export default Navigation;
+export default React.memo(Navigation);

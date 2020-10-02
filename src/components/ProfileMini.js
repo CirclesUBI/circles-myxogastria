@@ -190,4 +190,4 @@ ProfileMiniActions.propTypes = {
   onTrust: PropTypes.func.isRequired,
 };
 
-export default ProfileMini;
+export default React.memo(ProfileMini);
