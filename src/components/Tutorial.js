@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
+import SwipeableViews from 'react-swipeable-views';
 import { Container, MobileStepper, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -44,6 +45,10 @@ const Tutorial = (props) => {
     props.onFinish();
   };
 
+  const handleChangeIndex = (index) => {
+    setCurrent(index);
+  };
+
   return (
     <Fragment>
       <TutorialHeader
@@ -54,7 +59,11 @@ const Tutorial = (props) => {
         onSkip={onFinish}
       />
       <View>
-        <Container maxWidth="sm">{props.slides[current]}</Container>
+        <Container maxWidth="sm">
+          <SwipeableViews index={current} onChangeIndex={handleChangeIndex}>
+            {props.slides}
+          </SwipeableViews>
+        </Container>
       </View>
       <TutorialFooter
         current={current}
