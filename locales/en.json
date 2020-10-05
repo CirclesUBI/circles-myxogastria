@@ -201,6 +201,9 @@
     "headingShare": "My QR Code",
     "shareText": "Hey! Check out my Circles UBI profile!"
   },
+  "QRCodeScanner": {
+    "notificationError": "Could not open QR code scanner: {error}."
+  },
   "Tutorial": {
     "buttonFinish": "Got it.",
     "buttonNextStep": "Next",

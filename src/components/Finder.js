@@ -4,7 +4,6 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
 import qs from 'qs';
@@ -52,11 +51,15 @@ const QUERY_FILTER_MAP = {
   external: FILTER_EXTERNAL,
 };
 
-const filterToQuery = (filterName) => {
+function cleanInputStr(value) {
+  return value.trim().replace(/@/g, '');
+}
+
+function filterToQuery(filterName) {
   return Object.keys(QUERY_FILTER_MAP).find((key) => {
     return QUERY_FILTER_MAP[key] === filterName;
   });
-};
+}
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -88,21 +91,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
-  const classes = useStyles();
-  const ref = useRef();
-
   const history = useHistory();
-  const { query: input = '', filter } = useQuery();
+  const { filter, query: input = '' } = useQuery();
 
   // Check if we already selected a filter via url query param
   const preselectedFilter =
     filter in QUERY_FILTER_MAP ? QUERY_FILTER_MAP[filter] : DEFAULT_FILTER;
   const [selectedFilter, setSelectedFilter] = useState(preselectedFilter);
 
-  const safe = useSelector((state) => state.safe);
   const [isLoading, setIsLoading] = useState(false);
   const [isQueryEmpty, setIsQueryEmpty] = useState(true);
-  const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
 
   const updateUrl = (newInput, newFilter) => {
@@ -119,127 +117,30 @@ const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
     updateUrl(input, newFilter);
   };
 
-  const onInputChange = (event) => {
-    updateUrl(event.target.value, selectedFilter);
+  const handleLoadingChange = (newState) => {
+    setIsLoading(newState);
   };
 
-  const handleSelect = (user) => {
-    onSelect(user.safeAddress);
+  const handleInputChange = (event) => {
+    const newValue = event.target.value;
+    updateUrl(newValue, selectedFilter);
+    setIsQueryEmpty(cleanInputStr(newValue).length === 0);
   };
 
-  const handleScan = (address) => {
-    setIsScannerOpen(false);
-    onSelect(address);
+  const handleSearchResultsChange = (newResults) => {
+    setSearchResults(newResults);
   };
 
-  const handleScannerError = () => {
-    setIsScannerOpen(false);
-  };
-
-  const handleScannerOpen = () => {
-    ref.current.blur();
-    setIsScannerOpen(true);
-  };
-
-  const handleScannerClose = () => {
-    setIsScannerOpen(false);
-  };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedSearch = useCallback(
-    debounce(async (query) => {
-      // Search the database for similar usernames
-      const response = await core.user.search(query);
-
-      const result = response.data
-        .filter((item) => {
-          return item.safeAddress !== safe.currentAccount;
-        })
-        .sort((itemA, itemB) => {
-          return itemA.username
-            .toLowerCase()
-            .localeCompare(itemB.username.toLowerCase());
-        })
-        .slice(0, MAX_SEARCH_RESULTS);
-
-      setSearchResults(result);
-      setIsLoading(false);
-    }),
-    [],
-  );
-
-  useEffect(() => {
-    const cleanInput = input.trim().replace(/@/g, '');
-    setIsQueryEmpty(cleanInput.length === 0);
-
-    if (cleanInput.length === 0) {
-      setSearchResults([]);
-      return;
-    }
-
-    // Shortcut for putting in a valid address directly
-    const matched = core.utils.matchAddress(cleanInput);
-    if (matched) {
-      // Reset current input so we don't run into an redirect loop
-      history.replace(generatePath(basePath));
-      onSelect(matched);
-      return;
-    }
-
-    setIsLoading(true);
-    debouncedSearch(cleanInput);
-  }, [input]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return (
-    <Fragment>
-      <Box display="flex" mb={3}>
-        <Input
-          autoComplete="off"
-          autoFocus
-          className={classes.searchInput}
-          disableUnderline={true}
-          fullWidth
-          id="search"
-          placeholder={translate('Finder.formSearch')}
-          ref={ref}
-          value={input}
-          onChange={onInputChange}
-        />
-        <QRCodeScanner
-          isOpen={isScannerOpen}
-          onClose={handleScannerClose}
-          onError={handleScannerError}
-          onSuccess={handleScan}
-        >
-          <IconButton onClick={handleScannerOpen}>
-            <IconScan />
-          </IconButton>
-        </QRCodeScanner>
-      </Box>
-      <FinderResults
-        hasActions={hasActions}
-        isLoading={isLoading}
-        isQueryEmpty={isQueryEmpty}
-        items={searchResults}
-        selectedFilter={selectedFilter}
-        onClick={handleSelect}
-        onFilterChange={handleFilterSelection}
-      />
-    </Fragment>
-  );
-};
-
-const FinderResults = ({ selectedFilter, onFilterChange, ...props }) => {
   // Get our current trust network
   const { network } = useSelector((state) => state.trust);
 
   // Filter results
-  const results = useMemo(() => {
+  const filterResults = useMemo(() => {
     // Show users trust network when no query is given, otherwise merge search
     // results with what we know from our trust network
-    const items = props.isQueryEmpty
+    const items = isQueryEmpty
       ? network
-      : props.items.map((item) => {
+      : searchResults.map((item) => {
           const networkItem = network.find(({ safeAddress }) => {
             return safeAddress === item.safeAddress;
           });
@@ -268,23 +169,16 @@ const FinderResults = ({ selectedFilter, onFilterChange, ...props }) => {
       },
       {},
     );
-  }, [props.isQueryEmpty, props.items, network]);
-
-  const handleFilterChange = useCallback(
-    (newFilter) => {
-      onFilterChange(newFilter);
-    },
-    [onFilterChange],
-  );
+  }, [isQueryEmpty, searchResults, network]);
 
   // Automatically select the filter with the only results
   useEffect(() => {
-    if (!props.isLoading && !props.isQueryEmpty) {
+    if (!isLoading && !isQueryEmpty) {
       const filterRank = [FILTER_DIRECT, FILTER_INDIRECT, FILTER_EXTERNAL]
         .map((key) => {
           return {
             key,
-            length: results[key].length,
+            length: filterResults[key].length,
           };
         })
         .sort(({ length: itemA }, { length: itemB }) => {
@@ -297,91 +191,243 @@ const FinderResults = ({ selectedFilter, onFilterChange, ...props }) => {
         filterRank[1].length === 0 &&
         filterRank[2].length === 0
       ) {
-        handleFilterChange(bestFilter);
+        handleFilterSelection(bestFilter);
       }
     }
-  }, [props.isLoading, props.isQueryEmpty]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  if (!props.isQueryEmpty && props.items.length === 0 && !props.isLoading) {
-    return (
-      <Box
-        alignItems="center"
-        display="flex"
-        flexDirection="column"
-        height={220}
-        justifyContent="space-between"
-        mt={5}
-      >
-        <TourWebOfTrustSVG />
-        <Typography align="center">
-          {translate('Finder.bodyNoResultsGiven')}
-        </Typography>
-      </Box>
-    );
-  }
+  }, [isLoading, isQueryEmpty]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Fragment>
-      <TabNavigation
-        value={selectedFilter}
-        onChange={(event, newFilter) => {
-          handleFilterChange(newFilter);
-        }}
-      >
-        <TabNavigationAction
-          icon={
-            <Badge badgeContent={results[FILTER_DIRECT].length} color="primary">
-              <IconTrustActive />
-            </Badge>
-          }
-          label={translate('Finder.bodyFilterDirect')}
-          value={FILTER_DIRECT}
+      <Box display="flex" mb={3}>
+        <FinderSearchBar
+          basePath={basePath}
+          input={input}
+          selectedFilter={selectedFilter}
+          onInputChange={handleInputChange}
+          onLoadingChange={handleLoadingChange}
+          onResultsChange={handleSearchResultsChange}
+          onSelect={onSelect}
         />
-        <TabNavigationAction
-          icon={
-            <Badge
-              badgeContent={results[FILTER_INDIRECT].length}
-              color="primary"
-            >
-              <IconFollow />
-            </Badge>
-          }
-          label={translate('Finder.bodyFilterIndirect')}
-          value={FILTER_INDIRECT}
+        <FinderQRCodeScanner onSelect={onSelect} />
+      </Box>
+      <FinderFilter
+        filterResults={filterResults}
+        selectedFilter={selectedFilter}
+        onChange={handleFilterSelection}
+      />
+      {!isQueryEmpty && searchResults.length === 0 && !isLoading ? (
+        <Box
+          alignItems="center"
+          display="flex"
+          flexDirection="column"
+          height={220}
+          justifyContent="space-between"
+          mt={5}
+        >
+          <TourWebOfTrustSVG />
+          <Typography align="center">
+            {translate('Finder.bodyNoResultsGiven')}
+          </Typography>
+        </Box>
+      ) : (
+        <FinderResults
+          filterResults={filterResults}
+          hasActions={hasActions}
+          isLoading={isLoading}
+          selectedFilter={selectedFilter}
+          onSelect={onSelect}
         />
-        <TabNavigationAction
-          icon={
-            <Badge
-              badgeContent={results[FILTER_EXTERNAL].length}
-              color="primary"
-            >
-              <IconWorld />
-            </Badge>
-          }
-          label={translate('Finder.bodyFilterExternal')}
-          value={FILTER_EXTERNAL}
-        />
-      </TabNavigation>
-      {results[selectedFilter].length === 0 && !props.isLoading && (
+      )}
+    </Fragment>
+  );
+};
+
+const FinderSearchBar = ({
+  basePath,
+  onLoadingChange,
+  onResultsChange,
+  onInputChange,
+  input,
+  onSelect,
+}) => {
+  const history = useHistory();
+  const classes = useStyles();
+  const safe = useSelector((state) => state.safe);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedSearch = useCallback(
+    debounce(async (query) => {
+      // Search the database for similar usernames
+      const response = await core.user.search(query);
+
+      const result = response.data
+        .filter((item) => {
+          return item.safeAddress !== safe.currentAccount;
+        })
+        .sort((itemA, itemB) => {
+          return itemA.username
+            .toLowerCase()
+            .localeCompare(itemB.username.toLowerCase());
+        })
+        .slice(0, MAX_SEARCH_RESULTS);
+
+      onResultsChange(result);
+      onLoadingChange(false);
+    }),
+    [],
+  );
+
+  useEffect(() => {
+    const cleanInput = cleanInputStr(input);
+
+    if (cleanInput.length === 0) {
+      onResultsChange([]);
+      return;
+    }
+
+    // Shortcut for putting in a valid address directly
+    const matched = core.utils.matchAddress(cleanInput);
+    if (matched) {
+      // Reset current input so we don't run into an redirect loop
+      history.replace(generatePath(basePath));
+      onSelect(matched);
+      return;
+    }
+
+    onLoadingChange(true);
+    debouncedSearch(cleanInput);
+  }, [input]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <Input
+      autoComplete="off"
+      autoFocus
+      className={classes.searchInput}
+      disableUnderline={true}
+      fullWidth
+      id="search"
+      placeholder={translate('Finder.formSearch')}
+      value={input}
+      onChange={onInputChange}
+    />
+  );
+};
+
+const FinderQRCodeScanner = ({ onSelect }) => {
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
+
+  const handleScan = (address) => {
+    setIsScannerOpen(false);
+    onSelect(address);
+  };
+
+  const handleScannerError = () => {
+    setIsScannerOpen(false);
+  };
+
+  const handleScannerOpen = () => {
+    setIsScannerOpen(true);
+  };
+
+  const handleScannerClose = () => {
+    setIsScannerOpen(false);
+  };
+
+  return (
+    <QRCodeScanner
+      isOpen={isScannerOpen}
+      onClose={handleScannerClose}
+      onError={handleScannerError}
+      onSuccess={handleScan}
+    >
+      <IconButton onClick={handleScannerOpen}>
+        <IconScan />
+      </IconButton>
+    </QRCodeScanner>
+  );
+};
+
+const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
+  return (
+    <TabNavigation
+      value={selectedFilter}
+      onChange={(event, newFilter) => {
+        onChange(newFilter);
+      }}
+    >
+      <TabNavigationAction
+        icon={
+          <Badge
+            badgeContent={filterResults[FILTER_DIRECT].length}
+            color="primary"
+          >
+            <IconTrustActive />
+          </Badge>
+        }
+        label={translate('Finder.bodyFilterDirect')}
+        value={FILTER_DIRECT}
+      />
+      <TabNavigationAction
+        icon={
+          <Badge
+            badgeContent={filterResults[FILTER_INDIRECT].length}
+            color="primary"
+          >
+            <IconFollow />
+          </Badge>
+        }
+        label={translate('Finder.bodyFilterIndirect')}
+        value={FILTER_INDIRECT}
+      />
+      <TabNavigationAction
+        icon={
+          <Badge
+            badgeContent={filterResults[FILTER_EXTERNAL].length}
+            color="primary"
+          >
+            <IconWorld />
+          </Badge>
+        }
+        label={translate('Finder.bodyFilterExternal')}
+        value={FILTER_EXTERNAL}
+      />
+    </TabNavigation>
+  );
+};
+
+const FinderResults = ({
+  filterResults,
+  hasActions,
+  isLoading,
+  onSelect,
+  selectedFilter,
+}) => {
+  const handleSelect = (user) => {
+    onSelect(user.safeAddress);
+  };
+
+  return (
+    <Fragment>
+      {filterResults[selectedFilter].length === 0 && !isLoading && (
         <Typography align="center">
           {translate('Finder.bodyNoResultsGiven')}
         </Typography>
       )}
-      {props.isLoading && (
+      {isLoading && (
         <Box alignItems="center" display="flex" justifyContent="center">
           {' '}
           <CircularProgress />{' '}
         </Box>
       )}
-      {!props.isLoading && (
+      {!isLoading && (
         <Grid container spacing={2}>
-          {results[selectedFilter].map((item, index) => {
+          {filterResults[selectedFilter].map((item, index) => {
             return (
               <Grid item key={index} xs={12}>
-                <FinderItem
-                  hasActions={props.hasActions}
+                <FinderResultsItem
+                  hasActions={hasActions}
                   user={item}
-                  onClick={props.onClick}
+                  onClick={handleSelect}
                 />
               </Grid>
             );
@@ -392,7 +438,7 @@ const FinderResults = ({ selectedFilter, onFilterChange, ...props }) => {
   );
 };
 
-const FinderItem = (props) => {
+const FinderResultsItem = (props) => {
   const classes = useStyles();
 
   const handleSelect = () => {
@@ -415,17 +461,34 @@ Finder.propTypes = {
   onSelect: PropTypes.func.isRequired,
 };
 
-FinderResults.propTypes = {
-  hasActions: PropTypes.bool,
-  isLoading: PropTypes.bool.isRequired,
-  isQueryEmpty: PropTypes.bool.isRequired,
-  items: PropTypes.array,
-  onClick: PropTypes.func.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
+FinderSearchBar.propTypes = {
+  basePath: PropTypes.string.isRequired,
+  input: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onLoadingChange: PropTypes.func.isRequired,
+  onResultsChange: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+};
+
+FinderQRCodeScanner.propTypes = {
+  onSelect: PropTypes.func.isRequired,
+};
+
+FinderFilter.propTypes = {
+  filterResults: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
   selectedFilter: PropTypes.symbol.isRequired,
 };
 
-FinderItem.propTypes = {
+FinderResults.propTypes = {
+  filterResults: PropTypes.object.isRequired,
+  hasActions: PropTypes.bool,
+  isLoading: PropTypes.bool.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  selectedFilter: PropTypes.symbol.isRequired,
+};
+
+FinderResultsItem.propTypes = {
   hasActions: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
