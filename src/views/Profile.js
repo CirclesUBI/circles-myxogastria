@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams, Redirect } from 'react-router-dom';
+import { generatePath, useParams, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
@@ -40,7 +40,7 @@ import {
   IconTrustActive,
   IconTrustMutual,
 } from '~/styles/icons';
-import { DASHBOARD_PATH } from '~/routes';
+import { DASHBOARD_PATH, PROFILE_PATH } from '~/routes';
 import { usePendingTransfer } from '~/hooks/activity';
 import { useRelativeSendLink, useProfileLink } from '~/hooks/url';
 import { useTrustConnection, useDeploymentStatus } from '~/hooks/network';
@@ -166,12 +166,23 @@ const ProfileStatus = ({ address, trustStatus, deploymentStatus }) => {
 
 const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
   const [selectedPanel, setSelectedPanel] = useState(DEFAULT_PANEL);
+  const [redirectPath, setRedirectPath] = useState(null);
+
+  const handleProfileSelection = (address) => {
+    setRedirectPath(
+      generatePath(PROFILE_PATH, {
+        address,
+      }),
+    );
+  };
 
   const handlePanelSelection = (newPanel) => {
     setSelectedPanel(newPanel);
   };
 
-  const handleProfileSelection = () => {};
+  if (redirectPath) {
+    return <Redirect push to={redirectPath} />;
+  }
 
   if (!deploymentStatus.isReady || !deploymentStatus.isDeployed) {
     return null;
