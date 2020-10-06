@@ -247,16 +247,11 @@ const ProfileContentTrustedBy = ({ trustStatus, onSelect }) => {
   return (
     <Fragment>
       <Grid container spacing={2}>
-        {trustStatus.mutualConnections
-          .slice(0, limit)
-          .map((connection, index) => {
-            <Grid item key={index} xs={12}>
-              <ProfileMini
-                address={connection.safeAddress}
-                onClick={handleSelect}
-              />
-            </Grid>;
-          })}
+        {trustStatus.mutualConnections.slice(0, limit).map((safeAddress) => {
+          <Grid item key={safeAddress} xs={12}>
+            <ProfileMini address={safeAddress} onClick={handleSelect} />
+          </Grid>;
+        })}
       </Grid>
       {trustStatus.mutualConnections.length > limit && (
         <Box mt={2}>
