@@ -18,6 +18,8 @@ export function useUserdata(address) {
     let isUnloaded = false;
 
     const request = async () => {
+      isUnloaded = false;
+
       const result = await resolveUsernames([address]);
 
       if (isUnloaded) {

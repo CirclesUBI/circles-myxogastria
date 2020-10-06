@@ -9,6 +9,8 @@ export function usePaymentNote(transactionHash) {
     let isUnloaded = false;
 
     const request = async () => {
+      isUnloaded = false;
+
       const result = await resolveTxHash(transactionHash);
 
       if (isUnloaded) {
