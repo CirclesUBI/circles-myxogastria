@@ -213,6 +213,22 @@ const activity = {
   },
 };
 
+// Organization module
+
+const organization = {
+  isOrganization: async (safeAddress) => {
+    return await requestCore('organization', 'isOrganization', {
+      safeAddress,
+    });
+  },
+
+  deploy: async (safeAddress) => {
+    return await requestCore('organization', 'deploy', {
+      safeAddress,
+    });
+  },
+};
+
 // Utils module
 
 const { fromFreckles, toFreckles, requestAPI, matchAddress } = core.utils;
@@ -238,6 +254,7 @@ const errors = {
 export default {
   activity,
   errors,
+  organization,
   safe,
   token,
   trust,
