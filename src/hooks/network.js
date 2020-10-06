@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import core from '~/services/core';
@@ -9,22 +9,20 @@ export function useTrustConnection(address) {
   const { network } = useSelector((state) => state.trust);
   const isPending = usePendingTrust(address);
 
-  return useMemo(() => {
-    const connection = network.find(({ safeAddress }) => {
-      return safeAddress === address;
-    });
+  const connection = network.find(({ safeAddress }) => {
+    return safeAddress === address;
+  });
 
-    const isMeTrusting = connection && connection.isIncoming;
-    const isTrustingMe = connection && connection.isOutgoing;
+  const isMeTrusting = connection && connection.isIncoming;
+  const isTrustingMe = connection && connection.isOutgoing;
 
-    return {
-      isPending,
-      isReady: !!connection,
-      isMeTrusting,
-      isTrustingMe,
-      mutualConnections: connection ? connection.mutualConnections : [],
-    };
-  }, [isPending, network, address]);
+  return {
+    isPending,
+    isReady: !!connection,
+    isMeTrusting,
+    isTrustingMe,
+    mutualConnections: connection ? connection.mutualConnections : [],
+  };
 }
 
 // Check if Safe has an deployed Token
