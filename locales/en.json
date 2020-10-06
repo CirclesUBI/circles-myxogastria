@@ -118,6 +118,21 @@
     "bodyNotFound": "Ouch. We could not find the requested page. Did you maybe mistype the address?",
     "headingNotFound": "Not found"
   },
+  "Organization": {
+    "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",
+    "bodyUsername": "Your wallet name is how people can search for your organization on the Circles App.",
+    "buttonFinish": "Create shared wallet",
+    "buttonNextStep": "Continue",
+    "errorAvatarUpload": "Could not upload image. Is it the right format and size?",
+    "errorSignup": "Server error occurred during sign up. {errorMessage}",
+    "formUnknownError": "Unknown error ",
+    "formUsername": "Wallet name",
+    "formUsernameInvalidFormat": "Only basic characters and numbers (A-Z, 0-9) allowed, no symbols or whitespace, 3-24 characters",
+    "formUsernameTaken": "Wallet name is already taken",
+    "headingAvatar": "Add Photo",
+    "headingUsername": "Name your wallet",
+    "successOnboardingComplete": "Your account was successfully created! Welcome!"
+  },
   "Onboarding": {
     "bodyAvatar": "Your photo is how your friends can search for you on the Circles App.",
     "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
