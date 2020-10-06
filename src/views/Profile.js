@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     left: 1,
   },
   mutualUserCard: {
-    cursor: pointer,
+    cursor: 'pointer',
   },
 }));
 
