@@ -228,10 +228,6 @@ const ProfileContentActivity = () => {
 const ProfileContentTrustedBy = ({ trustStatus, onSelect }) => {
   const [limit, setLimit] = useState(PAGE_SIZE);
 
-  const handleSelect = (user) => {
-    onSelect(user.safeAddress);
-  };
-
   const handleLoadMore = () => {
     setLimit(limit + PAGE_SIZE);
   };
@@ -250,7 +246,13 @@ const ProfileContentTrustedBy = ({ trustStatus, onSelect }) => {
         {trustStatus.mutualConnections.slice(0, limit).map((safeAddress) => {
           return (
             <Grid item key={safeAddress} xs={12}>
-              <ProfileMini address={safeAddress} onClick={handleSelect} />
+              <ProfileMini
+                address={safeAddress}
+                hasActions
+                onClick={() => {
+                  onSelect(safeAddress);
+                }}
+              />
             </Grid>
           );
         })}
