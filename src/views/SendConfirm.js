@@ -1,5 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+import qs from 'qs';
+import {
+  Redirect,
+  generatePath,
+  useHistory,
+  useParams,
+} from 'react-router-dom';
 import {
   Box,
   Card,
@@ -35,17 +41,28 @@ import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import web3 from '~/services/web3';
-import { DASHBOARD_PATH } from '~/routes';
+import { DASHBOARD_PATH, SEND_CONFIRM_PATH } from '~/routes';
 import { IconCircles, IconSend } from '~/styles/icons';
 import { formatCirclesValue } from '~/utils/format';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { transfer } from '~/store/token/actions';
+import { useQuery } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 
 const PAYMENT_NOTE_REGEX = /^[\w\s!?:\-.,_*%@#&+)(]+$/;
 const PAYMENT_NOTE_MAX_LEN = 100;
 
 const { ErrorCodes, TransferError } = core.errors;
+
+function validatePaymentNote(value) {
+  return (
+    value.match(PAYMENT_NOTE_REGEX) && value.length <= PAYMENT_NOTE_MAX_LEN
+  );
+}
+
+function validateAmount(value) {
+  return !isNaN(value) && parseInt(value, 10) >= 0;
+}
 
 const useStyles = makeStyles((theme) => ({
   cardHeader: {
@@ -82,17 +99,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SendConfirm = () => {
-  const classes = useStyles();
   const { address } = useParams();
-
+  const classes = useStyles();
   const dispatch = useDispatch();
-  const { safe, token } = useSelector((state) => state);
+  const history = useHistory();
 
-  const [amount, setAmount] = useState('');
+  // Set amount and payment note based on URL query
+  const {
+    a: preselectedAmount = '',
+    n: preselectedPaymentNote = '',
+  } = useQuery();
+  const [amount, setAmount] = useState(
+    validateAmount(preselectedAmount) ? preselectedAmount : '',
+  );
+  const [paymentNote, setPaymentNote] = useState(
+    validatePaymentNote(preselectedPaymentNote) ? preselectedPaymentNote : '',
+  );
+
   const [isConfirmationShown, setIsConfirmationShown] = useState(false);
   const [isSent, setIsSent] = useState(false);
   const [maxFlow, setMaxFlow] = useState(null);
-  const [paymentNote, setPaymentNote] = useState('');
+
+  const { safe, token } = useSelector((state) => state);
 
   const { username: sender } = useUserdata(safe.currentAccount);
   const { username: receiver } = useUserdata(address);
@@ -109,21 +137,31 @@ const SendConfirm = () => {
   );
 
   const isAmountTooHigh = (amount ? parseFloat(amount) : 0) > maxAmount;
-
   const isPaymentNoteInvalid =
-    paymentNote.length > 0 &&
-    (!paymentNote.match(PAYMENT_NOTE_REGEX) ||
-      paymentNote.length > PAYMENT_NOTE_MAX_LEN);
+    paymentNote.length > 0 && !validatePaymentNote(paymentNote);
+
+  const updateUrl = (newPaymentNote, newAmount) => {
+    const query = qs.stringify({
+      a: newAmount,
+      n: newPaymentNote,
+    });
+
+    history.replace(`${generatePath(SEND_CONFIRM_PATH, { address })}?${query}`);
+  };
 
   const handleAmountChange = (event) => {
-    if (isNaN(event.target.value)) {
+    const newAmount = event.target.value;
+    if (newAmount && !validateAmount(newAmount)) {
       return;
     }
-    setAmount(event.target.value);
+    setAmount(newAmount);
+    updateUrl(paymentNote, newAmount);
   };
 
   const handlePaymentNoteChange = (event) => {
-    setPaymentNote(event.target.value);
+    const newPaymentNote = event.target.value;
+    setPaymentNote(newPaymentNote);
+    updateUrl(newPaymentNote, amount);
   };
 
   const handleConfirmOpen = () => {
