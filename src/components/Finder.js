@@ -19,6 +19,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, generatePath } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import Button from '~/components/Button';
 import ProfileMini from '~/components/ProfileMini';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
@@ -31,6 +32,7 @@ import { SEARCH_PATH } from '~/routes';
 import { useQuery } from '~/hooks/url';
 
 const MAX_SEARCH_RESULTS = 10;
+const PAGE_SIZE = 20;
 
 const FILTER_DIRECT = Symbol('filterDirect');
 const FILTER_EXTERNAL = Symbol('filterExternal');
@@ -360,8 +362,21 @@ const FinderResults = ({
   onSelect,
   selectedFilter,
 }) => {
+  const [limit, setLimit] = useState({
+    [FILTER_DIRECT]: PAGE_SIZE,
+    [FILTER_EXTERNAL]: PAGE_SIZE,
+    [FILTER_INDIRECT]: PAGE_SIZE,
+  });
+
   const handleSelect = (user) => {
     onSelect(user.safeAddress);
+  };
+
+  const handleLoadMore = () => {
+    setLimit({
+      ...limit,
+      [selectedFilter]: limit[selectedFilter] + PAGE_SIZE,
+    });
   };
 
   return (
@@ -379,19 +394,30 @@ const FinderResults = ({
         </Box>
       )}
       {!isLoading && (
-        <Grid container spacing={2}>
-          {filterResults[selectedFilter].map((item, index) => {
-            return (
-              <Grid item key={index} xs={12}>
-                <FinderResultsItem
-                  hasActions={hasActions}
-                  user={item}
-                  onClick={handleSelect}
-                />
-              </Grid>
-            );
-          })}
-        </Grid>
+        <Fragment>
+          <Grid container spacing={2}>
+            {filterResults[selectedFilter]
+              .slice(0, limit[selectedFilter])
+              .map((item, index) => {
+                return (
+                  <Grid item key={index} xs={12}>
+                    <FinderResultsItem
+                      hasActions={hasActions}
+                      user={item}
+                      onClick={handleSelect}
+                    />
+                  </Grid>
+                );
+              })}
+          </Grid>
+          {filterResults[selectedFilter].length > limit[selectedFilter] && (
+            <Box mt={2}>
+              <Button fullWidth isOutline onClick={handleLoadMore}>
+                {translate('Finder.buttonLoadMore')}
+              </Button>
+            </Box>
+          )}
+        </Fragment>
       )}
     </Fragment>
   );

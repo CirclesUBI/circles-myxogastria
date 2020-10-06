@@ -68,6 +68,7 @@
     "bodyFilterExternal": "External",
     "bodyFilterIndirect": "In your network",
     "bodyNoResultsGiven": "No search results found!",
+    "buttonLoadMore": "Show more",
     "formSearch": "Search"
   },
   "LocaleSelector": {
