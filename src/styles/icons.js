@@ -1,6 +1,7 @@
 import React from 'react';
 import { SvgIcon } from '@material-ui/core';
 
+import activity from '%/images/activity.svg';
 import alert from '%/images/alert.svg';
 import arrow from '%/images/arrow.svg';
 import check from '%/images/check.svg';
@@ -26,6 +27,10 @@ import trustActive from '%/images/trust-active.svg';
 import trustMutual from '%/images/trust-mutual.svg';
 import twitter from '%/images/twitter.svg';
 import world from '%/images/world.svg';
+
+export const IconActivity = (props) => {
+  return <SvgIcon component={activity} {...props} viewBox="0 0 20 20" />;
+};
 
 export const IconAlert = (props) => {
   return <SvgIcon component={alert} {...props} viewBox="0 0 20 20" />;
