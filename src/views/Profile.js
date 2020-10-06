@@ -68,6 +68,9 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     left: 1,
   },
+  mutualUserCard: {
+    cursor: pointer,
+  },
 }));
 
 const Profile = () => {
@@ -110,11 +113,13 @@ const Profile = () => {
             >
               <Avatar address={address} size="large" />
             </Badge>
-            <ProfileStatus
-              address={address}
-              deploymentStatus={deploymentStatus}
-              trustStatus={trustStatus}
-            />
+            {address !== safe.currentAccount && (
+              <ProfileStatus
+                address={address}
+                deploymentStatus={deploymentStatus}
+                trustStatus={trustStatus}
+              />
+            )}
           </Box>
           {address !== safe.currentAccount && (
             <ProfileContent
@@ -236,6 +241,7 @@ const ProfileContentActivity = () => {
 };
 
 const ProfileContentTrustedBy = ({ trustStatus, onSelect }) => {
+  const classes = useStyles();
   const [limit, setLimit] = useState(PAGE_SIZE);
 
   const handleLoadMore = () => {
@@ -258,6 +264,7 @@ const ProfileContentTrustedBy = ({ trustStatus, onSelect }) => {
             <Grid item key={safeAddress} xs={12}>
               <ProfileMini
                 address={safeAddress}
+                className={classes.mutualUserCard}
                 hasActions
                 onClick={() => {
                   onSelect(safeAddress);

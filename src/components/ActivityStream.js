@@ -96,12 +96,12 @@ const ActivityStream = ({
         lastUpdatedAt={lastUpdatedAt}
       />
       {isLoading && (
-        <Box m="auto">
+        <Box mx="auto" my={2} textAlign="center">
           <CircularProgress />
         </Box>
       )}
       {isMoreAvailable && onLoadMore && (
-        <Box mt={2}>
+        <Box my={2}>
           <Button disabled={isLoading} fullWidth isOutline onClick={onLoadMore}>
             {translate('ActivityStream.buttonLoadMore')}
           </Button>

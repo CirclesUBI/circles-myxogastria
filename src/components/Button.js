@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
   buttonOutline: {
     color: theme.palette.primary.main,
     border: `${theme.palette.primary.main} 2px solid`,
+    '&.Mui-disabled': {
+      borderColor: theme.custom.gradients.gray,
+    },
   },
   buttonDanger: {
     background: theme.palette.error.main,
