@@ -354,11 +354,15 @@ const SendConfirm = () => {
                     error={isAmountTooHigh}
                     fullWidth
                     id="amount"
+                    inputProps={{
+                      min: 0,
+                    }}
                     startAdornment={
                       <InputAdornment position="start">
                         <IconCircles />
                       </InputAdornment>
                     }
+                    type="number"
                     value={amount}
                     onChange={handleAmountChange}
                   />
