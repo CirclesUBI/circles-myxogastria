@@ -39,6 +39,7 @@ export const SETTINGS_PATH = '/settings';
 export const SHARE_PATH = '/share';
 export const ACTIVITIES_PATH = '/activities';
 export const SEARCH_PATH = '/search';
+export const SHARED_WALLET_PATH = '/organization';
 export const VALIDATION_PATH = '/validation';
 export const VALIDATION_SHARE_PATH = '/validation/share';
 export const QR_GENERATOR_PATH = '/qr';
