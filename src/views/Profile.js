@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
   const { address } = useParams();
 
+  const safe = useSelector((state) => state.safe);
   const shareLink = useProfileLink(address);
   const shareText = translate('Profile.shareText', { shareLink });
 
@@ -115,11 +116,13 @@ const Profile = () => {
               trustStatus={trustStatus}
             />
           </Box>
-          <ProfileContent
-            address={address}
-            deploymentStatus={deploymentStatus}
-            trustStatus={trustStatus}
-          />
+          {address !== safe.currentAccount && (
+            <ProfileContent
+              address={address}
+              deploymentStatus={deploymentStatus}
+              trustStatus={trustStatus}
+            />
+          )}
         </Container>
       </View>
       <ProfileSendButton
