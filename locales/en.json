@@ -23,6 +23,7 @@
     "bodyNothingHereYet": "There are no activities to display yet",
     "bodyPaymentNote": "Note: {note}",
     "buttonLoadMore": "Load more",
+    "headingActivityLog": "Activity Log",
     "linkLearnMore": "Learn more."
   },
   "App": {
@@ -154,6 +155,9 @@
   },
   "QRCodeScanner": {
     "notificationError": "Could not open QR code scanner: {error}."
+  },
+  "Search": {
+    "headingSearch": "Trust Network"
   },
   "SeedPhrase": {
     "bodyDescription": "Print this and store it safely:",

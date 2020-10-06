@@ -9,15 +9,8 @@ import {
 } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
-import {
-  DASHBOARD_PATH,
-  ACTIVITIES_PATH,
-  MY_PROFILE_PATH,
-  SEARCH_PATH,
-} from '~/routes';
-import ActivityStream from '~/components/ActivityStream';
+import { DASHBOARD_PATH, MY_PROFILE_PATH } from '~/routes';
 import MyProfile from '~/components/MyProfile';
-import TrustNetwork from '~/components/TrustNetwork';
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
@@ -35,9 +28,7 @@ const Drawer = () => {
   const location = useLocation();
   const history = useHistory();
 
-  const isExpanded = !!useRouteMatch(
-    `(${[ACTIVITIES_PATH, MY_PROFILE_PATH, SEARCH_PATH].join('|')})`,
-  );
+  const isExpanded = !!useRouteMatch(`(${[MY_PROFILE_PATH].join('|')})`);
 
   const onOpen = () => {
     // Do nothing ...
@@ -62,9 +53,7 @@ const Drawer = () => {
     >
       <Container disableGutters maxWidth="sm">
         <Switch location={location}>
-          <Route component={ActivityStream} path={ACTIVITIES_PATH} />
           <Route component={MyProfile} path={MY_PROFILE_PATH} />
-          <Route component={TrustNetwork} path={SEARCH_PATH} />
         </Switch>
       </Container>
     </SwipeableDrawer>

@@ -18,6 +18,8 @@ const TabNavigation = ({ className, children, ...props }) => {
       centered
       className={clsx(className, classes.tabs)}
       indicatorColor="primary"
+      scrollButtons="off"
+      variant="fullWidth"
       {...props}
     >
       {children}

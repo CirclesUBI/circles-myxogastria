@@ -10,6 +10,7 @@ import {
   CardHeader,
   CircularProgress,
   Collapse,
+  Container,
   Divider,
   Grid,
   Zoom,
@@ -22,10 +23,14 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
+import ButtonBack from '~/components/ButtonBack';
+import CenteredHeading from '~/components/CenteredHeading';
 import ExternalLink from '~/components/ExternalLink';
+import Header from '~/components/Header';
 import Logo from '~/components/Logo';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
+import View from '~/components/View';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import {
@@ -140,36 +145,49 @@ const ActivityStream = () => {
 
   return (
     <Fragment>
-      <TabNavigation value={selectedCategory} onChange={handleFilterSelection}>
-        <TabNavigationAction
-          icon={<IconTransactions />}
-          label={translate('ActivityStream.bodyFilterTransactions')}
-          value={ActivityFilterTypes.TRANSFERS}
-        />
-        <TabNavigationAction
-          icon={<IconConnections />}
-          label={translate('ActivityStream.bodyFilterConnections')}
-          value={ActivityFilterTypes.CONNECTIONS}
-        />
-      </TabNavigation>
-      <ActivityStreamList activity={activity} lastSeenAt={lastSeenAt} />
-      {isLoading && (
-        <Box m="auto">
-          <CircularProgress />
-        </Box>
-      )}
-      {activity.isMoreAvailable && (
-        <Box mt={2}>
-          <Button
-            disabled={isLoading}
-            fullWidth
-            isOutline
-            onClick={handleLoadMore}
+      <Header>
+        <ButtonBack />
+        <CenteredHeading>
+          {translate('ActivityStream.headingActivityLog')}
+        </CenteredHeading>
+      </Header>
+      <View>
+        <Container maxWidth="sm">
+          <TabNavigation
+            value={selectedCategory}
+            onChange={handleFilterSelection}
           >
-            {translate('ActivityStream.buttonLoadMore')}
-          </Button>
-        </Box>
-      )}
+            <TabNavigationAction
+              icon={<IconTransactions />}
+              label={translate('ActivityStream.bodyFilterTransactions')}
+              value={ActivityFilterTypes.TRANSFERS}
+            />
+            <TabNavigationAction
+              icon={<IconConnections />}
+              label={translate('ActivityStream.bodyFilterConnections')}
+              value={ActivityFilterTypes.CONNECTIONS}
+            />
+          </TabNavigation>
+          <ActivityStreamList activity={activity} lastSeenAt={lastSeenAt} />
+          {isLoading && (
+            <Box m="auto">
+              <CircularProgress />
+            </Box>
+          )}
+          {activity.isMoreAvailable && (
+            <Box mt={2}>
+              <Button
+                disabled={isLoading}
+                fullWidth
+                isOutline
+                onClick={handleLoadMore}
+              >
+                {translate('ActivityStream.buttonLoadMore')}
+              </Button>
+            </Box>
+          )}
+        </Container>
+      </View>
     </Fragment>
   );
 };

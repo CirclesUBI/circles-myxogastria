@@ -10,14 +10,14 @@ import Finder from '~/components/Finder';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import translate from '~/services/locale';
-import { SEND_PATH, SEND_CONFIRM_PATH } from '~/routes';
+import { PROFILE_PATH } from '~/routes';
 
-const Send = () => {
+const Search = () => {
   const [redirectPath, setRedirectPath] = useState(null);
 
   const handleSelect = (address) => {
     setRedirectPath(
-      generatePath(SEND_CONFIRM_PATH, {
+      generatePath(PROFILE_PATH, {
         address,
       }),
     );
@@ -31,18 +31,16 @@ const Send = () => {
     <Fragment>
       <Header>
         <ButtonBack />
-        <CenteredHeading>
-          {translate('Send.headingSendCircles')}
-        </CenteredHeading>
+        <CenteredHeading>{translate('Search.headingSearch')}</CenteredHeading>
         <ButtonQRCodeScanner edge="end" onSelect={handleSelect} />
       </Header>
       <View>
         <Container maxWidth="sm">
-          <Finder basePath={SEND_PATH} onSelect={handleSelect} />
+          <Finder hasActions onSelect={handleSelect} />
         </Container>
       </View>
     </Fragment>
   );
 };
 
-export default Send;
+export default Search;

@@ -12,7 +12,6 @@ import {
   Box,
   CircularProgress,
   Grid,
-  IconButton,
   Input,
   Typography,
 } from '@material-ui/core';
@@ -21,19 +20,13 @@ import { useHistory, generatePath } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import ProfileMini from '~/components/ProfileMini';
-import QRCodeScanner from '~/components/QRCodeScanner';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
 import TourWebOfTrustSVG from '%/images/tour-web-of-trust.svg';
 import core from '~/services/core';
 import debounce from '~/utils/debounce';
 import translate from '~/services/locale';
-import {
-  IconFollow,
-  IconScan,
-  IconTrustActive,
-  IconWorld,
-} from '~/styles/icons';
+import { IconFollow, IconTrustActive, IconWorld } from '~/styles/icons';
 import { SEARCH_PATH } from '~/routes';
 import { useQuery } from '~/hooks/url';
 
@@ -198,7 +191,7 @@ const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
 
   return (
     <Fragment>
-      <Box display="flex" mb={3}>
+      <Box mb={1}>
         <FinderSearchBar
           basePath={basePath}
           input={input}
@@ -208,7 +201,6 @@ const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
           onResultsChange={handleSearchResultsChange}
           onSelect={onSelect}
         />
-        <FinderQRCodeScanner onSelect={onSelect} />
       </Box>
       <FinderFilter
         filterResults={filterResults}
@@ -313,40 +305,6 @@ const FinderSearchBar = ({
   );
 };
 
-const FinderQRCodeScanner = ({ onSelect }) => {
-  const [isScannerOpen, setIsScannerOpen] = useState(false);
-
-  const handleScan = (address) => {
-    setIsScannerOpen(false);
-    onSelect(address);
-  };
-
-  const handleScannerError = () => {
-    setIsScannerOpen(false);
-  };
-
-  const handleScannerOpen = () => {
-    setIsScannerOpen(true);
-  };
-
-  const handleScannerClose = () => {
-    setIsScannerOpen(false);
-  };
-
-  return (
-    <QRCodeScanner
-      isOpen={isScannerOpen}
-      onClose={handleScannerClose}
-      onError={handleScannerError}
-      onSuccess={handleScan}
-    >
-      <IconButton onClick={handleScannerOpen}>
-        <IconScan />
-      </IconButton>
-    </QRCodeScanner>
-  );
-};
-
 const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
   return (
     <TabNavigation
@@ -409,14 +367,15 @@ const FinderResults = ({
   return (
     <Fragment>
       {filterResults[selectedFilter].length === 0 && !isLoading && (
-        <Typography align="center">
-          {translate('Finder.bodyNoResultsGiven')}
-        </Typography>
+        <Box mt={3}>
+          <Typography align="center">
+            {translate('Finder.bodyNoResultsGiven')}
+          </Typography>
+        </Box>
       )}
       {isLoading && (
-        <Box alignItems="center" display="flex" justifyContent="center">
-          {' '}
-          <CircularProgress />{' '}
+        <Box alignItems="center" display="flex" justifyContent="center" mt={3}>
+          <CircularProgress />
         </Box>
       )}
       {!isLoading && (
@@ -467,10 +426,6 @@ FinderSearchBar.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   onLoadingChange: PropTypes.func.isRequired,
   onResultsChange: PropTypes.func.isRequired,
-  onSelect: PropTypes.func.isRequired,
-};
-
-FinderQRCodeScanner.propTypes = {
   onSelect: PropTypes.func.isRequired,
 };
 

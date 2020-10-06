@@ -3,16 +3,18 @@ import React, { useState } from 'react';
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import ActivityStream from '~/views/ActivityStream';
 import Dashboard from '~/views/Dashboard';
-import Settings from '~/views/Settings';
 import Error from '~/views/Error';
 import Login from '~/views/Login';
 import NotFound from '~/views/NotFound';
 import Onboarding from '~/views/Onboarding';
 import Profile from '~/views/Profile';
+import Search from '~/views/Search';
 import SeedPhrase from '~/views/SeedPhrase';
 import Send from '~/views/Send';
 import SendConfirm from '~/views/SendConfirm';
+import Settings from '~/views/Settings';
 import Share from '~/views/Share';
 import TutorialOnboarding from '~/views/TutorialOnboarding';
 import Validation from '~/views/Validation';
@@ -22,9 +24,7 @@ import Welcome from '~/views/Welcome';
 import { ACCOUNT_CREATE } from '~/store/tutorial/actions';
 
 // Routes in Drawer component
-export const ACTIVITIES_PATH = '/activities';
 export const MY_PROFILE_PATH = '/profile';
-export const SEARCH_PATH = '/search';
 
 // Main routes
 export const DASHBOARD_PATH = '/';
@@ -36,6 +36,8 @@ export const SEND_CONFIRM_PATH = '/send/:address(0x[0-9a-fA-f]{40})';
 export const SEND_PATH = '/send';
 export const SETTINGS_PATH = '/settings';
 export const SHARE_PATH = '/share';
+export const ACTIVITIES_PATH = '/activities';
+export const SEARCH_PATH = '/search';
 export const VALIDATION_PATH = '/validation';
 export const VALIDATION_SHARE_PATH = '/validation/share';
 export const WELCOME_PATH = '/welcome';
@@ -196,6 +198,8 @@ const Routes = () => {
       <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
       <TrustedRoute component={Share} exact path={SHARE_PATH} />
       <TrustedRoute component={Profile} exact path={PROFILE_PATH} />
+      <TrustedRoute component={ActivityStream} exact path={ACTIVITIES_PATH} />
+      <TrustedRoute component={Search} exact path={SEARCH_PATH} />
       <TrustedRoute component={Dashboard} path={DASHBOARD_PATH} />
       <Route component={NotFound} />
     </Switch>
