@@ -172,6 +172,16 @@
   "QRCodeScanner": {
     "notificationError": "Could not open QR code scanner: {error}."
   },
+  "QRGenerator": {
+    "buttonShowQRCode": "Show QR Code",
+    "dialogClose": "Close",
+    "dialogSaveFile": "Save as .png file",
+    "dialogShare": "Share payment link",
+    "formAmount": "Amount",
+    "formPaymentNote": "Note",
+    "formReceiver": "Receiver",
+    "headingGenerator": "QR Generator"
+  },
   "Search": {
     "headingSearch": "Trust Network"
   },
@@ -220,6 +230,7 @@
     "headingManageDevices": "Settings"
   },
   "Share": {
+    "buttonQRGenerator": "Generate QR Codes",
     "buttonShareProfileLink": "Share",
     "headingShare": "My QR Code",
     "shareText": "Hey! Check out my Circles UBI profile!"

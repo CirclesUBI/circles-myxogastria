@@ -48,21 +48,9 @@ import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { transfer } from '~/store/token/actions';
 import { useQuery } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
-
-const PAYMENT_NOTE_REGEX = /^[\w\s!?:\-.,_*%@#&+)(]+$/;
-const PAYMENT_NOTE_MAX_LEN = 100;
+import { validatePaymentNote, validateAmount } from '~/services/token';
 
 const { ErrorCodes, TransferError } = core.errors;
-
-function validatePaymentNote(value) {
-  return (
-    value.match(PAYMENT_NOTE_REGEX) && value.length <= PAYMENT_NOTE_MAX_LEN
-  );
-}
-
-function validateAmount(value) {
-  return !isNaN(value) && parseInt(value, 10) >= 0;
-}
 
 const useStyles = makeStyles((theme) => ({
   cardHeader: {
