@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState, useMemo, useEffect } from 'react';
-import qs from 'qs';
+import React, { Fragment, useState, useMemo } from 'react';
 import {
   Avatar as MuiAvatar,
   Badge,
@@ -10,56 +9,30 @@ import {
   CardHeader,
   CircularProgress,
   Collapse,
-  Container,
   Divider,
   Grid,
   Zoom,
   IconButton,
   Typography,
 } from '@material-ui/core';
-import { Link, useHistory, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
-import ButtonBack from '~/components/ButtonBack';
-import CenteredHeading from '~/components/CenteredHeading';
 import ExternalLink from '~/components/ExternalLink';
-import Header from '~/components/Header';
 import Logo from '~/components/Logo';
-import TabNavigation from '~/components/TabNavigation';
-import TabNavigationAction from '~/components/TabNavigationAction';
-import View from '~/components/View';
 import core from '~/services/core';
 import translate from '~/services/locale';
-import {
-  IconCloseOutline,
-  IconConnections,
-  IconTransactions,
-} from '~/styles/icons';
-import { ACTIVITIES_PATH } from '~/routes';
+import { IconCloseOutline } from '~/styles/icons';
 import { ZERO_ADDRESS, FAQ_URL, ISSUANCE_RATE_MONTH } from '~/utils/constants';
 import { formatMessage } from '~/services/activity';
-import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
 import { usePaymentNote } from '~/hooks/transfer';
-import { useRelativeProfileLink, useQuery } from '~/hooks/url';
+import { useRelativeProfileLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 
-const { ActivityTypes, ActivityFilterTypes } = core.activity;
-
-const DEFAULT_CATEGORY = ActivityFilterTypes.TRANSFERS;
-
-const QUERY_FILTER_MAP = {
-  transfers: ActivityFilterTypes.TRANSFERS,
-  connections: ActivityFilterTypes.CONNECTIONS,
-};
-
-const filterToQuery = (filterName) => {
-  return Object.keys(QUERY_FILTER_MAP).find((key) => {
-    return QUERY_FILTER_MAP[key] === filterName;
-  });
-};
+const { ActivityTypes } = core.activity;
 
 const useStyles = makeStyles((theme) => ({
   avatarTransparent: {
@@ -107,92 +80,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActivityStream = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const { category } = useQuery();
-  const preselectedCategory =
-    category in QUERY_FILTER_MAP
-      ? QUERY_FILTER_MAP[category]
-      : DEFAULT_CATEGORY;
-
-  const [selectedCategory, setSelectedCategory] = useState(preselectedCategory);
-  const { categories, lastSeenAt } = useSelector((state) => state.activity);
-
-  const activity = categories[selectedCategory];
-  const isLoading = activity.isLoadingMore || activity.lastUpdated === 0;
-
-  const handleLoadMore = () => {
-    dispatch(loadMoreActivities(selectedCategory));
-  };
-
-  const handleFilterSelection = (event, newFilter) => {
-    const query = qs.stringify({
-      category: filterToQuery(newFilter) || filterToQuery(DEFAULT_CATEGORY),
-    });
-
-    history.replace(`${generatePath(ACTIVITIES_PATH)}?${query}`);
-    setSelectedCategory(newFilter);
-  };
-
-  useEffect(() => {
-    // Update last seen timestamp when we leave
-    return () => {
-      dispatch(updateLastSeen());
-    };
-  }, [dispatch]);
-
+const ActivityStream = ({
+  activities,
+  isLoading,
+  isMoreAvailable,
+  lastSeenAt,
+  lastUpdatedAt,
+  onLoadMore,
+}) => {
   return (
     <Fragment>
-      <Header>
-        <ButtonBack />
-        <CenteredHeading>
-          {translate('ActivityStream.headingActivityLog')}
-        </CenteredHeading>
-      </Header>
-      <View>
-        <Container maxWidth="sm">
-          <TabNavigation
-            value={selectedCategory}
-            onChange={handleFilterSelection}
-          >
-            <TabNavigationAction
-              icon={<IconTransactions />}
-              label={translate('ActivityStream.bodyFilterTransactions')}
-              value={ActivityFilterTypes.TRANSFERS}
-            />
-            <TabNavigationAction
-              icon={<IconConnections />}
-              label={translate('ActivityStream.bodyFilterConnections')}
-              value={ActivityFilterTypes.CONNECTIONS}
-            />
-          </TabNavigation>
-          <ActivityStreamList activity={activity} lastSeenAt={lastSeenAt} />
-          {isLoading && (
-            <Box m="auto">
-              <CircularProgress />
-            </Box>
-          )}
-          {activity.isMoreAvailable && (
-            <Box mt={2}>
-              <Button
-                disabled={isLoading}
-                fullWidth
-                isOutline
-                onClick={handleLoadMore}
-              >
-                {translate('ActivityStream.buttonLoadMore')}
-              </Button>
-            </Box>
-          )}
-        </Container>
-      </View>
+      <ActivityStreamList
+        activities={activities}
+        lastSeenAt={lastSeenAt}
+        lastUpdatedAt={lastUpdatedAt}
+      />
+      {isLoading && (
+        <Box m="auto">
+          <CircularProgress />
+        </Box>
+      )}
+      {isMoreAvailable && onLoadMore && (
+        <Box mt={2}>
+          <Button disabled={isLoading} fullWidth isOutline onClick={onLoadMore}>
+            {translate('ActivityStream.buttonLoadMore')}
+          </Button>
+        </Box>
+      )}
     </Fragment>
   );
 };
 
-const ActivityStreamList = ({ activity, lastSeenAt }) => {
+const ActivityStreamList = ({ activities, lastSeenAt, lastUpdatedAt }) => {
   const { safeAddress, walletAddress } = useSelector((state) => {
     return {
       safeAddress: state.safe.currentAccount,
@@ -200,9 +119,7 @@ const ActivityStreamList = ({ activity, lastSeenAt }) => {
     };
   });
 
-  const { activities, lastUpdated } = activity;
-
-  if (lastUpdated === 0) {
+  if (lastUpdatedAt === 0) {
     return null;
   }
 
@@ -437,9 +354,19 @@ const ActivityStreamAvatars = ({ addressOrigin, addressTarget }) => {
   );
 };
 
-ActivityStreamList.propTypes = {
-  activity: PropTypes.object.isRequired,
+ActivityStream.propTypes = {
+  activities: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isMoreAvailable: PropTypes.bool.isRequired,
   lastSeenAt: PropTypes.string.isRequired,
+  lastUpdatedAt: PropTypes.string,
+  onLoadMore: PropTypes.func,
+};
+
+ActivityStreamList.propTypes = {
+  activities: PropTypes.array.isRequired,
+  lastSeenAt: PropTypes.string.isRequired,
+  lastUpdatedAt: PropTypes.string,
 };
 
 ActivityStreamItem.propTypes = {

@@ -95,7 +95,9 @@ const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
   const [selectedFilter, setSelectedFilter] = useState(preselectedFilter);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isQueryEmpty, setIsQueryEmpty] = useState(true);
+  const [isQueryEmpty, setIsQueryEmpty] = useState(
+    cleanInputStr(input).length === 0,
+  );
   const [searchResults, setSearchResults] = useState([]);
 
   const updateUrl = (newInput, newFilter) => {
@@ -181,11 +183,12 @@ const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
         });
 
       const bestFilter = filterRank[0].key;
-      if (
-        selectedFilter !== bestFilter &&
-        filterRank[1].length === 0 &&
-        filterRank[2].length === 0
-      ) {
+      const isCurrentFilterEmpty =
+        filterRank.find(({ key }) => {
+          return key === selectedFilter;
+        }).length === 0;
+
+      if (selectedFilter !== bestFilter && isCurrentFilterEmpty) {
         handleFilterSelection(bestFilter);
       }
     }

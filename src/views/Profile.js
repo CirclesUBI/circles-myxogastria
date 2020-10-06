@@ -5,14 +5,18 @@ import {
   Badge,
   Box,
   CircularProgress,
+  Container,
+  Grid,
   IconButton,
   Tooltip,
+  Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams, Redirect } from 'react-router-dom';
+import { generatePath, useParams, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
+import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonSend from '~/components/ButtonSend';
 import ButtonShare from '~/components/ButtonShare';
@@ -21,20 +25,33 @@ import DialogTrust from '~/components/DialogTrust';
 import DialogTrustRevoke from '~/components/DialogTrustRevoke';
 import Header from '~/components/Header';
 import NotFound from '~/views/NotFound';
+import ProfileMini from '~/components/ProfileMini';
+import TabNavigation from '~/components/TabNavigation';
+import TabNavigationAction from '~/components/TabNavigationAction';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import web3 from '~/services/web3';
 import {
+  IconActivity,
+  IconFriends,
   IconShare,
   IconTrust,
   IconTrustActive,
   IconTrustMutual,
 } from '~/styles/icons';
-import { DASHBOARD_PATH } from '~/routes';
+import { DASHBOARD_PATH, PROFILE_PATH } from '~/routes';
 import { usePendingTransfer } from '~/hooks/activity';
 import { useRelativeSendLink, useProfileLink } from '~/hooks/url';
 import { useTrustConnection, useDeploymentStatus } from '~/hooks/network';
+import { useUserdata } from '~/hooks/username';
+
+const PANEL_ACTIVITY = Symbol('panelActivity');
+const PANEL_TRUST = Symbol('panelTrust');
+
+const DEFAULT_PANEL = PANEL_TRUST;
+
+const PAGE_SIZE = 10;
 
 const useStyles = makeStyles((theme) => ({
   trustButton: {
@@ -59,6 +76,9 @@ const Profile = () => {
   const shareLink = useProfileLink(address);
   const shareText = translate('Profile.shareText', { shareLink });
 
+  const trustStatus = useTrustConnection(address);
+  const deploymentStatus = useDeploymentStatus(address);
+
   if (!web3.utils.checkAddressChecksum(address)) {
     return <NotFound />;
   }
@@ -75,26 +95,184 @@ const Profile = () => {
         </ButtonShare>
       </Header>
       <View>
-        <Box align="center" mb={2}>
-          <Badge
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            badgeContent={<ProfileTrustButton address={address} />}
-            overlap="circle"
-          >
-            <Avatar address={address} size="large" />
-          </Badge>
-        </Box>
+        <Container maxWidth="sm">
+          <Box align="center" mb={2}>
+            <Badge
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              badgeContent={
+                <ProfileTrustButton
+                  address={address}
+                  trustStatus={trustStatus}
+                />
+              }
+              overlap="circle"
+            >
+              <Avatar address={address} size="large" />
+            </Badge>
+            <ProfileStatus
+              address={address}
+              deploymentStatus={deploymentStatus}
+              trustStatus={trustStatus}
+            />
+          </Box>
+          <ProfileContent
+            address={address}
+            deploymentStatus={deploymentStatus}
+            trustStatus={trustStatus}
+          />
+        </Container>
       </View>
-      <ProfileSendButton address={address} />
+      <ProfileSendButton
+        address={address}
+        deploymentStatus={deploymentStatus}
+      />
     </Fragment>
   );
 };
 
-const ProfileSendButton = ({ address }) => {
+const ProfileStatus = ({ address, trustStatus, deploymentStatus }) => {
+  const { username } = useUserdata(address);
+  let messageId = 'CommonFriends';
+
+  if (!deploymentStatus.isReady) {
+    return null;
+  }
+
+  if (deploymentStatus.isDeployed) {
+    if (trustStatus.isTrustingMe && !trustStatus.isMeTrusting) {
+      messageId = 'TrustingMe';
+    } else if (trustStatus.isMeTrusting && trustStatus.isTrustingMe) {
+      messageId = 'MutualTrust';
+    } else if (trustStatus.isMeTrusting) {
+      messageId = 'MeTrusting';
+    }
+  } else {
+    messageId = 'NotDeployedYet';
+  }
+
+  return (
+    <Box mt={2} mx={4}>
+      <Typography align="center">
+        {messageId === 'CommonFriends'
+          ? translate('Profile.bodyStatusCommonFriends', {
+              count: trustStatus.mutualConnections.length,
+              username,
+            })
+          : translate('Profile.bodyStatus' + messageId, { username })}
+      </Typography>
+    </Box>
+  );
+};
+
+const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
+  const [selectedPanel, setSelectedPanel] = useState(DEFAULT_PANEL);
+  const [redirectPath, setRedirectPath] = useState(null);
+
+  const handleProfileSelection = (address) => {
+    setRedirectPath(
+      generatePath(PROFILE_PATH, {
+        address,
+      }),
+    );
+  };
+
+  const handlePanelSelection = (newPanel) => {
+    setSelectedPanel(newPanel);
+  };
+
+  if (redirectPath) {
+    return <Redirect push to={redirectPath} />;
+  }
+
+  if (!deploymentStatus.isReady || !deploymentStatus.isDeployed) {
+    return null;
+  }
+
+  return (
+    <Fragment>
+      <TabNavigation
+        value={selectedPanel}
+        onChange={(event, newPanel) => {
+          handlePanelSelection(newPanel);
+        }}
+      >
+        <TabNavigationAction
+          disabled
+          icon={<IconActivity />}
+          label={translate('Profile.bodyActivity')}
+          value={PANEL_ACTIVITY}
+        />
+        <TabNavigationAction
+          icon={<IconFriends />}
+          label={translate('Profile.bodyTrustedBy')}
+          value={PANEL_TRUST}
+        />
+      </TabNavigation>
+      {selectedPanel === PANEL_ACTIVITY ? (
+        <ProfileContentActivity address={address} />
+      ) : (
+        <ProfileContentTrustedBy
+          trustStatus={trustStatus}
+          onSelect={handleProfileSelection}
+        />
+      )}
+    </Fragment>
+  );
+};
+
+const ProfileContentActivity = () => {
+  // @TODO
+  return null;
+};
+
+const ProfileContentTrustedBy = ({ trustStatus, onSelect }) => {
+  const [limit, setLimit] = useState(PAGE_SIZE);
+
+  const handleSelect = (user) => {
+    onSelect(user.safeAddress);
+  };
+
+  const handleLoadMore = () => {
+    setLimit(limit + PAGE_SIZE);
+  };
+
+  if (trustStatus.mutualConnections.length === 0) {
+    return (
+      <Typography align="center">
+        {translate('Profile.bodyNoMutualFriends')}
+      </Typography>
+    );
+  }
+
+  return (
+    <Fragment>
+      <Grid container spacing={2}>
+        {trustStatus.mutualConnections
+          .slice(0, limit)
+          .map((connection, index) => {
+            <Grid item key={index} xs={12}>
+              <ProfileMini
+                address={connection.safeAddress}
+                onClick={handleSelect}
+              />
+            </Grid>;
+          })}
+      </Grid>
+      {trustStatus.mutualConnections.length > limit && (
+        <Box mt={2}>
+          <Button fullWidth isOutline onClick={handleLoadMore}>
+            {translate('Finder.buttonLoadMore')}
+          </Button>
+        </Box>
+      )}
+    </Fragment>
+  );
+};
+
+const ProfileSendButton = ({ address, deploymentStatus }) => {
   const isTransferPending = usePendingTransfer(address);
   const sendPath = useRelativeSendLink(address);
   const safe = useSelector((state) => state.safe);
-  const { isReady, isDeployed } = useDeploymentStatus(address);
 
   // Check against these three cases where we can't send Circles
   //
@@ -104,15 +282,15 @@ const ProfileSendButton = ({ address }) => {
   const isSendDisabled =
     safe.currentAccount === address ||
     safe.pendingNonce !== null ||
-    !isDeployed;
+    !deploymentStatus.isDeployed;
 
-  return !isReady || isTransferPending ? (
+  return !deploymentStatus.isReady || isTransferPending ? (
     <ButtonSend isPending to={sendPath} />
   ) : isSendDisabled ? (
     <Tooltip
       arrow
       title={
-        !isDeployed
+        !deploymentStatus.isDeployed
           ? translate('Profile.tooltipSafeNotDeployed')
           : translate('Profile.tooltipSafeIsYou')
       }
@@ -124,19 +302,18 @@ const ProfileSendButton = ({ address }) => {
   );
 };
 
-const ProfileTrustButton = ({ address }) => {
+const ProfileTrustButton = ({ address, trustStatus }) => {
   const classes = useStyles();
   const safe = useSelector((state) => state.safe);
 
-  const { isPending, isMeTrusting, isTrustingMe } = useTrustConnection(address);
   const isDisabled = safe.currentAccount === address;
 
   const [isTrustConfirmOpen, setIsTrustConfirmOpen] = useState(false);
   const [isRevokeTrustOpen, setIsRevokeTrustOpen] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
-  const TrustIcon = isMeTrusting
-    ? isTrustingMe
+  const TrustIcon = trustStatus.isMeTrusting
+    ? trustStatus.isTrustingMe
       ? IconTrustMutual
       : IconTrustActive
     : IconTrust;
@@ -188,14 +365,16 @@ const ProfileTrustButton = ({ address }) => {
       <IconButton
         classes={{
           root: clsx(classes.trustButton, {
-            [classes.trustButtonActive]: isMeTrusting,
+            [classes.trustButtonActive]: trustStatus.isMeTrusting,
           }),
           disabled: classes.trustButtonDisabled,
         }}
-        disabled={isDisabled || isPending}
-        onClick={isMeTrusting ? handleRevokeTrustOpen : handleTrustOpen}
+        disabled={isDisabled || trustStatus.isPending}
+        onClick={
+          trustStatus.isMeTrusting ? handleRevokeTrustOpen : handleTrustOpen
+        }
       >
-        {isPending ? (
+        {trustStatus.isPending ? (
           <CircularProgress size={24} />
         ) : (
           <TrustIcon className={classes.trustButtonIcon} />
@@ -205,12 +384,35 @@ const ProfileTrustButton = ({ address }) => {
   );
 };
 
+ProfileStatus.propTypes = {
+  address: PropTypes.string.isRequired,
+  deploymentStatus: PropTypes.object.isRequired,
+  trustStatus: PropTypes.object.isRequired,
+};
+
+ProfileContent.propTypes = {
+  address: PropTypes.string.isRequired,
+  deploymentStatus: PropTypes.object.isRequired,
+  trustStatus: PropTypes.object.isRequired,
+};
+
+ProfileContentActivity.propTypes = {
+  address: PropTypes.string.isRequired,
+};
+
+ProfileContentTrustedBy.propTypes = {
+  onSelect: PropTypes.func.isRequired,
+  trustStatus: PropTypes.object.isRequired,
+};
+
 ProfileSendButton.propTypes = {
   address: PropTypes.string.isRequired,
+  deploymentStatus: PropTypes.object.isRequired,
 };
 
 ProfileTrustButton.propTypes = {
   address: PropTypes.string.isRequired,
+  trustStatus: PropTypes.object.isRequired,
 };
 
 export default Profile;

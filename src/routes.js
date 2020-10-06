@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import ActivityStream from '~/views/ActivityStream';
+import Activities from '~/views/Activities';
 import Dashboard from '~/views/Dashboard';
 import Error from '~/views/Error';
 import Login from '~/views/Login';
@@ -198,7 +198,7 @@ const Routes = () => {
       <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
       <TrustedRoute component={Share} exact path={SHARE_PATH} />
       <TrustedRoute component={Profile} exact path={PROFILE_PATH} />
-      <TrustedRoute component={ActivityStream} exact path={ACTIVITIES_PATH} />
+      <TrustedRoute component={Activities} exact path={ACTIVITIES_PATH} />
       <TrustedRoute component={Search} exact path={SEARCH_PATH} />
       <TrustedRoute component={Dashboard} path={DASHBOARD_PATH} />
       <Route component={NotFound} />
