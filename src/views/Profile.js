@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import {
   Badge,
@@ -172,10 +172,6 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
   const [redirectPath, setRedirectPath] = useState(null);
 
   const handleProfileSelection = (selectedAddress) => {
-    if (selectedAddress === address) {
-      return;
-    }
-
     setRedirectPath(
       generatePath(PROFILE_PATH, {
         address: selectedAddress,
@@ -186,6 +182,13 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
   const handlePanelSelection = (newPanel) => {
     setSelectedPanel(newPanel);
   };
+
+  // Directly reset redirect path when it was set to prevent infinite loop
+  useEffect(() => {
+    if (redirectPath) {
+      setRedirectPath(null);
+    }
+  }, [redirectPath]);
 
   if (redirectPath) {
     return <Redirect push to={redirectPath} />;
