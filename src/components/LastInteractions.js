@@ -34,14 +34,21 @@ const LastInteractions = () => {
   const lastActiveProfiles = useMemo(() => {
     return CATEGORIES.reduce((acc, category) => {
       const addUniqueAndNotOwn = (safeAddress, createdAt) => {
-        if (
-          safeAddress !== safe.currentAccount &&
-          !acc.find((item) => item.safeAddress === safeAddress)
-        ) {
-          acc.push({
-            safeAddress,
-            createdAt,
-          });
+        if (safeAddress !== safe.currentAccount) {
+          const index = acc.findIndex(
+            (item) => item.safeAddress === safeAddress,
+          );
+          if (index < 0) {
+            acc.push({
+              safeAddress,
+              createdAt,
+            });
+          } else if (
+            DateTime.fromISO(acc[index].createdAt) < DateTime.fromISO(createdAt)
+          ) {
+            // Use the latest interaction
+            acc[index].createdAt = createdAt;
+          }
         }
       };
 
