@@ -171,10 +171,14 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
   const [selectedPanel, setSelectedPanel] = useState(DEFAULT_PANEL);
   const [redirectPath, setRedirectPath] = useState(null);
 
-  const handleProfileSelection = (address) => {
+  const handleProfileSelection = (selectedAddress) => {
+    if (selectedAddress === address) {
+      return;
+    }
+
     setRedirectPath(
       generatePath(PROFILE_PATH, {
-        address,
+        address: selectedAddress,
       }),
     );
   };

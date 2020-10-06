@@ -37,8 +37,6 @@ export function useDeploymentStatus(address) {
 
     // Find out if Token is deployed
     const checkTokenDeployment = async () => {
-      isUnloaded = false;
-
       try {
         const tokenAddress = await core.token.getAddress(address);
 
