@@ -13,10 +13,10 @@ import UsernameDisplay from '~/components/UsernameDisplay';
 import translate from '~/services/locale';
 import {
   ACTIVITIES_PATH,
-  DEVICES_PATH,
   MY_PROFILE_PATH,
   SEED_PHRASE_PATH,
   SEND_PATH,
+  SETTINGS_PATH,
   SHARE_PATH,
 } from '~/routes';
 import {
@@ -136,7 +136,7 @@ const NavigationMain = ({ onClick }) => {
       <NavigationLink to={generatePath(SEND_PATH)} onClick={onClick}>
         {translate('Navigation.buttonSendCircles')}
       </NavigationLink>
-      <NavigationLink to={DEVICES_PATH} onClick={onClick}>
+      <NavigationLink to={SETTINGS_PATH} onClick={onClick}>
         {translate('Navigation.buttonAddDevice')}
       </NavigationLink>
       <NavigationLink to={SEED_PHRASE_PATH} onClick={onClick}>

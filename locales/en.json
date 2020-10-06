@@ -46,15 +46,6 @@
   "Dashboard": {
     "formSearch": "Search"
   },
-  "Devices": {
-    "buttonBurnWallet": "End Session",
-    "dialogBurnCancel": "Cancel",
-    "dialogBurnConfirm": "End Session",
-    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have a Seed Phrase!",
-    "dialogBurnTitle": "Warning!",
-    "headingDangerZone": "Danger Zone",
-    "headingManageDevices": "Settings"
-  },
   "DialogTrust": {
     "dialogTrustCancel": "Cancel",
     "dialogTrustConfirm": "Trust",
@@ -161,6 +152,9 @@
     },
     "bodyUndeployedToken": "Profile not completed yet"
   },
+  "QRCodeScanner": {
+    "notificationError": "Could not open QR code scanner: {error}."
+  },
   "SeedPhrase": {
     "bodyDescription": "Print this and store it safely:",
     "buttonCopyToClipboard": "Copy to clipboard",
@@ -196,13 +190,19 @@
     "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}",
     "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
   },
+  "Settings": {
+    "buttonBurnWallet": "End Session",
+    "dialogBurnCancel": "Cancel",
+    "dialogBurnConfirm": "End Session",
+    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have a Seed Phrase!",
+    "dialogBurnTitle": "Warning!",
+    "headingDangerZone": "Danger Zone",
+    "headingManageDevices": "Settings"
+  },
   "Share": {
     "buttonShareProfileLink": "Share",
     "headingShare": "My QR Code",
     "shareText": "Hey! Check out my Circles UBI profile!"
-  },
-  "QRCodeScanner": {
-    "notificationError": "Could not open QR code scanner: {error}."
   },
   "Tutorial": {
     "buttonFinish": "Got it.",

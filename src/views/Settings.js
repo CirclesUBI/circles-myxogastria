@@ -11,7 +11,7 @@ import View from '~/components/View';
 import translate from '~/services/locale';
 import { burnApp } from '~/store/app/actions';
 
-const Devices = () => {
+const Settings = () => {
   const dispatch = useDispatch();
   const [isConfirmationShown, setIsConfirmationShown] = useState(false);
 
@@ -30,19 +30,19 @@ const Devices = () => {
   return (
     <Fragment>
       <Dialog
-        cancelLabel={translate('Devices.dialogBurnCancel')}
-        confirmLabel={translate('Devices.dialogBurnConfirm')}
+        cancelLabel={translate('Settings.dialogBurnCancel')}
+        confirmLabel={translate('Settings.dialogBurnConfirm')}
         id="burn"
         open={isConfirmationShown}
-        text={translate('Devices.dialogBurnDescription')}
-        title={translate('Devices.dialogBurnTitle')}
+        text={translate('Settings.dialogBurnDescription')}
+        title={translate('Settings.dialogBurnTitle')}
         onClose={handleConfirmClose}
         onConfirm={handleBurn}
       />
       <Header>
         <ButtonBack />
         <CenteredHeading>
-          {translate('Devices.headingManageDevices')}
+          {translate('Settings.headingManageDevices')}
         </CenteredHeading>
       </Header>
       <View>
@@ -50,11 +50,11 @@ const Devices = () => {
           <Paper>
             <Box p={2}>
               <Typography align="center" variant="h6">
-                {translate('Devices.headingDangerZone')}
+                {translate('Settings.headingDangerZone')}
               </Typography>
               <Box my={2}>
                 <Button fullWidth isDanger onClick={handleConfirmOpen}>
-                  {translate('Devices.buttonBurnWallet')}
+                  {translate('Settings.buttonBurnWallet')}
                 </Button>
               </Box>
             </Box>
@@ -71,4 +71,4 @@ const Devices = () => {
   );
 };
 
-export default Devices;
+export default Settings;

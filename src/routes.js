@@ -4,7 +4,7 @@ import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Dashboard from '~/views/Dashboard';
-import Devices from '~/views/Devices';
+import Settings from '~/views/Settings';
 import Error from '~/views/Error';
 import Login from '~/views/Login';
 import NotFound from '~/views/NotFound';
@@ -27,18 +27,18 @@ export const MY_PROFILE_PATH = '/profile';
 export const SEARCH_PATH = '/search';
 
 // Main routes
-export const WELCOME_PATH = '/welcome';
+export const DASHBOARD_PATH = '/';
 export const LOGIN_PATH = '/welcome/login';
 export const ONBOARDING_PATH = '/welcome/onboarding';
-export const VALIDATION_PATH = '/validation';
-export const VALIDATION_SHARE_PATH = '/validation/share';
-export const DASHBOARD_PATH = '/';
-export const DEVICES_PATH = '/devices';
 export const PROFILE_PATH = '/profile/:address';
 export const SEED_PHRASE_PATH = '/seedphrase';
 export const SEND_CONFIRM_PATH = '/send/:address(0x[0-9a-fA-f]{40})';
 export const SEND_PATH = '/send';
+export const SETTINGS_PATH = '/settings';
 export const SHARE_PATH = '/share';
+export const VALIDATION_PATH = '/validation';
+export const VALIDATION_SHARE_PATH = '/validation/share';
+export const WELCOME_PATH = '/welcome';
 
 const SessionContainer = ({
   component: Component,
@@ -177,6 +177,7 @@ const Routes = () => {
 
   return (
     <Switch location={location}>
+      <Route component={Settings} exact path={SETTINGS_PATH} />
       <OnboardingRoute component={Welcome} exact path={WELCOME_PATH} />
       <OnboardingRoute
         component={OnboardingContainer}
@@ -192,7 +193,6 @@ const Routes = () => {
       />
       <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
       <TrustedRoute component={Send} exact path={SEND_PATH} />
-      <TrustedRoute component={Devices} exact path={DEVICES_PATH} />
       <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
       <TrustedRoute component={Share} exact path={SHARE_PATH} />
       <TrustedRoute component={Profile} exact path={PROFILE_PATH} />
