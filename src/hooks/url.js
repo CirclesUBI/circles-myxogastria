@@ -24,9 +24,14 @@ export function useRelativeSendLink(address) {
   });
 }
 
-export function useSendLink(address) {
+export function useSendLink(address, amount, paymentNote) {
+  const query = qs.stringify({
+    a: amount,
+    n: paymentNote,
+  });
+
   const relative = useRelativeSendLink(address);
-  return `${process.env.BASE_PATH}${relative}`;
+  return `${process.env.BASE_PATH}${relative}?${query}`;
 }
 
 export function useQuery() {

@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
-import { Container } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
+import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonShare from '~/components/ButtonShare';
 import CenteredHeading from '~/components/CenteredHeading';
@@ -10,6 +11,7 @@ import Header from '~/components/Header';
 import ShareBox from '~/components/ShareBox';
 import View from '~/components/View';
 import translate from '~/services/locale';
+import { QR_GENERATOR_PATH } from '~/routes';
 import { useProfileLink } from '~/hooks/url';
 
 const Share = () => {
@@ -29,7 +31,12 @@ const Share = () => {
         </Container>
       </View>
       <Footer>
-        <ButtonShare fullWidth isOutline text={shareText} url={shareLink}>
+        <Box mb={2}>
+          <Button fullWidth isOutline to={QR_GENERATOR_PATH}>
+            {translate('Share.buttonQRGenerator')}
+          </Button>
+        </Box>
+        <ButtonShare fullWidth isPrimary text={shareText} url={shareLink}>
           {translate('Share.buttonShareProfileLink')}
         </ButtonShare>
       </Footer>

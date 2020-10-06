@@ -10,6 +10,7 @@ import Login from '~/views/Login';
 import NotFound from '~/views/NotFound';
 import Onboarding from '~/views/Onboarding';
 import Profile from '~/views/Profile';
+import QRGenerator from '~/views/QRGenerator';
 import Search from '~/views/Search';
 import SeedPhrase from '~/views/SeedPhrase';
 import Send from '~/views/Send';
@@ -40,6 +41,7 @@ export const ACTIVITIES_PATH = '/activities';
 export const SEARCH_PATH = '/search';
 export const VALIDATION_PATH = '/validation';
 export const VALIDATION_SHARE_PATH = '/validation/share';
+export const QR_GENERATOR_PATH = '/qr';
 export const WELCOME_PATH = '/welcome';
 
 const SessionContainer = ({
@@ -199,6 +201,7 @@ const Routes = () => {
       <TrustedRoute component={Share} exact path={SHARE_PATH} />
       <TrustedRoute component={Profile} exact path={PROFILE_PATH} />
       <TrustedRoute component={Activities} exact path={ACTIVITIES_PATH} />
+      <TrustedRoute component={QRGenerator} exact path={QR_GENERATOR_PATH} />
       <TrustedRoute component={Search} exact path={SEARCH_PATH} />
       <TrustedRoute component={Dashboard} path={DASHBOARD_PATH} />
       <Route component={NotFound} />
