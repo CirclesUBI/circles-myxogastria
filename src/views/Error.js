@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography } from '@material-ui/core';
+import { Box, Container, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
@@ -28,9 +28,16 @@ const CriticalError = () => {
           <Typography align="center" gutterBottom>
             {translate('CriticalError.bodyCriticalErrorDescription')}
           </Typography>
-          <Button fullWidth isPrimary onClick={onBurnClick}>
-            {translate('CriticalError.buttonBurnWallet')}
+          <Button fullWidth isPrimary onClick={onReload}>
+            {translate('CriticalError.buttonReload')}
           </Button>
+          {window.location.includes('reset') && (
+            <Box mt={2}>
+              <Button fullWidth isDanger onClick={onBurnClick}>
+                {translate('CriticalError.buttonBurnWallet')}
+              </Button>
+            </Box>
+          )}
         </Container>
       </View>
     );
