@@ -30,8 +30,10 @@ export const colors = {
   ...monochrome,
   red: '#cc0000',
   green: '#45e6af',
-  blue: '#2196f3',
+  blue: '#3ce6e1',
   orange: '#faad26',
+  orangeDark: '#f14d48',
+  purpleLight: '#f5dbda',
   purple: '#cc1e66',
   purpleDark: '#660f33',
   turquoise: '#47cccb',
@@ -42,6 +44,10 @@ const gradients = {
   gray: `linear-gradient(280deg, ${colors.grayDark} 0%, ${colors.gray} 100%)`,
   purple: `linear-gradient(280deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
   turquoise: `linear-gradient(0deg, ${colors.green} 0%, ${colors.turquoise} 100%)`,
+  error: `linear-gradient(90deg, ${colors.purpleDark}, ${colors.purple} 100%)`,
+  info: `linear-gradient(90deg, ${colors.blue} 0%, ${colors.purpleLight} 100%)`,
+  success: `linear-gradient(90deg, ${colors.green} 0%, ${colors.blue} 100%)`,
+  warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
 };
 
 const components = {
@@ -69,10 +75,12 @@ export default createMuiTheme({
       dark: colors.turquoiseDark,
     },
     error: {
-      main: colors.red,
+      main: colors.purple,
+      dark: colors.purple,
     },
     warning: {
       main: colors.orange,
+      dark: colors.orangeDark,
     },
     info: {
       main: colors.blue,
@@ -139,6 +147,7 @@ export default createMuiTheme({
     },
   },
   custom: {
+    colors,
     components,
     gradients,
   },

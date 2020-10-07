@@ -28,22 +28,23 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     margin: '0 auto',
   },
+  snackbar: {},
   // @NOTE: Hacky use of !important, see related issue:
   // https://github.com/iamhosseindhv/notistack/issues/305
   snackbarInfo: {
-    backgroundColor: `${theme.palette.info.main} !important`,
+    background: `${theme.custom.gradients.info} !important`,
     color: `${theme.palette.info.contrastText} !important`,
   },
   snackbarWarning: {
-    backgroundColor: `${theme.palette.warning.main} !important`,
+    background: `${theme.custom.gradients.warning} !important`,
     color: `${theme.palette.warning.contrastText} !important`,
   },
   snackbarError: {
-    backgroundColor: `${theme.palette.error.main} !important`,
+    background: `${theme.custom.gradients.error} !important`,
     color: `${theme.palette.error.contrastText} !important`,
   },
   snackbarSuccess: {
-    backgroundColor: `${theme.palette.success.main} !important`,
+    background: `${theme.custom.gradients.success} !important`,
     color: `${theme.palette.success.contrastText} !important`,
   },
   snackbarIconVariant: {

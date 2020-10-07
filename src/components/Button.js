@@ -23,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   buttonDanger: {
-    background: theme.palette.error.main,
+    background: theme.custom.colors.red,
     color: theme.palette.common.white,
     '&:hover': {
-      backgroundColor: theme.palette.error.main,
+      backgroundColor: theme.custom.colors.red,
     },
   },
   buttonPrimary: {
