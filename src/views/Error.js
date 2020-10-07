@@ -21,40 +21,27 @@ const CriticalError = () => {
     window.location.reload();
   };
 
-  if (app.isErrorCritical) {
-    return (
-      <View>
-        <Container maxWidth="sm">
-          <Typography align="center" gutterBottom>
-            {translate('CriticalError.bodyCriticalErrorDescription')}
-          </Typography>
-          <Button fullWidth isPrimary onClick={onReload}>
-            {translate('CriticalError.buttonReload')}
-          </Button>
-          {window.location.includes('reset') && (
-            <Box mt={2}>
-              <Button fullWidth isDanger onClick={onBurnClick}>
-                {translate('CriticalError.buttonBurnWallet')}
-              </Button>
-            </Box>
-          )}
-        </Container>
-      </View>
-    );
-  } else {
-    return (
-      <View>
-        <Container maxWidth="sm">
-          <Typography align="center" gutterBottom>
-            {translate('CriticalError.bodyCriticalErrorTryAgain')}
-          </Typography>
-          <Button fullWidth isPrimary onClick={onReload}>
-            {translate('CriticalError.buttonReload')}
-          </Button>
-        </Container>
-      </View>
-    );
-  }
+  return (
+    <View>
+      <Container maxWidth="sm">
+        <Typography align="center" gutterBottom>
+          {app.isErrorCritical
+            ? translate('CriticalError.bodyCriticalErrorDescription')
+            : translate('CriticalError.bodyCriticalErrorTryAgain')}
+        </Typography>
+        <Button fullWidth isPrimary onClick={onReload}>
+          {translate('CriticalError.buttonReload')}
+        </Button>
+        {window.location.href.includes('reset') && (
+          <Box mt={2}>
+            <Button fullWidth isDanger onClick={onBurnClick}>
+              {translate('CriticalError.buttonBurnWallet')}
+            </Button>
+          </Box>
+        )}
+      </Container>
+    </View>
+  );
 };
 
 export default CriticalError;
