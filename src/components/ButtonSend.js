@@ -9,6 +9,8 @@ import { IconSend } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   fabSend: {
+    width: 72,
+    height: 72,
     position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   fabSendIcon: {
     position: 'relative',
     top: 1,
-    left: -1,
+    left: -2,
   },
 }));
 
@@ -44,9 +46,9 @@ const ButtonSend = React.forwardRef(
         {...props}
       >
         {isPending ? (
-          <CircularProgress size={24} />
+          <CircularProgress color="inherit" size={45} />
         ) : (
-          <IconSend className={classes.fabSendIcon} />
+          <IconSend className={classes.fabSendIcon} fontSize="large" />
         )}
       </Fab>
     );
