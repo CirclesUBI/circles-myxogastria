@@ -148,7 +148,7 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
 const ProfileMiniActions = ({ address, onTrust, onSend, connection }) => {
   const classes = useStyles();
 
-  const { isMeTrusting, isPendingTrust } = connection;
+  const { isMeTrusting, isPending: isPendingTrust } = connection;
   const isPendingSend = usePendingTransfer(address);
 
   return (
@@ -190,4 +190,4 @@ ProfileMiniActions.propTypes = {
   onTrust: PropTypes.func.isRequired,
 };
 
-export default React.memo(ProfileMini);
+export default ProfileMini;
