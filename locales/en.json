@@ -227,7 +227,8 @@
     "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have a Seed Phrase!",
     "dialogBurnTitle": "Warning!",
     "headingDangerZone": "Danger Zone",
-    "headingManageDevices": "Settings"
+    "headingPublicAddress": "Device Address",
+    "headingSettings": "Settings"
   },
   "Share": {
     "buttonQRGenerator": "Generate QR Codes",
