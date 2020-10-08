@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     width: 72,
     height: 72,
     position: 'fixed',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
+    bottom: theme.spacing(2.25),
+    right: theme.spacing(2.25),
     background: theme.custom.gradients.purple,
   },
   fabSendDisabled: {
