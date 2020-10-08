@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState, useMemo } from 'react';
+import clsx from 'clsx';
 import {
   Avatar as MuiAvatar,
   Badge,
@@ -11,10 +12,11 @@ import {
   Collapse,
   Divider,
   Grid,
-  Zoom,
   IconButton,
   Typography,
+  Zoom,
 } from '@material-ui/core';
+import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
@@ -42,6 +44,20 @@ const useStyles = makeStyles((theme) => ({
   },
   cardHeader: {
     cursor: 'pointer',
+  },
+  cardHeaderUnseen: {
+    position: 'relative',
+    '&::after': {
+      position: 'absolute',
+      top: theme.spacing(1.5),
+      right: theme.spacing(1.5),
+      display: 'block',
+      content: '""',
+      borderRadius: '50%',
+      width: 7,
+      height: 7,
+      background: theme.custom.gradients.purple,
+    },
   },
   cardHeaderContent: {
     fontWeight: theme.typography.fontWeight,
@@ -143,13 +159,16 @@ const ActivityStreamList = ({ activities, lastSeenAt, lastUpdatedAt }) => {
             return acc;
           }
 
+          const isSeen =
+            DateTime.fromISO(lastSeenAt) > DateTime.fromISO(createdAt);
+
           const item = (
             <Grid item key={hash} xs={12}>
               <ActivityStreamItem
                 createdAt={createdAt}
                 data={data}
                 isPending={isPending}
-                isSeen={createdAt < lastSeenAt}
+                isSeen={isSeen}
                 safeAddress={safeAddress}
                 txHash={txHash}
                 type={type}
@@ -234,7 +253,9 @@ const ActivityStreamItem = (props) => {
           </Link>
         }
         classes={{
-          root: classes.cardHeader,
+          root: clsx(classes.cardHeader, {
+            [classes.cardHeaderUnseen]: !props.isSeen,
+          }),
           action: classes.cardHeaderAction,
           content: classes.cardHeaderContent,
           subheader: classes.cardHeaderSubheader,
