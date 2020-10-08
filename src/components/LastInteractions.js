@@ -14,7 +14,7 @@ import { useRelativeProfileLink } from '~/hooks/url';
 
 const { ActivityTypes } = core.activity;
 
-const MAX_PROFILES = 10;
+const MAX_PROFILES = 12;
 
 const useStyles = makeStyles((theme) => ({
   username: {
@@ -34,26 +34,25 @@ const LastInteractions = () => {
   const lastActiveProfiles = useMemo(() => {
     return CATEGORIES.reduce((acc, category) => {
       const addUniqueAndNotOwn = (safeAddress, createdAt) => {
-        if (safeAddress !== safe.currentAccount) {
-          const index = acc.findIndex(
-            (item) => item.safeAddress === safeAddress,
-          );
-          if (index < 0) {
-            acc.push({
-              safeAddress,
-              createdAt,
-            });
-          } else if (
-            DateTime.fromISO(acc[index].createdAt) < DateTime.fromISO(createdAt)
-          ) {
-            // Use the latest interaction
-            acc[index].createdAt = createdAt;
-          }
+        if (
+          safeAddress !== safe.currentAccount &&
+          !acc.find((item) => item.safeAddress === safeAddress)
+        ) {
+          acc.push({
+            safeAddress,
+            createdAt,
+          });
         }
       };
 
-      activity.categories[category].activities.forEach(
-        ({ data, type, createdAt }) => {
+      activity.categories[category].activities
+        .sort((itemA, itemB) => {
+          return DateTime.fromISO(itemB.createdAt) <
+            DateTime.fromISO(itemA.createdAt)
+            ? -1
+            : 1;
+        })
+        .forEach(({ data, type, createdAt }) => {
           if (type === ActivityTypes.HUB_TRANSFER) {
             addUniqueAndNotOwn(data.from, createdAt);
             addUniqueAndNotOwn(data.to, createdAt);
@@ -61,18 +60,10 @@ const LastInteractions = () => {
             addUniqueAndNotOwn(data.user, createdAt);
             addUniqueAndNotOwn(data.canSendTo, createdAt);
           }
-        },
-      );
+        });
       return acc;
-    }, [])
-      .sort((itemA, itemB) => {
-        return DateTime.fromISO(itemB.createdAt) <
-          DateTime.fromISO(itemA.createdAt)
-          ? -1
-          : 1;
-      })
-      .slice(0, MAX_PROFILES);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []).slice(0, MAX_PROFILES);
+  }, [activity.categories, safe.currentAccount]);
 
   return (
     <Grid alignItems="center" container justify="center" spacing={1}>
