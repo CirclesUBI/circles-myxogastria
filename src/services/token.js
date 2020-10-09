@@ -15,15 +15,7 @@ const PAYMENT_NOTE_MAX_LEN = 100;
 export function getLastPayout() {
   if (isAvailable() && hasLastPayout()) {
     const value = getItem(LAST_PAYOUT);
-
-    // Legacy (<=1.0.1): Check if value was a UNIX timestamp before
-    if (isNaN(value)) {
-      return value;
-    } else {
-      const converted = DateTime.fromMillis(parseInt(value, 10)).toISO();
-      setLastPayout(converted);
-      return converted;
-    }
+    return value;
   }
 
   return DateTime.fromMillis(0).toISO();

@@ -7,7 +7,6 @@ import {
 } from '~/services/storage';
 
 const NONCE_NAME = 'nonce';
-const DEPRECATED_SAFE_ADDRESS_NAME = 'safeAddress'; // <= 0.6.4
 const SAFE_ADDRESS_NAME_V2 = 'safeAddress-v2'; // >= 1.0.0
 const SAFE_CURRENT_ACCOUNT = 'currentAccount';
 
@@ -76,12 +75,6 @@ export function getCurrentAccount() {
     throw new Error('LocalStorage is not available');
   }
 
-  // Legacy: Move deprecated safeAddress (<=0.6.4) to currentAccount
-  if (hasItem(DEPRECATED_SAFE_ADDRESS_NAME)) {
-    setCurrentAccount(getItem(DEPRECATED_SAFE_ADDRESS_NAME));
-    removeItem(DEPRECATED_SAFE_ADDRESS_NAME);
-  }
-
   if (hasCurrentAccount()) {
     return getItem(SAFE_CURRENT_ACCOUNT);
   }
@@ -90,10 +83,6 @@ export function getCurrentAccount() {
 }
 
 export function hasCurrentAccount() {
-  if (hasItem(DEPRECATED_SAFE_ADDRESS_NAME)) {
-    return true;
-  }
-
   return hasItem(SAFE_CURRENT_ACCOUNT);
 }
 
