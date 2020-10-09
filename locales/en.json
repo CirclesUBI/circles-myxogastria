@@ -154,12 +154,12 @@
     },
     "bodyStatusMeTrusting": "You trust @{username}",
     "bodyStatusMutualTrust": "You and @{username} trust each other",
-    "bodyStatusNotDeployedYet": "@{username} did not complete their profile yet",
+    "bodyStatusNotDeployedYet": "This account has not yet been verified.",
     "bodyStatusTrustingMe": "@{username} trusts you",
     "bodyTrustedBy": "Trusted by",
     "shareText": "Check out my Circles UBI profile!",
     "tooltipSafeIsYou": "This is your own profile",
-    "tooltipSafeNotDeployed": "This user did not complete their Circles account yet"
+    "tooltipSafeNotDeployed": "This account has not yet been verified."
   },
   "ProfileMini": {
     "bodyMutualFriends": {
@@ -167,7 +167,7 @@
       "other": "You have {count} mutual friends in common with @{username}",
       "zero": "You have no mututal friends in common with @{username}"
     },
-    "bodyUndeployedToken": "Profile not completed yet"
+    "bodyUndeployedToken": "Account not verified"
   },
   "QRCodeScanner": {
     "notificationError": "Could not open QR code scanner: {error}."
