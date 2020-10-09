@@ -47,7 +47,7 @@
     "infoCopiedMessage": "Text copied to clipboard"
   },
   "Dashboard": {
-    "formSearch": "Search"
+    "formSearch": "Add or search contacts"
   },
   "DialogTrust": {
     "dialogTrustCancel": "Cancel",
@@ -257,7 +257,7 @@
     "bodyTrustDescription": "To receive your basic income,",
     "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
     "buttonShareProfileLink": "Share Profile Link",
-    "headingBuildYourWebOfTrust": "Build your web of trust",
+    "headingBuildYourWebOfTrust": "Verify your account",
     "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
   },
   "ValidationLock": {
