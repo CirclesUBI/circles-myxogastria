@@ -209,7 +209,7 @@
     "errorMessage": "Something went wrong .. {errorMessage}",
     "errorMessageTransferInvalid": "Could not transfer Circles as it is invalid.",
     "errorMessageTransferNotFound": "Could not transfer Circles as there is currently no complete trust path between @{username} and you ..",
-    "errorMessageTransferTooComplex": "Could not transfer Circles as there is too many transfer steps required to send Circles to @{username}. Consider sending a smaller amount and ask @{username} to trust you directly to make this transfer less complex.",
+    "errorMessageTransferTooComplex": "Could not transfer Circles as there are too many transfer steps required to send Circles to @{username}. Consider sending a smaller amount and ask @{username} to trust you directly to make this transfer less complex.",
     "errorMessageTransferUnknown": "Could not transfer Circles. Something went wrong!",
     "formAmount": "Enter amount",
     "formPaymentNote": "Add note",
