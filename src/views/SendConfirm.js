@@ -19,7 +19,6 @@ import {
   Input,
   InputAdornment,
   InputLabel,
-  Paper,
   Tooltip,
   Typography,
   Zoom,
@@ -73,11 +72,21 @@ const useStyles = makeStyles((theme) => ({
   inputAmount: {
     fontSize: 27,
   },
+  inputError: {
+    '&.Mui-error': {
+      color: theme.custom.colors.red,
+    },
+  },
   inputAmountError: {
-    color: 'red',
+    color: theme.custom.colors.red,
   },
   paper: {
     minHeight: 66,
+  },
+  input: {
+    padding: theme.spacing(2),
+    height: 66,
+    boxShadow: 'inset 1px 1px 1px 1px rgba(0,0,0,0.15)',
   },
   dialogPaymentNote: {
     fontWeight: theme.typography.fontWeightRegular,
@@ -368,64 +377,58 @@ const SendConfirm = () => {
               <InputLabel className={classes.inputLabel} htmlFor="amount">
                 {translate('SendConfirm.formAmount')}
               </InputLabel>
-              <Paper className={classes.paper}>
-                <Box p={2}>
-                  <Input
-                    autoFocus
-                    classes={{
-                      input: classes.inputAmount,
-                      error: classes.inputAmountError,
-                    }}
-                    disableUnderline
-                    error={isAmountTooHigh}
-                    fullWidth
-                    id="amount"
-                    inputProps={{
-                      min: 0,
-                    }}
-                    startAdornment={
-                      <InputAdornment position="start">
-                        <IconCircles />
-                      </InputAdornment>
-                    }
-                    type="number"
-                    value={amount}
-                    onChange={handleAmountChange}
-                  />
-                  {isAmountTooHigh && (
-                    <FormHelperText error>
-                      {translate('SendConfirm.bodyAmountTooHigh', {
-                        count: formatCirclesValue(
-                          web3.utils.toWei(`${maxAmount}`, 'ether'),
-                        ),
-                        username: receiver,
-                      })}
-                    </FormHelperText>
-                  )}
-                </Box>
-              </Paper>
+              <Input
+                autoFocus
+                classes={{
+                  root: classes.input,
+                  input: classes.inputAmount,
+                  error: classes.inputAmountError,
+                }}
+                disableUnderline
+                error={isAmountTooHigh}
+                fullWidth
+                id="amount"
+                inputProps={{
+                  min: 0,
+                }}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <IconCircles />
+                  </InputAdornment>
+                }
+                type="number"
+                value={amount}
+                onChange={handleAmountChange}
+              />
+              {isAmountTooHigh && (
+                <FormHelperText className={classes.inputError} error>
+                  {translate('SendConfirm.bodyAmountTooHigh', {
+                    count: formatCirclesValue(
+                      web3.utils.toWei(`${maxAmount}`, 'ether'),
+                    ),
+                    username: receiver,
+                  })}
+                </FormHelperText>
+              )}
             </Grid>
             <Grid item xs={12}>
               <InputLabel className={classes.inputLabel} htmlFor="payment-note">
                 {translate('SendConfirm.formPaymentNote')}
               </InputLabel>
-              <Paper className={classes.paper}>
-                <Box p={2}>
-                  <Input
-                    disableUnderline
-                    error={isPaymentNoteInvalid}
-                    fullWidth
-                    id="payment-note"
-                    value={paymentNote}
-                    onChange={handlePaymentNoteChange}
-                  />
-                  {isPaymentNoteInvalid && (
-                    <FormHelperText error>
-                      {translate('SendConfirm.bodyPaymentNoteInvalid')}
-                    </FormHelperText>
-                  )}
-                </Box>
-              </Paper>
+              <Input
+                className={classes.input}
+                disableUnderline
+                error={isPaymentNoteInvalid}
+                fullWidth
+                id="payment-note"
+                value={paymentNote}
+                onChange={handlePaymentNoteChange}
+              />
+              {isPaymentNoteInvalid && (
+                <FormHelperText className={classes.inputError} error>
+                  {translate('SendConfirm.bodyPaymentNoteInvalid')}
+                </FormHelperText>
+              )}
             </Grid>
           </Grid>
         </Container>

@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 27,
   },
   inputAmountError: {
-    color: 'red',
+    color: theme.custom.colors.red,
   },
   paper: {
     minHeight: 66,
