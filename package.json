@@ -1,6 +1,6 @@
 {
   "name": "circles-myxogastria",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "Webapp and mobile client for Circles",
   "main": "src/index.js",
   "private": true,
