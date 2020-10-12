@@ -8,6 +8,7 @@ import {
   Paper,
   Typography,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
@@ -18,9 +19,18 @@ import View from '~/components/View';
 import translate from '~/services/locale';
 import { burnApp } from '~/store/app/actions';
 
+const useStyles = makeStyles(() => ({
+  chip: {
+    maxWidth: '100%',
+    overflow: 'hidden',
+  },
+}));
+
 const Settings = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
-  const wallet = useSelector((state) => state.wallet);
+
+  const { wallet, safe, token } = useSelector((state) => state);
   const [isConfirmationShown, setIsConfirmationShown] = useState(false);
 
   const handleBurn = () => {
@@ -60,9 +70,31 @@ const Settings = () => {
               <Paper>
                 <Box p={2} textAlign="center">
                   <Typography align="center" gutterBottom variant="h6">
-                    {translate('Settings.headingPublicAddress')}
+                    {translate('Settings.headingStatus')}
                   </Typography>
-                  <Chip label={wallet.address} />
+                  <Typography align="center" gutterBottom>
+                    {translate('Settings.bodyDeviceAddress')}
+                  </Typography>
+                  <Chip className={classes.chip} label={wallet.address} />
+                  {safe.currentAccount && (
+                    <Box mt={2}>
+                      <Typography align="center" gutterBottom>
+                        {translate('Settings.bodySafeAddress')}
+                      </Typography>
+                      <Chip
+                        className={classes.chip}
+                        label={safe.currentAccount}
+                      />
+                    </Box>
+                  )}
+                  {token.address && (
+                    <Box mt={2}>
+                      <Typography align="center" gutterBottom>
+                        {translate('Settings.bodyTokenAddress')}
+                      </Typography>
+                      <Chip className={classes.chip} label={token.address} />
+                    </Box>
+                  )}
                 </Box>
               </Paper>
             </Grid>

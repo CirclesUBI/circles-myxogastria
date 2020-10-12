@@ -221,14 +221,17 @@
     "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
   },
   "Settings": {
+    "bodyDeviceAddress": "Device address",
+    "bodySafeAddress": "Profile address",
+    "bodyTokenAddress": "Token address",
     "buttonBurnWallet": "End Session",
     "dialogBurnCancel": "Cancel",
     "dialogBurnConfirm": "End Session",
     "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have a Seed Phrase!",
     "dialogBurnTitle": "Warning!",
     "headingDangerZone": "Danger Zone",
-    "headingPublicAddress": "Device Address",
-    "headingSettings": "Settings"
+    "headingSettings": "Settings",
+    "headingStatus": "Status"
   },
   "Share": {
     "buttonQRGenerator": "Generate QR Codes",
