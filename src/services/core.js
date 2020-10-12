@@ -50,6 +50,12 @@ const safe = {
     });
   },
 
+  deployForOrganization: async (safeAddress) => {
+    return await requestCore('safe', 'deployForOrganization', {
+      safeAddress,
+    });
+  },
+
   getOwners: async (safeAddress) => {
     return await requestCore('safe', 'getOwners', {
       safeAddress,
@@ -216,6 +222,12 @@ const activity = {
 // Organization module
 
 const organization = {
+  isFunded: async (safeAddress) => {
+    return await requestCore('organization', 'isFunded', {
+      safeAddress,
+    });
+  },
+
   isOrganization: async (safeAddress) => {
     return await requestCore('organization', 'isOrganization', {
       safeAddress,

@@ -77,6 +77,15 @@ export function checkTokenState() {
       return;
     }
 
+    // Organizations don't have a Token
+    if (safe.isOrganization) {
+      if (token.address) {
+        dispatch(resetToken());
+      }
+
+      return;
+    }
+
     // Token address already exists
     if (token.address) {
       return;

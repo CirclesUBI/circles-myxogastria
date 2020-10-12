@@ -70,10 +70,18 @@ export function initializeSafe() {
       throw new Error('Invalid pending Safe state');
     }
 
+    // If there is a stored current account address we check if its an
+    // organization, otherwise it must be a user account which is waiting to be
+    // deployed
+    const isOrganization = currentAccount
+      ? await core.organization.isOrganization(currentAccount)
+      : false;
+
     dispatch({
       type: ActionTypes.SAFE_INITIALIZE_SUCCESS,
       meta: {
         currentAccount,
+        isOrganization,
         pendingAddress,
         pendingNonce,
       },
@@ -179,13 +187,18 @@ export function createSafeWithNonce(pendingNonce) {
 }
 
 export function switchCurrentAccount(address) {
-  setCurrentAccount(address);
+  return async (dispatch) => {
+    const isOrganization = await core.organization.isOrganization(address);
 
-  return {
-    type: ActionTypes.SAFE_SWITCH_ACCOUNT,
-    meta: {
-      address,
-    },
+    setCurrentAccount(address);
+
+    dispatch({
+      type: ActionTypes.SAFE_SWITCH_ACCOUNT,
+      meta: {
+        address,
+        isOrganization,
+      },
+    });
   };
 }
 
@@ -241,6 +254,35 @@ export function deploySafe() {
     try {
       await core.safe.deploy(safe.pendingAddress);
       await isDeployed(safe.pendingAddress);
+
+      dispatch({
+        type: ActionTypes.SAFE_DEPLOY_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.SAFE_DEPLOY_ERROR,
+      });
+
+      throw error;
+    }
+  };
+}
+
+export function deploySafeForOrganization(safeAddress) {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    if (safe.pendingIsLocked) {
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.SAFE_DEPLOY,
+    });
+
+    try {
+      await core.safe.deployForOrganization(safeAddress);
+      await isDeployed(safeAddress);
 
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_SUCCESS,

@@ -4,6 +4,7 @@ import {
   checkSharedSafeState,
   createSafeWithNonce,
   deploySafe,
+  deploySafeForOrganization,
   finalizeSafeDeployment,
   recreateUndeployedSafe,
   switchCurrentAccount,
@@ -17,6 +18,7 @@ import {
 import { deployToken, updateTokenFundedState } from '~/store/token/actions';
 import { generateDeterministicNonce } from '~/services/safe';
 import { restoreWallet } from '~/store/wallet/actions';
+import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own
@@ -40,6 +42,44 @@ export function createNewAccount(username, email, avatarUrl) {
 
     // Force updating app state
     await dispatch(checkAppState());
+  };
+}
+
+// Create a new organization account (aka shared wallet) when user is already
+// verified.
+export function createNewOrganization(name, email, avatarUrl) {
+  return async (dispatch) => {
+    try {
+      dispatch(showSpinnerOverlay());
+      // Create an undeployed Safe for organizations (so far this is the same
+      // flow as regular user accounts)
+      const nonce = Date.now();
+      const safeAddress = await core.safe.prepareDeploy(nonce);
+
+      // Register organization in on-chain database
+      await core.user.register(nonce, safeAddress, name, email, avatarUrl);
+
+      // Deploy the safe directly as we don't have to wait for any trust limit
+      // etc. validation (the user is already trusted, therefore we also trust
+      // its organization)
+      dispatch(hideSpinnerOverlay());
+      await dispatch(deploySafeForOrganization(safeAddress));
+
+      // Create the organization account in the Hub
+      await core.organization.deploy(safeAddress);
+
+      // Switch to newly created organization acccount
+      await dispatch(switchCurrentAccount(safeAddress));
+
+      // Force updating app state
+      await dispatch(checkAppState());
+
+      // Finally unlock the Safe (enable UI again)
+      await dispatch(unlockSafeDeployment());
+    } catch (error) {
+      dispatch(hideSpinnerOverlay());
+      throw error;
+    }
   };
 }
 
