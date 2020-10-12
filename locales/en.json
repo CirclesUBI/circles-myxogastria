@@ -144,18 +144,25 @@
     "headingUsername": "Create Your Username",
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },
-  "Organization": {
+  "OnboardingOrganization": {
     "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",
+    "bodyConsent": "Anyone you invite can send and recieve Circles to this shared wallet.",
+    "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
     "bodyUsername": "Your wallet name is how people can search for your organization on the Circles App.",
     "buttonFinish": "Create shared wallet",
     "buttonNextStep": "Continue",
     "errorAvatarUpload": "Could not upload image. Is it the right format and size?",
     "errorSignup": "Server error occurred during sign up. {errorMessage}",
+    "formConsentSwitch": "Before inviting member please check the box that you understand all members can send Circles from this shared account.",
+    "formEmail": "Email",
+    "formEmailInvalid": "Invalid email address",
     "formUnknownError": "Unknown error ",
     "formUsername": "Wallet name",
     "formUsernameInvalidFormat": "Only basic characters and numbers (A-Z, 0-9) allowed, no symbols or whitespace, 3-24 characters",
     "formUsernameTaken": "Wallet name is already taken",
     "headingAvatar": "Add Photo",
+    "headingConsent": "Please confirm",
+    "headingEmail": "Enter Email",
     "headingUsername": "Name your wallet",
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },

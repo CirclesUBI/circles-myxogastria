@@ -12,8 +12,10 @@ import {
   Box,
   CircularProgress,
   Container,
+  FormControlLabel,
   IconButton,
   MobileStepper,
+  Switch,
   Typography,
 } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
@@ -35,8 +37,7 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
 import { WELCOME_PATH } from '~/routes';
-import { createNewAccount } from '~/store/onboarding/actions';
-import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
+import { createNewOrganization } from '~/store/onboarding/actions';
 
 const DEBOUNCE_DELAY = 500;
 const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
@@ -57,9 +58,13 @@ const useStyles = makeStyles((theme) => ({
     border: `1px solid ${theme.palette.text.primary}`,
     cursor: 'pointer',
   },
+  switchLabel: {
+    fontSize: 12,
+    textAlign: 'left',
+  },
 }));
 
-const Organization = () => {
+const OnboardingOrganization = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [current, setCurrent] = useState(0);
@@ -93,16 +98,14 @@ const Organization = () => {
   };
 
   const onFinish = async () => {
-    dispatch(showSpinnerOverlay());
-
     try {
       await dispatch(
-        createNewAccount(values.username, values.email, values.avatarUrl),
+        createNewOrganization(values.username, values.email, values.avatarUrl),
       );
 
       dispatch(
         notify({
-          text: translate('Organization.successOnboardingComplete'),
+          text: translate('OnboardingOrganization.successOnboardingComplete'),
           type: NotificationsTypes.SUCCESS,
         }),
       );
@@ -113,22 +116,25 @@ const Organization = () => {
 
       dispatch(
         notify({
-          text: translate('Organization.errorSignup', {
+          text: translate('OnboardingOrganization.errorSignup', {
             errorMessage,
           }),
           type: NotificationsTypes.ERROR,
         }),
       );
     }
-
-    dispatch(hideSpinnerOverlay());
   };
 
   const onExit = () => {
     setIsRedirect(true);
   };
 
-  const steps = [OrganizationStepUsername, OrganizationStepAvatar];
+  const steps = [
+    OrganizationStepUsername,
+    OrganizationStepEmail,
+    OrganizationStepAvatar,
+    OrganizationStepConsent,
+  ];
 
   const OnboardingCurrentStep = steps[current];
 
@@ -189,8 +195,8 @@ const Organization = () => {
           onClick={isLastSlide ? onFinish : onNext}
         >
           {isLastSlide
-            ? translate('Organization.buttonFinish')
-            : translate('Organization.buttonNextStep')}
+            ? translate('OnboardingOrganization.buttonFinish')
+            : translate('OnboardingOrganization.buttonNextStep')}
         </Button>
       </Footer>
     </Fragment>
@@ -217,11 +223,15 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
         setIsError(false);
       } catch (error) {
         if (error.request.status === 400) {
-          setErrorMessage(translate('Organization.formUsernameInvalidFormat'));
+          setErrorMessage(
+            translate('OnboardingOrganization.formUsernameInvalidFormat'),
+          );
         } else if (error.request.status === 409) {
-          setErrorMessage(translate('Organization.formUsernameTaken'));
+          setErrorMessage(
+            translate('OnboardingOrganization.formUsernameTaken'),
+          );
         } else {
-          setErrorMessage(translate('Organization.formUnknownError'));
+          setErrorMessage(translate('OnboardingOrganization.formUnknownError'));
         }
 
         setIsError(true);
@@ -257,9 +267,11 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
   return (
     <Fragment>
       <Typography align="center" gutterBottom variant="h2">
-        {translate('Organization.headingUsername')}
+        {translate('OnboardingOrganization.headingUsername')}
       </Typography>
-      <Typography>{translate('Organization.bodyUsername')}</Typography>
+      <Typography>
+        {translate('OnboardingOrganization.bodyUsername')}
+      </Typography>
       <Box mt={4}>
         <Input
           errorMessage={errorMessage}
@@ -267,9 +279,85 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
           inputProps={{ maxLength: 24 }}
           isError={isError}
           isLoading={isLoading}
-          label={translate('Organization.formUsername')}
+          label={translate('OnboardingOrganization.formUsername')}
           type="text"
           value={values.username}
+          onChange={handleChange}
+        />
+      </Box>
+    </Fragment>
+  );
+};
+
+const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedEmailCheck = useCallback(
+    debounce(async (email) => {
+      try {
+        await core.utils.requestAPI({
+          path: ['users'],
+          method: 'POST',
+          data: {
+            email,
+          },
+        });
+
+        setIsError(false);
+      } catch {
+        setIsError(true);
+      }
+
+      setIsLoading(false);
+    }, DEBOUNCE_DELAY),
+    [],
+  );
+
+  const verify = useCallback(
+    (email) => {
+      if (email.length < 3) {
+        setIsError(true);
+        setIsLoading(false);
+        return;
+      }
+
+      setIsError(false);
+      setIsLoading(true);
+
+      debouncedEmailCheck(email);
+    },
+    [debouncedEmailCheck],
+  );
+
+  const handleChange = (event) => {
+    const { value: email } = event.target;
+    onChange({
+      email,
+    });
+    verify(email);
+  };
+
+  useEffect(() => {
+    onDisabledChange(!values.email.length > 0 || isError || isLoading);
+  }, [values.email, onDisabledChange, isError, isLoading]);
+
+  return (
+    <Fragment>
+      <Typography align="center" gutterBottom variant="h2">
+        {translate('OnboardingOrganization.headingEmail')}
+      </Typography>
+      <Typography>{translate('OnboardingOrganization.bodyEmail')}</Typography>
+      <Box mt={4}>
+        <Input
+          errorMessage={translate('OnboardingOrganization.formEmailInvalid')}
+          id="email"
+          isError={isError}
+          isLoading={isLoading}
+          label={translate('OnboardingOrganization.formEmail')}
+          type="email"
+          value={values.email}
           onChange={handleChange}
         />
       </Box>
@@ -313,7 +401,7 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
     } catch (error) {
       dispatch(
         notify({
-          text: translate('Organization.errorAvatarUpload'),
+          text: translate('OnboardingOrganization.errorAvatarUpload'),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -333,9 +421,9 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
   return (
     <Fragment>
       <Typography align="center" gutterBottom variant="h2">
-        {translate('Organization.headingAvatar')}
+        {translate('OnboardingOrganization.headingAvatar')}
       </Typography>
-      <Typography>{translate('Organization.bodyAvatar')}</Typography>
+      <Typography>{translate('OnboardingOrganization.bodyAvatar')}</Typography>
       <Box mt={4}>
         <Avatar
           className={classes.avatarUpload}
@@ -356,6 +444,41 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
   );
 };
 
+const OrganizationStepConsent = ({ onDisabledChange }) => {
+  const classes = useStyles();
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
+  useEffect(() => {
+    onDisabledChange(!isChecked);
+  }, [onDisabledChange, isChecked]);
+
+  return (
+    <Fragment>
+      <Typography align="center" gutterBottom variant="h2">
+        {translate('OnboardingOrganization.headingConsent')}
+      </Typography>
+      <Typography>{translate('OnboardingOrganization.bodyConsent')}</Typography>
+      <Box my={4}>
+        <FormControlLabel
+          classes={{ label: classes.switchLabel }}
+          control={
+            <Switch
+              checked={isChecked}
+              color="primary"
+              onChange={handleChange}
+            />
+          }
+          label={translate('OnboardingOrganization.formConsentSwitch')}
+        />
+      </Box>
+    </Fragment>
+  );
+};
+
 const stepProps = {
   onChange: PropTypes.func.isRequired,
   onDisabledChange: PropTypes.func.isRequired,
@@ -366,8 +489,16 @@ OrganizationStepUsername.propTypes = {
   ...stepProps,
 };
 
+OrganizationStepEmail.propTypes = {
+  ...stepProps,
+};
+
 OrganizationStepAvatar.propTypes = {
   ...stepProps,
 };
 
-export default Organization;
+OrganizationStepConsent.propTypes = {
+  ...stepProps,
+};
+
+export default OnboardingOrganization;

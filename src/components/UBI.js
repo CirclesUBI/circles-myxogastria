@@ -22,7 +22,12 @@ const UBI = () => {
       'day',
     );
 
-    if (isSameDay || !token.address || !safe.currentAccount) {
+    if (
+      isSameDay ||
+      !token.address ||
+      !safe.currentAccount ||
+      safe.isOrganization
+    ) {
       return;
     }
 
@@ -52,7 +57,13 @@ const UBI = () => {
     };
 
     checkUBIPayout();
-  }, [dispatch, safe.currentAccount, token.lastPayoutAt, token.address]);
+  }, [
+    dispatch,
+    safe.currentAccount,
+    safe.isOrganization,
+    token.address,
+    token.lastPayoutAt,
+  ]);
 
   return null;
 };

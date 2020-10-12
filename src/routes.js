@@ -9,7 +9,7 @@ import Error from '~/views/Error';
 import Login from '~/views/Login';
 import NotFound from '~/views/NotFound';
 import Onboarding from '~/views/Onboarding';
-import Organization from '~/views/Organization';
+import OnboardingOrganization from '~/views/OnboardingOrganization';
 import Profile from '~/views/Profile';
 import QRGenerator from '~/views/QRGenerator';
 import Search from '~/views/Search';
@@ -204,7 +204,11 @@ const Routes = () => {
       <TrustedRoute component={Profile} exact path={PROFILE_PATH} />
       <TrustedRoute component={Activities} exact path={ACTIVITIES_PATH} />
       <TrustedRoute component={QRGenerator} exact path={QR_GENERATOR_PATH} />
-      <TrustedRoute component={Organization} exact path={SHARED_WALLET_PATH} />
+      <TrustedRoute
+        component={OnboardingOrganization}
+        exact
+        path={SHARED_WALLET_PATH}
+      />
       <TrustedRoute component={Search} exact path={SEARCH_PATH} />
       <TrustedRoute component={Dashboard} path={DASHBOARD_PATH} />
       <Route component={NotFound} />
