@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   mnemonicItem: {
-    width: theme.spacing(9),
+    margin: '0 auto',
     padding: theme.spacing(0.5),
     textAlign: 'center',
   },
