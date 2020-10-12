@@ -85,12 +85,12 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey['800'],
   },
   notificationCount: {
-    width: '27px',
-    height: '27px',
+    width: '28px',
+    height: '28px',
     backgroundColor: 'transparent',
     border: `1px solid ${theme.palette.primary.main}`,
     color: theme.palette.primary.main,
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: theme.typography.fontWeightMedium,
   },
 }));
@@ -186,13 +186,13 @@ const DashboardActivityIcon = () => {
       to="/activities"
     >
       {isPending ? (
-        <CircularProgress size={25} />
+        <CircularProgress size={28} />
       ) : count > 0 ? (
         <Avatar className={classes.notificationCount}>
           {count > 99 ? '99+' : count}
         </Avatar>
       ) : (
-        <IconNotification />
+        <IconNotification style={{ fontSize: 28 }} />
       )}
     </IconButton>
   );
