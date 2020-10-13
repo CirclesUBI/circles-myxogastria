@@ -1,4 +1,9 @@
 import core from '~/services/core';
+import web3 from '~/services/web3';
+import {
+  RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
+  RESTORE_ACCOUNT_UNKNOWN_SAFE,
+} from '~/utils/errors';
 import { checkAppState, checkAuthState } from '~/store/app/actions';
 import {
   checkSharedSafeState,
@@ -11,14 +16,10 @@ import {
   unlockSafeDeployment,
   updateSafeFundedState,
 } from '~/store/safe/actions';
-import {
-  RESTORE_ACCOUNT_UNKNOWN_SAFE,
-  RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
-} from '~/utils/errors';
 import { deployToken, updateTokenFundedState } from '~/store/token/actions';
 import { generateDeterministicNonce } from '~/services/safe';
 import { restoreWallet } from '~/store/wallet/actions';
-import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own
@@ -47,10 +48,19 @@ export function createNewAccount(username, email, avatarUrl) {
 
 // Create a new organization account (aka shared wallet) when user is already
 // verified.
-export function createNewOrganization(name, email, avatarUrl) {
-  return async (dispatch) => {
+export function createNewOrganization(
+  name,
+  email,
+  avatarUrl,
+  prefundValue = 1,
+) {
+  return async (dispatch, getState) => {
     try {
+      const { safe } = getState();
+      const creatorSafeAddress = safe.currentAccount;
+
       dispatch(showSpinnerOverlay());
+
       // Create an undeployed Safe for organizations (so far this is the same
       // flow as regular user accounts)
       const nonce = Date.now();
@@ -67,6 +77,13 @@ export function createNewOrganization(name, email, avatarUrl) {
 
       // Create the organization account in the Hub
       await core.organization.deploy(safeAddress);
+
+      // Prefund the organization with Tokens from the user
+      await core.organization.prefund(
+        creatorSafeAddress,
+        safeAddress,
+        web3.utils.toBN(prefundValue.toString()),
+      );
 
       // Switch to newly created organization acccount
       await dispatch(switchCurrentAccount(safeAddress));

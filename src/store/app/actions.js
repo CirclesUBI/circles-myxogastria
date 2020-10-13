@@ -131,7 +131,8 @@ export function checkAuthState() {
 
     const isAuthorized =
       (!!safe.currentAccount || !!safe.pendingAddress) && !!wallet.address;
-    const isValidated = !!token.address && !safe.pendingAddress;
+    const isValidated =
+      (!!token.address || safe.isOrganization) && !safe.pendingAddress;
 
     if (isAuthorized !== app.isAuthorized || isValidated !== app.isValidated) {
       dispatch({

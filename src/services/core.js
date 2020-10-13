@@ -239,6 +239,14 @@ const organization = {
       safeAddress,
     });
   },
+
+  prefund: async (from, to, value) => {
+    return await requestCore('organization', 'prefund', {
+      from,
+      to,
+      value,
+    });
+  },
 };
 
 // Utils module
