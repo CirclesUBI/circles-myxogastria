@@ -16,8 +16,7 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import { checkAppState, initializeApp } from '~/store/app/actions';
 
-const APP_CHECK_FREQUENCY = 1000 * 4;
-const APP_CHECK_FREQUENCY_DEVELOPMENT = 1000 * 10;
+const APP_CHECK_FREQUENCY = 1000 * 10;
 
 const useStyles = makeStyles((theme) => ({
   app: {
@@ -107,12 +106,7 @@ const App = () => {
 
     initializeState();
 
-    const checkFrequency =
-      process.env.NODE_ENV === 'production'
-        ? APP_CHECK_FREQUENCY
-        : APP_CHECK_FREQUENCY_DEVELOPMENT;
-
-    checkInterval = window.setInterval(updateState, checkFrequency);
+    checkInterval = window.setInterval(updateState, APP_CHECK_FREQUENCY);
 
     return () => {
       isUnloading = true;
