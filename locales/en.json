@@ -144,19 +144,16 @@
   },
   "OnboardingOrganization": {
     "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",
-    "bodyConsent": "Anyone you invite can send and recieve Circles to this shared wallet.",
     "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
-    "bodyPrefund": "Since shared wallets do not hold their own token to pay for transactions they need a small amount (for example 1 Circle) from you to start with.",
+    "bodyPrefund": "Every activity in the Circles system requires a small maintence fee. Send 1 or more Circles to your new wallet to finish setup.",
     "bodyUsername": "Your wallet name is how people can search for your organization on the Circles App.",
     "errorSignup": "A server error occurred: {errorMessage}",
-    "formConsentSwitch": "Before inviting member please check the box that you understand all members can send Circles from this shared account.",
     "formEmail": "Email",
     "formPrefundAmount": "Fund amount",
     "formPrefundInvalid": "This amount is higher than your current token balance",
     "formPrefundSender": "From sender",
     "formUsername": "Wallet name",
     "headingAvatar": "Add Photo",
-    "headingConsent": "Please confirm",
     "headingEmail": "Enter Email",
     "headingPrefund": "Fund your organization",
     "headingUsername": "Name your wallet",
@@ -165,6 +162,25 @@
   "OnboardingStepper": {
     "buttonFinish": "Sign me up!",
     "buttonNextStep": "Continue"
+  },
+  "OrganizationMembers": {
+    "buttonRemoveMember": "Remove",
+    "dialogCancel": "Cancel",
+    "dialogConfirm": "Remove member",
+    "dialogRemoveMember": "Are you sure you want to remove @{username} from this organization?",
+    "dialogTitle": "Remove @{username}",
+    "errorRemovedMember": "Something went wrong, @{username} could not be removed from organization",
+    "headingMembers": "Organization members",
+    "successRemovedMember": "You've successfully removed @{username} from this organization."
+  },
+  "OrganizationMembersAdd": {
+    "dialogAddMember": "Before inviting member please note that all members can send Circles from this organization account. Are you sure you want to add @{username}?",
+    "dialogCancel": "Cancel",
+    "dialogConfirm": "Add member",
+    "dialogTitle": "Add @{username}",
+    "errorAddedMember": "Something went wrong, @{username} could not be added to organization",
+    "headingAddMember": "Add member",
+    "successAddedMember": "You've successfully added @{username} to this organization."
   },
   "Profile": {
     "bodyActivity": "Activity",

@@ -20,7 +20,7 @@ import Button from '~/components/Button';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import translate from '~/services/locale';
 import { IconAdd, IconCheck } from '~/styles/icons';
-import { SHARE_PATH, SHARED_WALLET_PATH, DASHBOARD_PATH } from '~/routes';
+import { SHARE_PATH, ORGANIZATION_PATH, DASHBOARD_PATH } from '~/routes';
 import { switchAccount } from '~/store/app/actions';
 import { useRelativeProfileLink } from '~/hooks/url';
 
@@ -96,7 +96,7 @@ const MyProfile = () => {
             button
             className={classes.listItem}
             component={Link}
-            to={SHARED_WALLET_PATH}
+            to={ORGANIZATION_PATH}
           >
             <ListItemIcon className={classes.createSharedWalletIcon}>
               <IconAdd />

@@ -15,11 +15,6 @@ import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
 
 const useStyles = makeStyles(() => ({
-  header: {
-    '.Mui-toolbar': {
-      padding: 0,
-    },
-  },
   onboardingMobileStepper: {
     flexGrow: 1,
     padding: 0,
@@ -72,7 +67,7 @@ const OnboardingStepper = ({
 
   return (
     <Fragment>
-      <Header className={classes.header}>
+      <Header>
         <MobileStepper
           activeStep={current}
           backButton={

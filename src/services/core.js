@@ -247,6 +247,12 @@ const organization = {
       value,
     });
   },
+
+  getMembers: async (safeAddress) => {
+    return await requestCore('organization', 'getMembers', {
+      safeAddress,
+    });
+  },
 };
 
 // Utils module

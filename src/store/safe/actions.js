@@ -361,13 +361,6 @@ export function addSafeOwner(address) {
     });
 
     try {
-      // Check if wallet already owns a Safe
-      const ownerSafeAddresses = await core.safe.getAddresses(address);
-
-      if (ownerSafeAddresses.length > 0) {
-        throw new Error('Wallet already owns another Safe');
-      }
-
       // Check if address is a wallet
       if ((await web3.eth.getCode(address)) !== '0x') {
         throw new Error('Address is not an EOA');

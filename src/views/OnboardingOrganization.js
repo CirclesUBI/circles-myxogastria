@@ -1,14 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
-import {
-  Box,
-  FormControlLabel,
-  Grid,
-  Switch,
-  Typography,
-} from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AvatarUploader from '~/components/AvatarUploader';
@@ -26,13 +19,6 @@ import { createNewOrganization } from '~/store/onboarding/actions';
 import { formatCirclesValue } from '~/utils/format';
 import { validateAmount } from '~/services/token';
 
-const useStyles = makeStyles(() => ({
-  switchLabel: {
-    fontSize: 12,
-    textAlign: 'left',
-  },
-}));
-
 const OnboardingOrganization = () => {
   const dispatch = useDispatch();
   const [isRedirect, setIsRedirect] = useState(false);
@@ -47,7 +33,12 @@ const OnboardingOrganization = () => {
   const onFinish = async () => {
     try {
       await dispatch(
-        createNewOrganization(values.username, values.email, values.avatarUrl),
+        createNewOrganization(
+          values.username,
+          values.email,
+          values.avatarUrl,
+          values.prefundValue,
+        ),
       );
 
       dispatch(
@@ -78,7 +69,6 @@ const OnboardingOrganization = () => {
     OrganizationStepUsername,
     OrganizationStepEmail,
     OrganizationStepAvatar,
-    OrganizationStepConsent,
     OrganizationStepPrefund,
   ];
 
@@ -173,41 +163,6 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
   );
 };
 
-const OrganizationStepConsent = ({ onDisabledChange }) => {
-  const classes = useStyles();
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleChange = (event) => {
-    setIsChecked(event.target.checked);
-  };
-
-  useEffect(() => {
-    onDisabledChange(!isChecked);
-  }, [onDisabledChange, isChecked]);
-
-  return (
-    <Fragment>
-      <Typography align="center" gutterBottom variant="h2">
-        {translate('OnboardingOrganization.headingConsent')}
-      </Typography>
-      <Typography>{translate('OnboardingOrganization.bodyConsent')}</Typography>
-      <Box my={4}>
-        <FormControlLabel
-          classes={{ label: classes.switchLabel }}
-          control={
-            <Switch
-              checked={isChecked}
-              color="primary"
-              onChange={handleChange}
-            />
-          }
-          label={translate('OnboardingOrganization.formConsentSwitch')}
-        />
-      </Box>
-    </Fragment>
-  );
-};
-
 const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
   const [isError, setIsError] = useState(false);
   const { safe, token } = useSelector((state) => state);
@@ -284,10 +239,6 @@ OrganizationStepEmail.propTypes = {
 };
 
 OrganizationStepAvatar.propTypes = {
-  ...stepProps,
-};
-
-OrganizationStepConsent.propTypes = {
   ...stepProps,
 };
 
