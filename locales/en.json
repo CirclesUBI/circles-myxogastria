@@ -1,7 +1,5 @@
 {
   "Activities": {
-    "bodyFilterConnections": "Connections",
-    "bodyFilterTransactions": "Transactions",
     "headingActivityLog": "Activity Log"
   },
   "ActivityStream": {
@@ -28,8 +26,15 @@
     "buttonLoadMore": "Load more",
     "linkLearnMore": "Learn more."
   },
+  "ActivityStreamWithTabs": {
+    "bodyFilterConnections": "Connections",
+    "bodyFilterTransactions": "Transactions"
+  },
   "App": {
     "errorUpdate": "Something went wrong, are you connected to the internet? {errorMessage}"
+  },
+  "AvatarUploader": {
+    "errorAvatarUpload": "Could not upload image. Is it the right format and size?"
   },
   "BalanceDisplay": {
     "tooltipYourBalance": "Your basic income is issued continuously at the rate of {rate} Circles a month."
@@ -98,6 +103,7 @@
     "successWelcome": "Successfully connected to account. Welcome!"
   },
   "MyProfile": {
+    "buttonCreateSharedWallet": "Create shared wallet",
     "buttonShowProfile": "Show Profile",
     "buttonShowQR": "Show QR Code"
   },
@@ -124,24 +130,57 @@
     "bodySeedPhraseChallenge": "Please enter word {wordIndex} in your seed phrase:",
     "bodyUsername": "Your username is how your friends can search for you on the Circles App.",
     "buttonCopyToClipboard": "Copy to clipboard",
-    "buttonFinish": "Sign me up!",
-    "buttonNextStep": "Submit",
-    "errorAvatarUpload": "Could not upload image. Is it the right format and size?",
-    "errorSignup": "Server error occurred during sign up. {errorMessage}",
+    "errorSignup": "A server error occurred during sign up: {errorMessage}",
     "formEmail": "Email",
-    "formEmailInvalid": "Invalid email address",
     "formSeedPhraseChallenge": "Your answer",
     "formSeedPhraseChallengeInvalid": "Wrong answer",
-    "formUnknownError": "Unknown error ",
     "formUsername": "Username",
-    "formUsernameInvalidFormat": "Only basic characters and numbers (A-Z, 0-9) allowed, no symbols or whitespace, 3-24 characters",
-    "formUsernameTaken": "Username is already taken",
     "headingAvatar": "Add Photo",
     "headingEmail": "Enter Email",
     "headingSeedPhrase": "Save Seed Phrase",
     "headingSeedPhraseChallenge": "Did you save your Seed Phrase?",
     "headingUsername": "Create Your Username",
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
+  },
+  "OnboardingOrganization": {
+    "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",
+    "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
+    "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. Send 1 or more Circles to your new wallet to finish setup.",
+    "bodyUsername": "Your wallet name is how people can search for your organization on the Circles App.",
+    "errorSignup": "A server error occurred: {errorMessage}",
+    "formEmail": "Email",
+    "formPrefundAmount": "Fund amount",
+    "formPrefundInvalid": "This amount is higher than your current token balance",
+    "formPrefundSender": "From sender",
+    "formUsername": "Wallet name",
+    "headingAvatar": "Add Photo",
+    "headingEmail": "Enter Email",
+    "headingPrefund": "Fund your organization",
+    "headingUsername": "Name your wallet",
+    "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
+  },
+  "OnboardingStepper": {
+    "buttonFinish": "Sign me up!",
+    "buttonNextStep": "Continue"
+  },
+  "OrganizationMembers": {
+    "buttonRemoveMember": "Remove",
+    "dialogCancel": "Cancel",
+    "dialogConfirm": "Remove member",
+    "dialogRemoveMember": "Are you sure you want to remove @{username} from this organization?",
+    "dialogTitle": "Remove @{username}",
+    "errorRemovedMember": "Something went wrong, @{username} could not be removed from organization",
+    "headingMembers": "Organization members",
+    "successRemovedMember": "You've successfully removed @{username} from this organization."
+  },
+  "OrganizationMembersAdd": {
+    "dialogAddMember": "Before inviting member please note that all members can send Circles from this organization account. Are you sure you want to add @{username}?",
+    "dialogCancel": "Cancel",
+    "dialogConfirm": "Add member",
+    "dialogTitle": "Add @{username}",
+    "errorAddedMember": "Something went wrong, @{username} could not be added to organization",
+    "headingAddMember": "Add member",
+    "successAddedMember": "You've successfully added @{username} to this organization."
   },
   "Profile": {
     "bodyActivity": "Activity",
@@ -154,12 +193,12 @@
     },
     "bodyStatusMeTrusting": "You trust @{username}",
     "bodyStatusMutualTrust": "You and @{username} trust each other",
-    "bodyStatusNotDeployedYet": "This account has not yet been verified.",
+    "bodyStatusNotDeployedYet": "This account has not yet been verified",
     "bodyStatusTrustingMe": "@{username} trusts you",
     "bodyTrustedBy": "Trusted by",
     "shareText": "Check out my Circles UBI profile!",
     "tooltipSafeIsYou": "This is your own profile",
-    "tooltipSafeNotDeployed": "This account has not yet been verified."
+    "tooltipSafeNotDeployed": "This account has not yet been verified"
   },
   "ProfileMini": {
     "bodyMutualFriends": {
@@ -201,7 +240,6 @@
     },
     "bodyMaxFlow": "Maximum amount: {amount}",
     "bodyPaymentNoteInvalid": "You can not write special symbols like {}<>^ and more than 100 characters.",
-    "bodyTotalBalance": "Your total balance: {balance}",
     "buttonSubmitAmount": "Send",
     "dialogSendCancel": "Cancel",
     "dialogSendConfirm": "Confirm",
@@ -217,8 +255,7 @@
     "formSender": "Send from",
     "headingSendCircles": "Send Circles",
     "successMessage": "You transferred {amount} Circles successfully to @{username}!",
-    "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}",
-    "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
+    "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}"
   },
   "Settings": {
     "bodyDeviceAddress": "Device address",
@@ -238,6 +275,10 @@
     "buttonShareProfileLink": "Share",
     "headingShare": "My QR Code",
     "shareText": "Hey! Check out my Circles UBI profile!"
+  },
+  "TransferInfoBalanceCard": {
+    "bodyTotalBalance": "Your total balance: {balance}",
+    "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
   },
   "Tutorial": {
     "buttonFinish": "Got it.",
@@ -275,6 +316,14 @@
   "ValidationStatus": {
     "bodyReadyForDeployment": "Your account is ready now, click the button below to create it:",
     "buttonStartDeployment": "Create account"
+  },
+  "VerifiedEmailInput": {
+    "formEmailInvalid": "Invalid email address"
+  },
+  "VerifiedUsernameInput": {
+    "formUnknownError": "Unknown error ",
+    "formUsernameInvalidFormat": "Only basic characters and numbers (A-Z, 0-9) allowed, no symbols or whitespace, 3-24 characters",
+    "formUsernameTaken": "Name is already taken"
   },
   "Welcome": {
     "buttonLogin": "Log in",

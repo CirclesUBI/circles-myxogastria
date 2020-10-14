@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AvatarWithQR = ({ address }) => {
+const AvatarWithQR = ({ address, ...props }) => {
   const classes = useStyles();
 
   return (
@@ -29,7 +29,7 @@ const AvatarWithQR = ({ address }) => {
       className={classes.avatarBadge}
       overlap="circle"
     >
-      <Avatar address={address} />
+      <Avatar address={address} {...props} />
     </Badge>
   );
 };

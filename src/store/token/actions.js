@@ -77,6 +77,15 @@ export function checkTokenState() {
       return;
     }
 
+    // Organizations don't have a Token
+    if (safe.isOrganization) {
+      if (token.address) {
+        dispatch(resetToken());
+      }
+
+      return;
+    }
+
     // Token address already exists
     if (token.address) {
       return;
@@ -115,7 +124,7 @@ export function checkCurrentBalance() {
     const { safe, token } = getState();
 
     // No token address given yet
-    if (!token.address) {
+    if (!token.address && !safe.isOrganization) {
       return;
     }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { SvgIcon } from '@material-ui/core';
 
 import activity from '%/images/activity.svg';
+import add from '%/images/add.svg';
 import alert from '%/images/alert.svg';
 import arrow from '%/images/arrow.svg';
 import check from '%/images/check.svg';
@@ -16,6 +17,7 @@ import mail from '%/images/mail.svg';
 import menu from '%/images/menu.svg';
 import notification from '%/images/notification.svg';
 import qr from '%/images/qr.svg';
+import qrLarge from '%/images/qr-large.svg';
 import scan from '%/images/scan.svg';
 import search from '%/images/search.svg';
 import send from '%/images/send.svg';
@@ -30,6 +32,10 @@ import world from '%/images/world.svg';
 
 export const IconActivity = (props) => {
   return <SvgIcon component={activity} {...props} viewBox="0 0 20 20" />;
+};
+
+export const IconAdd = (props) => {
+  return <SvgIcon component={add} {...props} viewBox="0 0 20 20" />;
 };
 
 export const IconAlert = (props) => {
@@ -86,6 +92,10 @@ export const IconNotification = (props) => {
 
 export const IconQR = (props) => {
   return <SvgIcon component={qr} viewBox="0 0 18 18" {...props} />;
+};
+
+export const IconQRLarge = (props) => {
+  return <SvgIcon component={qrLarge} viewBox="0 0 36 36" {...props} />;
 };
 
 export const IconScan = (props) => {

@@ -97,6 +97,7 @@ const TutorialHeader = (props) => {
         nextButton={
           <Button
             className={classes.tutorialSkipButton}
+            edge="end"
             isDark
             onClick={props.onSkip}
           >

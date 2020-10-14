@@ -1,21 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import clsx from 'clsx';
-import { Fab, CircularProgress } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
+import ButtonAction from '~/components/ButtonAction';
 import { IconSend } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
-  fabSend: {
-    width: 72,
-    height: 72,
-    position: 'fixed',
-    bottom: theme.spacing(2.25),
-    right: theme.spacing(2.25),
-    background: theme.custom.gradients.purple,
-  },
   fabSendDisabled: {
     background: theme.custom.gradients.gray,
   },
@@ -32,12 +25,11 @@ const ButtonSend = React.forwardRef(
     const classes = useStyles();
 
     return (
-      <Fab
+      <ButtonAction
         aria-label="Send"
-        className={clsx(classes.fabSend, className, {
+        className={clsx(className, {
           [classes.fabSendDisabled]: disabled || isPending,
         })}
-        color="primary"
         component={disabled || isPending ? 'div' : Link}
         disabled={disabled || isPending}
         ref={ref}
@@ -50,7 +42,7 @@ const ButtonSend = React.forwardRef(
         ) : (
           <IconSend className={classes.fabSendIcon} fontSize="large" />
         )}
-      </Fab>
+      </ButtonAction>
     );
   },
 );

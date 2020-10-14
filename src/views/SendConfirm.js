@@ -8,32 +8,25 @@ import {
 } from 'react-router-dom';
 import {
   Box,
-  Card,
-  CardHeader,
-  CircularProgress,
   Container,
   Dialog,
   DialogContent,
-  FormHelperText,
   Grid,
-  Input,
-  InputAdornment,
-  InputLabel,
-  Tooltip,
   Typography,
   Zoom,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
 import CenteredHeading from '~/components/CenteredHeading';
-import CirclesLogoSVG from '%/images/logo.svg';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
+import TransferInfoCard from '~/components/TransferInfoCard';
+import TransferInput from '~/components/TransferInput';
 import View from '~/components/View';
 import core from '~/services/core';
 import logError, { formatErrorMessage } from '~/utils/debug';
@@ -41,7 +34,7 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import web3 from '~/services/web3';
 import { DASHBOARD_PATH, SEND_CONFIRM_PATH } from '~/routes';
-import { IconCircles, IconSend } from '~/styles/icons';
+import { IconSend } from '~/styles/icons';
 import { formatCirclesValue } from '~/utils/format';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { transfer } from '~/store/token/actions';
@@ -52,42 +45,6 @@ import { validatePaymentNote, validateAmount } from '~/services/token';
 const { ErrorCodes, TransferError } = core.errors;
 
 const useStyles = makeStyles((theme) => ({
-  cardHeader: {
-    padding: theme.spacing(1),
-  },
-  inputLabel: {
-    marginBottom: theme.spacing(1),
-    color: theme.palette.text.primary,
-    fontWeight: theme.typography.fontWeightMedium,
-    fontSize: 12,
-  },
-  totalBalance: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    fontSize: 12,
-    '&>*': {
-      marginRight: theme.spacing(0.5),
-    },
-  },
-  inputAmount: {
-    fontSize: 27,
-  },
-  inputError: {
-    '&.Mui-error': {
-      color: theme.custom.colors.red,
-    },
-  },
-  inputAmountError: {
-    color: theme.custom.colors.red,
-  },
-  paper: {
-    minHeight: 66,
-  },
-  input: {
-    padding: theme.spacing(2),
-    height: 66,
-    boxShadow: 'inset 1px 1px 1px 1px rgba(0,0,0,0.15)',
-  },
   dialogPaymentNote: {
     fontWeight: theme.typography.fontWeightRegular,
     color: theme.palette.grey['900'],
@@ -302,133 +259,55 @@ const SendConfirm = () => {
         <Container maxWidth="sm">
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <InputLabel className={classes.inputLabel} htmlFor="receiver">
-                {translate('SendConfirm.formSender')}
-              </InputLabel>
-              <Card>
-                <CardHeader
-                  avatar={<Avatar address={safe.currentAccount} size="tiny" />}
-                  classes={{
-                    root: classes.cardHeader,
-                  }}
-                  subheader={
-                    <Tooltip
-                      arrow
-                      title={translate('SendConfirm.tooltipTotalBalance')}
-                    >
-                      <Typography
-                        className={classes.totalBalance}
-                        component="div"
-                      >
-                        <CirclesLogoSVG height="12" width="12" />
-                        <span>
-                          {translate('SendConfirm.bodyTotalBalance', {
-                            balance: formatCirclesValue(token.balance),
-                          })}
-                        </span>
-                      </Typography>
-                    </Tooltip>
-                  }
-                  title={`@${sender}`}
-                />
-              </Card>
+              <TransferInfoBalanceCard
+                address={safe.currentAccount}
+                balance={token.balance}
+                label={translate('SendConfirm.formSender')}
+              />
             </Grid>
             <Grid item xs={12}>
-              <InputLabel className={classes.inputLabel} htmlFor="receiver">
-                {translate('SendConfirm.formReceiver')}
-              </InputLabel>
-              <Card>
-                <CardHeader
-                  avatar={<Avatar address={address} size="tiny" />}
-                  classes={{
-                    root: classes.cardHeader,
-                  }}
-                  subheader={
-                    <Tooltip
-                      arrow
-                      title={translate('SendConfirm.tooltipMaxFlow', {
-                        username: receiver,
-                      })}
-                    >
-                      <Typography
-                        className={classes.totalBalance}
-                        component="div"
-                      >
-                        <CirclesLogoSVG height="12" width="12" />
-                        <span>
-                          {translate('SendConfirm.bodyMaxFlow', {
-                            amount:
-                              maxFlow !== null
-                                ? formatCirclesValue(
-                                    web3.utils.toWei(`${maxFlow}`, 'ether'),
-                                  )
-                                : '',
-                          })}
-                        </span>
-                        {maxFlow === null && <CircularProgress size={12} />}
-                      </Typography>
-                    </Tooltip>
-                  }
-                  title={`@${receiver}`}
-                />
-              </Card>
+              <TransferInfoCard
+                address={address}
+                isLoading={maxFlow === null}
+                label={translate('SendConfirm.formReceiver')}
+                text={translate('SendConfirm.bodyMaxFlow', {
+                  amount:
+                    maxFlow !== null
+                      ? formatCirclesValue(
+                          web3.utils.toWei(`${maxFlow}`, 'ether'),
+                        )
+                      : '',
+                })}
+                tooltip={translate('SendConfirm.tooltipMaxFlow', {
+                  username: receiver,
+                })}
+              />
             </Grid>
             <Grid item xs={12}>
-              <InputLabel className={classes.inputLabel} htmlFor="amount">
-                {translate('SendConfirm.formAmount')}
-              </InputLabel>
-              <Input
+              <TransferInput
                 autoFocus
-                classes={{
-                  root: classes.input,
-                  input: classes.inputAmount,
-                  error: classes.inputAmountError,
-                }}
-                disableUnderline
-                error={isAmountTooHigh}
-                fullWidth
+                errorMessage={translate('SendConfirm.bodyAmountTooHigh', {
+                  count: formatCirclesValue(
+                    web3.utils.toWei(`${maxAmount}`, 'ether'),
+                  ),
+                  username: receiver,
+                })}
                 id="amount"
-                inputProps={{
-                  min: 0,
-                }}
-                startAdornment={
-                  <InputAdornment position="start">
-                    <IconCircles />
-                  </InputAdornment>
-                }
-                type="number"
+                isError={isAmountTooHigh}
+                label={translate('SendConfirm.formAmount')}
                 value={amount}
                 onChange={handleAmountChange}
               />
-              {isAmountTooHigh && (
-                <FormHelperText className={classes.inputError} error>
-                  {translate('SendConfirm.bodyAmountTooHigh', {
-                    count: formatCirclesValue(
-                      web3.utils.toWei(`${maxAmount}`, 'ether'),
-                    ),
-                    username: receiver,
-                  })}
-                </FormHelperText>
-              )}
             </Grid>
             <Grid item xs={12}>
-              <InputLabel className={classes.inputLabel} htmlFor="payment-note">
-                {translate('SendConfirm.formPaymentNote')}
-              </InputLabel>
-              <Input
-                className={classes.input}
-                disableUnderline
-                error={isPaymentNoteInvalid}
-                fullWidth
+              <TransferInput
+                errorMessage={translate('SendConfirm.bodyPaymentNoteInvalid')}
                 id="payment-note"
+                isError={isPaymentNoteInvalid}
+                label={translate('SendConfirm.formPaymentNote')}
                 value={paymentNote}
                 onChange={handlePaymentNoteChange}
               />
-              {isPaymentNoteInvalid && (
-                <FormHelperText className={classes.inputError} error>
-                  {translate('SendConfirm.bodyPaymentNoteInvalid')}
-                </FormHelperText>
-              )}
             </Grid>
           </Grid>
         </Container>

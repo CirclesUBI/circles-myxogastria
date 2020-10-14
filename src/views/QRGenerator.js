@@ -6,12 +6,8 @@ import {
   Card,
   CardHeader,
   Container,
-  FormHelperText,
   Grid,
-  Input,
-  InputAdornment,
   InputLabel,
-  Paper,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { saveAs } from 'file-saver';
@@ -19,15 +15,16 @@ import { useSelector } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
-import ButtonShare from '~/components/ButtonShare';
 import ButtonBack from '~/components/ButtonBack';
+import ButtonShare from '~/components/ButtonShare';
 import CenteredHeading from '~/components/CenteredHeading';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import QRCode from '~/components/QRCode';
+import TransferCirclesInput from '~/components/TransferCirclesInput';
+import TransferInput from '~/components/TransferInput';
 import View from '~/components/View';
 import translate from '~/services/locale';
-import { IconCircles } from '~/styles/icons';
 import { useSendLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 import { validatePaymentNote, validateAmount } from '~/services/token';
@@ -44,28 +41,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
     fontWeight: theme.typography.fontWeightMedium,
     fontSize: 12,
-  },
-  totalBalance: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    fontSize: 12,
-    '&>*': {
-      marginRight: theme.spacing(0.5),
-    },
-  },
-  inputAmount: {
-    fontSize: 27,
-  },
-  inputAmountError: {
-    color: theme.custom.colors.red,
-  },
-  paper: {
-    minHeight: 66,
-  },
-  dialogPaymentNote: {
-    fontWeight: theme.typography.fontWeightRegular,
-    color: theme.palette.grey['900'],
-    wordWrap: 'break-word',
   },
 }));
 
@@ -168,56 +143,23 @@ const QRGenerator = () => {
               </Card>
             </Grid>
             <Grid item xs={12}>
-              <InputLabel className={classes.inputLabel} htmlFor="amount">
-                {translate('QRGenerator.formAmount')}
-              </InputLabel>
-              <Paper className={classes.paper}>
-                <Box p={2}>
-                  <Input
-                    autoFocus
-                    classes={{
-                      input: classes.inputAmount,
-                      error: classes.inputAmountError,
-                    }}
-                    disableUnderline
-                    fullWidth
-                    id="amount"
-                    inputProps={{
-                      min: 0,
-                    }}
-                    startAdornment={
-                      <InputAdornment position="start">
-                        <IconCircles />
-                      </InputAdornment>
-                    }
-                    type="number"
-                    value={amount}
-                    onChange={handleAmountChange}
-                  />
-                </Box>
-              </Paper>
+              <TransferCirclesInput
+                autoFocus
+                id="amount"
+                label={translate('QRGenerator.formAmount')}
+                value={amount}
+                onChange={handleAmountChange}
+              />
             </Grid>
             <Grid item xs={12}>
-              <InputLabel className={classes.inputLabel} htmlFor="payment-note">
-                {translate('QRGenerator.formPaymentNote')}
-              </InputLabel>
-              <Paper className={classes.paper}>
-                <Box p={2}>
-                  <Input
-                    disableUnderline
-                    error={isPaymentNoteInvalid}
-                    fullWidth
-                    id="payment-note"
-                    value={paymentNote}
-                    onChange={handlePaymentNoteChange}
-                  />
-                  {isPaymentNoteInvalid && (
-                    <FormHelperText error>
-                      {translate('QRGenerator.bodyPaymentNoteInvalid')}
-                    </FormHelperText>
-                  )}
-                </Box>
-              </Paper>
+              <TransferInput
+                errorMessage={translate('QRGenerator.bodyPaymentNoteInvalid')}
+                id="payment-note"
+                isError={isPaymentNoteInvalid}
+                label={translate('QRGenerator.formPaymentNote')}
+                value={paymentNote}
+                onChange={handlePaymentNoteChange}
+              />
             </Grid>
           </Grid>
         </Container>

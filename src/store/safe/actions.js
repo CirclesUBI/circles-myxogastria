@@ -2,7 +2,6 @@ import ActionTypes from '~/store/safe/types';
 import core from '~/services/core';
 import isDeployed from '~/utils/isDeployed';
 import web3 from '~/services/web3';
-import { addPendingActivity } from '~/store/activity/actions';
 import {
   generateDeterministicNonce,
   getCurrentAccount,
@@ -18,8 +17,6 @@ import {
   setNonce,
   setSafeAddress,
 } from '~/services/safe';
-
-const { ActivityTypes } = core.activity;
 
 export function initializeSafe() {
   return async (dispatch) => {
@@ -70,10 +67,18 @@ export function initializeSafe() {
       throw new Error('Invalid pending Safe state');
     }
 
+    // If there is a stored current account address we check if its an
+    // organization, otherwise it must be a user account which is waiting to be
+    // deployed
+    const isOrganization = currentAccount
+      ? await core.organization.isOrganization(currentAccount)
+      : false;
+
     dispatch({
       type: ActionTypes.SAFE_INITIALIZE_SUCCESS,
       meta: {
         currentAccount,
+        isOrganization,
         pendingAddress,
         pendingNonce,
       },
@@ -179,13 +184,18 @@ export function createSafeWithNonce(pendingNonce) {
 }
 
 export function switchCurrentAccount(address) {
-  setCurrentAccount(address);
+  return async (dispatch) => {
+    const isOrganization = await core.organization.isOrganization(address);
 
-  return {
-    type: ActionTypes.SAFE_SWITCH_ACCOUNT,
-    meta: {
-      address,
-    },
+    setCurrentAccount(address);
+
+    dispatch({
+      type: ActionTypes.SAFE_SWITCH_ACCOUNT,
+      meta: {
+        address,
+        isOrganization,
+      },
+    });
   };
 }
 
@@ -241,6 +251,35 @@ export function deploySafe() {
     try {
       await core.safe.deploy(safe.pendingAddress);
       await isDeployed(safe.pendingAddress);
+
+      dispatch({
+        type: ActionTypes.SAFE_DEPLOY_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.SAFE_DEPLOY_ERROR,
+      });
+
+      throw error;
+    }
+  };
+}
+
+export function deploySafeForOrganization(safeAddress) {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    if (safe.pendingIsLocked) {
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.SAFE_DEPLOY,
+    });
+
+    try {
+      await core.safe.deployForOrganization(safeAddress);
+      await isDeployed(safeAddress);
 
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_SUCCESS,
@@ -319,13 +358,6 @@ export function addSafeOwner(address) {
     });
 
     try {
-      // Check if wallet already owns a Safe
-      const ownerSafeAddresses = await core.safe.getAddresses(address);
-
-      if (ownerSafeAddresses.length > 0) {
-        throw new Error('Wallet already owns another Safe');
-      }
-
       // Check if address is a wallet
       if ((await web3.eth.getCode(address)) !== '0x') {
         throw new Error('Address is not an EOA');
@@ -335,18 +367,7 @@ export function addSafeOwner(address) {
       const ownerAddress = address;
 
       // Add owner to Safe
-      const txHash = await core.safe.addOwner(safeAddress, ownerAddress);
-
-      dispatch(
-        addPendingActivity({
-          txHash,
-          type: ActivityTypes.ADD_OWNER,
-          data: {
-            ownerAddress,
-            safeAddress,
-          },
-        }),
-      );
+      await core.safe.addOwner(safeAddress, ownerAddress);
 
       dispatch({
         type: ActionTypes.SAFE_OWNERS_ADD_SUCCESS,
@@ -376,18 +397,7 @@ export function removeSafeOwner(address) {
       const safeAddress = safe.currentAccount;
       const ownerAddress = address;
 
-      const txHash = await core.safe.removeOwner(safeAddress, ownerAddress);
-
-      dispatch(
-        addPendingActivity({
-          txHash,
-          type: ActivityTypes.REMOVE_OWNER,
-          data: {
-            ownerAddress,
-            safeAddress,
-          },
-        }),
-      );
+      await core.safe.removeOwner(safeAddress, ownerAddress);
 
       dispatch({
         type: ActionTypes.SAFE_OWNERS_REMOVE_SUCCESS,

@@ -379,14 +379,14 @@ ActivityStream.propTypes = {
   activities: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isMoreAvailable: PropTypes.bool.isRequired,
-  lastSeenAt: PropTypes.string.isRequired,
+  lastSeenAt: PropTypes.string,
   lastUpdatedAt: PropTypes.string,
   onLoadMore: PropTypes.func,
 };
 
 ActivityStreamList.propTypes = {
   activities: PropTypes.array.isRequired,
-  lastSeenAt: PropTypes.string.isRequired,
+  lastSeenAt: PropTypes.string,
   lastUpdatedAt: PropTypes.string,
 };
 

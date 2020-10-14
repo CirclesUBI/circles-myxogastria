@@ -5,12 +5,13 @@ import ActionTypes from '~/store/safe/types';
 const initialState = {
   accounts: [],
   currentAccount: null,
+  isOrganization: false,
   pendingAddress: null,
-  pendingIsLocked: false,
   pendingIsFunded: false,
+  pendingIsLocked: false,
   pendingNonce: null,
-  ownersIsLoading: false,
   owners: [],
+  ownersIsLoading: false,
 };
 
 const safeReducer = (state = initialState, action) => {
@@ -18,6 +19,7 @@ const safeReducer = (state = initialState, action) => {
     case ActionTypes.SAFE_INITIALIZE_SUCCESS:
       return update(state, {
         currentAccount: { $set: action.meta.currentAccount },
+        isOrganization: { $set: action.meta.isOrganization },
         pendingAddress: { $set: action.meta.pendingAddress },
         pendingNonce: { $set: action.meta.pendingNonce },
       });
@@ -45,6 +47,7 @@ const safeReducer = (state = initialState, action) => {
     case ActionTypes.SAFE_SWITCH_ACCOUNT:
       return update(state, {
         currentAccount: { $set: action.meta.address },
+        isOrganization: { $set: action.meta.isOrganization },
       });
     case ActionTypes.SAFE_DEPLOY:
       return update(state, {

@@ -5,10 +5,14 @@ import { useSelector } from 'react-redux';
 
 import Activities from '~/views/Activities';
 import Dashboard from '~/views/Dashboard';
+import DashboardOrganization from '~/views/DashboardOrganization';
 import Error from '~/views/Error';
 import Login from '~/views/Login';
 import NotFound from '~/views/NotFound';
 import Onboarding from '~/views/Onboarding';
+import OnboardingOrganization from '~/views/OnboardingOrganization';
+import OrganizationMembers from '~/views/OrganizationMembers';
+import OrganizationMembersAdd from '~/views/OrganizationMembersAdd';
 import Profile from '~/views/Profile';
 import QRGenerator from '~/views/QRGenerator';
 import Search from '~/views/Search';
@@ -18,38 +22,43 @@ import SendConfirm from '~/views/SendConfirm';
 import Settings from '~/views/Settings';
 import Share from '~/views/Share';
 import TutorialOnboarding from '~/views/TutorialOnboarding';
+import TutorialOrganization from '~/views/TutorialOrganization';
 import Validation from '~/views/Validation';
 import ValidationLock from '~/views/ValidationLock';
 import ValidationShare from '~/views/ValidationShare';
 import Welcome from '~/views/Welcome';
-import { ACCOUNT_CREATE } from '~/store/tutorial/actions';
+import { ACCOUNT_CREATE, ORGANIZATION_CREATE } from '~/store/tutorial/actions';
 
 // Routes in Drawer component
 export const MY_PROFILE_PATH = '/profile';
 
 // Main routes
+export const ACTIVITIES_PATH = '/activities';
 export const DASHBOARD_PATH = '/';
 export const LOGIN_PATH = '/welcome/login';
 export const ONBOARDING_PATH = '/welcome/onboarding';
+export const ORGANIZATION_MEMBERS_ADD_PATH = '/organization/members/add';
+export const ORGANIZATION_MEMBERS_PATH = '/organization/members';
+export const ORGANIZATION_PATH = '/organization';
 export const PROFILE_PATH = '/profile/:address';
+export const QR_GENERATOR_PATH = '/organization/qr';
+export const SEARCH_PATH = '/search';
 export const SEED_PHRASE_PATH = '/seedphrase';
 export const SEND_CONFIRM_PATH = '/send/:address(0x[0-9a-fA-f]{40})';
 export const SEND_PATH = '/send';
 export const SETTINGS_PATH = '/settings';
 export const SHARE_PATH = '/share';
-export const ACTIVITIES_PATH = '/activities';
-export const SEARCH_PATH = '/search';
 export const VALIDATION_PATH = '/validation';
 export const VALIDATION_SHARE_PATH = '/validation/share';
-export const QR_GENERATOR_PATH = '/qr';
 export const WELCOME_PATH = '/welcome';
 
 const SessionContainer = ({
   component: Component,
   isAuthorizationRequired = false,
   isValidationRequired = false,
+  isOrganizationRequired = false,
 }) => {
-  const app = useSelector((state) => state.app);
+  const { app, safe } = useSelector((state) => state);
   let isValid = true;
 
   // Check if user has a valid session ..
@@ -73,6 +82,11 @@ const SessionContainer = ({
   }
 
   if (!isValidationRequired && isAuthorizationRequired && app.isValidated) {
+    isValid = false;
+  }
+
+  // Check if user is an organization ..
+  if (isOrganizationRequired && !safe.isOrganization) {
     isValid = false;
   }
 
@@ -122,7 +136,42 @@ const TrustedRoute = ({ component, path }) => {
   );
 };
 
-// Containers for Tutorials
+const OrganizationRoute = ({ component, path }) => {
+  return (
+    <Route path={path}>
+      <SessionContainer
+        component={component}
+        isAuthorizationRequired
+        isOrganizationRequired
+        isValidationRequired
+      />
+    </Route>
+  );
+};
+
+// Containers for organizations
+
+const OnboardingOrganizationContainer = () => {
+  const safe = useSelector((state) => state.safe);
+
+  if (safe.isOrganization) {
+    return <Redirect to={DASHBOARD_PATH} />;
+  }
+
+  return <OnboardingOrganization />;
+};
+
+const DashboardContainer = () => {
+  const safe = useSelector((state) => state.safe);
+
+  if (safe.isOrganization) {
+    return <DashboardOrganization />;
+  }
+
+  return <Dashboard />;
+};
+
+// Containers for tutorials
 
 const TutorialContainer = (props) => {
   const [redirect, setRedirect] = useState(false);
@@ -147,13 +196,25 @@ const TutorialContainer = (props) => {
   return <FinalComponent />;
 };
 
-const OnboardingContainer = () => {
+const TutorialOnboardingContainer = () => {
   return (
     <TutorialContainer
       componentFinal={Onboarding}
       componentTutorial={TutorialOnboarding}
       exitPath={WELCOME_PATH}
       name={ACCOUNT_CREATE}
+    />
+  );
+};
+
+// eslint-disable-next-line
+const TutorialOrganizationContainer = () => {
+  return (
+    <TutorialContainer
+      componentFinal={OnboardingOrganization}
+      componentTutorial={TutorialOrganization}
+      exitPath={DASHBOARD_PATH}
+      name={ORGANIZATION_CREATE}
     />
   );
 };
@@ -184,7 +245,7 @@ const Routes = () => {
       <Route component={Settings} exact path={SETTINGS_PATH} />
       <OnboardingRoute component={Welcome} exact path={WELCOME_PATH} />
       <OnboardingRoute
-        component={OnboardingContainer}
+        component={TutorialOnboardingContainer}
         exact
         path={ONBOARDING_PATH}
       />
@@ -203,7 +264,22 @@ const Routes = () => {
       <TrustedRoute component={Activities} exact path={ACTIVITIES_PATH} />
       <TrustedRoute component={QRGenerator} exact path={QR_GENERATOR_PATH} />
       <TrustedRoute component={Search} exact path={SEARCH_PATH} />
-      <TrustedRoute component={Dashboard} path={DASHBOARD_PATH} />
+      <OrganizationRoute
+        component={OrganizationMembersAdd}
+        exact
+        path={ORGANIZATION_MEMBERS_ADD_PATH}
+      />
+      <OrganizationRoute
+        component={OrganizationMembers}
+        exact
+        path={ORGANIZATION_MEMBERS_PATH}
+      />
+      <TrustedRoute
+        component={OnboardingOrganizationContainer}
+        exact
+        path={ORGANIZATION_PATH}
+      />
+      <TrustedRoute component={DashboardContainer} path={DASHBOARD_PATH} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -212,6 +288,7 @@ const Routes = () => {
 SessionContainer.propTypes = {
   component: PropTypes.elementType.isRequired,
   isAuthorizationRequired: PropTypes.bool,
+  isOrganizationRequired: PropTypes.bool,
   isValidationRequired: PropTypes.bool,
 };
 
@@ -226,6 +303,11 @@ SessionRoute.propTypes = {
 };
 
 TrustedRoute.propTypes = {
+  component: PropTypes.elementType.isRequired,
+  path: PropTypes.string.isRequired,
+};
+
+OrganizationRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
   path: PropTypes.string.isRequired,
 };

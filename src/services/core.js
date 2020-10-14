@@ -50,6 +50,12 @@ const safe = {
     });
   },
 
+  deployForOrganization: async (safeAddress) => {
+    return await requestCore('safe', 'deployForOrganization', {
+      safeAddress,
+    });
+  },
+
   getOwners: async (safeAddress) => {
     return await requestCore('safe', 'getOwners', {
       safeAddress,
@@ -213,6 +219,42 @@ const activity = {
   },
 };
 
+// Organization module
+
+const organization = {
+  isFunded: async (safeAddress) => {
+    return await requestCore('organization', 'isFunded', {
+      safeAddress,
+    });
+  },
+
+  isOrganization: async (safeAddress) => {
+    return await requestCore('organization', 'isOrganization', {
+      safeAddress,
+    });
+  },
+
+  deploy: async (safeAddress) => {
+    return await requestCore('organization', 'deploy', {
+      safeAddress,
+    });
+  },
+
+  prefund: async (from, to, value) => {
+    return await requestCore('organization', 'prefund', {
+      from,
+      to,
+      value,
+    });
+  },
+
+  getMembers: async (safeAddress) => {
+    return await requestCore('organization', 'getMembers', {
+      safeAddress,
+    });
+  },
+};
+
 // Utils module
 
 const { fromFreckles, toFreckles, requestAPI, matchAddress } = core.utils;
@@ -238,6 +280,7 @@ const errors = {
 export default {
   activity,
   errors,
+  organization,
   safe,
   token,
   trust,

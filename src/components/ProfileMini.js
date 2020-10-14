@@ -18,7 +18,7 @@ import { IconFriends, IconSend, IconTrust } from '~/styles/icons';
 import { usePendingTransfer } from '~/hooks/activity';
 import { useRelativeSendLink } from '~/hooks/url';
 import { useTrustConnection, useDeploymentStatus } from '~/hooks/network';
-import { useUserdata } from '~/hooks/username';
+import { useUserdata, useIsOrganization } from '~/hooks/username';
 
 const useStyles = makeStyles((theme) => ({
   cardHeader: {
@@ -57,6 +57,9 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
   const { username } = useUserdata(address);
   const connection = useTrustConnection(address);
   const { isReady, isDeployed } = useDeploymentStatus(address);
+  const { isReady: isOrganizationReady, isOrganization } = useIsOrganization(
+    address,
+  );
 
   const [isRedirect, setIsRedirect] = useState(false);
   const [isTrustOpen, setIsTrustOpen] = useState(false);
@@ -108,9 +111,10 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
           }}
           subheader={
             isReady &&
+            isOrganizationReady &&
             connection.isReady && (
               <Fragment>
-                {isDeployed ? (
+                {isDeployed || isOrganization ? (
                   <Tooltip
                     arrow
                     placement="left"

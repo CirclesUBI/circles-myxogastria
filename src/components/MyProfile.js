@@ -1,29 +1,64 @@
-import React, { Fragment } from 'react';
-import { Grid, ButtonGroup, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import React, { Fragment, useState } from 'react';
+import {
+  Grid,
+  ButtonGroup,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from '@material-ui/core';
+import { Link, Redirect } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import { useSelector, useDispatch } from 'react-redux';
 
+import Avatar from '~/components/Avatar';
 import AvatarWithQR from '~/components/AvatarWithQR';
 import Button from '~/components/Button';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import translate from '~/services/locale';
-import { IconCheck } from '~/styles/icons';
-import { SHARE_PATH } from '~/routes';
+import { IconAdd, IconCheck } from '~/styles/icons';
+import { SHARE_PATH, ORGANIZATION_PATH, DASHBOARD_PATH } from '~/routes';
+import { switchAccount } from '~/store/app/actions';
 import { useRelativeProfileLink } from '~/hooks/url';
 
+const useStyles = makeStyles(() => ({
+  listItem: {
+    height: 70,
+  },
+  createSharedWalletIcon: {
+    marginLeft: 8,
+  },
+}));
+
 const MyProfile = () => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const [isRedirect, setIsRedirect] = useState(false);
+
   const safe = useSelector((state) => state.safe);
   const profilePath = useRelativeProfileLink(safe.currentAccount);
+
+  const handleAccountSwitch = (account) => {
+    dispatch(switchAccount(account));
+    setIsRedirect(true);
+  };
+
+  if (isRedirect) {
+    return <Redirect push to={DASHBOARD_PATH} />;
+  }
 
   return (
     <Fragment>
       <Grid alignItems="center" container spacing={2}>
-        <Grid item xs={2}>
+        <Grid item xs={4}>
           <Link to={SHARE_PATH}>
-            <AvatarWithQR address={safe.currentAccount} />
+            <AvatarWithQR address={safe.currentAccount} size="medium" />
           </Link>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={6}>
           <Typography align="left">
             <UsernameDisplay address={safe.currentAccount} />
           </Typography>
@@ -42,8 +77,67 @@ const MyProfile = () => {
           </ButtonGroup>
         </Grid>
       </Grid>
+      <List>
+        {safe.accounts
+          .filter((account) => {
+            return account !== safe.currentAccount;
+          })
+          .map((account) => {
+            return (
+              <MyProfileAccount
+                address={account}
+                key={account}
+                onSelect={handleAccountSwitch}
+              />
+            );
+          })}
+        {!safe.isOrganization && (
+          <ListItem
+            button
+            className={classes.listItem}
+            component={Link}
+            to={ORGANIZATION_PATH}
+          >
+            <ListItemIcon className={classes.createSharedWalletIcon}>
+              <IconAdd />
+            </ListItemIcon>
+            <ListItemText>
+              {translate('MyProfile.buttonCreateSharedWallet')}
+            </ListItemText>
+          </ListItem>
+        )}
+      </List>
     </Fragment>
   );
+};
+
+const MyProfileAccount = ({ address, onSelect }) => {
+  const classes = useStyles();
+
+  const handleSelect = () => {
+    onSelect(address);
+  };
+
+  return (
+    <ListItem
+      button
+      className={classes.listItem}
+      divider
+      onClick={handleSelect}
+    >
+      <ListItemAvatar>
+        <Avatar address={address} size="tiny" />
+      </ListItemAvatar>
+      <ListItemText>
+        <UsernameDisplay address={address} />
+      </ListItemText>
+    </ListItem>
+  );
+};
+
+MyProfileAccount.propTypes = {
+  address: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default MyProfile;

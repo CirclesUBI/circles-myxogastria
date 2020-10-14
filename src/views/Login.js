@@ -37,7 +37,8 @@ import {
 } from '~/utils/errors';
 import { SUPPORT_URL } from '~/utils/constants';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
-import { restoreAccount, switchAccount } from '~/store/onboarding/actions';
+import { restoreAccount } from '~/store/onboarding/actions';
+import { switchAccount } from '~/store/app/actions';
 
 const Login = () => {
   const dispatch = useDispatch();
