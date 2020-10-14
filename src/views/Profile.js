@@ -159,12 +159,14 @@ const ProfileStatus = ({ address, trustStatus, deploymentStatus }) => {
   } else if (isOrganization) {
     if (trustStatus.isTrustingMe) {
       messageId = 'TrustingMe';
+    } else {
+      messageId = null;
     }
   } else {
     messageId = 'NotDeployedYet';
   }
 
-  if (!isReady) {
+  if (!isReady || !messageId) {
     return null;
   }
 

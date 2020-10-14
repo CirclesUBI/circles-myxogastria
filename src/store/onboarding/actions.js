@@ -86,7 +86,7 @@ export function createNewOrganization(
       await core.organization.prefund(
         creatorSafeAddress,
         safeAddress,
-        web3.utils.toBN(prefundValue.toString()),
+        web3.utils.toBN(web3.utils.toWei(prefundValue.toString(), 'ether')),
       );
 
       // Switch to newly created organization acccount
