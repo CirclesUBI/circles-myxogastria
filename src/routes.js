@@ -158,7 +158,7 @@ const OnboardingOrganizationContainer = () => {
     return <Redirect to={DASHBOARD_PATH} />;
   }
 
-  return <TutorialOrganizationContainer />;
+  return <OnboardingOrganization />;
 };
 
 const DashboardContainer = () => {
@@ -207,6 +207,7 @@ const TutorialOnboardingContainer = () => {
   );
 };
 
+// eslint-disable-next-line
 const TutorialOrganizationContainer = () => {
   return (
     <TutorialContainer
