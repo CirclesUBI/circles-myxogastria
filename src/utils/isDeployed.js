@@ -39,12 +39,12 @@ export default async function isDeployed(address) {
   );
 }
 
-export async function isOrganizationFunded(safeAddress) {
+export async function isOrganization(safeAddress) {
   await loop(
     () => {
-      return core.organization.isFunded(safeAddress);
+      return core.organization.isOrganization(safeAddress);
     },
-    (isFunded) => isFunded,
+    (isOrganization) => isOrganization,
   );
 }
 

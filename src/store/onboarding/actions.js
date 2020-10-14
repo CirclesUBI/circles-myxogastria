@@ -18,12 +18,13 @@ import {
 } from '~/store/safe/actions';
 import { deployToken, updateTokenFundedState } from '~/store/token/actions';
 import { generateDeterministicNonce } from '~/services/safe';
-import { restoreWallet } from '~/store/wallet/actions';
 import {
   hideSpinnerOverlay,
   showSpinnerOverlay,
   switchAccount,
 } from '~/store/app/actions';
+import { isOrganization } from '~/utils/isDeployed';
+import { restoreWallet } from '~/store/wallet/actions';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own
@@ -81,6 +82,7 @@ export function createNewOrganization(
 
       // Create the organization account in the Hub
       await core.organization.deploy(safeAddress);
+      await isOrganization(safeAddress);
 
       // Prefund the organization with Tokens from the user
       await core.organization.prefund(
