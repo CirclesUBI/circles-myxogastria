@@ -14,6 +14,7 @@ function defaultUserdata(address) {
 
 export function useIsOrganization(address) {
   const [isOrganization, setIsOrganization] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     let isUnloaded = false;
@@ -26,11 +27,14 @@ export function useIsOrganization(address) {
       }
 
       setIsOrganization(result);
+      setIsReady(true);
     };
 
     if (!address) {
       setIsOrganization(false);
+      setIsReady(true);
     } else {
+      setIsReady(false);
       request();
     }
 
@@ -39,7 +43,10 @@ export function useIsOrganization(address) {
     };
   }, [address]);
 
-  return isOrganization;
+  return {
+    isOrganization,
+    isReady,
+  };
 }
 
 export function useUserdata(address) {

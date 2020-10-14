@@ -44,7 +44,7 @@ import { DASHBOARD_PATH, PROFILE_PATH } from '~/routes';
 import { usePendingTransfer } from '~/hooks/activity';
 import { useRelativeSendLink, useProfileLink } from '~/hooks/url';
 import { useTrustConnection, useDeploymentStatus } from '~/hooks/network';
-import { useUserdata } from '~/hooks/username';
+import { useUserdata, useIsOrganization } from '~/hooks/username';
 
 const PANEL_ACTIVITY = Symbol('panelActivity');
 const PANEL_TRUST = Symbol('panelTrust');
@@ -140,6 +140,8 @@ const Profile = () => {
 
 const ProfileStatus = ({ address, trustStatus, deploymentStatus }) => {
   const { username } = useUserdata(address);
+  const { isOrganization, isReady } = useIsOrganization(address);
+
   let messageId = 'CommonFriends';
 
   if (!deploymentStatus.isReady) {
@@ -154,8 +156,16 @@ const ProfileStatus = ({ address, trustStatus, deploymentStatus }) => {
     } else if (trustStatus.isMeTrusting) {
       messageId = 'MeTrusting';
     }
+  } else if (isOrganization) {
+    if (trustStatus.isTrustingMe) {
+      messageId = 'TrustingMe';
+    }
   } else {
     messageId = 'NotDeployedYet';
+  }
+
+  if (!isReady) {
+    return null;
   }
 
   return (
@@ -289,6 +299,7 @@ const ProfileSendButton = ({ address, deploymentStatus }) => {
   const isTransferPending = usePendingTransfer(address);
   const sendPath = useRelativeSendLink(address);
   const safe = useSelector((state) => state.safe);
+  const { isOrganization, isReady } = useIsOrganization(address);
 
   // Check against these three cases where we can't send Circles
   //
@@ -298,9 +309,9 @@ const ProfileSendButton = ({ address, deploymentStatus }) => {
   const isSendDisabled =
     safe.currentAccount === address ||
     safe.pendingNonce !== null ||
-    !deploymentStatus.isDeployed;
+    (!deploymentStatus.isDeployed && !isOrganization);
 
-  return !deploymentStatus.isReady || isTransferPending ? (
+  return !isReady || !deploymentStatus.isReady || isTransferPending ? (
     <ButtonSend isPending to={sendPath} />
   ) : isSendDisabled ? (
     <Tooltip
@@ -321,6 +332,8 @@ const ProfileSendButton = ({ address, deploymentStatus }) => {
 const ProfileTrustButton = ({ address, trustStatus }) => {
   const classes = useStyles();
   const safe = useSelector((state) => state.safe);
+
+  const { isOrganization, isReady } = useIsOrganization(address);
 
   const isDisabled = safe.currentAccount === address;
 
@@ -385,7 +398,9 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
           }),
           disabled: classes.trustButtonDisabled,
         }}
-        disabled={isDisabled || trustStatus.isPending}
+        disabled={
+          isDisabled || trustStatus.isPending || !isReady || isOrganization
+        }
         onClick={
           trustStatus.isMeTrusting ? handleRevokeTrustOpen : handleTrustOpen
         }

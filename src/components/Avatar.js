@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const Avatar = ({ address, size = 'small', ...props }) => {
   const theme = useTheme();
   const classes = useStyles();
-  const isOrganization = useIsOrganization(address);
+  const { isOrganization } = useIsOrganization(address);
   const sizePixel = theme.custom.components.avatarSize * SIZE_MULTIPLIERS[size];
 
   if (!isOrganization) {
