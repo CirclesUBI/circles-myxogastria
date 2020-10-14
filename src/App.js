@@ -1,10 +1,10 @@
-import Div100vh from 'react-div-100vh';
 import React, { useEffect, useRef } from 'react';
 import { Box, IconButton } from '@material-ui/core';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { IconAlert, IconClose } from '~/styles/icons';
 import { SnackbarProvider } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
+import { use100vh } from 'react-div-100vh';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Notifications from '~/components/Notifications';
@@ -59,6 +59,9 @@ const App = () => {
 
   const ref = useRef();
   const notistackRef = useRef();
+
+  // Fix issue where there was always one pixel too much in the calculation
+  const height = use100vh() - 1;
 
   const onClickDismiss = (notificationId) => () => {
     notistackRef.current.closeSnackbar(notificationId);
@@ -143,14 +146,12 @@ const App = () => {
       ref={notistackRef}
     >
       <Router>
-        <Div100vh>
-          <Box className={classes.app} ref={ref}>
-            <UBI />
-            <Notifications />
-            <SpinnerOverlay isVisible={app.isLoading} />
-            <Routes />
-          </Box>
-        </Div100vh>
+        <Box className={classes.app} ref={ref} style={{ height }}>
+          <UBI />
+          <Notifications />
+          <SpinnerOverlay isVisible={app.isLoading} />
+          <Routes />
+        </Box>
       </Router>
     </SnackbarProvider>
   );

@@ -17,6 +17,7 @@ import {
   checkSharedSafeState,
   initializeSafe,
   resetSafe,
+  switchCurrentAccount,
 } from '~/store/safe/actions';
 import { checkTrustState } from '~/store/trust/actions';
 import {
@@ -165,6 +166,22 @@ export function waitForConnection() {
         }
       }, CONNECTION_CHECK_FREQUENCY);
     });
+  };
+}
+
+export function switchAccount(address) {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    if (!safe.accounts.includes(address)) {
+      throw new Error('Selected address is not an option');
+    }
+
+    await dispatch(switchCurrentAccount(address));
+    await dispatch(resetToken());
+    await dispatch(resetActivities({ isClearingStorage: false }));
+    await dispatch(initializeActivities());
+    await dispatch(checkAppState());
   };
 }
 

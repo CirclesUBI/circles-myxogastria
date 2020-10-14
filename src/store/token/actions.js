@@ -124,7 +124,7 @@ export function checkCurrentBalance() {
     const { safe, token } = getState();
 
     // No token address given yet
-    if (!token.address) {
+    if (!token.address && !safe.isOrganization) {
       return;
     }
 

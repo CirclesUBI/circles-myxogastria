@@ -182,8 +182,10 @@ export function loadMoreActivities(category) {
   };
 }
 
-export function resetActivities() {
-  removeLastSeen();
+export function resetActivities({ isClearingStorage = true }) {
+  if (isClearingStorage) {
+    removeLastSeen();
+  }
 
   return {
     type: ActionTypes.ACTIVITIES_RESET,

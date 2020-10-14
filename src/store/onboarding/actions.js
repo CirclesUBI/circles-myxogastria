@@ -4,7 +4,7 @@ import {
   RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
   RESTORE_ACCOUNT_UNKNOWN_SAFE,
 } from '~/utils/errors';
-import { checkAppState, checkAuthState } from '~/store/app/actions';
+import { checkAppState } from '~/store/app/actions';
 import {
   checkSharedSafeState,
   createSafeWithNonce,
@@ -19,7 +19,11 @@ import {
 import { deployToken, updateTokenFundedState } from '~/store/token/actions';
 import { generateDeterministicNonce } from '~/services/safe';
 import { restoreWallet } from '~/store/wallet/actions';
-import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+import {
+  hideSpinnerOverlay,
+  showSpinnerOverlay,
+  switchAccount,
+} from '~/store/app/actions';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own
@@ -86,7 +90,7 @@ export function createNewOrganization(
       );
 
       // Switch to newly created organization acccount
-      await dispatch(switchCurrentAccount(safeAddress));
+      await dispatch(switchAccount(safeAddress));
 
       // Force updating app state
       await dispatch(checkAppState());
@@ -136,27 +140,10 @@ export function finalizeNewAccount() {
 
     // Change all states to final
     await dispatch(finalizeSafeDeployment());
-    await dispatch(switchCurrentAccount(safe.pendingAddress));
-
-    // Get latest updates
-    await dispatch(checkAuthState());
-    await dispatch(checkAppState());
+    await dispatch(switchAccount(safe.pendingAddress));
 
     // Finally unlock the Safe (enable UI again)
     await dispatch(unlockSafeDeployment());
-  };
-}
-
-export function switchAccount(address) {
-  return async (dispatch, getState) => {
-    const { safe } = getState();
-
-    if (!safe.accounts.includes(address)) {
-      throw new Error('Selected address is not an option');
-    }
-
-    await dispatch(switchCurrentAccount(address));
-    await dispatch(checkAppState());
   };
 }
 

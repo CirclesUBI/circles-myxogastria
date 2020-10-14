@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 import Activities from '~/views/Activities';
 import Dashboard from '~/views/Dashboard';
+import DashboardOrganization from '~/views/DashboardOrganization';
 import Error from '~/views/Error';
 import Login from '~/views/Login';
 import NotFound from '~/views/NotFound';
@@ -124,7 +125,29 @@ const TrustedRoute = ({ component, path }) => {
   );
 };
 
-// Containers for Tutorials
+// Containers for organizations
+
+const OnboardingOrganizationContainer = () => {
+  const safe = useSelector((state) => state.safe);
+
+  if (safe.isOrganization) {
+    return <Redirect to={DASHBOARD_PATH} />;
+  }
+
+  return <OnboardingOrganization />;
+};
+
+const DashboardContainer = () => {
+  const safe = useSelector((state) => state.safe);
+
+  if (safe.isOrganization) {
+    return <DashboardOrganization />;
+  }
+
+  return <Dashboard />;
+};
+
+// Containers for tutorials
 
 const TutorialContainer = (props) => {
   const [redirect, setRedirect] = useState(false);
@@ -205,12 +228,12 @@ const Routes = () => {
       <TrustedRoute component={Activities} exact path={ACTIVITIES_PATH} />
       <TrustedRoute component={QRGenerator} exact path={QR_GENERATOR_PATH} />
       <TrustedRoute
-        component={OnboardingOrganization}
+        component={OnboardingOrganizationContainer}
         exact
         path={SHARED_WALLET_PATH}
       />
       <TrustedRoute component={Search} exact path={SEARCH_PATH} />
-      <TrustedRoute component={Dashboard} path={DASHBOARD_PATH} />
+      <TrustedRoute component={DashboardContainer} path={DASHBOARD_PATH} />
       <Route component={NotFound} />
     </Switch>
   );

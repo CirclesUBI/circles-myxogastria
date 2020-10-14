@@ -1,63 +1,32 @@
 import PropTypes from 'prop-types';
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import mime from 'mime/lite';
+import React, { Fragment, useEffect, useState } from 'react';
 import {
-  Avatar,
   Box,
-  CircularProgress,
-  Container,
   FormControlLabel,
-  IconButton,
-  MobileStepper,
+  Grid,
   Switch,
   Typography,
 } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import AppNote from '~/components/AppNote';
-import Button from '~/components/Button';
-import ButtonBack from '~/components/ButtonBack';
-import Footer from '~/components/Footer';
-import Header from '~/components/Header';
-import Input from '~/components/Input';
-import Logo from '~/components/Logo';
-import View from '~/components/View';
-import core from '~/services/core';
-import debounce from '~/utils/debounce';
+import AvatarUploader from '~/components/AvatarUploader';
+import OnboardingStepper from '~/components/OnboardingStepper';
+import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
+import TransferCirclesInput from '~/components/TransferCirclesInput';
+import VerifiedEmailInput from '~/components/VerifiedEmailInput';
+import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
-import { IconBack, IconClose } from '~/styles/icons';
-import { WELCOME_PATH } from '~/routes';
+import web3 from '~/services/web3';
+import { DASHBOARD_PATH } from '~/routes';
 import { createNewOrganization } from '~/store/onboarding/actions';
+import { formatCirclesValue } from '~/utils/format';
+import { validateAmount } from '~/services/token';
 
-const DEBOUNCE_DELAY = 500;
-const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
-
-const useStyles = makeStyles((theme) => ({
-  onboardingMobileStepper: {
-    flexGrow: 1,
-    padding: 0,
-  },
-  avatarUpload: {
-    margin: '0 auto',
-    width: theme.spacing(15),
-    height: theme.spacing(15),
-    color: theme.palette.text.primary,
-    fontSize: '30px',
-    fontWeight: theme.typography.fontWeightMedium,
-    backgroundColor: 'transparent',
-    border: `1px solid ${theme.palette.text.primary}`,
-    cursor: 'pointer',
-  },
+const useStyles = makeStyles(() => ({
   switchLabel: {
     fontSize: 12,
     textAlign: 'left',
@@ -65,37 +34,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const OnboardingOrganization = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
-  const [current, setCurrent] = useState(0);
   const [isRedirect, setIsRedirect] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
 
   const [values, setValues] = useState({
     avatarUrl: '',
     email: '',
     username: '',
+    prefundValue: 0,
   });
-
-  const onChange = (updatedValues) => {
-    setValues({
-      ...values,
-      ...updatedValues,
-    });
-  };
-
-  const onDisabledChange = (updatedValue) => {
-    setIsDisabled(updatedValue);
-  };
-
-  const onNext = () => {
-    setCurrent(current + 1);
-    setIsDisabled(true);
-  };
-
-  const onPrevious = () => {
-    setCurrent(current - 1);
-  };
 
   const onFinish = async () => {
     try {
@@ -109,6 +56,8 @@ const OnboardingOrganization = () => {
           type: NotificationsTypes.SUCCESS,
         }),
       );
+
+      setIsRedirect(true);
     } catch (error) {
       logError(error);
 
@@ -125,144 +74,35 @@ const OnboardingOrganization = () => {
     }
   };
 
-  const onExit = () => {
-    setIsRedirect(true);
-  };
-
   const steps = [
     OrganizationStepUsername,
     OrganizationStepEmail,
     OrganizationStepAvatar,
     OrganizationStepConsent,
+    OrganizationStepPrefund,
   ];
 
-  const OnboardingCurrentStep = steps[current];
-
-  const isLastSlide = current === steps.length - 1;
-
   if (isRedirect) {
-    return <Redirect push to={WELCOME_PATH} />;
+    return <Redirect push to={DASHBOARD_PATH} />;
   }
 
   return (
-    <Fragment>
-      <Header>
-        <MobileStepper
-          activeStep={current}
-          backButton={
-            current === 0 ? (
-              <ButtonBack />
-            ) : (
-              <IconButton onClick={onPrevious}>
-                <IconBack />
-              </IconButton>
-            )
-          }
-          classes={{
-            root: classes.onboardingMobileStepper,
-            progress: classes.onboardingMobileStepperProgress,
-          }}
-          nextButton={
-            <IconButton onClick={onExit}>
-              <IconClose />
-            </IconButton>
-          }
-          position="static"
-          steps={steps.length + 1}
-          variant="progress"
-        />
-      </Header>
-      <View>
-        <Container maxWidth="sm">
-          <Box my={6}>
-            <Logo />
-          </Box>
-          <Box textAlign="center">
-            <OnboardingCurrentStep
-              values={values}
-              onChange={onChange}
-              onDisabledChange={onDisabledChange}
-            />
-          </Box>
-        </Container>
-      </View>
-      <Footer>
-        <AppNote />
-        <Button
-          disabled={isDisabled}
-          fullWidth
-          isPrimary
-          onClick={isLastSlide ? onFinish : onNext}
-        >
-          {isLastSlide
-            ? translate('OnboardingOrganization.buttonFinish')
-            : translate('OnboardingOrganization.buttonNextStep')}
-        </Button>
-      </Footer>
-    </Fragment>
+    <OnboardingStepper
+      exitPath={DASHBOARD_PATH}
+      steps={steps}
+      values={values}
+      onFinish={onFinish}
+      onValuesChange={setValues}
+    />
   );
 };
 
 const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedUsernameCheck = useCallback(
-    debounce(async (username) => {
-      try {
-        await core.utils.requestAPI({
-          path: ['users'],
-          method: 'POST',
-          data: {
-            username,
-          },
-        });
-
-        setIsError(false);
-      } catch (error) {
-        if (error.request.status === 400) {
-          setErrorMessage(
-            translate('OnboardingOrganization.formUsernameInvalidFormat'),
-          );
-        } else if (error.request.status === 409) {
-          setErrorMessage(
-            translate('OnboardingOrganization.formUsernameTaken'),
-          );
-        } else {
-          setErrorMessage(translate('OnboardingOrganization.formUnknownError'));
-        }
-
-        setIsError(true);
-      }
-
-      setIsLoading(false);
-    }, DEBOUNCE_DELAY),
-    [],
-  );
-
-  const verify = useCallback(
-    (username) => {
-      setIsError(false);
-      setIsLoading(true);
-      debouncedUsernameCheck(username);
-    },
-    [debouncedUsernameCheck],
-  );
-
-  const handleChange = (event) => {
-    const { value: username } = event.target;
+  const handleChange = (username) => {
     onChange({
       username,
     });
-    verify(username);
   };
-
-  useEffect(() => {
-    const isEmpty = values.username.length === 0;
-    onDisabledChange(isEmpty || isError || isLoading);
-  }, [values, onDisabledChange, isError, isLoading]);
 
   return (
     <Fragment>
@@ -273,16 +113,11 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
         {translate('OnboardingOrganization.bodyUsername')}
       </Typography>
       <Box mt={4}>
-        <Input
-          errorMessage={errorMessage}
-          id="username"
-          inputProps={{ maxLength: 24 }}
-          isError={isError}
-          isLoading={isLoading}
+        <VerifiedUsernameInput
           label={translate('OnboardingOrganization.formUsername')}
-          type="text"
           value={values.username}
           onChange={handleChange}
+          onStatusChange={onDisabledChange}
         />
       </Box>
     </Fragment>
@@ -290,58 +125,11 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
 };
 
 const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedEmailCheck = useCallback(
-    debounce(async (email) => {
-      try {
-        await core.utils.requestAPI({
-          path: ['users'],
-          method: 'POST',
-          data: {
-            email,
-          },
-        });
-
-        setIsError(false);
-      } catch {
-        setIsError(true);
-      }
-
-      setIsLoading(false);
-    }, DEBOUNCE_DELAY),
-    [],
-  );
-
-  const verify = useCallback(
-    (email) => {
-      if (email.length < 3) {
-        setIsError(true);
-        setIsLoading(false);
-        return;
-      }
-
-      setIsError(false);
-      setIsLoading(true);
-
-      debouncedEmailCheck(email);
-    },
-    [debouncedEmailCheck],
-  );
-
-  const handleChange = (event) => {
-    const { value: email } = event.target;
+  const handleChange = (email) => {
     onChange({
       email,
     });
-    verify(email);
   };
-
-  useEffect(() => {
-    onDisabledChange(!values.email.length > 0 || isError || isLoading);
-  }, [values.email, onDisabledChange, isError, isLoading]);
 
   return (
     <Fragment>
@@ -350,15 +138,11 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
       </Typography>
       <Typography>{translate('OnboardingOrganization.bodyEmail')}</Typography>
       <Box mt={4}>
-        <Input
-          errorMessage={translate('OnboardingOrganization.formEmailInvalid')}
-          id="email"
-          isError={isError}
-          isLoading={isLoading}
+        <VerifiedEmailInput
           label={translate('OnboardingOrganization.formEmail')}
-          type="email"
           value={values.email}
           onChange={handleChange}
+          onStatusChange={onDisabledChange}
         />
       </Box>
     </Fragment>
@@ -366,57 +150,11 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
 };
 
 const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
-  const classes = useStyles();
-
-  const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-  const fileInputElem = useRef();
-
-  const onUpload = (event) => {
-    event.preventDefault();
-    fileInputElem.current.click();
+  const handleUpload = (avatarUrl) => {
+    onChange({
+      avatarUrl,
+    });
   };
-
-  const handleChange = async (event) => {
-    setIsLoading(true);
-
-    const { files } = event.target;
-    if (files.length === 0) {
-      return;
-    }
-
-    try {
-      const result = await core.utils.requestAPI({
-        path: ['uploads', 'avatar'],
-        method: 'POST',
-        data: [...files].reduce((acc, file) => {
-          acc.append('files', file, file.name);
-          return acc;
-        }, new FormData()),
-      });
-
-      onChange({
-        avatarUrl: result.data.url,
-      });
-    } catch (error) {
-      dispatch(
-        notify({
-          text: translate('OnboardingOrganization.errorAvatarUpload'),
-          type: NotificationsTypes.ERROR,
-        }),
-      );
-    }
-
-    setIsLoading(false);
-  };
-
-  const fileTypesStr = IMAGE_FILE_TYPES.map((ext) => {
-    return mime.getType(ext);
-  }).join(',');
-
-  useEffect(() => {
-    onDisabledChange(isLoading);
-  }, [onDisabledChange, isLoading]);
 
   return (
     <Fragment>
@@ -425,19 +163,10 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
       </Typography>
       <Typography>{translate('OnboardingOrganization.bodyAvatar')}</Typography>
       <Box mt={4}>
-        <Avatar
-          className={classes.avatarUpload}
-          src={isLoading ? null : values.avatarUrl}
-          onClick={onUpload}
-        >
-          {isLoading ? <CircularProgress /> : '+'}
-        </Avatar>
-        <input
-          accept={fileTypesStr}
-          ref={fileInputElem}
-          style={{ display: 'none' }}
-          type="file"
-          onChange={handleChange}
+        <AvatarUploader
+          value={values.avatarUrl}
+          onLoadingChange={onDisabledChange}
+          onUpload={handleUpload}
         />
       </Box>
     </Fragment>
@@ -479,6 +208,67 @@ const OrganizationStepConsent = ({ onDisabledChange }) => {
   );
 };
 
+const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
+  const [isError, setIsError] = useState(false);
+  const { safe, token } = useSelector((state) => state);
+
+  const maxAmount = parseFloat(
+    formatCirclesValue(web3.utils.toBN(token.balance)),
+  );
+
+  const handleChange = (event) => {
+    const prefundValue = event.target.value;
+    const isValid = validateAmount(prefundValue);
+    const isAmountTooHigh =
+      (prefundValue ? parseFloat(prefundValue) : 0) > maxAmount;
+
+    setIsError(prefundValue > 0 ? !isValid || isAmountTooHigh : false);
+
+    onChange({
+      prefundValue,
+    });
+  };
+
+  useEffect(() => {
+    onDisabledChange(
+      isError || !values.prefundValue || values.prefundValue === 0,
+    );
+  }, [onDisabledChange, isError, values.prefundValue]);
+
+  return (
+    <Fragment>
+      <Typography align="center" gutterBottom variant="h2">
+        {translate('OnboardingOrganization.headingPrefund')}
+      </Typography>
+      <Typography>{translate('OnboardingOrganization.bodyPrefund')}</Typography>
+      <Box mt={4}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TransferInfoBalanceCard
+              address={safe.currentAccount}
+              balance={token.balance}
+              label={translate('OnboardingOrganization.formPrefundSender')}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TransferCirclesInput
+              autoFocus
+              errorMessage={translate(
+                'OnboardingOrganization.formPrefundInvalid',
+              )}
+              id="prefundValue"
+              isError={isError}
+              label={translate('OnboardingOrganization.formPrefundAmount')}
+              value={values.prefundValue}
+              onChange={handleChange}
+            />
+          </Grid>
+        </Grid>
+      </Box>
+    </Fragment>
+  );
+};
+
 const stepProps = {
   onChange: PropTypes.func.isRequired,
   onDisabledChange: PropTypes.func.isRequired,
@@ -498,6 +288,10 @@ OrganizationStepAvatar.propTypes = {
 };
 
 OrganizationStepConsent.propTypes = {
+  ...stepProps,
+};
+
+OrganizationStepPrefund.propTypes = {
   ...stepProps,
 };
 
