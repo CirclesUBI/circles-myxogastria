@@ -187,6 +187,8 @@ export function switchAccount(address) {
 
 export function burnApp() {
   return async (dispatch) => {
+    dispatch(showSpinnerOverlay());
+
     await dispatch(burnWallet());
     await dispatch(resetSafe());
     await dispatch(checkAuthState());
@@ -194,7 +196,11 @@ export function burnApp() {
     await dispatch(resetActivities());
     await dispatch(resetAllTutorials());
 
-    window.location.reload();
+    // Redirect to home and then refresh page
+    window.location.href = process.env.BASE_PATH;
+    window.setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 }
 
