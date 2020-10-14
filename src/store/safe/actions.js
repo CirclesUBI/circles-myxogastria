@@ -2,7 +2,6 @@ import ActionTypes from '~/store/safe/types';
 import core from '~/services/core';
 import isDeployed from '~/utils/isDeployed';
 import web3 from '~/services/web3';
-import { addPendingActivity } from '~/store/activity/actions';
 import {
   generateDeterministicNonce,
   getCurrentAccount,
@@ -18,8 +17,6 @@ import {
   setNonce,
   setSafeAddress,
 } from '~/services/safe';
-
-const { ActivityTypes } = core.activity;
 
 export function initializeSafe() {
   return async (dispatch) => {
@@ -370,18 +367,7 @@ export function addSafeOwner(address) {
       const ownerAddress = address;
 
       // Add owner to Safe
-      const txHash = await core.safe.addOwner(safeAddress, ownerAddress);
-
-      dispatch(
-        addPendingActivity({
-          txHash,
-          type: ActivityTypes.ADD_OWNER,
-          data: {
-            ownerAddress,
-            safeAddress,
-          },
-        }),
-      );
+      await core.safe.addOwner(safeAddress, ownerAddress);
 
       dispatch({
         type: ActionTypes.SAFE_OWNERS_ADD_SUCCESS,
@@ -411,18 +397,7 @@ export function removeSafeOwner(address) {
       const safeAddress = safe.currentAccount;
       const ownerAddress = address;
 
-      const txHash = await core.safe.removeOwner(safeAddress, ownerAddress);
-
-      dispatch(
-        addPendingActivity({
-          txHash,
-          type: ActivityTypes.REMOVE_OWNER,
-          data: {
-            ownerAddress,
-            safeAddress,
-          },
-        }),
-      );
+      await core.safe.removeOwner(safeAddress, ownerAddress);
 
       dispatch({
         type: ActionTypes.SAFE_OWNERS_REMOVE_SUCCESS,
