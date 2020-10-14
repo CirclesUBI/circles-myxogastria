@@ -145,7 +145,7 @@
   "OnboardingOrganization": {
     "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",
     "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
-    "bodyPrefund": "Every activity in the Circles system requires a small maintence fee. Send 1 or more Circles to your new wallet to finish setup.",
+    "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. Send 1 or more Circles to your new wallet to finish setup.",
     "bodyUsername": "Your wallet name is how people can search for your organization on the Circles App.",
     "errorSignup": "A server error occurred: {errorMessage}",
     "formEmail": "Email",
