@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useCallback, useState, useEffect } from 'react';
 import { AvatarGroup } from '@material-ui/lab';
 import {
   Box,
@@ -8,6 +8,7 @@ import {
   CardHeader,
   CircularProgress,
   Container,
+  Grid,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -64,16 +65,20 @@ const OrganizationMembers = () => {
   const [members, setMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const request = async () => {
-      setIsLoading(true);
-      const result = await core.organization.getMembers(safe.currentAccount);
-      setMembers(result);
-      setIsLoading(false);
-    };
-
-    request();
+  const handleUpdate = useCallback(async () => {
+    setIsLoading(true);
+    const result = await core.organization.getMembers(safe.currentAccount);
+    setMembers(
+      result.filter((member) => {
+        return member.safeAddresses.length > 0;
+      }),
+    );
+    setIsLoading(false);
   }, [safe.currentAccount]);
+
+  useEffect(() => {
+    handleUpdate();
+  }, [handleUpdate]);
 
   return (
     <Fragment>
@@ -90,16 +95,21 @@ const OrganizationMembers = () => {
               <CircularProgress />
             </Box>
           ) : (
-            members.map((member) => {
-              return (
-                <OrganizationMembersItem
-                  isOnlyMember={members.length === 1}
-                  key={member.ownerAddress}
-                  ownerAddress={member.ownerAddress}
-                  safeAddresses={member.safeAddresses}
-                />
-              );
-            })
+            <Grid container spacing={2}>
+              {members.map((member) => {
+                return (
+                  <Grid item key={member.ownerAddress} xs={12}>
+                    <OrganizationMembersItem
+                      isOnlyMember={members.length === 1}
+                      key={member.ownerAddress}
+                      ownerAddress={member.ownerAddress}
+                      safeAddresses={member.safeAddresses}
+                      onUpdate={handleUpdate}
+                    />
+                  </Grid>
+                );
+              })}
+            </Grid>
           )}
         </Container>
       </View>
@@ -118,6 +128,7 @@ const OrganizationMembersItem = ({
   safeAddresses,
   ownerAddress,
   isOnlyMember,
+  onUpdate,
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -135,6 +146,8 @@ const OrganizationMembersItem = ({
   };
 
   const handleRemove = async () => {
+    setIsOpen(false);
+
     try {
       dispatch(showSpinnerOverlay());
 
@@ -148,6 +161,8 @@ const OrganizationMembersItem = ({
           type: NotificationsTypes.SUCCESS,
         }),
       );
+
+      onUpdate();
     } catch {
       dispatch(
         notify({
@@ -216,6 +231,7 @@ const OrganizationMembersItem = ({
 
 OrganizationMembersItem.propTypes = {
   isOnlyMember: PropTypes.bool.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   ownerAddress: PropTypes.string.isRequired,
   safeAddresses: PropTypes.array.isRequired,
 };
