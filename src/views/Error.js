@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Container, Typography } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
+import DialogBurn from '~/components/DialogBurn';
 import View from '~/components/View';
 import translate from '~/services/locale';
-import { burnApp } from '~/store/app/actions';
 
 const CriticalError = () => {
-  const dispatch = useDispatch();
   const app = useSelector((state) => state.app);
+  const [isConfirmationShown, setIsConfirmationShown] = useState(false);
 
-  const onBurnClick = () => {
-    if (window.confirm(translate('CriticalError.dialogAreYouSure'))) {
-      dispatch(burnApp());
-    }
+  const handleConfirmOpen = () => {
+    setIsConfirmationShown(true);
+  };
+
+  const handleConfirmClose = () => {
+    setIsConfirmationShown(false);
   };
 
   const onReload = () => {
@@ -23,6 +25,7 @@ const CriticalError = () => {
 
   return (
     <View>
+      <DialogBurn isOpen={isConfirmationShown} onClose={handleConfirmClose} />
       <Container maxWidth="sm">
         <Typography align="center" gutterBottom>
           {app.isErrorCritical
@@ -34,7 +37,7 @@ const CriticalError = () => {
         </Button>
         {window.location.href.includes('reset') && (
           <Box mt={2}>
-            <Button fullWidth isDanger onClick={onBurnClick}>
+            <Button fullWidth isDanger onClick={handleConfirmOpen}>
               {translate('CriticalError.buttonBurnWallet')}
             </Button>
           </Box>

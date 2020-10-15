@@ -54,6 +54,12 @@
   "Dashboard": {
     "formSearch": "Add or search contacts"
   },
+  "DialogBurn": {
+    "dialogBurnCancel": "Cancel",
+    "dialogBurnConfirm": "End Session",
+    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have a Seed Phrase!",
+    "dialogBurnTitle": "Warning!"
+  },
   "DialogTrust": {
     "dialogTrustCancel": "Cancel",
     "dialogTrustConfirm": "Trust",
@@ -262,10 +268,6 @@
     "bodySafeAddress": "Profile address",
     "bodyTokenAddress": "Token address",
     "buttonBurnWallet": "End Session",
-    "dialogBurnCancel": "Cancel",
-    "dialogBurnConfirm": "End Session",
-    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have a Seed Phrase!",
-    "dialogBurnTitle": "Warning!",
     "headingDangerZone": "Danger Zone",
     "headingSettings": "Settings",
     "headingStatus": "Status"

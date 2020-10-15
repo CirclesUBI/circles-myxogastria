@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import clsx from 'clsx';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Box,
   Container,
@@ -15,12 +15,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import CenteredHeading from '~/components/CenteredHeading';
-import Dialog from '~/components/Dialog';
+import DialogBurn from '~/components/DialogBurn';
 import ExternalLink from '~/components/ExternalLink';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import translate from '~/services/locale';
-import { burnApp } from '~/store/app/actions';
 
 const useStyles = makeStyles(() => ({
   chip: {
@@ -33,14 +32,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Settings = () => {
-  const dispatch = useDispatch();
-
   const { wallet, safe, token } = useSelector((state) => state);
   const [isConfirmationShown, setIsConfirmationShown] = useState(false);
-
-  const handleBurn = () => {
-    dispatch(burnApp());
-  };
 
   const handleConfirmOpen = () => {
     setIsConfirmationShown(true);
@@ -52,16 +45,7 @@ const Settings = () => {
 
   return (
     <Fragment>
-      <Dialog
-        cancelLabel={translate('Settings.dialogBurnCancel')}
-        confirmLabel={translate('Settings.dialogBurnConfirm')}
-        id="burn"
-        open={isConfirmationShown}
-        text={translate('Settings.dialogBurnDescription')}
-        title={translate('Settings.dialogBurnTitle')}
-        onClose={handleConfirmClose}
-        onConfirm={handleBurn}
-      />
+      <DialogBurn isOpen={isConfirmationShown} onClose={handleConfirmClose} />
       <Header>
         <ButtonBack />
         <CenteredHeading>
@@ -140,7 +124,10 @@ const SettingsExplorableAddress = ({ address }) => {
 
   return (
     <ExternalLink href={url}>
-      <Chip className={clsx(classes.chip, classes.chipClickable)} label={address} />
+      <Chip
+        className={clsx(classes.chip, classes.chipClickable)}
+        label={address}
+      />
     </ExternalLink>
   );
 };
