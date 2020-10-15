@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
+import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
@@ -14,6 +16,7 @@ import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import CenteredHeading from '~/components/CenteredHeading';
 import Dialog from '~/components/Dialog';
+import ExternalLink from '~/components/ExternalLink';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import translate from '~/services/locale';
@@ -24,10 +27,12 @@ const useStyles = makeStyles(() => ({
     maxWidth: '100%',
     overflow: 'hidden',
   },
+  chipClickable: {
+    cursor: 'pointer',
+  },
 }));
 
 const Settings = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   const { wallet, safe, token } = useSelector((state) => state);
@@ -75,15 +80,14 @@ const Settings = () => {
                   <Typography align="center" gutterBottom>
                     {translate('Settings.bodyDeviceAddress')}
                   </Typography>
-                  <Chip className={classes.chip} label={wallet.address} />
+                  <SettingsExplorableAddress address={wallet.address} />
                   {safe.currentAccount && (
                     <Box mt={2}>
                       <Typography align="center" gutterBottom>
                         {translate('Settings.bodySafeAddress')}
                       </Typography>
-                      <Chip
-                        className={classes.chip}
-                        label={safe.currentAccount}
+                      <SettingsExplorableAddress
+                        address={safe.currentAccount}
                       />
                     </Box>
                   )}
@@ -92,7 +96,7 @@ const Settings = () => {
                       <Typography align="center" gutterBottom>
                         {translate('Settings.bodyTokenAddress')}
                       </Typography>
-                      <Chip className={classes.chip} label={token.address} />
+                      <SettingsExplorableAddress address={token.address} />
                     </Box>
                   )}
                 </Box>
@@ -123,6 +127,26 @@ const Settings = () => {
       </View>
     </Fragment>
   );
+};
+
+const SettingsExplorableAddress = ({ address }) => {
+  const classes = useStyles();
+
+  if (!process.env.EXPLORER_URL) {
+    return <Chip className={classes.chip} label={address} />;
+  }
+
+  const url = process.env.EXPLORER_URL.replace(':address', address);
+
+  return (
+    <ExternalLink href={url}>
+      <Chip className={clsx(classes.chip, classes.chipClickable)} label={address} />
+    </ExternalLink>
+  );
+};
+
+SettingsExplorableAddress.propTypes = {
+  address: PropTypes.string.isRequired,
 };
 
 export default Settings;
