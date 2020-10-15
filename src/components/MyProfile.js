@@ -1,27 +1,24 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import {
   Grid,
   ButtonGroup,
-  List,
   ListItem,
   ListItemAvatar,
-  ListItemIcon,
   ListItemText,
   Typography,
 } from '@material-ui/core';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
 import AvatarWithQR from '~/components/AvatarWithQR';
 import Button from '~/components/Button';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import translate from '~/services/locale';
-import { IconAdd, IconCheck } from '~/styles/icons';
-import { SHARE_PATH, ORGANIZATION_PATH, DASHBOARD_PATH } from '~/routes';
-import { switchAccount } from '~/store/app/actions';
+import { IconCheck } from '~/styles/icons';
+import { SHARE_PATH } from '~/routes';
 import { useRelativeProfileLink } from '~/hooks/url';
 
 const useStyles = makeStyles(() => ({
@@ -34,21 +31,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 const MyProfile = () => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const [isRedirect, setIsRedirect] = useState(false);
-
   const safe = useSelector((state) => state.safe);
   const profilePath = useRelativeProfileLink(safe.currentAccount);
 
-  const handleAccountSwitch = (account) => {
-    dispatch(switchAccount(account));
-    setIsRedirect(true);
-  };
-
-  if (isRedirect) {
-    return <Redirect push to={DASHBOARD_PATH} />;
-  }
+  // @TODO: Remove organizations for now
+  // const handleAccountSwitch = (account) => {
+  //   dispatch(switchAccount(account));
+  //   setIsRedirect(true);
+  // };
 
   return (
     <Fragment>
@@ -77,36 +67,36 @@ const MyProfile = () => {
           </ButtonGroup>
         </Grid>
       </Grid>
-      <List>
-        {safe.accounts
-          .filter((account) => {
-            return account !== safe.currentAccount;
-          })
-          .map((account) => {
-            return (
-              <MyProfileAccount
-                address={account}
-                key={account}
-                onSelect={handleAccountSwitch}
-              />
-            );
-          })}
-        {!safe.isOrganization && (
-          <ListItem
-            button
-            className={classes.listItem}
-            component={Link}
-            to={ORGANIZATION_PATH}
-          >
-            <ListItemIcon className={classes.createSharedWalletIcon}>
-              <IconAdd />
-            </ListItemIcon>
-            <ListItemText>
-              {translate('MyProfile.buttonCreateSharedWallet')}
-            </ListItemText>
-          </ListItem>
-        )}
-      </List>
+      {/* <List> */}
+      {/*   {safe.accounts */}
+      {/*     .filter((account) => { */}
+      {/*       return account !== safe.currentAccount; */}
+      {/*     }) */}
+      {/*     .map((account) => { */}
+      {/*       return ( */}
+      {/*         <MyProfileAccount */}
+      {/*           address={account} */}
+      {/*           key={account} */}
+      {/*           onSelect={handleAccountSwitch} */}
+      {/*         /> */}
+      {/*       ); */}
+      {/*     })} */}
+      {/*   {!safe.isOrganization && ( */}
+      {/*     <ListItem */}
+      {/*       button */}
+      {/*       className={classes.listItem} */}
+      {/*       component={Link} */}
+      {/*       to={ORGANIZATION_PATH} */}
+      {/*     > */}
+      {/*       <ListItemIcon className={classes.createSharedWalletIcon}> */}
+      {/*         <IconAdd /> */}
+      {/*       </ListItemIcon> */}
+      {/*       <ListItemText> */}
+      {/*         {translate('MyProfile.buttonCreateSharedWallet')} */}
+      {/*       </ListItemText> */}
+      {/*     </ListItem> */}
+      {/*   )} */}
+      {/* </List> */}
     </Fragment>
   );
 };
