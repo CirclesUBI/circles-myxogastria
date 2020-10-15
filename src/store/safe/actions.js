@@ -64,7 +64,13 @@ export function initializeSafe() {
         type: ActionTypes.SAFE_INITIALIZE_ERROR,
       });
 
-      throw new Error('Invalid pending Safe state');
+      throw new Error(
+        `Invalid pending Safe state: ${[
+          pendingNonce,
+          pendingAddress,
+          currentAccount,
+        ].join(', ')}`,
+      );
     }
 
     // If there is a stored current account address we check if its an

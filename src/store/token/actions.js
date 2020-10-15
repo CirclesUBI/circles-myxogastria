@@ -99,7 +99,7 @@ export function checkTokenState() {
       const address = await core.token.getAddress(safe.currentAccount);
 
       if (address === ZERO_ADDRESS) {
-        throw new Error('Invalid Token address');
+        throw new Error(`Invalid Token address for ${safe.currentAccount}`);
       }
 
       dispatch({

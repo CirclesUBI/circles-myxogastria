@@ -24,6 +24,7 @@ import {
   initializeTutorials,
   resetAllTutorials,
 } from '~/store/tutorial/actions';
+import { formatErrorMessage } from '~/utils/debug';
 import { initializeWallet, burnWallet } from '~/store/wallet/actions';
 import { setUser } from '~/services/sentry';
 
@@ -45,10 +46,13 @@ export function initializeApp() {
 
     try {
       await dispatch(waitForConnection());
-    } catch {
+    } catch (error) {
+      const errorMessage = formatErrorMessage(error);
+
       dispatch({
         type: ActionTypes.APP_INITIALIZE_ERROR,
         meta: {
+          errorMessage,
           isCritical: false,
         },
       });
@@ -83,9 +87,12 @@ export function initializeApp() {
 
       dispatch(hideSpinnerOverlay());
     } catch (error) {
+      const errorMessage = formatErrorMessage(error);
+
       dispatch({
         type: ActionTypes.APP_INITIALIZE_ERROR,
         meta: {
+          errorMessage,
           isCritical: true,
         },
       });

@@ -4,11 +4,12 @@ import { useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
 import DialogBurn from '~/components/DialogBurn';
+import HumbleAlert from '~/components/HumbleAlert';
 import View from '~/components/View';
 import translate from '~/services/locale';
 
 const CriticalError = () => {
-  const app = useSelector((state) => state.app);
+  const { app, wallet, safe, token } = useSelector((state) => state);
   const [isConfirmationShown, setIsConfirmationShown] = useState(false);
 
   const handleConfirmOpen = () => {
@@ -32,16 +33,36 @@ const CriticalError = () => {
             ? translate('CriticalError.bodyCriticalErrorDescription')
             : translate('CriticalError.bodyCriticalErrorTryAgain')}
         </Typography>
+        {app.errorMessage && (
+          <Box my={2}>
+            <HumbleAlert>
+              <Typography gutterBottom>{app.errorMessage}</Typography>
+              {wallet.address && (
+                <Typography variant="caption">
+                  Device: {wallet.address}
+                </Typography>
+              )}
+              {safe.currentAccount && (
+                <Typography variant="caption">
+                  Safe: {safe.currentAccount}
+                </Typography>
+              )}
+              {token.address && (
+                <Typography variant="caption">
+                  Token: {token.address}
+                </Typography>
+              )}
+            </HumbleAlert>
+          </Box>
+        )}
         <Button fullWidth isPrimary onClick={onReload}>
           {translate('CriticalError.buttonReload')}
         </Button>
-        {window.location.href.includes('reset') && (
-          <Box mt={2}>
-            <Button fullWidth isDanger onClick={handleConfirmOpen}>
-              {translate('CriticalError.buttonBurnWallet')}
-            </Button>
-          </Box>
-        )}
+        <Box mt={2}>
+          <Button fullWidth isDanger onClick={handleConfirmOpen}>
+            {translate('CriticalError.buttonBurnWallet')}
+          </Button>
+        </Box>
       </Container>
     </View>
   );

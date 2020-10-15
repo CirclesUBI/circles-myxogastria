@@ -44,7 +44,7 @@
     "infoCopiedMessage": "Text copied to clipboard"
   },
   "CriticalError": {
-    "bodyCriticalErrorDescription": "Oh no! This looks bad. Your account seems to be corrupted and we can not recover from this current state.",
+    "bodyCriticalErrorDescription": "Oh no! This looks bad. Something is wrong and we can not recover from this current state. Please reload this page and try again.",
     "bodyCriticalErrorTryAgain": "Oh no! Something went wrong while loading your account. Please reload this page and try again.",
     "buttonBurnWallet": "Reset account",
     "buttonReload": "Refresh page",

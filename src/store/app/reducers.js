@@ -3,6 +3,7 @@ import update from 'immutability-helper';
 import ActionTypes from '~/store/app/types';
 
 const initialState = {
+  errorMessage: '',
   isAuthorized: false,
   isConnected: false,
   isError: false,
@@ -24,6 +25,7 @@ const appReducer = (state = initialState, action) => {
       });
     case ActionTypes.APP_INITIALIZE_ERROR:
       return update(state, {
+        errorMessage: { $set: action.meta.errorMessage },
         isError: { $set: true },
         isErrorCritical: { $set: action.meta.isCritical },
       });
