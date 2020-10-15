@@ -4,7 +4,6 @@ import { Box, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import AvatarUploader from '~/components/AvatarUploader';
-import ButtonClipboard from '~/components/ButtonClipboard';
 import Input from '~/components/Input';
 import Mnemonic from '~/components/Mnemonic';
 import OnboardingStepper from '~/components/OnboardingStepper';
@@ -147,9 +146,6 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
       <Box my={4}>
         <Mnemonic text={mnemonic} />
       </Box>
-      <ButtonClipboard fullWidth isOutline text={mnemonic}>
-        {translate('Onboarding.buttonCopyToClipboard')}
-      </ButtonClipboard>
     </Fragment>
   );
 };
@@ -163,6 +159,11 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
 
   const handleChange = (event) => {
     setChallenge(event.target.value);
+  };
+
+  const handlePaste = (event) => {
+    event.preventDefault();
+    return false;
   };
 
   const isValid = useMemo(() => {
@@ -187,6 +188,7 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
       </Typography>
       <Box mt={4}>
         <Input
+          autoComplete="off"
           errorMessage={translate('Onboarding.formSeedPhraseChallengeInvalid')}
           id="challenge"
           isError={!isValid && challenge.length > 0}
@@ -195,6 +197,9 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
           type="text"
           value={challenge}
           onChange={handleChange}
+          onDrag={handlePaste}
+          onDrop={handlePaste}
+          onPaste={handlePaste}
         />
       </Box>
     </Fragment>
