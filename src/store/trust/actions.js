@@ -11,11 +11,15 @@ const { ActivityTypes } = core.activity;
 
 export function checkTrustState() {
   return async (dispatch, getState) => {
-    const { safe, trust } = getState();
+    const { wallet, safe, trust } = getState();
     const safeAddress = safe.pendingAddress || safe.currentAccount;
 
     // Safe address does not exist or is not deployed yet
     if (!safeAddress) {
+      return;
+    }
+
+    if (wallet.isLocked) {
       return;
     }
 

@@ -106,7 +106,7 @@ export function initializeApp() {
 
 export function checkAppState() {
   return async (dispatch, getState) => {
-    const { app, safe } = getState();
+    const { app, safe, wallet } = getState();
 
     if (app.isError || !app.isConnected) {
       return;
@@ -124,6 +124,10 @@ export function checkAppState() {
 
     // Auth and validation state
     await dispatch(checkAuthState());
+
+    if (wallet.isLocked) {
+      return;
+    }
 
     // Sentry: Give additional debug information
     const safeAddress = safe.pendingAddress || safe.currentAccount;

@@ -116,7 +116,6 @@
   "Navigation": {
     "buttonActivityLog": "Activity Log",
     "buttonAddDevice": "Settings",
-    "buttonExportSeedPhrase": "Export Seed Phrase",
     "buttonMyQR": "My QR",
     "buttonSendCircles": "Send Circles",
     "linkAbout": "About",
@@ -229,11 +228,6 @@
   },
   "Search": {
     "headingSearch": "Trust Network"
-  },
-  "SeedPhrase": {
-    "bodyDescription": "Print this and store it safely:",
-    "buttonCopyToClipboard": "Copy to clipboard",
-    "headingExportSeedPhrase": "Export Seed Phrase"
   },
   "Send": {
     "headingSendCircles": "Send Circles"

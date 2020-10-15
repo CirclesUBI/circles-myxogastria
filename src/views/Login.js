@@ -27,6 +27,7 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import Input from '~/components/Input';
 import UsernameDisplay from '~/components/UsernameDisplay';
+import VerifiedPasswordInput from '~/components/VerifiedPasswordInput';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
@@ -46,6 +47,17 @@ const Login = () => {
 
   const [seedPhrase, setSeedPhrase] = useState('');
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
+  const [isPasswordOpen, setIsPasswordOpen] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [password, setPassword] = useState('');
+
+  const handleStatusChange = (status) => {
+    setIsPasswordValid(status);
+  };
+
+  const handlePasswordChange = (newPassword) => {
+    setPassword(newPassword);
+  };
 
   const handleSelectorOpen = () => {
     setIsSelectorOpen(true);
@@ -53,6 +65,14 @@ const Login = () => {
 
   const handleSelectorClose = () => {
     setIsSelectorOpen(false);
+  };
+
+  const handleOpenPassword = () => {
+    setIsPasswordOpen(true);
+  };
+
+  const handleClosePassword = () => {
+    setIsPasswordOpen(false);
   };
 
   const handleSelectAccount = () => {
@@ -71,10 +91,12 @@ const Login = () => {
   };
 
   const handleSubmitSeedPhrase = async () => {
+    setIsPasswordOpen(false);
+
     dispatch(showSpinnerOverlay());
 
     try {
-      await dispatch(restoreAccount(seedPhrase.trim()));
+      await dispatch(restoreAccount(seedPhrase.trim(), password));
 
       dispatch(
         notify({
@@ -99,13 +121,45 @@ const Login = () => {
       );
     }
 
+    setPassword('');
     dispatch(hideSpinnerOverlay());
   };
 
-  const isValid = seedPhrase.trim().split(' ').length === 24;
+  const isValid = seedPhrase.trim().split(' ').length === 12;
 
   return (
     <Fragment>
+      <Dialog
+        aria-labelledby="form-password-title"
+        open={isPasswordOpen}
+        onClose={handleClosePassword}
+      >
+        <DialogTitle id="form-password-title">
+          {translate('Login.dialogTitlePassword')}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {translate('Login.dialogBodyPassword')}
+          </DialogContentText>
+          <VerifiedPasswordInput
+            value={password}
+            onChange={handlePasswordChange}
+            onStatusChange={handleStatusChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePassword}>
+            {translate('Login.dialogActionClose')}
+          </Button>
+          <Button
+            disabled={isPasswordValid}
+            isPrimary
+            onClick={handleSubmitSeedPhrase}
+          >
+            {translate('Login.dialogActionConnect')}
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Dialog
         aria-labelledby="form-dialog-title"
         open={isSelectorOpen}
@@ -194,7 +248,7 @@ const Login = () => {
           disabled={!isValid}
           fullWidth
           isPrimary
-          onClick={handleSubmitSeedPhrase}
+          onClick={handleOpenPassword}
         >
           {translate('Login.buttonSubmit')}
         </Button>

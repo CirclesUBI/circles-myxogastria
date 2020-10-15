@@ -4,19 +4,20 @@ import { Box, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import AvatarUploader from '~/components/AvatarUploader';
-import ButtonClipboard from '~/components/ButtonClipboard';
 import Input from '~/components/Input';
 import Mnemonic from '~/components/Mnemonic';
 import OnboardingStepper from '~/components/OnboardingStepper';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
+import VerifiedPasswordInput from '~/components/VerifiedPasswordInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import { WELCOME_PATH } from '~/routes';
 import { createNewAccount } from '~/store/onboarding/actions';
+import { createWallet } from '~/store/wallet/actions';
+import { generateNewMnemonic } from '~/services/wallet';
 import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
-import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
 
 const Onboarding = () => {
   const dispatch = useDispatch();
@@ -25,14 +26,32 @@ const Onboarding = () => {
     avatarUrl: '',
     email: '',
     username: '',
+    password: '',
+    mnemonic: null,
   });
+
+  useEffect(() => {
+    const mnemonic = generateNewMnemonic();
+
+    setValues((values) => ({
+      ...values,
+      mnemonic,
+    }));
+  }, []);
 
   const onFinish = async () => {
     dispatch(showSpinnerOverlay());
 
     try {
+      await dispatch(createWallet(values.mnemonic, values.password));
+
       await dispatch(
-        createNewAccount(values.username, values.email, values.avatarUrl),
+        createNewAccount(
+          values.username,
+          values.email,
+          values.avatarUrl,
+          values.password,
+        ),
       );
 
       dispatch(
@@ -62,6 +81,7 @@ const Onboarding = () => {
   const steps = [
     OnboardingStepUsername,
     OnboardingStepEmail,
+    OnboardingStepPassword,
     OnboardingStepSeedPhrase,
     OnboardingStepSeedChallenge,
     OnboardingStepAvatar,
@@ -128,12 +148,31 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
   );
 };
 
-const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
-  const mnemonic = useMemo(() => {
-    const privateKey = getPrivateKey();
-    return toSeedPhrase(privateKey);
-  }, []);
+const OnboardingStepPassword = ({ onDisabledChange, onChange, values }) => {
+  const handleChange = (password) => {
+    onChange({
+      password,
+    });
+  };
 
+  return (
+    <Fragment>
+      <Typography align="center" gutterBottom variant="h2">
+        {translate('Onboarding.headingPassword')}
+      </Typography>
+      <Typography>{translate('Onboarding.bodyPassword')}</Typography>
+      <Box my={4}>
+        <VerifiedPasswordInput
+          value={values.password}
+          onChange={handleChange}
+          onStatusChange={onDisabledChange}
+        />
+      </Box>
+    </Fragment>
+  );
+};
+
+const OnboardingStepSeedPhrase = ({ values, onDisabledChange }) => {
   useEffect(() => {
     onDisabledChange(false);
   }, [onDisabledChange]);
@@ -145,31 +184,32 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
       </Typography>
       <Typography>{translate('Onboarding.bodySeedPhrase')}</Typography>
       <Box my={4}>
-        <Mnemonic text={mnemonic} />
+        <Mnemonic text={values.mnemonic} />
       </Box>
-      <ButtonClipboard fullWidth isOutline text={mnemonic}>
-        {translate('Onboarding.buttonCopyToClipboard')}
-      </ButtonClipboard>
     </Fragment>
   );
 };
 
-const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
+const OnboardingStepSeedChallenge = ({ values, onDisabledChange }) => {
   const [challenge, setChallenge] = useState('');
 
   const wordIndex = useMemo(() => {
-    return Math.floor(Math.random() * 24);
-  }, []);
+    return Math.floor(Math.random() * values.mnemonic.split(' ').length);
+  }, [values.mnemonic]);
 
   const handleChange = (event) => {
     setChallenge(event.target.value);
   };
 
+  const handlePaste = (event) => {
+    event.preventDefault();
+    return false;
+  };
+
   const isValid = useMemo(() => {
-    const privateKey = getPrivateKey();
-    const answer = toSeedPhrase(privateKey).split(' ')[wordIndex];
+    const answer = values.mnemonic.split(' ')[wordIndex];
     return challenge === answer;
-  }, [challenge, wordIndex]);
+  }, [challenge, wordIndex, values.mnemonic]);
 
   useEffect(() => {
     onDisabledChange(!isValid);
@@ -187,6 +227,7 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
       </Typography>
       <Box mt={4}>
         <Input
+          autoComplete="off"
           errorMessage={translate('Onboarding.formSeedPhraseChallengeInvalid')}
           id="challenge"
           isError={!isValid && challenge.length > 0}
@@ -195,6 +236,9 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
           type="text"
           value={challenge}
           onChange={handleChange}
+          onDrag={handlePaste}
+          onDrop={handlePaste}
+          onPaste={handlePaste}
         />
       </Box>
     </Fragment>
@@ -236,6 +280,10 @@ OnboardingStepUsername.propTypes = {
 };
 
 OnboardingStepEmail.propTypes = {
+  ...stepProps,
+};
+
+OnboardingStepPassword.propTypes = {
   ...stepProps,
 };
 

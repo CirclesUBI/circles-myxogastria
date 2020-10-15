@@ -12,7 +12,6 @@ import Onboarding from '~/views/Onboarding';
 import Profile from '~/views/Profile';
 import QRGenerator from '~/views/QRGenerator';
 import Search from '~/views/Search';
-import SeedPhrase from '~/views/SeedPhrase';
 import Send from '~/views/Send';
 import SendConfirm from '~/views/SendConfirm';
 import Settings from '~/views/Settings';
@@ -21,6 +20,7 @@ import TutorialOnboarding from '~/views/TutorialOnboarding';
 import Validation from '~/views/Validation';
 import ValidationLock from '~/views/ValidationLock';
 import ValidationShare from '~/views/ValidationShare';
+import WalletLock from '~/views/WalletLock';
 import Welcome from '~/views/Welcome';
 import { ACCOUNT_CREATE } from '~/store/tutorial/actions';
 
@@ -45,7 +45,6 @@ export const ORGANIZATION_PATH = '/organization';
 export const PROFILE_PATH = '/profile/:address';
 export const QR_GENERATOR_PATH = '/organization/qr';
 export const SEARCH_PATH = '/search';
-export const SEED_PHRASE_PATH = '/seedphrase';
 export const SEND_CONFIRM_PATH = '/send/:address(0x[0-9a-fA-f]{40})';
 export const SEND_PATH = '/send';
 export const SETTINGS_PATH = '/settings';
@@ -223,7 +222,7 @@ const TutorialOnboardingContainer = () => {
 
 const Routes = () => {
   const location = useLocation();
-  const { app, safe } = useSelector((state) => state);
+  const { app, wallet, safe } = useSelector((state) => state);
 
   // Did something bad happen?
   if (app.isError) {
@@ -233,6 +232,10 @@ const Routes = () => {
   // Do not do anything yet when we are not ready
   if (!app.isReady) {
     return null;
+  }
+
+  if (wallet.isKeystoreGiven && wallet.isLocked) {
+    return <WalletLock />;
   }
 
   // Show locked view when Safe is being deployed
@@ -258,7 +261,6 @@ const Routes = () => {
       />
       <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
       <TrustedRoute component={Send} exact path={SEND_PATH} />
-      <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
       <TrustedRoute component={Share} exact path={SHARE_PATH} />
       <TrustedRoute component={Profile} exact path={PROFILE_PATH} />
       <TrustedRoute component={Activities} exact path={ACTIVITIES_PATH} />

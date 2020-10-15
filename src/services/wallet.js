@@ -1,4 +1,9 @@
-import { mnemonicToEntropy, entropyToMnemonic } from 'bip39';
+import { HDKey } from 'ethereum-cryptography/hdkey';
+import {
+  generateMnemonic,
+  mnemonicToSeedSync,
+} from 'ethereum-cryptography/bip39';
+import { wordlist } from 'ethereum-cryptography/bip39/wordlists/english';
 
 import {
   getItem,
@@ -9,62 +14,56 @@ import {
 } from '~/services/storage';
 import web3 from '~/services/web3';
 
-const PRIVATE_KEY_NAME = 'privateKey';
+const LOCK_NAME = 'keystoreJsonV3';
 
-export function generatePrivateKey() {
-  const { privateKey } = web3.eth.accounts.create();
-  return privateKey;
-}
+let privateKey = null;
 
-export function getPrivateKey() {
+export function hasWallet() {
   if (!isAvailable()) {
     throw new Error('LocalStorage is not available');
   }
-
-  if (hasItem(PRIVATE_KEY_NAME)) {
-    return getItem(PRIVATE_KEY_NAME);
-  } else {
-    const privateKey = generatePrivateKey();
-    setPrivateKey(privateKey);
-    return privateKey;
-  }
+  return hasItem(LOCK_NAME);
 }
 
-export function setPrivateKey(privateKey) {
-  setItem(PRIVATE_KEY_NAME, privateKey);
+export function unlockWallet(password) {
+  if (!hasWallet()) {
+    throw new Error('No wallet found');
+  }
+
+  const keystoreJsonV3 = JSON.parse(getItem(LOCK_NAME));
+  const account = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+  privateKey = account.privateKey;
+  return account.address;
+}
+
+export function generateNewMnemonic() {
+  return generateMnemonic(wordlist);
+}
+
+export function createWallet(mnemonic, password) {
+  const hdKey = HDKey.fromMasterSeed(mnemonicToSeedSync(mnemonic));
+  privateKey = `0x${hdKey.privateKey.toString('hex')}`;
+
+  const account = web3.eth.accounts.privateKeyToAccount(privateKey);
+  const keystoreJsonV3 = account.encrypt(password);
+  setItem(LOCK_NAME, JSON.stringify(keystoreJsonV3));
+
+  return account.address;
 }
 
 export function removePrivateKey() {
-  removeItem(PRIVATE_KEY_NAME);
+  privateKey = null;
 }
 
-export function getPublicAddress() {
-  const privateKey = getPrivateKey();
-
-  if (privateKey && !web3.utils.isHexStrict(privateKey)) {
-    throw new Error('Invalid private key');
-  }
-
-  const { address } = web3.eth.accounts.privateKeyToAccount(privateKey);
-
-  return address;
-}
-
-export function fromSeedPhrase(seedPhrase) {
-  const restoredKey = mnemonicToEntropy(seedPhrase);
-  const privateKey = `0x${restoredKey}`;
-
-  setPrivateKey(privateKey);
-
-  return getPublicAddress();
-}
-
-export function toSeedPhrase(privateKey) {
-  return entropyToMnemonic(privateKey.slice(2));
+export function burnWallet() {
+  removePrivateKey();
+  removeItem(LOCK_NAME);
 }
 
 export function getAccount() {
-  const privateKey = getPrivateKey();
+  if (!privateKey) {
+    return;
+  }
 
   return web3.eth.accounts.privateKeyToAccount(privateKey);
 }

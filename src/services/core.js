@@ -14,6 +14,12 @@ const core = new CirclesCore(web3, {
 });
 
 async function requestCore(moduleName, method, options) {
+  const account = getAccount();
+
+  if (!account) {
+    return;
+  }
+
   return await core[moduleName][method](getAccount(), options);
 }
 

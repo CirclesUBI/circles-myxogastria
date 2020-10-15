@@ -1,9 +1,10 @@
 import ActionTypes from '~/store/wallet/types';
 
 import {
-  fromSeedPhrase,
-  getPublicAddress,
-  removePrivateKey,
+  burnWallet as burnWalletInner,
+  createWallet as createWalletInner,
+  hasWallet,
+  unlockWallet as unlockWalletInner,
 } from '~/services/wallet';
 
 export function initializeWallet() {
@@ -13,16 +14,14 @@ export function initializeWallet() {
     });
 
     try {
-      const address = getPublicAddress();
+      const isKeystoreGiven = hasWallet();
 
-      if (address) {
-        dispatch({
-          type: ActionTypes.WALLET_INITIALIZE_SUCCESS,
-          meta: {
-            address,
-          },
-        });
-      }
+      dispatch({
+        type: ActionTypes.WALLET_INITIALIZE_SUCCESS,
+        meta: {
+          isKeystoreGiven,
+        },
+      });
     } catch (error) {
       dispatch({
         type: ActionTypes.WALLET_INITIALIZE_ERROR,
@@ -33,15 +32,64 @@ export function initializeWallet() {
   };
 }
 
-export function restoreWallet(seedPhrase) {
-  return async (dispatch) => {
-    fromSeedPhrase(seedPhrase);
-    dispatch(initializeWallet());
+export function createWallet(mnemonic, password) {
+  return (dispatch) => {
+    dispatch({
+      type: ActionTypes.WALLET_UNLOCK,
+    });
+
+    try {
+      const address = createWalletInner(mnemonic, password);
+
+      dispatch({
+        type: ActionTypes.WALLET_UNLOCK_SUCCESS,
+        meta: {
+          address,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.WALLET_UNLOCK_ERROR,
+      });
+
+      throw error;
+    }
+  };
+}
+
+export function unlockWallet(password) {
+  return (dispatch) => {
+    dispatch({
+      type: ActionTypes.WALLET_UNLOCK,
+    });
+
+    try {
+      const address = unlockWalletInner(password);
+
+      dispatch({
+        type: ActionTypes.WALLET_UNLOCK_SUCCESS,
+        meta: {
+          address,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.WALLET_UNLOCK_ERROR,
+      });
+
+      throw error;
+    }
+  };
+}
+
+export function unlockWalletFinalize() {
+  return {
+    type: ActionTypes.WALLET_UNLOCK_FINALIZE,
   };
 }
 
 export function burnWallet() {
-  removePrivateKey();
+  burnWalletInner();
 
   return {
     type: ActionTypes.WALLET_BURN,

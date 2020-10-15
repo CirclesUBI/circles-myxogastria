@@ -14,7 +14,6 @@ import translate from '~/services/locale';
 import {
   ACTIVITIES_PATH,
   MY_PROFILE_PATH,
-  SEED_PHRASE_PATH,
   SEND_PATH,
   SETTINGS_PATH,
   SHARE_PATH,
@@ -138,9 +137,6 @@ const NavigationMain = ({ onClick }) => {
       </NavigationLink>
       <NavigationLink to={SETTINGS_PATH} onClick={onClick}>
         {translate('Navigation.buttonAddDevice')}
-      </NavigationLink>
-      <NavigationLink to={SEED_PHRASE_PATH} onClick={onClick}>
-        {translate('Navigation.buttonExportSeedPhrase')}
       </NavigationLink>
     </Box>
   );

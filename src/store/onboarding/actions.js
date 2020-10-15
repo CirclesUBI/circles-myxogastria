@@ -24,7 +24,13 @@ import {
   switchAccount,
 } from '~/store/app/actions';
 import { isOrganization } from '~/utils/isDeployed';
-import { restoreWallet } from '~/store/wallet/actions';
+import {
+  burnWallet,
+  createWallet,
+  unlockWallet,
+  unlockWalletFinalize,
+} from '~/store/wallet/actions';
+import { loadMoreAllActivities } from '~/store/activity/actions';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own
@@ -149,32 +155,47 @@ export function finalizeNewAccount() {
   };
 }
 
+export function unlockAccount(password) {
+  return async (dispatch) => {
+    await dispatch(unlockWallet(password));
+    await dispatch(checkAppState());
+    await dispatch(checkOnboardingState());
+    await dispatch(unlockWalletFinalize());
+    await dispatch(loadMoreAllActivities());
+  };
+}
+
 // Recover an account via a seed phrase. We check if we can find an deployed
 // Safe related to this wallet.
-export function restoreAccount(seedPhrase) {
+export function restoreAccount(mnemonic, password) {
   return async (dispatch, getState) => {
     try {
-      await dispatch(restoreWallet(seedPhrase));
+      await dispatch(createWallet(mnemonic, password));
     } catch {
       throw new Error(RESTORE_ACCOUNT_INVALID_SEED_PHRASE);
     }
 
     // Find out if Safe is already deployed and has recovered address as an
     // owner
-    await dispatch(checkSharedSafeState());
-    const { safe } = getState();
-    if (safe.accounts.length > 0) {
-      // Found deployed account, switch to first one
-      await dispatch(switchCurrentAccount(safe.accounts[0]));
-    } else {
-      // Could not find deployed Safe, try to recover it
-      try {
-        await dispatch(recreateUndeployedSafe());
-      } catch {
-        throw new Error(RESTORE_ACCOUNT_UNKNOWN_SAFE);
+    try {
+      await dispatch(checkSharedSafeState());
+      const { safe } = getState();
+      if (safe.accounts.length > 0) {
+        // Found deployed account, switch to first one
+        await dispatch(switchCurrentAccount(safe.accounts[0]));
+      } else {
+        // Could not find deployed Safe, try to recover it
+        try {
+          await dispatch(recreateUndeployedSafe());
+        } catch {
+          throw new Error(RESTORE_ACCOUNT_UNKNOWN_SAFE);
+        }
       }
-    }
 
-    await dispatch(checkAppState());
+      await dispatch(checkAppState());
+    } catch (error) {
+      await dispatch(burnWallet());
+      throw error;
+    }
   };
 }
