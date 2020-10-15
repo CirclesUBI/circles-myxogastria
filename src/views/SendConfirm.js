@@ -274,7 +274,7 @@ const SendConfirm = () => {
                   amount:
                     maxFlow !== null
                       ? formatCirclesValue(
-                          web3.utils.toWei(`${maxFlow}`, 'ether'),
+                          web3.utils.toWei(`${maxAmount}`, 'ether'),
                         )
                       : '',
                 })}
