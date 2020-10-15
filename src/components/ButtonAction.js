@@ -15,15 +15,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ButtonAction = ({ className, children, ...props }) => {
-  const classes = useStyles();
+// eslint-disable-next-line react/display-name
+const ButtonAction = React.forwardRef(
+  ({ className, children, ...props }, ref) => {
+    const classes = useStyles();
 
-  return (
-    <Fab className={clsx(classes.fab, className)} color="primary" {...props}>
-      {children}
-    </Fab>
-  );
-};
+    return (
+      <Fab
+        className={clsx(classes.fab, className)}
+        color="primary"
+        ref={ref}
+        {...props}
+      >
+        {children}
+      </Fab>
+    );
+  },
+);
 
 ButtonAction.propTypes = {
   children: PropTypes.node.isRequired,
