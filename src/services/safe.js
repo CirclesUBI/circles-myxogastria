@@ -7,7 +7,7 @@ import {
 } from '~/services/storage';
 
 const NONCE_NAME = 'nonce';
-const SAFE_ADDRESS_NAME_V2 = 'safeAddress-v2'; // >= 1.0.0
+const SAFE_ADDRESS_NAME = 'safeAddress';
 const SAFE_CURRENT_ACCOUNT = 'currentAccount';
 
 export const MAX_NONCE = 10000;
@@ -52,22 +52,22 @@ export function getSafeAddress() {
   }
 
   if (hasSafeAddress()) {
-    return getItem(SAFE_ADDRESS_NAME_V2);
+    return getItem(SAFE_ADDRESS_NAME);
   }
 
   return null;
 }
 
 export function hasSafeAddress() {
-  return hasItem(SAFE_ADDRESS_NAME_V2);
+  return hasItem(SAFE_ADDRESS_NAME);
 }
 
 export function setSafeAddress(safeAddress) {
-  setItem(SAFE_ADDRESS_NAME_V2, safeAddress);
+  setItem(SAFE_ADDRESS_NAME, safeAddress);
 }
 
 export function removeSafeAddress() {
-  removeItem(SAFE_ADDRESS_NAME_V2);
+  removeItem(SAFE_ADDRESS_NAME);
 }
 
 export function getCurrentAccount() {
