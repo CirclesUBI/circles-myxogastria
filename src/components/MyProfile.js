@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import {
+  Box,
   Grid,
   ButtonGroup,
   ListItem,
@@ -43,18 +44,22 @@ const MyProfile = () => {
   return (
     <Fragment>
       <Grid alignItems="center" container spacing={2}>
-        <Grid item xs={4}>
-          <Link to={SHARE_PATH}>
-            <AvatarWithQR address={safe.currentAccount} size="medium" />
-          </Link>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography align="left">
-            <UsernameDisplay address={safe.currentAccount} />
-          </Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <IconCheck />
+        <Grid item xs={12}>
+          <Box alignItems="center" display="flex">
+            <Link to={SHARE_PATH}>
+              <AvatarWithQR address={safe.currentAccount} size="medium" />
+            </Link>
+            <Box mx={2}>
+              <Typography align="left">
+                <UsernameDisplay address={safe.currentAccount} />
+              </Typography>
+            </Box>
+            <Box flex={1}>
+              <Typography align="right">
+                <IconCheck />
+              </Typography>
+            </Box>
+          </Box>
         </Grid>
         <Grid item xs={12}>
           <ButtonGroup fullWidth>

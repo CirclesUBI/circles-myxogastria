@@ -18,7 +18,7 @@ const Mnemonic = ({ text }) => {
     <Grid container spacing={2}>
       {text.split(' ').map((word, index) => {
         return (
-          <Grid item key={index} xs>
+          <Grid item key={index} xs={3}>
             <Paper className={classes.mnemonicItem}>{word}</Paper>
           </Grid>
         );
