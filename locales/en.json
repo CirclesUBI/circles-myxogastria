@@ -14,13 +14,13 @@
     "bodyActivityTrustedBySomeone": "@{actor} trusts you",
     "bodyDateNow": "Now",
     "bodyExplainMeTrustedSomeone": "You trusted @{actor} which means that @{actor} can send you their tokens.",
-    "bodyExplainMeUntrustedSomeone": "You untrusted @{actor} which means that you don't accept any tokens anymore of them.",
+    "bodyExplainMeUntrustedSomeone": "You untrusted @{actor} which means that you do not accept any tokens from them anymore.",
     "bodyExplainReceivedCircles": "You received {value} {denominator} from @{actor} transitively.",
-    "bodyExplainReceivedUBI": "This is the Universal Basic Income minted with your own token. You receive circa {rate} per month.",
-    "bodyExplainSecondary": "All activities carry a small fee used to maintain the Circles network.",
+    "bodyExplainReceivedUBI": "This is your Universal Basic Income, issued as your own personal currency. You receive circa {rate} per month.",
+    "bodyExplainSecondary": "All activities carry a small transaction fee used to maintain the Circles network.",
     "bodyExplainSentCircles": "You sent {value} {denominator} to @{actor} transitively.",
     "bodyExplainTrustedBySomeone": "@{actor} trusts you. You can send your token to them now.",
-    "bodyExplainUntrustedBySomeone": "@{actor} untrusts you which means that they don't accept your token anymore.",
+    "bodyExplainUntrustedBySomeone": "@{actor} untrusts you which means that they do not accept your token anymore.",
     "bodyNothingHereYet": "There are no recent activities to display yet",
     "bodyPaymentNote": "Note: {note}",
     "buttonLoadMore": "Load more",
@@ -44,7 +44,7 @@
     "infoCopiedMessage": "Text copied to clipboard"
   },
   "CriticalError": {
-    "bodyCriticalErrorDescription": "Oh no! This looks bad. Something is wrong and we can not recover from this current state. Please reload this page and try again.",
+    "bodyCriticalErrorDescription": "Oh no! Something went wrong. Please reload this page and try again.",
     "bodyCriticalErrorTryAgain": "Oh no! Something went wrong while loading your account. Please reload this page and try again.",
     "buttonBurnWallet": "Reset account",
     "buttonReload": "Refresh page",
@@ -57,13 +57,13 @@
   "DialogBurn": {
     "dialogBurnCancel": "Cancel",
     "dialogBurnConfirm": "End Session",
-    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have a Seed Phrase!",
+    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have your Seed Phrase!",
     "dialogBurnTitle": "Warning!"
   },
   "DialogTrust": {
     "dialogTrustCancel": "Cancel",
     "dialogTrustConfirm": "Trust",
-    "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can effect the security of the app. In order to stay safe only trust people you know.",
+    "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can affect the security of the app. In order to stay safe only trust people you know in real life.",
     "dialogTrustTitle": "Do you trust @{username}?",
     "errorTrust": "Something went wrong when you tried to trust @{username} ...",
     "successTrust": "Nice. You trusted @{username}!"
@@ -71,10 +71,10 @@
   "DialogTrustRevoke": {
     "dialogRevokeTrustCancel": "Cancel",
     "dialogRevokeTrustConfirm": "Revoke trust",
-    "dialogRevokeTrustDescription": "Are you sure you want to revoke your trust with @{username}?",
+    "dialogRevokeTrustDescription": "Are you sure you want to revoke trust in @{username}?",
     "dialogRevokeTrustTitle": "Untrust @{username}",
     "errorRevokeTrust": "Something went wrong when you tried to untrust @{username} ...",
-    "successRevokeTrust": "You successfully revoked your trust from @{username}!"
+    "successRevokeTrust": "You successfully revoked your trust in @{username}!"
   },
   "Finder": {
     "bodyFilterDirect": "Directly trusted",
@@ -126,7 +126,7 @@
     "linkSupport": "Support"
   },
   "NotFound": {
-    "bodyNotFound": "Ouch. We could not find the requested page. Did you maybe mistype the address?",
+    "bodyNotFound": "Ouch. We could not find the requested page. Are you sure it's the right address?",
     "headingNotFound": "Not found"
   },
   "Onboarding": {
@@ -180,7 +180,7 @@
     "successRemovedMember": "You've successfully removed @{username} from this organization."
   },
   "OrganizationMembersAdd": {
-    "dialogAddMember": "Before inviting member please note that all members can send Circles from this organization account. Are you sure you want to add @{username}?",
+    "dialogAddMember": "Before inviting a new member, please note that all members can send Circles from this organization account. Are you sure you want to add @{username}?",
     "dialogCancel": "Cancel",
     "dialogConfirm": "Add member",
     "dialogTitle": "Add @{username}",
@@ -191,7 +191,7 @@
   "Profile": {
     "bodyActivity": "Activity",
     "bodyNoActivities": "No activities yet.",
-    "bodyNoMutualFriends": "No mutual friends found.",
+    "bodyNoMutualFriends": "No mutual trusted peers found.",
     "bodyStatusCommonFriends": {
       "one": "@{username} is trusted by one person you trust",
       "other": "@{username} is trusted by {count} people you trust",
@@ -208,9 +208,9 @@
   },
   "ProfileMini": {
     "bodyMutualFriends": {
-      "one": "You have one mututal friend in common with @{username}",
-      "other": "You have {count} mutual friends in common with @{username}",
-      "zero": "You have no mututal friends in common with @{username}"
+      "one": "You have one mututal trust relation in common with @{username}",
+      "other": "You have {count} mutual trust relations in common with @{username}",
+      "zero": "You have no mututal trust relations in common with @{username}"
     },
     "bodyUndeployedToken": "Account not verified"
   },
@@ -245,7 +245,7 @@
       "zero": "You can currently not send anything to @{username} which means that there is no trust path between you."
     },
     "bodyMaxFlow": "Maximum amount: {amount}",
-    "bodyPaymentNoteInvalid": "You can not write special symbols like {}<>^ and more than 100 characters.",
+    "bodyPaymentNoteInvalid": "You cannot write special symbols like {}<>^ and more than 100 characters.",
     "buttonSubmitAmount": "Send",
     "dialogSendCancel": "Cancel",
     "dialogSendConfirm": "Confirm",
@@ -253,7 +253,7 @@
     "errorMessage": "Something went wrong .. {errorMessage}",
     "errorMessageTransferInvalid": "Could not transfer Circles as it is invalid.",
     "errorMessageTransferNotFound": "Could not transfer Circles as there is currently no complete trust path between @{username} and you ..",
-    "errorMessageTransferTooComplex": "Could not transfer Circles as there are too many transfer steps required to send Circles to @{username}. Consider sending a smaller amount and ask @{username} to trust you directly to make this transfer less complex.",
+    "errorMessageTransferTooComplex": "Could not transfer Circles as there are too many hops required to send Circles to @{username}. Consider sending a smaller amount and ask @{username} to trust you directly to make this transfer easier.",
     "errorMessageTransferUnknown": "Could not transfer Circles. Something went wrong!",
     "formAmount": "Enter amount",
     "formPaymentNote": "Add note",
@@ -288,8 +288,8 @@
     "buttonSkip": "Skip"
   },
   "TutorialOnboarding": {
-    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support an alternative economy.",
-    "bodyUnconditionalIncome": "Circles is designed similarly to a basic income. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
+    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support and create an alternative economy.",
+    "bodyUnconditionalIncome": "Circles is designed to be a basic income from the bottom-up. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
     "bodyWebOfTrust": "You can spend Circles with people you trust, and the people they trust. ",
     "headingBuildYourOwnEconomy": "Build Your Own Economy",
     "headingUnconditionalIncome": "Unconditional Income",
@@ -301,7 +301,7 @@
   "Validation": {
     "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your seed phrase.",
     "bodyTrustDescription": "To receive your basic income,",
-    "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
+    "bodyTrustDescriptionEmphasize": "Three people must trust your profile.",
     "buttonShareProfileLink": "Share Profile Link",
     "headingBuildYourWebOfTrust": "Verify your account",
     "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
@@ -324,7 +324,7 @@
   },
   "VerifiedUsernameInput": {
     "formUnknownError": "Unknown error ",
-    "formUsernameInvalidFormat": "Only basic characters and numbers (A-Z, 0-9) allowed, no symbols or whitespace, 3-24 characters",
+    "formUsernameInvalidFormat": "Only basic characters and numbers (A-Z, 0-9) are allowed, no symbols or whitespace, 3-24 characters",
     "formUsernameTaken": "Name is already taken"
   },
   "Welcome": {
@@ -337,7 +337,7 @@
     "linkPrivacyLegal": "Privacy + Legal"
   },
   "default": {
-    "bodyEOLNotification": "We're launching Circles officially 16.10. on the xDai network! Since this app is currently running on a test network your profile will be shut off on that same day. You will need to create a new profile for the official Circles network.",
+    "bodyEOLNotification": "We're launching Circles officially on 16.10. on the xDai network! Since this app is currently running on a test network your profile will be shut off on that same day. You will need to create a new profile for the official Circles network.",
     "bodyStagingNotification": "Please note that you're currently using Circles in a test network which is used by developers to experiment with the system. This means that errors can occur as we're experimenting with new unstable features, your Circles can only be used for testing and you can lose your profile, tokens and data anytime."
   }
 }
