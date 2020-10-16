@@ -150,6 +150,17 @@ export function finalizeNewAccount() {
   };
 }
 
+export function restoreUndeployedAccount() {
+  return async (dispatch) => {
+    try {
+      await dispatch(recreateUndeployedSafe());
+      await dispatch(checkOnboardingState());
+    } catch {
+      throw new Error(RESTORE_ACCOUNT_UNKNOWN_SAFE);
+    }
+  };
+}
+
 // Recover an account via a seed phrase. We check if we can find an deployed
 // Safe related to this wallet.
 export function restoreAccount(seedPhrase) {
@@ -167,26 +178,17 @@ export function restoreAccount(seedPhrase) {
     if (safe.accounts.length > 0) {
       // Check if this Safe has a deployed Token connected to it
       const tokenAddress = await core.token.getAddress(safe.accounts[0]);
-
       // Bring the user back to validation if it failed, from there the user
       // can try to create the token again
       if (tokenAddress === ZERO_ADDRESS) {
-        try {
-          await dispatch(recreateUndeployedSafe());
-        } catch {
-          throw new Error(RESTORE_ACCOUNT_UNKNOWN_SAFE);
-        }
+        await dispatch(restoreUndeployedAccount());
       } else {
         // Found deployed account, switch to first one
         await dispatch(switchCurrentAccount(safe.accounts[0]));
       }
     } else {
       // Could not find deployed Safe, try to recover it
-      try {
-        await dispatch(recreateUndeployedSafe());
-      } catch {
-        throw new Error(RESTORE_ACCOUNT_UNKNOWN_SAFE);
-      }
+      await dispatch(restoreUndeployedAccount());
     }
 
     await dispatch(checkAppState());
