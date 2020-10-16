@@ -34,21 +34,21 @@ const CriticalError = () => {
             : translate('CriticalError.bodyCriticalErrorTryAgain')}
         </Typography>
         {app.errorMessage && (
-          <Box my={2}>
+          <Box my={2} style={{ wordBreak: 'break-word' }}>
             <HumbleAlert>
               <Typography gutterBottom>{app.errorMessage}</Typography>
               {wallet.address && (
-                <Typography variant="caption">
+                <Typography component="p" variant="caption">
                   Device: {wallet.address}
                 </Typography>
               )}
               {safe.currentAccount && (
-                <Typography variant="caption">
+                <Typography component="p" variant="caption">
                   Safe: {safe.currentAccount}
                 </Typography>
               )}
               {token.address && (
-                <Typography variant="caption">
+                <Typography component="p" variant="caption">
                   Token: {token.address}
                 </Typography>
               )}
