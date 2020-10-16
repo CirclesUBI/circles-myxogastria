@@ -30,14 +30,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Validation = () => {
   const classes = useStyles();
-  const { trust, safe } = useSelector((state) => state);
+  const { trust, safe, token } = useSelector((state) => state);
 
   const leftTrustConnections = Math.max(
     0,
     NEEDED_TRUST_CONNECTIONS - trust.connections,
   );
 
-  const isDeploymentReady = safe.pendingIsFunded || trust.isTrusted;
+  const isDeploymentReady =
+    safe.pendingIsFunded || token.isFunded || trust.isTrusted;
 
   return (
     <Fragment>

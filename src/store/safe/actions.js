@@ -38,23 +38,6 @@ export function initializeSafe() {
     // in LocalStorage.
     let currentAccount = hasCurrentAccount() ? getCurrentAccount() : null;
 
-    // Fix broken states where nonce is still in LocalStorage even though the
-    // safe was deployed successfully
-    if (pendingNonce) {
-      const isDeployed = (await web3.eth.getCode(pendingAddress)) !== '0x';
-      if (isDeployed) {
-        // Remove all pending states
-        removeNonce();
-        removeSafeAddress();
-        pendingAddress = null;
-        pendingNonce = null;
-
-        // Select current account, use pending safe as fallback
-        currentAccount = currentAccount || pendingAddress;
-        setCurrentAccount(currentAccount);
-      }
-    }
-
     if (
       (!pendingNonce && pendingAddress) ||
       ((pendingNonce || pendingAddress) && currentAccount)
