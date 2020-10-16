@@ -25,6 +25,7 @@ import {
 } from '~/store/app/actions';
 import { isOrganization } from '~/utils/isDeployed';
 import { restoreWallet } from '~/store/wallet/actions';
+import { ZERO_ADDRESS } from '~/utils/constants';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own
@@ -164,8 +165,21 @@ export function restoreAccount(seedPhrase) {
     await dispatch(checkSharedSafeState());
     const { safe } = getState();
     if (safe.accounts.length > 0) {
-      // Found deployed account, switch to first one
-      await dispatch(switchCurrentAccount(safe.accounts[0]));
+      // Check if this Safe has a deployed Token connected to it
+      const tokenAddress = await core.token.getAddress(safe.accounts[0]);
+
+      // Bring the user back to validation if it failed, from there the user
+      // can try to create the token again
+      if (tokenAddress === ZERO_ADDRESS) {
+        try {
+          await dispatch(recreateUndeployedSafe());
+        } catch {
+          throw new Error(RESTORE_ACCOUNT_UNKNOWN_SAFE);
+        }
+      } else {
+        // Found deployed account, switch to first one
+        await dispatch(switchCurrentAccount(safe.accounts[0]));
+      }
     } else {
       // Could not find deployed Safe, try to recover it
       try {
