@@ -169,7 +169,7 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
   const isValid = useMemo(() => {
     const privateKey = getPrivateKey();
     const answer = toSeedPhrase(privateKey).split(' ')[wordIndex];
-    return challenge === answer;
+    return challenge.toLowerCase() === answer.toLowerCase();
   }, [challenge, wordIndex]);
 
   useEffect(() => {
