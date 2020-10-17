@@ -3,22 +3,12 @@ import { Link } from 'react-router-dom';
 import {
   Box,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Link as MuiLink,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
   Paper,
   Typography,
 } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import CenteredHeading from '~/components/CenteredHeading';
@@ -26,7 +16,6 @@ import ExternalLink from '~/components/ExternalLink';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import Input from '~/components/Input';
-import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
@@ -38,33 +27,11 @@ import {
 import { SUPPORT_URL } from '~/utils/constants';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { restoreAccount } from '~/store/onboarding/actions';
-import { switchAccount } from '~/store/app/actions';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { safe } = useSelector((state) => state);
 
   const [seedPhrase, setSeedPhrase] = useState('');
-  const [isSelectorOpen, setIsSelectorOpen] = useState(false);
-
-  const handleSelectorOpen = () => {
-    setIsSelectorOpen(true);
-  };
-
-  const handleSelectorClose = () => {
-    setIsSelectorOpen(false);
-  };
-
-  const handleSelectAccount = () => {
-    dispatch(switchAccount(safe.accounts[0]));
-
-    dispatch(
-      notify({
-        text: translate('Login.successWelcome'),
-        type: NotificationsTypes.SUCCESS,
-      }),
-    );
-  };
 
   const handleChange = (event) => {
     setSeedPhrase(event.target.value);
@@ -106,42 +73,6 @@ const Login = () => {
 
   return (
     <Fragment>
-      <Dialog
-        aria-labelledby="form-dialog-title"
-        open={isSelectorOpen}
-        onClose={handleSelectorClose}
-      >
-        <DialogTitle id="form-dialog-title">
-          {translate('Login.dialogTitleSelector')}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {translate('Login.dialogBodySelector')}
-          </DialogContentText>
-          <List>
-            {safe.accounts.map((account) => {
-              return (
-                <ListItem key={account}>
-                  <ListItemAvatar>
-                    <Avatar address={account} />
-                  </ListItemAvatar>
-                  <ListItemText>
-                    <UsernameDisplay address={account} />
-                  </ListItemText>
-                </ListItem>
-              );
-            })}
-          </List>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleSelectorClose}>
-            {translate('Login.dialogActionClose')}
-          </Button>
-          <Button isPrimary onClick={handleSelectAccount}>
-            {translate('Login.dialogActionConnect')}
-          </Button>
-        </DialogActions>
-      </Dialog>
       <Header>
         <ButtonBack />
         <CenteredHeading>{translate('Login.headingLogin')}</CenteredHeading>
@@ -165,16 +96,6 @@ const Login = () => {
               />
             </Paper>
           </Box>
-          {safe.accounts.length > 0 && (
-            <Box my={2}>
-              <Typography align="center" gutterBottom>
-                {translate('Login.bodyOrConnectToAccount')}
-              </Typography>
-              <Button fullWidth isOutline onClick={handleSelectorOpen}>
-                {translate('Login.buttonShowSelector')}
-              </Button>
-            </Box>
-          )}
           <Typography align="center">
             {translate('Login.bodyLostYourSeedPhrase')}{' '}
             <MuiLink component={Link} to={ONBOARDING_PATH}>
