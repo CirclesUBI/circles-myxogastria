@@ -2,7 +2,7 @@ import core from '~/services/core';
 import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
 
-const LOOP_INTERVAL = 3000;
+const LOOP_INTERVAL = 6000;
 const MAX_ATTEMPTS = 20;
 
 async function loop(request, condition) {
