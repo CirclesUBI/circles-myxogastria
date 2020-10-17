@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 
-const provider = new Web3.providers.WebsocketProvider(
+const provider = new Web3.providers.HttpProvider(
   process.env.ETHEREUM_NODE_ENDPOINT,
 );
 
