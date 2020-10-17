@@ -1,100 +1,30 @@
 import PropTypes from 'prop-types';
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import mime from 'mime/lite';
-import {
-  Avatar,
-  Box,
-  CircularProgress,
-  Container,
-  IconButton,
-  MobileStepper,
-  Typography,
-} from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
+import { Box, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
-import AppNote from '~/components/AppNote';
-import Button from '~/components/Button';
-import ButtonBack from '~/components/ButtonBack';
-import ButtonClipboard from '~/components/ButtonClipboard';
-import Footer from '~/components/Footer';
-import Header from '~/components/Header';
+import AvatarUploader from '~/components/AvatarUploader';
 import Input from '~/components/Input';
-import Logo from '~/components/Logo';
 import Mnemonic from '~/components/Mnemonic';
-import View from '~/components/View';
-import core from '~/services/core';
-import debounce from '~/utils/debounce';
+import OnboardingStepper from '~/components/OnboardingStepper';
+import VerifiedEmailInput from '~/components/VerifiedEmailInput';
+import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
-import { IconBack, IconClose } from '~/styles/icons';
 import { WELCOME_PATH } from '~/routes';
 import { createNewAccount } from '~/store/onboarding/actions';
 import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
 
-const DEBOUNCE_DELAY = 500;
-const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
-
-const useStyles = makeStyles((theme) => ({
-  onboardingMobileStepper: {
-    flexGrow: 1,
-    padding: 0,
-  },
-  avatarUpload: {
-    margin: '0 auto',
-    width: theme.spacing(15),
-    height: theme.spacing(15),
-    color: theme.palette.text.primary,
-    fontSize: '30px',
-    fontWeight: theme.typography.fontWeightMedium,
-    backgroundColor: 'transparent',
-    border: `1px solid ${theme.palette.text.primary}`,
-    cursor: 'pointer',
-  },
-}));
-
 const Onboarding = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
-  const [current, setCurrent] = useState(0);
-  const [isRedirect, setIsRedirect] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
 
   const [values, setValues] = useState({
     avatarUrl: '',
     email: '',
     username: '',
   });
-
-  const onChange = (updatedValues) => {
-    setValues({
-      ...values,
-      ...updatedValues,
-    });
-  };
-
-  const onDisabledChange = (updatedValue) => {
-    setIsDisabled(updatedValue);
-  };
-
-  const onNext = () => {
-    setCurrent(current + 1);
-    setIsDisabled(true);
-  };
-
-  const onPrevious = () => {
-    setCurrent(current - 1);
-  };
 
   const onFinish = async () => {
     dispatch(showSpinnerOverlay());
@@ -128,10 +58,6 @@ const Onboarding = () => {
     dispatch(hideSpinnerOverlay());
   };
 
-  const onExit = () => {
-    setIsRedirect(true);
-  };
-
   const steps = [
     OnboardingStepUsername,
     OnboardingStepEmail,
@@ -140,125 +66,23 @@ const Onboarding = () => {
     OnboardingStepAvatar,
   ];
 
-  const OnboardingCurrentStep = steps[current];
-
-  const isLastSlide = current === steps.length - 1;
-
-  if (isRedirect) {
-    return <Redirect push to={WELCOME_PATH} />;
-  }
-
   return (
-    <Fragment>
-      <Header>
-        <MobileStepper
-          activeStep={current}
-          backButton={
-            current === 0 ? (
-              <ButtonBack />
-            ) : (
-              <IconButton onClick={onPrevious}>
-                <IconBack />
-              </IconButton>
-            )
-          }
-          classes={{
-            root: classes.onboardingMobileStepper,
-            progress: classes.onboardingMobileStepperProgress,
-          }}
-          nextButton={
-            <IconButton onClick={onExit}>
-              <IconClose />
-            </IconButton>
-          }
-          position="static"
-          steps={steps.length + 1}
-          variant="progress"
-        />
-      </Header>
-      <View>
-        <Container maxWidth="sm">
-          <Box my={6}>
-            <Logo />
-          </Box>
-          <Box textAlign="center">
-            <OnboardingCurrentStep
-              values={values}
-              onChange={onChange}
-              onDisabledChange={onDisabledChange}
-            />
-          </Box>
-        </Container>
-      </View>
-      <Footer>
-        <AppNote />
-        <Button
-          disabled={isDisabled}
-          fullWidth
-          isPrimary
-          onClick={isLastSlide ? onFinish : onNext}
-        >
-          {isLastSlide
-            ? translate('Onboarding.buttonFinish')
-            : translate('Onboarding.buttonNextStep')}
-        </Button>
-      </Footer>
-    </Fragment>
+    <OnboardingStepper
+      exitPath={WELCOME_PATH}
+      steps={steps}
+      values={values}
+      onFinish={onFinish}
+      onValuesChange={setValues}
+    />
   );
 };
 
 const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const debouncedUsernameCheck = debounce(async (username) => {
-    try {
-      await core.utils.requestAPI({
-        path: ['users'],
-        method: 'POST',
-        data: {
-          username,
-        },
-      });
-
-      setIsError(false);
-    } catch (error) {
-      if (error.request.status === 400) {
-        setErrorMessage(translate('Onboarding.formUsernameInvalidFormat'));
-      } else if (error.request.status === 409) {
-        setErrorMessage(translate('Onboarding.formUsernameTaken'));
-      } else {
-        setErrorMessage(translate('Onboarding.formUnknownError'));
-      }
-
-      setIsError(true);
-    }
-
-    setIsLoading(false);
-  }, DEBOUNCE_DELAY);
-
-  const verify = useCallback(
-    (username) => {
-      setIsError(false);
-      setIsLoading(true);
-      debouncedUsernameCheck(username);
-    },
-    [debouncedUsernameCheck],
-  );
-
-  const handleChange = (event) => {
-    const { value: username } = event.target;
+  const handleChange = (username) => {
     onChange({
       username,
     });
-    verify(username);
   };
-
-  useEffect(() => {
-    const isEmpty = values.username.length === 0;
-    onDisabledChange(isEmpty || isError || isLoading);
-  }, [values, onDisabledChange, isError, isLoading]);
 
   return (
     <Fragment>
@@ -267,16 +91,11 @@ const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
       </Typography>
       <Typography>{translate('Onboarding.bodyUsername')}</Typography>
       <Box mt={4}>
-        <Input
-          errorMessage={errorMessage}
-          id="username"
-          inputProps={{ maxLength: 24 }}
-          isError={isError}
-          isLoading={isLoading}
+        <VerifiedUsernameInput
           label={translate('Onboarding.formUsername')}
-          type="text"
           value={values.username}
           onChange={handleChange}
+          onStatusChange={onDisabledChange}
         />
       </Box>
     </Fragment>
@@ -284,54 +103,11 @@ const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
 };
 
 const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  const debouncedEmailCheck = debounce(async (email) => {
-    try {
-      await core.utils.requestAPI({
-        path: ['users'],
-        method: 'POST',
-        data: {
-          email,
-        },
-      });
-
-      setIsError(false);
-    } catch {
-      setIsError(true);
-    }
-
-    setIsLoading(false);
-  }, DEBOUNCE_DELAY);
-
-  const verify = useCallback(
-    (email) => {
-      if (email.length < 3) {
-        setIsError(true);
-        setIsLoading(false);
-        return;
-      }
-
-      setIsError(false);
-      setIsLoading(true);
-
-      debouncedEmailCheck(email);
-    },
-    [debouncedEmailCheck],
-  );
-
-  const handleChange = (event) => {
-    const { value: email } = event.target;
+  const handleChange = (email) => {
     onChange({
       email,
     });
-    verify(email);
   };
-
-  useEffect(() => {
-    onDisabledChange(!values.email.length > 0 || isError || isLoading);
-  }, [values.email, onDisabledChange, isError, isLoading]);
 
   return (
     <Fragment>
@@ -340,15 +116,11 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
       </Typography>
       <Typography>{translate('Onboarding.bodyEmail')}</Typography>
       <Box mt={4}>
-        <Input
-          errorMessage={translate('Onboarding.formEmailInvalid')}
-          id="email"
-          isError={isError}
-          isLoading={isLoading}
+        <VerifiedEmailInput
           label={translate('Onboarding.formEmail')}
-          type="email"
           value={values.email}
           onChange={handleChange}
+          onStatusChange={onDisabledChange}
         />
       </Box>
     </Fragment>
@@ -374,9 +146,6 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
       <Box my={4}>
         <Mnemonic text={mnemonic} />
       </Box>
-      <ButtonClipboard fullWidth isOutline text={mnemonic}>
-        {translate('Onboarding.buttonCopyToClipboard')}
-      </ButtonClipboard>
     </Fragment>
   );
 };
@@ -392,10 +161,15 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
     setChallenge(event.target.value);
   };
 
+  const handlePaste = (event) => {
+    event.preventDefault();
+    return false;
+  };
+
   const isValid = useMemo(() => {
     const privateKey = getPrivateKey();
     const answer = toSeedPhrase(privateKey).split(' ')[wordIndex];
-    return challenge === answer;
+    return challenge.toLowerCase() === answer.toLowerCase();
   }, [challenge, wordIndex]);
 
   useEffect(() => {
@@ -414,6 +188,7 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
       </Typography>
       <Box mt={4}>
         <Input
+          autoComplete="off"
           errorMessage={translate('Onboarding.formSeedPhraseChallengeInvalid')}
           id="challenge"
           isError={!isValid && challenge.length > 0}
@@ -422,6 +197,9 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
           type="text"
           value={challenge}
           onChange={handleChange}
+          onDrag={handlePaste}
+          onDrop={handlePaste}
+          onPaste={handlePaste}
         />
       </Box>
     </Fragment>
@@ -429,57 +207,11 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
 };
 
 const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
-  const classes = useStyles();
-
-  const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-  const fileInputElem = useRef();
-
-  const onUpload = (event) => {
-    event.preventDefault();
-    fileInputElem.current.click();
+  const handleUpload = (avatarUrl) => {
+    onChange({
+      avatarUrl,
+    });
   };
-
-  const handleChange = async (event) => {
-    setIsLoading(true);
-
-    const { files } = event.target;
-    if (files.length === 0) {
-      return;
-    }
-
-    try {
-      const result = await core.utils.requestAPI({
-        path: ['uploads', 'avatar'],
-        method: 'POST',
-        data: [...files].reduce((acc, file) => {
-          acc.append('files', file, file.name);
-          return acc;
-        }, new FormData()),
-      });
-
-      onChange({
-        avatarUrl: result.data.url,
-      });
-    } catch (error) {
-      dispatch(
-        notify({
-          text: translate('Onboarding.errorAvatarUpload'),
-          type: NotificationsTypes.ERROR,
-        }),
-      );
-    }
-
-    setIsLoading(false);
-  };
-
-  const fileTypesStr = IMAGE_FILE_TYPES.map((ext) => {
-    return mime.getType(ext);
-  }).join(',');
-
-  useEffect(() => {
-    onDisabledChange(!values.avatarUrl || isLoading);
-  }, [onDisabledChange, values.avatarUrl, isLoading]);
 
   return (
     <Fragment>
@@ -488,19 +220,10 @@ const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
       </Typography>
       <Typography>{translate('Onboarding.bodyAvatar')}</Typography>
       <Box mt={4}>
-        <Avatar
-          className={classes.avatarUpload}
-          src={isLoading ? null : values.avatarUrl}
-          onClick={onUpload}
-        >
-          {isLoading ? <CircularProgress /> : '+'}
-        </Avatar>
-        <input
-          accept={fileTypesStr}
-          ref={fileInputElem}
-          style={{ display: 'none' }}
-          type="file"
-          onChange={handleChange}
+        <AvatarUploader
+          value={values.avatarUrl}
+          onLoadingChange={onDisabledChange}
+          onUpload={handleUpload}
         />
       </Box>
     </Fragment>

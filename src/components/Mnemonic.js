@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   mnemonicItem: {
-    width: theme.spacing(9),
+    margin: '0 auto',
     padding: theme.spacing(0.5),
     textAlign: 'center',
   },
@@ -18,7 +18,7 @@ const Mnemonic = ({ text }) => {
     <Grid container spacing={2}>
       {text.split(' ').map((word, index) => {
         return (
-          <Grid item key={index} xs>
+          <Grid item key={index} xs={3}>
             <Paper className={classes.mnemonicItem}>{word}</Paper>
           </Grid>
         );

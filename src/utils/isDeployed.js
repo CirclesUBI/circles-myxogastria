@@ -2,17 +2,23 @@ import core from '~/services/core';
 import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
 
-const LOOP_INTERVAL = 1000;
+const LOOP_INTERVAL = 6000;
+const MAX_ATTEMPTS = 20;
 
 async function loop(request, condition) {
   return new Promise((resolve, reject) => {
+    let attempt = 0;
+
     const interval = setInterval(async () => {
       try {
         const response = await request();
+        attempt += 1;
 
         if (condition(response)) {
           clearInterval(interval);
           resolve(response);
+        } else if (attempt > MAX_ATTEMPTS) {
+          throw new Error('Tried too many times waiting for condition');
         }
       } catch (error) {
         clearInterval(interval);
@@ -30,6 +36,15 @@ export default async function isDeployed(address) {
     (code) => {
       return code !== '0x';
     },
+  );
+}
+
+export async function isOrganization(safeAddress) {
+  await loop(
+    () => {
+      return core.organization.isOrganization(safeAddress);
+    },
+    (isOrganization) => isOrganization,
   );
 }
 

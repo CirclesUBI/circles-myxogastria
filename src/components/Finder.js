@@ -3,28 +3,58 @@ import React, {
   Fragment,
   useCallback,
   useEffect,
-  useRef,
+  useMemo,
   useState,
 } from 'react';
+import qs from 'qs';
 import {
+  Badge,
   Box,
   CircularProgress,
   Grid,
-  IconButton,
   Input,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory, generatePath } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import Button from '~/components/Button';
 import ProfileMini from '~/components/ProfileMini';
-import QRCodeScanner from '~/components/QRCodeScanner';
+import TabNavigation from '~/components/TabNavigation';
+import TabNavigationAction from '~/components/TabNavigationAction';
+import TourWebOfTrustSVG from '%/images/tour-web-of-trust.svg';
 import core from '~/services/core';
 import debounce from '~/utils/debounce';
 import translate from '~/services/locale';
-import { IconScan } from '~/styles/icons';
+import { IconFollow, IconTrustActive, IconWorld } from '~/styles/icons';
+import { SEARCH_PATH } from '~/routes';
+import { useQuery } from '~/hooks/url';
 
 const MAX_SEARCH_RESULTS = 10;
+const PAGE_SIZE = 20;
+
+const FILTER_DIRECT = Symbol('filterDirect');
+const FILTER_EXTERNAL = Symbol('filterExternal');
+const FILTER_INDIRECT = Symbol('filterIndirect');
+
+const DEFAULT_FILTER = FILTER_DIRECT;
+
+const QUERY_FILTER_MAP = {
+  direct: FILTER_DIRECT,
+  indirect: FILTER_INDIRECT,
+  external: FILTER_EXTERNAL,
+};
+
+function cleanInputStr(value) {
+  return value.trim().replace(/@/g, '');
+}
+
+function filterToQuery(filterName) {
+  return Object.keys(QUERY_FILTER_MAP).find((key) => {
+    return QUERY_FILTER_MAP[key] === filterName;
+  });
+}
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -37,45 +67,189 @@ const useStyles = makeStyles((theme) => ({
   searchItem: {
     cursor: 'pointer',
   },
+  bottomNavigation: {
+    marginBottom: theme.spacing(2),
+  },
+  bottomNavigationAction: {
+    maxWidth: 'none',
+  },
+  bottomNavigationLabel: {
+    marginTop: theme.spacing(1),
+    fontWeight: theme.typography.fontWeightLight,
+    fontSize: '0.9rem',
+    borderBottom: '2px solid transparent',
+    '&.Mui-selected': {
+      fontSize: '0.9rem',
+      borderBottom: `2px solid ${theme.palette.primary.main}`,
+    },
+  },
 }));
 
-const Finder = ({ onSelect }) => {
-  const classes = useStyles();
-  const ref = useRef();
+const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
+  const history = useHistory();
+  const { filter, query: input = '' } = useQuery();
+
+  // Check if we already selected a filter via url query param
+  const preselectedFilter =
+    filter in QUERY_FILTER_MAP ? QUERY_FILTER_MAP[filter] : DEFAULT_FILTER;
+  const [selectedFilter, setSelectedFilter] = useState(preselectedFilter);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isQueryEmpty, setIsQueryEmpty] = useState(true);
-  const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [isQueryEmpty, setIsQueryEmpty] = useState(
+    cleanInputStr(input).length === 0,
+  );
   const [searchResults, setSearchResults] = useState([]);
-  const [input, setInput] = useState('');
 
+  const updateUrl = (newInput, newFilter) => {
+    const query = qs.stringify({
+      query: newInput,
+      filter: filterToQuery(newFilter) || filterToQuery(DEFAULT_FILTER),
+    });
+
+    history.replace(`${generatePath(basePath)}?${query}`);
+  };
+
+  const handleFilterSelection = (newFilter) => {
+    setSelectedFilter(newFilter);
+    updateUrl(input, newFilter);
+  };
+
+  const handleLoadingChange = (newState) => {
+    setIsLoading(newState);
+  };
+
+  const handleInputChange = (event) => {
+    const newValue = event.target.value;
+    updateUrl(newValue, selectedFilter);
+    setIsQueryEmpty(cleanInputStr(newValue).length === 0);
+  };
+
+  const handleSearchResultsChange = (newResults) => {
+    setSearchResults(newResults);
+  };
+
+  // Get our current trust network
+  const { network } = useSelector((state) => state.trust);
+
+  // Filter results
+  const filterResults = useMemo(() => {
+    // Show users trust network when no query is given, otherwise merge search
+    // results with what we know from our trust network
+    const items = isQueryEmpty
+      ? network
+      : searchResults.map((item) => {
+          const networkItem = network.find(({ safeAddress }) => {
+            return safeAddress === item.safeAddress;
+          });
+
+          return {
+            ...item,
+            ...networkItem,
+          };
+        });
+
+    return [FILTER_DIRECT, FILTER_INDIRECT, FILTER_EXTERNAL].reduce(
+      (acc, filter) => {
+        acc[filter] = items.filter((item) => {
+          switch (filter) {
+            case FILTER_DIRECT:
+              return item.isIncoming;
+            case FILTER_INDIRECT:
+              return item.isOutgoing && !item.isIncoming;
+            case FILTER_EXTERNAL:
+              return !item.isIncoming && !item.isOutgoing;
+            default:
+              return true;
+          }
+        });
+        return acc;
+      },
+      {},
+    );
+  }, [isQueryEmpty, searchResults, network]);
+
+  // Automatically select the filter with the only results
+  useEffect(() => {
+    if (!isLoading && !isQueryEmpty) {
+      const filterRank = [FILTER_DIRECT, FILTER_INDIRECT, FILTER_EXTERNAL]
+        .map((key) => {
+          return {
+            key,
+            length: filterResults[key].length,
+          };
+        })
+        .sort(({ length: itemA }, { length: itemB }) => {
+          return itemB - itemA;
+        });
+
+      const bestFilter = filterRank[0].key;
+      const isCurrentFilterEmpty =
+        filterRank.find(({ key }) => {
+          return key === selectedFilter;
+        }).length === 0;
+
+      if (selectedFilter !== bestFilter && isCurrentFilterEmpty) {
+        handleFilterSelection(bestFilter);
+      }
+    }
+  }, [isLoading, isQueryEmpty]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <Fragment>
+      <Box mb={1}>
+        <FinderSearchBar
+          basePath={basePath}
+          input={input}
+          selectedFilter={selectedFilter}
+          onInputChange={handleInputChange}
+          onLoadingChange={handleLoadingChange}
+          onResultsChange={handleSearchResultsChange}
+          onSelect={onSelect}
+        />
+      </Box>
+      <FinderFilter
+        filterResults={filterResults}
+        selectedFilter={selectedFilter}
+        onChange={handleFilterSelection}
+      />
+      {!isQueryEmpty && searchResults.length === 0 && !isLoading ? (
+        <Box
+          alignItems="center"
+          display="flex"
+          flexDirection="column"
+          height={220}
+          justifyContent="space-between"
+          mt={5}
+        >
+          <TourWebOfTrustSVG />
+          <Typography align="center">
+            {translate('Finder.bodyNoResultsGiven')}
+          </Typography>
+        </Box>
+      ) : (
+        <FinderResults
+          filterResults={filterResults}
+          hasActions={hasActions}
+          isLoading={isLoading}
+          selectedFilter={selectedFilter}
+          onSelect={onSelect}
+        />
+      )}
+    </Fragment>
+  );
+};
+
+const FinderSearchBar = ({
+  basePath,
+  onLoadingChange,
+  onResultsChange,
+  onInputChange,
+  input,
+  onSelect,
+}) => {
+  const history = useHistory();
+  const classes = useStyles();
   const safe = useSelector((state) => state.safe);
-
-  const onInputChange = (event) => {
-    setInput(event.target.value);
-  };
-
-  const handleSelect = (user) => {
-    onSelect(user.safeAddress);
-  };
-
-  const handleScan = (address) => {
-    setIsScannerOpen(false);
-    onSelect(address);
-  };
-
-  const handleScannerError = () => {
-    setIsScannerOpen(false);
-  };
-
-  const handleScannerOpen = () => {
-    ref.current.blur();
-    setIsScannerOpen(true);
-  };
-
-  const handleScannerClose = () => {
-    setIsScannerOpen(false);
-  };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
@@ -94,103 +268,165 @@ const Finder = ({ onSelect }) => {
         })
         .slice(0, MAX_SEARCH_RESULTS);
 
-      setSearchResults(result);
-      setIsLoading(false);
+      onResultsChange(result);
+      onLoadingChange(false);
     }),
     [],
   );
 
   useEffect(() => {
-    const cleanInput = input.trim().replaceAll('@', '');
-    setIsQueryEmpty(cleanInput.length === 0);
+    const cleanInput = cleanInputStr(input);
 
     if (cleanInput.length === 0) {
-      setSearchResults([]);
+      onResultsChange([]);
       return;
     }
 
     // Shortcut for putting in a valid address directly
     const matched = core.utils.matchAddress(cleanInput);
     if (matched) {
+      // Reset current input so we don't run into an redirect loop
+      history.replace(generatePath(basePath));
       onSelect(matched);
       return;
     }
 
-    setIsLoading(true);
+    onLoadingChange(true);
     debouncedSearch(cleanInput);
   }, [input]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Fragment>
-      <Box display="flex" mb={2}>
-        <Input
-          autoComplete="off"
-          autoFocus
-          className={classes.searchInput}
-          disableUnderline={true}
-          fullWidth
-          id="search"
-          placeholder={translate('Finder.formSearch')}
-          ref={ref}
-          value={input}
-          onChange={onInputChange}
-        />
-        <QRCodeScanner
-          isOpen={isScannerOpen}
-          onClose={handleScannerClose}
-          onError={handleScannerError}
-          onSuccess={handleScan}
-        >
-          <IconButton onClick={handleScannerOpen}>
-            <IconScan />
-          </IconButton>
-        </QRCodeScanner>
-      </Box>
-      <FinderResults
-        isLoading={isLoading}
-        isQueryEmpty={isQueryEmpty}
-        items={searchResults}
-        onClick={handleSelect}
+    <Input
+      autoComplete="off"
+      autoFocus
+      className={classes.searchInput}
+      disableUnderline={true}
+      fullWidth
+      id="search"
+      placeholder={translate('Finder.formSearch')}
+      value={input}
+      onChange={onInputChange}
+    />
+  );
+};
+
+const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
+  return (
+    <TabNavigation
+      value={selectedFilter}
+      onChange={(event, newFilter) => {
+        onChange(newFilter);
+      }}
+    >
+      <TabNavigationAction
+        icon={
+          <Badge
+            badgeContent={filterResults[FILTER_DIRECT].length}
+            color="primary"
+          >
+            <IconTrustActive />
+          </Badge>
+        }
+        label={translate('Finder.bodyFilterDirect')}
+        value={FILTER_DIRECT}
       />
+      <TabNavigationAction
+        icon={
+          <Badge
+            badgeContent={filterResults[FILTER_INDIRECT].length}
+            color="primary"
+          >
+            <IconFollow />
+          </Badge>
+        }
+        label={translate('Finder.bodyFilterIndirect')}
+        value={FILTER_INDIRECT}
+      />
+      <TabNavigationAction
+        icon={
+          <Badge
+            badgeContent={filterResults[FILTER_EXTERNAL].length}
+            color="primary"
+          >
+            <IconWorld />
+          </Badge>
+        }
+        label={translate('Finder.bodyFilterExternal')}
+        value={FILTER_EXTERNAL}
+      />
+    </TabNavigation>
+  );
+};
+
+const FinderResults = ({
+  filterResults,
+  hasActions,
+  isLoading,
+  onSelect,
+  selectedFilter,
+}) => {
+  const [limit, setLimit] = useState({
+    [FILTER_DIRECT]: PAGE_SIZE,
+    [FILTER_EXTERNAL]: PAGE_SIZE,
+    [FILTER_INDIRECT]: PAGE_SIZE,
+  });
+
+  const handleSelect = (user) => {
+    onSelect(user.safeAddress);
+  };
+
+  const handleLoadMore = () => {
+    setLimit({
+      ...limit,
+      [selectedFilter]: limit[selectedFilter] + PAGE_SIZE,
+    });
+  };
+
+  return (
+    <Fragment>
+      {filterResults[selectedFilter].length === 0 && !isLoading && (
+        <Box mt={3}>
+          <Typography align="center">
+            {translate('Finder.bodyNoResultsGiven')}
+          </Typography>
+        </Box>
+      )}
+      {isLoading && (
+        <Box alignItems="center" display="flex" justifyContent="center" mt={3}>
+          <CircularProgress />
+        </Box>
+      )}
+      {!isLoading && (
+        <Fragment>
+          <Grid container spacing={2}>
+            {filterResults[selectedFilter]
+              .slice(0, limit[selectedFilter])
+              .map((item, index) => {
+                return (
+                  <Grid item key={index} xs={12}>
+                    <FinderResultsItem
+                      hasActions={hasActions}
+                      user={item}
+                      onClick={handleSelect}
+                    />
+                  </Grid>
+                );
+              })}
+          </Grid>
+          {filterResults[selectedFilter].length > limit[selectedFilter] && (
+            <Box mt={2}>
+              <Button fullWidth isOutline onClick={handleLoadMore}>
+                {translate('Finder.buttonLoadMore')}
+              </Button>
+            </Box>
+          )}
+        </Fragment>
+      )}
     </Fragment>
   );
 };
 
-const FinderResults = (props) => {
-  if (!props.isQueryEmpty && props.items.length === 0 && !props.isLoading) {
-    return (
-      <Typography align="center">
-        {translate('Finder.bodyNoResultsGiven')}
-      </Typography>
-    );
-  }
-
-  if (props.isLoading) {
-    return (
-      <Box alignItems="center" display="flex" justifyContent="center">
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (props.isQueryEmpty) {
-    return null;
-  }
-
-  return (
-    <Grid container spacing={2}>
-      {props.items.map((item, index) => {
-        return (
-          <Grid item key={index} xs={12}>
-            <FinderItem user={item} onClick={props.onClick} />
-          </Grid>
-        );
-      })}
-    </Grid>
-  );
-};
-
-const FinderItem = (props) => {
+const FinderResultsItem = (props) => {
   const classes = useStyles();
 
   const handleSelect = () => {
@@ -201,23 +437,43 @@ const FinderItem = (props) => {
     <ProfileMini
       address={props.user.safeAddress}
       className={classes.searchItem}
+      hasActions={props.hasActions}
       onClick={handleSelect}
     />
   );
 };
 
 Finder.propTypes = {
+  basePath: PropTypes.string,
+  hasActions: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
 };
 
-FinderResults.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  isQueryEmpty: PropTypes.bool.isRequired,
-  items: PropTypes.array,
-  onClick: PropTypes.func.isRequired,
+FinderSearchBar.propTypes = {
+  basePath: PropTypes.string.isRequired,
+  input: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onLoadingChange: PropTypes.func.isRequired,
+  onResultsChange: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
-FinderItem.propTypes = {
+FinderFilter.propTypes = {
+  filterResults: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  selectedFilter: PropTypes.symbol.isRequired,
+};
+
+FinderResults.propTypes = {
+  filterResults: PropTypes.object.isRequired,
+  hasActions: PropTypes.bool,
+  isLoading: PropTypes.bool.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  selectedFilter: PropTypes.symbol.isRequired,
+};
+
+FinderResultsItem.propTypes = {
+  hasActions: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };

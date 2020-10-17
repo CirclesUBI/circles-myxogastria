@@ -15,12 +15,19 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
   },
   buttonOutline: {
+    height: 36.5, // Make it as high as the other buttons
     color: theme.palette.primary.main,
     border: `${theme.palette.primary.main} 2px solid`,
+    '&.Mui-disabled': {
+      borderColor: theme.palette.action.disabled,
+    },
   },
   buttonDanger: {
-    background: theme.palette.error.main,
+    background: theme.custom.colors.red,
     color: theme.palette.common.white,
+    '&:hover': {
+      backgroundColor: theme.custom.colors.red,
+    },
   },
   buttonPrimary: {
     background: theme.custom.gradients.purple,
@@ -55,29 +62,20 @@ const Button = React.forwardRef(
       [classes.buttonPrimary]: isPrimary,
     });
 
-    if (to) {
-      return (
-        <MuiButton
-          className={className}
-          component={Link}
-          ref={ref}
-          to={to}
-          {...props}
-        >
-          {children}
-        </MuiButton>
-      );
-    }
-
-    return (
-      <MuiButton
-        className={className}
-        ref={ref}
-        onClick={props.onClick}
-        {...props}
-      >
-        {children}
-      </MuiButton>
+    return React.createElement(
+      MuiButton,
+      {
+        className,
+        ref,
+        ...(to
+          ? {
+              to,
+              component: Link,
+            }
+          : {}),
+        ...props,
+      },
+      children,
     );
   },
 );

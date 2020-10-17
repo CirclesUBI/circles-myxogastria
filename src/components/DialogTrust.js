@@ -1,0 +1,86 @@
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import Dialog from '~/components/Dialog';
+import logError from '~/utils/debug';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import translate from '~/services/locale';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+import { trustUser } from '~/store/trust/actions';
+import { useUserdata } from '~/hooks/username';
+
+const DialogTrust = ({
+  address,
+  isOpen,
+  onClose,
+  onSuccess,
+  onConfirm,
+  onError,
+}) => {
+  const dispatch = useDispatch();
+  const { username } = useUserdata(address);
+
+  const handleTrustClose = () => {
+    onClose && onClose();
+  };
+
+  const handleTrust = async () => {
+    dispatch(showSpinnerOverlay());
+    onConfirm && onConfirm();
+
+    try {
+      await dispatch(trustUser(address));
+
+      dispatch(
+        notify({
+          text: translate('DialogTrust.successTrust', {
+            username,
+          }),
+          type: NotificationsTypes.SUCCESS,
+        }),
+      );
+
+      onSuccess && onSuccess();
+    } catch (error) {
+      logError(error);
+
+      dispatch(
+        notify({
+          text: translate('DialogTrust.errorTrust', {
+            username,
+          }),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+
+      onError && onError();
+    }
+
+    dispatch(hideSpinnerOverlay());
+  };
+
+  return (
+    <Dialog
+      cancelLabel={translate('DialogTrust.dialogTrustCancel')}
+      confirmLabel={translate('DialogTrust.dialogTrustConfirm')}
+      id="trust"
+      open={isOpen}
+      text={translate('DialogTrust.dialogTrustDescription', { username })}
+      title={translate('DialogTrust.dialogTrustTitle', { username })}
+      onClose={handleTrustClose}
+      onConfirm={handleTrust}
+    />
+  );
+};
+
+DialogTrust.propTypes = {
+  address: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func,
+  onConfirm: PropTypes.func,
+  onError: PropTypes.func,
+  onSuccess: PropTypes.func,
+};
+
+export default DialogTrust;

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 /* eslint no-console: 0 */
 
 const glob = require('glob');
@@ -25,7 +24,6 @@ function getAllLocaleFiles() {
             acc[locale] = require(filePath);
             return acc;
           }, {});
-
           resolve(locales);
         }
       },
@@ -35,31 +33,45 @@ function getAllLocaleFiles() {
 
 console.log('Check locale files');
 
-getAllLocaleFiles().then((locales) => {
-  // Collect all keys together
-  const foundKeys = [];
-  Object.keys(locales).forEach((locale) => {
-    const keys = Object.keys(locales[locale]);
-    console.log(`Found locale "${locale}" with ${keys.length} keys`);
-
-    keys.forEach((key) => {
-      if (!foundKeys.includes(key)) {
-        foundKeys.push(key);
+function getAllKeys(locales, locale) {
+  return Object.keys(locales[locale]).reduce((acc, rootKey) => {
+    Object.keys(locales[locale][rootKey]).forEach((key) => {
+      const localeKey = `${rootKey}.${key}`;
+      if (!acc.includes(localeKey)) {
+        acc.push(localeKey);
       }
     });
-  });
+    return acc;
+  }, []);
+}
+
+getAllLocaleFiles().then((locales) => {
+  // Collect all keys together
+  const foundKeys = Object.keys(locales).reduce((acc, locale) => {
+    const localeKeys = getAllKeys(locales, locale);
+    localeKeys.forEach((localeKey) => {
+      if (!acc.includes(localeKey)) {
+        acc.push(localeKey);
+      }
+    });
+    console.log(`Found locale "${locale}" with ${localeKeys.length} root keys`);
+    return acc;
+  }, []);
 
   // Check for missing keys in each locale
   let errors = 0;
   Object.keys(locales).forEach((locale) => {
-    const keys = Object.keys(locales[locale]);
-
-    foundKeys.forEach((key) => {
-      if (!keys.includes(key)) {
-        console.log(`Missing key "${key}" in locale "${locale}"`);
+    const localeKeys = getAllKeys(locales, locale);
+    foundKeys.forEach((foundKey) => {
+      const [rootKey, key] = foundKey.split('.');
+      if (!localeKeys.includes(foundKey)) {
+        console.log(`Missing key "${rootKey}.${key}" in locale "${locale}"`);
         errors += 1;
-      } else if (locales[locale][key].length === 0) {
-        console.log(`Empty key "${key}" in locale "${locale}"`);
+      } else if (
+        typeof locales[locale][rootKey][key] === 'string' &&
+        locales[locale][rootKey][key].length === 0
+      ) {
+        console.log(`Empty key "${rootKey}.${key}" in locale "${locale}"`);
         errors += 1;
       }
     });

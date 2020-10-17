@@ -77,6 +77,15 @@ export function checkTokenState() {
       return;
     }
 
+    // Organizations don't have a Token
+    if (safe.isOrganization) {
+      if (token.address) {
+        dispatch(resetToken());
+      }
+
+      return;
+    }
+
     // Token address already exists
     if (token.address) {
       return;
@@ -90,7 +99,7 @@ export function checkTokenState() {
       const address = await core.token.getAddress(safe.currentAccount);
 
       if (address === ZERO_ADDRESS) {
-        throw new Error('Invalid Token address');
+        throw new Error(`Invalid Token address for ${safe.currentAccount}`);
       }
 
       dispatch({
@@ -115,7 +124,7 @@ export function checkCurrentBalance() {
     const { safe, token } = getState();
 
     // No token address given yet
-    if (!token.address) {
+    if (!token.address && !safe.isOrganization) {
       return;
     }
 
@@ -187,7 +196,7 @@ export function requestUBIPayout(payout) {
   };
 }
 
-export function transfer(to, amount) {
+export function transfer(to, amount, paymentNote = '') {
   return async (dispatch, getState) => {
     dispatch({
       type: ActionTypes.TOKEN_TRANSFER,
@@ -198,7 +207,7 @@ export function transfer(to, amount) {
 
     try {
       const value = new web3.utils.BN(core.utils.toFreckles(amount));
-      const txHash = await core.token.transfer(from, to, value);
+      const txHash = await core.token.transfer(from, to, value, paymentNote);
 
       dispatch(
         addPendingActivity({

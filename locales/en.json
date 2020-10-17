@@ -1,31 +1,50 @@
 {
+  "Activities": {
+    "headingActivityLog": "Activity Log"
+  },
   "ActivityStream": {
     "bodyActivityAddedToSafe": "was added to this account",
-    "bodyActivityMeTrustedSomeone": "You trusted {actor}",
-    "bodyActivityMeUntrustedSomeone": "You untrusted {actor}",
+    "bodyActivityMeTrustedSomeone": "You trust @{actor}",
+    "bodyActivityMeUntrustedSomeone": "You untrust @{actor}",
     "bodyActivityMyselfAddedToSafe": "You linked this device to this account",
-    "bodyActivityReceivedCircles": "{actor} sent you {value} {denominator}",
-    "bodyActivityReceivedUBI": "You received {value} {denominator} as your UBI",
-    "bodyActivityRemovedFromSafe": "{actor} was removed from this account",
-    "bodyActivitySentCircles": "You sent {value} {denominator} to {actor}",
-    "bodyActivityTrustedBySomeone": "{actor} trusted you",
-    "bodyActivityUntrustedBySomeone": "{actor} untrusted you",
+    "bodyActivityReceivedCircles": "@{actor} sent you",
+    "bodyActivityReceivedUBI": "Circles UBI",
+    "bodyActivityRemovedFromSafe": "@{actor} was removed from this account",
+    "bodyActivitySentCircles": "Sent to @{actor}",
+    "bodyActivityTrustedBySomeone": "@{actor} trusts you",
     "bodyDateNow": "Now",
-    "bodyNothingHereYet": "There are no activities to display yet",
-    "buttonLoadMore": "Load more"
+    "bodyExplainMeTrustedSomeone": "You trusted @{actor} which means that @{actor} can send you their tokens.",
+    "bodyExplainMeUntrustedSomeone": "You untrusted @{actor} which means that you do not accept any tokens from them anymore.",
+    "bodyExplainReceivedCircles": "You received {value} {denominator} from @{actor} transitively.",
+    "bodyExplainReceivedUBI": "This is your Universal Basic Income, issued as your own personal currency. You receive circa {rate} per month.",
+    "bodyExplainSecondary": "All activities carry a small transaction fee used to maintain the Circles network.",
+    "bodyExplainSentCircles": "You sent {value} {denominator} to @{actor} transitively.",
+    "bodyExplainTrustedBySomeone": "@{actor} trusts you. You can send your token to them now.",
+    "bodyExplainUntrustedBySomeone": "@{actor} untrusts you which means that they do not accept your token anymore.",
+    "bodyNothingHereYet": "There are no recent activities to display yet",
+    "bodyPaymentNote": "Note: {note}",
+    "buttonLoadMore": "Load more",
+    "linkLearnMore": "Learn more."
+  },
+  "ActivityStreamWithTabs": {
+    "bodyFilterConnections": "Connections",
+    "bodyFilterTransactions": "Transactions"
   },
   "App": {
     "errorUpdate": "Something went wrong, are you connected to the internet? {errorMessage}"
   },
+  "AvatarUploader": {
+    "errorAvatarUpload": "Could not upload image. Is it the right format and size?"
+  },
   "BalanceDisplay": {
-    "tooltipYourBalance": "Your basic income is issued continuously at the rate of circa {rate} Circles a month."
+    "tooltipYourBalance": "Your basic income is issued continuously at the rate of {rate} Circles a month."
   },
   "ButtonClipboard": {
     "buttonCopy": "Copy to clipboard",
     "infoCopiedMessage": "Text copied to clipboard"
   },
   "CriticalError": {
-    "bodyCriticalErrorDescription": "Oh no! This looks bad. Your account seems to be corrupted and we can not recover from this current state.",
+    "bodyCriticalErrorDescription": "Oh no! Something went wrong. Please reload this page and try again.",
     "bodyCriticalErrorTryAgain": "Oh no! Something went wrong while loading your account. Please reload this page and try again.",
     "buttonBurnWallet": "Reset account",
     "buttonReload": "Refresh page",
@@ -33,19 +52,36 @@
     "infoCopiedMessage": "Text copied to clipboard"
   },
   "Dashboard": {
-    "formSearch": "Search"
+    "formSearch": "Add or search contacts"
   },
-  "Devices": {
-    "buttonBurnWallet": "End Session",
+  "DialogBurn": {
     "dialogBurnCancel": "Cancel",
     "dialogBurnConfirm": "End Session",
-    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have a Seed Phrase!",
-    "dialogBurnTitle": "Warning!",
-    "headingDangerZone": "Danger Zone",
-    "headingManageDevices": "Settings"
+    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have your Seed Phrase!",
+    "dialogBurnTitle": "Warning!"
+  },
+  "DialogTrust": {
+    "dialogTrustCancel": "Cancel",
+    "dialogTrustConfirm": "Trust",
+    "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can affect the security of the app. In order to stay safe only trust people you know in real life.",
+    "dialogTrustTitle": "Do you trust @{username}?",
+    "errorTrust": "Something went wrong when you tried to trust @{username} ...",
+    "successTrust": "Nice. You trusted @{username}!"
+  },
+  "DialogTrustRevoke": {
+    "dialogRevokeTrustCancel": "Cancel",
+    "dialogRevokeTrustConfirm": "Revoke trust",
+    "dialogRevokeTrustDescription": "Are you sure you want to revoke trust in @{username}?",
+    "dialogRevokeTrustTitle": "Untrust @{username}",
+    "errorRevokeTrust": "Something went wrong when you tried to untrust @{username} ...",
+    "successRevokeTrust": "You successfully revoked your trust in @{username}!"
   },
   "Finder": {
-    "bodyNoResultsGiven": "No results given ...",
+    "bodyFilterDirect": "Directly trusted",
+    "bodyFilterExternal": "External",
+    "bodyFilterIndirect": "In your network",
+    "bodyNoResultsGiven": "No search results found!",
+    "buttonLoadMore": "Show more",
     "formSearch": "Search"
   },
   "LocaleSelector": {
@@ -54,33 +90,20 @@
     "es": "ES"
   },
   "Login": {
-    "bodyCreateNewWallet": "No account yet?",
+    "bodyEnterYourSeedPhrase": "Enter your seed phrase below to restore your wallet:",
+    "bodyLostYourSeedPhrase": "Lost your seed phrase?",
     "bodyNeedHelp": "Questions?",
-    "bodyUseThisQRCode": "Scan QR code or copy device address to add this device to an already existing account:",
     "buttonCreateNewWallet": "Sign up here.",
-    "buttonRestoreWithSeedPhrase": "Restore with Seed Phrase",
-    "buttonShowSelector": "Show accounts to connect to",
-    "dialogActionClose": "Cancel",
-    "dialogActionConnect": "Yes, connect",
-    "dialogBodySelector": "Do you want to connect this device to the following accounts?",
-    "dialogTitleSelector": "Connect device",
-    "formPublicAddress": "This device address",
+    "buttonSubmit": "Submit",
+    "errorRestoreFailedInvalidSeedphrase": "Your seed phrase is invalid.",
+    "errorRestoreFailedUnknown": "Could not restore account due to an unknown error.",
+    "errorRestoreFailedUnknownSafe": "The account you try to restore is not registered.",
     "headingLogin": "Login",
     "linkSupport": "Go to support.",
     "successWelcome": "Successfully connected to account. Welcome!"
   },
-  "LoginSeedPhrase": {
-    "bodyEnterYourSeedPhrase": "Enter your seed phrase below to restore your wallet:",
-    "bodyLostYourSeedPhrase": "Lost your seed phrase?",
-    "bodyNeedHelp": "Questions?",
-    "buttonCreateNewWallet": "Create new wallet",
-    "buttonSubmit": "Submit",
-    "errorRestoreFailed": "Could not restore account. Is your seed phrase correct?",
-    "headingLoginSeedPhrase": "Login via Seed Phrase",
-    "linkSupport": "Go to support.",
-    "successWelcome": "Successfully restored wallet. Welcome!"
-  },
   "MyProfile": {
+    "buttonCreateSharedWallet": "Create shared wallet",
     "buttonShowProfile": "Show Profile",
     "buttonShowQR": "Show QR Code"
   },
@@ -97,28 +120,21 @@
     "linkSupport": "Support"
   },
   "NotFound": {
-    "bodyNotFound": "Ouch. We could not find the requested page. Did you maybe mistype the address?",
+    "bodyNotFound": "Ouch. We could not find the requested page. Are you sure it's the right address?",
     "headingNotFound": "Not found"
   },
   "Onboarding": {
     "bodyAvatar": "Your photo is how your friends can search for you on the Circles App.",
-    "bodyEmail": "We never share your email address and only use it to inform you about important changes of the platform.",
+    "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
     "bodySeedPhrase": "This is your account password. Please save this somewhere private!",
     "bodySeedPhraseChallenge": "Please enter word {wordIndex} in your seed phrase:",
     "bodyUsername": "Your username is how your friends can search for you on the Circles App.",
     "buttonCopyToClipboard": "Copy to clipboard",
-    "buttonFinish": "Sign me up!",
-    "buttonNextStep": "Submit",
-    "errorAvatarUpload": "Could not upload image. Is it the right format and size?",
-    "errorSignup": "Server error occurred during sign up. {errorMessage}",
+    "errorSignup": "A server error occurred during sign up: {errorMessage}",
     "formEmail": "Email",
-    "formEmailInvalid": "Invalid email address",
     "formSeedPhraseChallenge": "Your answer",
     "formSeedPhraseChallengeInvalid": "Wrong answer",
-    "formUnknownError": "Unknown error ",
     "formUsername": "Username",
-    "formUsernameInvalidFormat": "Only basic characters and numbers (A-Z, 0-9) allowed, no symbols or whitespace, 3-24 characters",
-    "formUsernameTaken": "Username is already taken",
     "headingAvatar": "Add Photo",
     "headingEmail": "Enter Email",
     "headingSeedPhrase": "Save Seed Phrase",
@@ -126,22 +142,87 @@
     "headingUsername": "Create Your Username",
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },
+  "OnboardingOrganization": {
+    "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",
+    "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
+    "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. Send 1 or more Circles to your new wallet to finish setup.",
+    "bodyUsername": "Your wallet name is how people can search for your organization on the Circles App.",
+    "errorSignup": "A server error occurred: {errorMessage}",
+    "formEmail": "Email",
+    "formPrefundAmount": "Fund amount",
+    "formPrefundInvalid": "This amount is higher than your current token balance",
+    "formPrefundSender": "From sender",
+    "formUsername": "Wallet name",
+    "headingAvatar": "Add Photo",
+    "headingEmail": "Enter Email",
+    "headingPrefund": "Fund your organization",
+    "headingUsername": "Name your wallet",
+    "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
+  },
+  "OnboardingStepper": {
+    "buttonFinish": "Sign me up!",
+    "buttonNextStep": "Continue"
+  },
+  "OrganizationMembers": {
+    "buttonRemoveMember": "Remove",
+    "dialogCancel": "Cancel",
+    "dialogConfirm": "Remove member",
+    "dialogRemoveMember": "Are you sure you want to remove @{username} from this organization?",
+    "dialogTitle": "Remove @{username}",
+    "errorRemovedMember": "Something went wrong, @{username} could not be removed from organization",
+    "headingMembers": "Organization members",
+    "successRemovedMember": "You've successfully removed @{username} from this organization."
+  },
+  "OrganizationMembersAdd": {
+    "dialogAddMember": "Before inviting a new member, please note that all members can send Circles from this organization account. Are you sure you want to add @{username}?",
+    "dialogCancel": "Cancel",
+    "dialogConfirm": "Add member",
+    "dialogTitle": "Add @{username}",
+    "errorAddedMember": "Something went wrong, @{username} could not be added to organization",
+    "headingAddMember": "Add member",
+    "successAddedMember": "You've successfully added @{username} to this organization."
+  },
   "Profile": {
-    "dialogRevokeTrustCancel": "Cancel",
-    "dialogRevokeTrustConfirm": "Revoke trust",
-    "dialogRevokeTrustDescription": "Are you sure you want to revoke your trust with {username}?",
-    "dialogRevokeTrustTitle": "Untrust {username}",
-    "dialogTrustCancel": "Cancel",
-    "dialogTrustConfirm": "Trust",
-    "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can effect the security of the app. In order to stay safe only trust people you know.",
-    "dialogTrustTitle": "Do you trust {username}?",
-    "errorRevokeTrust": "Something went wrong when you tried to untrust {username} ...",
-    "errorTrust": "Something went wrong when you tried to trust {username} ...",
+    "bodyActivity": "Activity",
+    "bodyNoActivities": "No activities yet.",
+    "bodyNoMutualFriends": "No mutual trusted peers found.",
+    "bodyStatusCommonFriends": {
+      "one": "@{username} is trusted by one person you trust",
+      "other": "@{username} is trusted by {count} people you trust",
+      "zero": "@{username} is not trusted by anyone you trust"
+    },
+    "bodyStatusMeTrusting": "You trust @{username}",
+    "bodyStatusMutualTrust": "You and @{username} trust each other",
+    "bodyStatusNotDeployedYet": "This account has not yet been verified",
+    "bodyStatusTrustingMe": "@{username} trusts you",
+    "bodyTrustedBy": "Trusted by",
     "shareText": "Check out my Circles UBI profile!",
-    "successRevokeTrust": "You successfully revoked your trust from {username}!",
-    "successTrust": "Nice. You trusted {username}!",
     "tooltipSafeIsYou": "This is your own profile",
-    "tooltipSafeNotDeployed": "This user did not complete their Circles account yet"
+    "tooltipSafeNotDeployed": "This account has not yet been verified"
+  },
+  "ProfileMini": {
+    "bodyMutualFriends": {
+      "one": "You have one mututal trust relation in common with @{username}",
+      "other": "You have {count} mutual trust relations in common with @{username}",
+      "zero": "You have no mututal trust relations in common with @{username}"
+    },
+    "bodyUndeployedToken": "Account not verified"
+  },
+  "QRCodeScanner": {
+    "notificationError": "Could not open QR code scanner: {error}."
+  },
+  "QRGenerator": {
+    "buttonShowQRCode": "Show QR Code",
+    "dialogClose": "Close",
+    "dialogSaveFile": "Save as .png file",
+    "dialogShare": "Share payment link",
+    "formAmount": "Amount",
+    "formPaymentNote": "Note",
+    "formReceiver": "Receiver",
+    "headingGenerator": "QR Generator"
+  },
+  "Search": {
+    "headingSearch": "Trust Network"
   },
   "SeedPhrase": {
     "bodyDescription": "Print this and store it safely:",
@@ -152,22 +233,48 @@
     "headingSendCircles": "Send Circles"
   },
   "SendConfirm": {
-    "bodyHowMuch": "How much would you like to send?",
-    "bodyTo": "To:",
-    "buttonSubmitAmount": "Next",
+    "bodyAmountTooHigh": {
+      "one": "You can currently only send a maximum of {count} Circles to @{username}.",
+      "other": "You can currently only send a maximum of {count} Circles to @{username}.",
+      "zero": "You can currently not send anything to @{username} which means that there is no trust path between you."
+    },
+    "bodyMaxFlow": "Maximum amount: {amount}",
+    "bodyPaymentNoteInvalid": "You cannot write special symbols like {}<>^ and more than 100 characters.",
+    "buttonSubmitAmount": "Send",
     "dialogSendCancel": "Cancel",
-    "dialogSendConfirm": "Send",
-    "dialogSendDescription": "Are you sure you want to send {amount} Circles to {username}?",
-    "dialogSendTitle": "Send Circles",
+    "dialogSendConfirm": "Confirm",
+    "dialogSendDescription": "Send @{username} {amount} Circles",
     "errorMessage": "Something went wrong .. {errorMessage}",
-    "errorMessageTransfer": "Could not transfer Circles as there is currently no complete trust path between {username} and you ..",
+    "errorMessageTransferInvalid": "Could not transfer Circles as it is invalid.",
+    "errorMessageTransferNotFound": "Could not transfer Circles as there is currently no complete trust path between @{username} and you ..",
+    "errorMessageTransferTooComplex": "Could not transfer Circles as there are too many hops required to send Circles to @{username}. Consider sending a smaller amount and ask @{username} to trust you directly to make this transfer easier.",
+    "errorMessageTransferUnknown": "Could not transfer Circles. Something went wrong!",
+    "formAmount": "Enter amount",
+    "formPaymentNote": "Add note",
+    "formReceiver": "Send to",
+    "formSender": "Send from",
     "headingSendCircles": "Send Circles",
-    "successMessage": "You transferred {amount} Circles successfully to {username}!"
+    "successMessage": "You transferred {amount} Circles successfully to @{username}!",
+    "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}"
+  },
+  "Settings": {
+    "bodyDeviceAddress": "Device address",
+    "bodySafeAddress": "Profile address",
+    "bodyTokenAddress": "Token address",
+    "buttonBurnWallet": "End Session",
+    "headingDangerZone": "Danger Zone",
+    "headingSettings": "Settings",
+    "headingStatus": "Status"
   },
   "Share": {
+    "buttonQRGenerator": "Generate QR Codes",
     "buttonShareProfileLink": "Share",
     "headingShare": "My QR Code",
     "shareText": "Hey! Check out my Circles UBI profile!"
+  },
+  "TransferInfoBalanceCard": {
+    "bodyTotalBalance": "Your total balance: {balance}",
+    "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
   },
   "Tutorial": {
     "buttonFinish": "Got it.",
@@ -175,22 +282,22 @@
     "buttonSkip": "Skip"
   },
   "TutorialOnboarding": {
-    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support an alternative economy.",
-    "bodyUnconditionalIncome": "Circles is designed similar to a basic income. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
+    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support and create an alternative economy.",
+    "bodyUnconditionalIncome": "Circles is designed to be a basic income from the bottom-up. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
     "bodyWebOfTrust": "You can spend Circles with people you trust, and the people they trust. ",
     "headingBuildYourOwnEconomy": "Build Your Own Economy",
     "headingUnconditionalIncome": "Unconditional Income",
     "headingWebOfTrust": "A Web of Trust"
   },
   "UBI": {
-    "infoUbiPayoutReceived": "You received {payout} Circles UBI!"
+    "infoUbiPayoutReceived": "You received {payout} Circles!"
   },
   "Validation": {
     "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your seed phrase.",
     "bodyTrustDescription": "To receive your basic income,",
-    "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
+    "bodyTrustDescriptionEmphasize": "Three people must trust your profile.",
     "buttonShareProfileLink": "Share Profile Link",
-    "headingBuildYourWebOfTrust": "Build your web of trust",
+    "headingBuildYourWebOfTrust": "Verify your account",
     "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
   },
   "ValidationLock": {
@@ -206,6 +313,14 @@
     "bodyReadyForDeployment": "Your account is ready now, click the button below to create it:",
     "buttonStartDeployment": "Create account"
   },
+  "VerifiedEmailInput": {
+    "formEmailInvalid": "Invalid email address"
+  },
+  "VerifiedUsernameInput": {
+    "formUnknownError": "Unknown error ",
+    "formUsernameInvalidFormat": "Only basic characters and numbers (A-Z, 0-9) are allowed, no symbols or whitespace, 3-24 characters",
+    "formUsernameTaken": "Name is already taken"
+  },
   "Welcome": {
     "buttonLogin": "Log in",
     "buttonSignUp": "Sign up",
@@ -216,7 +331,7 @@
     "linkPrivacyLegal": "Privacy + Legal"
   },
   "default": {
-    "bodyEOLNotification": "We're launching Circles officially 16.10. on the xDai network! Since this app is currently running on a test network your profile will be shut off on that same day. You will need to create a new profile for the official Circles network.",
-    "bodyStagingNotification": "Please note that you're currently using Circles in a test network which is used for developers to experiment with the system. This means that errors can occur as we're experimenting with new instable features, your Circles can only be used for testing and you can loose your profile, tokens and data anytime."
+    "bodyEOLNotification": "We're launching Circles officially on 16.10. on the xDai network! Since this app is currently running on a test network your profile will be shut off on that same day. You will need to create a new profile for the official Circles network.",
+    "bodyStagingNotification": "Please note that you're currently using Circles in a test network which is used by developers to experiment with the system. This means that errors can occur as we're experimenting with new unstable features, your Circles can only be used for testing and you can lose your profile, tokens and data anytime."
   }
 }

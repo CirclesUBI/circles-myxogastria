@@ -1,4 +1,5 @@
-import { generatePath } from 'react-router';
+import qs from 'qs';
+import { generatePath, useLocation } from 'react-router';
 
 import { SEND_CONFIRM_PATH, SEND_PATH, PROFILE_PATH } from '~/routes';
 
@@ -23,7 +24,17 @@ export function useRelativeSendLink(address) {
   });
 }
 
-export function useSendLink(address) {
+export function useSendLink(address, amount, paymentNote) {
+  const query = qs.stringify({
+    a: amount,
+    n: paymentNote,
+  });
+
   const relative = useRelativeSendLink(address);
-  return `${process.env.BASE_PATH}${relative}`;
+  return `${process.env.BASE_PATH}${relative}?${query}`;
+}
+
+export function useQuery() {
+  const location = useLocation();
+  return qs.parse(location.search.slice(1));
 }

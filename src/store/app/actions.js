@@ -9,20 +9,22 @@ import {
   checkFinishedActivities,
   checkPendingActivities,
   initializeActivities,
-  loadMoreActivities,
+  loadMoreAllActivities,
   resetActivities,
 } from '~/store/activity/actions';
 import { checkOnboardingState } from '~/store/onboarding/actions';
 import {
-  checkSafeState,
+  checkSharedSafeState,
   initializeSafe,
   resetSafe,
+  switchCurrentAccount,
 } from '~/store/safe/actions';
 import { checkTrustState } from '~/store/trust/actions';
 import {
   initializeTutorials,
   resetAllTutorials,
 } from '~/store/tutorial/actions';
+import { formatErrorMessage } from '~/utils/debug';
 import { initializeWallet, burnWallet } from '~/store/wallet/actions';
 import { setUser } from '~/services/sentry';
 
@@ -44,10 +46,13 @@ export function initializeApp() {
 
     try {
       await dispatch(waitForConnection());
-    } catch {
+    } catch (error) {
+      const errorMessage = formatErrorMessage(error);
+
       dispatch({
         type: ActionTypes.APP_INITIALIZE_ERROR,
         meta: {
+          errorMessage,
           isCritical: false,
         },
       });
@@ -71,7 +76,7 @@ export function initializeApp() {
 
       // Already check for older activities to see if we can hide the "Load
       // More" button
-      await dispatch(loadMoreActivities());
+      await dispatch(loadMoreAllActivities());
 
       // Check for additional states ...
       await dispatch(checkAppState());
@@ -82,9 +87,12 @@ export function initializeApp() {
 
       dispatch(hideSpinnerOverlay());
     } catch (error) {
+      const errorMessage = formatErrorMessage(error);
+
       dispatch({
         type: ActionTypes.APP_INITIALIZE_ERROR,
         meta: {
+          errorMessage,
           isCritical: true,
         },
       });
@@ -105,7 +113,7 @@ export function checkAppState() {
     }
 
     // Onboarding / validation states
-    await dispatch(checkSafeState());
+    await dispatch(checkSharedSafeState());
     await dispatch(checkTrustState());
 
     // In-app states
@@ -131,7 +139,8 @@ export function checkAuthState() {
 
     const isAuthorized =
       (!!safe.currentAccount || !!safe.pendingAddress) && !!wallet.address;
-    const isValidated = !!token.address && !safe.pendingAddress;
+    const isValidated =
+      (!!token.address || safe.isOrganization) && !safe.pendingAddress;
 
     if (isAuthorized !== app.isAuthorized || isValidated !== app.isValidated) {
       dispatch({
@@ -167,8 +176,26 @@ export function waitForConnection() {
   };
 }
 
+export function switchAccount(address) {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    if (!safe.accounts.includes(address)) {
+      throw new Error('Selected address is not an option');
+    }
+
+    await dispatch(switchCurrentAccount(address));
+    await dispatch(resetToken());
+    await dispatch(resetActivities({ isClearingStorage: false }));
+    await dispatch(initializeActivities());
+    await dispatch(checkAppState());
+  };
+}
+
 export function burnApp() {
   return async (dispatch) => {
+    dispatch(showSpinnerOverlay());
+
     await dispatch(burnWallet());
     await dispatch(resetSafe());
     await dispatch(checkAuthState());
@@ -176,7 +203,11 @@ export function burnApp() {
     await dispatch(resetActivities());
     await dispatch(resetAllTutorials());
 
-    window.location.reload();
+    // Redirect to home and then refresh page
+    window.location.href = process.env.BASE_PATH;
+    window.setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 }
 

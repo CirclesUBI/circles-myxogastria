@@ -1,38 +1,121 @@
-import React, { Fragment, useState } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
-import { Box, Container, Paper, Input, Typography } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import React, { Fragment, useEffect, useState } from 'react';
+import qs from 'qs';
+import {
+  Redirect,
+  generatePath,
+  useHistory,
+  useParams,
+} from 'react-router-dom';
+import {
+  Box,
+  Container,
+  Dialog,
+  DialogContent,
+  Grid,
+  Typography,
+  Zoom,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
 import CenteredHeading from '~/components/CenteredHeading';
-import Dialog from '~/components/Dialog';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
-import ProfileMini from '~/components/ProfileMini';
+import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
+import TransferInfoCard from '~/components/TransferInfoCard';
+import TransferInput from '~/components/TransferInput';
 import View from '~/components/View';
 import core from '~/services/core';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
-import { DASHBOARD_PATH } from '~/routes';
+import web3 from '~/services/web3';
+import { DASHBOARD_PATH, SEND_CONFIRM_PATH } from '~/routes';
+import { IconSend } from '~/styles/icons';
+import { formatCirclesValue } from '~/utils/format';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { transfer } from '~/store/token/actions';
+import { useQuery } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
+import { validatePaymentNote, validateAmount } from '~/services/token';
+
+const { ErrorCodes, TransferError } = core.errors;
+
+const useStyles = makeStyles((theme) => ({
+  dialogPaymentNote: {
+    fontWeight: theme.typography.fontWeightRegular,
+    color: theme.palette.grey['900'],
+    wordWrap: 'break-word',
+  },
+}));
 
 const SendConfirm = () => {
   const { address } = useParams();
+  const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const [amount, setAmount] = useState(0);
-  const [isSent, setIsSent] = useState(false);
+  // Set amount and payment note based on URL query
+  const {
+    a: preselectedAmount = '',
+    n: preselectedPaymentNote = '',
+  } = useQuery();
+  const [amount, setAmount] = useState(
+    validateAmount(preselectedAmount) ? preselectedAmount : '',
+  );
+  const [paymentNote, setPaymentNote] = useState(
+    validatePaymentNote(preselectedPaymentNote) ? preselectedPaymentNote : '',
+  );
+
   const [isConfirmationShown, setIsConfirmationShown] = useState(false);
+  const [isSent, setIsSent] = useState(false);
+  const [maxFlow, setMaxFlow] = useState(null);
 
-  const { username } = useUserdata(address);
+  const { safe, token } = useSelector((state) => state);
 
-  const onAmountChange = (event) => {
-    setAmount(event.target.value);
+  const { username: sender } = useUserdata(safe.currentAccount);
+  const { username: receiver } = useUserdata(address);
+
+  const maxAmount = parseFloat(
+    formatCirclesValue(
+      web3.utils.BN.min(
+        web3.utils.toBN(token.balance),
+        web3.utils.toBN(
+          web3.utils.toWei(maxFlow ? `${maxFlow}` : '0', 'ether'),
+        ),
+      ),
+    ),
+  );
+
+  const isAmountTooHigh = (amount ? parseFloat(amount) : 0) > maxAmount;
+  const isPaymentNoteInvalid =
+    paymentNote.length > 0 && !validatePaymentNote(paymentNote);
+
+  const updateUrl = (newPaymentNote, newAmount) => {
+    const query = qs.stringify({
+      a: newAmount,
+      n: newPaymentNote,
+    });
+
+    history.replace(`${generatePath(SEND_CONFIRM_PATH, { address })}?${query}`);
+  };
+
+  const handleAmountChange = (event) => {
+    const newAmount = event.target.value;
+    if (newAmount && !validateAmount(newAmount)) {
+      return;
+    }
+    setAmount(newAmount);
+    updateUrl(paymentNote, newAmount);
+  };
+
+  const handlePaymentNoteChange = (event) => {
+    const newPaymentNote = event.target.value;
+    setPaymentNote(newPaymentNote);
+    updateUrl(newPaymentNote, amount);
   };
 
   const handleConfirmOpen = () => {
@@ -48,13 +131,13 @@ const SendConfirm = () => {
     setIsConfirmationShown(false);
 
     try {
-      await dispatch(transfer(address, amount));
+      await dispatch(transfer(address, amount, paymentNote));
 
       dispatch(
         notify({
           text: translate('SendConfirm.successMessage', {
             amount,
-            username,
+            username: receiver,
           }),
           type: NotificationsTypes.SUCCESS,
         }),
@@ -65,10 +148,19 @@ const SendConfirm = () => {
       logError(error);
       let text;
 
-      if (error instanceof core.errors.TransferError) {
-        text = translate('SendConfirm.errorMessageTransfer', {
+      if (error instanceof TransferError) {
+        // Convert TransferError codes into human readable error messages
+        let messageId = 'Unknown';
+        if (error.code === ErrorCodes.TOO_COMPLEX_TRANSFER) {
+          messageId = 'TooComplex';
+        } else if (error.code === ErrorCodes.INVALID_TRANSFER) {
+          messageId = 'Invalid';
+        } else if (error.code === ErrorCodes.TRANSFER_NOT_FOUND) {
+          messageId = 'NotFound';
+        }
+        text = translate('SendConfirm.errorMessageTransfer' + messageId, {
           amount,
-          username,
+          username: receiver,
         });
       } else {
         text = translate('SendConfirm.errorMessage', {
@@ -87,6 +179,23 @@ const SendConfirm = () => {
     dispatch(hideSpinnerOverlay());
   };
 
+  useEffect(() => {
+    const getMaxFlow = async () => {
+      try {
+        const response = await core.token.findTransitiveTransfer(
+          safe.currentAccount,
+          address,
+          new web3.utils.BN(web3.utils.toWei('1', 'ether')), // Any amount works here
+        );
+        setMaxFlow(response.maxFlowValue);
+      } catch (error) {
+        setMaxFlow(0);
+      }
+    };
+
+    getMaxFlow();
+  }, [address, safe.currentAccount]);
+
   if (isSent) {
     return <Redirect to={DASHBOARD_PATH} />;
   }
@@ -94,18 +203,51 @@ const SendConfirm = () => {
   return (
     <Fragment>
       <Dialog
-        cancelLabel={translate('SendConfirm.dialogSendCancel')}
-        confirmLabel={translate('SendConfirm.dialogSendConfirm')}
-        id="send"
+        aria-describedby={`dialog-send-text`}
+        aria-labelledby={`dialog-send-description`}
         open={isConfirmationShown}
-        text={translate('SendConfirm.dialogSendDescription', {
-          amount,
-          username,
-        })}
-        title={translate('SendConfirm.dialogSendTitle', { amount, username })}
         onClose={handleConfirmClose}
-        onConfirm={handleSend}
-      />
+      >
+        <DialogContent>
+          <Typography align="center" variant="h6">
+            @{sender}
+          </Typography>
+          <Zoom
+            in={isConfirmationShown}
+            style={{ transitionDelay: isConfirmationShown ? '250ms' : '0ms' }}
+          >
+            <Box
+              my={2}
+              style={{
+                textAlign: 'center',
+                fontSize: '100px',
+                height: '100px',
+              }}
+            >
+              <IconSend color="primary" fontSize="inherit" />
+            </Box>
+          </Zoom>
+          <Typography align="center" gutterBottom>
+            {translate('SendConfirm.dialogSendDescription', {
+              amount,
+              username: receiver,
+            })}
+          </Typography>
+          <Typography align="center" className={classes.dialogPaymentNote}>
+            {paymentNote}
+          </Typography>
+          <Box mb={1} mt={2}>
+            <Button autoFocus fullWidth isPrimary onClick={handleSend}>
+              {translate('SendConfirm.dialogSendConfirm')}
+            </Button>
+          </Box>
+          <Box mb={2}>
+            <Button fullWidth isOutline onClick={handleConfirmClose}>
+              {translate('SendConfirm.dialogSendCancel')}
+            </Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
       <Header>
         <ButtonBack />
         <CenteredHeading>
@@ -115,34 +257,66 @@ const SendConfirm = () => {
       </Header>
       <View>
         <Container maxWidth="sm">
-          <Box my={4}>
-            <Typography align="center" gutterBottom>
-              {translate('SendConfirm.bodyTo')}
-            </Typography>
-            <ProfileMini address={address} />
-          </Box>
-          <Typography align="center" gutterBottom>
-            {translate('SendConfirm.bodyHowMuch')}
-          </Typography>
-          <Paper>
-            <Box p={2}>
-              <Input
-                disableUnderline={true}
-                fullWidth
-                inputProps={{
-                  min: 0,
-                }}
-                type="number"
-                value={amount}
-                onChange={onAmountChange}
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TransferInfoBalanceCard
+                address={safe.currentAccount}
+                balance={token.balance}
+                label={translate('SendConfirm.formSender')}
               />
-            </Box>
-          </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <TransferInfoCard
+                address={address}
+                isLoading={maxFlow === null}
+                label={translate('SendConfirm.formReceiver')}
+                text={translate('SendConfirm.bodyMaxFlow', {
+                  amount:
+                    maxFlow !== null
+                      ? formatCirclesValue(
+                          web3.utils.toWei(`${maxAmount}`, 'ether'),
+                        )
+                      : '',
+                })}
+                tooltip={translate('SendConfirm.tooltipMaxFlow', {
+                  username: receiver,
+                })}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TransferInput
+                autoFocus
+                errorMessage={translate('SendConfirm.bodyAmountTooHigh', {
+                  count: formatCirclesValue(
+                    web3.utils.toWei(`${maxAmount}`, 'ether'),
+                  ),
+                  username: receiver,
+                })}
+                id="amount"
+                isError={isAmountTooHigh}
+                label={translate('SendConfirm.formAmount')}
+                value={amount}
+                onChange={handleAmountChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TransferInput
+                errorMessage={translate('SendConfirm.bodyPaymentNoteInvalid')}
+                id="payment-note"
+                isError={isPaymentNoteInvalid}
+                label={translate('SendConfirm.formPaymentNote')}
+                value={paymentNote}
+                onChange={handlePaymentNoteChange}
+              />
+            </Grid>
+          </Grid>
         </Container>
       </View>
       <Footer>
         <Button
-          disabled={!(amount > 0)}
+          disabled={
+            !amount || amount <= 0 || isAmountTooHigh || isPaymentNoteInvalid
+          }
           fullWidth
           isPrimary
           onClick={handleConfirmOpen}

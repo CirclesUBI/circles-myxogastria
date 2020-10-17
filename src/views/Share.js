@@ -29,7 +29,7 @@ const Share = () => {
         </Container>
       </View>
       <Footer>
-        <ButtonShare fullWidth isOutline text={shareText} url={shareLink}>
+        <ButtonShare fullWidth isPrimary text={shareText} url={shareLink}>
           {translate('Share.buttonShareProfileLink')}
         </ButtonShare>
       </Footer>

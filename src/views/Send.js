@@ -4,12 +4,13 @@ import { Redirect } from 'react-router-dom';
 import { generatePath } from 'react-router';
 
 import ButtonBack from '~/components/ButtonBack';
+import ButtonQRCodeScanner from '~/components/ButtonQRCodeScanner';
+import CenteredHeading from '~/components/CenteredHeading';
 import Finder from '~/components/Finder';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import translate from '~/services/locale';
-import CenteredHeading from '~/components/CenteredHeading';
-import { SEND_CONFIRM_PATH } from '~/routes';
+import { SEND_PATH, SEND_CONFIRM_PATH } from '~/routes';
 
 const Send = () => {
   const [redirectPath, setRedirectPath] = useState(null);
@@ -33,10 +34,11 @@ const Send = () => {
         <CenteredHeading>
           {translate('Send.headingSendCircles')}
         </CenteredHeading>
+        <ButtonQRCodeScanner edge="end" onSelect={handleSelect} />
       </Header>
       <View>
         <Container maxWidth="sm">
-          <Finder onSelect={handleSelect} />
+          <Finder basePath={SEND_PATH} onSelect={handleSelect} />
         </Container>
       </View>
     </Fragment>

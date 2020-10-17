@@ -20,6 +20,18 @@ async function requestCore(moduleName, method, options) {
 // Safe module
 
 const safe = {
+  getSafeStatus: async (safeAddress) => {
+    return await requestCore('safe', 'getSafeStatus', {
+      safeAddress,
+    });
+  },
+
+  predictAddress: async (nonce) => {
+    return await requestCore('safe', 'predictAddress', {
+      nonce,
+    });
+  },
+
   prepareDeploy: async (nonce) => {
     return await requestCore('safe', 'prepareDeploy', {
       nonce,
@@ -34,6 +46,12 @@ const safe = {
 
   deploy: async (safeAddress) => {
     return await requestCore('safe', 'deploy', {
+      safeAddress,
+    });
+  },
+
+  deployForOrganization: async (safeAddress) => {
+    return await requestCore('safe', 'deployForOrganization', {
       safeAddress,
     });
   },
@@ -148,11 +166,26 @@ const token = {
     });
   },
 
-  transfer: async (from, to, value) => {
+  getPaymentNote: async (transactionHash) => {
+    return await requestCore('token', 'getPaymentNote', {
+      transactionHash,
+    });
+  },
+
+  findTransitiveTransfer: async (from, to, value) => {
+    return await requestCore('token', 'findTransitiveTransfer', {
+      from,
+      to,
+      value,
+    });
+  },
+
+  transfer: async (from, to, value, paymentNote) => {
     return await requestCore('token', 'transfer', {
       from,
       to,
       value,
+      paymentNote,
     });
   },
 
@@ -173,13 +206,51 @@ const token = {
 
 const activity = {
   ActivityTypes: core.activity.ActivityTypes,
+  ActivityFilterTypes: core.activity.ActivityFilterTypes,
 
-  getLatest: async (safeAddress, limit, timestamp = 0, offset = 0) => {
+  getLatest: async (safeAddress, filter, limit, timestamp = 0, offset = 0) => {
     return await requestCore('activity', 'getLatest', {
-      safeAddress,
+      filter,
       limit,
       offset,
+      safeAddress,
       timestamp,
+    });
+  },
+};
+
+// Organization module
+
+const organization = {
+  isFunded: async (safeAddress) => {
+    return await requestCore('organization', 'isFunded', {
+      safeAddress,
+    });
+  },
+
+  isOrganization: async (safeAddress) => {
+    return await requestCore('organization', 'isOrganization', {
+      safeAddress,
+    });
+  },
+
+  deploy: async (safeAddress) => {
+    return await requestCore('organization', 'deploy', {
+      safeAddress,
+    });
+  },
+
+  prefund: async (from, to, value) => {
+    return await requestCore('organization', 'prefund', {
+      from,
+      to,
+      value,
+    });
+  },
+
+  getMembers: async (safeAddress) => {
+    return await requestCore('organization', 'getMembers', {
+      safeAddress,
     });
   },
 };
@@ -197,17 +268,19 @@ const utils = {
 
 // Errors
 
-const { CoreError, TransferError, RequestError } = core;
+const { ErrorCodes, CoreError, TransferError, RequestError } = core;
 
 const errors = {
+  ErrorCodes,
   CoreError,
-  TransferError,
   RequestError,
+  TransferError,
 };
 
 export default {
   activity,
   errors,
+  organization,
   safe,
   token,
   trust,

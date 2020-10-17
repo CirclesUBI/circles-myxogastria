@@ -56,4 +56,4 @@ Dialog.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default Dialog;
+export default React.memo(Dialog);

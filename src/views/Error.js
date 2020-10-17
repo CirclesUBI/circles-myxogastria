@@ -1,53 +1,71 @@
-import React from 'react';
-import { Container, Typography } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { Box, Container, Typography } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
+import DialogBurn from '~/components/DialogBurn';
+import HumbleAlert from '~/components/HumbleAlert';
 import View from '~/components/View';
 import translate from '~/services/locale';
-import { burnApp } from '~/store/app/actions';
 
 const CriticalError = () => {
-  const dispatch = useDispatch();
-  const app = useSelector((state) => state.app);
+  const { app, wallet, safe, token } = useSelector((state) => state);
+  const [isConfirmationShown, setIsConfirmationShown] = useState(false);
 
-  const onBurnClick = () => {
-    if (window.confirm(translate('CriticalError.dialogAreYouSure'))) {
-      dispatch(burnApp());
-    }
+  const handleConfirmOpen = () => {
+    setIsConfirmationShown(true);
+  };
+
+  const handleConfirmClose = () => {
+    setIsConfirmationShown(false);
   };
 
   const onReload = () => {
     window.location.reload();
   };
 
-  if (app.isErrorCritical) {
-    return (
-      <View>
-        <Container maxWidth="sm">
-          <Typography align="center" gutterBottom>
-            {translate('CriticalError.bodyCriticalErrorDescription')}
-          </Typography>
-          <Button fullWidth isPrimary onClick={onBurnClick}>
+  return (
+    <View>
+      <DialogBurn isOpen={isConfirmationShown} onClose={handleConfirmClose} />
+      <Container maxWidth="sm">
+        <Typography align="center" gutterBottom>
+          {app.isErrorCritical
+            ? translate('CriticalError.bodyCriticalErrorDescription')
+            : translate('CriticalError.bodyCriticalErrorTryAgain')}
+        </Typography>
+        {app.errorMessage && (
+          <Box my={2} style={{ wordBreak: 'break-word' }}>
+            <HumbleAlert>
+              <Typography gutterBottom>{app.errorMessage}</Typography>
+              {wallet.address && (
+                <Typography component="p" variant="caption">
+                  Device: {wallet.address}
+                </Typography>
+              )}
+              {safe.currentAccount && (
+                <Typography component="p" variant="caption">
+                  Safe: {safe.currentAccount}
+                </Typography>
+              )}
+              {token.address && (
+                <Typography component="p" variant="caption">
+                  Token: {token.address}
+                </Typography>
+              )}
+            </HumbleAlert>
+          </Box>
+        )}
+        <Button fullWidth isPrimary onClick={onReload}>
+          {translate('CriticalError.buttonReload')}
+        </Button>
+        <Box mt={2}>
+          <Button fullWidth isDanger onClick={handleConfirmOpen}>
             {translate('CriticalError.buttonBurnWallet')}
           </Button>
-        </Container>
-      </View>
-    );
-  } else {
-    return (
-      <View>
-        <Container maxWidth="sm">
-          <Typography align="center" gutterBottom>
-            {translate('CriticalError.bodyCriticalErrorTryAgain')}
-          </Typography>
-          <Button fullWidth isPrimary onClick={onReload}>
-            {translate('CriticalError.buttonReload')}
-          </Button>
-        </Container>
-      </View>
-    );
-  }
+        </Box>
+      </Container>
+    </View>
+  );
 };
 
 export default CriticalError;

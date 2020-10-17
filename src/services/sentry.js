@@ -1,4 +1,6 @@
 import * as Sentry from '@sentry/browser';
+import { Integrations } from '@sentry/tracing';
+
 import core from '~/services/core';
 
 const { TransferError, RequestError, CoreError } = core.errors;
@@ -12,6 +14,8 @@ export default function initializeSentry() {
     dsn: process.env.SENTRY_DSN_URL,
     environment: process.env.NODE_ENV,
     release: `${process.env.RELEASE_VERSION} (${process.env.CORE_RELEASE_VERSION})`,
+    integrations: [new Integrations.BrowserTracing()],
+    tracesSampleRate: 1.0,
     ignoreErrors: [/connection not open/, /NetworkError/, /AbortError/],
     beforeSend: (event, hint) => {
       const exception = hint.originalException;

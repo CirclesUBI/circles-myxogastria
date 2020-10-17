@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState } from 'react';
 import clsx from 'clsx';
 import {
-  Badge,
+  Avatar,
   Box,
   CircularProgress,
   Container,
@@ -9,7 +9,7 @@ import {
   InputAdornment,
   Input,
 } from '@material-ui/core';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, generatePath } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
@@ -24,8 +24,9 @@ import Navigation from '~/components/Navigation';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import translate from '~/services/locale';
+import { CATEGORIES } from '~/store/activity/reducers';
 import { IconMenu, IconNotification, IconSearch } from '~/styles/icons';
-import { MY_PROFILE_PATH, SEARCH_PATH } from '~/routes';
+import { MY_PROFILE_PATH, SEND_PATH, SEARCH_PATH } from '~/routes';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {
@@ -83,6 +84,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey['100'],
     color: theme.palette.grey['800'],
   },
+  notificationCount: {
+    width: '28px',
+    height: '28px',
+    backgroundColor: 'transparent',
+    border: `1px solid ${theme.palette.primary.main}`,
+    color: theme.palette.primary.main,
+    fontSize: 12,
+    fontWeight: theme.typography.fontWeightMedium,
+  },
 }));
 
 const Dashboard = () => {
@@ -138,7 +148,7 @@ const Dashboard = () => {
         className={clsx(classes.fabSend, {
           [classes.fabSendExpanded]: isMenuExpanded,
         })}
-        to="/send"
+        to={generatePath(SEND_PATH)}
       />
       <Drawer />
     </Fragment>
@@ -146,22 +156,26 @@ const Dashboard = () => {
 };
 
 const DashboardActivityIcon = () => {
-  const { activities, lastSeenAt } = useSelector((state) => {
+  const classes = useStyles();
+  const { categories, lastSeenAt } = useSelector((state) => {
     return state.activity;
   });
 
   // Is there any pending transactions?
-  const isPending =
-    activities.findIndex((activity) => {
+  const isPending = CATEGORIES.find((category) => {
+    return !!categories[category].activities.find((activity) => {
       return activity.isPending;
-    }) > -1;
+    });
+  });
 
   // Count how many activities we haven't seen yet
-  const count = activities.reduce((acc, activity) => {
-    if (activity.createdAt > lastSeenAt) {
-      return acc + 1;
-    }
-    return acc;
+  const count = CATEGORIES.reduce((acc, category) => {
+    return (
+      acc +
+      categories[category].activities.reduce((itemAcc, activity) => {
+        return activity.createdAt > lastSeenAt ? itemAcc + 1 : itemAcc;
+      }, 0)
+    );
   }, 0);
 
   return (
@@ -171,9 +185,15 @@ const DashboardActivityIcon = () => {
       edge="end"
       to="/activities"
     >
-      <Badge badgeContent={count} color="primary">
-        {isPending ? <CircularProgress size={25} /> : <IconNotification />}
-      </Badge>
+      {isPending ? (
+        <CircularProgress size={28} />
+      ) : count > 0 ? (
+        <Avatar className={classes.notificationCount}>
+          {count > 99 ? '99+' : count}
+        </Avatar>
+      ) : (
+        <IconNotification style={{ fontSize: 28 }} />
+      )}
     </IconButton>
   );
 };
@@ -185,7 +205,7 @@ const DashboardSearch = () => {
 
   const handleSearchSelect = () => {
     ref.current.blur();
-    history.push(SEARCH_PATH);
+    history.push(generatePath(SEARCH_PATH));
   };
 
   return (

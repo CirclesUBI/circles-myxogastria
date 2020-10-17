@@ -1,189 +1,141 @@
 import PropTypes from 'prop-types';
-import React, { useMemo, useEffect } from 'react';
+import React, { Fragment, useState, useMemo } from 'react';
+import clsx from 'clsx';
 import {
   Avatar as MuiAvatar,
+  Badge,
   Box,
   Card,
+  CardContent,
   CardHeader,
   CircularProgress,
+  Collapse,
+  Divider,
   Grid,
+  IconButton,
   Typography,
+  Zoom,
 } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
+import ExternalLink from '~/components/ExternalLink';
+import Logo from '~/components/Logo';
 import core from '~/services/core';
 import translate from '~/services/locale';
-import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
-import { ZERO_ADDRESS } from '~/utils/constants';
-import { formatCirclesValue } from '~/utils/format';
+import { IconCloseOutline } from '~/styles/icons';
+import { ZERO_ADDRESS, FAQ_URL, ISSUANCE_RATE_MONTH } from '~/utils/constants';
+import { formatMessage } from '~/services/activity';
+import { usePaymentNote } from '~/hooks/transfer';
 import { useRelativeProfileLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 
 const { ActivityTypes } = core.activity;
 
 const useStyles = makeStyles((theme) => ({
-  avatarPending: {
+  avatarTransparent: {
     width: theme.custom.components.avatarSize,
     height: theme.custom.components.avatarSize,
     backgroundColor: 'transparent',
   },
+  cardHeader: {
+    cursor: 'pointer',
+  },
+  cardHeaderUnseen: {
+    position: 'relative',
+    '&::after': {
+      position: 'absolute',
+      top: theme.spacing(1.5),
+      right: theme.spacing(1.5),
+      display: 'block',
+      content: '""',
+      borderRadius: '50%',
+      width: 7,
+      height: 7,
+      background: theme.custom.gradients.purple,
+    },
+  },
+  cardHeaderContent: {
+    fontWeight: theme.typography.fontWeight,
+  },
+  cardHeaderSubheader: {
+    fontWeight: theme.typography.fontWeightLight,
+    fontSize: '0.8rem',
+  },
+  cardHeaderAction: {
+    marginTop: 0,
+    marginRight: theme.spacing(0.25),
+    alignSelf: 'center',
+    fontSize: '2rem',
+    fontWeight: theme.typography.fontWeightLight,
+  },
+  cardContent: {
+    paddingTop: 0,
+    paddingBottom: `${theme.spacing(1.5)}px !important`,
+  },
+  cardContentText: {
+    fontSize: '0.8rem',
+    paddingBottom: theme.spacing(1),
+  },
+  cardContentPaymentNote: {
+    margin: 0,
+    paddingBottom: 0,
+    fontSize: '0.8rem',
+    wordWrap: 'break-word',
+    fontWeight: theme.typography.fontWeightMedium,
+  },
+  cardContentCloseIcon: {
+    color: theme.palette.grey['700'],
+  },
+  divider: {
+    margin: theme.spacing(1, 0),
+  },
 }));
 
-// Parse the activity item and extract the most
-// interesting bits from it ..
-function formatMessage(props) {
-  let actorAddress;
-  let isOwnerAddress = false;
-  let messageId;
-
-  if (props.type === ActivityTypes.ADD_CONNECTION) {
-    if (props.data.canSendTo === props.safeAddress) {
-      // I've created a trust connection
-      messageId = 'MeTrustedSomeone';
-      actorAddress = props.data.user;
-    } else {
-      // Someone created a trust connection with you
-      messageId = 'TrustedBySomeone';
-      actorAddress = props.data.canSendTo;
-    }
-  } else if (props.type === ActivityTypes.REMOVE_CONNECTION) {
-    if (props.data.canSendTo === props.safeAddress) {
-      // I've removed a trust connection
-      messageId = 'MeUntrustedSomeone';
-      actorAddress = props.data.user;
-    } else {
-      // Someone removed a trust connection with you
-      messageId = 'UntrustedBySomeone';
-      actorAddress = props.data.canSendTo;
-    }
-  } else if (props.type === ActivityTypes.TRANSFER) {
-    if (props.data.from === ZERO_ADDRESS) {
-      // I've received Circles from the Hub (UBI)
-      messageId = 'ReceivedUBI';
-    } else if (props.data.to === process.env.SAFE_FUNDER_ADDRESS) {
-      // I've paid Gas fees for a transaction
-      // @TODO: Right now not covered by the core
-      messageId = 'PaidGasCosts';
-    }
-  } else if (props.type === ActivityTypes.HUB_TRANSFER) {
-    if (props.data.to === props.safeAddress) {
-      // I've received Circles from someone
-      messageId = 'ReceivedCircles';
-      actorAddress = props.data.from;
-    } else {
-      // I've sent Circles to someone
-      messageId = 'SentCircles';
-      actorAddress = props.data.to;
-    }
-  } else if (props.type === ActivityTypes.ADD_OWNER) {
-    if (props.data.ownerAddress === props.walletAddress) {
-      // I've got added to a Safe (usually during Safe creation)
-      messageId = 'MyselfAddedToSafe';
-    } else {
-      // I've added someone to my Safe
-      messageId = 'AddedToSafe';
-      isOwnerAddress = true;
-      actorAddress = props.data.ownerAddress;
-    }
-  } else if (props.type === ActivityTypes.REMOVE_OWNER) {
-    // I've removed someone from my Safe
-    messageId = 'RemovedFromSafe';
-    isOwnerAddress = true;
-    actorAddress = props.data.ownerAddress;
-  }
-
-  // Format the given timestamp to a readable string
-  const createdAt = DateTime.fromISO(props.createdAt);
-  const date =
-    createdAt > DateTime.local().minus({ days: 7 })
-      ? createdAt > DateTime.local().minus({ minutes: 1 })
-        ? translate('ActivityStream.bodyDateNow')
-        : createdAt.toRelative()
-      : createdAt.toFormat('dd/LL/yy HH:mm');
-
-  // Check if find a value in the data (during transfers)
-  const data = Object.assign({}, props.data);
-
-  if ('value' in data) {
-    // Convert the value according to its denominator
-    const valueInCircles = formatCirclesValue(data.value, 4);
-    data.denominator = 'Circles';
-    data.value = valueInCircles;
-  }
-
-  if (!messageId) {
-    throw new Error('Unknown activity type');
-  }
-
-  return {
-    actorAddress,
-    data,
-    date,
-    isOwnerAddress,
-    messageId,
-  };
-}
-
-const ActivityStream = () => {
-  const activity = useSelector((state) => state.activity);
-  const dispatch = useDispatch();
-  const isLoading = activity.isLoadingMore || activity.lastUpdated === 0;
-
-  const onLoadMore = () => {
-    dispatch(loadMoreActivities());
-  };
-
-  useEffect(() => {
-    // Update last seen timestamp when we leave
-    return () => {
-      dispatch(updateLastSeen());
-    };
-  }, [dispatch]);
-
+const ActivityStream = ({
+  activities,
+  isLoading,
+  isMoreAvailable,
+  lastSeenAt,
+  lastUpdatedAt,
+  onLoadMore,
+}) => {
   return (
-    <Grid container spacing={2}>
-      <ActivityStreamList />
+    <Fragment>
+      <ActivityStreamList
+        activities={activities}
+        lastSeenAt={lastSeenAt}
+        lastUpdatedAt={lastUpdatedAt}
+      />
       {isLoading && (
-        <Grid item xs={12}>
-          <Box m="auto">
-            <CircularProgress />
-          </Box>
-        </Grid>
+        <Box mx="auto" my={2} textAlign="center">
+          <CircularProgress />
+        </Box>
       )}
-      {activity.isMoreAvailable && (
-        <Grid item xs={12}>
+      {isMoreAvailable && onLoadMore && (
+        <Box my={2}>
           <Button disabled={isLoading} fullWidth isOutline onClick={onLoadMore}>
             {translate('ActivityStream.buttonLoadMore')}
           </Button>
-        </Grid>
+        </Box>
       )}
-    </Grid>
+    </Fragment>
   );
 };
 
-const ActivityStreamList = () => {
-  const {
-    activities,
-    lastUpdated,
-    lastSeenAt,
-    safeAddress,
-    walletAddress,
-  } = useSelector((state) => {
+const ActivityStreamList = ({ activities, lastSeenAt, lastUpdatedAt }) => {
+  const { safeAddress, walletAddress } = useSelector((state) => {
     return {
-      activities: state.activity.activities,
-      lastSeenAt: state.activity.lastSeenAt,
-      lastUpdated: state.activity.lastUpdated,
       safeAddress: state.safe.currentAccount,
       walletAddress: state.wallet.address,
     };
   });
 
-  if (lastUpdated === 0) {
+  if (lastUpdatedAt === 0) {
     return null;
   }
 
@@ -195,51 +147,79 @@ const ActivityStreamList = () => {
     );
   }
 
-  return activities.reduce(
-    (acc, { data, hash, createdAt, type, isPending = false }) => {
-      // Filter Gas transfers
-      if (
-        type === ActivityTypes.TRANSFER &&
-        data.to === process.env.SAFE_FUNDER_ADDRESS
-      ) {
-        return acc;
-      }
+  return (
+    <Grid container spacing={2}>
+      {activities.reduce(
+        (acc, { data, hash, createdAt, type, isPending, txHash }) => {
+          // Always filter gas transfers
+          if (
+            type === ActivityTypes.TRANSFER &&
+            data.to === process.env.SAFE_FUNDER_ADDRESS
+          ) {
+            return acc;
+          }
 
-      const item = (
-        <Grid item key={hash} xs={12}>
-          <ActivityStreamItem
-            createdAt={createdAt}
-            data={data}
-            isPending={isPending}
-            isSeen={createdAt < lastSeenAt}
-            safeAddress={safeAddress}
-            type={type}
-            walletAddress={walletAddress}
-          />
-        </Grid>
-      );
+          const isSeen =
+            DateTime.fromISO(lastSeenAt) > DateTime.fromISO(createdAt);
 
-      acc.push(item);
+          const item = (
+            <Grid item key={hash} xs={12}>
+              <ActivityStreamItem
+                createdAt={createdAt}
+                data={data}
+                isPending={isPending}
+                isSeen={isSeen}
+                safeAddress={safeAddress}
+                txHash={txHash}
+                type={type}
+                walletAddress={walletAddress}
+              />
+            </Grid>
+          );
 
-      return acc;
-    },
-    [],
+          acc.push(item);
+
+          return acc;
+        },
+        [],
+      )}
+    </Grid>
   );
 };
 
 const ActivityStreamItem = (props) => {
   const classes = useStyles();
+  const [isExpanded, setIsExanded] = useState(false);
+
+  const handleClick = () => {
+    setIsExanded(!isExpanded);
+  };
 
   // Reformat the message for the user
-  const { date, data, messageId, actorAddress, isOwnerAddress } = formatMessage(
-    props,
-  );
+  const {
+    addressActor,
+    addressOrigin,
+    addressTarget,
+    data,
+    formattedDate,
+    messageId,
+  } = formatMessage(props);
 
-  const actor = useUserdata(actorAddress).username;
-
+  const actor = useUserdata(addressActor).username;
   const profilePath = useRelativeProfileLink(
-    actorAddress && !isOwnerAddress ? actorAddress : props.safeAddress,
+    addressActor ? addressActor : props.safeAddress,
   );
+
+  const isUBIPayout =
+    props.type === ActivityTypes.TRANSFER && props.data.from === ZERO_ADDRESS;
+
+  const value = useMemo(() => {
+    if (!data.value) {
+      return;
+    }
+    const prefix = data.from === props.safeAddress ? '-' : '+';
+    return `${prefix}${data.value}`;
+  }, [data, props.safeAddress]);
 
   const message = useMemo(() => {
     return translate(`ActivityStream.bodyActivity${messageId}`, {
@@ -251,24 +231,163 @@ const ActivityStreamItem = (props) => {
   return (
     <Card>
       <CardHeader
+        action={value}
         avatar={
           <Link to={profilePath}>
             {props.isPending ? (
-              <MuiAvatar className={classes.avatarPending}>
+              <MuiAvatar className={classes.avatarTransparent}>
                 <CircularProgress size={40} />
               </MuiAvatar>
-            ) : actorAddress ? (
-              <Avatar address={actorAddress} />
+            ) : isUBIPayout ? (
+              <MuiAvatar className={classes.avatarTransparent}>
+                <Logo size="tiny" />
+              </MuiAvatar>
             ) : (
-              <Avatar address={props.safeAddress} />
+              <Box className={classes.avatarTransparent}>
+                <ActivityStreamAvatars
+                  addressOrigin={addressOrigin}
+                  addressTarget={addressTarget}
+                />
+              </Box>
             )}
           </Link>
         }
-        subheader={date}
-        title={<Typography>{message}</Typography>}
+        classes={{
+          root: clsx(classes.cardHeader, {
+            [classes.cardHeaderUnseen]: !props.isSeen,
+          }),
+          action: classes.cardHeaderAction,
+          content: classes.cardHeaderContent,
+          subheader: classes.cardHeaderSubheader,
+        }}
+        subheader={formattedDate}
+        title={message}
+        onClick={handleClick}
       />
+      <Collapse in={isExpanded}>
+        <CardContent className={classes.cardContent}>
+          <ActivityStreamExplained
+            actor={actor}
+            data={data}
+            isExpanded={isExpanded}
+            messageId={messageId}
+            txHash={props.txHash}
+            type={props.type}
+          />
+          <Zoom
+            in={isExpanded}
+            style={{ transitionDelay: isExpanded ? '250ms' : '0ms' }}
+          >
+            <Box display="flex" justifyContent="center">
+              <IconButton onClick={handleClick}>
+                <IconCloseOutline className={classes.cardContentCloseIcon} />
+              </IconButton>
+            </Box>
+          </Zoom>
+        </CardContent>
+      </Collapse>
     </Card>
   );
+};
+
+const ActivityStreamExplained = ({
+  actor,
+  data,
+  messageId,
+  type,
+  txHash,
+  isExpanded,
+}) => {
+  const classes = useStyles();
+
+  const text = useMemo(() => {
+    return translate(`ActivityStream.bodyExplain${messageId}`, {
+      ...data,
+      actor,
+      rate: ISSUANCE_RATE_MONTH,
+    });
+  }, [actor, data, messageId]);
+
+  return (
+    <Fragment>
+      {type === ActivityTypes.HUB_TRANSFER && isExpanded && (
+        <ActivityStreamPaymentNote txHash={txHash} />
+      )}
+      <Typography
+        className={classes.cardContentText}
+        color="textSecondary"
+        component="p"
+        variant="body1"
+      >
+        {text}
+      </Typography>
+      <Typography
+        className={classes.cardContentText}
+        color="textSecondary"
+        component="p"
+        variant="body1"
+      >
+        {translate('ActivityStream.bodyExplainSecondary')}{' '}
+        <ExternalLink href={FAQ_URL}>
+          {translate('ActivityStream.linkLearnMore')}
+        </ExternalLink>
+      </Typography>
+    </Fragment>
+  );
+};
+
+const ActivityStreamPaymentNote = ({ txHash }) => {
+  const classes = useStyles();
+  const paymentNote = usePaymentNote(txHash);
+
+  return (
+    paymentNote && (
+      <Fragment>
+        <Divider className={classes.divider} light />
+        <Typography
+          className={classes.cardContentPaymentNote}
+          color="textSecondary"
+          component="p"
+          variant="body1"
+        >
+          {translate('ActivityStream.bodyPaymentNote', {
+            note: paymentNote,
+          })}
+        </Typography>
+        <Divider className={classes.divider} light />
+      </Fragment>
+    )
+  );
+};
+
+const ActivityStreamAvatars = ({ addressOrigin, addressTarget }) => {
+  return (
+    <Badge
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      badgeContent={<Avatar address={addressTarget} size="tiny" />}
+      overlap="circle"
+    >
+      <Avatar address={addressOrigin} size="tiny" />
+    </Badge>
+  );
+};
+
+ActivityStream.propTypes = {
+  activities: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isMoreAvailable: PropTypes.bool.isRequired,
+  lastSeenAt: PropTypes.string,
+  lastUpdatedAt: PropTypes.string,
+  onLoadMore: PropTypes.func,
+};
+
+ActivityStreamList.propTypes = {
+  activities: PropTypes.array.isRequired,
+  lastSeenAt: PropTypes.string,
+  lastUpdatedAt: PropTypes.string,
 };
 
 ActivityStreamItem.propTypes = {
@@ -277,8 +396,27 @@ ActivityStreamItem.propTypes = {
   isPending: PropTypes.bool.isRequired,
   isSeen: PropTypes.bool.isRequired,
   safeAddress: PropTypes.string.isRequired,
+  txHash: PropTypes.string.isRequired,
   type: PropTypes.symbol.isRequired,
   walletAddress: PropTypes.string.isRequired,
+};
+
+ActivityStreamExplained.propTypes = {
+  actor: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  isExpanded: PropTypes.bool.isRequired,
+  messageId: PropTypes.string.isRequired,
+  txHash: PropTypes.string.isRequired,
+  type: PropTypes.symbol.isRequired,
+};
+
+ActivityStreamPaymentNote.propTypes = {
+  txHash: PropTypes.string.isRequired,
+};
+
+ActivityStreamAvatars.propTypes = {
+  addressOrigin: PropTypes.string.isRequired,
+  addressTarget: PropTypes.string.isRequired,
 };
 
 export default ActivityStream;

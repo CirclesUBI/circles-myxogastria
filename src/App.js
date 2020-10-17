@@ -4,47 +4,46 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { IconAlert, IconClose } from '~/styles/icons';
 import { SnackbarProvider } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
+import { use100vh } from 'react-div-100vh';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
 import SpinnerOverlay from '~/components/SpinnerOverlay';
 import UBI from '~/components/UBI';
-import debounce from '~/utils/debounce';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import { checkAppState, initializeApp } from '~/store/app/actions';
 
-const APP_CHECK_FREQUENCY = 1000 * 4;
-const APP_CHECK_FREQUENCY_DEVELOPMENT = 1000 * 10;
+const APP_CHECK_FREQUENCY = 1000 * 15;
 
 const useStyles = makeStyles((theme) => ({
   app: {
-    overflow: 'hidden',
     minWidth: theme.custom.components.appMinWidth,
     maxWidth: theme.custom.components.appMaxWidth,
-    minHeight: '100vh',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     margin: '0 auto',
   },
+  snackbar: {},
   // @NOTE: Hacky use of !important, see related issue:
   // https://github.com/iamhosseindhv/notistack/issues/305
   snackbarInfo: {
-    backgroundColor: `${theme.palette.info.main} !important`,
+    background: `${theme.custom.gradients.info} !important`,
     color: `${theme.palette.info.contrastText} !important`,
   },
   snackbarWarning: {
-    backgroundColor: `${theme.palette.warning.main} !important`,
+    background: `${theme.custom.gradients.warning} !important`,
     color: `${theme.palette.warning.contrastText} !important`,
   },
   snackbarError: {
-    backgroundColor: `${theme.palette.error.main} !important`,
+    background: `${theme.custom.gradients.error} !important`,
     color: `${theme.palette.error.contrastText} !important`,
   },
   snackbarSuccess: {
-    backgroundColor: `${theme.palette.success.main} !important`,
+    background: `${theme.custom.gradients.success} !important`,
     color: `${theme.palette.success.contrastText} !important`,
   },
   snackbarIconVariant: {
@@ -60,32 +59,12 @@ const App = () => {
   const ref = useRef();
   const notistackRef = useRef();
 
+  // Fix issue where there was always one pixel too much in the calculation
+  const height = use100vh() - 1;
+
   const onClickDismiss = (notificationId) => () => {
     notistackRef.current.closeSnackbar(notificationId);
   };
-
-  const adjustViewport = () => {
-    if (!ref.current) {
-      return;
-    }
-
-    // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
-    const vh = window.innerHeight * 0.01;
-    ref.current.style.setProperty('--vh', `${vh}px`);
-  };
-
-  const handleResize = debounce(() => {
-    adjustViewport();
-  }, 100);
-
-  useEffect(() => {
-    adjustViewport();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [handleResize]);
 
   useEffect(() => {
     let checkInterval;
@@ -127,12 +106,7 @@ const App = () => {
 
     initializeState();
 
-    const checkFrequency =
-      process.env.NODE_ENV === 'production'
-        ? APP_CHECK_FREQUENCY
-        : APP_CHECK_FREQUENCY_DEVELOPMENT;
-
-    checkInterval = window.setInterval(updateState, checkFrequency);
+    checkInterval = window.setInterval(updateState, APP_CHECK_FREQUENCY);
 
     return () => {
       isUnloading = true;
@@ -166,7 +140,7 @@ const App = () => {
       ref={notistackRef}
     >
       <Router>
-        <Box className={classes.app} ref={ref}>
+        <Box className={classes.app} ref={ref} style={{ height }}>
           <UBI />
           <Notifications />
           <SpinnerOverlay isVisible={app.isLoading} />

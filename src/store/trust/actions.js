@@ -65,13 +65,14 @@ export function checkTrustState() {
         .map((connection) => {
           return {
             ...connection,
-            username: results[connection.safeAddress].username,
+            ...results[connection.safeAddress],
           };
         })
         .sort((itemA, itemB) => {
-          return itemA.username
-            .toLowerCase()
-            .localeCompare(itemB.username.toLowerCase());
+          // Use safeAddress as a fallback when username does not exist
+          const valueA = itemA.username ? itemA.username : itemA.safeAddress;
+          const valueB = itemB.username ? itemB.username : itemB.safeAddress;
+          return valueA.toLowerCase().localeCompare(valueB.toLowerCase());
         });
 
       dispatch({
