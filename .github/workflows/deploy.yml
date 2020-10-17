@@ -1,0 +1,56 @@
+name: Deploy website via Github Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.0
+        with:
+          node-version: '12.x'
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build page
+        env:
+          API_SERVICE_EXTERNAL: ${{ secrets.API_SERVICE_EXTERNAL }}
+          BASE_PATH: ${{ secrets.BASE_PATH }}
+          ETHEREUM_NODE_ENDPOINT: ${{ secrets.ETHEREUM_NODE_ENDPOINT }}
+          ETHEREUM_NODE_WS: ${{ secrets.ETHEREUM_NODE_WS }}
+          EXPLORER_URL: ${{ secrets.EXPLORER_URL }}
+          GRAPH_NODE_EXTERNAL: ${{ secrets.GRAPH_NODE_EXTERNAL }}
+          HUB_ADDRESS: ${{ secrets.HUB_ADDRESS }}
+          PROXY_FACTORY_ADDRESS: ${{ secrets.PROXY_FACTORY_ADDRESS }}
+          RELAY_SERVICE_EXTERNAL: ${{ secrets.RELAY_SERVICE_EXTERNAL }}
+          SAFE_ADDRESS: ${{ secrets.SAFE_ADDRESS }}
+          SAFE_FUNDER_ADDRESS: ${{ secrets.SAFE_FUNDER_ADDRESS }}
+          SENTRY_DSN_URL: ${{ secrets.SENTRY_DSN_URL }}
+          STORAGE_NAMESPACE: ${{ secrets.STORAGE_NAMESPACE }}
+          SUBGRAPH_NAME: ${{ secrets.SUBGRAPH_NAME }}
+          NODE_ENV: 'production'
+        run: npm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          cname: circles.garden
