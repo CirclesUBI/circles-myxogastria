@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'transparent',
     border: `1px solid ${theme.palette.text.primary}`,
     cursor: 'pointer',
+    transform: 'rotate(90deg)',
   },
 }));
 
