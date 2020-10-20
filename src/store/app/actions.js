@@ -1,15 +1,8 @@
 import ActionTypes from '~/store/app/types';
 import resolveUsernames from '~/services/username';
+import { checkTokenState, resetToken } from '~/store/token/actions';
 import {
-  checkCurrentBalance,
-  checkTokenState,
-  resetToken,
-} from '~/store/token/actions';
-import {
-  checkFinishedActivities,
-  checkPendingActivities,
   initializeActivities,
-  loadMoreAllActivities,
   resetActivities,
 } from '~/store/activity/actions';
 import { checkOnboardingState } from '~/store/onboarding/actions';
@@ -19,7 +12,6 @@ import {
   resetSafe,
   switchCurrentAccount,
 } from '~/store/safe/actions';
-import { checkTrustState } from '~/store/trust/actions';
 import {
   initializeTutorials,
   resetAllTutorials,
@@ -74,10 +66,6 @@ export function initializeApp() {
       // edge-case and we don't want to waste requests)
       await dispatch(checkOnboardingState());
 
-      // Already check for older activities to see if we can hide the "Load
-      // More" button
-      await dispatch(loadMoreAllActivities());
-
       // Check for additional states ...
       await dispatch(checkAppState());
 
@@ -114,13 +102,9 @@ export function checkAppState() {
 
     // Onboarding / validation states
     await dispatch(checkSharedSafeState());
-    await dispatch(checkTrustState());
 
     // In-app states
     await dispatch(checkTokenState());
-    await dispatch(checkFinishedActivities());
-    await dispatch(checkPendingActivities());
-    await dispatch(checkCurrentBalance());
 
     // Auth and validation state
     await dispatch(checkAuthState());

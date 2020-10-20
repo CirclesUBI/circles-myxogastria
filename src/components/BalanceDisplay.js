@@ -2,13 +2,15 @@ import React from 'react';
 import { Grid, Paper, Typography, Tooltip, Box } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Logo from '~/components/Logo';
 import translate from '~/services/locale';
 import { ISSUANCE_RATE_MONTH } from '~/utils/constants';
 import { IconCircles } from '~/styles/icons';
+import { checkCurrentBalance } from '~/store/token/actions';
 import { formatCirclesValue } from '~/utils/format';
+import { useUpdateLoop } from '~/hooks/update';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,8 +36,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BalanceDisplay = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const { token, safe } = useSelector((state) => state);
+
+  useUpdateLoop(async () => {
+    await dispatch(checkCurrentBalance());
+  });
 
   // Token is apparently deployed, wait for the incoming data
   const isLoading =
