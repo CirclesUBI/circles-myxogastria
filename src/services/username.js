@@ -2,10 +2,16 @@ import core from '~/services/core';
 
 const cache = {};
 const requests = {};
+
+const requested = [];
 const failed = [];
 
 export default async function resolveUsernames(addresses) {
   const requestKey = addresses.sort().join('');
+
+  addresses.forEach((address) => {
+    requested.push(address);
+  });
 
   // Check if we're currently requesting the same addresses and return it
   // instead of doing the same request again
@@ -13,6 +19,16 @@ export default async function resolveUsernames(addresses) {
     return requests[requestKey];
   }
 
+  // Check if this request is already a subset of another
+  const supersetRequest = Object.keys(requests).find((key) => {
+    return key.includes(requestKey);
+  });
+
+  if (supersetRequest) {
+    return supersetRequest;
+  }
+
+  // Otherwise, do the actual request
   requests[requestKey] = new Promise((resolve) => {
     const result = {};
     const toBeFetched = [];
