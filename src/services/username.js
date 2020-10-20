@@ -20,12 +20,12 @@ export default async function resolveUsernames(addresses) {
   }
 
   // Check if this request is already a subset of another
-  const supersetRequest = Object.keys(requests).find((key) => {
+  const supersetRequestKey = Object.keys(requests).find((key) => {
     return key.includes(requestKey);
   });
 
-  if (supersetRequest) {
-    return supersetRequest;
+  if (supersetRequestKey) {
+    return requests[supersetRequestKey];
   }
 
   // Otherwise, do the actual request
