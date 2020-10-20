@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import Avatar from '~/components/Avatar';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import core from '~/services/core';
+import resolveUsernames from '~/services/username';
 import { CATEGORIES } from '~/store/activity/reducers';
 import { useRelativeProfileLink } from '~/hooks/url';
 
@@ -32,7 +33,7 @@ const LastInteractions = () => {
   // Collect all safeAddresses of last transfer and trust interactions known
   // from the activity stream
   const lastActiveProfiles = useMemo(() => {
-    return CATEGORIES.reduce((acc, category) => {
+    const profiles = CATEGORIES.reduce((acc, category) => {
       const addUniqueAndNotOwn = (safeAddress, createdAt) => {
         if (
           safeAddress !== safe.currentAccount &&
@@ -63,6 +64,11 @@ const LastInteractions = () => {
         });
       return acc;
     }, []).slice(0, MAX_PROFILES);
+
+    // Warm up usernames already
+    resolveUsernames(profiles.map((item) => item.safeAddress));
+
+    return profiles;
   }, [activity.categories, safe.currentAccount]);
 
   return (
