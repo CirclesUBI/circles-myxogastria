@@ -11,7 +11,7 @@ import {
   typeToCategory,
 } from '~/services/activity';
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 10;
 
 export function initializeActivities() {
   const lastSeenAt = getLastSeen();
@@ -57,7 +57,7 @@ export function checkPendingActivities() {
       return;
     }
 
-    CATEGORIES.forEach((category) => {
+    for await (const category of CATEGORIES) {
       activity.categories[category].activities.forEach(async (activity) => {
         if (!activity.isPending) {
           return;
@@ -81,11 +81,13 @@ export function checkPendingActivities() {
           });
         }
       });
-    });
+    }
   };
 }
 
-export function checkFinishedActivities() {
+export function checkFinishedActivities({
+  isCheckingOnlyPending = false,
+} = {}) {
   return async (dispatch, getState) => {
     const { safe, activity } = getState();
 
@@ -93,13 +95,24 @@ export function checkFinishedActivities() {
       return;
     }
 
-    CATEGORIES.forEach(async (category) => {
+    for await (const category of CATEGORIES) {
       dispatch({
         type: ActionTypes.ACTIVITIES_UPDATE,
         meta: {
           category,
         },
       });
+
+      // Do not check activity state when nothing is pending
+      const isAnyPending = !!activity.categories[category].activities.find(
+        (activity) => {
+          return activity.isPending;
+        },
+      );
+
+      if (!isAnyPending && isCheckingOnlyPending) {
+        return;
+      }
 
       try {
         const { activities, lastTimestamp } = await core.activity.getLatest(
@@ -125,15 +138,15 @@ export function checkFinishedActivities() {
           },
         });
       }
-    });
+    }
   };
 }
 
 export function loadMoreAllActivities() {
-  return (dispatch) => {
-    CATEGORIES.forEach((category) => {
-      dispatch(loadMoreActivities(category));
-    });
+  return async (dispatch) => {
+    for await (const category of CATEGORIES) {
+      await dispatch(loadMoreActivities(category));
+    }
   };
 }
 

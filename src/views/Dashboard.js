@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { Link, useHistory, generatePath } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import AppNote from '~/components/AppNote';
 import BalanceDisplay from '~/components/BalanceDisplay';
@@ -27,6 +27,11 @@ import translate from '~/services/locale';
 import { CATEGORIES } from '~/store/activity/reducers';
 import { IconMenu, IconNotification, IconSearch } from '~/styles/icons';
 import { MY_PROFILE_PATH, SEND_PATH, SEARCH_PATH } from '~/routes';
+import {
+  checkFinishedActivities,
+  checkPendingActivities,
+} from '~/store/activity/actions';
+import { useUpdateLoop } from '~/hooks/update';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {
@@ -96,9 +101,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
   const safe = useSelector((state) => state.safe);
+
+  useUpdateLoop(async () => {
+    await dispatch(checkFinishedActivities());
+    await dispatch(checkPendingActivities());
+  });
 
   const handleMenuToggle = () => {
     setIsMenuExpanded(!isMenuExpanded);

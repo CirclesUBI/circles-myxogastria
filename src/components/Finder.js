@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, generatePath } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '~/components/Button';
 import ProfileMini from '~/components/ProfileMini';
@@ -29,7 +29,9 @@ import debounce from '~/utils/debounce';
 import translate from '~/services/locale';
 import { IconFollow, IconTrustActive, IconWorld } from '~/styles/icons';
 import { SEARCH_PATH } from '~/routes';
+import { checkTrustState } from '~/store/trust/actions';
 import { useQuery } from '~/hooks/url';
+import { useUpdateLoop } from '~/hooks/update';
 
 const MAX_SEARCH_RESULTS = 10;
 const PAGE_SIZE = 20;
@@ -86,8 +88,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
+  const dispatch = useDispatch();
+
   const history = useHistory();
   const { filter, query: input = '' } = useQuery();
+
+  useUpdateLoop(async () => {
+    await dispatch(checkTrustState());
+  });
 
   // Check if we already selected a filter via url query param
   const preselectedFilter =

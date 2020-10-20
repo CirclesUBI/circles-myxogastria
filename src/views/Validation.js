@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Avatar, Box, Container, Tooltip, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import AvatarWithQR from '~/components/AvatarWithQR';
 import BalanceDisplay from '~/components/BalanceDisplay';
@@ -18,6 +18,8 @@ import translate from '~/services/locale';
 import { IconCheck } from '~/styles/icons';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 import { VALIDATION_SHARE_PATH } from '~/routes';
+import { checkTrustState } from '~/store/trust/actions';
+import { useUpdateLoop } from '~/hooks/update';
 
 const useStyles = makeStyles((theme) => ({
   leftTrustConnections: {
@@ -29,8 +31,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Validation = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+
   const { trust, safe, token } = useSelector((state) => state);
+
+  useUpdateLoop(async () => {
+    await dispatch(checkTrustState());
+  });
 
   const leftTrustConnections = Math.max(
     0,

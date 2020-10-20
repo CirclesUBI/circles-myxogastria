@@ -11,12 +11,8 @@ import Notifications from '~/components/Notifications';
 import Routes from '~/routes';
 import SpinnerOverlay from '~/components/SpinnerOverlay';
 import UBI from '~/components/UBI';
-import logError, { formatErrorMessage } from '~/utils/debug';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import translate from '~/services/locale';
-import { checkAppState, initializeApp } from '~/store/app/actions';
-
-const APP_CHECK_FREQUENCY = 1000 * 15;
+import logError from '~/utils/debug';
+import { initializeApp } from '~/store/app/actions';
 
 const useStyles = makeStyles((theme) => ({
   app: {
@@ -67,9 +63,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    let checkInterval;
-    let isUnloading = false;
-
     // Initialize app state in redux store
     const initializeState = async () => {
       try {
@@ -79,39 +72,7 @@ const App = () => {
       }
     };
 
-    // Check for updates, pending transactions etc. every x seconds
-    const updateState = async () => {
-      try {
-        await dispatch(checkAppState());
-      } catch (error) {
-        if (isUnloading) {
-          // Ignore (connection) errors when unloading the app
-          return;
-        }
-
-        logError(error);
-
-        const errorMessage = formatErrorMessage(error);
-
-        dispatch(
-          notify({
-            text: `${translate('App.errorUpdate', {
-              errorMessage,
-            })}`,
-            type: NotificationsTypes.ERROR,
-          }),
-        );
-      }
-    };
-
     initializeState();
-
-    checkInterval = window.setInterval(updateState, APP_CHECK_FREQUENCY);
-
-    return () => {
-      isUnloading = true;
-      window.clearInterval(checkInterval);
-    };
   }, [dispatch]);
 
   const SnackbarIcon = <IconAlert className={classes.snackbarIconVariant} />;

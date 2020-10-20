@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { generatePath, useParams, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
@@ -41,9 +41,15 @@ import {
   IconTrustMutual,
 } from '~/styles/icons';
 import { DASHBOARD_PATH, PROFILE_PATH } from '~/routes';
+import {
+  checkFinishedActivities,
+  checkPendingActivities,
+} from '~/store/activity/actions';
+import { checkTrustState } from '~/store/trust/actions';
 import { usePendingTransfer } from '~/hooks/activity';
 import { useRelativeSendLink, useProfileLink } from '~/hooks/url';
 import { useTrustConnection, useDeploymentStatus } from '~/hooks/network';
+import { useUpdateLoop } from '~/hooks/update';
 import { useUserdata, useIsOrganization } from '~/hooks/username';
 
 const PANEL_ACTIVITY = Symbol('panelActivity');
@@ -74,7 +80,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const { address } = useParams();
+
+  useUpdateLoop(async () => {
+    await dispatch(checkFinishedActivities({ isCheckingOnlyPending: true }));
+    await dispatch(checkPendingActivities());
+    await dispatch(checkTrustState());
+  });
 
   const safe = useSelector((state) => state.safe);
   const shareLink = useProfileLink(address);

@@ -19,7 +19,7 @@ import {
 import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
@@ -29,9 +29,14 @@ import core from '~/services/core';
 import translate from '~/services/locale';
 import { IconCloseOutline } from '~/styles/icons';
 import { ZERO_ADDRESS, FAQ_URL, ISSUANCE_RATE_MONTH } from '~/utils/constants';
+import {
+  checkFinishedActivities,
+  checkPendingActivities,
+} from '~/store/activity/actions';
 import { formatMessage } from '~/services/activity';
 import { usePaymentNote } from '~/hooks/transfer';
 import { useRelativeProfileLink } from '~/hooks/url';
+import { useUpdateLoop } from '~/hooks/update';
 import { useUserdata } from '~/hooks/username';
 
 const { ActivityTypes } = core.activity;
@@ -104,6 +109,18 @@ const ActivityStream = ({
   lastUpdatedAt,
   onLoadMore,
 }) => {
+  const dispatch = useDispatch();
+
+  useUpdateLoop(
+    async () => {
+      await dispatch(checkFinishedActivities({ isCheckingOnlyPending: false }));
+      await dispatch(checkPendingActivities());
+    },
+    {
+      frequency: 1000 * 10,
+    },
+  );
+
   return (
     <Fragment>
       <ActivityStreamList
