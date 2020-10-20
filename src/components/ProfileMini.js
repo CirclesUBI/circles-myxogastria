@@ -17,8 +17,8 @@ import translate from '~/services/locale';
 import { IconFriends, IconSend, IconTrust } from '~/styles/icons';
 import { usePendingTransfer } from '~/hooks/activity';
 import { useRelativeSendLink } from '~/hooks/url';
-import { useTrustConnection, useDeploymentStatus } from '~/hooks/network';
-import { useUserdata, useIsOrganization } from '~/hooks/username';
+import { useTrustConnection } from '~/hooks/network';
+import { useUserdata } from '~/hooks/username';
 
 const useStyles = makeStyles((theme) => ({
   cardHeader: {
@@ -56,10 +56,6 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
   const sendPath = useRelativeSendLink(address);
   const { username } = useUserdata(address);
   const connection = useTrustConnection(address);
-  const { isReady, isDeployed } = useDeploymentStatus(address);
-  const { isReady: isOrganizationReady, isOrganization } = useIsOrganization(
-    address,
-  );
 
   const [isRedirect, setIsRedirect] = useState(false);
   const [isTrustOpen, setIsTrustOpen] = useState(false);
@@ -110,36 +106,20 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
             action: classes.cardHeaderAction,
           }}
           subheader={
-            isReady &&
-            isOrganizationReady &&
             connection.isReady && (
-              <Fragment>
-                {isDeployed || isOrganization ? (
-                  <Tooltip
-                    arrow
-                    placement="left"
-                    title={translate('ProfileMini.bodyMutualFriends', {
-                      count: mutualFriendsCount,
-                      username,
-                    })}
-                  >
-                    <Typography
-                      className={classes.mututalFriends}
-                      component="span"
-                    >
-                      <IconFriends className={classes.mutualFriendsIcon} />{' '}
-                      {mutualFriendsCount}
-                    </Typography>
-                  </Tooltip>
-                ) : (
-                  <Typography
-                    className={classes.mututalFriends}
-                    component="span"
-                  >
-                    {translate('ProfileMini.bodyUndeployedToken')}
-                  </Typography>
-                )}
-              </Fragment>
+              <Tooltip
+                arrow
+                placement="left"
+                title={translate('ProfileMini.bodyMutualFriends', {
+                  count: mutualFriendsCount,
+                  username,
+                })}
+              >
+                <Typography className={classes.mututalFriends} component="span">
+                  <IconFriends className={classes.mutualFriendsIcon} />{' '}
+                  {mutualFriendsCount}
+                </Typography>
+              </Tooltip>
             )
           }
           title={`@${username}`}
