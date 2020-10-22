@@ -5,7 +5,7 @@ import TransferInfoCard from '~/components/TransferInfoCard';
 import translate from '~/services/locale';
 import { formatCirclesValue } from '~/utils/format';
 
-const TransferInfoBalanceCard = ({ address, label, balance }) => {
+const TransferInfoBalanceCard = ({ address, label, balance, ...props }) => {
   return (
     <TransferInfoCard
       address={address}
@@ -14,6 +14,7 @@ const TransferInfoBalanceCard = ({ address, label, balance }) => {
         balance: formatCirclesValue(balance),
       })}
       tooltip={translate('TransferInfoBalanceCard.tooltipTotalBalance')}
+      {...props}
     />
   );
 };

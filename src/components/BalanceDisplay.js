@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, Paper, Typography, Tooltip, Box } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
+import { Grid, Paper, Typography, Tooltip, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 

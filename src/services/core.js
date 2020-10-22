@@ -142,6 +142,13 @@ const trust = {
 // Token module
 
 const token = {
+  checkSendLimit: async (from, to) => {
+    return await requestCore('token', 'checkSendLimit', {
+      from,
+      to,
+    });
+  },
+
   isFunded: async (safeAddress) => {
     return await requestCore('token', 'isFunded', {
       safeAddress,

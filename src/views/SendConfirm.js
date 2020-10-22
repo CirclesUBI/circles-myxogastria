@@ -37,8 +37,9 @@ import { DASHBOARD_PATH, SEND_CONFIRM_PATH } from '~/routes';
 import { IconSend } from '~/styles/icons';
 import { formatCirclesValue } from '~/utils/format';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
-import { transfer } from '~/store/token/actions';
+import { transfer, checkCurrentBalance } from '~/store/token/actions';
 import { useQuery } from '~/hooks/url';
+import { useUpdateLoop } from '~/hooks/update';
 import { useUserdata } from '~/hooks/username';
 import { validatePaymentNote, validateAmount } from '~/services/token';
 
@@ -57,6 +58,10 @@ const SendConfirm = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useUpdateLoop(async () => {
+    await dispatch(checkCurrentBalance());
+  });
 
   // Set amount and payment note based on URL query
   const {
@@ -82,7 +87,7 @@ const SendConfirm = () => {
   const maxAmount = parseFloat(
     formatCirclesValue(
       web3.utils.BN.min(
-        web3.utils.toBN(token.balance),
+        web3.utils.toBN(token.balance ? token.balance : '0'),
         web3.utils.toBN(
           web3.utils.toWei(maxFlow ? `${maxFlow}` : '0', 'ether'),
         ),
@@ -182,12 +187,19 @@ const SendConfirm = () => {
   useEffect(() => {
     const getMaxFlow = async () => {
       try {
-        const response = await core.token.findTransitiveTransfer(
+        // @TODO: This does not work in the API currently, bring it back as
+        // soon as its ready again
+        // const response = await core.token.findTransitiveTransfer(
+        //   safe.currentAccount,
+        //   address,
+        //   new web3.utils.BN(web3.utils.toWei('1', 'ether')), // Any amount works here
+        // );
+        // setMaxFlow(response.maxFlowValue);
+        const sendLimit = await core.token.checkSendLimit(
           safe.currentAccount,
           address,
-          new web3.utils.BN(web3.utils.toWei('1', 'ether')), // Any amount works here
         );
-        setMaxFlow(response.maxFlowValue);
+        setMaxFlow(parseFloat(web3.utils.fromWei(sendLimit.toString())));
       } catch (error) {
         setMaxFlow(0);
       }
@@ -261,7 +273,8 @@ const SendConfirm = () => {
             <Grid item xs={12}>
               <TransferInfoBalanceCard
                 address={safe.currentAccount}
-                balance={token.balance}
+                balance={token.balance ? token.balance : '0'}
+                isLoading={token.balance === null}
                 label={translate('SendConfirm.formSender')}
               />
             </Grid>
