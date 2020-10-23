@@ -12,6 +12,7 @@ import {
   deploySafeForOrganization,
   finalizeSafeDeployment,
   recreateUndeployedSafe,
+  resetSafe,
   switchCurrentAccount,
   unlockSafeDeployment,
   updateSafeFundedState,
@@ -35,20 +36,26 @@ export function createNewAccount(username, email, avatarUrl) {
     const { wallet } = getState();
 
     // Create an undeployed Safe
-    const pendingNonce = generateDeterministicNonce(wallet.address);
-    const pendingAddress = await dispatch(createSafeWithNonce(pendingNonce));
+    try {
+      const pendingNonce = generateDeterministicNonce(wallet.address);
+      const pendingAddress = await dispatch(createSafeWithNonce(pendingNonce));
 
-    // Register user in on-chain database
-    await core.user.register(
-      pendingNonce,
-      pendingAddress,
-      username,
-      email,
-      avatarUrl,
-    );
+      // Register user in on-chain database
+      await core.user.register(
+        pendingNonce,
+        pendingAddress,
+        username,
+        email,
+        avatarUrl,
+      );
 
-    // Force updating app state
-    await dispatch(checkAppState());
+      // Force updating app state
+      await dispatch(checkAppState());
+    } catch (error) {
+      // Recover and reset Safe state from this when something went wrong
+      dispatch(resetSafe());
+      throw error;
+    }
   };
 }
 
