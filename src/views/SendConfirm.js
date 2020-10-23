@@ -186,15 +186,21 @@ const SendConfirm = () => {
 
   useEffect(() => {
     const getMaxFlow = async () => {
+      // First attempt, try via API
       try {
-        // @TODO: This does not work in the API currently, bring it back as
-        // soon as its ready again
-        // const response = await core.token.findTransitiveTransfer(
-        //   safe.currentAccount,
-        //   address,
-        //   new web3.utils.BN(web3.utils.toWei('1', 'ether')), // Any amount works here
-        // );
-        // setMaxFlow(response.maxFlowValue);
+        const response = await core.token.findTransitiveTransfer(
+          safe.currentAccount,
+          address,
+          new web3.utils.BN(web3.utils.toWei('1000000000000000', 'ether')), // Has to be a large amount
+        );
+        setMaxFlow(response.maxFlowValue);
+        return;
+      } catch {
+        setMaxFlow(0);
+      }
+
+      // Second attempt, do contract call
+      try {
         const sendLimit = await core.token.checkSendLimit(
           safe.currentAccount,
           address,
