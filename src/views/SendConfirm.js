@@ -84,18 +84,21 @@ const SendConfirm = () => {
   const { username: sender } = useUserdata(safe.currentAccount);
   const { username: receiver } = useUserdata(address);
 
-  const maxAmount = parseFloat(
-    formatCirclesValue(
-      web3.utils.BN.min(
-        web3.utils.toBN(token.balance ? token.balance : '0'),
-        web3.utils.toBN(
-          web3.utils.toWei(maxFlow ? `${maxFlow}` : '0', 'ether'),
-        ),
-      ),
-    ),
+  const maxAmount = web3.utils.BN.min(
+    web3.utils.toBN(token.balance ? token.balance : '0'),
+    web3.utils.toBN(maxFlow ? maxFlow : '0'),
   );
 
-  const isAmountTooHigh = (amount ? parseFloat(amount) : 0) > maxAmount;
+  const isAmountTooHigh = amount
+    ? web3.utils
+        .toBN(maxAmount)
+        .lte(
+          web3.utils.toBN(
+            amount ? web3.utils.toWei(amount.toString(), 'ether') : '0',
+          ),
+        )
+    : false;
+
   const isPaymentNoteInvalid =
     paymentNote.length > 0 && !validatePaymentNote(paymentNote);
 
@@ -193,10 +196,17 @@ const SendConfirm = () => {
           address,
           new web3.utils.BN(web3.utils.toWei('1000000000000000', 'ether')), // Has to be a large amount
         );
+
+        // Throw an error when no path was found, we should try again with
+        // checking direct sends as the API might not be in sync yet
+        if (response.maxFlowValue === '0') {
+          throw new Error('Zero value found when asking API');
+        }
+
         setMaxFlow(response.maxFlowValue);
         return;
       } catch {
-        setMaxFlow(0);
+        setMaxFlow('0');
       }
 
       // Second attempt, do contract call
@@ -205,9 +215,9 @@ const SendConfirm = () => {
           safe.currentAccount,
           address,
         );
-        setMaxFlow(parseFloat(web3.utils.fromWei(sendLimit.toString())));
+        setMaxFlow(sendLimit);
       } catch (error) {
-        setMaxFlow(0);
+        setMaxFlow('0');
       }
     };
 
@@ -290,12 +300,7 @@ const SendConfirm = () => {
                 isLoading={maxFlow === null}
                 label={translate('SendConfirm.formReceiver')}
                 text={translate('SendConfirm.bodyMaxFlow', {
-                  amount:
-                    maxFlow !== null
-                      ? formatCirclesValue(
-                          web3.utils.toWei(`${maxAmount}`, 'ether'),
-                        )
-                      : '',
+                  amount: maxFlow !== null ? formatCirclesValue(maxAmount) : '',
                 })}
                 tooltip={translate('SendConfirm.tooltipMaxFlow', {
                   username: receiver,
@@ -306,9 +311,7 @@ const SendConfirm = () => {
               <TransferInput
                 autoFocus
                 errorMessage={translate('SendConfirm.bodyAmountTooHigh', {
-                  count: formatCirclesValue(
-                    web3.utils.toWei(`${maxAmount}`, 'ether'),
-                  ),
+                  count: formatCirclesValue(maxAmount),
                   username: receiver,
                 })}
                 id="amount"
