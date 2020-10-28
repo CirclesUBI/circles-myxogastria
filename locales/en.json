@@ -12,6 +12,7 @@
     "bodyActivityRemovedFromSafe": "@{actor} was removed from this account",
     "bodyActivitySentCircles": "Sent to @{actor}",
     "bodyActivityTrustedBySomeone": "@{actor} trusts you",
+    "bodyActivityUntrustedBySomeone": "@{actor} untrusted you",
     "bodyDateNow": "Now",
     "bodyExplainMeTrustedSomeone": "You trusted @{actor} which means that @{actor} can send you their tokens.",
     "bodyExplainMeUntrustedSomeone": "You untrusted @{actor} which means that you do not accept any tokens from them anymore.",
