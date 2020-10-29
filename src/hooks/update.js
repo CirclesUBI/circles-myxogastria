@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
-const DEFAULT_LOOP_FREQUENCY =
-  process.env.NODE_ENV === 'development' ? 1000 * 10 : 1000 * 30;
+const DEFAULT_LOOP_FREQUENCY = 1000 * 30;
 
 export function useUpdateLoop(
   fn,
