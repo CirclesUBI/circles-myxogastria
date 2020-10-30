@@ -20,9 +20,6 @@ import { formatErrorMessage } from '~/utils/debug';
 import { initializeWallet, burnWallet } from '~/store/wallet/actions';
 import { setUser } from '~/services/sentry';
 
-const CONNECTION_CHECK_FREQUENCY = 100;
-const CONNECTION_MAX_ATTEMPTS = 50;
-
 export function initializeApp() {
   return async (dispatch) => {
     dispatch({
@@ -35,24 +32,6 @@ export function initializeApp() {
     });
 
     dispatch(showSpinnerOverlay());
-
-    try {
-      await dispatch(waitForConnection());
-    } catch (error) {
-      const errorMessage = formatErrorMessage(error);
-
-      dispatch({
-        type: ActionTypes.APP_INITIALIZE_ERROR,
-        meta: {
-          errorMessage,
-          isCritical: false,
-        },
-      });
-
-      dispatch(hideSpinnerOverlay());
-
-      return;
-    }
 
     // Initialize and gather important app states (auth etc.)
     try {
@@ -96,7 +75,7 @@ export function checkAppState() {
   return async (dispatch, getState) => {
     const { app, safe } = getState();
 
-    if (app.isError || !app.isConnected) {
+    if (app.isError) {
       return;
     }
 
@@ -135,28 +114,6 @@ export function checkAuthState() {
         },
       });
     }
-  };
-}
-
-export function waitForConnection() {
-  return async (dispatch, getState) => {
-    let attempt = 1;
-    // .. wait until connection was successful
-    return await new Promise((resolve, reject) => {
-      const interval = setInterval(() => {
-        const { app } = getState();
-
-        if (app.isConnected) {
-          clearInterval(interval);
-          resolve();
-        } else {
-          attempt += 1;
-          if (attempt > CONNECTION_MAX_ATTEMPTS) {
-            reject(new Error('Connection failed'));
-          }
-        }
-      }, CONNECTION_CHECK_FREQUENCY);
-    });
   };
 }
 
