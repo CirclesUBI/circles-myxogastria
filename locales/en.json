@@ -296,7 +296,7 @@
   "Validation": {
     "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your seed phrase.",
     "bodyTrustDescription": "To receive your basic income,",
-    "bodyTrustDescriptionEmphasize": "Three people must trust your profile.",
+    "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
     "buttonShareProfileLink": "Share Profile Link",
     "headingBuildYourWebOfTrust": "Verify your account",
     "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
