@@ -6,7 +6,6 @@ import TourBuildYourOwnEconomySVG from '%/images/tour-build-your-own-economy.svg
 import TourUnconditionalIncomeSVG from '%/images/tour-unconditional-income.svg';
 import TourWebOfTrustSVG from '%/images/tour-web-of-trust.svg';
 import Tutorial from '~/components/Tutorial';
-// import TutorialSlide from '~/components/TutorialSlide';
 import translate from '~/services/locale';
 import { ACCOUNT_CREATE, finishTutorial } from '~/store/tutorial/actions';
 

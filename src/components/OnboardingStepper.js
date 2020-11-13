@@ -17,7 +17,6 @@ import { IconBack, IconClose } from '~/styles/icons';
 const useStyles = makeStyles(() => ({
   onboardingMobileStepper: {
     flexGrow: 1,
-    // justifyContent: 'center',
   },
 }));
 
