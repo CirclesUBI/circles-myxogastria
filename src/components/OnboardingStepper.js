@@ -17,7 +17,7 @@ import { IconBack, IconClose } from '~/styles/icons';
 const useStyles = makeStyles(() => ({
   onboardingMobileStepper: {
     flexGrow: 1,
-    padding: 0,
+    // justifyContent: 'center',
   },
 }));
 
@@ -72,22 +72,20 @@ const OnboardingStepper = ({
           activeStep={current}
           backButton={
             current === 0 ? (
-              <ButtonBack />
+              <ButtonBack edge="start" />
             ) : (
-              <IconButton onClick={onPrevious}>
+              <IconButton edge="start" onClick={onPrevious}>
                 <IconBack />
               </IconButton>
             )
           }
-          classes={{
-            root: classes.onboardingMobileStepper,
-          }}
+          classes={classes.onboardingMobileStepper}
           nextButton={
             <IconButton edge="end" onClick={onExit}>
               <IconClose />
             </IconButton>
           }
-          position="static"
+          position="top"
           steps={steps.length + 1}
           variant="progress"
         />
