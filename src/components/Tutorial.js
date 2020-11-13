@@ -100,7 +100,6 @@ const TutorialHeader = (props) => {
         activeStep={props.current}
         backButton={
           <IconButton
-            className={classes.tutorialMobileCloseButton}
             edge="start"
             onClick={props.current === 0 ? props.onExit : props.onPrevious}
           >
