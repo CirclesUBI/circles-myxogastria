@@ -5,7 +5,6 @@ import ActionTypes from '~/store/app/types';
 const initialState = {
   errorMessage: '',
   isAuthorized: false,
-  isConnected: false,
   isError: false,
   isErrorCritical: false,
   isLoading: false,
@@ -28,14 +27,6 @@ const appReducer = (state = initialState, action) => {
         errorMessage: { $set: action.meta.errorMessage },
         isError: { $set: true },
         isErrorCritical: { $set: action.meta.isCritical },
-      });
-    case ActionTypes.APP_CONNECT_SUCCESS:
-      return update(state, {
-        isConnected: { $set: true },
-      });
-    case ActionTypes.APP_CONNECT_ERROR:
-      return update(state, {
-        isConnected: { $set: false },
       });
     case ActionTypes.APP_SPINNER_SHOW:
       return update(state, {

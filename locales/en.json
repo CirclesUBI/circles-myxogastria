@@ -12,6 +12,7 @@
     "bodyActivityRemovedFromSafe": "@{actor} was removed from this account",
     "bodyActivitySentCircles": "Sent to @{actor}",
     "bodyActivityTrustedBySomeone": "@{actor} trusts you",
+    "bodyActivityUntrustedBySomeone": "@{actor} untrusted you",
     "bodyDateNow": "Now",
     "bodyExplainMeTrustedSomeone": "You trusted @{actor} which means that @{actor} can send you their tokens.",
     "bodyExplainMeUntrustedSomeone": "You untrusted @{actor} which means that you do not accept any tokens from them anymore.",
@@ -97,7 +98,7 @@
     "buttonSubmit": "Submit",
     "errorRestoreFailedInvalidSeedphrase": "Your seed phrase is invalid.",
     "errorRestoreFailedUnknown": "Could not restore account due to an unknown error.",
-    "errorRestoreFailedUnknownSafe": "The account you try to restore is not registered.",
+    "errorRestoreFailedUnknownSafe": "The account you tried to restore is not registered.",
     "headingLogin": "Login",
     "linkSupport": "Go to support.",
     "successWelcome": "Successfully connected to account. Welcome!"
@@ -295,7 +296,7 @@
   "Validation": {
     "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your seed phrase.",
     "bodyTrustDescription": "To receive your basic income,",
-    "bodyTrustDescriptionEmphasize": "Three people must trust your profile.",
+    "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
     "buttonShareProfileLink": "Share Profile Link",
     "headingBuildYourWebOfTrust": "Verify your account",
     "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
