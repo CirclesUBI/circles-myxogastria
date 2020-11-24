@@ -24,8 +24,6 @@ const Onboarding = () => {
     avatarUrl: '',
     email: '',
     username: '',
-    privacy: false,
-    terms: false,
   });
 
   const onFinish = async () => {
