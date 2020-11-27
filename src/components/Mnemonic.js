@@ -1,31 +1,53 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Grid, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
-const useStyles = makeStyles((theme) => ({
-  mnemonicItem: {
-    margin: '0 auto',
-    padding: theme.spacing(0.5),
-    textAlign: 'center',
-  },
-}));
+const StyledSeedContainer = styled.ol`
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0 16px;
+`;
 
-const Mnemonic = ({ text }) => {
-  const classes = useStyles();
+const StyledSeedItem = styled.li.attrs((props) => ({
+  data: props.data + 1,
+}))`
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  margin-bottom: 16px;
+  margin-left: 9px;
+  padding: 8px;
+  position: relative;
+  text-align: left;
+  white-space: pre;
+  white-space: pre;
+  width: calc(33.3% - 9px);
 
-  return (
-    <Grid container spacing={2}>
-      {text.split(' ').map((word, index) => {
-        return (
-          <Grid item key={index} xs={3}>
-            <Paper className={classes.mnemonicItem}>{word}</Paper>
-          </Grid>
-        );
-      })}
-    </Grid>
-  );
-};
+  &:nth-child(3n + 1) {
+    margin-left: 0;
+  }
+
+  &:before {
+    content: attr(data);
+    margin-right: 4px;
+    opacity: 0.4;
+  }
+`;
+
+const Mnemonic = ({ text }) => (
+  <StyledSeedContainer>
+    {text.split(' ').map((word, index) => {
+      return (
+        <StyledSeedItem data={index} key={index} xs={3}>
+          {word + ' '}
+        </StyledSeedItem>
+      );
+    })}
+  </StyledSeedContainer>
+);
 
 Mnemonic.propTypes = {
   text: PropTypes.string.isRequired,
