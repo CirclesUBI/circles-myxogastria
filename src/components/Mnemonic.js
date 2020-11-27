@@ -23,7 +23,6 @@ const StyledSeedItem = styled.li.attrs((props) => ({
   position: relative;
   text-align: left;
   white-space: pre;
-  white-space: pre;
   width: calc(33.3% - 9px);
 
   &:nth-child(3n + 1) {
