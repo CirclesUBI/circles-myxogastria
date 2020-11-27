@@ -40,7 +40,7 @@ const Mnemonic = ({ text }) => (
   <StyledSeedContainer>
     {text.split(' ').map((word, index) => {
       return (
-        <StyledSeedItem data={index} key={index} xs={3}>
+        <StyledSeedItem data={index} key={index}>
           {word + ' '}
         </StyledSeedItem>
       );
