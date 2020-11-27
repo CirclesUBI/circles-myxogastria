@@ -58,7 +58,7 @@ const Tutorial = (props) => {
         onPrevious={onPrevious}
         onSkip={onFinish}
       />
-      <View>
+      <View mt={'auto'} mb={'auto'}>
         <Container maxWidth="sm">
           <SwipeableViews index={current} onChangeIndex={handleChangeIndex}>
             {props.slides}
