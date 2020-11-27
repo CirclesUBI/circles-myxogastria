@@ -41,7 +41,7 @@ const Login = () => {
     dispatch(showSpinnerOverlay());
 
     try {
-      await dispatch(restoreAccount(seedPhrase.trim()));
+      await dispatch(restoreAccount(parsedPhrase.join(' ')));
 
       dispatch(
         notify({
@@ -69,7 +69,8 @@ const Login = () => {
     dispatch(hideSpinnerOverlay());
   };
 
-  const isValid = seedPhrase.trim().split(' ').length === 24;
+  const parsedPhrase = seedPhrase.trim().split(/\s+/g);
+  const isValid = parsedPhrase.length === 24;
 
   return (
     <Fragment>
