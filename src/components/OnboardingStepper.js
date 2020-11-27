@@ -9,7 +9,6 @@ import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
-import Logo from '~/components/Logo';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
@@ -91,9 +90,6 @@ const OnboardingStepper = ({
       </Header>
       <View>
         <Container maxWidth="sm">
-          <Box my={6}>
-            <Logo />
-          </Box>
           <Box textAlign="center">
             <OnboardingCurrentStep
               values={values}

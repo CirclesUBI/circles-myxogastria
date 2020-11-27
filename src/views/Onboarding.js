@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Box, Typography, Checkbox, FormControlLabel } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import AvatarUploader from '~/components/AvatarUploader';
@@ -103,11 +103,58 @@ const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
 };
 
 const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
-  const handleChange = (email) => {
+  const [emailValid, setEmailValid] = useState(false);
+  const [privacy, setPrivacy] = useState(false);
+  const [terms, setTerms] = useState(false);
+
+  const handleEmailStatus = (status) => {
+    // email status returns FALSE when valid
+    setEmailValid(!status);
+  };
+
+  const handleEmail = (email) => {
     onChange({
       email,
     });
   };
+
+  const handlePrivacy = ({ target: { checked } }) => {
+    setPrivacy(checked);
+  };
+
+  const handleTerms = ({ target: { checked } }) => {
+    setTerms(checked);
+  };
+
+  useEffect(() => {
+    onDisabledChange(![emailValid, privacy, terms].every((b) => b === true));
+  }, [emailValid, privacy, terms, onDisabledChange]);
+
+  const LabelPrivacyPolicy = () => (
+    <>
+      {translate('Onboarding.formPrivacyPolicy')}{' '}
+      <a
+        href="https://joincircles.net/privacy-policy"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {translate('Onboarding.privacyPolicy')}
+      </a>
+    </>
+  );
+
+  const LabelTerms = () => (
+    <>
+      {translate('Onboarding.formTermsConditions')}{' '}
+      <a
+        href="https://joincircles.net/terms"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {translate('Onboarding.termsConditions')}
+      </a>
+    </>
+  );
 
   return (
     <Fragment>
@@ -115,13 +162,33 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
         {translate('Onboarding.headingEmail')}
       </Typography>
       <Typography>{translate('Onboarding.bodyEmail')}</Typography>
-      <Box mt={4}>
+      <Box mt={3}>
         <VerifiedEmailInput
           label={translate('Onboarding.formEmail')}
           value={values.email}
-          onChange={handleChange}
-          onStatusChange={onDisabledChange}
+          onChange={handleEmail}
+          onStatusChange={handleEmailStatus}
         />
+        <Box mt={2} textAlign={'left'}>
+          <Box>
+            <FormControlLabel
+              checked={privacy}
+              control={<Checkbox />}
+              disabled={false}
+              label={<LabelPrivacyPolicy />}
+              onChange={handlePrivacy}
+            />
+          </Box>
+          <Box>
+            <FormControlLabel
+              checked={terms}
+              control={<Checkbox />}
+              disabled={false}
+              label={<LabelTerms />}
+              onChange={handleTerms}
+            />
+          </Box>
+        </Box>
       </Box>
     </Fragment>
   );
