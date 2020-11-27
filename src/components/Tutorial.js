@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import { Container, MobileStepper, IconButton } from '@material-ui/core';
+import { MobileStepper, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import TutorialSlide from '~/components/TutorialSlide';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
@@ -14,11 +15,15 @@ import { IconBack, IconClose } from '~/styles/icons';
 const useStyles = makeStyles((theme) => ({
   tutorialMobileStepper: {
     flexGrow: 1,
-    padding: 0,
   },
   tutorialMobileStepperDot: {
     backgroundColor: 'transparent',
     border: `1px solid ${theme.palette.text.primary}`,
+  },
+  tutorialMobileStepperDots: {
+    position: 'absolute',
+    left: '50%',
+    transform: 'translateX(-50%)',
   },
   tutorialMobileStepperDotActive: {
     backgroundColor: theme.palette.text.primary,
@@ -26,8 +31,21 @@ const useStyles = makeStyles((theme) => ({
   tutorialSkipButton: {
     fontWeight: theme.typography.fontWeightMedium,
     textTransform: 'uppercase',
+    marginRight: -3,
   },
 }));
+
+const Slides = ({ slides, current, handleChangeIndex }) => (
+  <View>
+    <div>
+      <SwipeableViews index={current} onChangeIndex={handleChangeIndex}>
+        {slides.map((slide) => (
+          <TutorialSlide key={slide.title} {...slide} />
+        ))}
+      </SwipeableViews>
+    </div>
+  </View>
+);
 
 const Tutorial = (props) => {
   const [current, setCurrent] = useState(0);
@@ -58,13 +76,11 @@ const Tutorial = (props) => {
         onPrevious={onPrevious}
         onSkip={onFinish}
       />
-      <View mt={'auto'} mb={'auto'}>
-        <Container maxWidth="sm">
-          <SwipeableViews index={current} onChangeIndex={handleChangeIndex}>
-            {props.slides}
-          </SwipeableViews>
-        </Container>
-      </View>
+      <Slides
+        current={current}
+        handleChangeIndex={handleChangeIndex}
+        slides={props.slides}
+      />
       <TutorialFooter
         current={current}
         total={total}
@@ -79,11 +95,12 @@ const TutorialHeader = (props) => {
   const classes = useStyles();
 
   return (
-    <Header>
+    <Header padding="0">
       <MobileStepper
         activeStep={props.current}
         backButton={
           <IconButton
+            edge="start"
             onClick={props.current === 0 ? props.onExit : props.onPrevious}
           >
             {props.current === 0 ? <IconClose /> : <IconBack />}
@@ -91,20 +108,20 @@ const TutorialHeader = (props) => {
         }
         classes={{
           root: classes.tutorialMobileStepper,
+          dots: classes.tutorialMobileStepperDots,
           dot: classes.tutorialMobileStepperDot,
           dotActive: classes.tutorialMobileStepperDotActive,
         }}
         nextButton={
           <Button
             className={classes.tutorialSkipButton}
-            edge="end"
             isDark
             onClick={props.onSkip}
           >
             {translate('Tutorial.buttonSkip')}
           </Button>
         }
-        position="static"
+        position="top"
         steps={props.total}
         variant="dots"
       />
@@ -128,6 +145,12 @@ const TutorialFooter = (props) => {
       </Button>
     </Footer>
   );
+};
+
+Slides.propTypes = {
+  current: PropTypes.number.isRequired,
+  handleChangeIndex: PropTypes.func.isRequired,
+  slides: PropTypes.array,
 };
 
 Tutorial.propTypes = {

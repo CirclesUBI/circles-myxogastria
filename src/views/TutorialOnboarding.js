@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
-import { Box, Typography } from '@material-ui/core';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import TourBuildYourOwnEconomySVG from '%/images/tour-build-your-own-economy.svg';
@@ -14,9 +13,21 @@ const TutorialOnboarding = (props) => {
   const dispatch = useDispatch();
 
   const slides = [
-    <SlideUnconditionalIncome key="unconditionalIncome" />,
-    <SlideWebOfTrust key="webOfTrust" />,
-    <SlideBuildYourOwnEconomy key="buildYourOwnEconomy" />,
+    {
+      image: <TourUnconditionalIncomeSVG />,
+      heading: translate('TutorialOnboarding.headingUnconditionalIncome'),
+      body: translate('TutorialOnboarding.bodyUnconditionalIncome'),
+    },
+    {
+      image: <TourWebOfTrustSVG />,
+      heading: translate('TutorialOnboarding.headingWebOfTrust'),
+      body: translate('TutorialOnboarding.bodyWebOfTrust'),
+    },
+    {
+      image: <TourBuildYourOwnEconomySVG />,
+      heading: translate('TutorialOnboarding.headingBuildYourOwnEconomy'),
+      body: translate('TutorialOnboarding.bodyBuildYourOwnEconomy'),
+    },
   ];
 
   const onExit = () => {
@@ -32,73 +43,8 @@ const TutorialOnboarding = (props) => {
   );
 };
 
-const SlideUnconditionalIncome = () => {
-  return (
-    <Fragment>
-      <TutorialSlideGraphic>
-        <TourUnconditionalIncomeSVG />
-      </TutorialSlideGraphic>
-      <Typography align="center" gutterBottom variant="h2">
-        {translate('TutorialOnboarding.headingUnconditionalIncome')}
-      </Typography>
-      <Typography align="center">
-        {translate('TutorialOnboarding.bodyUnconditionalIncome')}
-      </Typography>
-    </Fragment>
-  );
-};
-
-const SlideWebOfTrust = () => {
-  return (
-    <Fragment>
-      <TutorialSlideGraphic>
-        <TourWebOfTrustSVG />
-      </TutorialSlideGraphic>
-      <Typography align="center" gutterBottom variant="h2">
-        {translate('TutorialOnboarding.headingWebOfTrust')}
-      </Typography>
-      <Typography align="center">
-        {translate('TutorialOnboarding.bodyWebOfTrust')}
-      </Typography>
-    </Fragment>
-  );
-};
-
-const SlideBuildYourOwnEconomy = () => {
-  return (
-    <Fragment>
-      <TutorialSlideGraphic>
-        <TourBuildYourOwnEconomySVG />
-      </TutorialSlideGraphic>
-      <Typography align="center" gutterBottom variant="h2">
-        {translate('TutorialOnboarding.headingBuildYourOwnEconomy')}
-      </Typography>
-      <Typography align="center">
-        {translate('TutorialOnboarding.bodyBuildYourOwnEconomy')}
-      </Typography>
-    </Fragment>
-  );
-};
-
-const TutorialSlideGraphic = ({ children }) => {
-  return (
-    <Box
-      alignItems="center"
-      display="flex"
-      height={200}
-      justifyContent="center"
-    >
-      {children}
-    </Box>
-  );
-};
-
 TutorialOnboarding.propTypes = {
   onExit: PropTypes.func.isRequired,
-};
-
-TutorialSlideGraphic.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default TutorialOnboarding;
