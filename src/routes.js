@@ -97,7 +97,6 @@ const Routes = () => {
       {/* Handle private routes */}
       {app.isAuthorized && (
         <>
-          `
           <Route component={Settings} exact path={SETTINGS_PATH} />
           <Route component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
           <Route
