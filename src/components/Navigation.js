@@ -1,7 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Typography, Drawer, Grid, Button, Box } from '@material-ui/core';
+import {
+  Typography,
+  SwipeableDrawer,
+  Grid,
+  Button,
+  Box,
+} from '@material-ui/core';
 import { generatePath } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
@@ -39,11 +45,12 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    width: theme.custom.components.navigationWidth,
+    // width: theme.custom.components.navigationWidth,
     flexShrink: 0,
   },
   drawerPaper: {
     width: theme.custom.components.navigationWidth,
+    maxWidth: `calc(100% - 48px)`,
     justifyContent: 'space-between',
   },
   navigationHeader: {
@@ -80,27 +87,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navigation = ({ isExpanded, ...props }) => {
+const Navigation = ({ onOpen, onClose, open, authorized, verified }) => {
   const classes = useStyles();
 
   return (
-    <Drawer
-      anchor="left"
-      className={classes.drawer}
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-      open={isExpanded}
-      {...props}
+    <SwipeableDrawer
+      classes={{ paper: classes.drawerPaper }}
+      open={open}
+      onClose={onClose}
+      onOpen={onOpen}
     >
-      <NavigationHeader onClick={props.onClick} />
-      <NavigationMain onClick={props.onClick} />
-      <NavigationFooter />
-    </Drawer>
+      <NavigationHeader
+        authorized={authorized}
+        verified={verified}
+        onClick={onClose}
+      />
+      <NavigationMain
+        authorized={authorized}
+        verified={verified}
+        onClick={onClose}
+      />
+      <NavigationFooter authorized={authorized} verified={verified} />
+    </SwipeableDrawer>
   );
 };
 
-const NavigationHeader = ({ onClick }) => {
+const NavigationHeader = ({ onClick, authorized, verified }) => {
   const classes = useStyles();
   const safe = useSelector((state) => state.safe);
 
@@ -111,10 +123,12 @@ const NavigationHeader = ({ onClick }) => {
         to={MY_PROFILE_PATH}
         onClick={onClick}
       >
-        <AvatarWithQR address={safe.currentAccount} />
+        <AvatarWithQR address={safe.currentAccount || safe.pendingAddress} />
         <Box mt={1.5}>
           <Typography variant="h6">
-            <UsernameDisplay address={safe.currentAccount} />
+            <UsernameDisplay
+              address={safe.currentAccount || safe.pendingAddress}
+            />
           </Typography>
         </Box>
       </Link>
@@ -122,7 +136,7 @@ const NavigationHeader = ({ onClick }) => {
   );
 };
 
-const NavigationMain = ({ onClick }) => {
+const NavigationMain = ({ onClick, authorized, verified }) => {
   const classes = useStyles();
 
   return (
@@ -240,16 +254,23 @@ const NavigationExternalLink = ({ children, href }) => {
 };
 
 Navigation.propTypes = {
-  isExpanded: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  authorized: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+  onOpen: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  verified: PropTypes.bool,
 };
 
 NavigationHeader.propTypes = {
+  authorized: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
+  verified: PropTypes.bool,
 };
 
 NavigationMain.propTypes = {
+  authorized: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
+  verified: PropTypes.bool,
 };
 
 NavigationLink.propTypes = {
@@ -262,4 +283,4 @@ NavigationExternalLink.propTypes = {
   href: PropTypes.string.isRequired,
 };
 
-export default React.memo(Navigation);
+export default Navigation;

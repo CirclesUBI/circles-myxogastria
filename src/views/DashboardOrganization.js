@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import clsx from 'clsx';
 import { Container, IconButton } from '@material-ui/core';
 import { Link, generatePath } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -74,24 +73,15 @@ const useStyles = makeStyles((theme) => ({
 
 const DashboardOrganization = () => {
   const classes = useStyles();
-  const [isMenuExpanded, setIsMenuExpanded] = useState(false);
   const safe = useSelector((state) => state.safe);
-
+  const [isOpen, setIsOpen] = useState(false);
   const handleMenuToggle = () => {
-    setIsMenuExpanded(!isMenuExpanded);
-  };
-
-  const handleMenuClick = () => {
-    setIsMenuExpanded(false);
+    setIsOpen(!isOpen);
   };
 
   return (
     <Fragment>
-      <Header
-        className={clsx(classes.header, {
-          [classes.headerExpanded]: isMenuExpanded,
-        })}
-      >
+      <Header className={classes.header}>
         <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
           <IconMenu />
         </IconButton>
@@ -110,15 +100,13 @@ const DashboardOrganization = () => {
         </IconButton>
       </Header>
       <Navigation
-        className={classes.navigation}
-        isExpanded={isMenuExpanded}
-        onClick={handleMenuClick}
+        authorized
+        open={isOpen}
+        verified
+        onClose={handleMenuToggle}
+        onOpen={handleMenuToggle}
       />
-      <View
-        className={clsx(classes.view, {
-          [classes.viewExpanded]: isMenuExpanded,
-        })}
-      >
+      <View className={classes.view}>
         <Container maxWidth="sm">
           <BalanceDisplayOrganization />
           <AppNote />
@@ -127,20 +115,13 @@ const DashboardOrganization = () => {
       </View>
       <ButtonAction
         aria-label="Generate QR"
-        className={clsx(classes.fabQR, {
-          [classes.fabExpanded]: isMenuExpanded,
-        })}
+        className={classes.fabQR}
         component={Link}
         to={QR_GENERATOR_PATH}
       >
         <IconQRLarge fontSize="large" />
       </ButtonAction>
-      <ButtonSend
-        className={clsx(classes.fab, {
-          [classes.fabExpanded]: isMenuExpanded,
-        })}
-        to={generatePath(SEND_PATH)}
-      />
+      <ButtonSend className={classes.fab} to={generatePath(SEND_PATH)} />
       <Drawer />
     </Fragment>
   );

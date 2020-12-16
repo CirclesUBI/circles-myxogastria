@@ -1,10 +1,17 @@
-import React, { Fragment } from 'react';
-import { Avatar, Box, Container, Tooltip, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useState } from 'react';
+import {
+  Avatar,
+  Box,
+  Container,
+  Tooltip,
+  Typography,
+  IconButton,
+} from '@material-ui/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 
-import AvatarWithQR from '~/components/AvatarWithQR';
+import Navigation from '~/components/Navigation';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import Button from '~/components/Button';
 import CenteredHeading from '~/components/CenteredHeading';
@@ -15,7 +22,7 @@ import UsernameDisplay from '~/components/UsernameDisplay';
 import ValidationStatus from '~/components/ValidationStatus';
 import View from '~/components/View';
 import translate from '~/services/locale';
-import { IconCheck } from '~/styles/icons';
+import { IconMenu, IconCheck } from '~/styles/icons';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 import { VALIDATION_SHARE_PATH } from '~/routes';
 import { checkTrustState } from '~/store/trust/actions';
@@ -35,6 +42,7 @@ const Validation = () => {
   const classes = useStyles();
 
   const { trust, safe, token } = useSelector((state) => state);
+  const [isOpen, setIsOpen] = useState(false);
 
   useUpdateLoop(async () => {
     await dispatch(checkTrustState());
@@ -48,12 +56,16 @@ const Validation = () => {
   const isDeploymentReady =
     safe.pendingIsFunded || token.isFunded || trust.isTrusted;
 
+  const handleMenuToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <Fragment>
       <Header>
-        <Link to={VALIDATION_SHARE_PATH}>
-          <AvatarWithQR address={safe.pendingAddress} />
-        </Link>
+        <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
+          <IconMenu />
+        </IconButton>
         <CenteredHeading>
           <UsernameDisplay address={safe.pendingAddress} />
         </CenteredHeading>
@@ -89,6 +101,12 @@ const Validation = () => {
           </Box>
         )}
       </Footer>
+      <Navigation
+        authorized
+        open={isOpen}
+        onClose={handleMenuToggle}
+        onOpen={handleMenuToggle}
+      />
     </Fragment>
   );
 };

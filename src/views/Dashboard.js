@@ -1,5 +1,4 @@
 import React, { Fragment, useRef, useState } from 'react';
-import clsx from 'clsx';
 import {
   Avatar,
   Box,
@@ -73,9 +72,6 @@ const useStyles = makeStyles((theme) => ({
   headerExpanded: {
     ...transitionExpandedMixin(theme),
   },
-  navigation: {
-    width: theme.custom.components.navigationWidth,
-  },
   view: {
     ...transitionMixin(theme),
   },
@@ -103,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [isMenuExpanded, setIsMenuExpanded] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const safe = useSelector((state) => state.safe);
 
   useUpdateLoop(async () => {
@@ -112,20 +108,12 @@ const Dashboard = () => {
   });
 
   const handleMenuToggle = () => {
-    setIsMenuExpanded(!isMenuExpanded);
-  };
-
-  const handleMenuClick = () => {
-    setIsMenuExpanded(false);
+    setIsOpen(!isOpen);
   };
 
   return (
     <Fragment>
-      <Header
-        className={clsx(classes.header, {
-          [classes.headerExpanded]: isMenuExpanded,
-        })}
-      >
+      <Header className={classes.header}>
         <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
           <IconMenu />
         </IconButton>
@@ -137,15 +125,13 @@ const Dashboard = () => {
         <DashboardActivityIcon />
       </Header>
       <Navigation
-        className={classes.navigation}
-        isExpanded={isMenuExpanded}
-        onClick={handleMenuClick}
+        authorized
+        open={isOpen}
+        verified
+        onClose={handleMenuToggle}
+        onOpen={handleMenuToggle}
       />
-      <View
-        className={clsx(classes.view, {
-          [classes.viewExpanded]: isMenuExpanded,
-        })}
-      >
+      <View className={classes.view}>
         <Container maxWidth="sm">
           <BalanceDisplay />
           <AppNote />
@@ -155,12 +141,7 @@ const Dashboard = () => {
           <LastInteractions />
         </Container>
       </View>
-      <ButtonSend
-        className={clsx(classes.fabSend, {
-          [classes.fabSendExpanded]: isMenuExpanded,
-        })}
-        to={generatePath(SEND_PATH)}
-      />
+      <ButtonSend className={classes.fabSend} to={generatePath(SEND_PATH)} />
       <Drawer />
     </Fragment>
   );
