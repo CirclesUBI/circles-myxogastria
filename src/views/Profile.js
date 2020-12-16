@@ -119,6 +119,7 @@ const Profile = () => {
               badgeContent={
                 <ProfileTrustButton
                   address={address}
+                  deploymentStatus={deploymentStatus}
                   trustStatus={trustStatus}
                 />
               }
@@ -344,13 +345,21 @@ const ProfileSendButton = ({ address, deploymentStatus }) => {
   );
 };
 
-const ProfileTrustButton = ({ address, trustStatus }) => {
+const ProfileTrustButton = ({ address, trustStatus, deploymentStatus }) => {
   const classes = useStyles();
   const safe = useSelector((state) => state.safe);
 
   const { isOrganization, isReady } = useIsOrganization(address);
 
-  const isDisabled = safe.currentAccount === address;
+  // Check against these three cases where we can't trust
+  //
+  // a) We look at our own profile
+  // b) Our Safe is not deployed yet
+  // c) The profiles Safe is not deployed yet
+  const isDisabled =
+    safe.currentAccount === address ||
+    safe.pendingNonce !== null ||
+    (!deploymentStatus.isDeployed && !isOrganization);
 
   const [isTrustConfirmOpen, setIsTrustConfirmOpen] = useState(false);
   const [isRevokeTrustOpen, setIsRevokeTrustOpen] = useState(false);
@@ -459,6 +468,7 @@ ProfileSendButton.propTypes = {
 ProfileTrustButton.propTypes = {
   address: PropTypes.string.isRequired,
   trustStatus: PropTypes.object.isRequired,
+  deploymentStatus: PropTypes.object.isRequired,
 };
 
 export default Profile;
