@@ -24,6 +24,7 @@ import {
   SEND_PATH,
   SETTINGS_PATH,
   SHARE_PATH,
+  VALIDATION_SHARE_PATH,
 } from '~/routes';
 import {
   ABOUT_URL,
@@ -139,16 +140,32 @@ const NavigationHeader = ({ onClick, authorized, verified }) => {
 const NavigationMain = ({ onClick, authorized, verified }) => {
   const classes = useStyles();
 
+  if (verified) {
+    return (
+      <Box className={classes.navigationMain} component="main">
+        <NavigationLink to={SHARE_PATH} onClick={onClick}>
+          {translate('Navigation.buttonMyQR')}
+        </NavigationLink>
+        <NavigationLink to={ACTIVITIES_PATH} onClick={onClick}>
+          {translate('Navigation.buttonActivityLog')}
+        </NavigationLink>
+        <NavigationLink to={generatePath(SEND_PATH)} onClick={onClick}>
+          {translate('Navigation.buttonSendCircles')}
+        </NavigationLink>
+        <NavigationLink to={SETTINGS_PATH} onClick={onClick}>
+          {translate('Navigation.buttonAddDevice')}
+        </NavigationLink>
+        <NavigationLink to={SEED_PHRASE_PATH} onClick={onClick}>
+          {translate('Navigation.buttonExportSeedPhrase')}
+        </NavigationLink>
+      </Box>
+    );
+  }
+
   return (
     <Box className={classes.navigationMain} component="main">
-      <NavigationLink to={SHARE_PATH} onClick={onClick}>
+      <NavigationLink to={VALIDATION_SHARE_PATH} onClick={onClick}>
         {translate('Navigation.buttonMyQR')}
-      </NavigationLink>
-      <NavigationLink to={ACTIVITIES_PATH} onClick={onClick}>
-        {translate('Navigation.buttonActivityLog')}
-      </NavigationLink>
-      <NavigationLink to={generatePath(SEND_PATH)} onClick={onClick}>
-        {translate('Navigation.buttonSendCircles')}
       </NavigationLink>
       <NavigationLink to={SETTINGS_PATH} onClick={onClick}>
         {translate('Navigation.buttonAddDevice')}
