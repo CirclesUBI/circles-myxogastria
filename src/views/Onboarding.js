@@ -68,8 +68,8 @@ const Onboarding = () => {
   };
 
   const steps = [
-    // OnboardingStepUsername,
-    // OnboardingStepEmail,
+    OnboardingStepUsername,
+    OnboardingStepEmail,
     OnboardingStepSeedPhrasePrimer,
     OnboardingStepSeedPhrase,
     OnboardingStepSeedChallenge,
