@@ -1,52 +1,52 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 
-const StyledSeedContainer = styled.ol`
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: 0 16px;
-`;
+const useStyles = makeStyles(() => ({
+  seedContainer: {
+    flexWrap: 'wrap',
+    listStyle: 'none',
+    margin: 0,
+    padding: '0 16px',
+  },
+  seedItem: {
+    background: '#fff',
+    borderRadius: 4,
+    border: '1px solid rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
+    display: 'inline-block',
+    marginBottom: 16,
+    marginLeft: 9,
+    padding: 8,
+    position: 'relative',
+    textAlign: 'left',
+    whiteSpace: 'pre',
+    width: 'calc(33.3% - 9px)',
+    '&:nth-child(3n + 1)': {
+      marginLeft: 0,
+    },
+    '&:before': {
+      content: 'attr(data)',
+      marginRight: 4,
+      opacity: 0.4,
+    },
+  },
+}));
 
-const StyledSeedItem = styled.li.attrs((props) => ({
-  data: props.data + 1,
-}))`
-  background: #fff;
-  border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  display: inline-block;
-  margin-bottom: 16px;
-  margin-left: 9px;
-  padding: 8px;
-  position: relative;
-  text-align: left;
-  white-space: pre;
-  width: calc(33.3% - 9px);
-
-  &:nth-child(3n + 1) {
-    margin-left: 0;
-  }
-
-  &:before {
-    content: attr(data);
-    margin-right: 4px;
-    opacity: 0.4;
-  }
-`;
-
-const Mnemonic = ({ text }) => (
-  <StyledSeedContainer>
-    {text.split(' ').map((word, index) => {
-      return (
-        <StyledSeedItem data={index} key={index}>
-          {word + ' '}
-        </StyledSeedItem>
-      );
-    })}
-  </StyledSeedContainer>
-);
+const Mnemonic = ({ text }) => {
+  const classes = useStyles();
+  return (
+    <ol className={classes.seedContainer}>
+      {text.split(' ').map((word, index) => {
+        return (
+          <li className={classes.seedItem} data={index + 1} key={index}>
+            {word + ' '}
+          </li>
+        );
+      })}
+    </ol>
+  );
+};
 
 Mnemonic.propTypes = {
   text: PropTypes.string.isRequired,
