@@ -17,7 +17,6 @@ import SendConfirm from '~/views/SendConfirm';
 import Settings from '~/views/Settings';
 import Share from '~/views/Share';
 import TutorialOnboarding from '~/views/TutorialOnboarding';
-import Validation from '~/views/Validation';
 import ValidationLock from '~/views/ValidationLock';
 import ValidationShare from '~/views/ValidationShare';
 import Welcome from '~/views/Welcome';
@@ -154,7 +153,8 @@ const Routes = () => {
             />
             <Route component={Settings} exact path={SETTINGS_PATH} />
             <Route component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
-            <Route component={Validation} exact path={VALIDATION_PATH} />
+            <Route component={Activities} exact path={ACTIVITIES_PATH} />
+            <Route component={Dashboard} exact path={DASHBOARD_PATH} />
             <Route path={'*'}>
               <Redirect to={VALIDATION_PATH} />
             </Route>

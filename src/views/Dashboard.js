@@ -2,11 +2,13 @@ import React, { Fragment, useRef, useState } from 'react';
 import {
   Avatar,
   Box,
+  Button,
   CircularProgress,
   Container,
   IconButton,
   InputAdornment,
   Input,
+  Typography,
 } from '@material-ui/core';
 import { Link, useHistory, generatePath } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,17 +17,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import AppNote from '~/components/AppNote';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import ButtonSend from '~/components/ButtonSend';
+import ButtonShare from '~/components/ButtonShare';
 import CenteredHeading from '~/components/CenteredHeading';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import UsernameDisplay from '~/components/UsernameDisplay';
+import HumbleAlert from '~/components/HumbleAlert';
+import Footer from '~/components/Footer';
+import ValidationStatus from '~/components/ValidationStatus';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import { CATEGORIES } from '~/store/activity/reducers';
 import { IconMenu, IconNotification, IconSearch } from '~/styles/icons';
-import { MY_PROFILE_PATH, SEND_PATH, SEARCH_PATH } from '~/routes';
+import { useProfileLink } from '~/hooks/url';
+import {
+  MY_PROFILE_PATH,
+  SEND_PATH,
+  SEARCH_PATH,
+  VALIDATION_SHARE_PATH,
+} from '~/routes';
 import {
   checkFinishedActivities,
   checkPendingActivities,
@@ -96,11 +108,67 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Verified = ({ classes }) => {
+  return (
+    <>
+      <View className={classes.view}>
+        <Container maxWidth="sm">
+          <BalanceDisplay />
+          <AppNote />
+          <Box my={2}>
+            <DashboardSearch />
+          </Box>
+          <LastInteractions />
+        </Container>
+      </View>
+      <ButtonSend className={classes.fabSend} to={generatePath(SEND_PATH)} />
+      <Drawer />
+    </>
+  );
+};
+
+const Authorized = ({ trust, safe, token }) => {
+  const isDeploymentReady =
+    safe.pendingIsFunded || token.isFunded || trust.isTrusted;
+
+  const shareLink = useProfileLink(safe.pendingAddress);
+  const shareText = translate('Profile.shareText', { shareLink });
+
+  return (
+    <>
+      <View>
+        <Container maxWidth="sm">
+          <Box mb={6} mt={2}>
+            <BalanceDisplay />
+          </Box>
+          <Typography align="center" variant="h2">
+            {translate('Validation.headingBuildYourWebOfTrust')}
+          </Typography>
+          <ValidationStatus />
+        </Container>
+      </View>
+      <Footer>
+        <HumbleAlert>{translate('Validation.bodyDoNotReset')}</HumbleAlert>
+        {!isDeploymentReady && (
+          <Box mt={2}>
+            <Button fullWidth isPrimary to={VALIDATION_SHARE_PATH}>
+              {translate('Validation.buttonShareProfileLink')}
+            </Button>
+          </Box>
+        )}
+      </Footer>
+    </>
+  );
+};
+
 const Dashboard = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
-  const safe = useSelector((state) => state.safe);
+  const { trust, app, safe, token } = useSelector((state) => state);
+
+  const verified = app.isValidated && app.isAuthorized;
+  const authorized = !app.isValidated && app.isAuthorized;
 
   useUpdateLoop(async () => {
     await dispatch(checkFinishedActivities());
@@ -119,30 +187,34 @@ const Dashboard = () => {
         </IconButton>
         <CenteredHeading>
           <Link className={classes.profileLink} to={MY_PROFILE_PATH}>
-            <UsernameDisplay address={safe.currentAccount} />
+            <UsernameDisplay
+              address={safe.currentAccount || safe.pendingAddress}
+            />
           </Link>
         </CenteredHeading>
         <DashboardActivityIcon />
       </Header>
+
+      {authorized ? (
+        <Authorized
+          app={app}
+          classes={classes}
+          safe={safe}
+          token={token}
+          trust={trust}
+        />
+      ) : (
+        verified && (
+          <Verified app={app} classes={classes} safe={safe} token={token} />
+        )
+      )}
       <Navigation
         authorized
         open={isOpen}
-        verified
+        verified={verified}
         onClose={handleMenuToggle}
         onOpen={handleMenuToggle}
       />
-      <View className={classes.view}>
-        <Container maxWidth="sm">
-          <BalanceDisplay />
-          <AppNote />
-          <Box my={2}>
-            <DashboardSearch />
-          </Box>
-          <LastInteractions />
-        </Container>
-      </View>
-      <ButtonSend className={classes.fabSend} to={generatePath(SEND_PATH)} />
-      <Drawer />
     </Fragment>
   );
 };
