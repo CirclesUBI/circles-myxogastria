@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { Box, Typography, Checkbox, FormControlLabel } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 
 import AvatarUploader from '~/components/AvatarUploader';
 import Input from '~/components/Input';
 import Mnemonic from '~/components/Mnemonic';
+import NeueDrawer from '~/components/NeueDrawer';
 import OnboardingStepper from '~/components/OnboardingStepper';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
@@ -16,6 +18,13 @@ import { WELCOME_PATH } from '~/routes';
 import { createNewAccount } from '~/store/onboarding/actions';
 import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
 import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
+
+const useStyles = makeStyles(() => ({
+  modalLink: {
+    textDecoration: 'underline',
+    cursor: 'pointer',
+  },
+}));
 
 const Onboarding = () => {
   const dispatch = useDispatch();
@@ -59,8 +68,9 @@ const Onboarding = () => {
   };
 
   const steps = [
-    OnboardingStepUsername,
-    OnboardingStepEmail,
+    // OnboardingStepUsername,
+    // OnboardingStepEmail,
+    OnboardingStepSeedPhrasePrimer,
     OnboardingStepSeedPhrase,
     OnboardingStepSeedChallenge,
     OnboardingStepAvatar,
@@ -194,15 +204,61 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
   );
 };
 
+const OnboardingStepSeedPhrasePrimer = ({ onDisabledChange }) => {
+  const classes = useStyles();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    onDisabledChange(false);
+  }, [onDisabledChange]);
+
+  const manageDrawer = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <Fragment>
+      <Typography align="center" gutterBottom variant="h2">
+        Secure your account
+      </Typography>
+      {translate('Onboarding.bodySeedPhrasePrimer').map((text) => (
+        <Typography gutterBottom key={text}>
+          {text}
+        </Typography>
+      ))}
+      <Typography className={classes.modalLink} onClick={manageDrawer}>
+        {translate('Onboarding.bodySeedPhrasePrimerLink')}
+      </Typography>
+      <NeueDrawer open={isOpen} onClose={manageDrawer} onOpen={manageDrawer}>
+        <Typography gutterBottom variant="h2">
+          {translate('Onboarding.headingSeedPhrasePrimerDrawer')}
+        </Typography>
+        {translate('Onboarding.bodySeedPhrasePrimerDrawer').map((text) => (
+          <Typography gutterBottom key={text}>
+            {text}
+          </Typography>
+        ))}
+      </NeueDrawer>
+    </Fragment>
+  );
+};
+
 const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
+  const classes = useStyles();
   const mnemonic = useMemo(() => {
     const privateKey = getPrivateKey();
     return toSeedPhrase(privateKey);
   }, []);
 
+  const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     onDisabledChange(false);
   }, [onDisabledChange]);
+
+  const manageDrawer = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <Fragment>
@@ -213,6 +269,19 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
       <Box my={4}>
         <Mnemonic text={mnemonic} />
       </Box>
+      <Typography className={classes.modalLink} onClick={manageDrawer}>
+        {translate('Onboarding.bodySeedTipLink')}
+      </Typography>
+      <NeueDrawer open={isOpen} onClose={manageDrawer} onOpen={manageDrawer}>
+        <Typography gutterBottom variant="h2">
+          {translate('Onboarding.headingSeedPhraseDrawer')}
+        </Typography>
+        {translate('Onboarding.bodySeedPhraseDrawer').map((text) => (
+          <Typography gutterBottom key={text}>
+            {text}
+          </Typography>
+        ))}
+      </NeueDrawer>
     </Fragment>
   );
 };
@@ -308,6 +377,10 @@ OnboardingStepUsername.propTypes = {
 };
 
 OnboardingStepEmail.propTypes = {
+  ...stepProps,
+};
+
+OnboardingStepSeedPhrasePrimer.propTypes = {
   ...stepProps,
 };
 

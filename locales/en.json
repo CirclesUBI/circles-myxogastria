@@ -49,7 +49,7 @@
     "bodyCriticalErrorTryAgain": "Oh no! Something went wrong while loading your account. Please reload this page and try again.",
     "buttonBurnWallet": "Reset account",
     "buttonReload": "Refresh page",
-    "dialogAreYouSure": "Do you really want to reset this wallet? You will not be able to recover without a seed phrase.",
+    "dialogAreYouSure": "Do you really want to reset this wallet? You will not be able to recover without your magic words.",
     "infoCopiedMessage": "Text copied to clipboard"
   },
   "Dashboard": {
@@ -58,7 +58,7 @@
   "DialogBurn": {
     "dialogBurnCancel": "Cancel",
     "dialogBurnConfirm": "End Session",
-    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have your Seed Phrase!",
+    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have your magic words!",
     "dialogBurnTitle": "Warning!"
   },
   "DialogTrust": {
@@ -91,12 +91,12 @@
     "es": "ES"
   },
   "Login": {
-    "bodyEnterYourSeedPhrase": "Enter your seed phrase below to restore your wallet:",
-    "bodyLostYourSeedPhrase": "Lost your seed phrase?",
+    "bodyEnterYourSeedPhrase": "Enter your magic words below to restore your wallet:",
+    "bodyLostYourSeedPhrase": "Lost your magic words?",
     "bodyNeedHelp": "Questions?",
     "buttonCreateNewWallet": "Sign up here.",
     "buttonSubmit": "Submit",
-    "errorRestoreFailedInvalidSeedphrase": "Your seed phrase is invalid.",
+    "errorRestoreFailedInvalidSeedphrase": "Your magic words are invalid.",
     "errorRestoreFailedUnknown": "Could not restore account due to an unknown error.",
     "errorRestoreFailedUnknownSafe": "The account you tried to restore is not registered.",
     "headingLogin": "Login",
@@ -111,7 +111,7 @@
   "Navigation": {
     "buttonActivityLog": "Activity Log",
     "buttonAddDevice": "Settings",
-    "buttonExportSeedPhrase": "Export Seed Phrase",
+    "buttonExportSeedPhrase": "Export Magic Words",
     "buttonMyQR": "My QR",
     "buttonSendCircles": "Send Circles",
     "linkAbout": "About",
@@ -128,7 +128,22 @@
     "bodyAvatar": "Your photo is how your friends can search for you on the Circles App.",
     "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
     "bodySeedPhrase": "This is your account password. Please save this somewhere private!",
-    "bodySeedPhraseChallenge": "Please enter word {wordIndex} in your seed phrase:",
+    "bodySeedPhrasePrimer": [
+      "Don’t risk losing your account. Protect your wallet by saving your magic words in a place you trust.",
+      "This is the only way to recover your wallet if you get locked out of the app, or get a new device."
+    ],
+    "bodySeedPhrasePrimerLink": "What are magic words?",
+    "bodySeedPhrasePrimerDrawer": [
+      "Your magic words, also known as a seed phrase, allow you to access your wallet. ",
+      "It is important to keep these secret and safe. If someone has access to them, they can access your private account.",
+      "If you lose your magic words, not even the Circles Team can recover your account."
+    ],
+    "bodySeedTipLink": "Tips for saving your magic words",
+    "bodySeedPhraseDrawer": [
+      "Record your words in a place only you have access to, such as on a peice of paper which you will keep safe or a secure notes application.",
+      "You must take care of these words. If you lose them, we cannot help you to recover your account."
+    ],
+    "bodySeedPhraseChallenge": "Please enter word {wordIndex} in your magic words:",
     "bodyUsername": "Your username is how your friends can search for you on the Circles App.",
     "buttonCopyToClipboard": "Copy to clipboard",
     "errorSignup": "A server error occurred during sign up: {errorMessage}",
@@ -142,9 +157,13 @@
     "formUsername": "Username",
     "headingAvatar": "Add Photo",
     "headingEmail": "Enter Email",
-    "headingSeedPhrase": "Save Seed Phrase",
-    "headingSeedPhraseChallenge": "Did you save your Seed Phrase?",
+    "headingSeedPhrase": "Save magic words",
+    "headingSeedPhrasePrimer": "Secure Your Account",
+    "headingSeedPhrasePrimerDrawer": "What are my magic words?",
+    "headingSeedPhraseDrawer": "How to store your magic words",
+    "headingSeedPhraseChallenge": "Did you save your magic words?",
     "headingUsername": "Create Your Username",
+
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },
   "OnboardingOrganization": {
@@ -232,7 +251,7 @@
   "SeedPhrase": {
     "bodyDescription": "Print this and store it safely:",
     "buttonCopyToClipboard": "Copy to clipboard",
-    "headingExportSeedPhrase": "Export Seed Phrase"
+    "headingExportSeedPhrase": "Export Magic Words"
   },
   "Send": {
     "headingSendCircles": "Send Circles"
@@ -298,7 +317,7 @@
     "infoUbiPayoutReceived": "You received {payout} Circles!"
   },
   "Validation": {
-    "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your seed phrase.",
+    "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your magic words.",
     "bodyTrustDescription": "To receive your basic income,",
     "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
     "buttonShareProfileLink": "Share Profile Link",
