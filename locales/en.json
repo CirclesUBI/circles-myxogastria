@@ -334,9 +334,5 @@
     "linkContactUs": "Contact us",
     "linkFAQ": "FAQ",
     "linkPrivacyLegal": "Privacy + Legal"
-  },
-  "default": {
-    "bodyEOLNotification": "We're launching Circles officially on 16.10. on the xDai network! Since this app is currently running on a test network your profile will be shut off on that same day. You will need to create a new profile for the official Circles network.",
-    "bodyStagingNotification": "Please note that you're currently using Circles in a test network which is used by developers to experiment with the system. This means that errors can occur as we're experimenting with new unstable features, your Circles can only be used for testing and you can lose your profile, tokens and data anytime."
   }
 }
