@@ -25,11 +25,10 @@ const CONFIG_KEYS = [
 ];
 
 const CONFIG_KEYS_OPTIONAL = [
-  'EOL_NOTIFICATION',
+  'USER_NOTIFICATION',
   'EXPLORER_URL',
   'ISSUANCE_RATE_MONTH',
   'SENTRY_DSN_URL',
-  'STAGING_NOTIFICATION',
   'STORAGE_NAMESPACE',
 ];
 
@@ -153,11 +152,7 @@ export default () => {
           : {
               collapseWhitespace: true,
             },
-        title:
-          PAGE_TITLE +
-          (process.env.STAGING_NOTIFICATION || process.env.EOL_NOTIFICATION
-            ? ' [TEST NETWORK]'
-            : ''),
+        title: PAGE_TITLE,
         favicon: getPath(`${PATH_ASSETS}/favicon.ico`),
         template: getPath(`${PATH_SRC}/index.html`),
       }),
