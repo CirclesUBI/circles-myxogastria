@@ -19,7 +19,7 @@
   </a>
   <!-- CI status -->
   <a href="https://github.com/CirclesUBI/circles-myxogastria/actions/workflows/run-tests.yml">
-    <img src="https://img.shields.io/github/workflow/status/CirclesUBI/circles-myxogastria/Run%20tests?label=tests&style=flat-square&color=%2347cccb" alt="CI Status" height="18">
+    <img src="https://img.shields.io/github/workflow/status/CirclesUBI/circles-myxogastria/Node.js%20CI?label=tests&style=flat-square&color=%2347cccb" alt="CI Status" height="18">
   </a>
   <!-- Discourse -->
   <a href="https://aboutcircles.com/">
