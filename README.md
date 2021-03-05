@@ -53,7 +53,7 @@ React web application and mobile client running in the browser hosted on [Circle
 
 ## Requirements
 
-* Node v12
+- Node.js (tested with v12 and v14)
 
 ## Development
 
@@ -82,4 +82,4 @@ npm run build
 
 GNU Affero General Public License v3.0 [`AGPL-3.0`]
 
-[`AGPL-3.0`]: https://github.com/CirclesUBI/circles-myxogastria/blob/main/LICENSE
+[`agpl-3.0`]: https://github.com/CirclesUBI/circles-myxogastria/blob/main/LICENSE
