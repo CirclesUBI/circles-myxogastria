@@ -35,18 +35,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Slides = ({ slides, current, handleChangeIndex }) => (
-  <View>
-    <div>
-      <SwipeableViews index={current} onChangeIndex={handleChangeIndex}>
-        {slides.map((slide) => (
-          <TutorialSlide key={slide.title} {...slide} />
-        ))}
-      </SwipeableViews>
-    </div>
-  </View>
-);
-
 const Tutorial = (props) => {
   const [current, setCurrent] = useState(0);
   const total = props.slides.length;
@@ -76,7 +64,7 @@ const Tutorial = (props) => {
         onPrevious={onPrevious}
         onSkip={onFinish}
       />
-      <Slides
+      <TutorialSlides
         current={current}
         handleChangeIndex={handleChangeIndex}
         slides={props.slides}
@@ -129,6 +117,18 @@ const TutorialHeader = (props) => {
   );
 };
 
+const TutorialSlides = ({ slides, current, handleChangeIndex }) => (
+  <View>
+    <div>
+      <SwipeableViews index={current} onChangeIndex={handleChangeIndex}>
+        {slides.map((slide, index) => (
+          <TutorialSlide key={index} {...slide} />
+        ))}
+      </SwipeableViews>
+    </div>
+  </View>
+);
+
 const TutorialFooter = (props) => {
   const isLastSlide = props.current === props.total - 1;
 
@@ -147,12 +147,6 @@ const TutorialFooter = (props) => {
   );
 };
 
-Slides.propTypes = {
-  current: PropTypes.number.isRequired,
-  handleChangeIndex: PropTypes.func.isRequired,
-  slides: PropTypes.array,
-};
-
 Tutorial.propTypes = {
   onExit: PropTypes.func.isRequired,
   onFinish: PropTypes.func.isRequired,
@@ -165,6 +159,12 @@ TutorialHeader.propTypes = {
   onPrevious: PropTypes.func.isRequired,
   onSkip: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
+};
+
+TutorialSlides.propTypes = {
+  current: PropTypes.number.isRequired,
+  handleChangeIndex: PropTypes.func.isRequired,
+  slides: PropTypes.array,
 };
 
 TutorialFooter.propTypes = {
