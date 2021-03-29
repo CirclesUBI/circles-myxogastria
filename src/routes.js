@@ -5,10 +5,14 @@ import { useSelector } from 'react-redux';
 
 import Activities from '~/views/Activities';
 import Dashboard from '~/views/Dashboard';
+import DashboardOrganization from '~/views/DashboardOrganization';
 import Error from '~/views/Error';
 import Login from '~/views/Login';
 import NotFound from '~/views/NotFound';
 import Onboarding from '~/views/Onboarding';
+import OnboardingOrganization from '~/views/OnboardingOrganization';
+import OrganizationMembers from '~/views/OrganizationMembers';
+import OrganizationMembersAdd from '~/views/OrganizationMembersAdd';
 import Profile from '~/views/Profile';
 import QRGenerator from '~/views/QRGenerator';
 import Search from '~/views/Search';
@@ -18,18 +22,12 @@ import SendConfirm from '~/views/SendConfirm';
 import Settings from '~/views/Settings';
 import Share from '~/views/Share';
 import TutorialOnboarding from '~/views/TutorialOnboarding';
+// import TutorialOrganization from '~/views/TutorialOrganization';
 import Validation from '~/views/Validation';
 import ValidationLock from '~/views/ValidationLock';
 import ValidationShare from '~/views/ValidationShare';
 import Welcome from '~/views/Welcome';
 import { ACCOUNT_CREATE } from '~/store/tutorial/actions';
-
-// @TODO: Removed organizations for now
-// import OrganizationMembers from '~/views/OrganizationMembers';
-// import OrganizationMembersAdd from '~/views/OrganizationMembersAdd';
-// import DashboardOrganization from '~/views/DashboardOrganization';
-// import OnboardingOrganization from '~/views/OnboardingOrganization';
-// import TutorialOrganization from '~/views/TutorialOrganization';
 
 // Routes in Drawer component
 export const MY_PROFILE_PATH = '/profile';
@@ -153,21 +151,19 @@ const OrganizationRoute = ({ component, path }) => {
 
 // Containers for organizations
 
-// @TODO: Removed organizations for now
-// const OnboardingOrganizationContainer = () => {
-//   const safe = useSelector((state) => state.safe);
-//   if (safe.isOrganization) {
-//     return <Redirect to={DASHBOARD_PATH} />;
-//   }
-//   return <OnboardingOrganization />;
-// };
+const OnboardingOrganizationContainer = () => {
+  const safe = useSelector((state) => state.safe);
+  if (safe.isOrganization) {
+    return <Redirect to={DASHBOARD_PATH} />;
+  }
+  return <OnboardingOrganization />;
+};
 
 const DashboardContainer = () => {
-  // @TODO: Removed organizations for now
-  // const safe = useSelector((state) => state.safe);
-  // if (safe.isOrganization) {
-  //   return <DashboardOrganization />;
-  // }
+  const safe = useSelector((state) => state.safe);
+  if (safe.isOrganization) {
+    return <DashboardOrganization />;
+  }
   return <Dashboard />;
 };
 
@@ -207,7 +203,7 @@ const TutorialOnboardingContainer = () => {
   );
 };
 
-// @TODO: Removed organizations for now
+// @TODO
 // const TutorialOrganizationContainer = () => {
 //   return (
 //     <TutorialContainer
@@ -264,21 +260,21 @@ const Routes = () => {
       <TrustedRoute component={Activities} exact path={ACTIVITIES_PATH} />
       <TrustedRoute component={QRGenerator} exact path={QR_GENERATOR_PATH} />
       <TrustedRoute component={Search} exact path={SEARCH_PATH} />
-      {/* <OrganizationRoute */}
-      {/*   component={OrganizationMembersAdd} */}
-      {/*   exact */}
-      {/*   path={ORGANIZATION_MEMBERS_ADD_PATH} */}
-      {/* /> */}
-      {/* <OrganizationRoute */}
-      {/*   component={OrganizationMembers} */}
-      {/*   exact */}
-      {/*   path={ORGANIZATION_MEMBERS_PATH} */}
-      {/* /> */}
-      {/* <TrustedRoute */}
-      {/*   component={OnboardingOrganizationContainer} */}
-      {/*   exact */}
-      {/*   path={ORGANIZATION_PATH} */}
-      {/* /> */}
+      <OrganizationRoute
+        component={OrganizationMembersAdd}
+        exact
+        path={ORGANIZATION_MEMBERS_ADD_PATH}
+      />
+      <OrganizationRoute
+        component={OrganizationMembers}
+        exact
+        path={ORGANIZATION_MEMBERS_PATH}
+      />
+      <TrustedRoute
+        component={OnboardingOrganizationContainer}
+        exact
+        path={ORGANIZATION_PATH}
+      />
       <TrustedRoute component={DashboardContainer} path={DASHBOARD_PATH} />
       <Route component={NotFound} />
     </Switch>
