@@ -77,7 +77,7 @@ const OnboardingStepper = ({
               </IconButton>
             )
           }
-          classes={classes.onboardingMobileStepper}
+          className={classes.onboardingMobileStepper}
           nextButton={
             <IconButton edge="end" onClick={onExit}>
               <IconClose />
