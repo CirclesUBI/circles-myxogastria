@@ -97,7 +97,9 @@ export function recreateUndeployedSafe() {
       // but not deployed yet).
       const status = await core.safe.getSafeStatus(pendingAddress);
       if (!status.isCreated) {
-        throw new Error('Safe is not known to system');
+        // This Safe is not know to the relayer (something must have went wrong
+        // there), register it!
+        await core.safe.prepareDeploy(pendingNonce);
       }
 
       dispatch({
