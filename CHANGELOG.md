@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.29] - 2021-04-13
+
+### Fixed
+
+- Fix invalid state for some restored undeployed accounts [#177](https://github.com/CirclesUBI/circles-myxogastria/pull/177)
+
 ## [1.7.28] - 2021-03-01
 
 ### Added
