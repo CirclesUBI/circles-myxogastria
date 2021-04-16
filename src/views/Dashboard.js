@@ -17,6 +17,7 @@ import AppNote from '~/components/AppNote';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import ButtonSend from '~/components/ButtonSend';
 import CenteredHeading from '~/components/CenteredHeading';
+import DonationNote from '~/components/DonationNote';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
@@ -149,6 +150,7 @@ const Dashboard = () => {
         <Container maxWidth="sm">
           <BalanceDisplay />
           <AppNote />
+          <DonationNote />
           <Box my={2}>
             <DashboardSearch />
           </Box>
