@@ -59,6 +59,9 @@ const DonationNote = () => {
         <Typography gutterBottom>
           {translate('DonationNote.bodySecondary')}
         </Typography>
+        <Typography gutterBottom>
+          {translate('DonationNote.bodyThird')}
+        </Typography>
         <Box mb={1} mt={2}>
           <Button isPrimary onClick={handleDonateClick}>
             {translate('DonationNote.buttonDonate')}
