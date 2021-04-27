@@ -100,6 +100,7 @@ export function createNewOrganization(
       );
 
       // Switch to newly created organization acccount
+      await dispatch(checkSharedSafeState());
       await dispatch(switchAccount(safeAddress));
 
       // Force updating app state
