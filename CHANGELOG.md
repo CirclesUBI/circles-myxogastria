@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2021-04-23
+
+### Added
+
+- Donation Notification in Dashboard [#178](https://github.com/CirclesUBI/circles-myxogastria/pull/178)
+
 ## [1.7.29] - 2021-04-13
 
 ### Fixed
