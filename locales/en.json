@@ -77,6 +77,14 @@
     "errorRevokeTrust": "Something went wrong when you tried to untrust @{username} ...",
     "successRevokeTrust": "You successfully revoked your trust in @{username}!"
   },
+  "DonationNote": {
+    "bodyTitle": "Circles needs you!",
+    "bodyPrimary": "Since launching last year the Circles community has grown to 200k users around the globe. Interest in the project led to rapid scaling, which overloaded our servers, and after overhauling our infrastructure we are at the end of our budget.",
+    "bodySecondary": "We need your support to continue! We need your help to make basic income a reality worldwide! We are looking for committed, regular donors who support bringing Circles to a fully thriving life.",
+    "bodyThird": "Your donation is crucial! Supports the creation of a basic income for all people, and make sustainable, local economies worldwide.",
+    "buttonDonate": "Donate now",
+    "buttonClose": "Close"
+  },
   "Finder": {
     "bodyFilterDirect": "Directly trusted",
     "bodyFilterExternal": "External",
