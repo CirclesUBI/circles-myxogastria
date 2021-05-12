@@ -10,6 +10,7 @@ import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
 import TransferCirclesInput from '~/components/TransferCirclesInput';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
+import OnboardingOrganizationTutorial from '~/components/OnboardingOrganizationTutorial';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
@@ -22,6 +23,7 @@ import { validateAmount } from '~/services/token';
 const OnboardingOrganization = () => {
   const dispatch = useDispatch();
   const [isRedirect, setIsRedirect] = useState(false);
+  const [hasOrganisation] = useState(false);
 
   const [values, setValues] = useState({
     avatarUrl: '',
@@ -71,6 +73,10 @@ const OnboardingOrganization = () => {
     OrganizationStepAvatar,
     OrganizationStepPrefund,
   ];
+
+  if (!hasOrganisation) {
+    return <OnboardingOrganizationTutorial />;
+  }
 
   if (isRedirect) {
     return <Redirect push to={DASHBOARD_PATH} />;
