@@ -46,7 +46,9 @@ const dataUriCutCircle = `url("data:image/svg+xml,${svgStringCutCircle}")`;
 const useStyles = makeStyles(() => ({
   wrapper: {
     width: '100%',
+    maxWidth: 480,
     height: '100%',
+    margin: '0 auto',
     background:
       'linear-gradient(180deg, rgba(215,58,83,1) 0%, rgba(251,134,9,1) 100%)',
   },
@@ -55,7 +57,7 @@ const useStyles = makeStyles(() => ({
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    height: '70vh',
+    height: '73vh',
     padding: 12,
   },
   slideBody: {
@@ -148,29 +150,35 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
           </IconButton>
         </Box>
 
-        <SwipeableViews index={step} onChangeIndex={(index) => setStep(index)}>
-          {slides.map((slide) => (
-            <Box
-              alignItems="center"
-              className={classes.slideContainer}
-              display="flex"
-              flexDirection="column"
-              key={slide.heading}
-              p={1}
-            >
-              <Box p={1}>{slide.image}</Box>
-              <Typography variant="h6">{slide.heading}</Typography>
-              <Typography className={classes.slideBody} variant="body2">
-                {slide.body} <br />{' '}
-                {step === 2 && (
-                  <Link to="#">
-                    Learn more on how to organize with other groups
-                  </Link>
-                )}
-              </Typography>
-            </Box>
-          ))}
-        </SwipeableViews>
+        <Box>
+          <SwipeableViews
+            index={step}
+            onChangeIndex={(index) => setStep(index)}
+          >
+            {slides.map((slide) => (
+              <Box
+                alignItems="center"
+                className={classes.slideContainer}
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                key={slide.heading}
+                p={1}
+              >
+                <Box p={1}>{slide.image}</Box>
+                <Typography variant="h6">{slide.heading}</Typography>
+                <Typography className={classes.slideBody} variant="body2">
+                  {slide.body} <br />{' '}
+                  {step === 2 && (
+                    <Link to="#">
+                      Learn more on how to organize with other groups
+                    </Link>
+                  )}
+                </Typography>
+              </Box>
+            ))}
+          </SwipeableViews>
+        </Box>
         <Box p={2}>
           <Button fullWidth isPrimary onClick={handleNext}>
             {step === 2 ? 'Lets get started' : 'Next'}
