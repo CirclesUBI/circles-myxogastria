@@ -23,7 +23,7 @@ import { validateAmount } from '~/services/token';
 const OnboardingOrganization = () => {
   const dispatch = useDispatch();
   const [isRedirect, setIsRedirect] = useState(false);
-  const [hasOrganisation] = useState(false);
+  const [isTutorial, setIsTutorial] = useState(false);
 
   const [values, setValues] = useState({
     avatarUrl: '',
@@ -74,8 +74,12 @@ const OnboardingOrganization = () => {
     OrganizationStepPrefund,
   ];
 
-  if (!hasOrganisation) {
-    return <OnboardingOrganizationTutorial />;
+  if (!isTutorial) {
+    return (
+      <OnboardingOrganizationTutorial
+        onFinishTutorial={() => setIsTutorial(true)}
+      />
+    );
   }
 
   if (isRedirect) {

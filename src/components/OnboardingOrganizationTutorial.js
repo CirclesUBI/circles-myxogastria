@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
+import { Box, IconButton, Slide, Typography } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
-import { Box, Typography } from '@material-ui/core';
+import Button from '~/components/Button';
 import OrgTutorialStep1SVG from '%/images/org-tutorial-step-1.svg';
 import OrgTutorialStep2SVG from '%/images/org-tutorial-step-2.svg';
 import OrgTutorialStep3SVG from '%/images/org-tutorial-step-3.svg';
+import { IconBack, IconClose } from '~/styles/icons';
 
 const CutCircleSVG = () => {
   return (
@@ -41,9 +45,6 @@ const dataUriCutCircle = `url("data:image/svg+xml,${svgStringCutCircle}")`;
 
 const useStyles = makeStyles(() => ({
   wrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
     width: '100%',
     height: '100%',
     background:
@@ -60,6 +61,7 @@ const useStyles = makeStyles(() => ({
   slideBody: {
     padding: 24,
   },
+  justifyAround: {},
 }));
 
 const slides = [
@@ -67,32 +69,57 @@ const slides = [
     heading: 'Share Wallet',
     body:
       'With a Shared Wallet you can pull your individual circles together and organize joint projects with the people that you trust. This wallet will not receive a basic income.',
-    image: <OrgTutorialStep1SVG height="200px" />,
+    image: <OrgTutorialStep1SVG height="180px" />,
   },
   {
     heading: 'Share Wealth',
     body:
       'Organizations, families, communties, and individuals can use these wallets to hold Circles in common, or keep track of a personal business.',
-    image: <OrgTutorialStep2SVG height="200px" />,
+    image: <OrgTutorialStep2SVG height="180px" />,
   },
   {
     heading: 'Share Trust',
     body: 'As a group you can trust other groups.',
-    image: <OrgTutorialStep3SVG height="200px" />,
+    image: <OrgTutorialStep3SVG height="180px" />,
   },
 ];
 
-const OnboardingOrganizationTutorial = () => {
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
   const classes = useStyles();
-  const [step, setStep] = useState(1);
+  const [isOpen, setIsOpen] = useState(true);
+  const [step, setStep] = useState(0);
   // props.onExit();
   // dispatch(finishTutorial(ACCOUNT_CREATE));
 
+  const handleNext = () => {
+    if (step === 2) {
+      handleFinish();
+      return;
+    }
+    setStep(step + 1);
+  };
+
+  const handlePrevious = () => {
+    if (step === 0) {
+      return;
+    }
+    setStep(step - 1);
+  };
+
+  const handleFinish = () => {
+    setIsOpen(false);
+    setTimeout(() => onFinishTutorial(), 500);
+  };
+
   return (
     <Dialog
-      className={classes.dialogWrapper}
+      TransitionComponent={Transition}
       fullScreen
-      open
+      open={isOpen}
       // cancelLabel={translate('DialogTrust.dialogTrustCancel')}
       // confirmLabel={translate('DialogTrust.dialogTrustConfirm')}
       // id="trust"
@@ -102,28 +129,60 @@ const OnboardingOrganizationTutorial = () => {
       // onClose={handleTrustClose}
       // onConfirm={handleTrust}
     >
-      <Box className={classes.wrapper}>
+      <Box
+        className={classes.wrapper}
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
+      >
+        <Box display="flex" justifyContent="space-between" p={2}>
+          {step > 0 ? (
+            <IconButton size="small" onClick={handlePrevious}>
+              <IconBack />
+            </IconButton>
+          ) : (
+            <div />
+          )}
+          <IconButton size="small" onClick={() => handleFinish()}>
+            <IconClose />
+          </IconButton>
+        </Box>
+
         <SwipeableViews index={step} onChangeIndex={(index) => setStep(index)}>
-          {slides.map((step) => (
+          {slides.map((slide) => (
             <Box
               alignItems="center"
               className={classes.slideContainer}
               display="flex"
               flexDirection="column"
-              justifyContent="center"
-              key={step.heading}
+              key={slide.heading}
+              p={1}
             >
-              {step.image}
-              <Typography variant="h6">{step.heading}</Typography>
+              <Box p={1}>{slide.image}</Box>
+              <Typography variant="h6">{slide.heading}</Typography>
               <Typography className={classes.slideBody} variant="body2">
-                {step.body}
+                {slide.body} <br />{' '}
+                {step === 2 && (
+                  <Link to="#">
+                    Learn more on how to organize with other groups
+                  </Link>
+                )}
               </Typography>
             </Box>
           ))}
         </SwipeableViews>
+        <Box p={2}>
+          <Button fullWidth isPrimary onClick={handleNext}>
+            {step === 2 ? 'Lets get started' : 'Next'}
+          </Button>
+        </Box>
       </Box>
     </Dialog>
   );
+};
+
+OnboardingOrganizationTutorial.propTypes = {
+  onFinishTutorial: PropTypes.func.isRequired,
 };
 
 export default OnboardingOrganizationTutorial;
