@@ -18,6 +18,7 @@ import { IconFriends, IconSend, IconTrust } from '~/styles/icons';
 import { usePendingTransfer } from '~/hooks/activity';
 import { useRelativeSendLink } from '~/hooks/url';
 import { useTrustConnection } from '~/hooks/network';
+import { useIsOrganization } from '~/hooks/organization';
 import { useUserdata } from '~/hooks/username';
 
 const useStyles = makeStyles((theme) => ({
@@ -135,19 +136,26 @@ const ProfileMiniActions = ({ address, onTrust, onSend, connection }) => {
   const { isMeTrusting, isPending: isPendingTrust } = connection;
   const isPendingSend = usePendingTransfer(address);
 
+  const { isOrganization, isPending } = useIsOrganization(address);
+
+  const isPendingOrganization = isPending;
+
   return (
     <Box display="flex">
-      {!isMeTrusting && !isPendingTrust && (
-        <Fragment>
-          <IconButton
-            aria-label="Trust"
-            className={classes.cardActionButton}
-            onClick={onTrust}
-          >
-            <IconTrust className={classes.cardActionIcon} />
-          </IconButton>
-        </Fragment>
-      )}
+      {!isMeTrusting &&
+        !isPendingTrust &&
+        !isOrganization &&
+        !isPendingOrganization && (
+          <Fragment>
+            <IconButton
+              aria-label="Trust"
+              className={classes.cardActionButton}
+              onClick={onTrust}
+            >
+              <IconTrust className={classes.cardActionIcon} />
+            </IconButton>
+          </Fragment>
+        )}
       {!isPendingSend && (
         <IconButton
           aria-label="Send"
