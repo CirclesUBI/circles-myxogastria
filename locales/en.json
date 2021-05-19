@@ -172,6 +172,17 @@
     "headingUsername": "Name your wallet",
     "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
   },
+  "OnboardingOrganizationTutorial": {
+    "slideHeading1": "Share Wallet",
+    "slideHeading2": "Share Wealth",
+    "slideHeading3": "Share Trust",
+    "slideBody1": "With a Shared Wallet you can pull your individual circles together and organize joint projects with the people that you trust. This wallet will not receive a basic income.",
+    "slideBody2": "Organizations, families, communties, and individuals can use these wallets to hold Circles in common, or keep track of a personal business.",
+    "slideBody3": "As a group you can trust other groups.",
+    "slideBody3Link": "Learn more on how to organize with other groups",
+    "next": "Next",
+    "finish": "Let's get started"
+  },
   "OnboardingStepper": {
     "buttonFinish": "Sign me up!",
     "buttonNextStep": "Continue"

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { renderToStaticMarkup } from 'react-dom/server';
+import translate from '~/services/locale';
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, IconButton, Slide, Typography } from '@material-ui/core';
@@ -68,20 +69,18 @@ const useStyles = makeStyles(() => ({
 
 const slides = [
   {
-    heading: 'Share Wallet',
-    body:
-      'With a Shared Wallet you can pull your individual circles together and organize joint projects with the people that you trust. This wallet will not receive a basic income.',
+    heading: translate('OnboardingOrganizationTutorial.slideHeading1'),
+    body: translate('OnboardingOrganizationTutorial.slideBody1'),
     image: <OrgTutorialStep1SVG height="180px" />,
   },
   {
-    heading: 'Share Wealth',
-    body:
-      'Organizations, families, communties, and individuals can use these wallets to hold Circles in common, or keep track of a personal business.',
+    heading: translate('OnboardingOrganizationTutorial.slideHeading2'),
+    body: translate('OnboardingOrganizationTutorial.slideBody2'),
     image: <OrgTutorialStep2SVG height="180px" />,
   },
   {
-    heading: 'Share Trust',
-    body: 'As a group you can trust other groups.',
+    heading: translate('OnboardingOrganizationTutorial.slideHeading3'),
+    body: translate('OnboardingOrganizationTutorial.slideBody3'),
     image: <OrgTutorialStep3SVG height="180px" />,
   },
 ];
@@ -94,8 +93,6 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(true);
   const [step, setStep] = useState(0);
-  // props.onExit();
-  // dispatch(finishTutorial(ACCOUNT_CREATE));
 
   const handleNext = () => {
     if (step === 2) {
@@ -114,23 +111,11 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
 
   const handleFinish = () => {
     setIsOpen(false);
-    setTimeout(() => onFinishTutorial(), 500);
+    setTimeout(() => onFinishTutorial(), 300);
   };
 
   return (
-    <Dialog
-      TransitionComponent={Transition}
-      fullScreen
-      open={isOpen}
-      // cancelLabel={translate('DialogTrust.dialogTrustCancel')}
-      // confirmLabel={translate('DialogTrust.dialogTrustConfirm')}
-      // id="trust"
-      // open={isOpen}
-      // text={translate('DialogTrust.dialogTrustDescription', { username })}
-      // title={translate('DialogTrust.dialogTrustTitle', { username })}
-      // onClose={handleTrustClose}
-      // onConfirm={handleTrust}
-    >
+    <Dialog TransitionComponent={Transition} fullScreen open={isOpen}>
       <Box
         className={classes.wrapper}
         display="flex"
@@ -171,7 +156,9 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
                   {slide.body} <br />{' '}
                   {step === 2 && (
                     <Link to="#">
-                      Learn more on how to organize with other groups
+                      {translate(
+                        'OnboardingOrganizationTutorial.slideBody3Link',
+                      )}
                     </Link>
                   )}
                 </Typography>
@@ -181,7 +168,9 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
         </Box>
         <Box p={2}>
           <Button fullWidth isPrimary onClick={handleNext}>
-            {step === 2 ? 'Lets get started' : 'Next'}
+            {step === 2
+              ? translate('OnboardingOrganizationTutorial.finish')
+              : translate('OnboardingOrganizationTutorial.next')}
           </Button>
         </Box>
       </Box>
