@@ -64,7 +64,6 @@ const useStyles = makeStyles(() => ({
   slideBody: {
     padding: 24,
   },
-  justifyAround: {},
 }));
 
 const slides = [

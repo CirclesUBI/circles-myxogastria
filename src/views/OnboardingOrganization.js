@@ -17,13 +17,19 @@ import translate from '~/services/locale';
 import web3 from '~/services/web3';
 import { DASHBOARD_PATH } from '~/routes';
 import { createNewOrganization } from '~/store/onboarding/actions';
+import {
+  finishTutorial,
+  ORGANIZATION_TUTORIAL,
+} from '~/store/tutorial/actions';
 import { formatCirclesValue } from '~/utils/format';
 import { validateAmount } from '~/services/token';
 
 const OnboardingOrganization = () => {
   const dispatch = useDispatch();
   const [isRedirect, setIsRedirect] = useState(false);
-  const [isTutorial, setIsTutorial] = useState(false);
+  const { isFinished: isTutorialFinished } = useSelector((state) => {
+    return state.tutorial[ORGANIZATION_TUTORIAL];
+  });
 
   const [values, setValues] = useState({
     avatarUrl: '',
@@ -74,11 +80,13 @@ const OnboardingOrganization = () => {
     OrganizationStepPrefund,
   ];
 
-  if (!isTutorial) {
+  const handleTutorialFinish = () => {
+    dispatch(finishTutorial(ORGANIZATION_TUTORIAL));
+  };
+
+  if (!isTutorialFinished) {
     return (
-      <OnboardingOrganizationTutorial
-        onFinishTutorial={() => setIsTutorial(true)}
-      />
+      <OnboardingOrganizationTutorial onFinishTutorial={handleTutorialFinish} />
     );
   }
 
