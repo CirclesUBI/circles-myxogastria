@@ -14,6 +14,7 @@ import facebook from '%/images/facebook.svg';
 import follow from '%/images/follow.svg';
 import friends from '%/images/friends.svg';
 import mail from '%/images/mail.svg';
+import members from '%/images/members.svg';
 import menu from '%/images/menu.svg';
 import notification from '%/images/notification.svg';
 import qr from '%/images/qr.svg';
@@ -80,6 +81,10 @@ export const IconFriends = (props) => {
 
 export const IconMail = (props) => {
   return <SvgIcon component={mail} {...props} viewBox="0 0 21 18" />;
+};
+
+export const IconMembers = (props) => {
+  return <SvgIcon component={members} {...props} viewBox="0 0 32 35" />;
 };
 
 export const IconMenu = (props) => {

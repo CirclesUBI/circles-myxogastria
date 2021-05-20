@@ -16,7 +16,7 @@ import Header from '~/components/Header';
 import Navigation from '~/components/Navigation';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
-import { IconMenu, IconQRLarge, IconTrust } from '~/styles/icons';
+import { IconMenu, IconQRLarge, IconMembers } from '~/styles/icons';
 import {
   DASHBOARD_PATH,
   MY_PROFILE_PATH,
@@ -106,7 +106,7 @@ const DashboardOrganization = () => {
           edge="end"
           to={ORGANIZATION_MEMBERS_PATH}
         >
-          <IconTrust />
+          <IconMembers />
         </IconButton>
       </Header>
       <Navigation
