@@ -194,7 +194,7 @@
     "dialogRemoveMember": "Are you sure you want to remove @{username} from this organization?",
     "dialogTitle": "Remove @{username}",
     "errorRemovedMember": "Something went wrong, @{username} could not be removed from organization",
-    "headingMembers": "Organization members",
+    "headingMembers": "Members",
     "successRemovedMember": "You've successfully removed @{username} from this organization."
   },
   "OrganizationMembersAdd": {
