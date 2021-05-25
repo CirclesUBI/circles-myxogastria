@@ -5,23 +5,25 @@ import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AvatarUploader from '~/components/AvatarUploader';
+import OnboardingOrganizationTutorial from '~/components/OnboardingOrganizationTutorial';
 import OnboardingStepper from '~/components/OnboardingStepper';
-import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
 import TransferCirclesInput from '~/components/TransferCirclesInput';
+import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
-import OnboardingOrganizationTutorial from '~/components/OnboardingOrganizationTutorial';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import web3 from '~/services/web3';
 import { DASHBOARD_PATH } from '~/routes';
+import { checkCurrentBalance } from '~/store/token/actions';
 import { createNewOrganization } from '~/store/onboarding/actions';
 import {
   finishTutorial,
   ORGANIZATION_TUTORIAL,
 } from '~/store/tutorial/actions';
 import { formatCirclesValue } from '~/utils/format';
+import { useUpdateLoop } from '~/hooks/update';
 import { validateAmount } from '~/services/token';
 
 const OnboardingOrganization = () => {
@@ -36,6 +38,13 @@ const OnboardingOrganization = () => {
     email: '',
     username: '',
     prefundValue: 0,
+  });
+
+  // Update available token balance for prefund step. This is required
+  // especially for the case when we land on this page directly, not having
+  // that data yet.
+  useUpdateLoop(async () => {
+    await dispatch(checkCurrentBalance());
   });
 
   const onFinish = async () => {
