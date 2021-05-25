@@ -236,6 +236,7 @@
     "notificationError": "Could not open QR code scanner: {error}."
   },
   "QRGenerator": {
+    "bodyPaymentNoteInvalid": "You cannot write special symbols like {}<>^ and more than 100 characters.",
     "buttonShowQRCode": "Show QR Code",
     "dialogClose": "Close",
     "dialogSaveFile": "Save as .png file",
