@@ -1,11 +1,12 @@
 import React, { Fragment, useState } from 'react';
-import { Container } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { Container, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
 import ButtonQRCodeScanner from '~/components/ButtonQRCodeScanner';
 import CenteredHeading from '~/components/CenteredHeading';
-import Dialog from '~/components/Dialog';
+import PurpleDialog from '~/components/PurpleDialog';
 import Finder from '~/components/Finder';
 import Header from '~/components/Header';
 import View from '~/components/View';
@@ -17,10 +18,18 @@ import { addSafeOwner } from '~/store/safe/actions';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { useUserdata } from '~/hooks/username';
 
+const useParagraphStyles = makeStyles((theme) => ({
+  paragraph: {
+    color: theme.custom.colors.grayLightest,
+  },
+}));
+
 const OrganizationMembersAdd = () => {
   const dispatch = useDispatch();
   const [address, setAddress] = useState(null);
   const { username } = useUserdata(address);
+
+  const classes = useParagraphStyles();
 
   const handleSelect = (value) => {
     setAddress(value);
@@ -69,20 +78,32 @@ const OrganizationMembersAdd = () => {
 
   return (
     <Fragment>
-      <Dialog
-        cancelLabel={translate('OrganizationMembersAdd.dialogCancel')}
-        confirmLabel={translate('OrganizationMembersAdd.dialogConfirm')}
-        id="add-member"
-        open={address !== null}
-        text={translate('OrganizationMembersAdd.dialogAddMember', {
-          username,
-        })}
-        title={translate('OrganizationMembersAdd.dialogTitle', {
-          username,
-        })}
+      <PurpleDialog
+        // cancelLabel={translate('OrganizationMembersAdd.dialogCancel')}
+        // confirmLabel={translate('OrganizationMembersAdd.dialogConfirm')}
+        // id="add-member"
+        // open={address !== null}
+        // text={translate('OrganizationMembersAdd.dialogAddMember', {
+        //   username,
+        // })}
+        // title={translate('OrganizationMembersAdd.dialogTitle', {
+        //   username,
+        // })}
         onClose={handleClose}
         onConfirm={handleAddMember}
-      />
+        open
+        title="Add Dinesh"
+      >
+        <Typography classes={classes} paragraph>
+          Trust is Power. When you trust somebody it means that you are sharing
+          the power to issue circles.
+        </Typography>
+        <Link to="https://www.joincircles.net/faq">
+          <Typography classes={classes} paragraph>
+            Learn more
+          </Typography>
+        </Link>
+      </PurpleDialog>
       <Header>
         <ButtonBack />
         <CenteredHeading>

@@ -36,6 +36,16 @@ const useStyles = makeStyles((theme) => ({
       background: theme.custom.gradients.gray,
     },
   },
+  buttonWhite: {
+    background: theme.custom.colors.white,
+    color: theme.custom.colors.darkPurple,
+    '&:hover': {
+      backgroundColor: theme.custom.colors.grayLight,
+    },
+  },
+  buttonWhiteText: {
+    color: theme.custom.colors.white,
+  },
 }));
 
 // eslint-disable-next-line react/display-name
@@ -48,6 +58,8 @@ const Button = React.forwardRef(
       isDark,
       isOutline,
       isPrimary,
+      isWhite,
+      isWhiteText,
       to,
       ...props
     },
@@ -60,6 +72,8 @@ const Button = React.forwardRef(
       [classes.buttonDark]: isDark,
       [classes.buttonOutline]: isOutline,
       [classes.buttonPrimary]: isPrimary,
+      [classes.buttonWhite]: isWhite,
+      [classes.buttonWhiteText]: isWhiteText,
     });
 
     return React.createElement(
@@ -87,6 +101,8 @@ Button.propTypes = {
   isDark: PropTypes.bool,
   isOutline: PropTypes.bool,
   isPrimary: PropTypes.bool,
+  isWhite: PropTypes.bool,
+  isWhiteText: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
 };
