@@ -8,7 +8,7 @@ import Logo from '~/components/Logo';
 import translate from '~/services/locale';
 import { ISSUANCE_RATE_MONTH } from '~/utils/constants';
 import { IconCircles } from '~/styles/icons';
-import { checkCurrentBalance } from '~/store/token/actions';
+import { checkCurrentBalance, checkTokenState } from '~/store/token/actions';
 import { formatCirclesValue } from '~/utils/format';
 import { useUpdateLoop } from '~/hooks/update';
 
@@ -41,6 +41,7 @@ const BalanceDisplay = () => {
   const { token, safe } = useSelector((state) => state);
 
   useUpdateLoop(async () => {
+    await dispatch(checkTokenState());
     await dispatch(checkCurrentBalance());
   });
 

@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { IconCircles } from '~/styles/icons';
-import { checkCurrentBalance } from '~/store/token/actions';
+import { checkCurrentBalance, checkTokenState } from '~/store/token/actions';
 import { formatCirclesValue } from '~/utils/format';
 import { useUpdateLoop } from '~/hooks/update';
 
@@ -33,6 +33,7 @@ const BalanceDisplayOrganization = () => {
   const { token, safe } = useSelector((state) => state);
 
   useUpdateLoop(async () => {
+    await dispatch(checkTokenState());
     await dispatch(checkCurrentBalance());
   });
 
