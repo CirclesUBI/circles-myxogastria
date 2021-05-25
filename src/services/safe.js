@@ -16,10 +16,22 @@ export function generateRandomNonce() {
   return Math.round(Math.random() * MAX_NONCE);
 }
 
+// Returns a deterministic CREATE2 nonce to predict a to-be-deployed Safe
+// address
 export function generateDeterministicNonce(address) {
-  // Returns a deterministic CREATE2 nonce to predict a to-be-deployed Safe
-  // address
   return parseInt(address.slice(30), 16);
+}
+
+// Returns a deterministic CREATE2 nonce from a string to predict a
+// to-be-deployed Safe address. This is useful for generating nonces from
+// usernames.
+export function generateDeterministicNonceFromName(str) {
+  // Convert each character in the string to its regarding character code
+  const charCodeStr = str.split('').reduce((acc, char) => {
+    return `${acc}${char.charCodeAt()}`;
+  }, '');
+  // Make this number smaller
+  return parseInt(charCodeStr.slice(0, 30)) % 123456789;
 }
 
 export function getNonce() {

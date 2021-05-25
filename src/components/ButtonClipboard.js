@@ -14,6 +14,7 @@ const ButtonClipboard = ({ text, children, isIcon, ...props }) => {
 
   useEffect(() => {
     const clipboard = new Clipboard(ref.current, {
+      container: ref.current,
       text: () => {
         return text;
       },

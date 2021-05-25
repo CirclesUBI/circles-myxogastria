@@ -108,7 +108,7 @@ const QRGenerator = () => {
             </Button>
           </Box>
           <Box mb={2}>
-            <ButtonShare fullWidth isOutline text={paymentNote} url={data}>
+            <ButtonShare fullWidth isOutline text="" url={data}>
               {translate('QRGenerator.dialogShare')}
             </ButtonShare>
           </Box>
