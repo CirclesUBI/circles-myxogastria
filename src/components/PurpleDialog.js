@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Dialog, DialogTitle } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import CrcButton from '~/components/Button';
+import Button from '~/components/Button';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -26,9 +26,18 @@ const useTitleStyles = makeStyles((theme) => ({
   },
 }));
 
-const PurpleDialog = ({ title, children, ...otherProps }) => {
+const PurpleDialog = ({
+  children,
+  cancelButtonLabel,
+  okButtonLabel,
+  onCancelClick,
+  onOkClick,
+  title,
+  ...otherProps
+}) => {
   const classes = useStyles();
   const titleClasses = useTitleStyles();
+
   return (
     <Dialog classes={classes} {...otherProps} maxWidth="lg">
       <DialogTitle align="center" classes={titleClasses}>
@@ -36,15 +45,16 @@ const PurpleDialog = ({ title, children, ...otherProps }) => {
       </DialogTitle>
 
       {children}
+
       <Box display="flex" flexDirection="column" pt={2} pb={1}>
-        <CrcButton isWhite m={2}>
-          Trust
-        </CrcButton>
+        <Button onClick={onOkClick} isWhite m={2}>
+          {okButtonLabel || 'Confirm'}
+        </Button>
       </Box>
       <Box display="flex" flexDirection="column" pb={2}>
-        <CrcButton isWhiteText m={2}>
-          Cancel
-        </CrcButton>
+        <Button onClick={onCancelClick} isWhiteText m={2}>
+          {cancelButtonLabel || 'Cancel'}
+        </Button>
       </Box>
     </Dialog>
   );
@@ -52,7 +62,11 @@ const PurpleDialog = ({ title, children, ...otherProps }) => {
 
 PurpleDialog.propTypes = {
   children: PropTypes.node.isRequired,
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  okButtonLabel: PropTypes.string,
+  cancelButtonLabel: PropTypes.string,
+  onCancelClick: PropTypes.func.isRequired,
+  onOkClick: PropTypes.func.isRequired,
 };
 
 export default PurpleDialog;

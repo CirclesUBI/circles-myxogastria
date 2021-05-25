@@ -89,10 +89,11 @@ const OrganizationMembersAdd = () => {
         // title={translate('OrganizationMembersAdd.dialogTitle', {
         //   username,
         // })}
-        onClose={handleClose}
-        onConfirm={handleAddMember}
+        okButtonLabel="Trust"
+        onCancelClick={handleClose}
+        onOkClick={handleAddMember}
         open
-        title="Add Dinesh"
+        title="Add @Dinesh"
       >
         <Typography classes={classes} paragraph>
           Trust is Power. When you trust somebody it means that you are sharing
