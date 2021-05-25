@@ -18,7 +18,10 @@ import {
   updateSafeFundedState,
 } from '~/store/safe/actions';
 import { deployToken, updateTokenFundedState } from '~/store/token/actions';
-import { generateDeterministicNonce } from '~/services/safe';
+import {
+  generateDeterministicNonce,
+  generateDeterministicNonceFromName,
+} from '~/services/safe';
 import {
   hideSpinnerOverlay,
   showSpinnerOverlay,
@@ -76,7 +79,7 @@ export function createNewOrganization(
 
       // Create an undeployed Safe for organizations (so far this is the same
       // flow as regular user accounts)
-      const nonce = Date.now();
+      const nonce = generateDeterministicNonceFromName(name);
       const safeAddress = await core.safe.prepareDeploy(nonce);
 
       // Register organization in on-chain database
