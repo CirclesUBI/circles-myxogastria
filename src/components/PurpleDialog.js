@@ -46,13 +46,13 @@ const PurpleDialog = ({
 
       {children}
 
-      <Box display="flex" flexDirection="column" pt={2} pb={1}>
-        <Button onClick={onOkClick} isWhite m={2}>
+      <Box display="flex" flexDirection="column" pb={1} pt={2}>
+        <Button isWhite m={2} onClick={onOkClick}>
           {okButtonLabel || 'Confirm'}
         </Button>
       </Box>
       <Box display="flex" flexDirection="column" pb={2}>
-        <Button onClick={onCancelClick} isWhiteText m={2}>
+        <Button isWhiteText m={2} onClick={onCancelClick}>
           {cancelButtonLabel || 'Cancel'}
         </Button>
       </Box>
@@ -61,12 +61,12 @@ const PurpleDialog = ({
 };
 
 PurpleDialog.propTypes = {
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
-  okButtonLabel: PropTypes.string,
   cancelButtonLabel: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  okButtonLabel: PropTypes.string,
   onCancelClick: PropTypes.func.isRequired,
   onOkClick: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default PurpleDialog;

@@ -90,10 +90,10 @@ const OrganizationMembersAdd = () => {
         //   username,
         // })}
         okButtonLabel="Trust"
-        onCancelClick={handleClose}
-        onOkClick={handleAddMember}
         open
         title="Add @Dinesh"
+        onCancelClick={handleClose}
+        onOkClick={handleAddMember}
       >
         <Typography classes={classes} paragraph>
           Trust is Power. When you trust somebody it means that you are sharing
