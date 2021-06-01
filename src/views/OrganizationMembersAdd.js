@@ -79,16 +79,6 @@ const OrganizationMembersAdd = () => {
   return (
     <Fragment>
       <PurpleDialog
-        // cancelLabel={translate('OrganizationMembersAdd.dialogCancel')}
-        // confirmLabel={translate('OrganizationMembersAdd.dialogConfirm')}
-        // id="add-member"
-        // open={address !== null}
-        // text={translate('OrganizationMembersAdd.dialogAddMember', {
-        //   username,
-        // })}
-        // title={translate('OrganizationMembersAdd.dialogTitle', {
-        //   username,
-        // })}
         okButtonLabel="Trust"
         open
         title="Add @Dinesh"
@@ -96,12 +86,11 @@ const OrganizationMembersAdd = () => {
         onOkClick={handleAddMember}
       >
         <Typography classes={classes} paragraph>
-          Trust is Power. When you trust somebody it means that you are sharing
-          the power to issue circles.
+          {t('OrganizationMembersAdd.trustDialogInfo')}
         </Typography>
         <Link to="https://www.joincircles.net/faq">
           <Typography classes={classes} paragraph>
-            Learn more
+            {t('OrganizationMembersAdd.learnMore')}
           </Typography>
         </Link>
       </PurpleDialog>

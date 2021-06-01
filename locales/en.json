@@ -204,7 +204,9 @@
     "dialogTitle": "Add @{username}",
     "errorAddedMember": "Something went wrong, @{username} could not be added to organization",
     "headingAddMember": "Add member",
-    "successAddedMember": "You've successfully added @{username} to this organization."
+    "successAddedMember": "You've successfully added @{username} to this organization.",
+    "trustDialogInfo": "Trust is Power. When you trust somebody it means that you are sharing the power to issue circles.",
+    "learnMore": "Learn more"
   },
   "Profile": {
     "bodyActivity": "Activity",
