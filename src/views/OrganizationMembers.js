@@ -9,6 +9,7 @@ import {
   CircularProgress,
   Container,
   Grid,
+  Typography,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,8 +19,8 @@ import Avatar from '~/components/Avatar';
 import ButtonAction from '~/components/ButtonAction';
 import ButtonBack from '~/components/ButtonBack';
 import CenteredHeading from '~/components/CenteredHeading';
-import Dialog from '~/components/Dialog';
 import Header from '~/components/Header';
+import PurpleDialog from '~/components/PurpleDialog';
 import View from '~/components/View';
 import core from '~/services/core';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -56,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(2.25),
     right: theme.spacing(2.25),
     background: theme.custom.gradients.purple,
+  },
+  paragraph: {
+    color: theme.custom.colors.grayLightest,
   },
 }));
 
@@ -179,20 +183,23 @@ const OrganizationMembersItem = ({
 
   return (
     <Card>
-      <Dialog
-        cancelLabel={translate('OrganizationMembers.dialogCancel')}
-        confirmLabel={translate('OrganizationMembers.dialogConfirm')}
-        id="remove-member"
+      <PurpleDialog
+        cancelButtonLabel={translate('OrganizationMembers.dialogCancel')}
+        okButtonLabel={translate('OrganizationMembers.dialogConfirm')}
         open={isOpen}
-        text={translate('OrganizationMembers.dialogRemoveMember', {
-          username,
-        })}
         title={translate('OrganizationMembers.dialogTitle', {
           username,
         })}
         onClose={handleClose}
         onConfirm={handleRemove}
-      />
+      >
+        <Box display="flex" justifyContent="center" mb={2}>
+          <Avatar address={safeAddresses[0]} size="medium" />
+        </Box>
+        <Typography className={classes.paragraph} paragraph>
+          {translate('OrganizationMembers.dialogRemoveMember', { username })}
+        </Typography>
+      </PurpleDialog>
       <CardHeader
         action={
           <Box display="flex">

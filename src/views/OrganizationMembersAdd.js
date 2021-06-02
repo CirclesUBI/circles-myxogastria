@@ -1,15 +1,15 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Box, Container, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
+import Avatar from '~/components/Avatar';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonQRCodeScanner from '~/components/ButtonQRCodeScanner';
 import CenteredHeading from '~/components/CenteredHeading';
-import PurpleDialog from '~/components/PurpleDialog';
+import ExternalLink from '~/components/ExternalLink';
 import Finder from '~/components/Finder';
 import Header from '~/components/Header';
-import Avatar from '~/components/Avatar';
+import PurpleDialog from '~/components/PurpleDialog';
 import View from '~/components/View';
 import core from '~/services/core';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -23,21 +23,26 @@ const useParagraphStyles = makeStyles((theme) => ({
   paragraph: {
     color: theme.custom.colors.grayLightest,
   },
+  link: {
+    color: theme.custom.colors.grayLightest,
+  },
 }));
 
 const OrganizationMembersAdd = () => {
   const dispatch = useDispatch();
   const [address, setAddress] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const { username } = useUserdata(address);
 
   const classes = useParagraphStyles();
 
   const handleSelect = (value) => {
     setAddress(value);
+    setIsOpen(true);
   };
 
   const handleClose = () => {
-    setAddress(null);
+    setIsOpen(false);
   };
 
   const handleAddMember = async () => {
@@ -80,23 +85,28 @@ const OrganizationMembersAdd = () => {
   return (
     <Fragment>
       <PurpleDialog
-        okButtonLabel="Trust"
-        open
-        title={translate('OrganizationMembersAdd.add') + ' @' + username}
-        onCancelClick={handleClose}
-        onOkClick={handleAddMember}
+        cancelButtonLabel={translate('OrganizationMembersAdd.dialogCancel')}
+        okButtonLabel={translate('OrganizationMembersAdd.dialogConfirm')}
+        open={isOpen}
+        title={translate('OrganizationMembersAdd.dialogTitle', { username })}
+        onClose={handleClose}
+        onConfirm={handleAddMember}
       >
-        <Box display="flex" justifyContent="center">
+        <Box display="flex" justifyContent="center" mb={2}>
           <Avatar address={address} size="medium" />
         </Box>
-        <Typography classes={classes} paragraph>
-          {translate('OrganizationMembersAdd.trustDialogInfo')}
+        <Typography className={classes.paragraph} paragraph>
+          {translate('OrganizationMembersAdd.dialogBody')}
         </Typography>
-        <Link to="https://www.joincircles.net/faq">
-          <Typography classes={classes} paragraph>
-            {translate('OrganizationMembersAdd.learnMore')}
+        <ExternalLink
+          className={classes.link}
+          href="https://www.joincircles.net/faq"
+          underline="always"
+        >
+          <Typography paragraph>
+            {translate('OrganizationMembersAdd.linkLearnMore')}
           </Typography>
-        </Link>
+        </ExternalLink>
       </PurpleDialog>
       <Header>
         <ButtonBack />

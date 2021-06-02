@@ -190,7 +190,7 @@
   "OrganizationMembers": {
     "buttonRemoveMember": "Remove",
     "dialogCancel": "Cancel",
-    "dialogConfirm": "Remove member",
+    "dialogConfirm": "Confirm",
     "dialogRemoveMember": "Are you sure you want to remove @{username} from this organization?",
     "dialogTitle": "Remove @{username}",
     "errorRemovedMember": "Something went wrong, @{username} could not be removed from organization",
@@ -198,16 +198,14 @@
     "successRemovedMember": "You've successfully removed @{username} from this organization."
   },
   "OrganizationMembersAdd": {
-    "dialogAddMember": "Before inviting a new member, please note that all members can send Circles from this organization account. Are you sure you want to add @{username}?",
+    "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to issue circles.",
     "dialogCancel": "Cancel",
     "dialogConfirm": "Add member",
     "dialogTitle": "Add @{username}",
     "errorAddedMember": "Something went wrong, @{username} could not be added to organization",
     "headingAddMember": "Add member",
-    "successAddedMember": "You've successfully added @{username} to this organization.",
-    "trustDialogInfo": "Trust is Power. When you trust somebody it means that you are sharing the power to issue circles.",
-    "learnMore": "Learn more",
-    "add": "Add"
+    "linkLearnMore": "Learn more",
+    "successAddedMember": "You've successfully added @{username} to this organization."
   },
   "Profile": {
     "bodyActivity": "Activity",

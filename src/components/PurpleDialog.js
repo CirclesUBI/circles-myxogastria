@@ -30,8 +30,8 @@ const PurpleDialog = ({
   children,
   cancelButtonLabel,
   okButtonLabel,
-  onCancelClick,
-  onOkClick,
+  onClose,
+  onConfirm,
   title,
   ...otherProps
 }) => {
@@ -39,21 +39,19 @@ const PurpleDialog = ({
   const titleClasses = useTitleStyles();
 
   return (
-    <Dialog classes={classes} {...otherProps} maxWidth="lg">
+    <Dialog classes={classes} onClose={onClose} {...otherProps} maxWidth="lg">
       <DialogTitle align="center" classes={titleClasses}>
         {title}
       </DialogTitle>
-
       {children}
-
       <Box display="flex" flexDirection="column" pb={1} pt={2}>
-        <Button isWhite m={2} onClick={onOkClick}>
-          {okButtonLabel || 'Confirm'}
+        <Button isWhite m={2} onClick={onConfirm}>
+          {okButtonLabel}
         </Button>
       </Box>
       <Box display="flex" flexDirection="column" pb={2}>
-        <Button isWhiteText m={2} onClick={onCancelClick}>
-          {cancelButtonLabel || 'Cancel'}
+        <Button isWhiteText m={2} onClick={onClose}>
+          {cancelButtonLabel}
         </Button>
       </Box>
     </Dialog>
@@ -61,11 +59,11 @@ const PurpleDialog = ({
 };
 
 PurpleDialog.propTypes = {
-  cancelButtonLabel: PropTypes.string,
+  cancelButtonLabel: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  okButtonLabel: PropTypes.string,
-  onCancelClick: PropTypes.func.isRequired,
-  onOkClick: PropTypes.func.isRequired,
+  okButtonLabel: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };
 

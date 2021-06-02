@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonWhite: {
     background: theme.custom.colors.white,
-    color: theme.custom.colors.darkPurple,
+    color: theme.custom.colors.purpleDark,
     '&:hover': {
       backgroundColor: theme.custom.colors.grayLight,
     },
