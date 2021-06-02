@@ -206,7 +206,8 @@
     "headingAddMember": "Add member",
     "successAddedMember": "You've successfully added @{username} to this organization.",
     "trustDialogInfo": "Trust is Power. When you trust somebody it means that you are sharing the power to issue circles.",
-    "learnMore": "Learn more"
+    "learnMore": "Learn more",
+    "add": "Add"
   },
   "Profile": {
     "bodyActivity": "Activity",

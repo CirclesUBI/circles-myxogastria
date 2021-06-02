@@ -81,16 +81,16 @@ const OrganizationMembersAdd = () => {
       <PurpleDialog
         okButtonLabel="Trust"
         open
-        title="Add @Dinesh"
+        title={translate('OrganizationMembersAdd.add') + ' @' + username}
         onCancelClick={handleClose}
         onOkClick={handleAddMember}
       >
         <Typography classes={classes} paragraph>
-          {t('OrganizationMembersAdd.trustDialogInfo')}
+          {translate('OrganizationMembersAdd.trustDialogInfo')}
         </Typography>
         <Link to="https://www.joincircles.net/faq">
           <Typography classes={classes} paragraph>
-            {t('OrganizationMembersAdd.learnMore')}
+            {translate('OrganizationMembersAdd.learnMore')}
           </Typography>
         </Link>
       </PurpleDialog>
