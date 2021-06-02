@@ -24,6 +24,7 @@ import ButtonHome from '~/components/ButtonHome';
 import CenteredHeading from '~/components/CenteredHeading';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import TransferCirclesInput from '~/components/TransferCirclesInput';
 import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
 import TransferInfoCard from '~/components/TransferInfoCard';
 import TransferInput from '~/components/TransferInput';
@@ -308,7 +309,7 @@ const SendConfirm = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <TransferInput
+              <TransferCirclesInput
                 autoFocus
                 errorMessage={translate('SendConfirm.bodyAmountTooHigh', {
                   count: formatCirclesValue(maxAmount),

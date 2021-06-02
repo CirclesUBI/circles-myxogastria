@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, makeStyles, Typography } from '@material-ui/core';
+import { Box, Container, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import ButtonBack from '~/components/ButtonBack';
@@ -9,6 +9,7 @@ import CenteredHeading from '~/components/CenteredHeading';
 import PurpleDialog from '~/components/PurpleDialog';
 import Finder from '~/components/Finder';
 import Header from '~/components/Header';
+import Avatar from '~/components/Avatar';
 import View from '~/components/View';
 import core from '~/services/core';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -85,6 +86,9 @@ const OrganizationMembersAdd = () => {
         onCancelClick={handleClose}
         onOkClick={handleAddMember}
       >
+        <Box display="flex" justifyContent="center">
+          <Avatar address={address} size="medium" />
+        </Box>
         <Typography classes={classes} paragraph>
           {translate('OrganizationMembersAdd.trustDialogInfo')}
         </Typography>
