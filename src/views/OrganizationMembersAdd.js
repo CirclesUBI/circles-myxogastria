@@ -79,8 +79,6 @@ const OrganizationMembersAdd = () => {
     }
 
     setIsOpen(false);
-    setAddress(null);
-
     dispatch(hideSpinnerOverlay());
   };
 
