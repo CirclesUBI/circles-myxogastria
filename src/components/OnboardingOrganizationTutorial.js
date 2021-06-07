@@ -54,15 +54,16 @@ const useStyles = makeStyles((theme) => ({
   slideContainer: {
     [theme.breakpoints.down('xs')]: {
       backgroundImage: dataUriCutCircle,
+      maxWidth: 480,
     },
     [theme.breakpoints.up('sm')]: {
       backgroundImage: 'none',
       backgroundColor: theme.custom.colors.white,
+      maxWidth: '100%',
     },
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    maxWidth: 480,
     margin: '0 auto',
     height: '73vh',
     padding: 12,
