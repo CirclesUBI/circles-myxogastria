@@ -121,8 +121,6 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
     setTimeout(() => onFinishTutorial(), 300);
   };
 
-  const preventDefault = (event) => event.preventDefault();
-
   return (
     <Dialog TransitionComponent={Transition} fullScreen open={isOpen}>
       <Box
