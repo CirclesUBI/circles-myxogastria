@@ -3,16 +3,10 @@ import PropTypes from 'prop-types';
 import { renderToStaticMarkup } from 'react-dom/server';
 import translate from '~/services/locale';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Box,
-  Dialog,
-  IconButton,
-  Link,
-  Slide,
-  Typography,
-} from '@material-ui/core';
+import { Box, Dialog, IconButton, Slide, Typography } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import Button from '~/components/Button';
+import ExternalLink from '~/components/ExternalLink';
 import OrgTutorialStep1SVG from '%/images/org-tutorial-step-1.svg';
 import OrgTutorialStep2SVG from '%/images/org-tutorial-step-2.svg';
 import OrgTutorialStep3SVG from '%/images/org-tutorial-step-3.svg';
@@ -100,7 +94,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const learnMoreLink = 'https://handbook.joincircles.net/docs/communities';
+const LEARN_MORE_URL = 'https://handbook.joincircles.net/docs/communities';
 
 const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
   const classes = useStyles();
@@ -170,16 +164,11 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
                 <Typography className={classes.slideBody} variant="body2">
                   {slide.body} <br />{' '}
                   {step === 2 && (
-                    <Link
-                      href={learnMoreLink}
-                      target="_blank"
-                      underline="always"
-                      onClick={preventDefault}
-                    >
+                    <ExternalLink href={LEARN_MORE_URL} underline="always">
                       {translate(
                         'OnboardingOrganizationTutorial.slideBody3Link',
                       )}
-                    </Link>
+                    </ExternalLink>
                   )}
                 </Typography>
               </Box>
