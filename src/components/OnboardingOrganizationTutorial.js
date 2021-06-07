@@ -162,7 +162,7 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
                 <Typography className={classes.slideBody} variant="body2">
                   {slide.body} <br />{' '}
                   {step === 2 && (
-                    <Link to={learnMoreLink} target="_blank">
+                    <Link target="_blank" to={learnMoreLink}>
                       {translate(
                         'OnboardingOrganizationTutorial.slideBody3Link',
                       )}
