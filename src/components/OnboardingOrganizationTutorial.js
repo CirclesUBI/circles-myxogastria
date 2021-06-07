@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
   wrapper: {
     width: '100%',
     height: '100%',
-    margin: '0 auto',
     background:
       'linear-gradient(180deg, rgba(215,58,83,1) 0%, rgba(251,134,9,1) 100%)',
   },
