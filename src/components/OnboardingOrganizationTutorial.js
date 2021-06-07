@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
       background: dataUriCutCircle,
     },
     [theme.breakpoints.up('md')]: {
-      background: theme.colors.white,
+      background: theme.custom.colors.white,
     },
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
