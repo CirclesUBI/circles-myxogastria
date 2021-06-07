@@ -53,10 +53,10 @@ const useStyles = makeStyles((theme) => ({
   },
   slideContainer: {
     [theme.breakpoints.down('xs')]: {
-      background: dataUriCutCircle,
+      backgroundImage: dataUriCutCircle,
     },
     [theme.breakpoints.up('sm')]: {
-      background: 'none',
+      backgroundImage: 'none',
       backgroundColor: theme.custom.colors.white,
     },
     backgroundRepeat: 'no-repeat',
@@ -167,8 +167,8 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
                     <Link
                       href={learnMoreLink}
                       target="_blank"
-                      onClick={preventDefault}
                       underline="always"
+                      onClick={preventDefault}
                     >
                       {translate(
                         'OnboardingOrganizationTutorial.slideBody3Link',
