@@ -68,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 12,
   },
   slideBody: {
+    maxWidth: 480,
     padding: 24,
   },
 }));
