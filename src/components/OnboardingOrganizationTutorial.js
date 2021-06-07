@@ -44,20 +44,26 @@ const svgStringCutCircle = encodeURIComponent(
 );
 const dataUriCutCircle = `url("data:image/svg+xml,${svgStringCutCircle}")`;
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   wrapper: {
     width: '100%',
-    maxWidth: 480,
     height: '100%',
     margin: '0 auto',
     background:
       'linear-gradient(180deg, rgba(215,58,83,1) 0%, rgba(251,134,9,1) 100%)',
   },
   slideContainer: {
-    background: dataUriCutCircle,
+    [theme.breakpoints.down('sm')]: {
+      background: dataUriCutCircle,
+    },
+    [theme.breakpoints.up('md')]: {
+      background: theme.colors.white,
+    },
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
+    maxWidth: 480,
+    margin: '0 auto',
     height: '73vh',
     padding: 12,
   },
@@ -87,6 +93,8 @@ const slides = [
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+const learnMoreLink = 'https://handbook.joincircles.net/docs/communities';
 
 const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
   const classes = useStyles();
@@ -154,7 +162,7 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
                 <Typography className={classes.slideBody} variant="body2">
                   {slide.body} <br />{' '}
                   {step === 2 && (
-                    <Link to="#">
+                    <Link to={learnMoreLink} target="_blank">
                       {translate(
                         'OnboardingOrganizationTutorial.slideBody3Link',
                       )}

@@ -23,6 +23,7 @@ const monochrome = {
   grayLight: '#e6e6e6',
   grayLighter: '#f2f2f2',
   grayLightest: '#fafafa',
+  whiteAlmost: '#fffcfe',
   white: '#fff',
 };
 
@@ -63,7 +64,7 @@ const fontFamily = `"${fontFamilyNotoSans}", sans-serif`;
 export default createMuiTheme({
   palette: {
     background: {
-      default: colors.white,
+      default: colors.whiteAlmost,
       paper: colors.white,
     },
     primary: {
