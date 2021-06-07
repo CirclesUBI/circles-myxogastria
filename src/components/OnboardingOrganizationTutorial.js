@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { renderToStaticMarkup } from 'react-dom/server';
 import translate from '~/services/locale';
 import Dialog from '@material-ui/core/Dialog';
+import Link from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, IconButton, Slide, Typography } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
@@ -53,11 +53,12 @@ const useStyles = makeStyles((theme) => ({
       'linear-gradient(180deg, rgba(215,58,83,1) 0%, rgba(251,134,9,1) 100%)',
   },
   slideContainer: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       background: dataUriCutCircle,
     },
-    [theme.breakpoints.up('md')]: {
-      background: theme.custom.colors.white,
+    [theme.breakpoints.up('sm')]: {
+      background: 'none',
+      backgroundColor: theme.custom.colors.white,
     },
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -121,6 +122,8 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
     setTimeout(() => onFinishTutorial(), 300);
   };
 
+  const preventDefault = (event) => event.preventDefault();
+
   return (
     <Dialog TransitionComponent={Transition} fullScreen open={isOpen}>
       <Box
@@ -162,7 +165,12 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
                 <Typography className={classes.slideBody} variant="body2">
                   {slide.body} <br />{' '}
                   {step === 2 && (
-                    <Link target="_blank" to={learnMoreLink}>
+                    <Link
+                      href={learnMoreLink}
+                      target="_blank"
+                      onClick={preventDefault}
+                      underline="always"
+                    >
                       {translate(
                         'OnboardingOrganizationTutorial.slideBody3Link',
                       )}
