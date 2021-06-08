@@ -121,7 +121,7 @@
     "buttonAddDevice": "Settings",
     "buttonExportSeedPhrase": "Export Seed Phrase",
     "buttonMyQR": "My QR",
-    "buttonSendCircles": "Send Circles",
+    "buttonSendCircles": "Issue Circles",
     "buttonSharedWallet": "Create Shared Wallet",
     "linkAbout": "About",
     "linkFAQ": "FAQ",
@@ -163,13 +163,13 @@
   "OnboardingOrganization": {
     "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",
     "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
-    "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. Send 1 or more Circles to your new wallet to finish setup.",
+    "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. Issue 1 or more Circles to your new wallet to finish setup.",
     "bodyUsername": "Your wallet name is how people can search for your organization on the Circles App.",
     "errorSignup": "A server error occurred: {errorMessage}",
     "formEmail": "Email",
     "formPrefundAmount": "Fund amount",
     "formPrefundInvalid": "This amount is higher than your current token balance",
-    "formPrefundSender": "From sender",
+    "formPrefundSender": "Issued from",
     "formUsername": "Wallet name",
     "headingAvatar": "Add Photo",
     "headingEmail": "Enter Email",
@@ -249,7 +249,7 @@
     "dialogShare": "Share payment link",
     "formAmount": "Amount",
     "formPaymentNote": "Note",
-    "formReceiver": "Receiver",
+    "formReceiver": "Issued to",
     "headingGenerator": "QR Generator"
   },
   "Search": {
@@ -261,7 +261,7 @@
     "headingExportSeedPhrase": "Export Seed Phrase"
   },
   "Send": {
-    "headingSendCircles": "Send Circles"
+    "headingSendCircles": "Issue Circles"
   },
   "SendConfirm": {
     "bodyAmountTooHigh": {
@@ -271,10 +271,10 @@
     },
     "bodyMaxFlow": "Maximum amount: {amount}",
     "bodyPaymentNoteInvalid": "You cannot write special symbols like {}<>^ and more than 100 characters.",
-    "buttonSubmitAmount": "Send",
+    "buttonSubmitAmount": "Issue",
     "dialogSendCancel": "Cancel",
     "dialogSendConfirm": "Confirm",
-    "dialogSendDescription": "Send @{username} {amount} Circles",
+    "dialogSendDescription": "Issue @{username} {amount} Circles",
     "errorMessage": "Something went wrong .. {errorMessage}",
     "errorMessageTransferInvalid": "Could not transfer Circles as it is invalid.",
     "errorMessageTransferNotFound": "Could not transfer Circles as there is currently no complete trust path between @{username} and you ..",
@@ -282,9 +282,9 @@
     "errorMessageTransferUnknown": "Could not transfer Circles. Something went wrong!",
     "formAmount": "Enter amount",
     "formPaymentNote": "Add note",
-    "formReceiver": "Send to",
-    "formSender": "Send from",
-    "headingSendCircles": "Send Circles",
+    "formReceiver": "Issued to",
+    "formSender": "Issued from",
+    "headingSendCircles": "Issue Circles",
     "successMessage": "You transferred {amount} Circles successfully to @{username}!",
     "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}"
   },
