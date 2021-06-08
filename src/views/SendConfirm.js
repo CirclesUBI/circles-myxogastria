@@ -1,12 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import qs from 'qs';
 import {
-  Redirect,
-  generatePath,
-  useHistory,
-  useParams,
-} from 'react-router-dom';
-import {
   Box,
   Container,
   Dialog,
@@ -15,6 +9,12 @@ import {
   Typography,
   Zoom,
 } from '@material-ui/core';
+import {
+  Redirect,
+  generatePath,
+  useHistory,
+  useParams,
+} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -65,10 +65,8 @@ const SendConfirm = () => {
   });
 
   // Set amount and payment note based on URL query
-  const {
-    a: preselectedAmount = '',
-    n: preselectedPaymentNote = '',
-  } = useQuery();
+  const { a: preselectedAmount = '', n: preselectedPaymentNote = '' } =
+    useQuery();
   const [amount, setAmount] = useState(
     validateAmount(preselectedAmount) ? preselectedAmount : '',
   );
