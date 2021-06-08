@@ -274,7 +274,7 @@
     "buttonSubmitAmount": "Issue",
     "dialogSendCancel": "Cancel",
     "dialogSendConfirm": "Confirm",
-    "dialogSendDescription": "Issue @{username} {amount} Circles",
+    "dialogSendDescription": "Issue {amount} Circles to @{username}",
     "errorMessage": "Something went wrong .. {errorMessage}",
     "errorMessageTransferInvalid": "Could not transfer Circles as it is invalid.",
     "errorMessageTransferNotFound": "Could not transfer Circles as there is currently no complete trust path between @{username} and you ..",
