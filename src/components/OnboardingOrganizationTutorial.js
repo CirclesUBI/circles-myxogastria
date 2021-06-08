@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
       top: '50%',
       left: '50%',
-      width: 500,
-      height: 500,
+      width: 600,
+      height: 600,
       content: '""',
       backgroundColor: 'white',
       borderRadius: '50%',
@@ -125,14 +125,14 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
         <Box
           display="flex"
           justifyContent={isFirstSlide ? 'flex-end' : 'space-between'}
-          p={2}
+          padding={1}
         >
           {!isFirstSlide && (
-            <IconButton size="small" onClick={handlePrevious}>
+            <IconButton onClick={handlePrevious}>
               <IconBack />
             </IconButton>
           )}
-          <IconButton size="small" onClick={handleFinish}>
+          <IconButton onClick={handleFinish}>
             <IconClose />
           </IconButton>
         </Box>

@@ -16,6 +16,9 @@ import { IconBack, IconClose } from '~/styles/icons';
 const useStyles = makeStyles(() => ({
   onboardingMobileStepper: {
     flexGrow: 1,
+    paddingTop: 9,
+    paddingRight: 19,
+    paddingLeft: 19,
   },
 }));
 
