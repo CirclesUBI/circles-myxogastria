@@ -19,8 +19,8 @@ import Avatar from '~/components/Avatar';
 import ButtonAction from '~/components/ButtonAction';
 import ButtonBack from '~/components/ButtonBack';
 import CenteredHeading from '~/components/CenteredHeading';
+import DialogPurple from '~/components/DialogPurple';
 import Header from '~/components/Header';
-import PurpleDialog from '~/components/PurpleDialog';
 import View from '~/components/View';
 import core from '~/services/core';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -183,7 +183,7 @@ const OrganizationMembersItem = ({
 
   return (
     <Card>
-      <PurpleDialog
+      <DialogPurple
         cancelButtonLabel={translate('OrganizationMembers.dialogCancel')}
         okButtonLabel={translate('OrganizationMembers.dialogConfirm')}
         open={isOpen}
@@ -199,7 +199,7 @@ const OrganizationMembersItem = ({
         <Typography className={classes.paragraph} paragraph>
           {translate('OrganizationMembers.dialogRemoveMember', { username })}
         </Typography>
-      </PurpleDialog>
+      </DialogPurple>
       <CardHeader
         action={
           <Box display="flex">

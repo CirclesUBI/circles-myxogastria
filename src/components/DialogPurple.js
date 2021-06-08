@@ -26,7 +26,7 @@ const useTitleStyles = makeStyles((theme) => ({
   },
 }));
 
-const PurpleDialog = ({
+const DialogPurple = ({
   children,
   cancelButtonLabel,
   okButtonLabel,
@@ -58,7 +58,7 @@ const PurpleDialog = ({
   );
 };
 
-PurpleDialog.propTypes = {
+DialogPurple.propTypes = {
   cancelButtonLabel: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   okButtonLabel: PropTypes.string.isRequired,
@@ -67,4 +67,4 @@ PurpleDialog.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default PurpleDialog;
+export default DialogPurple;

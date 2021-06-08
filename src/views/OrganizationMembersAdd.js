@@ -6,10 +6,10 @@ import Avatar from '~/components/Avatar';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonQRCodeScanner from '~/components/ButtonQRCodeScanner';
 import CenteredHeading from '~/components/CenteredHeading';
+import DialogPurple from '~/components/DialogPurple';
 import ExternalLink from '~/components/ExternalLink';
 import Finder from '~/components/Finder';
 import Header from '~/components/Header';
-import PurpleDialog from '~/components/PurpleDialog';
 import View from '~/components/View';
 import core from '~/services/core';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -84,7 +84,7 @@ const OrganizationMembersAdd = () => {
 
   return (
     <Fragment>
-      <PurpleDialog
+      <DialogPurple
         cancelButtonLabel={translate('OrganizationMembersAdd.dialogCancel')}
         okButtonLabel={translate('OrganizationMembersAdd.dialogConfirm')}
         open={isOpen}
@@ -107,7 +107,7 @@ const OrganizationMembersAdd = () => {
             {translate('OrganizationMembersAdd.linkLearnMore')}
           </Typography>
         </ExternalLink>
-      </PurpleDialog>
+      </DialogPurple>
       <Header>
         <ButtonBack />
         <CenteredHeading>
