@@ -133,6 +133,14 @@
     "bodyNotFound": "Ouch. We could not find the requested page. Are you sure it's the right address?",
     "headingNotFound": "Not found"
   },
+  "CheckboxTerms": {
+    "checkboxLabel": "I agree to the",
+    "checkboxLink": "Terms and Conditions"
+  },
+  "CheckboxPrivacy": {
+    "checkboxLabel": "I have read the",
+    "checkboxLink": "Privacy Policy"
+  },
   "Onboarding": {
     "bodyAvatar": "Your photo is how your friends can search for you on the Circles App.",
     "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
@@ -142,19 +150,15 @@
     "buttonCopyToClipboard": "Copy to clipboard",
     "errorSignup": "A server error occurred during sign up: {errorMessage}",
     "formEmail": "Email",
-    "formPrivacyPolicy": "I have read the",
     "formSeedPhraseChallenge": "Your answer",
     "formSeedPhraseChallengeInvalid": "Wrong answer",
-    "formTermsConditions": "I agree to the",
     "formUsername": "Username",
     "headingAvatar": "Add Photo",
     "headingEmail": "Enter Email",
     "headingSeedPhrase": "Save Seed Phrase",
     "headingSeedPhraseChallenge": "Did you save your Seed Phrase?",
     "headingUsername": "Create Your Username",
-    "privacyPolicy": "Privacy Policy",
-    "successOnboardingComplete": "Your account was successfully created! Welcome!",
-    "termsConditions": "Terms and Conditions"
+    "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },
   "OnboardingOrganization": {
     "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",

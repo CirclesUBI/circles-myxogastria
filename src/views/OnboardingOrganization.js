@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AvatarUploader from '~/components/AvatarUploader';
+import CheckboxPrivacy from '~/components/CheckboxPrivacy';
+import CheckboxTerms from '~/components/CheckboxTerms';
 import OnboardingOrganizationTutorial from '~/components/OnboardingOrganizationTutorial';
 import OnboardingStepper from '~/components/OnboardingStepper';
 import TransferCirclesInput from '~/components/TransferCirclesInput';
@@ -142,25 +144,54 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
 };
 
 const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
-  const handleChange = (email) => {
+  const [emailValid, setEmailValid] = useState(false);
+  const [privacy, setPrivacy] = useState(false);
+  const [terms, setTerms] = useState(false);
+
+  const handleEmailStatus = (status) => {
+    // Email status returns FALSE when valid
+    setEmailValid(!status);
+  };
+
+  const handleEmail = (email) => {
     onChange({
       email,
     });
   };
 
+  const handlePrivacy = ({ target: { checked } }) => {
+    setPrivacy(checked);
+  };
+
+  const handleTerms = ({ target: { checked } }) => {
+    setTerms(checked);
+  };
+
+  useEffect(() => {
+    onDisabledChange(![emailValid, privacy, terms].every((b) => b === true));
+  }, [emailValid, privacy, terms, onDisabledChange]);
+
   return (
     <Fragment>
       <Typography align="center" gutterBottom variant="h2">
-        {translate('OnboardingOrganization.headingEmail')}
+        {translate('Onboarding.headingEmail')}
       </Typography>
-      <Typography>{translate('OnboardingOrganization.bodyEmail')}</Typography>
-      <Box mt={4}>
+      <Typography>{translate('Onboarding.bodyEmail')}</Typography>
+      <Box mt={3}>
         <VerifiedEmailInput
-          label={translate('OnboardingOrganization.formEmail')}
+          label={translate('Onboarding.formEmail')}
           value={values.email}
-          onChange={handleChange}
-          onStatusChange={onDisabledChange}
+          onChange={handleEmail}
+          onStatusChange={handleEmailStatus}
         />
+        <Box mt={2} textAlign={'left'}>
+          <Box>
+            <CheckboxPrivacy checked={privacy} onChange={handlePrivacy} />
+          </Box>
+          <Box>
+            <CheckboxTerms checked={terms} onChange={handleTerms} />
+          </Box>
+        </Box>
       </Box>
     </Fragment>
   );

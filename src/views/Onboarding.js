@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
-import { Box, Typography, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import AvatarUploader from '~/components/AvatarUploader';
+import CheckboxPrivacy from '~/components/CheckboxPrivacy';
+import CheckboxTerms from '~/components/CheckboxTerms';
 import Input from '~/components/Input';
 import Mnemonic from '~/components/Mnemonic';
 import OnboardingStepper from '~/components/OnboardingStepper';
@@ -108,7 +110,7 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
   const [terms, setTerms] = useState(false);
 
   const handleEmailStatus = (status) => {
-    // email status returns FALSE when valid
+    // Email status returns FALSE when valid
     setEmailValid(!status);
   };
 
@@ -130,32 +132,6 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
     onDisabledChange(![emailValid, privacy, terms].every((b) => b === true));
   }, [emailValid, privacy, terms, onDisabledChange]);
 
-  const LabelPrivacyPolicy = () => (
-    <>
-      {translate('Onboarding.formPrivacyPolicy')}{' '}
-      <a
-        href="https://joincircles.net/privacy-policy"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        {translate('Onboarding.privacyPolicy')}
-      </a>
-    </>
-  );
-
-  const LabelTerms = () => (
-    <>
-      {translate('Onboarding.formTermsConditions')}{' '}
-      <a
-        href="https://joincircles.net/terms"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        {translate('Onboarding.termsConditions')}
-      </a>
-    </>
-  );
-
   return (
     <Fragment>
       <Typography align="center" gutterBottom variant="h2">
@@ -171,22 +147,10 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
         />
         <Box mt={2} textAlign={'left'}>
           <Box>
-            <FormControlLabel
-              checked={privacy}
-              control={<Checkbox />}
-              disabled={false}
-              label={<LabelPrivacyPolicy />}
-              onChange={handlePrivacy}
-            />
+            <CheckboxPrivacy checked={privacy} onChange={handlePrivacy} />
           </Box>
           <Box>
-            <FormControlLabel
-              checked={terms}
-              control={<Checkbox />}
-              disabled={false}
-              label={<LabelTerms />}
-              onChange={handleTerms}
-            />
+            <CheckboxTerms checked={terms} onChange={handleTerms} />
           </Box>
         </Box>
       </Box>
