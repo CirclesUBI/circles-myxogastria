@@ -78,12 +78,12 @@
     "successRevokeTrust": "You successfully revoked your trust in @{username}!"
   },
   "DonationNote": {
-    "bodyTitle": "Circles needs you!",
     "bodyPrimary": "Since launching last year the Circles community has grown to 200k users around the globe. Interest in the project led to rapid scaling, which overloaded our servers, and after overhauling our infrastructure we are at the end of our budget.",
     "bodySecondary": "We need your support to continue! We need your help to make basic income a reality worldwide! We are looking for committed, regular donors who support bringing Circles to a fully thriving life.",
     "bodyThird": "Your donation is crucial! Supports the creation of a basic income for all people, and make sustainable, local economies worldwide.",
-    "buttonDonate": "Donate now",
-    "buttonClose": "Close"
+    "bodyTitle": "Circles needs you!",
+    "buttonClose": "Close",
+    "buttonDonate": "Donate now"
   },
   "Finder": {
     "bodyFilterDirect": "Directly trusted",
@@ -112,7 +112,7 @@
     "successWelcome": "Successfully connected to account. Welcome!"
   },
   "MyProfile": {
-    "buttonCreateSharedWallet": "Create shared wallet",
+    "buttonCreateSharedWallet": "Create Shared Wallet",
     "buttonShowProfile": "Show Profile",
     "buttonShowQR": "Show QR Code"
   },
@@ -122,6 +122,7 @@
     "buttonExportSeedPhrase": "Export Seed Phrase",
     "buttonMyQR": "My QR",
     "buttonSendCircles": "Send Circles",
+    "buttonSharedWallet": "Create Shared Wallet",
     "linkAbout": "About",
     "linkFAQ": "FAQ",
     "linkMarketplace": "Marketplace",
@@ -141,19 +142,19 @@
     "buttonCopyToClipboard": "Copy to clipboard",
     "errorSignup": "A server error occurred during sign up: {errorMessage}",
     "formEmail": "Email",
-    "formTermsConditions": "I agree to the",
-    "termsConditions": "Terms and Conditions",
     "formPrivacyPolicy": "I have read the",
-    "privacyPolicy": "Privacy Policy",
     "formSeedPhraseChallenge": "Your answer",
     "formSeedPhraseChallengeInvalid": "Wrong answer",
+    "formTermsConditions": "I agree to the",
     "formUsername": "Username",
     "headingAvatar": "Add Photo",
     "headingEmail": "Enter Email",
     "headingSeedPhrase": "Save Seed Phrase",
     "headingSeedPhraseChallenge": "Did you save your Seed Phrase?",
     "headingUsername": "Create Your Username",
-    "successOnboardingComplete": "Your account was successfully created! Welcome!"
+    "privacyPolicy": "Privacy Policy",
+    "successOnboardingComplete": "Your account was successfully created! Welcome!",
+    "termsConditions": "Terms and Conditions"
   },
   "OnboardingOrganization": {
     "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",
@@ -173,15 +174,15 @@
     "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
   },
   "OnboardingOrganizationTutorial": {
-    "slideHeading1": "Shared Wallet",
-    "slideHeading2": "Share Wealth",
-    "slideHeading3": "Share Trust",
+    "finish": "Let's get started!",
+    "next": "Next",
     "slideBody1": "With a Shared Wallet you can pull your individual Circles together and organize joint projects with the people that you trust. This wallet will not receive a basic income.",
     "slideBody2": "Organizations, families, communties, and individuals can use these wallets to hold Circles in common, or keep track of a personal business.",
     "slideBody3": "As a group you can trust other groups.",
     "slideBody3Link": "Learn more on how to organize with other groups",
-    "next": "Next",
-    "finish": "Let's get started!"
+    "slideHeading1": "Shared Wallet",
+    "slideHeading2": "Share Wealth",
+    "slideHeading3": "Share Trust"
   },
   "OnboardingStepper": {
     "buttonFinish": "Sign me up!",

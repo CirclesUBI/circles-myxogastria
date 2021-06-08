@@ -61,7 +61,7 @@ const slides = [
   {
     heading: translate('OnboardingOrganizationTutorial.slideHeading1'),
     body: translate('OnboardingOrganizationTutorial.slideBody1'),
-    image: <OrgTutorialStep1SVG height="180px" />,
+    image: <OrgTutorialStep1SVG height="230px" viewport="0 0 180 180" />,
   },
   {
     heading: translate('OnboardingOrganizationTutorial.slideHeading2'),

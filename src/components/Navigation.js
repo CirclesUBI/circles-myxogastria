@@ -14,6 +14,7 @@ import translate from '~/services/locale';
 import {
   ACTIVITIES_PATH,
   MY_PROFILE_PATH,
+  ORGANIZATION_PATH,
   SEED_PHRASE_PATH,
   SEND_PATH,
   SETTINGS_PATH,
@@ -135,6 +136,9 @@ const NavigationMain = ({ onClick }) => {
       </NavigationLink>
       <NavigationLink to={generatePath(SEND_PATH)} onClick={onClick}>
         {translate('Navigation.buttonSendCircles')}
+      </NavigationLink>
+      <NavigationLink to={ORGANIZATION_PATH} onClick={onClick}>
+        {translate('Navigation.buttonSharedWallet')}
       </NavigationLink>
       <NavigationLink to={SETTINGS_PATH} onClick={onClick}>
         {translate('Navigation.buttonAddDevice')}
