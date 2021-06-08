@@ -1,75 +1,59 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { renderToStaticMarkup } from 'react-dom/server';
-import translate from '~/services/locale';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, Dialog, IconButton, Slide, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
+import { Box, Dialog, IconButton, Slide, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
+import translate from '~/services/locale';
+import { IconBack, IconClose } from '~/styles/icons';
+
 import OrgTutorialStep1SVG from '%/images/org-tutorial-step-1.svg';
 import OrgTutorialStep2SVG from '%/images/org-tutorial-step-2.svg';
 import OrgTutorialStep3SVG from '%/images/org-tutorial-step-3.svg';
-import { IconBack, IconClose } from '~/styles/icons';
-
-const CutCircleSVG = () => {
-  return (
-    <svg
-      height="100%"
-      version="1.1"
-      viewBox="0 0 845 988"
-      width="100%"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g
-        fill="none"
-        fillRule="evenodd"
-        id="Page-1"
-        stroke="none"
-        strokeWidth="1"
-      >
-        <path
-          d="M845,238.697556 L845,749.302444 C758.466603,892.36878 601.401235,988 422,988 C243.287681,988 86.740017,893.101835 -1.84741111e-13,750.948499 L0,237.051501 C86.740017,94.898165 243.287681,0 422,0 C601.401235,0 758.466603,95.6312197 845.000006,238.697563 Z"
-          fill="#FFFFFF"
-          id="Combined-Shape"
-        ></path>
-      </g>
-    </svg>
-  );
-};
-
-const svgStringCutCircle = encodeURIComponent(
-  renderToStaticMarkup(<CutCircleSVG />),
-);
-const dataUriCutCircle = `url("data:image/svg+xml,${svgStringCutCircle}")`;
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    width: '100%',
-    height: '100%',
     background:
       'linear-gradient(180deg, rgba(215,58,83,1) 0%, rgba(251,134,9,1) 100%)',
   },
+  background: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+    '&::after': {
+      [theme.breakpoints.up('sm')]: {
+        bottom: 100,
+        top: 'auto',
+        width: '200%',
+        height: '200%',
+        transform: 'translate3d(-50%, 0, 0)',
+      },
+      position: 'absolute',
+      display: 'block',
+      top: '50%',
+      left: '50%',
+      width: 500,
+      height: 500,
+      content: '""',
+      backgroundColor: 'white',
+      borderRadius: '50%',
+      transform: 'translate3d(-50%, -50%, 0)',
+    },
+  },
   slideContainer: {
-    [theme.breakpoints.down('xs')]: {
-      backgroundImage: dataUriCutCircle,
-      maxWidth: 480,
-    },
-    [theme.breakpoints.up('sm')]: {
-      backgroundImage: 'none',
-      backgroundColor: theme.custom.colors.white,
-      maxWidth: '100%',
-    },
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    margin: '0 auto',
-    height: '73vh',
-    padding: 12,
+    height: '100%',
   },
   slideBody: {
     maxWidth: 480,
     padding: 24,
+  },
+  footer: {
+    margin: '0 auto',
+    width: '100%',
+    maxWidth: theme.custom.components.appMaxWidth,
   },
 }));
 
@@ -102,19 +86,21 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [step, setStep] = useState(0);
 
+  const isFirstSlide = step === 0;
+  const isLastSlide = step === slides.length - 1;
+
   const handleNext = () => {
-    if (step === 2) {
+    if (isLastSlide) {
       handleFinish();
-      return;
+    } else {
+      setStep(step + 1);
     }
-    setStep(step + 1);
   };
 
   const handlePrevious = () => {
-    if (step === 0) {
-      return;
+    if (!isFirstSlide) {
+      setStep(step - 1);
     }
-    setStep(step - 1);
   };
 
   const handleFinish = () => {
@@ -123,26 +109,33 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
   };
 
   return (
-    <Dialog TransitionComponent={Transition} fullScreen open={isOpen}>
+    <Dialog
+      TransitionComponent={Transition}
+      classes={{ paper: classes.wrapper }}
+      fullScreen
+      open={isOpen}
+    >
+      <Box className={classes.background} />
       <Box
-        className={classes.wrapper}
+        className={classes.slideContainer}
         display="flex"
         flexDirection="column"
         justifyContent="space-between"
       >
-        <Box display="flex" justifyContent="space-between" p={2}>
-          {step > 0 ? (
+        <Box
+          display="flex"
+          justifyContent={isFirstSlide ? 'flex-end' : 'space-between'}
+          p={2}
+        >
+          {!isFirstSlide && (
             <IconButton size="small" onClick={handlePrevious}>
               <IconBack />
             </IconButton>
-          ) : (
-            <div />
           )}
-          <IconButton size="small" onClick={() => handleFinish()}>
+          <IconButton size="small" onClick={handleFinish}>
             <IconClose />
           </IconButton>
         </Box>
-
         <Box>
           <SwipeableViews
             index={step}
@@ -151,7 +144,6 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
             {slides.map((slide) => (
               <Box
                 alignItems="center"
-                className={classes.slideContainer}
                 display="flex"
                 flexDirection="column"
                 justifyContent="center"
@@ -161,8 +153,9 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
                 <Box p={1}>{slide.image}</Box>
                 <Typography variant="h6">{slide.heading}</Typography>
                 <Typography className={classes.slideBody} variant="body2">
-                  {slide.body} <br />{' '}
-                  {step === 2 && (
+                  {slide.body}
+                  <br />{' '}
+                  {isLastSlide && (
                     <ExternalLink href={LEARN_MORE_URL} underline="always">
                       {translate(
                         'OnboardingOrganizationTutorial.slideBody3Link',
@@ -174,9 +167,9 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
             ))}
           </SwipeableViews>
         </Box>
-        <Box p={2}>
+        <Box className={classes.footer} component="footer" p={2}>
           <Button fullWidth isPrimary onClick={handleNext}>
-            {step === 2
+            {isLastSlide
               ? translate('OnboardingOrganizationTutorial.finish')
               : translate('OnboardingOrganizationTutorial.next')}
           </Button>

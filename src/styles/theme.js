@@ -62,6 +62,15 @@ const components = {
 const fontFamily = `"${fontFamilyNotoSans}", sans-serif`;
 
 export default createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 450,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
   palette: {
     background: {
       default: colors.whiteAlmost,
