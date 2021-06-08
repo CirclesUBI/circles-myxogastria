@@ -22,7 +22,6 @@ import SendConfirm from '~/views/SendConfirm';
 import Settings from '~/views/Settings';
 import Share from '~/views/Share';
 import TutorialOnboarding from '~/views/TutorialOnboarding';
-// import TutorialOrganization from '~/views/TutorialOrganization';
 import Validation from '~/views/Validation';
 import ValidationLock from '~/views/ValidationLock';
 import ValidationShare from '~/views/ValidationShare';
@@ -202,18 +201,6 @@ const TutorialOnboardingContainer = () => {
     />
   );
 };
-
-// @TODO
-// const TutorialOrganizationContainer = () => {
-//   return (
-//     <TutorialContainer
-//       componentFinal={OnboardingOrganization}
-//       componentTutorial={TutorialOrganization}
-//       exitPath={DASHBOARD_PATH}
-//       name={ORGANIZATION_CREATE}
-//     />
-//   );
-// };
 
 // Routes
 
