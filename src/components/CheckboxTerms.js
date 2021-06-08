@@ -4,7 +4,7 @@ import { Checkbox, FormControlLabel } from '@material-ui/core';
 
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
-import { TERMS_URL } from '~/services/locale';
+import { TERMS_URL } from '~/utils/constants';
 
 const CheckboxTerms = (props) => {
   return (

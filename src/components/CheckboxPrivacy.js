@@ -4,7 +4,7 @@ import { Checkbox, FormControlLabel } from '@material-ui/core';
 
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
-import { PRIVACY_LEGAL_URL } from '~/services/locale';
+import { PRIVACY_LEGAL_URL } from '~/utils/constants';
 
 const CheckboxPrivacy = (props) => {
   return (
