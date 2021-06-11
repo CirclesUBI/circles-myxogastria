@@ -28,8 +28,8 @@ const useTitleStyles = makeStyles((theme) => ({
 
 const DialogPurple = ({
   children,
-  cancelButtonLabel,
-  okButtonLabel,
+  cancelLabel,
+  confirmLabel,
   onClose,
   onConfirm,
   title,
@@ -46,12 +46,12 @@ const DialogPurple = ({
       {children}
       <Box display="flex" flexDirection="column" pb={1} pt={2}>
         <Button isWhite m={2} onClick={onConfirm}>
-          {okButtonLabel}
+          {confirmLabel}
         </Button>
       </Box>
       <Box display="flex" flexDirection="column" pb={2}>
         <Button isWhiteText m={2} onClick={onClose}>
-          {cancelButtonLabel}
+          {cancelLabel}
         </Button>
       </Box>
     </Dialog>
@@ -59,9 +59,9 @@ const DialogPurple = ({
 };
 
 DialogPurple.propTypes = {
-  cancelButtonLabel: PropTypes.string.isRequired,
+  cancelLabel: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  okButtonLabel: PropTypes.string.isRequired,
+  confirmLabel: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,

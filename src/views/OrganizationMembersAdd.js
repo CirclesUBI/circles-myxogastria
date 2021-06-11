@@ -85,8 +85,8 @@ const OrganizationMembersAdd = () => {
   return (
     <Fragment>
       <DialogPurple
-        cancelButtonLabel={translate('OrganizationMembersAdd.dialogCancel')}
-        okButtonLabel={translate('OrganizationMembersAdd.dialogConfirm')}
+        cancelLabel={translate('OrganizationMembersAdd.dialogCancel')}
+        confirmLabel={translate('OrganizationMembersAdd.dialogConfirm')}
         open={isOpen}
         title={translate('OrganizationMembersAdd.dialogTitle', { username })}
         onClose={handleClose}

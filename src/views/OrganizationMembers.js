@@ -184,8 +184,8 @@ const OrganizationMembersItem = ({
   return (
     <Card>
       <DialogPurple
-        cancelButtonLabel={translate('OrganizationMembers.dialogCancel')}
-        okButtonLabel={translate('OrganizationMembers.dialogConfirm')}
+        cancelLabel={translate('OrganizationMembers.dialogCancel')}
+        confirmLabel={translate('OrganizationMembers.dialogConfirm')}
         open={isOpen}
         title={translate('OrganizationMembers.dialogTitle', {
           username,
