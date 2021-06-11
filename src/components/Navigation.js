@@ -15,6 +15,7 @@ import {
   ACTIVITIES_PATH,
   MY_PROFILE_PATH,
   ORGANIZATION_PATH,
+  SEARCH_PATH,
   SEED_PHRASE_PATH,
   SEND_PATH,
   SETTINGS_PATH,
@@ -130,6 +131,9 @@ const NavigationMain = ({ onClick }) => {
     <Box className={classes.navigationMain} component="main">
       <NavigationLink to={SHARE_PATH} onClick={onClick}>
         {translate('Navigation.buttonMyQR')}
+      </NavigationLink>
+      <NavigationLink to={SEARCH_PATH} onClick={onClick}>
+        {translate('Navigation.buttonSearch')}
       </NavigationLink>
       <NavigationLink to={ACTIVITIES_PATH} onClick={onClick}>
         {translate('Navigation.buttonActivityLog')}
