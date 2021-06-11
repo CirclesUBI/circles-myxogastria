@@ -168,7 +168,7 @@ const TutorialOrganization = ({ onFinishTutorial }) => {
                   {slide.body}
                   <br />{' '}
                   {slideIndex === slides.length - 1 && (
-                    <ExternalLink href={LEARN_MORE_URL} underline="always">
+                    <ExternalLink href={LEARN_MORE_URL} underline="hover">
                       {translate('TutorialOrganization.slideBody3Link')}
                     </ExternalLink>
                   )}
