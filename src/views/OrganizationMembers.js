@@ -65,20 +65,61 @@ const useStyles = makeStyles((theme) => ({
 
 const OrganizationMembers = () => {
   const safe = useSelector((state) => state.safe);
+  const dispatch = useDispatch();
 
   const [members, setMembers] = useState([]);
+  const [removedMembers, setRemovedMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUpdate = useCallback(async () => {
     setIsLoading(true);
+
+    // Get a list of all Safe owners of this organization
     const result = await core.organization.getMembers(safe.currentAccount);
+
     setMembers(
       result.filter((member) => {
-        return member.safeAddresses.length > 0;
+        return (
+          member.safeAddresses.length > 0 &&
+          !removedMembers.includes(member).ownerAddress
+        );
       }),
     );
+
     setIsLoading(false);
-  }, [safe.currentAccount]);
+  }, [safe.currentAccount, removedMembers]);
+
+  const handleRemove = async (ownerAddress, username) => {
+    dispatch(showSpinnerOverlay());
+
+    try {
+      await dispatch(removeSafeOwner(ownerAddress));
+
+      dispatch(
+        notify({
+          text: translate('OrganizationMembers.successRemovedMember', {
+            username,
+          }),
+          type: NotificationsTypes.SUCCESS,
+        }),
+      );
+
+      // We keep track of it in a local list, so they UI can already hide it
+      // away for us
+      setRemovedMembers(removedMembers.concat(ownerAddress));
+    } catch {
+      dispatch(
+        notify({
+          text: translate('OrganizationMembers.errorRemovedMember', {
+            username,
+          }),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+    }
+
+    dispatch(hideSpinnerOverlay());
+  };
 
   useEffect(() => {
     handleUpdate();
@@ -108,7 +149,7 @@ const OrganizationMembers = () => {
                       key={member.ownerAddress}
                       ownerAddress={member.ownerAddress}
                       safeAddresses={member.safeAddresses}
-                      onUpdate={handleUpdate}
+                      onRemove={handleRemove}
                     />
                   </Grid>
                 );
@@ -132,10 +173,9 @@ const OrganizationMembersItem = ({
   safeAddresses,
   ownerAddress,
   isOnlyMember,
-  onUpdate,
+  onRemove,
 }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
   const { username } = useUserdata(safeAddresses[0]);
@@ -150,35 +190,8 @@ const OrganizationMembersItem = ({
   };
 
   const handleRemove = async () => {
+    onRemove(ownerAddress, username);
     setIsOpen(false);
-
-    try {
-      dispatch(showSpinnerOverlay());
-
-      await dispatch(removeSafeOwner(ownerAddress));
-
-      dispatch(
-        notify({
-          text: translate('OrganizationMembers.successRemovedMember', {
-            username,
-          }),
-          type: NotificationsTypes.SUCCESS,
-        }),
-      );
-
-      onUpdate();
-    } catch {
-      dispatch(
-        notify({
-          text: translate('OrganizationMembers.errorRemovedMember', {
-            username,
-          }),
-          type: NotificationsTypes.ERROR,
-        }),
-      );
-    }
-
-    dispatch(hideSpinnerOverlay());
   };
 
   return (
@@ -238,7 +251,7 @@ const OrganizationMembersItem = ({
 
 OrganizationMembersItem.propTypes = {
   isOnlyMember: PropTypes.bool.isRequired,
-  onUpdate: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
   ownerAddress: PropTypes.string.isRequired,
   safeAddresses: PropTypes.array.isRequired,
 };
