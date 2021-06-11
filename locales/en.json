@@ -44,6 +44,14 @@
     "buttonCopy": "Copy to clipboard",
     "infoCopiedMessage": "Text copied to clipboard"
   },
+  "CheckboxPrivacy": {
+    "checkboxLabel": "I have read the",
+    "checkboxLink": "Privacy Policy"
+  },
+  "CheckboxTerms": {
+    "checkboxLabel": "I agree to the",
+    "checkboxLink": "Terms and Conditions"
+  },
   "CriticalError": {
     "bodyCriticalErrorDescription": "Oh no! Something went wrong. Please reload this page and try again.",
     "bodyCriticalErrorTryAgain": "Oh no! Something went wrong while loading your account. Please reload this page and try again.",
@@ -120,8 +128,8 @@
     "buttonActivityLog": "Activity Log",
     "buttonAddDevice": "Settings",
     "buttonExportSeedPhrase": "Export Seed Phrase",
-    "buttonSearch": "Search users",
     "buttonMyQR": "My QR",
+    "buttonSearch": "Search users",
     "buttonSendCircles": "Issue Circles",
     "buttonSharedWallet": "Create Shared Wallet",
     "linkAbout": "About",
@@ -133,14 +141,6 @@
   "NotFound": {
     "bodyNotFound": "Ouch. We could not find the requested page. Are you sure it's the right address?",
     "headingNotFound": "Not found"
-  },
-  "CheckboxTerms": {
-    "checkboxLabel": "I agree to the",
-    "checkboxLink": "Terms and Conditions"
-  },
-  "CheckboxPrivacy": {
-    "checkboxLabel": "I have read the",
-    "checkboxLink": "Privacy Policy"
   },
   "Onboarding": {
     "bodyAvatar": "Your photo is how your friends can search for you on the Circles App.",
@@ -177,17 +177,6 @@
     "headingPrefund": "Fund your organization",
     "headingUsername": "Name your wallet",
     "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
-  },
-  "TutorialOrganization": {
-    "finish": "Let's get started!",
-    "next": "Next",
-    "slideBody1": "With a Shared Wallet you can pull your individual Circles together and organize joint projects with the people that you trust. This wallet will not receive a basic income.",
-    "slideBody2": "Organizations, families, communties, and individuals can use these wallets to hold Circles in common, or keep track of a personal business.",
-    "slideBody3": "As a group you can trust other groups.",
-    "slideBody3Link": "Learn more on how to organize with other groups",
-    "slideHeading1": "Shared Wallet",
-    "slideHeading2": "Share Wealth",
-    "slideHeading3": "Share Trust"
   },
   "OnboardingStepper": {
     "buttonFinish": "Sign me up!",
@@ -320,6 +309,17 @@
     "headingBuildYourOwnEconomy": "Build Your Own Economy",
     "headingUnconditionalIncome": "Unconditional Income",
     "headingWebOfTrust": "A Web of Trust"
+  },
+  "TutorialOrganization": {
+    "finish": "Let's get started!",
+    "next": "Next",
+    "slideBody1": "With a Shared Wallet you can pull your individual Circles together and organize joint projects with the people that you trust. This wallet will not receive a basic income.",
+    "slideBody2": "Organizations, families, communties, and individuals can use these wallets to hold Circles in common, or keep track of a personal business.",
+    "slideBody3": "As a group you can trust other groups.",
+    "slideBody3Link": "Learn more on how to organize with other groups",
+    "slideHeading1": "Shared Wallet",
+    "slideHeading2": "Share Wealth",
+    "slideHeading3": "Share Trust"
   },
   "UBI": {
     "infoUbiPayoutReceived": "You received {payout} Circles!"
