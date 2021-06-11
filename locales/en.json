@@ -177,7 +177,7 @@
     "headingUsername": "Name your wallet",
     "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
   },
-  "OnboardingOrganizationTutorial": {
+  "TutorialOrganization": {
     "finish": "Let's get started!",
     "next": "Next",
     "slideBody1": "With a Shared Wallet you can pull your individual Circles together and organize joint projects with the people that you trust. This wallet will not receive a basic income.",

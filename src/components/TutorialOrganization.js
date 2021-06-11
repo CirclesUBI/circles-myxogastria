@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Box, Dialog, IconButton, Slide, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -46,6 +47,12 @@ const useStyles = makeStyles((theme) => ({
   slideContainer: {
     height: '100%',
   },
+  imageContainer: {
+    height: 230,
+    [theme.breakpoints.up('sm')]: {
+      height: 320,
+    },
+  },
   slideBody: {
     maxWidth: 480,
     padding: 24,
@@ -59,19 +66,21 @@ const useStyles = makeStyles((theme) => ({
 
 const slides = [
   {
-    heading: translate('OnboardingOrganizationTutorial.slideHeading1'),
-    body: translate('OnboardingOrganizationTutorial.slideBody1'),
-    image: <OrgTutorialStep1SVG height="230px" viewport="0 0 180 180" />,
+    heading: translate('TutorialOrganization.slideHeading1'),
+    body: translate('TutorialOrganization.slideBody1'),
+    image: OrgTutorialStep1SVG,
+    imageScale: 0.9,
   },
   {
-    heading: translate('OnboardingOrganizationTutorial.slideHeading2'),
-    body: translate('OnboardingOrganizationTutorial.slideBody2'),
-    image: <OrgTutorialStep2SVG height="180px" />,
+    heading: translate('TutorialOrganization.slideHeading2'),
+    body: translate('TutorialOrganization.slideBody2'),
+    image: OrgTutorialStep2SVG,
+    imageScale: 1.2,
   },
   {
-    heading: translate('OnboardingOrganizationTutorial.slideHeading3'),
-    body: translate('OnboardingOrganizationTutorial.slideBody3'),
-    image: <OrgTutorialStep3SVG height="180px" />,
+    heading: translate('TutorialOrganization.slideHeading3'),
+    body: translate('TutorialOrganization.slideBody3'),
+    image: OrgTutorialStep3SVG,
   },
 ];
 
@@ -81,7 +90,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const LEARN_MORE_URL = 'https://handbook.joincircles.net/docs/communities';
 
-const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
+const TutorialOrganization = ({ onFinishTutorial }) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(true);
   const [step, setStep] = useState(0);
@@ -141,7 +150,7 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
             index={step}
             onChangeIndex={(index) => setStep(index)}
           >
-            {slides.map((slide) => (
+            {slides.map((slide, slideIndex) => (
               <Box
                 alignItems="center"
                 display="flex"
@@ -150,16 +159,17 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
                 key={slide.heading}
                 p={1}
               >
-                <Box p={1}>{slide.image}</Box>
+                <TutorialOrganizationImage
+                  image={slide.image}
+                  imageScale={slide.imageScale}
+                />
                 <Typography variant="h6">{slide.heading}</Typography>
                 <Typography className={classes.slideBody} variant="body2">
                   {slide.body}
                   <br />{' '}
-                  {isLastSlide && (
+                  {slideIndex === slides.length - 1 && (
                     <ExternalLink href={LEARN_MORE_URL} underline="always">
-                      {translate(
-                        'OnboardingOrganizationTutorial.slideBody3Link',
-                      )}
+                      {translate('TutorialOrganization.slideBody3Link')}
                     </ExternalLink>
                   )}
                 </Typography>
@@ -170,8 +180,8 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
         <Box className={classes.footer} component="footer" p={2}>
           <Button fullWidth isPrimary onClick={handleNext}>
             {isLastSlide
-              ? translate('OnboardingOrganizationTutorial.finish')
-              : translate('OnboardingOrganizationTutorial.next')}
+              ? translate('TutorialOrganization.finish')
+              : translate('TutorialOrganization.next')}
           </Button>
         </Box>
       </Box>
@@ -179,8 +189,30 @@ const OnboardingOrganizationTutorial = ({ onFinishTutorial }) => {
   );
 };
 
-OnboardingOrganizationTutorial.propTypes = {
+const TutorialOrganizationImage = ({ image, imageScale }) => {
+  const classes = useStyles();
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+
+  const ImageComponent = image;
+  const imageHeight = 180 * (imageScale || 1);
+  const imageHeightLarger = 250 * (imageScale || 1);
+
+  return (
+    <Box alignItems="center" className={classes.imageContainer} display="flex">
+      <ImageComponent
+        height={matches ? `${imageHeightLarger}px` : `${imageHeight}px`}
+      />
+    </Box>
+  );
+};
+
+TutorialOrganization.propTypes = {
   onFinishTutorial: PropTypes.func.isRequired,
 };
 
-export default OnboardingOrganizationTutorial;
+TutorialOrganizationImage.propTypes = {
+  image: PropTypes.func.isRequired,
+  imageScale: PropTypes.number,
+};
+
+export default TutorialOrganization;

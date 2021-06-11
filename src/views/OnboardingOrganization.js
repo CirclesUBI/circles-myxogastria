@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import AvatarUploader from '~/components/AvatarUploader';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
-import OnboardingOrganizationTutorial from '~/components/OnboardingOrganizationTutorial';
 import OnboardingStepper from '~/components/OnboardingStepper';
 import TransferCirclesInput from '~/components/TransferCirclesInput';
 import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
+import TutorialOrganization from '~/components/TutorialOrganization';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
 import logError, { formatErrorMessage } from '~/utils/debug';
@@ -96,9 +96,7 @@ const OnboardingOrganization = () => {
   };
 
   if (!isTutorialFinished) {
-    return (
-      <OnboardingOrganizationTutorial onFinishTutorial={handleTutorialFinish} />
-    );
+    return <TutorialOrganization onFinishTutorial={handleTutorialFinish} />;
   }
 
   if (isRedirect) {
