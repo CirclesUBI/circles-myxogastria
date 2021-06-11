@@ -37,8 +37,7 @@ const BalanceDisplayOrganization = () => {
     await dispatch(checkCurrentBalance());
   });
 
-  const isLoading =
-    (token.balance === null || token.balance === '0') && !safe.pendingNonce;
+  const isLoading = token.balance === null && !safe.pendingNonce;
 
   return (
     <Box className={classes.box}>
