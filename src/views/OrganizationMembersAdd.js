@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Box, Container, makeStyles, Typography } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
 import ButtonBack from '~/components/ButtonBack';
@@ -30,11 +30,30 @@ const useParagraphStyles = makeStyles((theme) => ({
 
 const OrganizationMembersAdd = () => {
   const dispatch = useDispatch();
+  const safe = useSelector((state) => state.safe);
+
   const [address, setAddress] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [filteredSafeAddresses, setFilteredSafeAddresses] = useState([]);
   const { username } = useUserdata(address);
 
   const classes = useParagraphStyles();
+
+  // Prepare filter so it removes all search results which are already
+  // organization members
+  useEffect(() => {
+    const update = async () => {
+      const result = await core.organization.getMembers(safe.currentAccount);
+
+      setFilteredSafeAddresses(
+        result.reduce((acc, item) => {
+          return acc.concat(item.safeAddresses);
+        }, []),
+      );
+    };
+
+    update();
+  }, [safe.currentAccount]);
 
   const handleSelect = (value) => {
     setAddress(value);
@@ -119,6 +138,7 @@ const OrganizationMembersAdd = () => {
         <Container maxWidth="sm">
           <Finder
             basePath={ORGANIZATION_MEMBERS_ADD_PATH}
+            filteredSafeAddresses={filteredSafeAddresses}
             onSelect={handleSelect}
           />
         </Container>

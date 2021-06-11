@@ -27,9 +27,14 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import { IconTrust, IconClose } from '~/styles/icons';
 import { ORGANIZATION_MEMBERS_ADD_PATH } from '~/routes';
-import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+import {
+  hideSpinnerOverlay,
+  showSpinnerOverlay,
+  switchAccount,
+} from '~/store/app/actions';
 import { removeSafeOwner } from '~/store/safe/actions';
 import { useRelativeProfileLink } from '~/hooks/url';
+import { useUpdateLoop } from '~/hooks/update';
 import { useUserdata } from '~/hooks/username';
 
 const useStyles = makeStyles((theme) => ({
@@ -63,6 +68,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Helper method to find out if a user is still a member of an organization
+function isMemberOfOrganization(members, currentAccounts) {
+  return members.some(({ safeAddresses }) => {
+    return currentAccounts.some((safeAddress) =>
+      safeAddresses.includes(safeAddress),
+    );
+  });
+}
+
 const OrganizationMembers = () => {
   const safe = useSelector((state) => state.safe);
   const dispatch = useDispatch();
@@ -71,23 +85,40 @@ const OrganizationMembers = () => {
   const [removedMembers, setRemovedMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  useUpdateLoop(async () => {
+    handleUpdate();
+  });
+
   const handleUpdate = useCallback(async () => {
     setIsLoading(true);
 
     // Get a list of all Safe owners of this organization
     const result = await core.organization.getMembers(safe.currentAccount);
 
-    setMembers(
-      result.filter((member) => {
-        return (
-          member.safeAddresses.length > 0 &&
-          !removedMembers.includes(member).ownerAddress
-        );
-      }),
-    );
+    // Filter out the owner we just removed
+    const updatedMembers = result.filter((member) => {
+      return (
+        member.safeAddresses.length > 0 &&
+        !removedMembers.includes(member).ownerAddress
+      );
+    });
 
+    setMembers(updatedMembers);
     setIsLoading(false);
-  }, [safe.currentAccount, removedMembers]);
+
+    // Finally check if we are still owner of that organization, otherwise
+    // switch to another account automatically as we don't have anything to do
+    // here anymore!
+    if (!isMemberOfOrganization(updatedMembers, safe.accounts)) {
+      dispatch(
+        switchAccount(
+          safe.accounts.filter((account) => {
+            return account !== safe.currentAccount;
+          })[0],
+        ),
+      );
+    }
+  }, [safe.currentAccount, removedMembers, safe.accounts, dispatch]);
 
   const handleRemove = async (ownerAddress, username) => {
     dispatch(showSpinnerOverlay());

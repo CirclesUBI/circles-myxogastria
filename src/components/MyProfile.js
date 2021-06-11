@@ -22,8 +22,10 @@ import UsernameDisplay from '~/components/UsernameDisplay';
 import translate from '~/services/locale';
 import { IconAdd, IconCheck } from '~/styles/icons';
 import { SHARE_PATH, ORGANIZATION_PATH, DASHBOARD_PATH } from '~/routes';
+import { checkSharedSafeState } from '~/store/safe/actions';
 import { switchAccount } from '~/store/app/actions';
 import { useRelativeProfileLink } from '~/hooks/url';
+import { useUpdateLoop } from '~/hooks/update';
 
 const useStyles = makeStyles(() => ({
   listItem: {
@@ -41,6 +43,10 @@ const MyProfile = () => {
 
   const safe = useSelector((state) => state.safe);
   const profilePath = useRelativeProfileLink(safe.currentAccount);
+
+  useUpdateLoop(async () => {
+    await dispatch(checkSharedSafeState());
+  });
 
   const handleAccountSwitch = (account) => {
     dispatch(switchAccount(account));
