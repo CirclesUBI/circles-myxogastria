@@ -126,6 +126,7 @@ const NavigationHeader = ({ onClick }) => {
 
 const NavigationMain = ({ onClick }) => {
   const classes = useStyles();
+  const safe = useSelector((state) => state.safe);
 
   return (
     <Box className={classes.navigationMain} component="main">
@@ -141,9 +142,11 @@ const NavigationMain = ({ onClick }) => {
       <NavigationLink to={generatePath(SEND_PATH)} onClick={onClick}>
         {translate('Navigation.buttonSendCircles')}
       </NavigationLink>
-      <NavigationLink to={ORGANIZATION_PATH} onClick={onClick}>
-        {translate('Navigation.buttonSharedWallet')}
-      </NavigationLink>
+      {!safe.isOrganization && (
+        <NavigationLink to={ORGANIZATION_PATH} onClick={onClick}>
+          {translate('Navigation.buttonSharedWallet')}
+        </NavigationLink>
+      )}
       <NavigationLink to={SETTINGS_PATH} onClick={onClick}>
         {translate('Navigation.buttonAddDevice')}
       </NavigationLink>
