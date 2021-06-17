@@ -27,7 +27,7 @@ import {
   showSpinnerOverlay,
   switchAccount,
 } from '~/store/app/actions';
-import { isOrganization } from '~/utils/isDeployed';
+import { isOrganization } from '~/utils/helpers';
 import { restoreWallet } from '~/store/wallet/actions';
 import { ZERO_ADDRESS } from '~/utils/constants';
 
