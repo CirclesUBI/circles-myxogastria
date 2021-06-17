@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
 import {
   Box,
-  Grid,
   ButtonGroup,
+  Grid,
   List,
   ListItem,
   ListItemAvatar,
@@ -11,21 +9,24 @@ import {
   ListItemText,
   Typography,
 } from '@material-ui/core';
-import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import React, { Fragment, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+
+import { DASHBOARD_PATH, ORGANIZATION_PATH, SHARE_PATH } from '~/routes';
 
 import Avatar from '~/components/Avatar';
 import AvatarWithQR from '~/components/AvatarWithQR';
 import Button from '~/components/Button';
 import UsernameDisplay from '~/components/UsernameDisplay';
-import translate from '~/services/locale';
-import { IconAdd, IconCheck } from '~/styles/icons';
-import { SHARE_PATH, ORGANIZATION_PATH, DASHBOARD_PATH } from '~/routes';
-import { checkSharedSafeState } from '~/store/safe/actions';
-import { switchAccount } from '~/store/app/actions';
-import { useRelativeProfileLink } from '~/hooks/url';
 import { useUpdateLoop } from '~/hooks/update';
+import { useRelativeProfileLink } from '~/hooks/url';
+import translate from '~/services/locale';
+import { switchAccount } from '~/store/app/actions';
+import { checkSharedSafeState } from '~/store/safe/actions';
+import { IconAdd, IconCheck } from '~/styles/icons';
 
 const useStyles = makeStyles(() => ({
   listItem: {

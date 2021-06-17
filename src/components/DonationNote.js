@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { DateTime } from 'luxon';
-import { Typography, Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { DateTime } from 'luxon';
+import React, { useState } from 'react';
 
 import Button from '~/components/Button';
 import HumbleAlert from '~/components/HumbleAlert';

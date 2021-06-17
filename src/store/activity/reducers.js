@@ -1,9 +1,9 @@
 import update from 'immutability-helper';
 import { DateTime } from 'luxon';
 
-import ActionTypes from '~/store/activity/types';
 import core from '~/services/core';
 import web3 from '~/services/web3';
+import ActionTypes from '~/store/activity/types';
 
 // Every item in the activities list has an unique hash identifier
 function generateHash(activity) {

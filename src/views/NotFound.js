@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
 import { Container, Typography } from '@material-ui/core';
+import React, { Fragment } from 'react';
 
 import ButtonHome from '~/components/ButtonHome';
 import CenteredHeading from '~/components/CenteredHeading';

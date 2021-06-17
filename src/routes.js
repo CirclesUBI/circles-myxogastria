@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
+import { ACCOUNT_CREATE } from '~/store/tutorial/actions';
 import Activities from '~/views/Activities';
 import Dashboard from '~/views/Dashboard';
 import DashboardOrganization from '~/views/DashboardOrganization';
@@ -26,7 +27,6 @@ import Validation from '~/views/Validation';
 import ValidationLock from '~/views/ValidationLock';
 import ValidationShare from '~/views/ValidationShare';
 import Welcome from '~/views/Welcome';
-import { ACCOUNT_CREATE } from '~/store/tutorial/actions';
 
 // Routes in Drawer component
 export const MY_PROFILE_PATH = '/profile';

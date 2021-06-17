@@ -1,5 +1,3 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import qs from 'qs';
 import {
   Box,
   Container,
@@ -9,14 +7,18 @@ import {
   Typography,
   Zoom,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import qs from 'qs';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Redirect,
   generatePath,
   useHistory,
   useParams,
 } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
+
+import { DASHBOARD_PATH, SEND_CONFIRM_PATH } from '~/routes';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
@@ -29,20 +31,19 @@ import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
 import TransferInfoCard from '~/components/TransferInfoCard';
 import TransferInput from '~/components/TransferInput';
 import View from '~/components/View';
-import core from '~/services/core';
-import logError, { formatErrorMessage } from '~/utils/debug';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import translate from '~/services/locale';
-import web3 from '~/services/web3';
-import { DASHBOARD_PATH, SEND_CONFIRM_PATH } from '~/routes';
-import { IconSend } from '~/styles/icons';
-import { formatCirclesValue } from '~/utils/format';
-import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
-import { transfer, checkCurrentBalance } from '~/store/token/actions';
-import { useQuery } from '~/hooks/url';
 import { useUpdateLoop } from '~/hooks/update';
+import { useQuery } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
-import { validatePaymentNote, validateAmount } from '~/services/token';
+import core from '~/services/core';
+import translate from '~/services/locale';
+import { validateAmount, validatePaymentNote } from '~/services/token';
+import web3 from '~/services/web3';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { checkCurrentBalance, transfer } from '~/store/token/actions';
+import { IconSend } from '~/styles/icons';
+import logError, { formatErrorMessage } from '~/utils/debug';
+import { formatCirclesValue } from '~/utils/format';
 
 const { ErrorCodes, TransferError } = core.errors;
 

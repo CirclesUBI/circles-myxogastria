@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { Backdrop, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import { colors } from '~/styles/theme';
 

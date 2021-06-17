@@ -1,8 +1,8 @@
 import path from 'path';
 
+import dotenv from 'dotenv';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
-import dotenv from 'dotenv';
 import webpack from 'webpack';
 
 dotenv.config();
@@ -59,8 +59,8 @@ CONFIG_KEYS_OPTIONAL.forEach((key) => {
   }
 });
 
-const pkg = require('./package.json');
 const corePkg = require('./node_modules/@circles/core/package.json');
+const pkg = require('./package.json');
 
 envData.RELEASE_VERSION = `"${pkg.version}"`;
 envData.CORE_RELEASE_VERSION = `"${corePkg.version}"`;

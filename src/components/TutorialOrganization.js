@@ -1,18 +1,17 @@
+import { Box, Dialog, IconButton, Slide, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Box, Dialog, IconButton, Slide, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-import Button from '~/components/Button';
-import ExternalLink from '~/components/ExternalLink';
-import translate from '~/services/locale';
-import { IconBack, IconClose } from '~/styles/icons';
 
 import OrgTutorialStep1SVG from '%/images/org-tutorial-step-1.svg';
 import OrgTutorialStep2SVG from '%/images/org-tutorial-step-2.svg';
 import OrgTutorialStep3SVG from '%/images/org-tutorial-step-3.svg';
+import Button from '~/components/Button';
+import ExternalLink from '~/components/ExternalLink';
+import translate from '~/services/locale';
+import { IconBack, IconClose } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {

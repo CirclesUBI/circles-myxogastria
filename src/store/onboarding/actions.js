@@ -1,10 +1,15 @@
 import core from '~/services/core';
-import web3 from '~/services/web3';
 import {
-  RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
-  RESTORE_ACCOUNT_UNKNOWN_SAFE,
-} from '~/utils/errors';
+  generateDeterministicNonce,
+  generateDeterministicNonceFromName,
+} from '~/services/safe';
+import web3 from '~/services/web3';
 import { checkAppState } from '~/store/app/actions';
+import {
+  hideSpinnerOverlay,
+  showSpinnerOverlay,
+  switchAccount,
+} from '~/store/app/actions';
 import {
   checkSharedSafeState,
   createSafeWithNonce,
@@ -18,18 +23,13 @@ import {
   updateSafeFundedState,
 } from '~/store/safe/actions';
 import { deployToken, updateTokenFundedState } from '~/store/token/actions';
-import {
-  generateDeterministicNonce,
-  generateDeterministicNonceFromName,
-} from '~/services/safe';
-import {
-  hideSpinnerOverlay,
-  showSpinnerOverlay,
-  switchAccount,
-} from '~/store/app/actions';
-import { isOrganization } from '~/utils/isDeployed';
 import { restoreWallet } from '~/store/wallet/actions';
 import { ZERO_ADDRESS } from '~/utils/constants';
+import {
+  RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
+  RESTORE_ACCOUNT_UNKNOWN_SAFE,
+} from '~/utils/errors';
+import { isOrganization } from '~/utils/isDeployed';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own

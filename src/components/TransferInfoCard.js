@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
 import {
   Card,
   CardHeader,
@@ -9,9 +7,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 
-import Avatar from '~/components/Avatar';
 import CirclesLogoSVG from '%/images/logo.svg';
+import Avatar from '~/components/Avatar';
 import { useUserdata } from '~/hooks/username';
 
 const fontSize = 12;

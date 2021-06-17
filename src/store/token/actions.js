@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon';
 
-import ActionTypes from '~/store/token/types';
 import core from '~/services/core';
-import logError from '~/utils/debug';
-import web3 from '~/services/web3';
-import { ZERO_ADDRESS } from '~/utils/constants';
-import { addPendingActivity } from '~/store/activity/actions';
 import { getLastPayout, setLastPayout } from '~/services/token';
+import web3 from '~/services/web3';
+import { addPendingActivity } from '~/store/activity/actions';
+import ActionTypes from '~/store/token/types';
+import { ZERO_ADDRESS } from '~/utils/constants';
+import logError from '~/utils/debug';
 import { isTokenDeployed } from '~/utils/isDeployed';
 
 const { ActivityTypes } = core.activity;

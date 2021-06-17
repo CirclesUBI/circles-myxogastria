@@ -1,6 +1,3 @@
-import PropTypes from 'prop-types';
-import React, { Fragment, useEffect, useState } from 'react';
-import clsx from 'clsx';
 import {
   Badge,
   Box,
@@ -12,8 +9,13 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { generatePath, useParams, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, generatePath, useParams } from 'react-router-dom';
+
+import { DASHBOARD_PATH, PROFILE_PATH } from '~/routes';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
@@ -24,14 +26,23 @@ import CenteredHeading from '~/components/CenteredHeading';
 import DialogTrust from '~/components/DialogTrust';
 import DialogTrustRevoke from '~/components/DialogTrustRevoke';
 import Header from '~/components/Header';
-import NotFound from '~/views/NotFound';
 import ProfileMini from '~/components/ProfileMini';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
+import { usePendingTransfer } from '~/hooks/activity';
+import { useDeploymentStatus, useTrustConnection } from '~/hooks/network';
+import { useUpdateLoop } from '~/hooks/update';
+import { useProfileLink, useRelativeSendLink } from '~/hooks/url';
+import { useIsOrganization, useUserdata } from '~/hooks/username';
 import translate from '~/services/locale';
 import web3 from '~/services/web3';
+import {
+  checkFinishedActivities,
+  checkPendingActivities,
+} from '~/store/activity/actions';
+import { checkTrustState } from '~/store/trust/actions';
 import {
   IconActivity,
   IconFriends,
@@ -40,17 +51,7 @@ import {
   IconTrustActive,
   IconTrustMutual,
 } from '~/styles/icons';
-import { DASHBOARD_PATH, PROFILE_PATH } from '~/routes';
-import {
-  checkFinishedActivities,
-  checkPendingActivities,
-} from '~/store/activity/actions';
-import { checkTrustState } from '~/store/trust/actions';
-import { usePendingTransfer } from '~/hooks/activity';
-import { useRelativeSendLink, useProfileLink } from '~/hooks/url';
-import { useTrustConnection, useDeploymentStatus } from '~/hooks/network';
-import { useUpdateLoop } from '~/hooks/update';
-import { useUserdata, useIsOrganization } from '~/hooks/username';
+import NotFound from '~/views/NotFound';
 
 const PANEL_ACTIVITY = Symbol('panelActivity');
 const PANEL_TRUST = Symbol('panelTrust');

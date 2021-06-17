@@ -1,18 +1,19 @@
-import React, { useEffect, useRef } from 'react';
 import { Box, IconButton } from '@material-ui/core';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { IconAlert, IconClose } from '~/styles/icons';
-import { SnackbarProvider } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
+import { SnackbarProvider } from 'notistack';
+import React, { useEffect, useRef } from 'react';
 import { use100vh } from 'react-div-100vh';
 import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import Routes from '~/routes';
 
 import Notifications from '~/components/Notifications';
-import Routes from '~/routes';
 import SpinnerOverlay from '~/components/SpinnerOverlay';
 import UBI from '~/components/UBI';
-import logError from '~/utils/debug';
 import { initializeApp } from '~/store/app/actions';
+import { IconAlert, IconClose } from '~/styles/icons';
+import logError from '~/utils/debug';
 
 const useStyles = makeStyles((theme) => ({
   app: {

@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
 import { Container } from '@material-ui/core';
+import React, { Fragment } from 'react';
 
 import ActivityStreamWithTabs from '~/components/ActivityStreamWithTabs';
 import ButtonBack from '~/components/ButtonBack';
