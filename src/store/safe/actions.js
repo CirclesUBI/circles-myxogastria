@@ -1,6 +1,6 @@
 import ActionTypes from '~/store/safe/types';
 import core from '~/services/core';
-import isDeployed from '~/utils/isDeployed';
+import isDeployed from '~/utils/helpers';
 import web3 from '~/services/web3';
 import {
   generateDeterministicNonce,

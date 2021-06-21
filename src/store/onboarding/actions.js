@@ -27,7 +27,7 @@ import {
   showSpinnerOverlay,
   switchAccount,
 } from '~/store/app/actions';
-import { isOrganization } from '~/utils/helpers';
+import { isOrganization, deployOrganization } from '~/utils/helpers';
 import { restoreWallet } from '~/store/wallet/actions';
 import { ZERO_ADDRESS } from '~/utils/constants';
 
@@ -92,7 +92,7 @@ export function createNewOrganization(
       await dispatch(deploySafeForOrganization(safeAddress));
 
       // Create the organization account in the Hub
-      await core.organization.deploy(safeAddress);
+      await deployOrganization(safeAddress);
       await isOrganization(safeAddress);
 
       // Prefund the organization with Tokens from the user

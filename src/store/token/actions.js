@@ -7,7 +7,7 @@ import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import { addPendingActivity } from '~/store/activity/actions';
 import { getLastPayout, setLastPayout } from '~/services/token';
-import { isTokenDeployed } from '~/utils/isDeployed';
+import { isTokenDeployed } from '~/utils/helpers';
 
 const { ActivityTypes } = core.activity;
 

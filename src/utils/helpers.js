@@ -28,6 +28,40 @@ async function loop(request, condition) {
   });
 }
 
+async function loopCheckFunction(request, functionCondition) {
+  return new Promise((resolve, reject) => {
+    let attempt = 0;
+
+    const interval = setInterval(async () => {
+      try {
+        const response = await request();
+        attempt += 1;
+        const conditionResult = await functionCondition();
+        if (conditionResult === true) {
+          clearInterval(interval);
+          resolve(response);
+        } else if (attempt > MAX_ATTEMPTS) {
+          throw new Error('Tried too many times waiting for condition');
+        }
+      } catch (error) {
+        clearInterval(interval);
+        reject(error);
+      }
+    }, LOOP_INTERVAL);
+  });
+}
+
+export async function deployOrganization(safeAddress) {
+  await loopCheckFunction(
+    () => {
+      return core.organization.deploy(safeAddress);
+    },
+    () => {
+      return isOrganization(safeAddress);
+    },
+  );
+}
+
 export default async function isDeployed(address) {
   await loop(
     () => {
