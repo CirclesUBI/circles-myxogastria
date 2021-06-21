@@ -1,6 +1,6 @@
-import React from 'react';
 import { InputAdornment } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 
 import TransferInput from '~/components/TransferInput';
 import { IconCircles } from '~/styles/icons';

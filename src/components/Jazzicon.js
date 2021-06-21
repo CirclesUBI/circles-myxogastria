@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import React, { useEffect, createRef } from 'react';
-import jazzicon from 'jazzicon';
 import { Box } from '@material-ui/core';
+import jazzicon from 'jazzicon';
+import PropTypes from 'prop-types';
+import React, { createRef, useEffect } from 'react';
 
 import web3 from '~/services/web3';
 

@@ -1,6 +1,6 @@
+import { Checkbox, FormControlLabel } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { Checkbox, FormControlLabel } from '@material-ui/core';
 
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';

@@ -1,8 +1,4 @@
-import PropTypes from 'prop-types';
-import React, { Fragment, useState, useMemo } from 'react';
-import clsx from 'clsx';
 import {
-  Avatar as MuiAvatar,
   Badge,
   Box,
   Card,
@@ -13,31 +9,35 @@ import {
   Divider,
   Grid,
   IconButton,
+  Avatar as MuiAvatar,
   Typography,
   Zoom,
 } from '@material-ui/core';
-import { DateTime } from 'luxon';
-import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import clsx from 'clsx';
+import { DateTime } from 'luxon';
+import PropTypes from 'prop-types';
+import React, { Fragment, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
 import Logo from '~/components/Logo';
+import { usePaymentNote } from '~/hooks/transfer';
+import { useUpdateLoop } from '~/hooks/update';
+import { useRelativeProfileLink } from '~/hooks/url';
+import { useUserdata } from '~/hooks/username';
+import { formatMessage } from '~/services/activity';
 import core from '~/services/core';
 import translate from '~/services/locale';
-import { IconCloseOutline } from '~/styles/icons';
-import { ZERO_ADDRESS, FAQ_URL, ISSUANCE_RATE_MONTH } from '~/utils/constants';
 import {
   checkFinishedActivities,
   checkPendingActivities,
 } from '~/store/activity/actions';
-import { formatMessage } from '~/services/activity';
-import { usePaymentNote } from '~/hooks/transfer';
-import { useRelativeProfileLink } from '~/hooks/url';
-import { useUpdateLoop } from '~/hooks/update';
-import { useUserdata } from '~/hooks/username';
+import { IconCloseOutline } from '~/styles/icons';
+import { FAQ_URL, ISSUANCE_RATE_MONTH, ZERO_ADDRESS } from '~/utils/constants';
 
 const { ActivityTypes } = core.activity;
 

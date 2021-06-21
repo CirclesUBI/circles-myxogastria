@@ -1,6 +1,6 @@
+import { IconButton } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { IconButton } from '@material-ui/core';
 
 import Button from '~/components/Button';
 import ButtonClipboard from '~/components/ButtonClipboard';

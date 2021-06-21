@@ -1,17 +1,19 @@
-import React, { Fragment, useRef, useState } from 'react';
-import clsx from 'clsx';
 import {
   Avatar,
   Box,
   CircularProgress,
   Container,
   IconButton,
-  InputAdornment,
   Input,
+  InputAdornment,
 } from '@material-ui/core';
-import { Link, useHistory, generatePath } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import clsx from 'clsx';
+import React, { Fragment, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, generatePath, useHistory } from 'react-router-dom';
+
+import { MY_PROFILE_PATH, SEARCH_PATH, SEND_PATH } from '~/routes';
 
 import AppNote from '~/components/AppNote';
 import BalanceDisplay from '~/components/BalanceDisplay';
@@ -24,15 +26,14 @@ import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
+import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
-import { CATEGORIES } from '~/store/activity/reducers';
-import { IconMenu, IconNotification, IconSearch } from '~/styles/icons';
-import { MY_PROFILE_PATH, SEND_PATH, SEARCH_PATH } from '~/routes';
 import {
   checkFinishedActivities,
   checkPendingActivities,
 } from '~/store/activity/actions';
-import { useUpdateLoop } from '~/hooks/update';
+import { CATEGORIES } from '~/store/activity/reducers';
+import { IconMenu, IconNotification, IconSearch } from '~/styles/icons';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {

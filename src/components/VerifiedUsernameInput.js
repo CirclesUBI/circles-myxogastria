@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import Input from '~/components/Input';
 import core from '~/services/core';
-import debounce from '~/utils/debounce';
 import translate from '~/services/locale';
+import debounce from '~/utils/debounce';
 
 const DEBOUNCE_DELAY = 500;
 const MAX_USERNAME_LENGTH = 24;

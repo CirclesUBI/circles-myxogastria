@@ -1,8 +1,10 @@
-import React, { Fragment } from 'react';
 import { Avatar, Box, Container, Tooltip, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { Fragment } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { VALIDATION_SHARE_PATH } from '~/routes';
 
 import AvatarWithQR from '~/components/AvatarWithQR';
 import BalanceDisplay from '~/components/BalanceDisplay';
@@ -14,12 +16,11 @@ import HumbleAlert from '~/components/HumbleAlert';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import ValidationStatus from '~/components/ValidationStatus';
 import View from '~/components/View';
+import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
+import { checkTrustState } from '~/store/trust/actions';
 import { IconCheck } from '~/styles/icons';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
-import { VALIDATION_SHARE_PATH } from '~/routes';
-import { checkTrustState } from '~/store/trust/actions';
-import { useUpdateLoop } from '~/hooks/update';
 
 const useStyles = makeStyles((theme) => ({
   leftTrustConnections: {

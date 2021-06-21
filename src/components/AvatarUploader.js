@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import React, { Fragment, useEffect, useRef, useState } from 'react';
-import mime from 'mime/lite';
 import { Avatar, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import mime from 'mime/lite';
+import PropTypes from 'prop-types';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import core from '~/services/core';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 
 const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
 

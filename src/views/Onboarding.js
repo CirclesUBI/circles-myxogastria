@@ -1,7 +1,9 @@
+import { Box, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
-import { Box, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
+
+import { WELCOME_PATH } from '~/routes';
 
 import AvatarUploader from '~/components/AvatarUploader';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
@@ -11,13 +13,12 @@ import Mnemonic from '~/components/Mnemonic';
 import OnboardingStepper from '~/components/OnboardingStepper';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
-import logError, { formatErrorMessage } from '~/utils/debug';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
-import { WELCOME_PATH } from '~/routes';
+import { getPrivateKey, toSeedPhrase } from '~/services/wallet';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { createNewAccount } from '~/store/onboarding/actions';
-import { showSpinnerOverlay, hideSpinnerOverlay } from '~/store/app/actions';
-import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
+import logError, { formatErrorMessage } from '~/utils/debug';
 
 const Onboarding = () => {
   const dispatch = useDispatch();

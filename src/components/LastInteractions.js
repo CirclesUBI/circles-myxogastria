@@ -1,17 +1,17 @@
+import { Grid, Link as MuiLink, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
-import { DateTime } from 'luxon';
-import { Grid, Typography, Link as MuiLink } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Avatar from '~/components/Avatar';
 import UsernameDisplay from '~/components/UsernameDisplay';
+import { useRelativeProfileLink } from '~/hooks/url';
 import core from '~/services/core';
 import resolveUsernames from '~/services/username';
 import { CATEGORIES } from '~/store/activity/reducers';
-import { useRelativeProfileLink } from '~/hooks/url';
 
 const { ActivityTypes } = core.activity;
 

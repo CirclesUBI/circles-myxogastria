@@ -1,8 +1,8 @@
+import { AppBar, Toolbar, useScrollTrigger } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import { useScrollTrigger, AppBar, Toolbar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

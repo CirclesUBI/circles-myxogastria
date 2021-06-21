@@ -1,13 +1,13 @@
-import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { IconCircles } from '~/styles/icons';
-import { checkCurrentBalance, checkTokenState } from '~/store/token/actions';
-import { formatCirclesValue } from '~/utils/format';
 import { useUpdateLoop } from '~/hooks/update';
+import { checkCurrentBalance, checkTokenState } from '~/store/token/actions';
+import { IconCircles } from '~/styles/icons';
+import { formatCirclesValue } from '~/utils/format';
 
 const useStyles = makeStyles((theme) => ({
   box: {
