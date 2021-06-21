@@ -1,11 +1,10 @@
+import { render } from '@testing-library/react';
+import locales from 'locales';
 import PropTypes from 'prop-types';
 import React from 'react';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { render } from '@testing-library/react';
-
-import locales from 'locales';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import thunk from 'redux-thunk';
 
 const TestRoot = ({ store, children }) => {
   return <Provider store={store}>{children}</Provider>;

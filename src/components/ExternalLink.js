@@ -1,6 +1,6 @@
+import { Link } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from '@material-ui/core';
 
 const ExternalLink = ({ children, ...props }) => {
   return (

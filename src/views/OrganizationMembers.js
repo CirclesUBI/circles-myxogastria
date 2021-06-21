@@ -1,6 +1,3 @@
-import PropTypes from 'prop-types';
-import React, { Fragment, useCallback, useState, useEffect } from 'react';
-import { AvatarGroup } from '@material-ui/lab';
 import {
   Box,
   Button,
@@ -11,9 +8,14 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { AvatarGroup } from '@material-ui/lab';
+import PropTypes from 'prop-types';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { ORGANIZATION_MEMBERS_ADD_PATH } from '~/routes';
 
 import Avatar from '~/components/Avatar';
 import ButtonAction from '~/components/ButtonAction';
@@ -22,20 +24,19 @@ import CenteredHeading from '~/components/CenteredHeading';
 import DialogPurple from '~/components/DialogPurple';
 import Header from '~/components/Header';
 import View from '~/components/View';
+import { useUpdateLoop } from '~/hooks/update';
+import { useRelativeProfileLink } from '~/hooks/url';
+import { useUserdata } from '~/hooks/username';
 import core from '~/services/core';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
-import { IconTrust, IconClose } from '~/styles/icons';
-import { ORGANIZATION_MEMBERS_ADD_PATH } from '~/routes';
 import {
   hideSpinnerOverlay,
   showSpinnerOverlay,
   switchAccount,
 } from '~/store/app/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { removeSafeOwner } from '~/store/safe/actions';
-import { useRelativeProfileLink } from '~/hooks/url';
-import { useUpdateLoop } from '~/hooks/update';
-import { useUserdata } from '~/hooks/username';
+import { IconClose, IconTrust } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   cardHeader: {

@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
 import { DateTime } from 'luxon';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import core from '~/services/core';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
 import web3 from '~/services/web3';
-import { formatCirclesValue } from '~/utils/format';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { requestUBIPayout } from '~/store/token/actions';
+import { formatCirclesValue } from '~/utils/format';
 
 const MIN_UBI_PAYOUT = '0.5';
 

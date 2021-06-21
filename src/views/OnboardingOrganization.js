@@ -1,8 +1,10 @@
+import { Box, Grid, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
-import { Box, Grid, Typography } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
+import { DASHBOARD_PATH } from '~/routes';
 
 import AvatarUploader from '~/components/AvatarUploader';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
@@ -13,20 +15,19 @@ import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
 import TutorialOrganization from '~/components/TutorialOrganization';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
-import logError, { formatErrorMessage } from '~/utils/debug';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import translate from '~/services/locale';
-import web3 from '~/services/web3';
-import { DASHBOARD_PATH } from '~/routes';
-import { checkCurrentBalance } from '~/store/token/actions';
-import { createNewOrganization } from '~/store/onboarding/actions';
-import {
-  finishTutorial,
-  ORGANIZATION_TUTORIAL,
-} from '~/store/tutorial/actions';
-import { formatCirclesValue } from '~/utils/format';
 import { useUpdateLoop } from '~/hooks/update';
+import translate from '~/services/locale';
 import { validateAmount } from '~/services/token';
+import web3 from '~/services/web3';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { createNewOrganization } from '~/store/onboarding/actions';
+import { checkCurrentBalance } from '~/store/token/actions';
+import {
+  ORGANIZATION_TUTORIAL,
+  finishTutorial,
+} from '~/store/tutorial/actions';
+import logError, { formatErrorMessage } from '~/utils/debug';
+import { formatCirclesValue } from '~/utils/format';
 
 const OnboardingOrganization = () => {
   const dispatch = useDispatch();

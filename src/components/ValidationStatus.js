@@ -1,22 +1,22 @@
-import React, { Fragment } from 'react';
-import clsx from 'clsx';
 import {
   Avatar,
   Box,
-  Typography,
-  Stepper,
   Step,
   StepConnector,
   StepIcon,
+  Stepper,
+  Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
 import translate from '~/services/locale';
+import { finalizeNewAccount } from '~/store/onboarding/actions';
 import { IconCheck } from '~/styles/icons';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
-import { finalizeNewAccount } from '~/store/onboarding/actions';
 
 const useStyles = makeStyles((theme) => ({
   stepper: {

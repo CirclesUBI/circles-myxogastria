@@ -1,16 +1,11 @@
+import { Box, Button, Drawer, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Typography, Drawer, Grid, Button, Box } from '@material-ui/core';
-import { generatePath } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { generatePath } from 'react-router-dom';
 
-import AvatarWithQR from '~/components/AvatarWithQR';
-import ExternalLink from '~/components/ExternalLink';
-import LocaleSelector from '~/components/LocaleSelector';
-import UsernameDisplay from '~/components/UsernameDisplay';
-import translate from '~/services/locale';
 import {
   ACTIVITIES_PATH,
   MY_PROFILE_PATH,
@@ -21,23 +16,29 @@ import {
   SETTINGS_PATH,
   SHARE_PATH,
 } from '~/routes';
-import {
-  ABOUT_URL,
-  FAQ_URL,
-  MARKETPLACE_URL,
-  PRIVACY_LEGAL_URL,
-  SUPPORT_URL,
-  EMAIL_URL,
-  FACEBOOK_URL,
-  TWITTER_URL,
-  TELEGRAM_URL,
-} from '~/utils/constants';
+
+import AvatarWithQR from '~/components/AvatarWithQR';
+import ExternalLink from '~/components/ExternalLink';
+import LocaleSelector from '~/components/LocaleSelector';
+import UsernameDisplay from '~/components/UsernameDisplay';
+import translate from '~/services/locale';
 import {
   IconFacebook,
   IconMail,
   IconTelegram,
   IconTwitter,
 } from '~/styles/icons';
+import {
+  ABOUT_URL,
+  EMAIL_URL,
+  FACEBOOK_URL,
+  FAQ_URL,
+  MARKETPLACE_URL,
+  PRIVACY_LEGAL_URL,
+  SUPPORT_URL,
+  TELEGRAM_URL,
+  TWITTER_URL,
+} from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {

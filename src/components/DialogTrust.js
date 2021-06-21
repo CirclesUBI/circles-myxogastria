@@ -3,12 +3,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import Dialog from '~/components/Dialog';
-import logError from '~/utils/debug';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { useUserdata } from '~/hooks/username';
 import translate from '~/services/locale';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { trustUser } from '~/store/trust/actions';
-import { useUserdata } from '~/hooks/username';
+import logError from '~/utils/debug';
 
 const DialogTrust = ({
   address,

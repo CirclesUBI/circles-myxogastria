@@ -1,6 +1,6 @@
+import { Box, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
 
 const TutorialSlideImage = ({ image }) => {
   return (

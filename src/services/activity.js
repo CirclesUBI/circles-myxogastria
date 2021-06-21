@@ -2,8 +2,6 @@ import { DateTime } from 'luxon';
 
 import core from '~/services/core';
 import translate from '~/services/locale';
-import { ZERO_ADDRESS } from '~/utils/constants';
-import { formatCirclesValue } from '~/utils/format';
 import {
   getItem,
   hasItem,
@@ -11,6 +9,8 @@ import {
   removeItem,
   setItem,
 } from '~/services/storage';
+import { ZERO_ADDRESS } from '~/utils/constants';
+import { formatCirclesValue } from '~/utils/format';
 
 const { ActivityTypes, ActivityFilterTypes } = core.activity;
 

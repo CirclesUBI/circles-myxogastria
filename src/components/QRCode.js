@@ -1,7 +1,7 @@
+import { Box, Paper } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import QRCodeGenerator from 'qrcode';
 import React, { createRef, useEffect } from 'react';
-import { Box, Paper } from '@material-ui/core';
 
 const QR_CODE_SIZE = 230;
 

@@ -1,16 +1,16 @@
-import React from 'react';
 import { CircularProgress } from '@material-ui/core';
-import { Grid, Paper, Typography, Tooltip, Box } from '@material-ui/core';
+import { Box, Grid, Paper, Tooltip, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Logo from '~/components/Logo';
-import translate from '~/services/locale';
-import { ISSUANCE_RATE_MONTH } from '~/utils/constants';
-import { IconCircles } from '~/styles/icons';
-import { checkCurrentBalance, checkTokenState } from '~/store/token/actions';
-import { formatCirclesValue } from '~/utils/format';
 import { useUpdateLoop } from '~/hooks/update';
+import translate from '~/services/locale';
+import { checkCurrentBalance, checkTokenState } from '~/store/token/actions';
+import { IconCircles } from '~/styles/icons';
+import { ISSUANCE_RATE_MONTH } from '~/utils/constants';
+import { formatCirclesValue } from '~/utils/format';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

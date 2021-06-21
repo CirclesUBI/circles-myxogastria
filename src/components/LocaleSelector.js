@@ -1,11 +1,11 @@
+import { InputBase, MenuItem, Select } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import { LOCALES } from 'locales';
 import PropTypes from 'prop-types';
 import React from 'react';
-import clsx from 'clsx';
-import { Select, MenuItem, InputBase } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
-import translate, { setLocale, currentLocale } from '~/services/locale';
-import { LOCALES } from 'locales';
+import translate, { currentLocale, setLocale } from '~/services/locale';
 
 const useStyles = makeStyles((theme) => ({
   select: {

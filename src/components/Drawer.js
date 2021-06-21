@@ -1,5 +1,6 @@
-import React from 'react';
 import { Container, SwipeableDrawer } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import {
   Route,
   Switch,
@@ -7,9 +8,9 @@ import {
   useLocation,
   useRouteMatch,
 } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 
 import { DASHBOARD_PATH, MY_PROFILE_PATH } from '~/routes';
+
 import MyProfile from '~/components/MyProfile';
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);

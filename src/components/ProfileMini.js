@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
 import {
   Box,
   Card,
@@ -8,18 +6,20 @@ import {
   Tooltip,
   Typography,
 } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import React, { Fragment, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Avatar from '~/components/Avatar';
 import DialogTrust from '~/components/DialogTrust';
-import translate from '~/services/locale';
-import { IconFriends, IconSend, IconTrust } from '~/styles/icons';
 import { usePendingTransfer } from '~/hooks/activity';
-import { useRelativeSendLink } from '~/hooks/url';
 import { useTrustConnection } from '~/hooks/network';
 import { useIsOrganization } from '~/hooks/organization';
+import { useRelativeSendLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
+import translate from '~/services/locale';
+import { IconFriends, IconSend, IconTrust } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   cardHeader: {

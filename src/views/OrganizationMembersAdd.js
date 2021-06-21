@@ -1,6 +1,8 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { Box, Container, makeStyles, Typography } from '@material-ui/core';
+import { Box, Container, Typography, makeStyles } from '@material-ui/core';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { ORGANIZATION_MEMBERS_ADD_PATH } from '~/routes';
 
 import Avatar from '~/components/Avatar';
 import ButtonBack from '~/components/ButtonBack';
@@ -11,13 +13,12 @@ import ExternalLink from '~/components/ExternalLink';
 import Finder from '~/components/Finder';
 import Header from '~/components/Header';
 import View from '~/components/View';
-import core from '~/services/core';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import translate from '~/services/locale';
-import { ORGANIZATION_MEMBERS_ADD_PATH } from '~/routes';
-import { addSafeOwner } from '~/store/safe/actions';
-import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import { useUserdata } from '~/hooks/username';
+import core from '~/services/core';
+import translate from '~/services/locale';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { addSafeOwner } from '~/store/safe/actions';
 
 const useParagraphStyles = makeStyles((theme) => ({
   paragraph: {

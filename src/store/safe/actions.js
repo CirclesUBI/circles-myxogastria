@@ -1,7 +1,4 @@
-import ActionTypes from '~/store/safe/types';
 import core from '~/services/core';
-import isDeployed from '~/utils/helpers';
-import web3 from '~/services/web3';
 import {
   generateDeterministicNonce,
   getCurrentAccount,
@@ -17,6 +14,9 @@ import {
   setNonce,
   setSafeAddress,
 } from '~/services/safe';
+import web3 from '~/services/web3';
+import ActionTypes from '~/store/safe/types';
+import isDeployed from '~/utils/isDeployed';
 
 export function initializeSafe() {
   return async (dispatch) => {

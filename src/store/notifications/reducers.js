@@ -1,7 +1,7 @@
 import update from 'immutability-helper';
 
-import ActionTypes from '~/store/notifications/types';
 import { NotificationsTypes } from '~/store/notifications/actions';
+import ActionTypes from '~/store/notifications/types';
 
 const initialState = {
   messages: [],

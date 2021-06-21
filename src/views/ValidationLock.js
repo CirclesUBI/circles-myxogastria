@@ -1,5 +1,5 @@
+import { Box, CircularProgress, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import { CircularProgress, Box, Typography } from '@material-ui/core';
 
 import Footer from '~/components/Footer';
 import Logo from '~/components/Logo';

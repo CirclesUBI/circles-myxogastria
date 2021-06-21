@@ -1,9 +1,9 @@
-import ActionTypes from '~/store/trust/types';
 import core from '~/services/core';
-import logError from '~/utils/debug.js';
 import resolveUsernames from '~/services/username';
-import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 import { addPendingActivity } from '~/store/activity/actions';
+import ActionTypes from '~/store/trust/types';
+import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
+import logError from '~/utils/debug.js';
 
 const USER_RESOLVE_CHUNK_SIZE = 50;
 

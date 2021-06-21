@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { Avatar as MuiAvatar } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import Jazzicon from '~/components/Jazzicon';
 import { useUserdata } from '~/hooks/username';
