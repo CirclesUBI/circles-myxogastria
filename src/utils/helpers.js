@@ -28,7 +28,7 @@ async function loop(request, condition) {
   });
 }
 
-async function loopCheckFunction(request, functionCondition) {
+async function waitAndRetryOnFail(request, functionCondition) {
   return new Promise((resolve, reject) => {
     let attempt = 0;
 
@@ -52,7 +52,7 @@ async function loopCheckFunction(request, functionCondition) {
 }
 
 export async function deployOrganization(safeAddress) {
-  await loopCheckFunction(
+  await waitAndRetryOnFail(
     () => {
       return core.organization.deploy(safeAddress);
     },
