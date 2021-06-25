@@ -29,7 +29,7 @@ import {
   RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
   RESTORE_ACCOUNT_UNKNOWN_SAFE,
 } from '~/utils/errors';
-import { deployOrganization, isOrganization } from '~/utils/helpers';
+import { deployOrganization, isOrganization } from '~/utils/stateChecks';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own
