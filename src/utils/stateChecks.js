@@ -1,9 +1,11 @@
 import core from '~/services/core';
 import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
+import logError from '~/utils/debug';
 
 const LOOP_INTERVAL = 6000;
 const MAX_ATTEMPTS = 20;
+const MAX_ATTEMPTS_RETRY_ON_FAIL = 6;
 
 async function loop(request, condition) {
   return new Promise((resolve, reject) => {
@@ -28,27 +30,25 @@ async function loop(request, condition) {
   });
 }
 
-async function waitAndRetryOnFail(request, functionCondition) {
-  return new Promise((resolve, reject) => {
-    let attempt = 0;
-
-    const interval = setInterval(async () => {
-      try {
-        const response = await request();
-        attempt += 1;
-        const conditionResult = await functionCondition();
-        if (conditionResult === true) {
-          clearInterval(interval);
-          resolve(response);
-        } else if (attempt > MAX_ATTEMPTS) {
-          throw new Error('Tried too many times waiting for condition');
-        }
-      } catch (error) {
-        clearInterval(interval);
-        reject(error);
+async function waitAndRetryOnFail(request, condition) {
+  let attempt = 0;
+  let conditionResult = false;
+  while (conditionResult === false && attempt <= MAX_ATTEMPTS_RETRY_ON_FAIL) {
+    try {
+      attempt += 1;
+      const response = await request();
+      conditionResult = await condition();
+      if (conditionResult === true) {
+        return response;
       }
-    }, LOOP_INTERVAL);
-  });
+    } catch (error) {
+      conditionResult = false;
+      logError(error);
+    }
+  }
+  if (attempt === MAX_ATTEMPTS_RETRY_ON_FAIL) {
+    throw Error('Tried too many times reattempting the request');
+  }
 }
 
 export async function deployOrganization(safeAddress) {
