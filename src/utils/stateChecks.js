@@ -47,7 +47,9 @@ async function waitAndRetryOnFail(request, condition) {
     }
   }
   if (attempt === MAX_ATTEMPTS_RETRY_ON_FAIL) {
-    throw Error('Tried too many times reattempting the request');
+    throw Error(
+      'Tried too many times reattempting the request. We may be experiencing networking problems.',
+    );
   }
 }
 
