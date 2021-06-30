@@ -30,7 +30,7 @@ async function loop(request, condition) {
   });
 }
 
-async function waitAndRetryOnFail(request, condition) {
+export async function waitAndRetryOnFail(request, condition) {
   let attempt = 0;
   let conditionResult = false;
   while (conditionResult === false && attempt <= MAX_ATTEMPTS_RETRY_ON_FAIL) {
@@ -51,17 +51,6 @@ async function waitAndRetryOnFail(request, condition) {
       'Tried too many times reattempting the request. We may be experiencing networking problems.',
     );
   }
-}
-
-export async function deployOrganization(safeAddress) {
-  await waitAndRetryOnFail(
-    () => {
-      return core.organization.deploy(safeAddress);
-    },
-    () => {
-      return isOrganization(safeAddress);
-    },
-  );
 }
 
 export default async function isDeployed(address) {
