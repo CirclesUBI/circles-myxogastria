@@ -7,7 +7,7 @@ import { addPendingActivity } from '~/store/activity/actions';
 import ActionTypes from '~/store/token/types';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import logError from '~/utils/debug';
-import { isTokenDeployed } from '~/utils/isDeployed';
+import { isTokenDeployed } from '~/utils/stateChecks';
 
 const { ActivityTypes } = core.activity;
 

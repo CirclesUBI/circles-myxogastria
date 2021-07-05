@@ -29,7 +29,7 @@ import {
   RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
   RESTORE_ACCOUNT_UNKNOWN_SAFE,
 } from '~/utils/errors';
-import { isOrganization } from '~/utils/isDeployed';
+import { isOrganization, waitAndRetryOnFail } from '~/utils/stateChecks';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own
@@ -92,8 +92,14 @@ export function createNewOrganization(
       await dispatch(deploySafeForOrganization(safeAddress));
 
       // Create the organization account in the Hub
-      await core.organization.deploy(safeAddress);
-      await isOrganization(safeAddress);
+      await waitAndRetryOnFail(
+        () => {
+          return core.organization.deploy(safeAddress);
+        },
+        () => {
+          return isOrganization(safeAddress);
+        },
+      );
 
       // Prefund the organization with Tokens from the user
       await core.organization.prefund(

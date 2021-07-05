@@ -16,7 +16,7 @@ import {
 } from '~/services/safe';
 import web3 from '~/services/web3';
 import ActionTypes from '~/store/safe/types';
-import isDeployed from '~/utils/isDeployed';
+import isDeployed, { waitAndRetryOnFail } from '~/utils/stateChecks';
 
 export function initializeSafe() {
   return async (dispatch) => {
@@ -240,8 +240,14 @@ export function deploySafe() {
     });
 
     try {
-      await core.safe.deploy(safe.pendingAddress);
-      await isDeployed(safe.pendingAddress);
+      await waitAndRetryOnFail(
+        () => {
+          return core.safe.deploy(safe.pendingAddress);
+        },
+        () => {
+          return isDeployed(safe.pendingAddress);
+        },
+      );
 
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_SUCCESS,
