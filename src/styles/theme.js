@@ -71,6 +71,11 @@ export default createMuiTheme({
       xl: 1920,
     },
   },
+  props: {
+    MuiDialog: {
+      maxWidth: 'lg',
+    },
+  },
   palette: {
     background: {
       default: colors.whiteAlmost,
@@ -148,6 +153,12 @@ export default createMuiTheme({
           notoSansMedium,
         ],
         fontFamily,
+      },
+    },
+    MuiDialog: {
+      paper: {
+        borderRadius: 0,
+        borderBottomRightRadius: 48,
       },
     },
     MuiDivider: {
