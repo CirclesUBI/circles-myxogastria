@@ -233,6 +233,8 @@ const SendConfirm = () => {
       <Dialog
         aria-describedby={`dialog-send-text`}
         aria-labelledby={`dialog-send-description`}
+        fullWidth
+        maxWidth="xs"
         open={isConfirmationShown}
         onClose={handleConfirmClose}
       >
@@ -264,12 +266,12 @@ const SendConfirm = () => {
           <Typography align="center" className={classes.dialogPaymentNote}>
             {paymentNote}
           </Typography>
-          <Box mb={1} mt={2}>
+          <Box maxWidth="60%" mb={1} mt={2} mx="auto">
             <Button autoFocus fullWidth isPrimary onClick={handleSend}>
               {translate('SendConfirm.dialogSendConfirm')}
             </Button>
           </Box>
-          <Box mb={2}>
+          <Box maxWidth="60%" mb={2} mx="auto">
             <Button fullWidth isOutline onClick={handleConfirmClose}>
               {translate('SendConfirm.dialogSendCancel')}
             </Button>
