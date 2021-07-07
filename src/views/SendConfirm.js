@@ -66,10 +66,8 @@ const SendConfirm = () => {
   });
 
   // Set amount and payment note based on URL query
-  const {
-    a: preselectedAmount = '',
-    n: preselectedPaymentNote = '',
-  } = useQuery();
+  const { a: preselectedAmount = '', n: preselectedPaymentNote = '' } =
+    useQuery();
   const [amount, setAmount] = useState(
     validateAmount(preselectedAmount) ? preselectedAmount : '',
   );
