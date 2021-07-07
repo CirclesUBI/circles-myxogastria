@@ -1,10 +1,12 @@
-import { Avatar as MuiAvatar } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import { Avatar as MuiAvatar, Box } from '@material-ui/core';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import Jazzicon from '~/components/Jazzicon';
 import { useUserdata } from '~/hooks/username';
+
+import GroupWalletCircleSVG from '%/images/organization-indicator.svg';
 
 const SIZE_MULTIPLIERS = {
   tiny: 0.8,
@@ -12,8 +14,21 @@ const SIZE_MULTIPLIERS = {
   medium: 2,
   large: 3,
 };
+const ORGANIZATION_RING_SIZE = "108%"
 
-const Avatar = ({ address, size = 'small', ...props }) => {
+const useStyles = makeStyles(() => ({
+  avatarContainer: {
+    position: 'relative',
+  },
+  organizationIndicator: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+}));
+
+const Avatar = ({ address, isOrganization = false, size = 'small', ...props }) => {
+  const classes = useStyles();
   const theme = useTheme();
 
   const { avatarUrl, username } = useUserdata(address);
@@ -22,26 +37,32 @@ const Avatar = ({ address, size = 'small', ...props }) => {
   const initials = username.slice(0, 2) === '0x' ? null : username.slice(0, 2);
 
   return (
-    <MuiAvatar
-      alt={username}
-      src={avatarUrl}
-      style={{
-        width: sizePixel,
-        height: sizePixel,
-      }}
-      {...props}
-    >
-      {avatarUrl && initials ? (
-        initials.toUpperCase()
-      ) : (
-        <Jazzicon address={address} size={sizePixel} />
-      )}
-    </MuiAvatar>
+    <Box className={classes.avatarContainer} >
+      {isOrganization && (<Box className={classes.organizationIndicator} >
+        <GroupWalletCircleSVG width={ORGANIZATION_RING_SIZE}/> 
+      </Box>)}
+      <MuiAvatar
+        alt={username}
+        src={avatarUrl}
+        style={{
+          width: sizePixel,
+          height: sizePixel,
+        }}
+        {...props}
+      >
+        {avatarUrl && initials ? (
+          initials.toUpperCase()
+        ) : (
+          <Jazzicon address={address} size={sizePixel} />
+        )}
+      </MuiAvatar>
+    </Box>
   );
 };
 
 Avatar.propTypes = {
   address: PropTypes.string.isRequired,
+  isOrganization: PropTypes.bool,
   size: PropTypes.string,
 };
 

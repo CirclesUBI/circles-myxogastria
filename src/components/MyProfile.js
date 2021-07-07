@@ -64,7 +64,7 @@ const MyProfile = () => {
         <Grid item xs={12}>
           <Box alignItems="center" display="flex">
             <Link to={SHARE_PATH}>
-              <AvatarWithQR address={safe.currentAccount} size="medium" />
+              <AvatarWithQR address={safe.currentAccount} isOrganization={safe.isOrganization} size="medium" />
             </Link>
             <Box mx={2}>
               <Typography align="left">
@@ -98,6 +98,7 @@ const MyProfile = () => {
             return (
               <MyProfileAccount
                 address={account}
+                isOrganization={safe.isOrganization}
                 key={account}
                 onSelect={handleAccountSwitch}
               />
@@ -123,7 +124,7 @@ const MyProfile = () => {
   );
 };
 
-const MyProfileAccount = ({ address, onSelect }) => {
+const MyProfileAccount = ({ address, isOrganization, onSelect }) => {
   const classes = useStyles();
 
   const handleSelect = () => {
@@ -138,7 +139,7 @@ const MyProfileAccount = ({ address, onSelect }) => {
       onClick={handleSelect}
     >
       <ListItemAvatar>
-        <Avatar address={address} size="tiny" />
+        <Avatar address={address} isOrganization={isOrganization} size="tiny" />
       </ListItemAvatar>
       <ListItemText>
         <UsernameDisplay address={address} />
