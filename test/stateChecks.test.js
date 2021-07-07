@@ -12,18 +12,18 @@ describe('stateChecks Utils', () => {
     mocks = {
       // Mock any successful request waiting for x milliseconds, returning any
       // result which can be checked
-      request: async (waitMs = 50, result = CONDITION_RESULT_SUCCESS) => {
-        await wait(waitMs);
+      request: async (result = CONDITION_RESULT_SUCCESS) => {
+        await wait(50);
         return result;
       },
       // Mock any failed request waiting for x milliseconds, throwing an
       // exception
-      requestFailed: async (waitMs = 50, message = RESULT_ERROR) => {
-        await wait(waitMs);
+      requestFailed: async (message = RESULT_ERROR) => {
+        await wait(50);
         throw new Error(message);
       },
-      conditionRequest: async (waitMs = 50, successAfter = 5) => {
-        await wait(waitMs);
+      conditionRequest: async (successAfter = 5) => {
+        await wait(50);
         attempt += 1;
 
         if (attempt >= successAfter) {
@@ -70,7 +70,7 @@ describe('stateChecks Utils', () => {
       await expect(async () => {
         await loop(
           () => {
-            return mocks.request(50, CONDITION_RESULT_FAILED);
+            return mocks.request(CONDITION_RESULT_FAILED);
           },
           (result) => {
             return mocks.condition(result);
@@ -113,7 +113,7 @@ describe('stateChecks Utils', () => {
         async () => {
           await loop(
             () => {
-              return mocks.conditionRequest(50, 2);
+              return mocks.conditionRequest(2);
             },
             (result) => {
               return mocks.condition(result);
@@ -148,7 +148,7 @@ describe('stateChecks Utils', () => {
           async () => {
             await loop(
               () => {
-                return mocks.conditionRequest(50, 100);
+                return mocks.conditionRequest(100);
               },
               (result) => {
                 return mocks.condition(result);
@@ -178,7 +178,7 @@ describe('stateChecks Utils', () => {
           () => {
             return mocks.requestFailed();
           },
-          async () => {
+          () => {
             // The condition is always successful, this time we're checking a
             // failed request
             return true;
