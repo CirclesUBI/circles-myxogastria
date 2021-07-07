@@ -64,7 +64,11 @@ const MyProfile = () => {
         <Grid item xs={12}>
           <Box alignItems="center" display="flex">
             <Link to={SHARE_PATH}>
-              <AvatarWithQR address={safe.currentAccount} isOrganization={safe.isOrganization} size="medium" />
+              <AvatarWithQR
+                address={safe.currentAccount}
+                isOrganization={safe.isOrganization}
+                size="medium"
+              />
             </Link>
             <Box mx={2}>
               <Typography align="left">
@@ -124,7 +128,7 @@ const MyProfile = () => {
   );
 };
 
-const MyProfileAccount = ({ address, isOrganization, onSelect }) => {
+const MyProfileAccount = ({ address, isOrganization = false, onSelect }) => {
   const classes = useStyles();
 
   const handleSelect = () => {
@@ -150,6 +154,7 @@ const MyProfileAccount = ({ address, isOrganization, onSelect }) => {
 
 MyProfileAccount.propTypes = {
   address: PropTypes.string.isRequired,
+  isOrganization: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
 };
 

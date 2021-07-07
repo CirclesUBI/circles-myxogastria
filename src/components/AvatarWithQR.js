@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AvatarWithQR = ({ address, isOrganization=false, ...props }) => {
+const AvatarWithQR = ({ address, isOrganization = false, ...props }) => {
   const classes = useStyles();
 
   return (
@@ -36,6 +36,7 @@ const AvatarWithQR = ({ address, isOrganization=false, ...props }) => {
 
 AvatarWithQR.propTypes = {
   address: PropTypes.string.isRequired,
+  isOrganization: PropTypes.bool,
 };
 
 export default AvatarWithQR;
