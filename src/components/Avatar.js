@@ -14,7 +14,12 @@ const SIZE_MULTIPLIERS = {
   medium: 2,
   large: 3,
 };
-const ORGANIZATION_RING_SIZE = "108%"
+const ORGANIZATION_RING_SIZES = {
+  tiny: "77%",
+  small: "108%",
+  medium: "108%",
+  large: "300%",
+};
 
 const useStyles = makeStyles(() => ({
   avatarContainer: {
@@ -39,7 +44,7 @@ const Avatar = ({ address, isOrganization = false, size = 'small', ...props }) =
   return (
     <Box className={classes.avatarContainer} >
       {isOrganization && (<Box className={classes.organizationIndicator} >
-        <GroupWalletCircleSVG width={ORGANIZATION_RING_SIZE}/> 
+        <GroupWalletCircleSVG width={ORGANIZATION_RING_SIZES[size]}/> 
       </Box>)}
       <MuiAvatar
         alt={username}
