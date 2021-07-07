@@ -97,9 +97,10 @@ export function createNewOrganization(
           return core.organization.deploy(safeAddress);
         },
         () => {
-          return isOrganization(safeAddress);
+          return core.organization.isOrganization(safeAddress);
         },
       );
+      await isOrganization(safeAddress);
 
       // Prefund the organization with Tokens from the user
       await core.organization.prefund(
