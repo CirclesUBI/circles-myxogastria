@@ -61,7 +61,13 @@ export async function loop(
   }
 }
 
-// This helper method repeats calling a request when it fails
+// This helper method repeats calling a request when it fails or when a
+// condition was not reached after some attempts.
+//
+// Use this method if you want to make a crucial request for creating or
+// updating data somewhere. When this request fails, for example because of
+// networking issues or server outage, this helper method will try to repeat
+// the request for you until it succeeded.
 export async function waitAndRetryOnFail(
   requestFn,
   loopFn,
