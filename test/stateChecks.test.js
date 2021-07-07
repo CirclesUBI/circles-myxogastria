@@ -175,9 +175,7 @@ describe('stateChecks Utils', () => {
 
       await expect(async () => {
         await waitAndRetryOnFail(
-          () => {
-            return mocks.requestFailed();
-          },
+          mocks.requestFailed,
           () => {
             // The condition is always successful, this time we're checking a
             // failed request
@@ -185,6 +183,7 @@ describe('stateChecks Utils', () => {
           },
           {
             maxAttemptsOnFail: 3,
+            waitAfterFail: 100,
           },
         );
       }).rejects.toThrow(RESULT_ERROR);

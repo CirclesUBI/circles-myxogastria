@@ -19,7 +19,7 @@ const TRIED_TOO_MANY_TIMES = 'Tried too many times waiting for condition.';
 
 // Helper method to wait for a few milliseconds before we move on
 export async function wait(ms) {
-  await setTimeout(() => {}, ms);
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 // This helper method resolves as soon as a certain condition was reached and
