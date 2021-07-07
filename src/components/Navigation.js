@@ -114,10 +114,7 @@ const NavigationHeader = ({ onClick }) => {
         to={MY_PROFILE_PATH}
         onClick={onClick}
       >
-        <AvatarWithQR
-          address={safe.currentAccount}
-          isOrganization={safe.isOrganization}
-        />
+        <AvatarWithQR address={safe.currentAccount} />
         <Box mt={1.5}>
           <Typography variant="h6">
             <UsernameDisplay address={safe.currentAccount} />

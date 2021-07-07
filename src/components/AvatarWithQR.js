@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AvatarWithQR = ({ address, isOrganization = false, ...props }) => {
+const AvatarWithQR = ({ address, ...props }) => {
   const classes = useStyles();
 
   return (
@@ -29,14 +29,13 @@ const AvatarWithQR = ({ address, isOrganization = false, ...props }) => {
       className={classes.avatarBadge}
       overlap="circle"
     >
-      <Avatar address={address} isOrganization={isOrganization} {...props} />
+      <Avatar address={address} {...props} />
     </Badge>
   );
 };
 
 AvatarWithQR.propTypes = {
   address: PropTypes.string.isRequired,
-  isOrganization: PropTypes.bool,
 };
 
 export default AvatarWithQR;

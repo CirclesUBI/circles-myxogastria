@@ -5,7 +5,7 @@ import React from 'react';
 
 import GroupWalletCircleSVG from '%/images/organization-indicator.svg';
 import Jazzicon from '~/components/Jazzicon';
-import { useUserdata } from '~/hooks/username';
+import { useIsOrganization, useUserdata } from '~/hooks/username';
 
 const SIZE_MULTIPLIERS = {
   tiny: 0.8,
@@ -13,6 +13,7 @@ const SIZE_MULTIPLIERS = {
   medium: 2,
   large: 3,
 };
+
 const ORGANIZATION_RING_SIZES = {
   tiny: '77%',
   small: '108%',
@@ -31,16 +32,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Avatar = ({
-  address,
-  isOrganization = false,
-  size = 'small',
-  ...props
-}) => {
+const Avatar = ({ address, size = 'small', ...props }) => {
   const classes = useStyles();
   const theme = useTheme();
 
   const { avatarUrl, username } = useUserdata(address);
+  const { isOrganization } = useIsOrganization(address);
 
   const sizePixel = theme.custom.components.avatarSize * SIZE_MULTIPLIERS[size];
   const initials = username.slice(0, 2) === '0x' ? null : username.slice(0, 2);
@@ -73,7 +70,6 @@ const Avatar = ({
 
 Avatar.propTypes = {
   address: PropTypes.string.isRequired,
-  isOrganization: PropTypes.bool,
   size: PropTypes.string,
 };
 

@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import Avatar from '~/components/Avatar';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import { useRelativeProfileLink } from '~/hooks/url';
-import { useIsOrganization } from '~/hooks/username';
 import core from '~/services/core';
 import resolveUsernames from '~/services/username';
 import { CATEGORIES } from '~/store/activity/reducers';
@@ -86,16 +85,11 @@ const LastInteractions = () => {
 const LastInteractionsAccount = ({ address }) => {
   const classes = useStyles();
   const profilePath = useRelativeProfileLink(address);
-  const { isOrganization } = useIsOrganization(address);
 
   return (
     <Grid item>
       <MuiLink component={Link} to={profilePath}>
-        <Avatar
-          address={address}
-          isOrganization={isOrganization}
-          size="medium"
-        />
+        <Avatar address={address} size="medium" />
         <Typography className={classes.username} noWrap>
           <UsernameDisplay address={address} />
         </Typography>

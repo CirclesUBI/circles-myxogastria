@@ -64,11 +64,7 @@ const MyProfile = () => {
         <Grid item xs={12}>
           <Box alignItems="center" display="flex">
             <Link to={SHARE_PATH}>
-              <AvatarWithQR
-                address={safe.currentAccount}
-                isOrganization={safe.isOrganization}
-                size="medium"
-              />
+              <AvatarWithQR address={safe.currentAccount} size="medium" />
             </Link>
             <Box mx={2}>
               <Typography align="left">
@@ -102,7 +98,6 @@ const MyProfile = () => {
             return (
               <MyProfileAccount
                 address={account}
-                isOrganization={safe.isOrganization}
                 key={account}
                 onSelect={handleAccountSwitch}
               />
@@ -128,7 +123,7 @@ const MyProfile = () => {
   );
 };
 
-const MyProfileAccount = ({ address, isOrganization = false, onSelect }) => {
+const MyProfileAccount = ({ address, onSelect }) => {
   const classes = useStyles();
 
   const handleSelect = () => {
@@ -143,7 +138,7 @@ const MyProfileAccount = ({ address, isOrganization = false, onSelect }) => {
       onClick={handleSelect}
     >
       <ListItemAvatar>
-        <Avatar address={address} isOrganization={isOrganization} size="tiny" />
+        <Avatar address={address} size="tiny" />
       </ListItemAvatar>
       <ListItemText>
         <UsernameDisplay address={address} />
@@ -154,7 +149,6 @@ const MyProfileAccount = ({ address, isOrganization = false, onSelect }) => {
 
 MyProfileAccount.propTypes = {
   address: PropTypes.string.isRequired,
-  isOrganization: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
 };
 
