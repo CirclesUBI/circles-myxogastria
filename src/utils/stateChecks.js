@@ -103,7 +103,7 @@ export async function waitAndRetryOnFail(
   }
 }
 
-export default async function isDeployed(address) {
+export async function isDeployed(address) {
   await loop(
     () => {
       return web3.eth.getCode(address);

@@ -16,7 +16,7 @@ import {
 } from '~/services/safe';
 import web3 from '~/services/web3';
 import ActionTypes from '~/store/safe/types';
-import isDeployed, { waitAndRetryOnFail } from '~/utils/stateChecks';
+import { isDeployed, waitAndRetryOnFail } from '~/utils/stateChecks';
 
 export function initializeSafe() {
   return async (dispatch) => {
