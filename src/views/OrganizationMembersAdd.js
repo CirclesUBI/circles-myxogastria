@@ -113,7 +113,7 @@ const OrganizationMembersAdd = () => {
         onConfirm={handleAddMember}
       >
         <Box display="flex" justifyContent="center" mb={2}>
-          <Avatar address={address} size="medium" />
+          <Avatar address={address} isOrganization={safe.isOrganization} size="medium" />
         </Box>
         <Typography className={classes.paragraph} paragraph>
           {translate('OrganizationMembersAdd.dialogBody')}
