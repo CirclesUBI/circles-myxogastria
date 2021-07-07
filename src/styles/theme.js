@@ -161,6 +161,12 @@ export default createMuiTheme({
         borderBottomRightRadius: 48,
       },
     },
+    MuiDialogActions: {
+      root: {
+        justifyContent: 'flex-start',
+        padding: 19,
+      },
+    },
     MuiDivider: {
       root: {
         backgroundColor: colors.black,
