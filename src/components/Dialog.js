@@ -34,11 +34,11 @@ const Dialog = ({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button isOutline onClick={onClose}>
-          {cancelLabel}
-        </Button>
         <Button autoFocus isPrimary onClick={onConfirm}>
           {confirmLabel}
+        </Button>
+        <Button isOutline onClick={onClose}>
+          {cancelLabel}
         </Button>
       </DialogActions>
     </MuiDialog>
