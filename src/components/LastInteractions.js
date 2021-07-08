@@ -72,7 +72,7 @@ const LastInteractions = () => {
   }, [activity.categories, safe.currentAccount]);
 
   return (
-    <Grid alignItems="center" container justify="center" spacing={1}>
+    <Grid alignItems="center" container justify="center" spacing={2}>
       {lastActiveProfiles.map(({ safeAddress }) => {
         return (
           <LastInteractionsAccount address={safeAddress} key={safeAddress} />

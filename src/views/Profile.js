@@ -152,9 +152,9 @@ const Profile = () => {
   );
 };
 
-const ProfileStatus = ({ address, trustStatus, deploymentStatus }) => {
-  const { username } = useUserdata(address);
+const ProfileStatus = ({ address, deploymentStatus, trustStatus }) => {
   const { isOrganization, isReady } = useIsOrganization(address);
+  const { username } = useUserdata(address);
 
   let messageId = 'CommonFriends';
 
