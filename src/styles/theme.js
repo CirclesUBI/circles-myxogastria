@@ -172,6 +172,15 @@ export default createMuiTheme({
         backgroundColor: colors.black,
       },
     },
+    // @NOTE: This is a workaround to fix an issue with Safari 14.1.1
+    // displaying the button color wrong after it changed to enabled state.
+    //
+    // See: https://github.com/mui-org/material-ui/issues/26251
+    MuiButton: {
+      root: {
+        transition: 'color .01s',
+      },
+    },
   },
   custom: {
     colors,
