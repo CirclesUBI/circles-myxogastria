@@ -29,7 +29,12 @@ import {
   RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
   RESTORE_ACCOUNT_UNKNOWN_SAFE,
 } from '~/utils/errors';
-import { isOrganization, waitAndRetryOnFail } from '~/utils/stateChecks';
+import {
+  hasEnoughBalance,
+  isDeployed,
+  isOrganization,
+  waitAndRetryOnFail,
+} from '~/utils/stateChecks';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own
@@ -85,28 +90,45 @@ export function createNewOrganization(
       // Register organization in on-chain database
       await core.user.register(nonce, safeAddress, name, email, avatarUrl);
 
+      dispatch(hideSpinnerOverlay());
+
       // Deploy the safe directly as we don't have to wait for any trust limit
       // etc. validation (the user is already trusted, therefore we also trust
       // its organization)
-      dispatch(hideSpinnerOverlay());
-      await dispatch(deploySafeForOrganization(safeAddress));
+      await waitAndRetryOnFail(
+        async () => {
+          return await dispatch(deploySafeForOrganization(safeAddress));
+        },
+        async () => {
+          return await isDeployed(safeAddress);
+        },
+      );
 
       // Create the organization account in the Hub
       await waitAndRetryOnFail(
-        () => {
-          return core.organization.deploy(safeAddress);
+        async () => {
+          return await core.organization.deploy(safeAddress);
         },
-        () => {
-          return core.organization.isOrganization(safeAddress);
+        async () => {
+          return await isOrganization(safeAddress);
         },
       );
-      await isOrganization(safeAddress);
 
       // Prefund the organization with Tokens from the user
-      await core.organization.prefund(
-        creatorSafeAddress,
-        safeAddress,
-        web3.utils.toBN(web3.utils.toWei(prefundValue.toString(), 'ether')),
+      const amount = web3.utils.toBN(
+        web3.utils.toWei(prefundValue.toString(), 'ether'),
+      );
+      await waitAndRetryOnFail(
+        async () => {
+          return await core.organization.prefund(
+            creatorSafeAddress,
+            safeAddress,
+            amount,
+          );
+        },
+        async () => {
+          return await hasEnoughBalance(safeAddress, amount.toString());
+        },
       );
 
       // Switch to newly created organization acccount

@@ -241,11 +241,11 @@ export function deploySafe() {
 
     try {
       await waitAndRetryOnFail(
-        () => {
-          return core.safe.deploy(safe.pendingAddress);
+        async () => {
+          return await core.safe.deploy(safe.pendingAddress);
         },
-        () => {
-          return isDeployed(safe.pendingAddress);
+        async () => {
+          return await isDeployed(safe.pendingAddress);
         },
       );
 
@@ -276,13 +276,14 @@ export function deploySafeForOrganization(safeAddress) {
 
     try {
       await waitAndRetryOnFail(
-        () => {
-          return core.safe.deployForOrganization(safeAddress);
+        async () => {
+          return await core.safe.deployForOrganization(safeAddress);
         },
         async () => {
-          return (await web3.eth.getCode(safeAddress)) !== '0x';
+          return await isDeployed(safeAddress);
         },
       );
+
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_SUCCESS,
       });
