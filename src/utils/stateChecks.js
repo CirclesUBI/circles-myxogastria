@@ -1,59 +1,115 @@
 import core from '~/services/core';
 import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
-import logError from '~/utils/debug';
 
-const LOOP_INTERVAL = 6000;
-const MAX_ATTEMPTS = 20;
-const MAX_ATTEMPTS_RETRY_ON_FAIL = 6;
+// Wait ms before checking condition again
+const LOOP_INTERVAL_DEFAULT = 6000;
 
-async function loop(request, condition) {
-  return new Promise((resolve, reject) => {
-    let attempt = 0;
+// Times condition is checked before its considered a fail
+const MAX_ATTEMPTS_DEFAULT = 20;
 
-    const interval = setInterval(async () => {
-      try {
-        const response = await request();
-        attempt += 1;
+// Times the method will repeat the request after an error or condition failure
+const RETRIES_ON_FAIL_DEFAULT = 3;
 
-        if (condition(response)) {
-          clearInterval(interval);
-          resolve(response);
-        } else if (attempt > MAX_ATTEMPTS) {
-          throw new Error('Tried too many times waiting for condition');
-        }
-      } catch (error) {
-        clearInterval(interval);
-        reject(error);
-      }
-    }, LOOP_INTERVAL);
-  });
+// When a request fails wait a few ms before we do it again
+const WAIT_AFTER_FAIL_DEFAULT = 5000;
+
+// Error message used to indicate failed condition check
+const TRIED_TOO_MANY_TIMES = 'Tried too many times waiting for condition.';
+
+// Helper method to wait for a few milliseconds before we move on
+export async function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function waitAndRetryOnFail(request, condition) {
-  let attempt = 0;
-  let conditionResult = false;
-  while (conditionResult === false && attempt <= MAX_ATTEMPTS_RETRY_ON_FAIL) {
-    try {
+// This helper method resolves as soon as a certain condition was reached and
+// throws an exception when too many attempts were made waiting for it.
+//
+// The `conditionFn` function checks the result of the `requestFn` function.
+// For each attempt a request is made and the condition is checked.
+//
+// Use this if you're waiting for a condition to arrive before you move on with
+// other tasks. Do not use this when the used request is somehow writing /
+// updating data, this should only serve for reading state and waiting until it
+// arrives at the given condition.
+export async function loop(
+  requestFn,
+  conditionFn,
+  {
+    maxAttempts = MAX_ATTEMPTS_DEFAULT,
+    loopInterval = LOOP_INTERVAL_DEFAULT,
+  } = {},
+) {
+  // Count all attempts checking for the condition to arrive
+  let attempt = 1;
+
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    // Get response of request and check for its condition
+    const response = await requestFn();
+
+    if (conditionFn(response)) {
+      return response;
+    } else if (attempt >= maxAttempts) {
+      throw new Error(TRIED_TOO_MANY_TIMES);
+    } else {
       attempt += 1;
-      const response = await request();
-      conditionResult = await condition();
-      if (conditionResult === true) {
-        return response;
-      }
+    }
+
+    // Condition did not arrive yet, lets wait and try again ..
+    await wait(loopInterval);
+  }
+}
+
+// This helper method repeats calling a request when it fails or when a
+// condition was not reached after some attempts.
+//
+// Use this method if you want to make a crucial request for creating or
+// updating data somewhere. When this request fails, for example because of
+// networking issues or server outage, this helper method will try to repeat
+// the request for you until it succeeded.
+export async function waitAndRetryOnFail(
+  requestFn,
+  loopFn,
+  {
+    maxAttemptsOnFail = RETRIES_ON_FAIL_DEFAULT,
+    waitAfterFail = WAIT_AFTER_FAIL_DEFAULT,
+  } = {},
+) {
+  // Count all attempts to retry when something failed
+  let attempt = 1;
+
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    try {
+      // Make request and wait for response
+      const response = await requestFn();
+
+      // Wait for a few seconds until our condition arrives
+      await loopFn();
+
+      // Finish when request was successful and condition arrived!
+      return response;
     } catch (error) {
-      conditionResult = false;
-      logError(error);
+      // Something went wrong, either the condition did not arrive or the
+      // request failed
+      if (attempt >= maxAttemptsOnFail) {
+        // We tried too often, propagate error and stop here
+        throw error;
+      }
+
+      // Wait when request failed to prevent calling the request too fast again
+      if (error.message !== TRIED_TOO_MANY_TIMES) {
+        await wait(waitAfterFail);
+      }
+
+      // Lets try again ..
+      attempt += 1;
     }
   }
-  if (attempt === MAX_ATTEMPTS_RETRY_ON_FAIL) {
-    throw Error(
-      'Tried too many times reattempting the request. We may be experiencing networking problems.',
-    );
-  }
 }
 
-export default async function isDeployed(address) {
+export async function isDeployed(address) {
   await loop(
     () => {
       return web3.eth.getCode(address);

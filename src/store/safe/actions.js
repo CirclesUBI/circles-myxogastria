@@ -16,7 +16,7 @@ import {
 } from '~/services/safe';
 import web3 from '~/services/web3';
 import ActionTypes from '~/store/safe/types';
-import isDeployed, { waitAndRetryOnFail } from '~/utils/stateChecks';
+import { isDeployed, waitAndRetryOnFail } from '~/utils/stateChecks';
 
 export function initializeSafe() {
   return async (dispatch) => {
@@ -275,9 +275,14 @@ export function deploySafeForOrganization(safeAddress) {
     });
 
     try {
-      await core.safe.deployForOrganization(safeAddress);
-      await isDeployed(safeAddress);
-
+      await waitAndRetryOnFail(
+        () => {
+          return core.safe.deployForOrganization(safeAddress);
+        },
+        async () => {
+          return (await web3.eth.getCode(safeAddress)) !== '0x';
+        },
+      );
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_SUCCESS,
       });
@@ -285,7 +290,6 @@ export function deploySafeForOrganization(safeAddress) {
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_ERROR,
       });
-
       throw error;
     }
   };
