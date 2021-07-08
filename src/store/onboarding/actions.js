@@ -142,6 +142,9 @@ export function createNewOrganization(
       await dispatch(unlockSafeDeployment());
     } catch (error) {
       dispatch(hideSpinnerOverlay());
+      await dispatch(unlockSafeDeployment());
+      // Force updating app state
+      await dispatch(checkAppState());
       throw error;
     }
   };
