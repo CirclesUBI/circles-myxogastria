@@ -18,7 +18,7 @@ const ORGANIZATION_RING_SIZES = {
   tiny: '77%',
   small: '108%',
   medium: '108%',
-  large: '300%',
+  large: '108%',
 };
 
 const useStyles = makeStyles(() => ({
