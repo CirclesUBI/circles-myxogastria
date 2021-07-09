@@ -142,6 +142,7 @@ export function createNewOrganization(
       await dispatch(unlockSafeDeployment());
     } catch (error) {
       dispatch(hideSpinnerOverlay());
+      await dispatch(unlockSafeDeployment());
       throw error;
     }
   };
