@@ -131,28 +131,28 @@ const NavigationMain = ({ onClick }) => {
 
   return (
     <Box className={classes.navigationMain} component="main">
-      <NavigationLink to={SHARE_PATH} onClick={onClick}>
-        {translate('Navigation.buttonMyQR')}
-      </NavigationLink>
       <NavigationLink to={SEARCH_PATH} onClick={onClick}>
-        {translate('Navigation.buttonSearch')}
-      </NavigationLink>
-      <NavigationLink to={ACTIVITIES_PATH} onClick={onClick}>
-        {translate('Navigation.buttonActivityLog')}
+        {translate('Navigation.buttonTrustPeople')}
       </NavigationLink>
       <NavigationLink to={generatePath(SEND_PATH)} onClick={onClick}>
         {translate('Navigation.buttonSendCircles')}
+      </NavigationLink>
+      <NavigationLink to={ACTIVITIES_PATH} onClick={onClick}>
+        {translate('Navigation.buttonActivityLog')}
       </NavigationLink>
       {!safe.isOrganization && (
         <NavigationLink to={ORGANIZATION_PATH} onClick={onClick}>
           {translate('Navigation.buttonSharedWallet')}
         </NavigationLink>
       )}
-      <NavigationLink to={SETTINGS_PATH} onClick={onClick}>
-        {translate('Navigation.buttonAddDevice')}
+      <NavigationLink to={SHARE_PATH} onClick={onClick}>
+        {translate('Navigation.buttonMyQR')}
       </NavigationLink>
       <NavigationLink to={SEED_PHRASE_PATH} onClick={onClick}>
         {translate('Navigation.buttonExportSeedPhrase')}
+      </NavigationLink>
+      <NavigationLink to={SETTINGS_PATH} onClick={onClick}>
+        {translate('Navigation.buttonSettings')}
       </NavigationLink>
     </Box>
   );
