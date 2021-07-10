@@ -126,10 +126,10 @@
   },
   "Navigation": {
     "buttonActivityLog": "Activity Log",
-    "buttonAddDevice": "Settings",
+    "buttonSettings": "Settings",
     "buttonExportSeedPhrase": "Export Seed Phrase",
     "buttonMyQR": "My QR",
-    "buttonSearch": "Trust people",
+    "buttonTrustPeople": "Trust people",
     "buttonSendCircles": "Send Circles",
     "buttonSharedWallet": "Create Shared Wallet",
     "linkAbout": "About",
