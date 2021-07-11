@@ -1,11 +1,11 @@
 {
   "Activities": {
-    "headingActivityLog": "Activity Log"
+    "headingActivityLog": "Journal d'activité"
   },
   "ActivityStream": {
-    "bodyActivityAddedToSafe": "was added to this account",
-    "bodyActivityMeTrustedSomeone": "You trust @{actor}",
-    "bodyActivityMeUntrustedSomeone": "You untrust @{actor}",
+    "bodyActivityAddedToSafe": "a été ajouté à ce compte  was added to this account",
+    "bodyActivityMeTrustedSomeone": "Vous faites confiance @{actor}",
+    "bodyActivityMeUntrustedSomeone": "Vous ne faites pas confiance @{actor}",
     "bodyActivityMyselfAddedToSafe": "You linked this device to this account",
     "bodyActivityReceivedCircles": "@{actor} sent you",
     "bodyActivityReceivedUBI": "Circles UBI",
@@ -96,8 +96,7 @@
   "LocaleSelector": {
     "de": "DE",
     "en": "EN",
-    "es": "ES",
-    "fr": "FR"
+    "es": "ES"
   },
   "Login": {
     "bodyEnterYourSeedPhrase": "Enter your seed phrase below to restore your wallet:",
