@@ -14,7 +14,7 @@ Use this checklist to create a new release of `circles-myxogastria` which gets d
 8. Create a git and npm tag based on [semantic versioning](https://semver.org/) using `npm version [major | minor | patch]`.
 9. `git push origin main --tags` to push the tag to GitHub.
 10. `git push origin main` to push the automatic `package.json` change after creating the tag.
-11. [Create](https://github.com/CirclesUBI/circles-myxogastria/releases/new) a new release on GitHub, select the tag you've just pushed under *"Tag version"* and use the same for the *"Release title"*. For *"Describe this release"* copy the same information you've entered in `CHANGELOG.md` for this release. See examples [here](https://github.com/CirclesUBI/circles-api/releases).
+11. [Create](https://github.com/CirclesUBI/circles-myxogastria/releases/new) a new release on GitHub, select the tag you've just pushed under *"Tag version"* and use the same for the *"Release title"*. For *"Describe this release"* copy the same information you've entered in `CHANGELOG.md` for this release. See examples [here](https://github.com/CirclesUBI/circles-myxogastria/releases).
 
 ## Deploy release on Netlify
 
