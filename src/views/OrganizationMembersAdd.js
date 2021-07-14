@@ -29,6 +29,8 @@ const useParagraphStyles = makeStyles((theme) => ({
   },
 }));
 
+const swInfoLink = 'https://www.joincircles.net/faq?open=21';
+
 const OrganizationMembersAdd = () => {
   const dispatch = useDispatch();
   const safe = useSelector((state) => state.safe);
@@ -120,7 +122,7 @@ const OrganizationMembersAdd = () => {
         </Typography>
         <ExternalLink
           className={classes.link}
-          href="https://www.joincircles.net/faq"
+          href={swInfoLink}
           underline="always"
         >
           <Typography paragraph>
