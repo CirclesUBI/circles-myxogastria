@@ -193,7 +193,7 @@
     "successRemovedMember": "You've successfully removed @{username} from this organization."
   },
   "OrganizationMembersAdd": {
-    "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to issue circles.",
+    "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to send circles from your shared wallet.",
     "dialogBodyCannotAdd": "You cannot add another shared wallet as a member of a shared wallet.",
     "dialogCancel": "Cancel",
     "dialogConfirm": "Add member",
