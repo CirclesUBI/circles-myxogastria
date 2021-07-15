@@ -41,8 +41,6 @@ const OrganizationMembersAdd = () => {
   const [isOrganization, setIsOrganization] = useState(false);
   const [filteredSafeAddresses, setFilteredSafeAddresses] = useState([]);
   const { username } = useUserdata(address);
-  
-  const classes = useParagraphStyles();
 
   // Prepare filter so it removes all search results which are already
   // organization members
@@ -64,7 +62,6 @@ const OrganizationMembersAdd = () => {
     dispatch(showSpinnerOverlay());
 
     const result = await core.organization.isOrganization(value);
-    
     setIsOrganization(result);
     setAddress(value);
     setIsOpen(true);
@@ -115,13 +112,13 @@ const OrganizationMembersAdd = () => {
 
   return (
     <Fragment>
-      <OrganizationMembersAddDialog 
-        username={username}
+      <OrganizationMembersAddDialog
         address={address}
         handleAddMember={handleAddMember}
         handleClose={handleClose}
         isOpen={isOpen}
         isOrganization={isOrganization}
+        username={username}
       />
       <Header>
         <ButtonBack />
@@ -143,7 +140,14 @@ const OrganizationMembersAdd = () => {
   );
 };
 
-const OrganizationMembersAddDialog = ({username, address, handleAddMember, handleClose, isOpen, isOrganization}) =>  {
+const OrganizationMembersAddDialog = ({
+  username,
+  address,
+  handleAddMember,
+  handleClose,
+  isOpen,
+  isOrganization,
+}) => {
   const classes = useParagraphStyles();
   const confirmLabel = isOrganization
     ? null
@@ -151,43 +155,41 @@ const OrganizationMembersAddDialog = ({username, address, handleAddMember, handl
   const dialogBody = isOrganization
     ? translate('OrganizationMembersAdd.dialogBodyCannotAdd')
     : translate('OrganizationMembersAdd.dialogBody');
-  const onConfirm = isOrganization
-    ? null
-    : handleAddMember;
+  const onConfirm = isOrganization ? null : handleAddMember;
 
   return (
     <DialogPurple
-    cancelLabel={translate('OrganizationMembersAdd.dialogCancel')}
-    confirmLabel={confirmLabel}
-    open={isOpen}
-    title={translate('OrganizationMembersAdd.dialogTitle', { username })}
-    onClose={handleClose}
-    onConfirm={onConfirm}
+      cancelLabel={translate('OrganizationMembersAdd.dialogCancel')}
+      confirmLabel={confirmLabel}
+      open={isOpen}
+      title={translate('OrganizationMembersAdd.dialogTitle', { username })}
+      onClose={handleClose}
+      onConfirm={onConfirm}
     >
-    <Box display="flex" justifyContent="center" mb={2}>
-      <Avatar address={address} size="medium" />
-    </Box>
-    <Typography className={classes.paragraph} paragraph>
-      {dialogBody}
-    </Typography>
-    <ExternalLink
-      className={classes.link}
-      href="https://www.joincircles.net/faq"
-      underline="always"
-    >
-      <Typography paragraph>
-        {translate('OrganizationMembersAdd.linkLearnMore')}
+      <Box display="flex" justifyContent="center" mb={2}>
+        <Avatar address={address} size="medium" />
+      </Box>
+      <Typography className={classes.paragraph} paragraph>
+        {dialogBody}
       </Typography>
-    </ExternalLink>
+      <ExternalLink
+        className={classes.link}
+        href={swInfoLink}
+        underline="always"
+      >
+        <Typography paragraph>
+          {translate('OrganizationMembersAdd.linkLearnMore')}
+        </Typography>
+      </ExternalLink>
     </DialogPurple>
-  )
-}
+  );
+};
 
 OrganizationMembersAddDialog.propTypes = {
-  address: PropTypes.string.isRequired,
+  address: PropTypes.string,
   handleAddMember: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   isOrganization: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
 };
