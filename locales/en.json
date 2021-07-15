@@ -194,6 +194,7 @@
   },
   "OrganizationMembersAdd": {
     "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to issue circles.",
+    "dialogBodyCannotAdd": "You cannot add another shared wallet as a member of a shared wallet.",
     "dialogCancel": "Cancel",
     "dialogConfirm": "Add member",
     "dialogTitle": "Add @{username}",
