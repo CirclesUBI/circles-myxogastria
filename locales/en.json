@@ -120,7 +120,7 @@
     "successWelcome": "Successfully connected to account. Welcome!"
   },
   "MyProfile": {
-    "buttonCreateSharedWallet": "Create Shared Wallet",
+    "buttonCreateOrganization": "Create Shared Wallet",
     "buttonShowProfile": "Show Profile",
     "buttonShowQR": "Show QR Code"
   },
@@ -131,7 +131,7 @@
     "buttonMyQR": "My QR",
     "buttonTrustPeople": "Trust people",
     "buttonSendCircles": "Send Circles",
-    "buttonSharedWallet": "Create Shared Wallet",
+    "buttonOrganization": "Create Shared Wallet",
     "linkAbout": "About",
     "linkFAQ": "FAQ",
     "linkMarketplace": "Marketplace",
