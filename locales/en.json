@@ -165,7 +165,7 @@
     "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",
     "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
     "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. We recommend to issue 1 or more Circles to your new wallet to finish setup.",
-    "bodyUsername": "Your wallet name is how people can search for your organization on the Circles App.",
+    "bodyUsername": "Your wallet name is how people can search for your shared wallet on the Circles App.",
     "errorSignup": "A server error occurred: {errorMessage}",
     "formEmail": "Email",
     "formPrefundAmount": "Fund amount",
@@ -174,7 +174,7 @@
     "formUsername": "Wallet name",
     "headingAvatar": "Add Photo",
     "headingEmail": "Enter Email",
-    "headingPrefund": "Fund your organization",
+    "headingPrefund": "Fund your shared",
     "headingUsername": "Name your wallet",
     "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
   },
@@ -186,11 +186,11 @@
     "buttonRemoveMember": "Remove",
     "dialogCancel": "Cancel",
     "dialogConfirm": "Confirm",
-    "dialogRemoveMember": "Are you sure you want to remove @{username} from this organization?",
+    "dialogRemoveMember": "Are you sure you want to remove @{username} from this shared wallet?",
     "dialogTitle": "Remove @{username}",
-    "errorRemovedMember": "Something went wrong, @{username} could not be removed from organization",
+    "errorRemovedMember": "Something went wrong, @{username} could not be removed from the shared wallet",
     "headingMembers": "Members",
-    "successRemovedMember": "You've successfully removed @{username} from this organization."
+    "successRemovedMember": "You've successfully removed @{username} from this shared wallet."
   },
   "OrganizationMembersAdd": {
     "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to send circles from your shared wallet.",
@@ -198,10 +198,10 @@
     "dialogCancel": "Cancel",
     "dialogConfirm": "Add member",
     "dialogTitle": "Add @{username}",
-    "errorAddedMember": "Something went wrong, @{username} could not be added to organization",
+    "errorAddedMember": "Something went wrong, @{username} could not be added to the shared wallet",
     "headingAddMember": "Add member",
     "linkLearnMore": "Learn more",
-    "successAddedMember": "You've successfully added @{username} to this organization."
+    "successAddedMember": "You've successfully added @{username} to this shared wallet."
   },
   "Profile": {
     "bodyActivity": "Activity",
@@ -315,7 +315,7 @@
     "finish": "Let's get started!",
     "next": "Next",
     "slideBody1": "With a Shared Wallet you can pull your individual Circles together and organize joint projects with the people that you trust. This wallet will not receive a basic income.",
-    "slideBody2": "Organizations, families, communties, and individuals can use these wallets to hold Circles in common, or keep track of a personal business.",
+    "slideBody2": "Organizations, families, communities, and individuals can use these wallets to hold Circles in common, or keep track of a personal business.",
     "slideBody3": "As a group you can trust people in order to accept their Circles. You can also send and receive Circles from other groups.",
     "slideBody3Link": "Learn more on how to organize with other groups.",
     "slideHeading1": "Shared Wallet",
