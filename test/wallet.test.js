@@ -1,5 +1,4 @@
-import web3 from '~/services/web3';
-
+import { hasItem } from '~/services/storage';
 import {
   fromSeedPhrase,
   generatePrivateKey,
@@ -8,8 +7,7 @@ import {
   setPrivateKey,
   toSeedPhrase,
 } from '~/services/wallet';
-
-import { hasItem } from '~/services/storage';
+import web3 from '~/services/web3';
 
 describe('Wallet service', () => {
   let privateKey;

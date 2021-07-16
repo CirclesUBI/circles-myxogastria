@@ -44,6 +44,14 @@
     "buttonCopy": "Copy to clipboard",
     "infoCopiedMessage": "Text copied to clipboard"
   },
+  "CheckboxPrivacy": {
+    "checkboxLabel": "I have read the",
+    "checkboxLink": "Privacy Policy"
+  },
+  "CheckboxTerms": {
+    "checkboxLabel": "I agree to the",
+    "checkboxLink": "Terms and Conditions"
+  },
   "CriticalError": {
     "bodyCriticalErrorDescription": "Oh no! Something went wrong. Please reload this page and try again.",
     "bodyCriticalErrorTryAgain": "Oh no! Something went wrong while loading your account. Please reload this page and try again.",
@@ -78,12 +86,12 @@
     "successRevokeTrust": "You successfully revoked your trust in @{username}!"
   },
   "DonationNote": {
-    "bodyTitle": "Circles needs you!",
     "bodyPrimary": "Since launching last year the Circles community has grown to 200k users around the globe. Interest in the project led to rapid scaling, which overloaded our servers, and after overhauling our infrastructure we are at the end of our budget.",
     "bodySecondary": "We need your support to continue! We need your help to make basic income a reality worldwide! We are looking for committed, regular donors who support bringing Circles to a fully thriving life.",
     "bodyThird": "Your donation is crucial! Supports the creation of a basic income for all people, and make sustainable, local economies worldwide.",
-    "buttonDonate": "Donate now",
-    "buttonClose": "Close"
+    "bodyTitle": "Circles needs you!",
+    "buttonClose": "Close",
+    "buttonDonate": "Donate now"
   },
   "Finder": {
     "bodyFilterDirect": "Directly trusted",
@@ -112,16 +120,18 @@
     "successWelcome": "Successfully connected to account. Welcome!"
   },
   "MyProfile": {
-    "buttonCreateSharedWallet": "Create shared wallet",
+    "buttonCreateOrganization": "Create Shared Wallet",
     "buttonShowProfile": "Show Profile",
     "buttonShowQR": "Show QR Code"
   },
   "Navigation": {
     "buttonActivityLog": "Activity Log",
-    "buttonAddDevice": "Settings",
+    "buttonSettings": "Settings",
     "buttonExportSeedPhrase": "Export Seed Phrase",
     "buttonMyQR": "My QR",
+    "buttonTrustPeople": "Trust people",
     "buttonSendCircles": "Send Circles",
+    "buttonOrganization": "Create Shared Wallet",
     "linkAbout": "About",
     "linkFAQ": "FAQ",
     "linkMarketplace": "Marketplace",
@@ -141,10 +151,6 @@
     "buttonCopyToClipboard": "Copy to clipboard",
     "errorSignup": "A server error occurred during sign up: {errorMessage}",
     "formEmail": "Email",
-    "formTermsConditions": "I agree to the",
-    "termsConditions": "Terms and Conditions",
-    "formPrivacyPolicy": "I have read the",
-    "privacyPolicy": "Privacy Policy",
     "formSeedPhraseChallenge": "Your answer",
     "formSeedPhraseChallengeInvalid": "Wrong answer",
     "formUsername": "Username",
@@ -158,17 +164,17 @@
   "OnboardingOrganization": {
     "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",
     "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
-    "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. Send 1 or more Circles to your new wallet to finish setup.",
-    "bodyUsername": "Your wallet name is how people can search for your organization on the Circles App.",
+    "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. We recommend to issue 1 or more Circles to your new wallet to finish setup.",
+    "bodyUsername": "Your wallet name is how people can search for your shared wallet on the Circles App.",
     "errorSignup": "A server error occurred: {errorMessage}",
     "formEmail": "Email",
     "formPrefundAmount": "Fund amount",
     "formPrefundInvalid": "This amount is higher than your current token balance",
-    "formPrefundSender": "From sender",
+    "formPrefundSender": "Sent from",
     "formUsername": "Wallet name",
     "headingAvatar": "Add Photo",
     "headingEmail": "Enter Email",
-    "headingPrefund": "Fund your organization",
+    "headingPrefund": "Fund your shared",
     "headingUsername": "Name your wallet",
     "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
   },
@@ -179,21 +185,23 @@
   "OrganizationMembers": {
     "buttonRemoveMember": "Remove",
     "dialogCancel": "Cancel",
-    "dialogConfirm": "Remove member",
-    "dialogRemoveMember": "Are you sure you want to remove @{username} from this organization?",
+    "dialogConfirm": "Confirm",
+    "dialogRemoveMember": "Are you sure you want to remove @{username} from this shared wallet?",
     "dialogTitle": "Remove @{username}",
-    "errorRemovedMember": "Something went wrong, @{username} could not be removed from organization",
-    "headingMembers": "Organization members",
-    "successRemovedMember": "You've successfully removed @{username} from this organization."
+    "errorRemovedMember": "Something went wrong, @{username} could not be removed from the shared wallet",
+    "headingMembers": "Members",
+    "successRemovedMember": "You've successfully removed @{username} from this shared wallet."
   },
   "OrganizationMembersAdd": {
-    "dialogAddMember": "Before inviting a new member, please note that all members can send Circles from this organization account. Are you sure you want to add @{username}?",
+    "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to send circles from your shared wallet.",
+    "dialogBodyCannotAdd": "You cannot add another shared wallet as a member of a shared wallet.",
     "dialogCancel": "Cancel",
     "dialogConfirm": "Add member",
     "dialogTitle": "Add @{username}",
-    "errorAddedMember": "Something went wrong, @{username} could not be added to organization",
+    "errorAddedMember": "Something went wrong, @{username} could not be added to the shared wallet",
     "headingAddMember": "Add member",
-    "successAddedMember": "You've successfully added @{username} to this organization."
+    "linkLearnMore": "Learn more",
+    "successAddedMember": "You've successfully added @{username} to this shared wallet."
   },
   "Profile": {
     "bodyActivity": "Activity",
@@ -225,13 +233,14 @@
     "notificationError": "Could not open QR code scanner: {error}."
   },
   "QRGenerator": {
+    "bodyPaymentNoteInvalid": "You cannot write special symbols like {}<>^ and more than 100 characters.",
     "buttonShowQRCode": "Show QR Code",
     "dialogClose": "Close",
     "dialogSaveFile": "Save as .png file",
     "dialogShare": "Share payment link",
     "formAmount": "Amount",
     "formPaymentNote": "Note",
-    "formReceiver": "Receiver",
+    "formReceiver": "Sent to",
     "headingGenerator": "QR Generator"
   },
   "Search": {
@@ -256,7 +265,7 @@
     "buttonSubmitAmount": "Send",
     "dialogSendCancel": "Cancel",
     "dialogSendConfirm": "Confirm",
-    "dialogSendDescription": "Send @{username} {amount} Circles",
+    "dialogSendDescription": "Send {amount} Circles to @{username}",
     "errorMessage": "Something went wrong .. {errorMessage}",
     "errorMessageTransferInvalid": "Could not transfer Circles as it is invalid.",
     "errorMessageTransferNotFound": "Could not transfer Circles as there is currently no complete trust path between @{username} and you ..",
@@ -264,8 +273,8 @@
     "errorMessageTransferUnknown": "Could not transfer Circles. Something went wrong!",
     "formAmount": "Enter amount",
     "formPaymentNote": "Add note",
-    "formReceiver": "Send to",
-    "formSender": "Send from",
+    "formReceiver": "Sent to",
+    "formSender": "Sent from",
     "headingSendCircles": "Send Circles",
     "successMessage": "You transferred {amount} Circles successfully to @{username}!",
     "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}"
@@ -301,6 +310,17 @@
     "headingBuildYourOwnEconomy": "Build Your Own Economy",
     "headingUnconditionalIncome": "Unconditional Income",
     "headingWebOfTrust": "A Web of Trust"
+  },
+  "TutorialOrganization": {
+    "finish": "Let's get started!",
+    "next": "Next",
+    "slideBody1": "With a Shared Wallet you can pull your individual Circles together and organize joint projects with the people that you trust. This wallet will not receive a basic income.",
+    "slideBody2": "Organizations, families, communities, and individuals can use these wallets to hold Circles in common, or keep track of a personal business.",
+    "slideBody3": "As a group you can trust people in order to accept their Circles. You can also send and receive Circles from other groups.",
+    "slideBody3Link": "Learn more on how to organize with other groups.",
+    "slideHeading1": "Shared Wallet",
+    "slideHeading2": "Share Wealth",
+    "slideHeading3": "Share Trust"
   },
   "UBI": {
     "infoUbiPayoutReceived": "You received {payout} Circles!"

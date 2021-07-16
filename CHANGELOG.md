@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.0] - 2021-07-08
+
+### Added
+
+- Group wallet support [#167](https://github.com/CirclesUBI/circles-myxogastria/pull/167)
+- Donation Notification in Dashboard [#178](https://github.com/CirclesUBI/circles-myxogastria/pull/178)
+- Retry request logic when failure occurred [#214](https://github.com/CirclesUBI/circles-myxogastria/pull/214)
+
+### Fixed
+
+- Fix issue on Safari where button color is displayed wrong when getting enabled [#219](https://github.com/CirclesUBI/circles-myxogastria/pull/219)
+
 ## [1.8.0] - 2021-04-23
 
 ### Added

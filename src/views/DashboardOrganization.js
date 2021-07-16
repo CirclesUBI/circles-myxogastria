@@ -1,22 +1,10 @@
-import React, { Fragment, useState } from 'react';
-import clsx from 'clsx';
 import { Container, IconButton } from '@material-ui/core';
-import { Link, generatePath } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link, generatePath } from 'react-router-dom';
 
-import ActivityStreamWithTabs from '~/components/ActivityStreamWithTabs';
-import AppNote from '~/components/AppNote';
-import ButtonAction from '~/components/ButtonAction';
-import BalanceDisplayOrganization from '~/components/BalanceDisplayOrganization';
-import ButtonSend from '~/components/ButtonSend';
-import CenteredHeading from '~/components/CenteredHeading';
-import Drawer from '~/components/Drawer';
-import Header from '~/components/Header';
-import Navigation from '~/components/Navigation';
-import UsernameDisplay from '~/components/UsernameDisplay';
-import View from '~/components/View';
-import { IconMenu, IconQRLarge, IconTrust } from '~/styles/icons';
 import {
   DASHBOARD_PATH,
   MY_PROFILE_PATH,
@@ -24,6 +12,19 @@ import {
   QR_GENERATOR_PATH,
   SEND_PATH,
 } from '~/routes';
+
+import ActivityStreamWithTabs from '~/components/ActivityStreamWithTabs';
+import AppNote from '~/components/AppNote';
+import BalanceDisplayOrganization from '~/components/BalanceDisplayOrganization';
+import ButtonAction from '~/components/ButtonAction';
+import ButtonSend from '~/components/ButtonSend';
+import CenteredHeading from '~/components/CenteredHeading';
+import Drawer from '~/components/Drawer';
+import Header from '~/components/Header';
+import Navigation from '~/components/Navigation';
+import UsernameDisplay from '~/components/UsernameDisplay';
+import View from '~/components/View';
+import { IconMembers, IconMenu, IconQRLarge } from '~/styles/icons';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {
@@ -106,7 +107,7 @@ const DashboardOrganization = () => {
           edge="end"
           to={ORGANIZATION_MEMBERS_PATH}
         >
-          <IconTrust />
+          <IconMembers />
         </IconButton>
       </Header>
       <Navigation

@@ -1,7 +1,7 @@
 import CirclesCore from '@circles/core';
 
-import web3 from '~/services/web3';
 import { getAccount } from '~/services/wallet';
+import web3 from '~/services/web3';
 
 const core = new CirclesCore(web3, {
   apiServiceEndpoint: process.env.API_SERVICE_EXTERNAL,

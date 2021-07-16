@@ -1,7 +1,4 @@
-import ActionTypes from '~/store/safe/types';
 import core from '~/services/core';
-import isDeployed from '~/utils/isDeployed';
-import web3 from '~/services/web3';
 import {
   generateDeterministicNonce,
   getCurrentAccount,
@@ -17,6 +14,9 @@ import {
   setNonce,
   setSafeAddress,
 } from '~/services/safe';
+import web3 from '~/services/web3';
+import ActionTypes from '~/store/safe/types';
+import { isDeployed, waitAndRetryOnFail } from '~/utils/stateChecks';
 
 export function initializeSafe() {
   return async (dispatch) => {
@@ -240,8 +240,14 @@ export function deploySafe() {
     });
 
     try {
-      await core.safe.deploy(safe.pendingAddress);
-      await isDeployed(safe.pendingAddress);
+      await waitAndRetryOnFail(
+        async () => {
+          return await core.safe.deploy(safe.pendingAddress);
+        },
+        async () => {
+          return await isDeployed(safe.pendingAddress);
+        },
+      );
 
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_SUCCESS,
@@ -269,8 +275,14 @@ export function deploySafeForOrganization(safeAddress) {
     });
 
     try {
-      await core.safe.deployForOrganization(safeAddress);
-      await isDeployed(safeAddress);
+      await waitAndRetryOnFail(
+        async () => {
+          return await core.safe.deployForOrganization(safeAddress);
+        },
+        async () => {
+          return await isDeployed(safeAddress);
+        },
+      );
 
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_SUCCESS,
@@ -279,7 +291,6 @@ export function deploySafeForOrganization(safeAddress) {
       dispatch({
         type: ActionTypes.SAFE_DEPLOY_ERROR,
       });
-
       throw error;
     }
   };

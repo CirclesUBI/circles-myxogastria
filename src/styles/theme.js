@@ -23,6 +23,7 @@ const monochrome = {
   grayLight: '#e6e6e6',
   grayLighter: '#f2f2f2',
   grayLightest: '#fafafa',
+  whiteAlmost: '#fffcfe',
   white: '#fff',
 };
 
@@ -61,9 +62,23 @@ const components = {
 const fontFamily = `"${fontFamilyNotoSans}", sans-serif`;
 
 export default createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
+  props: {
+    MuiDialog: {
+      maxWidth: 'lg',
+    },
+  },
   palette: {
     background: {
-      default: colors.white,
+      default: colors.whiteAlmost,
       paper: colors.white,
     },
     primary: {
@@ -140,9 +155,30 @@ export default createMuiTheme({
         fontFamily,
       },
     },
+    MuiDialog: {
+      paper: {
+        borderRadius: 0,
+        borderBottomRightRadius: 48,
+      },
+    },
+    MuiDialogActions: {
+      root: {
+        justifyContent: 'flex-start',
+        padding: 19,
+      },
+    },
     MuiDivider: {
       root: {
         backgroundColor: colors.black,
+      },
+    },
+    // @NOTE: This is a workaround to fix an issue with Safari 14.1.1
+    // displaying the button color wrong after it changed to enabled state.
+    //
+    // See: https://github.com/mui-org/material-ui/issues/26251
+    MuiButton: {
+      root: {
+        transition: 'color .01s',
       },
     },
   },

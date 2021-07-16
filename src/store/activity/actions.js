@@ -1,15 +1,15 @@
 import { DateTime } from 'luxon';
 
-import ActionTypes from '~/store/activity/types';
-import core from '~/services/core';
-import web3 from '~/services/web3';
-import { CATEGORIES } from '~/store/activity/reducers';
 import {
   getLastSeen,
   removeLastSeen,
   setLastSeen,
   typeToCategory,
 } from '~/services/activity';
+import core from '~/services/core';
+import web3 from '~/services/web3';
+import { CATEGORIES } from '~/store/activity/reducers';
+import ActionTypes from '~/store/activity/types';
 
 const PAGE_SIZE = 10;
 

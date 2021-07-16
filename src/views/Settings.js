@@ -1,16 +1,16 @@
-import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
-import clsx from 'clsx';
-import { useSelector } from 'react-redux';
 import {
   Box,
-  Container,
   Chip,
+  Container,
   Grid,
   Paper,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import React, { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';

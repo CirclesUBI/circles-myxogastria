@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
+import { Alert } from '@material-ui/lab';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import { IconAlert } from '~/styles/icons';
 

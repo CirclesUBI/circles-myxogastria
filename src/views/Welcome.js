@@ -1,7 +1,9 @@
+import { Box, Divider, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import { Typography, Box, Grid, Divider } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+
+import { LOGIN_PATH, ONBOARDING_PATH } from '~/routes';
 
 import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
@@ -16,7 +18,6 @@ import {
   PRIVACY_LEGAL_URL,
   SUPPORT_URL,
 } from '~/utils/constants';
-import { ONBOARDING_PATH, LOGIN_PATH } from '~/routes';
 
 const useStyles = makeStyles((theme) => ({
   welcomeButton: {

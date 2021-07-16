@@ -1,13 +1,13 @@
 import { DateTime } from 'luxon';
 
-import ActionTypes from '~/store/token/types';
 import core from '~/services/core';
-import logError from '~/utils/debug';
-import web3 from '~/services/web3';
-import { ZERO_ADDRESS } from '~/utils/constants';
-import { addPendingActivity } from '~/store/activity/actions';
 import { getLastPayout, setLastPayout } from '~/services/token';
-import { isTokenDeployed } from '~/utils/isDeployed';
+import web3 from '~/services/web3';
+import { addPendingActivity } from '~/store/activity/actions';
+import ActionTypes from '~/store/token/types';
+import { ZERO_ADDRESS } from '~/utils/constants';
+import logError from '~/utils/debug';
+import { isTokenDeployed, waitAndRetryOnFail } from '~/utils/stateChecks';
 
 const { ActivityTypes } = core.activity;
 
@@ -30,18 +30,24 @@ export function deployToken() {
     });
 
     try {
-      await core.token.deploy(safe.pendingAddress);
-      await isTokenDeployed(safe.pendingAddress);
+      await waitAndRetryOnFail(
+        async () => {
+          return await core.token.deploy(safe.pendingAddress);
+        },
+        async () => {
+          return await isTokenDeployed(safe.pendingAddress);
+        },
+      );
 
       dispatch({
         type: ActionTypes.TOKEN_DEPLOY_SUCCESS,
       });
     } catch (error) {
+      logError(error);
+
       dispatch({
         type: ActionTypes.TOKEN_DEPLOY_ERROR,
       });
-
-      logError(error);
 
       throw error;
     }

@@ -1,10 +1,15 @@
 import core from '~/services/core';
-import web3 from '~/services/web3';
 import {
-  RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
-  RESTORE_ACCOUNT_UNKNOWN_SAFE,
-} from '~/utils/errors';
+  generateDeterministicNonce,
+  generateDeterministicNonceFromName,
+} from '~/services/safe';
+import web3 from '~/services/web3';
 import { checkAppState } from '~/store/app/actions';
+import {
+  hideSpinnerOverlay,
+  showSpinnerOverlay,
+  switchAccount,
+} from '~/store/app/actions';
 import {
   checkSharedSafeState,
   createSafeWithNonce,
@@ -18,15 +23,18 @@ import {
   updateSafeFundedState,
 } from '~/store/safe/actions';
 import { deployToken, updateTokenFundedState } from '~/store/token/actions';
-import { generateDeterministicNonce } from '~/services/safe';
-import {
-  hideSpinnerOverlay,
-  showSpinnerOverlay,
-  switchAccount,
-} from '~/store/app/actions';
-import { isOrganization } from '~/utils/isDeployed';
 import { restoreWallet } from '~/store/wallet/actions';
 import { ZERO_ADDRESS } from '~/utils/constants';
+import {
+  RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
+  RESTORE_ACCOUNT_UNKNOWN_SAFE,
+} from '~/utils/errors';
+import {
+  hasEnoughBalance,
+  isDeployed,
+  isOrganization,
+  waitAndRetryOnFail,
+} from '~/utils/stateChecks';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own
@@ -76,30 +84,55 @@ export function createNewOrganization(
 
       // Create an undeployed Safe for organizations (so far this is the same
       // flow as regular user accounts)
-      const nonce = Date.now();
+      const nonce = generateDeterministicNonceFromName(name);
       const safeAddress = await core.safe.prepareDeploy(nonce);
 
       // Register organization in on-chain database
       await core.user.register(nonce, safeAddress, name, email, avatarUrl);
 
+      dispatch(hideSpinnerOverlay());
+
       // Deploy the safe directly as we don't have to wait for any trust limit
       // etc. validation (the user is already trusted, therefore we also trust
       // its organization)
-      dispatch(hideSpinnerOverlay());
-      await dispatch(deploySafeForOrganization(safeAddress));
+      await waitAndRetryOnFail(
+        async () => {
+          return await dispatch(deploySafeForOrganization(safeAddress));
+        },
+        async () => {
+          return await isDeployed(safeAddress);
+        },
+      );
 
       // Create the organization account in the Hub
-      await core.organization.deploy(safeAddress);
-      await isOrganization(safeAddress);
+      await waitAndRetryOnFail(
+        async () => {
+          return await core.organization.deploy(safeAddress);
+        },
+        async () => {
+          return await isOrganization(safeAddress);
+        },
+      );
 
       // Prefund the organization with Tokens from the user
-      await core.organization.prefund(
-        creatorSafeAddress,
-        safeAddress,
-        web3.utils.toBN(web3.utils.toWei(prefundValue.toString(), 'ether')),
+      const amount = web3.utils.toBN(
+        web3.utils.toWei(prefundValue.toString(), 'ether'),
+      );
+      await waitAndRetryOnFail(
+        async () => {
+          return await core.organization.prefund(
+            creatorSafeAddress,
+            safeAddress,
+            amount,
+          );
+        },
+        async () => {
+          return await hasEnoughBalance(safeAddress, amount.toString());
+        },
       );
 
       // Switch to newly created organization acccount
+      await dispatch(checkSharedSafeState());
       await dispatch(switchAccount(safeAddress));
 
       // Force updating app state
@@ -109,6 +142,7 @@ export function createNewOrganization(
       await dispatch(unlockSafeDeployment());
     } catch (error) {
       dispatch(hideSpinnerOverlay());
+      await dispatch(unlockSafeDeployment());
       throw error;
     }
   };

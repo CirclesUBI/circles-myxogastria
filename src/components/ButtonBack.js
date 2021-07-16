@@ -1,8 +1,9 @@
-import React from 'react';
 import { IconButton } from '@material-ui/core';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { DASHBOARD_PATH } from '~/routes';
+
 import { IconBack } from '~/styles/icons';
 
 const ButtonBack = (props) => {

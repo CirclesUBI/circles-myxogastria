@@ -1,9 +1,9 @@
+import { Button as MuiButton } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
-import clsx from 'clsx';
-import { Button as MuiButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -36,6 +36,16 @@ const useStyles = makeStyles((theme) => ({
       background: theme.custom.gradients.gray,
     },
   },
+  buttonWhite: {
+    background: theme.custom.colors.white,
+    color: theme.custom.colors.purpleDark,
+    '&:hover': {
+      backgroundColor: theme.custom.colors.grayLight,
+    },
+  },
+  buttonWhiteText: {
+    color: theme.custom.colors.white,
+  },
 }));
 
 // eslint-disable-next-line react/display-name
@@ -48,6 +58,8 @@ const Button = React.forwardRef(
       isDark,
       isOutline,
       isPrimary,
+      isWhite,
+      isWhiteText,
       to,
       ...props
     },
@@ -60,6 +72,8 @@ const Button = React.forwardRef(
       [classes.buttonDark]: isDark,
       [classes.buttonOutline]: isOutline,
       [classes.buttonPrimary]: isPrimary,
+      [classes.buttonWhite]: isWhite,
+      [classes.buttonWhiteText]: isWhiteText,
     });
 
     return React.createElement(
@@ -87,6 +101,8 @@ Button.propTypes = {
   isDark: PropTypes.bool,
   isOutline: PropTypes.bool,
   isPrimary: PropTypes.bool,
+  isWhite: PropTypes.bool,
+  isWhiteText: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
 };

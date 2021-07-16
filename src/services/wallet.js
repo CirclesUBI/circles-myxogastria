@@ -1,4 +1,4 @@
-import { mnemonicToEntropy, entropyToMnemonic } from 'bip39';
+import { entropyToMnemonic, mnemonicToEntropy } from 'bip39';
 
 import {
   getItem,

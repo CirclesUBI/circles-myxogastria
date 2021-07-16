@@ -1,12 +1,3 @@
-import PropTypes from 'prop-types';
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import qs from 'qs';
 import {
   Badge,
   Box,
@@ -16,22 +7,32 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory, generatePath } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import qs from 'qs';
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { generatePath, useHistory } from 'react-router-dom';
 
+import { SEARCH_PATH } from '~/routes';
+
+import TourWebOfTrustSVG from '%/images/tour-web-of-trust.svg';
 import Button from '~/components/Button';
 import ProfileMini from '~/components/ProfileMini';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
-import TourWebOfTrustSVG from '%/images/tour-web-of-trust.svg';
-import core from '~/services/core';
-import debounce from '~/utils/debounce';
-import translate from '~/services/locale';
-import { IconFollow, IconTrustActive, IconWorld } from '~/styles/icons';
-import { SEARCH_PATH } from '~/routes';
-import { checkTrustState } from '~/store/trust/actions';
-import { useQuery } from '~/hooks/url';
 import { useUpdateLoop } from '~/hooks/update';
+import { useQuery } from '~/hooks/url';
+import core from '~/services/core';
+import translate from '~/services/locale';
+import { checkTrustState } from '~/store/trust/actions';
+import { IconFollow, IconTrustActive, IconWorld } from '~/styles/icons';
+import debounce from '~/utils/debounce';
 
 const MAX_SEARCH_RESULTS = 10;
 const PAGE_SIZE = 20;
@@ -87,8 +88,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
+const Finder = ({
+  onSelect,
+  hasActions,
+  filteredSafeAddresses = [],
+  basePath = SEARCH_PATH,
+}) => {
   const dispatch = useDispatch();
+  const safe = useSelector((state) => state.safe);
 
   const history = useHistory();
   const { filter, query: input = '' } = useQuery();
@@ -156,9 +163,17 @@ const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
           };
         });
 
+    // Remove ourselves from results and optionally safes we passed as a prop
+    const filteredItems = items.filter((item) => {
+      return (
+        item.safeAddress !== safe.currentAccount &&
+        !filteredSafeAddresses.includes(item.safeAddress)
+      );
+    });
+
     return [FILTER_DIRECT, FILTER_INDIRECT, FILTER_EXTERNAL].reduce(
       (acc, filter) => {
-        acc[filter] = items.filter((item) => {
+        acc[filter] = filteredItems.filter((item) => {
           switch (filter) {
             case FILTER_DIRECT:
               return item.isIncoming;
@@ -174,7 +189,13 @@ const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
       },
       {},
     );
-  }, [isQueryEmpty, searchResults, network]);
+  }, [
+    isQueryEmpty,
+    searchResults,
+    network,
+    filteredSafeAddresses,
+    safe.currentAccount,
+  ]);
 
   // Automatically select the filter with the only results
   useEffect(() => {
@@ -249,15 +270,14 @@ const Finder = ({ onSelect, hasActions, basePath = SEARCH_PATH }) => {
 
 const FinderSearchBar = ({
   basePath,
+  input,
+  onInputChange,
   onLoadingChange,
   onResultsChange,
-  onInputChange,
-  input,
   onSelect,
 }) => {
   const history = useHistory();
   const classes = useStyles();
-  const safe = useSelector((state) => state.safe);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
@@ -266,9 +286,6 @@ const FinderSearchBar = ({
       const response = await core.user.search(query);
 
       const result = response.data
-        .filter((item) => {
-          return item.safeAddress !== safe.currentAccount;
-        })
         .sort((itemA, itemB) => {
           return itemA.username
             .toLowerCase()
@@ -453,6 +470,7 @@ const FinderResultsItem = (props) => {
 
 Finder.propTypes = {
   basePath: PropTypes.string,
+  filteredSafeAddresses: PropTypes.arrayOf(PropTypes.string),
   hasActions: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
 };

@@ -1,7 +1,9 @@
-import React, { Fragment, useState } from 'react';
 import { Container } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
+import React, { Fragment, useState } from 'react';
 import { generatePath } from 'react-router';
+import { Redirect } from 'react-router-dom';
+
+import { SEND_CONFIRM_PATH, SEND_PATH } from '~/routes';
 
 import ButtonBack from '~/components/ButtonBack';
 import ButtonQRCodeScanner from '~/components/ButtonQRCodeScanner';
@@ -10,7 +12,6 @@ import Finder from '~/components/Finder';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import translate from '~/services/locale';
-import { SEND_PATH, SEND_CONFIRM_PATH } from '~/routes';
 
 const Send = () => {
   const [redirectPath, setRedirectPath] = useState(null);

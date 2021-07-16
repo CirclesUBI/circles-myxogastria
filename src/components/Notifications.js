@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { removeNotification } from '~/store/notifications/actions';
 

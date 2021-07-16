@@ -1,10 +1,10 @@
-import ActionTypes from '~/store/app/types';
+import { setUser } from '~/services/sentry';
 import resolveUsernames from '~/services/username';
-import { checkTokenState, resetToken } from '~/store/token/actions';
 import {
   initializeActivities,
   resetActivities,
 } from '~/store/activity/actions';
+import ActionTypes from '~/store/app/types';
 import { checkOnboardingState } from '~/store/onboarding/actions';
 import {
   checkSharedSafeState,
@@ -12,13 +12,13 @@ import {
   resetSafe,
   switchCurrentAccount,
 } from '~/store/safe/actions';
+import { checkTokenState, resetToken } from '~/store/token/actions';
 import {
   initializeTutorials,
   resetAllTutorials,
 } from '~/store/tutorial/actions';
+import { burnWallet, initializeWallet } from '~/store/wallet/actions';
 import { formatErrorMessage } from '~/utils/debug';
-import { initializeWallet, burnWallet } from '~/store/wallet/actions';
-import { setUser } from '~/services/sentry';
 
 export function initializeApp() {
   return async (dispatch) => {

@@ -1,11 +1,3 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import qs from 'qs';
-import {
-  Redirect,
-  generatePath,
-  useHistory,
-  useParams,
-} from 'react-router-dom';
 import {
   Box,
   Container,
@@ -16,7 +8,17 @@ import {
   Zoom,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import qs from 'qs';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  Redirect,
+  generatePath,
+  useHistory,
+  useParams,
+} from 'react-router-dom';
+
+import { DASHBOARD_PATH, SEND_CONFIRM_PATH } from '~/routes';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
@@ -24,24 +26,24 @@ import ButtonHome from '~/components/ButtonHome';
 import CenteredHeading from '~/components/CenteredHeading';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import TransferCirclesInput from '~/components/TransferCirclesInput';
 import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
 import TransferInfoCard from '~/components/TransferInfoCard';
 import TransferInput from '~/components/TransferInput';
 import View from '~/components/View';
-import core from '~/services/core';
-import logError, { formatErrorMessage } from '~/utils/debug';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import translate from '~/services/locale';
-import web3 from '~/services/web3';
-import { DASHBOARD_PATH, SEND_CONFIRM_PATH } from '~/routes';
-import { IconSend } from '~/styles/icons';
-import { formatCirclesValue } from '~/utils/format';
-import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
-import { transfer, checkCurrentBalance } from '~/store/token/actions';
-import { useQuery } from '~/hooks/url';
 import { useUpdateLoop } from '~/hooks/update';
+import { useQuery } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
-import { validatePaymentNote, validateAmount } from '~/services/token';
+import core from '~/services/core';
+import translate from '~/services/locale';
+import { validateAmount, validatePaymentNote } from '~/services/token';
+import web3 from '~/services/web3';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { checkCurrentBalance, transfer } from '~/store/token/actions';
+import { IconSend } from '~/styles/icons';
+import logError, { formatErrorMessage } from '~/utils/debug';
+import { formatCirclesValue } from '~/utils/format';
 
 const { ErrorCodes, TransferError } = core.errors;
 
@@ -64,10 +66,8 @@ const SendConfirm = () => {
   });
 
   // Set amount and payment note based on URL query
-  const {
-    a: preselectedAmount = '',
-    n: preselectedPaymentNote = '',
-  } = useQuery();
+  const { a: preselectedAmount = '', n: preselectedPaymentNote = '' } =
+    useQuery();
   const [amount, setAmount] = useState(
     validateAmount(preselectedAmount) ? preselectedAmount : '',
   );
@@ -233,6 +233,8 @@ const SendConfirm = () => {
       <Dialog
         aria-describedby={`dialog-send-text`}
         aria-labelledby={`dialog-send-description`}
+        fullWidth
+        maxWidth="xs"
         open={isConfirmationShown}
         onClose={handleConfirmClose}
       >
@@ -264,12 +266,12 @@ const SendConfirm = () => {
           <Typography align="center" className={classes.dialogPaymentNote}>
             {paymentNote}
           </Typography>
-          <Box mb={1} mt={2}>
+          <Box maxWidth="60%" mb={1} mt={2} mx="auto">
             <Button autoFocus fullWidth isPrimary onClick={handleSend}>
               {translate('SendConfirm.dialogSendConfirm')}
             </Button>
           </Box>
-          <Box mb={2}>
+          <Box maxWidth="60%" mb={2} mx="auto">
             <Button fullWidth isOutline onClick={handleConfirmClose}>
               {translate('SendConfirm.dialogSendCancel')}
             </Button>
@@ -308,7 +310,7 @@ const SendConfirm = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <TransferInput
+              <TransferCirclesInput
                 autoFocus
                 errorMessage={translate('SendConfirm.bodyAmountTooHigh', {
                   count: formatCirclesValue(maxAmount),

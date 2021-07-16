@@ -1,8 +1,8 @@
+import { Box, Container, IconButton, MobileStepper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
-import { Box, Container, IconButton, MobileStepper } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 
 import AppNote from '~/components/AppNote';
 import Button from '~/components/Button';
@@ -16,6 +16,9 @@ import { IconBack, IconClose } from '~/styles/icons';
 const useStyles = makeStyles(() => ({
   onboardingMobileStepper: {
     flexGrow: 1,
+    paddingTop: 9,
+    paddingRight: 19,
+    paddingLeft: 19,
   },
 }));
 

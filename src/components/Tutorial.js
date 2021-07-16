@@ -1,8 +1,8 @@
+import { IconButton, MobileStepper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import { MobileStepper, IconButton } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '~/components/Button';
 import Footer from '~/components/Footer';
