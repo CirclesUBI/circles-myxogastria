@@ -1,4 +1,5 @@
 import { Box, Container, Typography, makeStyles } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -37,10 +38,9 @@ const OrganizationMembersAdd = () => {
 
   const [address, setAddress] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOrganization, setIsOrganization] = useState(false);
   const [filteredSafeAddresses, setFilteredSafeAddresses] = useState([]);
   const { username } = useUserdata(address);
-
-  const classes = useParagraphStyles();
 
   // Prepare filter so it removes all search results which are already
   // organization members
@@ -58,9 +58,15 @@ const OrganizationMembersAdd = () => {
     update();
   }, [safe.currentAccount]);
 
-  const handleSelect = (value) => {
+  const handleSelect = async (value) => {
+    dispatch(showSpinnerOverlay());
+
+    const result = await core.organization.isOrganization(value);
+    setIsOrganization(result);
     setAddress(value);
     setIsOpen(true);
+
+    dispatch(hideSpinnerOverlay());
   };
 
   const handleClose = () => {
@@ -106,30 +112,14 @@ const OrganizationMembersAdd = () => {
 
   return (
     <Fragment>
-      <DialogPurple
-        cancelLabel={translate('OrganizationMembersAdd.dialogCancel')}
-        confirmLabel={translate('OrganizationMembersAdd.dialogConfirm')}
-        open={isOpen}
-        title={translate('OrganizationMembersAdd.dialogTitle', { username })}
-        onClose={handleClose}
-        onConfirm={handleAddMember}
-      >
-        <Box display="flex" justifyContent="center" mb={2}>
-          <Avatar address={address} size="medium" />
-        </Box>
-        <Typography className={classes.paragraph} paragraph>
-          {translate('OrganizationMembersAdd.dialogBody')}
-        </Typography>
-        <ExternalLink
-          className={classes.link}
-          href={swInfoLink}
-          underline="always"
-        >
-          <Typography paragraph>
-            {translate('OrganizationMembersAdd.linkLearnMore')}
-          </Typography>
-        </ExternalLink>
-      </DialogPurple>
+      <OrganizationMembersAddDialog
+        address={address}
+        handleAddMember={handleAddMember}
+        handleClose={handleClose}
+        isOpen={isOpen}
+        isOrganization={isOrganization}
+        username={username}
+      />
       <Header>
         <ButtonBack />
         <CenteredHeading>
@@ -148,6 +138,60 @@ const OrganizationMembersAdd = () => {
       </View>
     </Fragment>
   );
+};
+
+const OrganizationMembersAddDialog = ({
+  username,
+  address,
+  handleAddMember,
+  handleClose,
+  isOpen,
+  isOrganization,
+}) => {
+  const classes = useParagraphStyles();
+  const confirmLabel = isOrganization
+    ? null
+    : translate('OrganizationMembersAdd.dialogConfirm');
+  const dialogBody = isOrganization
+    ? translate('OrganizationMembersAdd.dialogBodyCannotAdd')
+    : translate('OrganizationMembersAdd.dialogBody');
+  const onConfirm = isOrganization ? null : handleAddMember;
+
+  return (
+    <DialogPurple
+      cancelLabel={translate('OrganizationMembersAdd.dialogCancel')}
+      confirmLabel={confirmLabel}
+      open={isOpen}
+      title={translate('OrganizationMembersAdd.dialogTitle', { username })}
+      onClose={handleClose}
+      onConfirm={onConfirm}
+    >
+      <Box display="flex" justifyContent="center" mb={2}>
+        <Avatar address={address} size="medium" />
+      </Box>
+      <Typography className={classes.paragraph} paragraph>
+        {dialogBody}
+      </Typography>
+      <ExternalLink
+        className={classes.link}
+        href={swInfoLink}
+        underline="always"
+      >
+        <Typography paragraph>
+          {translate('OrganizationMembersAdd.linkLearnMore')}
+        </Typography>
+      </ExternalLink>
+    </DialogPurple>
+  );
+};
+
+OrganizationMembersAddDialog.propTypes = {
+  address: PropTypes.string,
+  handleAddMember: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  isOrganization: PropTypes.bool.isRequired,
+  username: PropTypes.string.isRequired,
 };
 
 export default OrganizationMembersAdd;

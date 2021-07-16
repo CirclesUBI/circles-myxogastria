@@ -44,15 +44,19 @@ const DialogPurple = ({
         {title}
       </DialogTitle>
       {children}
-      <Box display="flex" flexDirection="column" pb={1} pt={2}>
-        <Button isWhite m={2} onClick={onConfirm}>
-          {confirmLabel}
-        </Button>
-      </Box>
-      <Box display="flex" flexDirection="column" pb={2}>
-        <Button isWhiteText m={2} onClick={onClose}>
-          {cancelLabel}
-        </Button>
+      <Box pb={2} pt={2}>
+        {!!onConfirm && (
+          <Box display="flex" flexDirection="column" pb={1}>
+            <Button isWhite m={2} onClick={onConfirm}>
+              {confirmLabel}
+            </Button>
+          </Box>
+        )}
+        <Box display="flex" flexDirection="column">
+          <Button isWhiteText m={2} onClick={onClose}>
+            {cancelLabel}
+          </Button>
+        </Box>
       </Box>
     </Dialog>
   );
@@ -61,9 +65,9 @@ const DialogPurple = ({
 DialogPurple.propTypes = {
   cancelLabel: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  confirmLabel: PropTypes.string.isRequired,
+  confirmLabel: PropTypes.string,
   onClose: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func,
   title: PropTypes.string.isRequired,
 };
 

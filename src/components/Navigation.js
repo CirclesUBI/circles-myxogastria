@@ -142,7 +142,7 @@ const NavigationMain = ({ onClick }) => {
       </NavigationLink>
       {!safe.isOrganization && (
         <NavigationLink to={ORGANIZATION_PATH} onClick={onClick}>
-          {translate('Navigation.buttonSharedWallet')}
+          {translate('Navigation.buttonOrganization')}
         </NavigationLink>
       )}
       <NavigationLink to={SHARE_PATH} onClick={onClick}>

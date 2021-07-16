@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
   listItem: {
     height: 70,
   },
-  createSharedWalletIcon: {
+  createOrganizationIcon: {
     marginLeft: 8,
   },
 }));
@@ -110,11 +110,11 @@ const MyProfile = () => {
             component={Link}
             to={ORGANIZATION_PATH}
           >
-            <ListItemIcon className={classes.createSharedWalletIcon}>
+            <ListItemIcon className={classes.createOrganizationIcon}>
               <IconAdd />
             </ListItemIcon>
             <ListItemText>
-              {translate('MyProfile.buttonCreateSharedWallet')}
+              {translate('MyProfile.buttonCreateOrganization')}
             </ListItemText>
           </ListItem>
         )}
