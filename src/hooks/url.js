@@ -1,7 +1,7 @@
 import qs from 'qs';
 import { generatePath, useLocation } from 'react-router';
 
-import { SEND_CONFIRM_PATH, SEND_PATH, PROFILE_PATH } from '~/routes';
+import { PROFILE_PATH, SEND_CONFIRM_PATH, SEND_PATH } from '~/routes';
 
 export function useRelativeProfileLink(address) {
   return generatePath(PROFILE_PATH, {

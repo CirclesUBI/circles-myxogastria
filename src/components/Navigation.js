@@ -1,10 +1,21 @@
+import { Box, Button, Drawer, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Typography, Drawer, Grid, Button, Box } from '@material-ui/core';
-import { generatePath } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { generatePath } from 'react-router-dom';
+
+import {
+  ACTIVITIES_PATH,
+  MY_PROFILE_PATH,
+  ORGANIZATION_PATH,
+  SEARCH_PATH,
+  SEED_PHRASE_PATH,
+  SEND_PATH,
+  SETTINGS_PATH,
+  SHARE_PATH,
+} from '~/routes';
 
 import AvatarWithQR from '~/components/AvatarWithQR';
 import ExternalLink from '~/components/ExternalLink';
@@ -12,30 +23,22 @@ import LocaleSelector from '~/components/LocaleSelector';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import translate from '~/services/locale';
 import {
-  ACTIVITIES_PATH,
-  MY_PROFILE_PATH,
-  SEED_PHRASE_PATH,
-  SEND_PATH,
-  SETTINGS_PATH,
-  SHARE_PATH,
-} from '~/routes';
-import {
-  ABOUT_URL,
-  FAQ_URL,
-  MARKETPLACE_URL,
-  PRIVACY_LEGAL_URL,
-  SUPPORT_URL,
-  EMAIL_URL,
-  FACEBOOK_URL,
-  TWITTER_URL,
-  TELEGRAM_URL,
-} from '~/utils/constants';
-import {
   IconFacebook,
   IconMail,
   IconTelegram,
   IconTwitter,
 } from '~/styles/icons';
+import {
+  ABOUT_URL,
+  EMAIL_URL,
+  FACEBOOK_URL,
+  FAQ_URL,
+  MARKETPLACE_URL,
+  PRIVACY_LEGAL_URL,
+  SUPPORT_URL,
+  TELEGRAM_URL,
+  TWITTER_URL,
+} from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -124,23 +127,32 @@ const NavigationHeader = ({ onClick }) => {
 
 const NavigationMain = ({ onClick }) => {
   const classes = useStyles();
+  const safe = useSelector((state) => state.safe);
 
   return (
     <Box className={classes.navigationMain} component="main">
-      <NavigationLink to={SHARE_PATH} onClick={onClick}>
-        {translate('Navigation.buttonMyQR')}
-      </NavigationLink>
-      <NavigationLink to={ACTIVITIES_PATH} onClick={onClick}>
-        {translate('Navigation.buttonActivityLog')}
+      <NavigationLink to={SEARCH_PATH} onClick={onClick}>
+        {translate('Navigation.buttonTrustPeople')}
       </NavigationLink>
       <NavigationLink to={generatePath(SEND_PATH)} onClick={onClick}>
         {translate('Navigation.buttonSendCircles')}
       </NavigationLink>
-      <NavigationLink to={SETTINGS_PATH} onClick={onClick}>
-        {translate('Navigation.buttonAddDevice')}
+      <NavigationLink to={ACTIVITIES_PATH} onClick={onClick}>
+        {translate('Navigation.buttonActivityLog')}
+      </NavigationLink>
+      {!safe.isOrganization && (
+        <NavigationLink to={ORGANIZATION_PATH} onClick={onClick}>
+          {translate('Navigation.buttonOrganization')}
+        </NavigationLink>
+      )}
+      <NavigationLink to={SHARE_PATH} onClick={onClick}>
+        {translate('Navigation.buttonMyQR')}
       </NavigationLink>
       <NavigationLink to={SEED_PHRASE_PATH} onClick={onClick}>
         {translate('Navigation.buttonExportSeedPhrase')}
+      </NavigationLink>
+      <NavigationLink to={SETTINGS_PATH} onClick={onClick}>
+        {translate('Navigation.buttonSettings')}
       </NavigationLink>
     </Box>
   );

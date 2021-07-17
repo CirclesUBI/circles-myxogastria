@@ -1,5 +1,5 @@
-import React from 'react';
 import { SvgIcon } from '@material-ui/core';
+import React from 'react';
 
 import activity from '%/images/activity.svg';
 import add from '%/images/add.svg';
@@ -7,26 +7,27 @@ import alert from '%/images/alert.svg';
 import arrow from '%/images/arrow.svg';
 import check from '%/images/check.svg';
 import circles from '%/images/circles.svg';
-import close from '%/images/close.svg';
 import closeOutline from '%/images/close-outline.svg';
+import close from '%/images/close.svg';
 import connections from '%/images/connections.svg';
 import facebook from '%/images/facebook.svg';
 import follow from '%/images/follow.svg';
 import friends from '%/images/friends.svg';
 import mail from '%/images/mail.svg';
+import members from '%/images/members.svg';
 import menu from '%/images/menu.svg';
 import notification from '%/images/notification.svg';
-import qr from '%/images/qr.svg';
 import qrLarge from '%/images/qr-large.svg';
+import qr from '%/images/qr.svg';
 import scan from '%/images/scan.svg';
 import search from '%/images/search.svg';
 import send from '%/images/send.svg';
 import share from '%/images/share.svg';
 import telegram from '%/images/telegram.svg';
 import transactions from '%/images/transactions.svg';
-import trust from '%/images/trust.svg';
 import trustActive from '%/images/trust-active.svg';
 import trustMutual from '%/images/trust-mutual.svg';
+import trust from '%/images/trust.svg';
 import twitter from '%/images/twitter.svg';
 import world from '%/images/world.svg';
 
@@ -80,6 +81,10 @@ export const IconFriends = (props) => {
 
 export const IconMail = (props) => {
   return <SvgIcon component={mail} {...props} viewBox="0 0 21 18" />;
+};
+
+export const IconMembers = (props) => {
+  return <SvgIcon component={members} {...props} viewBox="0 0 32 35" />;
 };
 
 export const IconMenu = (props) => {

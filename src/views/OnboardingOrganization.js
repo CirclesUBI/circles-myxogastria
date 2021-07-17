@@ -1,33 +1,53 @@
+import { Box, Grid, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
-import { Box, Grid, Typography } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
+import { DASHBOARD_PATH } from '~/routes';
 
 import AvatarUploader from '~/components/AvatarUploader';
+import CheckboxPrivacy from '~/components/CheckboxPrivacy';
+import CheckboxTerms from '~/components/CheckboxTerms';
 import OnboardingStepper from '~/components/OnboardingStepper';
-import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
 import TransferCirclesInput from '~/components/TransferCirclesInput';
+import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
+import TutorialOrganization from '~/components/TutorialOrganization';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
-import logError, { formatErrorMessage } from '~/utils/debug';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
-import web3 from '~/services/web3';
-import { DASHBOARD_PATH } from '~/routes';
-import { createNewOrganization } from '~/store/onboarding/actions';
-import { formatCirclesValue } from '~/utils/format';
 import { validateAmount } from '~/services/token';
+import web3 from '~/services/web3';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { createNewOrganization } from '~/store/onboarding/actions';
+import { checkCurrentBalance } from '~/store/token/actions';
+import {
+  ORGANIZATION_TUTORIAL,
+  finishTutorial,
+} from '~/store/tutorial/actions';
+import logError, { formatErrorMessage } from '~/utils/debug';
+import { formatCirclesValue } from '~/utils/format';
 
 const OnboardingOrganization = () => {
   const dispatch = useDispatch();
   const [isRedirect, setIsRedirect] = useState(false);
+  const { isFinished: isTutorialFinished } = useSelector((state) => {
+    return state.tutorial[ORGANIZATION_TUTORIAL];
+  });
 
   const [values, setValues] = useState({
     avatarUrl: '',
     email: '',
     username: '',
     prefundValue: 0,
+  });
+
+  // Update available token balance for prefund step. This is required
+  // especially for the case when we land on this page directly, not having
+  // that data yet.
+  useUpdateLoop(async () => {
+    await dispatch(checkCurrentBalance());
   });
 
   const onFinish = async () => {
@@ -72,6 +92,14 @@ const OnboardingOrganization = () => {
     OrganizationStepPrefund,
   ];
 
+  const handleTutorialFinish = () => {
+    dispatch(finishTutorial(ORGANIZATION_TUTORIAL));
+  };
+
+  if (!isTutorialFinished) {
+    return <TutorialOrganization onFinishTutorial={handleTutorialFinish} />;
+  }
+
   if (isRedirect) {
     return <Redirect push to={DASHBOARD_PATH} />;
   }
@@ -115,25 +143,54 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
 };
 
 const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
-  const handleChange = (email) => {
+  const [emailValid, setEmailValid] = useState(false);
+  const [privacy, setPrivacy] = useState(false);
+  const [terms, setTerms] = useState(false);
+
+  const handleEmailStatus = (status) => {
+    // Email status returns FALSE when valid
+    setEmailValid(!status);
+  };
+
+  const handleEmail = (email) => {
     onChange({
       email,
     });
   };
 
+  const handlePrivacy = ({ target: { checked } }) => {
+    setPrivacy(checked);
+  };
+
+  const handleTerms = ({ target: { checked } }) => {
+    setTerms(checked);
+  };
+
+  useEffect(() => {
+    onDisabledChange(![emailValid, privacy, terms].every((b) => b === true));
+  }, [emailValid, privacy, terms, onDisabledChange]);
+
   return (
     <Fragment>
       <Typography align="center" gutterBottom variant="h2">
-        {translate('OnboardingOrganization.headingEmail')}
+        {translate('Onboarding.headingEmail')}
       </Typography>
-      <Typography>{translate('OnboardingOrganization.bodyEmail')}</Typography>
-      <Box mt={4}>
+      <Typography>{translate('Onboarding.bodyEmail')}</Typography>
+      <Box mt={3}>
         <VerifiedEmailInput
-          label={translate('OnboardingOrganization.formEmail')}
+          label={translate('Onboarding.formEmail')}
           value={values.email}
-          onChange={handleChange}
-          onStatusChange={onDisabledChange}
+          onChange={handleEmail}
+          onStatusChange={handleEmailStatus}
         />
+        <Box mt={2} textAlign={'left'}>
+          <Box>
+            <CheckboxPrivacy checked={privacy} onChange={handlePrivacy} />
+          </Box>
+          <Box>
+            <CheckboxTerms checked={terms} onChange={handleTerms} />
+          </Box>
+        </Box>
       </Box>
     </Fragment>
   );

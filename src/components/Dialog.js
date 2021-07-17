@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import {
-  Dialog as MuiDialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Dialog as MuiDialog,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import Button from '~/components/Button';
 
@@ -34,11 +34,11 @@ const Dialog = ({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button isOutline onClick={onClose}>
-          {cancelLabel}
-        </Button>
         <Button autoFocus isPrimary onClick={onConfirm}>
           {confirmLabel}
+        </Button>
+        <Button isOutline onClick={onClose}>
+          {cancelLabel}
         </Button>
       </DialogActions>
     </MuiDialog>

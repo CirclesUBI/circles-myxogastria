@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
-import React, { Fragment, useState, useEffect } from 'react';
 import qs from 'qs';
-import { useHistory, generatePath } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { generatePath, useHistory } from 'react-router-dom';
+
+import { ACTIVITIES_PATH } from '~/routes';
 
 import ActivityStream from '~/components/ActivityStream';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
+import { useQuery } from '~/hooks/url';
 import core from '~/services/core';
 import translate from '~/services/locale';
-import { ACTIVITIES_PATH } from '~/routes';
-import { IconConnections, IconTransactions } from '~/styles/icons';
 import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
-import { useQuery } from '~/hooks/url';
+import { IconConnections, IconTransactions } from '~/styles/icons';
 
 const { ActivityFilterTypes } = core.activity;
 

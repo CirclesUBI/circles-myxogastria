@@ -1,10 +1,9 @@
-import ActionTypes from '~/store/wallet/types';
-
 import {
   fromSeedPhrase,
   getPublicAddress,
   removePrivateKey,
 } from '~/services/wallet';
+import ActionTypes from '~/store/wallet/types';
 
 export function initializeWallet() {
   return (dispatch) => {

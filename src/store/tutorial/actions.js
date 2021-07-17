@@ -1,11 +1,17 @@
+import { getTutorial, resetTutorials, setTutorial } from '~/services/tutorial';
 import ActionTypes from '~/store/tutorial/types';
-import { getTutorial, setTutorial, resetTutorials } from '~/services/tutorial';
 
 export const ACCOUNT_CREATE = 'accountCreate';
 export const ORGANIZATION_CREATE = 'settingsKeys';
 export const SETTINGS_KEYS = 'settingsKeys';
+export const ORGANIZATION_TUTORIAL = 'organizationalTutorial';
 
-const TUTORIALS = [ACCOUNT_CREATE, ORGANIZATION_CREATE, SETTINGS_KEYS];
+const TUTORIALS = [
+  ACCOUNT_CREATE,
+  ORGANIZATION_CREATE,
+  SETTINGS_KEYS,
+  ORGANIZATION_TUTORIAL,
+];
 
 export function initializeTutorials() {
   return (dispatch) => {

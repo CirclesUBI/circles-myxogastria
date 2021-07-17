@@ -1,6 +1,3 @@
-import PropTypes from 'prop-types';
-import React, { Fragment, useCallback, useState, useEffect } from 'react';
-import { AvatarGroup } from '@material-ui/lab';
 import {
   Box,
   Button,
@@ -9,27 +6,37 @@ import {
   CircularProgress,
   Container,
   Grid,
+  Typography,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { AvatarGroup } from '@material-ui/lab';
+import PropTypes from 'prop-types';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { ORGANIZATION_MEMBERS_ADD_PATH } from '~/routes';
 
 import Avatar from '~/components/Avatar';
 import ButtonAction from '~/components/ButtonAction';
 import ButtonBack from '~/components/ButtonBack';
 import CenteredHeading from '~/components/CenteredHeading';
-import Dialog from '~/components/Dialog';
+import DialogPurple from '~/components/DialogPurple';
 import Header from '~/components/Header';
 import View from '~/components/View';
-import core from '~/services/core';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import translate from '~/services/locale';
-import { IconTrust, IconClose } from '~/styles/icons';
-import { ORGANIZATION_MEMBERS_ADD_PATH } from '~/routes';
-import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
-import { removeSafeOwner } from '~/store/safe/actions';
+import { useUpdateLoop } from '~/hooks/update';
 import { useRelativeProfileLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
+import core from '~/services/core';
+import translate from '~/services/locale';
+import {
+  hideSpinnerOverlay,
+  showSpinnerOverlay,
+  switchAccount,
+} from '~/store/app/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { removeSafeOwner } from '~/store/safe/actions';
+import { IconClose, IconTrust } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   cardHeader: {
@@ -57,24 +64,94 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(2.25),
     background: theme.custom.gradients.purple,
   },
+  paragraph: {
+    color: theme.custom.colors.grayLightest,
+  },
 }));
+
+// Helper method to find out if a user is still a member of an organization
+function isMemberOfOrganization(members, currentAccounts) {
+  return members.some(({ safeAddresses }) => {
+    return currentAccounts.some((safeAddress) =>
+      safeAddresses.includes(safeAddress),
+    );
+  });
+}
 
 const OrganizationMembers = () => {
   const safe = useSelector((state) => state.safe);
+  const dispatch = useDispatch();
 
   const [members, setMembers] = useState([]);
+  const [removedMembers, setRemovedMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useUpdateLoop(async () => {
+    handleUpdate();
+  });
 
   const handleUpdate = useCallback(async () => {
     setIsLoading(true);
+
+    // Get a list of all Safe owners of this organization
     const result = await core.organization.getMembers(safe.currentAccount);
-    setMembers(
-      result.filter((member) => {
-        return member.safeAddresses.length > 0;
-      }),
-    );
+
+    // Filter out the owner we just removed
+    const updatedMembers = result.filter((member) => {
+      return (
+        member.safeAddresses.length > 0 &&
+        !removedMembers.includes(member).ownerAddress
+      );
+    });
+
+    setMembers(updatedMembers);
     setIsLoading(false);
-  }, [safe.currentAccount]);
+
+    // Finally check if we are still owner of that organization, otherwise
+    // switch to another account automatically as we don't have anything to do
+    // here anymore!
+    if (!isMemberOfOrganization(updatedMembers, safe.accounts)) {
+      dispatch(
+        switchAccount(
+          safe.accounts.filter((account) => {
+            return account !== safe.currentAccount;
+          })[0],
+        ),
+      );
+    }
+  }, [safe.currentAccount, removedMembers, safe.accounts, dispatch]);
+
+  const handleRemove = async (ownerAddress, username) => {
+    dispatch(showSpinnerOverlay());
+
+    try {
+      await dispatch(removeSafeOwner(ownerAddress));
+
+      dispatch(
+        notify({
+          text: translate('OrganizationMembers.successRemovedMember', {
+            username,
+          }),
+          type: NotificationsTypes.SUCCESS,
+        }),
+      );
+
+      // We keep track of it in a local list, so they UI can already hide it
+      // away for us
+      setRemovedMembers(removedMembers.concat(ownerAddress));
+    } catch {
+      dispatch(
+        notify({
+          text: translate('OrganizationMembers.errorRemovedMember', {
+            username,
+          }),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+    }
+
+    dispatch(hideSpinnerOverlay());
+  };
 
   useEffect(() => {
     handleUpdate();
@@ -104,7 +181,7 @@ const OrganizationMembers = () => {
                       key={member.ownerAddress}
                       ownerAddress={member.ownerAddress}
                       safeAddresses={member.safeAddresses}
-                      onUpdate={handleUpdate}
+                      onRemove={handleRemove}
                     />
                   </Grid>
                 );
@@ -128,10 +205,9 @@ const OrganizationMembersItem = ({
   safeAddresses,
   ownerAddress,
   isOnlyMember,
-  onUpdate,
+  onRemove,
 }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
   const { username } = useUserdata(safeAddresses[0]);
@@ -146,53 +222,29 @@ const OrganizationMembersItem = ({
   };
 
   const handleRemove = async () => {
+    onRemove(ownerAddress, username);
     setIsOpen(false);
-
-    try {
-      dispatch(showSpinnerOverlay());
-
-      await dispatch(removeSafeOwner(ownerAddress));
-
-      dispatch(
-        notify({
-          text: translate('OrganizationMembers.successRemovedMember', {
-            username,
-          }),
-          type: NotificationsTypes.SUCCESS,
-        }),
-      );
-
-      onUpdate();
-    } catch {
-      dispatch(
-        notify({
-          text: translate('OrganizationMembers.errorRemovedMember', {
-            username,
-          }),
-          type: NotificationsTypes.ERROR,
-        }),
-      );
-    }
-
-    dispatch(hideSpinnerOverlay());
   };
 
   return (
     <Card>
-      <Dialog
+      <DialogPurple
         cancelLabel={translate('OrganizationMembers.dialogCancel')}
         confirmLabel={translate('OrganizationMembers.dialogConfirm')}
-        id="remove-member"
         open={isOpen}
-        text={translate('OrganizationMembers.dialogRemoveMember', {
-          username,
-        })}
         title={translate('OrganizationMembers.dialogTitle', {
           username,
         })}
         onClose={handleClose}
         onConfirm={handleRemove}
-      />
+      >
+        <Box display="flex" justifyContent="center" mb={2}>
+          <Avatar address={safeAddresses[0]} size="medium" />
+        </Box>
+        <Typography className={classes.paragraph} paragraph>
+          {translate('OrganizationMembers.dialogRemoveMember', { username })}
+        </Typography>
+      </DialogPurple>
       <CardHeader
         action={
           <Box display="flex">
@@ -231,7 +283,7 @@ const OrganizationMembersItem = ({
 
 OrganizationMembersItem.propTypes = {
   isOnlyMember: PropTypes.bool.isRequired,
-  onUpdate: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
   ownerAddress: PropTypes.string.isRequired,
   safeAddresses: PropTypes.array.isRequired,
 };

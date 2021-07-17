@@ -1,16 +1,16 @@
-import React, { Fragment, useState } from 'react';
 import {
   Box,
-  Dialog,
-  DialogContent,
   Card,
   CardHeader,
   Container,
+  Dialog,
+  DialogContent,
   Grid,
   InputLabel,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { saveAs } from 'file-saver';
+import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Avatar from '~/components/Avatar';
@@ -24,10 +24,10 @@ import QRCode from '~/components/QRCode';
 import TransferCirclesInput from '~/components/TransferCirclesInput';
 import TransferInput from '~/components/TransferInput';
 import View from '~/components/View';
-import translate from '~/services/locale';
 import { useSendLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
-import { validatePaymentNote, validateAmount } from '~/services/token';
+import translate from '~/services/locale';
+import { validateAmount, validatePaymentNote } from '~/services/token';
 
 const QR_CODE_WIDTH = 1024;
 const QR_CODE_SCALE = 2;
@@ -108,7 +108,7 @@ const QRGenerator = () => {
             </Button>
           </Box>
           <Box mb={2}>
-            <ButtonShare fullWidth isOutline text={paymentNote} url={data}>
+            <ButtonShare fullWidth isOutline text="" url={data}>
               {translate('QRGenerator.dialogShare')}
             </ButtonShare>
           </Box>

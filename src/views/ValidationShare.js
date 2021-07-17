@@ -1,6 +1,6 @@
+import { Container, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Container, Typography } from '@material-ui/core';
 
 import ButtonBack from '~/components/ButtonBack';
 import ButtonShare from '~/components/ButtonShare';
@@ -9,8 +9,8 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import ShareBox from '~/components/ShareBox';
 import View from '~/components/View';
-import translate from '~/services/locale';
 import { useProfileLink } from '~/hooks/url';
+import translate from '~/services/locale';
 
 const ValidationShare = () => {
   const safe = useSelector((state) => state.safe);

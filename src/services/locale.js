@@ -1,3 +1,5 @@
+import locales, { DEFAULT_LOCALE, LOCALES } from 'locales';
+
 import {
   getItem,
   hasItem,
@@ -5,7 +7,6 @@ import {
   removeItem,
   setItem,
 } from '~/services/storage';
-import locales, { DEFAULT_LOCALE, LOCALES } from 'locales';
 
 const LOCALE_NAME = 'locale';
 

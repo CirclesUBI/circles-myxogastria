@@ -1,45 +1,62 @@
-import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
 import {
   Box,
-  Grid,
   ButtonGroup,
+  Grid,
+  List,
   ListItem,
   ListItemAvatar,
+  ListItemIcon,
   ListItemText,
   Typography,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import React, { Fragment, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+
+import { DASHBOARD_PATH, ORGANIZATION_PATH, SHARE_PATH } from '~/routes';
 
 import Avatar from '~/components/Avatar';
 import AvatarWithQR from '~/components/AvatarWithQR';
 import Button from '~/components/Button';
 import UsernameDisplay from '~/components/UsernameDisplay';
-import translate from '~/services/locale';
-import { IconCheck } from '~/styles/icons';
-import { SHARE_PATH } from '~/routes';
+import { useUpdateLoop } from '~/hooks/update';
 import { useRelativeProfileLink } from '~/hooks/url';
+import translate from '~/services/locale';
+import { switchAccount } from '~/store/app/actions';
+import { checkSharedSafeState } from '~/store/safe/actions';
+import { IconAdd, IconCheck } from '~/styles/icons';
 
 const useStyles = makeStyles(() => ({
   listItem: {
     height: 70,
   },
-  createSharedWalletIcon: {
+  createOrganizationIcon: {
     marginLeft: 8,
   },
 }));
 
 const MyProfile = () => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const [isRedirect, setIsRedirect] = useState(false);
+
   const safe = useSelector((state) => state.safe);
   const profilePath = useRelativeProfileLink(safe.currentAccount);
 
-  // @TODO: Remove organizations for now
-  // const handleAccountSwitch = (account) => {
-  //   dispatch(switchAccount(account));
-  //   setIsRedirect(true);
-  // };
+  useUpdateLoop(async () => {
+    await dispatch(checkSharedSafeState());
+  });
+
+  const handleAccountSwitch = (account) => {
+    dispatch(switchAccount(account));
+    setIsRedirect(true);
+  };
+
+  if (isRedirect) {
+    return <Redirect push to={DASHBOARD_PATH} />;
+  }
 
   return (
     <Fragment>
@@ -72,36 +89,36 @@ const MyProfile = () => {
           </ButtonGroup>
         </Grid>
       </Grid>
-      {/* <List> */}
-      {/*   {safe.accounts */}
-      {/*     .filter((account) => { */}
-      {/*       return account !== safe.currentAccount; */}
-      {/*     }) */}
-      {/*     .map((account) => { */}
-      {/*       return ( */}
-      {/*         <MyProfileAccount */}
-      {/*           address={account} */}
-      {/*           key={account} */}
-      {/*           onSelect={handleAccountSwitch} */}
-      {/*         /> */}
-      {/*       ); */}
-      {/*     })} */}
-      {/*   {!safe.isOrganization && ( */}
-      {/*     <ListItem */}
-      {/*       button */}
-      {/*       className={classes.listItem} */}
-      {/*       component={Link} */}
-      {/*       to={ORGANIZATION_PATH} */}
-      {/*     > */}
-      {/*       <ListItemIcon className={classes.createSharedWalletIcon}> */}
-      {/*         <IconAdd /> */}
-      {/*       </ListItemIcon> */}
-      {/*       <ListItemText> */}
-      {/*         {translate('MyProfile.buttonCreateSharedWallet')} */}
-      {/*       </ListItemText> */}
-      {/*     </ListItem> */}
-      {/*   )} */}
-      {/* </List> */}
+      <List>
+        {safe.accounts
+          .filter((account) => {
+            return account !== safe.currentAccount;
+          })
+          .map((account) => {
+            return (
+              <MyProfileAccount
+                address={account}
+                key={account}
+                onSelect={handleAccountSwitch}
+              />
+            );
+          })}
+        {!safe.isOrganization && (
+          <ListItem
+            button
+            className={classes.listItem}
+            component={Link}
+            to={ORGANIZATION_PATH}
+          >
+            <ListItemIcon className={classes.createOrganizationIcon}>
+              <IconAdd />
+            </ListItemIcon>
+            <ListItemText>
+              {translate('MyProfile.buttonCreateOrganization')}
+            </ListItemText>
+          </ListItem>
+        )}
+      </List>
     </Fragment>
   );
 };

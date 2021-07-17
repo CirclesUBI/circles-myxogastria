@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import React, { Fragment, useState, useEffect, useRef } from 'react';
-import { Box, Backdrop, CircularProgress } from '@material-ui/core';
-import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
+import { Backdrop, Box, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
+import PropTypes from 'prop-types';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import core from '~/services/core';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 
 let scanner;
 

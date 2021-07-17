@@ -1,9 +1,9 @@
-import { useMemo, useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import { usePendingTrust } from '~/hooks/activity';
 import core from '~/services/core';
 import { ZERO_ADDRESS } from '~/utils/constants';
-import { usePendingTrust } from '~/hooks/activity';
 
 export function useTrustConnection(address) {
   const { network } = useSelector((state) => state.trust);

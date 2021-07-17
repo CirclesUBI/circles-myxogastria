@@ -1,5 +1,5 @@
+import { Container, Typography } from '@material-ui/core';
 import React, { Fragment, useMemo } from 'react';
-import { Typography, Container } from '@material-ui/core';
 
 import ButtonBack from '~/components/ButtonBack';
 import ButtonClipboard from '~/components/ButtonClipboard';
@@ -9,7 +9,7 @@ import Header from '~/components/Header';
 import Mnemonic from '~/components/Mnemonic';
 import View from '~/components/View';
 import translate from '~/services/locale';
-import { toSeedPhrase, getPrivateKey } from '~/services/wallet';
+import { getPrivateKey, toSeedPhrase } from '~/services/wallet';
 
 const SeedPhrase = () => {
   const mnemonic = useMemo(() => {

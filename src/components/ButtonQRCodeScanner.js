@@ -1,6 +1,6 @@
+import { IconButton } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { IconButton } from '@material-ui/core';
 
 import QRCodeScanner from '~/components/QRCodeScanner';
 import { IconScan } from '~/styles/icons';

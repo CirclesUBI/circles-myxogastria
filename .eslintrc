@@ -16,7 +16,7 @@
       "jsx": true
     }
   },
-  "plugins": ["react", "prettier", "react-hooks"],
+  "plugins": ["react", "prettier", "react-hooks", "import"],
   "rules": {
     "no-console": "error",
     "react/jsx-sort-props": [
@@ -25,7 +25,31 @@
         "callbacksLast": true
       }
     ],
-    "react/sort-prop-types": "error"
+    "react/jsx-newline": ["error", { "prevent": true }],
+    "react/sort-prop-types": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "type",
+          ["internal", "parent", "sibling", "index"]
+        ],
+        "pathGroups": [
+          {
+            "pattern": "~/*",
+            "group": "internal"
+          }
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "sort-imports": ["error", { "ignoreDeclarationSort": true }]
   },
   "settings": {
     "react": {

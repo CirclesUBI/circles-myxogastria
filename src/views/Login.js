@@ -1,5 +1,3 @@
-import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Box,
   Container,
@@ -7,7 +5,11 @@ import {
   Paper,
   Typography,
 } from '@material-ui/core';
+import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { ONBOARDING_PATH } from '~/routes';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
@@ -17,16 +19,15 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import Input from '~/components/Input';
 import View from '~/components/View';
-import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import translate from '~/services/locale';
-import { ONBOARDING_PATH } from '~/routes';
-import {
-  RESTORE_ACCOUNT_UNKNOWN_SAFE,
-  RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
-} from '~/utils/errors';
-import { SUPPORT_URL } from '~/utils/constants';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { restoreAccount } from '~/store/onboarding/actions';
+import { SUPPORT_URL } from '~/utils/constants';
+import {
+  RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
+  RESTORE_ACCOUNT_UNKNOWN_SAFE,
+} from '~/utils/errors';
 
 const Login = () => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
+import { Box, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
 
 import Avatar from '~/components/Avatar';
 import QRCode from '~/components/QRCode';
