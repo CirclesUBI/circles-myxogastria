@@ -4,8 +4,8 @@
   },
   "ActivityStream": {
     "bodyActivityAddedToSafe": "a été ajouté à ce compte",
-    "bodyActivityMeTrustedSomeone": "Vous faites confiance @{actor}",
-    "bodyActivityMeUntrustedSomeone": "Vous ne faites pas confiance @{actor}",
+    "bodyActivityMeTrustedSomeone": "Vous faites confiance à @{actor}",
+    "bodyActivityMeUntrustedSomeone": "Vous ne faites pas confiance à @{actor}",
     "bodyActivityMyselfAddedToSafe": "Vous avez associé cet appareil à ce compte",
     "bodyActivityReceivedCircles": "@{actor} vous a envoyé",
     "bodyActivityReceivedUBI": "Circles RUB",
@@ -14,14 +14,14 @@
     "bodyActivityTrustedBySomeone": "@{actor} vous fait confiance ",
     "bodyActivityUntrustedBySomeone": "@{actor} vous ne fait pas confiance ",
     "bodyDateNow": "Maintenant",
-    "bodyExplainMeTrustedSomeone": "Vous avez fait confiance à @{actor} ce qui signifie que @{acteur} peut vous envoyer ses jetons.",
-    "bodyExplainMeUntrustedSomeone": "Vous n'avez pas fait confiance à @{actor}, ce qui signifie que vous n'acceptez plus aucun jeton de leur part.",
-    "bodyExplainReceivedCircles": "Vous avez reçu {valeur} {dénominateur} de @{acteur} de manière transitive. ",
+    "bodyExplainMeTrustedSomeone": "Vous avez fait confiance à @{actor} ce qui signifie que @{actor} peut vous envoyer ses jetons.",
+    "bodyExplainMeUntrustedSomeone": "Vous n'avez pas fait confiance à @{actor}, ce qui signifie que vous n'acceptez plus aucun jeton de sa part.",
+    "bodyExplainReceivedCircles": "Vous avez reçu {value} {denominator} de @{actor} de manière transitive. ",
     "bodyExplainReceivedUBI": "Ceci est votre revenu de base universel, émis comme votre propre monnaie personnelle. Vous recevez environ {rate} par mois.",
     "bodyExplainSecondary": "Toutes les activités comportent des frais de transaction minimes utilisés pour maintenir le réseau Circles.",
-    "bodyExplainSentCircles": "Vous avez envoyé {valeur} {dénominateur} à @{acteur} de manière transitive.",
-    "bodyExplainTrustedBySomeone": "@{acteur} vous fait confiance. Vous pouvez  envoyer votre jeton maintenant.",
-    "bodyExplainUntrustedBySomeone": "@{acteur} ne vous fait pas confiance, ce qui signifie qu'elle/il n'accepte plus votre jeton.",
+    "bodyExplainSentCircles": "Vous avez envoyé {value} {denominator} à @{actor} de manière transitive.",
+    "bodyExplainTrustedBySomeone": "@{actor} vous fait confiance. Vous pouvez  envoyer votre jeton maintenant.",
+    "bodyExplainUntrustedBySomeone": "@{actor} ne vous fait pas confiance, ce qui signifie qu'elle/il n'accepte plus votre jeton.",
     "bodyNothingHereYet": "Il n'y a pas encore d'activités récentes à afficher ",
     "bodyPaymentNote": "Note: {note}",
     "buttonLoadMore": "Afficher Plus",
@@ -38,11 +38,19 @@
     "errorAvatarUpload": "Impossible de télécharger l'image. Est-ce le bon format et la bonne taille?"
   },
   "BalanceDisplay": {
-    "tooltipYourBalance": "Votre revenu de base est émis en continu à raison de {rate} Circles par mois."
+    "tooltipYourBalance": "Votre revenu de base est émis  continuellement à raison de {rate} Circles par mois."
   },
   "ButtonClipboard": {
     "buttonCopy": "Copier dans le presse-papier",
     "infoCopiedMessage": "Texte copié dans le presse-papiers"
+  },
+  "CheckboxPrivacy": {
+    "checkboxLabel": "j'ai lu ",
+    "checkboxLink": "Politique de confidentialité"
+  },
+  "CheckboxTerms": {
+    "checkboxLabel": "je suis d'accord avec",
+    "checkboxLink": "Termes et Conditions"
   },
   "CriticalError": {
     "bodyCriticalErrorDescription": "Oh non! Il y a eu un probleme. Veuillez recharger cette page et réessayer.",
@@ -50,7 +58,7 @@
     "buttonBurnWallet": "Réinitialiser le compte ",
     "buttonReload": "Actualiser la page",
     "dialogAreYouSure": "Voulez-vous vraiment réinitialiser ce portefeuille ? Vous ne pourrez pas le récupérer sans votre Phrase de Départ.",
-    "infoCopiedMessage": "Text copied to clipboard"
+    "infoCopiedMessage": "Texte copié dans le presse-papiers"
   },
   "Dashboard": {
     "formSearch": "Ajouter ou rechercher des contacts"
@@ -64,29 +72,29 @@
   "DialogTrust": {
     "dialogTrustCancel": "Annuler",
     "dialogTrustConfirm": "Confiance",
-    "dialogTrustDescription": "Êtes-vous sûr de vouloir faire confiance à cette personne ? Faire confiance à quelqu'un est dangereux et peut affecter la sécurité de l'application. Afin de rester en sécurité, ne faites confiance qu'aux personnes que vous connaissez dans la vraie vie.",
+    "dialogTrustDescription": "Êtes-vous sûr de vouloir faire confiance à cette personne ? Faire confiance à un inconnu est dangereux et peut affecter la sécurité de l'application. Afin de rester en sécurité, ne faites confiance qu'aux personnes que vous connaissez dans la vraie vie.",
     "dialogTrustTitle": "Faites-vous confiance en @{username}?",
-    "errorTrust": "Quelque chose s'est mal passé lorsque vous avez essayé de faire confiance  @{username} ...",
-    "successTrust": "Bien. Vous avez fait confiance @{username}!"
+    "errorTrust": "Quelque chose s'est mal passé lorsque vous avez essayé de faire confiance à @{username} ...",
+    "successTrust": "Bien. Vous avez fait confiance à @{username}!"
   },
   "DialogTrustRevoke": {
     "dialogRevokeTrustCancel": "Annuler",
     "dialogRevokeTrustConfirm": "Révoquer la confiance",
     "dialogRevokeTrustDescription": "Voulez-vous vraiment révoquer la confiance en @{username} ?}?",
-    "dialogRevokeTrustTitle": "Ne pas faire confiance @{username} }",
+    "dialogRevokeTrustTitle": "Ne pas faire confiance à @{username} }",
     "errorRevokeTrust": "Une erreur s'est produite lorsque vous avez essayé de ne plus faire confiance à @{username} ...",
-    "successRevokeTrust": "Vous avez révoqué votre confiance envers @{username}!"
+    "successRevokeTrust": "Vous avez révoqué votre confiance à @{username}!"
   },
   "DonationNote": {
     "bodyTitle": "Circles a besoin de vous ! ",
     "bodyPrimary": "Depuis son lancement l'année dernière, la communauté Circles a atteint 200 000 utilisateurs dans le monde. L'intérêt pour le projet a conduit à une mise à l'échelle rapide, qui a surchargé nos serveurs, et après une refonte de notre infrastructure, nous sommes à la fin de notre budget.",
     "bodySecondary": "Nous avons besoin de votre soutien pour continuer ! Nous avons besoin de votre aide pour faire du revenu de base une réalité dans le monde entier ! Nous recherchons des donateurs réguliers et engagés qui soutiennent le developement des Circles.",
-    "bodyThird": "Votre don est crucial ! Soutient la création d'un revenu de base pour tous et crée des économies locales durables dans le monde entier.",
+    "bodyThird": "Votre donation est crucial ! Soutient la création d'un revenu de base pour tous et crée des économies locales durables dans le monde entier.",
     "buttonDonate": "Faire un don maintenant",
     "buttonClose": "Fermer"
   },
   "Finder": {
-    "bodyFilterDirect": "Directement digne de confiance",
+    "bodyFilterDirect": "Confiance Directe",
     "bodyFilterExternal": "Externe",
     "bodyFilterIndirect": "Dans votre réseau",
     "bodyNoResultsGiven": "Aucun résultat de recherche trouvé !",
@@ -109,20 +117,22 @@
     "errorRestoreFailedUnknown": "Impossible de restaurer le compte en raison d'une erreur inconnue. ",
     "errorRestoreFailedUnknownSafe": "Le compte que vous avez essayé de restaurer n'est pas enregistré.",
     "headingLogin": "Login",
-    "linkSupport": "Allez à l'assistance.",
+    "linkSupport": "Aller à l'assistance.",
     "successWelcome": "Connexion au compte réussie. Bienvenue!"
   },
   "MyProfile": {
-    "buttonCreateSharedWallet": "Créer un portefeuille partagé",
+    "buttonCreateOrganization": "Créer un portefeuille partagé",
     "buttonShowProfile": "Afficher le profile",
     "buttonShowQR": "Afficher Code QR"
   },
   "Navigation": {
     "buttonActivityLog": "Journal d'Activité",
-    "buttonAddDevice": "Paramètres",
+    "buttonSettings": "Paramètres",
     "buttonExportSeedPhrase": "Exporter Phrase de Départ ",
     "buttonMyQR": "Mon QR",
+    "buttonTrustPeople": "Personne Confiance",
     "buttonSendCircles": "Envoyer Circles",
+    "buttonOrganization": "Créer un portefeuille partagé",
     "linkAbout": "A Propos",
     "linkFAQ": "FAQ",
     "linkMarketplace": "Marché",
@@ -142,10 +152,6 @@
     "buttonCopyToClipboard": "Copier dans le presse-papier",
     "errorSignup": "Une erreur de serveur s'est produite lors de l'inscription : {errorMessage}",
     "formEmail": "Email",
-    "formTermsConditions": "je suis d'accord avec",
-    "termsConditions": "Termes et Conditions ",
-    "formPrivacyPolicy": "J'ai lu ",
-    "privacyPolicy": "Politique de confidentialité",
     "formSeedPhraseChallenge": "Votre Réponse",
     "formSeedPhraseChallengeInvalid": "Mauvaise réponse",
     "formUsername": "Nom d'utilisateur",
@@ -155,12 +161,12 @@
     "headingSeedPhraseChallenge": "Avez-vous enregistré votre phrase de départ?",
     "headingUsername": "Créer Votre Nom d'Utilisateur",
     "successOnboardingComplete": "Votre compte a été créé avec succès! Bienvenue!"
-  },
+},
   "OnboardingOrganization": {
     "bodyAvatar": "Votre photo est la façon dont les gens peuvent identifier votre portefeuille sur l'application Circles.",
     "bodyEmail": "Nous ne partageons jamais votre adresse e-mail et l'utilisons uniquement pour vous informer des changements importants apportés à la plate-forme.",
     "bodyPrefund": "Chaque activité du système Circles nécessite de faibles frais de maintenance. Envoyez 1 ou plusieurs Circles à votre nouveau portefeuille pour terminer la configuration.",
-    "bodyNom d'utilisateur": "Le nom de votre portefeuille est la façon dont les gens peuvent rechercher votre organisation sur l'application Circles.",
+    "bodyUsername": "Le nom de votre portefeuille est la façon dont les gens peuvent rechercher votre Portfeuille Partagé sur l'application Circles.",
     "errorSignup": "Une erreur de serveur s'est produite : {errorMessage} ",
     "formEmail": "Email",
     "formPrefundAmount": "Montant du fonds",
@@ -169,7 +175,7 @@
     "formUsername": "Nom du portefeuille",
     "headingAvatar": "Ajouter Photo",
     "headingEmail": "Email",
-    "headingPrefund": "Financez votre organisation",
+    "headingPrefund": "Versement à votre Portfeuille Partagé",
     "headingUsername": "Nommer votre portefeuille",
     "successOnboardingComplete": "Votre portefeuille partagé a été créé avec succès ! Vous pouvez commencer à inviter d'autres membres maintenant."
   },
@@ -180,20 +186,22 @@
   "OrganizationMembers": {
     "buttonRemoveMember": "Supprimer",
     "dialogCancel": "Annuler",
-    "dialogConfirm": "Supprimer membre",
-    "dialogRemoveMember": "Voulez-vous vraiment supprimer @{username} de cette organisation ?",
+    "dialogConfirm": "Confirmer",
+    "dialogRemoveMember": "Voulez-vous vraiment supprimer @{username} de ce Portfeuille Partagé  ?",
     "dialogTitle": "Supprimer  @{username}",
-    "errorRemovedMember": "Une erreur s'est produite, @{username} n'a pas pu être supprimé de l'organisation.",
+    "errorRemovedMember": "Une erreur s'est produite, @{username} n'a pas pu être supprimé du Portfeuille Partagé.",
     "headingMembers": "Membres de l'organisation",
     "successRemovedMember": "Vous avez supprimé avec succès @{username} de cette organisation."
   },
   "OrganizationMembersAdd": {
-    "dialogAddMember": "Avant d'inviter un nouveau membre, sachez /noter que tous les membres peuvent envoyer des Circles à partir de ce compte d'organisation. Voulez-vous vraiment ajouter @{username}?",
+    "dialogBody": "La confiance, c'est le pouvoir. Lorsque vous ajoutez quelqu'un, cela signifie que vous partagez le pouvoir d'envoyer des Circles à partir de votre portefeuille partagé.",
+    "dialogBodyCannotAdd": "Vous ne pouvez pas ajouter un autre portefeuille partagé en tant que membre d'un portefeuille partagé.",
     "dialogCancel": "Annuler",
     "dialogConfirm": "Ajouter membre",
     "dialogTitle": "Ajouter @{username}",
     "errorAddedMember": "Une erreur s'est produite, @{username} n'a pas pu être ajouté à l'organisation",
-    "headingAddMember": "Ajouter membre",
+    "headingAddMember": "Add member",
+    "linkLearnMore": "Savoir Plus",
     "successAddedMember": "Vous avez bien ajouté @{username} à cette organisation."
   },
   "Profile": {
@@ -226,6 +234,7 @@
     "notificationError": "Impossible d'ouvrir le scanner de code QR: {error}."
   },
   "QRGenerator": {
+    "bodyPaymentNoteInvalid": "Vous ne pouvez pas écrire de symboles spéciaux comme {}<>^ et plus de 100 caractères.",
     "buttonShowQRCode": "Afficher Code QR",
     "dialogClose": "Fermer",
     "dialogSaveFile": "Enregistrer sous format de fichier .png ",
@@ -239,7 +248,7 @@
     "headingSearch": "Réseau de Confiance "
   },
   "SeedPhrase": {
-    "bodyDescription": "Imprimer ceci et ranger le en toute sécurité:",
+    "bodyDescription": "Imprimer ceci et ranger le en lieu sûr:",
     "buttonCopyToClipboard": "Copier dans le presse-papier",
     "headingExportSeedPhrase": "Exporter la phrase de depart"
   },
@@ -253,7 +262,7 @@
       "zero": "Actuellement vous ne pouvez rien envoyer à @{username}, car il n'y a pas de chemin de confiance entre vous."
     },
     "bodyMaxFlow": "Montant maximum: {amount}",
-    "bodyPaymentNoteInvalid": "Vous ne pouvez pas écrire des symboles spéciaux comme {} <> ^ et plus de 100 caractères.",
+    "bodyPaymentNoteInvalid": "Vous ne pouvez pas écrire des symboles spéciaux comme {} <> ^ ni plus de 100 caractères.",
     "buttonSubmitAmount": "Envoyer",
     "dialogSendCancel": "Annuler",
     "dialogSendConfirm": "Confirmer",
@@ -268,7 +277,7 @@
     "formReceiver": "Destinataire",
     "formSender": "Expediteur",
     "headingSendCircles": "Envoyer Circles",
-    "successMessage": "Vous avez transféré avec succès {amount} Circles  @{username}!",
+    "successMessage": "Vous avez transféré avec succès {amount} Circles à @{username}!",
     "tooltipMaxFlow": "Actuellement le montant maximal de Circles que vous pouvez envoyer dans le réseau Confiance pour @{username}"
   },
   "Settings": {
@@ -296,12 +305,23 @@
     "buttonSkip": "Ignorer"
   },
   "TutorialOnboarding": {
-    "bodyBuildYourOwnEconomy": "Circles n'a pas de leadership central, il est donc à vous de créer. Vous pouvez inviter des amis et des entreprises locales à des Circles pour soutenir et créer une économie alternative.  Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support and create an alternative economy.",
+    "bodyBuildYourOwnEconomy": "Circles n'a pas de direction central, c'est donc à vous de faire avec. Vous pouvez inviter des amis et des entreprises locales à des Circles pour soutenir et créer une économie alternative."
     "bodyUnconditionalIncome": "Circles est conçu pour être un revenu de base du bas vers le haut . Lorsque vous créez un compte de Circles, vous recevez régulièrement des jetons de Circles émis sans condition.",
-    "bodyWebOfTrust": "Vous pouvez envoyer des Circles avec des personnes en qui vous avez confiance et les personnes en qui elles ont confiance.",
+    "bodyWebOfTrust": "Vous pouvez utiliser des Circles avec des personnes en qui vous avez confiance et les personnes en qui elles ont confiance.",
     "headingBuildYourOwnEconomy": "Construire votre propre économie",
     "headingUnconditionalIncome": "Revenu inconditionnel",
     "headingWebOfTrust": "Une Toile de Confiance"
+  },
+  "TutorialOrganization":{
+    "finish": "Commençons!",
+    "next": "Suivant",
+    "slideBody1": "Avec un portefeuille partagé, vous pouvez rassembler vos Circles individuels et organiser des projets communs avec les personnes en qui vous avez confiance. Ce portefeuille ne recevra pas de revenu de base.",
+    "slideBody2": "Les organisations, les familles, les communautés et les individus peuvent utiliser ces portefeuilles pour tenir des Circles en commun ou garder la trace d'une activité personnelle.",
+    "slideBody3": "En tant que groupe, vous pouvez faire confiance aux personnes afin d'accepter leurs Circles. Vous pouvez également envoyer et recevoir des Circles d'autres groupes.",
+    "slideBody3Link": "En savoir plus sur la façon de s'organiser avec d'autres groupes.",
+    "slideHeading1": "Portefeuille Partagé",
+    "slideHeading2": "Partager la richesse",
+    "slideHeading3": "Partager la confiance "
   },
   "UBI": {
     "infoUbiPayoutReceived": "Vous avez reçu {payout} Circles!"
