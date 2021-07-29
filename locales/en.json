@@ -317,14 +317,14 @@
     "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
   },
   "Tutorial": {
-    "buttonFinish": "Got it.",
+    "buttonFinish": "Got it. Sign me up!",
     "buttonNextStep": "Next",
     "buttonSkip": "Skip"
   },
   "TutorialOnboarding": {
-    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support and create an alternative economy.",
-    "bodyUnconditionalIncome": "Circles is designed to be a basic income from the bottom-up. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
-    "bodyWebOfTrust": "You can spend Circles with people you trust, and the people they trust. ",
+    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support an alternative economy.",
+    "bodyUnconditionalIncome": "Circles is designed similar to a basic income. Because it is people-powered, it is based on trust. To receive your basic income, three people already trusted in the Circles system must trust your profile. This way you are unconditionally issued Circles tokens on a regular basis.",
+    "bodyWebOfTrust": "You can spend Circles with people who you trust. The more connected your community is, the more valuable your Circles become.",
     "headingBuildYourOwnEconomy": "Build Your Own Economy",
     "headingUnconditionalIncome": "Unconditional Income",
     "headingWebOfTrust": "A Web of Trust"
