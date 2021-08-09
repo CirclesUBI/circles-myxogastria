@@ -35,7 +35,7 @@
     "errorUpdate": "Something went wrong, are you connected to the internet? {errorMessage}"
   },
   "AvatarUploader": {
-    "errorAvatarUpload": "Could not upload image. Is it the right format and size?"
+    "errorAvatarUpload": "Ups, Something went wrong!\nMake sure your image is a jpeg or png of Max 1MB."
   },
   "BalanceDisplay": {
     "tooltipYourBalance": "Your basic income is issued continuously at the rate of {rate} Circles a month."
