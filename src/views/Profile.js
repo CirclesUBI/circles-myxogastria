@@ -407,7 +407,7 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
         onConfirm={handleRevokeTrustClose}
         onSuccess={handleRevokeTrustSuccess}
       />
-      <IconButton
+      {!isOrganization && <IconButton
         classes={{
           root: clsx(classes.trustButton, {
             [classes.trustButtonActive]: trustStatus.isMeTrusting,
@@ -415,7 +415,7 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
           disabled: classes.trustButtonDisabled,
         }}
         disabled={
-          isDisabled || trustStatus.isPending || !isReady || isOrganization
+          isDisabled || trustStatus.isPending || !isReady
         }
         onClick={
           trustStatus.isMeTrusting ? handleRevokeTrustOpen : handleTrustOpen
@@ -426,7 +426,7 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
         ) : (
           <TrustIcon className={classes.trustButtonIcon} />
         )}
-      </IconButton>
+      </IconButton>}
     </Fragment>
   );
 };
