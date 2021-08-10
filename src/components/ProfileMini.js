@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     fontSize: 16,
   },
-  mututalFriends: {
+  mutualFriends: {
     fontSize: 12,
     color: theme.palette.grey['800'],
   },
@@ -116,7 +116,7 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
                   username,
                 })}
               >
-                <Typography className={classes.mututalFriends} component="span">
+                <Typography className={classes.mutualFriends} component="span">
                   <IconFriends className={classes.mutualFriendsIcon} />{' '}
                   {mutualFriendsCount}
                 </Typography>
