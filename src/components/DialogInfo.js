@@ -7,7 +7,7 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Button from '~/components/Button';
+import ButtonClose from '~/components/ButtonClose';
 
 const DialogInfo = ({ dialogContent, handleClose, id, isOpen, title }) => {
   return (
@@ -19,10 +19,8 @@ const DialogInfo = ({ dialogContent, handleClose, id, isOpen, title }) => {
     >
       <DialogTitle id={`dialog-${id}-title`}>{title}</DialogTitle>
       <DialogContent>{dialogContent}</DialogContent>
-      <DialogActions>
-        <Button align="center" isOutline onClick={handleClose}>
-          X
-        </Button>
+      <DialogActions style={{ justifyContent: 'center' }}>
+        <ButtonClose onClick={handleClose} />
       </DialogActions>
     </MuiDialog>
   );
