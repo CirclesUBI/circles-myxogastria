@@ -1,4 +1,4 @@
-import { Box, Typography } from '@material-ui/core';
+import { Box, ListItem, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -6,8 +6,12 @@ import { useDispatch } from 'react-redux';
 import { WELCOME_PATH } from '~/routes';
 
 import AvatarUploader from '~/components/AvatarUploader';
+import ButtonClipboard from '~/components/ButtonClipboard';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
+import DialogInfo from '~/components/DialogInfo';
+import ExternalLink from '~/components/ExternalLink';
+import Footer from '~/components/Footer';
 import Input from '~/components/Input';
 import Mnemonic from '~/components/Mnemonic';
 import OnboardingStepper from '~/components/OnboardingStepper';
@@ -64,6 +68,7 @@ const Onboarding = () => {
   const steps = [
     OnboardingStepUsername,
     OnboardingStepEmail,
+    OnboardingStepSecureWallet,
     OnboardingStepSeedPhrase,
     OnboardingStepSeedChallenge,
     OnboardingStepAvatar,
@@ -159,11 +164,30 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
   );
 };
 
-const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
-  const mnemonic = useMemo(() => {
-    const privateKey = getPrivateKey();
-    return toSeedPhrase(privateKey);
-  }, []);
+const OnboardingStepSecureWallet = ({ onDisabledChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = (event) => {
+    event.preventDefault();
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const dialogContent = (
+    <Fragment>
+      <Typography paragraph>
+        {translate('Onboarding.bodyAboutSeedPhraseP1')}
+      </Typography>
+      <Typography paragraph>
+        {translate('Onboarding.bodyAboutSeedPhraseP2')}
+      </Typography>
+      <Typography paragraph>
+        {translate('Onboarding.bodyAboutSeedPhraseP3')}
+      </Typography>
+    </Fragment>
+  );
 
   useEffect(() => {
     onDisabledChange(false);
@@ -171,6 +195,80 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
 
   return (
     <Fragment>
+      <DialogInfo
+        dialogContent={dialogContent}
+        handleClose={handleClose}
+        id="info"
+        isOpen={isOpen}
+        title={translate('Onboarding.headingAboutSeedPhrase')}
+      />
+      <Typography align="center" gutterBottom variant="h2">
+        {translate('Onboarding.headingSecureWallet')}
+      </Typography>
+      <Typography paragraph>
+        {translate('Onboarding.bodySecureWalletP1A')}
+        <ExternalLink href="#" underline="always" onClick={handleOpen}>
+          {translate('Onboarding.bodySecureWalletP1Link')}
+        </ExternalLink>
+        {translate('Onboarding.bodySecureWalletP1B')}
+      </Typography>
+      <Typography paragraph>
+        {translate('Onboarding.bodySecureWalletP2')}
+      </Typography>
+    </Fragment>
+  );
+};
+
+const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const mnemonic = useMemo(() => {
+    const privateKey = getPrivateKey();
+    return toSeedPhrase(privateKey);
+  }, []);
+
+  const handleOpen = (event) => {
+    event.preventDefault();
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    onDisabledChange(false);
+  }, [onDisabledChange]);
+
+  const dialogContent = (
+    <Fragment>
+      <Typography paragraph>
+        {translate('Onboarding.bodySaveSeedPhraseHelper')}
+      </Typography>
+      <ListItem>
+        {translate('Onboarding.listItemSaveSeedPhraseHelper1')}
+      </ListItem>
+      <ListItem>
+        {translate('Onboarding.listItemSaveSeedPhraseHelper2')}
+      </ListItem>
+      <ListItem>
+        {translate('Onboarding.listItemSaveSeedPhraseHelper3')}
+      </ListItem>
+      <ListItem>
+        {translate('Onboarding.listItemSaveSeedPhraseHelper4')}
+      </ListItem>
+    </Fragment>
+  );
+
+  return (
+    <Fragment>
+      <DialogInfo
+        dialogContent={dialogContent}
+        handleClose={handleClose}
+        id="info"
+        isOpen={isOpen}
+        title={translate('Onboarding.headingSaveSeedPhraseHelper')}
+      />
       <Typography align="center" gutterBottom variant="h2">
         {translate('Onboarding.headingSeedPhrase')}
       </Typography>
@@ -178,6 +276,15 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
       <Box my={4}>
         <Mnemonic text={mnemonic} />
       </Box>
+      <Typography>{translate('Onboarding.footerSeedPhrase')}</Typography>
+      <ExternalLink href="#" underline="always" onClick={handleOpen}>
+        {translate('Onboarding.linkHelperSaveSeedPhrase')}
+      </ExternalLink>
+      <Footer>
+        <ButtonClipboard fullWidth isOutline text={mnemonic}>
+          {translate('SeedPhrase.buttonCopyToClipboard')}
+        </ButtonClipboard>
+      </Footer>
     </Fragment>
   );
 };
@@ -276,7 +383,13 @@ OnboardingStepEmail.propTypes = {
   ...stepProps,
 };
 
+OnboardingStepSecureWallet.propTypes = {
+  isOpen: PropTypes.bool,
+  ...stepProps,
+};
+
 OnboardingStepSeedPhrase.propTypes = {
+  isOpen: PropTypes.bool,
   ...stepProps,
 };
 
