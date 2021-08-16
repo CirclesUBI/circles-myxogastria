@@ -172,6 +172,16 @@ export default createMuiTheme({
         backgroundColor: colors.black,
       },
     },
+    MuiListItem: {
+      root: {
+        font: fontFamily,
+        fontWeight: fontWeightLight,
+        fontSize: '16px',
+        paddingTop: '0px',
+        paddingBottom: '0px',
+        display: 'list-item',
+      },
+    },
     // @NOTE: This is a workaround to fix an issue with Safari 14.1.1
     // displaying the button color wrong after it changed to enabled state.
     //
