@@ -24,6 +24,7 @@ const Root = (props) => (
     <NoSsr>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <h2>Testing PR deploys</h2>
         <App />
       </ThemeProvider>
     </NoSsr>
