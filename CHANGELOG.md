@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.2] - 2021-08-27
+
+### Added
+
+- Update upload error mesage with file requirements [#242](https://github.com/CirclesUBI/circles-myxogastria/pull/242)
+
 ## [1.9.1] - 2021-07-16
 
 ### Added
