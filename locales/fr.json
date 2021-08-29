@@ -35,7 +35,7 @@
     "errorUpdate": "Il y a eu un probleme, êtes-vous connecté à Internet ? {errorMessage}"
   },
   "AvatarUploader": {
-    "errorAvatarUpload": "Impossible de télécharger l'image. Est-ce le bon format et la bonne taille?"
+    "errorAvatarUpload": "Oups, quelque chose s'est mal passé !\nAssurez-vous que votre image est un jpeg ou un png de maximum 1 MB."
   },
   "BalanceDisplay": {
     "tooltipYourBalance": "Votre revenu de base est émis  continuellement à raison de {rate} Circles par mois."
