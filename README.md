@@ -53,7 +53,7 @@ React web application and mobile client running in the browser hosted on [Circle
 
 ## Requirements
 
-- Node.js (tested with v12 and v14)
+- [Node.js](https://nodejs.org/en/) (tested with v12 and v14)
 
 ## Development
 

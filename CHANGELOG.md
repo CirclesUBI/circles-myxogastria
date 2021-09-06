@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.3] - 2021-08-29
+
+### Added
+
+- Update environment variables
+
 ## [1.9.2] - 2021-08-27
 
 ### Added
