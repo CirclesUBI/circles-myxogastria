@@ -1,0 +1,385 @@
+{
+  "Aktivitas": {
+    "headingActivityLog": "Daftar Aktivitas"
+  },
+  "ActivityStream": {
+    "bodyActivityAddedToSafe": "ditambahkan dalam akun ini",
+    "bodyActivityMeTrustedSomeone": "Anda percaya @{actor}",
+    "bodyActivityMeUntrustedSomeone": "Anda batal percaya @{actor}",
+    "bodyActivityMyselfAddedToSafe": "Anda menghubungkan perangkat ini ke akun ini",
+    "bodyActivityReceivedCircles": "@{actor} mengirimkan anda",
+    "bodyActivityReceivedUBI": "Circles PDU",
+    "bodyActivityRemovedFromSafe": "@{actor} dihapus dari akun ini",
+    "bodyActivitySentCircles": "Terkirim ke  @{actor}",
+    "bodyActivityTrustedBySomeone": "@{actor} percaya Anda",
+    "bodyActivityUntrustedBySomeone": "@{actor} batal percaya Anda",
+    "bodyDateNow": "Sekarang",
+    "bodyExplainMeTrustedSomeone": "Anda percaya @{actor} sehingga @{actor} bisa mengirimkan token ke Anda",
+    "bodyExplainMeUntrustedSomeone": "Anda batal percaya @{actor} sehingga Anda tidak dapat menerima menerima token dari mereka",
+    "bodyExplainReceivedCircles": "Anda menerima {value} {denominator} dari @{actor} secara transitif",
+    "bodyExplainReceivedUBI": "Ini adalah Pendapatan Dasar Universal Anda, diberikan sebagai mata uang pribadi Anda. Anda menerima sekitar {rate} per bulan.",
+    "bodyExplainSecondary": "Seluruh aktivitas memiliki sedikit biaya transaksi yang digunakan untuk memelihara jaringan Circles.",
+    "bodyExplainSentCircles": "Anda mengirimkan {value} {denominator} ke @{actor} secara transitif",
+    "bodyExplainTrustedBySomeone": "@{actor} percaya Anda. Anda dapat mengirimkan token kepadanya sekarang.",
+    "bodyExplainUntrustedBySomeone": "@{actor} batal percaya Anda sehingga ia tidak lagi dapat menerima token Anda.",
+    "bodyNothingHereYet": "Belum ada aktivitas terakhir untuk ditampilkan",
+    "bodyPaymentNote": "Catatan: {note}",
+    "buttonLoadMore": "Tampilkan lebih banyak",
+    "linkLearnMore": "Pelajari lebih lanjut."
+  },
+  "ActivityStreamWithTabs": {
+    "bodyFilterConnections": "Koneksi",
+    "bodyFilterTransactions": "Transaksi"
+  },
+  "App": {
+    "errorUpdate": "Gangguan, apakah Anda terhubung dengan internet? {errorMessage}"
+  },
+  "AvatarUploader": {
+    "errorAvatarUpload": "Tidak dapat memuat gambar. Apakah ukuran dan format gambar sudah sesuai?"
+  },
+  "BalanceDisplay": {
+    "tooltipYourBalance": "Pendapatan dasar Anda dikirimkan secara berkala sebesar {rate} Circles sebulan."
+  },
+  "ButtonClipboard": {
+    "buttonCopy": "Salin teks",
+    "infoCopiedMessage": "teks disalin"
+  },
+  "CheckboxPrivacy": {
+    "checkboxLabel": "Saya telah membaca",
+    "checkboxLink": "Kebijkan Privasi"
+  },
+  "CheckboxTerms": {
+    "checkboxLabel": "Saya menyetujui",
+    "checkboxLink": "Syarat dan Ketentuan"
+  },
+  "CriticalError": {
+    "bodyCriticalErrorDescription": "Gangguan! Silahkan muat ulang halaman ini dan coba lagi",
+    "bodyCriticalErrorTryAgain": "Gangguan! Silahkan muat ulang halaman ini dan coba lagi.",
+    "buttonBurnWallet": "Atur ulang akun",
+    "buttonReload": "Muat ulang",
+    "dialogAreYouSure": "Apakah Anda yakin ingin mengatur ulang dompet ini? Anda tidak dapat memulihkan data tanpa rangkaian kata kunci.",
+    "infoCopiedMessage": "teks disalin"
+  },
+  "Dashboard": {
+    "formSearch": "Tambah atau cari kontak"
+  },
+  "DialogBurn": {
+    "dialogBurnCancel": "Batal",
+    "dialogBurnConfirm": "Akhiri Sesi",
+    "dialogBurnDescription": "Apakah anda yakin ingin mengakhiri sesi ini? Anda tidak dapat memulihkan akun Anda kecuali jika Anda mempunyai Rangkaian Kata Kunci",
+    "dialogBurnTitle": "Peringatan!"
+  },
+  "DialogTrust": {
+    "dialogTrustCancel": "Batal",
+    "dialogTrustConfirm": "Percaya",
+    "dialogTrustDescription": "Apakah anda yakin mempercayai orang ini? Mempercayai orang yang tidak tepat dapat membahayakan dan mempengaruhi keamanan aplikasi. Agar tetap aman, hanya percaya pada orang yang Anda kenal di dunia nyata",
+    "dialogTrustTitle": "Apakah Anda percaya @{username}?",
+    "errorTrust": "Terdapat gangguan saat Anda mencoba percaya @{username} ...",
+    "successTrust": "Mantap. Anda percaya @{username}!"
+  },
+  "DialogTrustRevoke": {
+    "dialogRevokeTrustCancel": "Batal",
+    "dialogRevokeTrustConfirm": "Cabut kepercayaan",
+    "dialogRevokeTrustDescription": "Apakah Anda yakin ingin mencabut kepercayaan pada @{username}?",
+    "dialogRevokeTrustTitle": "Batal percaya @{username}",
+    "errorRevokeTrust": "Terdapat gangguan saat Anda coba untuk batal percaya @{username} ...",
+    "successRevokeTrust": "Anda telah sukses mencabut kepercayaan Anda pada @{username}!"
+  },
+  "DonationNote": {
+    "bodyPrimary": "Sejak diluncurkan tahun lalu, komunitas Circles telah berkembang menjadi 200k pengguna di seluruh dunia. Ketertarikan pada program ini menyebabkan peningkatan berskala pesat sehingga terjadi luapan data pada jaringan kami, dan setelah perombakan infrastruktur, sisa anggaran kami menipis",
+    "bodySecondary": "Kami membutuhkan bantuan Anda untuk berlanjut! Kami membutuhkan bantuan Anda untuk membuat Pendapatan Dasar menjadi kenyataan di seluruh dunia! Kami mencari donor berkomitmen dan berkelanjutan yang dapat mendukung agar perkembangan Circles di dunia",
+    "bodyThird": "Donasi Anda sangat penting! Dukung pemenuhan pendapatan dasar bagi semua orang, dan ciptakan ekonomi lokal yang berkelanjutan di seluruh dunia",
+    "bodyTitle": "Circles perlu Anda!",
+    "buttonClose": "Tutup",
+    "buttonDonate": "Donasi sekarang"
+  },
+  "Finder": {
+    "bodyFilterDirect": "Langsung dipercaya",
+    "bodyFilterExternal": "Eksternal",
+    "bodyFilterIndirect": "Dalam jaringan Anda",
+    "bodyNoResultsGiven": "Hasil pencarian tidak ditemukan!",
+    "buttonLoadMore": "Tampilkan lebih banyak",
+    "formSearch": "Pencarian"
+  },
+  "LocaleSelector": {
+    "de": "DE",
+    "en": "EN",
+    "es": "ES",
+    "id": "ID"
+  },
+  "Login": {
+    "bodyEnterYourSeedPhrase": "Masukan rangkaian kata kunci di bawah ini untuk mengatur ulang dompet Anda:",
+    "bodyLostYourSeedPhrase": "Kehilangan rangkaian kata kunci Anda?",
+    "bodyNeedHelp": "Ada pertanyaan?",
+    "buttonCreateNewWallet": "Daftar di sini.",
+    "buttonSubmit": "Kirim",
+    "errorRestoreFailedInvalidSeedphrase": "rangkaian kata kunci Anda tidak sah.",
+    "errorRestoreFailedUnknown": "Tidak dapat memulihkan akun karena kesalahan yang tidak diketahui",
+    "errorRestoreFailedUnknownSafe": "Akun yang Anda coba pulihkan tidak terdaftar",
+    "headingLogin": "Masuk",
+    "linkSupport": "pergi ke pusat dukungan",
+    "successWelcome": "Berhasil terhubung dengan Akun. Selamat datang!"
+  },
+  "MyProfile": {
+    "buttonCreateOrganization": "Buat Dompet Bersama",
+    "buttonShowProfile": "Lihat Profil",
+    "buttonShowQR": "Tunjukan Kode QR"
+  },
+  "Navigation": {
+    "buttonActivityLog": "Daftar Aktivitas",
+    "buttonSettings": "Pengaturan",
+    "buttonExportSeedPhrase": "Expor rangkaian kata kunci",
+    "buttonMyQR": "QR Saya",
+    "buttonTrustPeople": "Percaya orang",
+    "buttonSendCircles": "Kirim Circles",
+    "buttonOrganization": "Buat Dompet Bersama",
+    "linkAbout": "Tentang",
+    "linkFAQ": "FAQ",
+    "linkMarketplace": "Lokapasar",
+    "linkPrivacyLegal": "Privasi / Hukum",
+    "linkSupport": "Dukungan"
+  },
+  "NotFound": {
+    "bodyNotFound": "Gangguan. Kami tidak dapat menemukan halaman yang diminta. Apakah Anda yakin alamatnya sudah benar?",
+    "headingNotFound": "Tidak ditemukan"
+  },
+  "Onboarding": {
+    "aboutSeedPhraseLink": "Kata-Kata Kunci",
+    "bodyAboutSeedPhraseP1": "Kata-kata kunci adalah satu set kata-kata yang berisi informasi mengenai dompet Anda, termasuk Circles Anda. Seperti kode rahasia yang digunakan untuk mengakses akun Anda",
+    "bodyAboutSeedPhraseP2": "Penting untuk menyimpan kata-kata kunci Anda dengan aman dan merahasiakannya. Jika seseorang mempunyai akses ke kata-kata kunci Anda, mereka dapat mengakses akun pribadi Anda.",
+    "bodyAboutSeedPhraseP3": "Simpan di tempat yang hanya bisa diakses oleh Anda. Jika hilang, tim Circles sekalipun tidak dapat memulihkannya kembali.",
+    "bodyAvatar": "Foto Anda adalah cara bagaimana teman Anda dapat mencari Anda di aplikasi Circles",
+    "bodyEmail": "Kami tidak akan menyebarluaskan alamat email Anda dan hanya menggunakannya untuk menginformasikan perubahan penting pada platform.",
+    "bodySaveSeedPhraseHelper": "Simpan di tempat yang hanya bisa diakses oleh Anda. Jika hilang, tim Circles sekalipun tidak dapat memulihkannya kembali.",
+    "bodySecureWalletP1A": "Jangan mengambil resiko kehilangan Akun Anda. Lindungi dompet Anda dengan menyimpan ",
+    "bodySecureWalletP1Link": "Kata - kata Kunci",
+    "bodySecureWalletP1B": " di tempat yang Anda percayai.",
+    "bodySecureWalletP2": "Ini adalah satu - satunya cara untuk memulihkan dompet Anda jika Anda terkunci dari aplikasi Anda atau jika mempunyai perangkat baru",
+    "bodySeedPhrase": "Ini adalah Sandi akun Anda. Anda bisa menggunakannya untuk masuk ke dalam akun Anda pada perangkat lain",
+    "bodySeedPhraseChallenge": "Silahkan masukan kata {wordIndex} di dalam rangkaian kata kunci Anda:",
+    "bodyUsername": "Nama pengguna Anda adalah cara bagaimana teman Anda bisa mencari Anda dalam aplikasi Circles",
+    "buttonCopyToClipboard": "Salin teks",
+    "errorSignup": "Gangguan server terjadi pada saat mendaftar: {errorMessage}",
+    "formEmail": "Email",
+    "formSeedPhraseChallenge": "Jawaban Anda",
+    "formSeedPhraseChallengeInvalid": "Jawaban Anda Salah",
+    "formUsername": "Nama Pengguna",
+    "footerSeedPhrase": "Silahkan simpan ini di tempat pribadi!",
+    "headingAboutSeedPhrase": "Apa \"Kata - kata kunci\"?",
+    "headingAvatar": "Tambahkan Foto",
+    "headingEmail": "Masukan Email",
+    "headingSaveSeedPhraseHelper": "Dimana menyimpan kata - kata kunci Anda",
+    "headingSecureWallet": "Amankan Dompet Anda",
+    "headingSeedPhrase": "Simpan kata - kata kunci Anda",
+    "headingSeedPhraseChallenge": "Apakah Anda telah menyimpan rangkaian kata kunci Anda?",
+    "headingUsername": "Buat Nama Pengguna Anda",
+    "linkHelperSaveSeedPhrase": "Apakah Anda perlu tips dimana bisa menyimpannya?",
+    "listItemSaveSeedPhraseHelper1": "Tambahkan ke pengelola kata sandi",
+    "listItemSaveSeedPhraseHelper2": "Simpan di aplikasi catatan",
+    "listItemSaveSeedPhraseHelper3": "Kirim ke diri sendiri melalui email",
+    "listItemSaveSeedPhraseHelper4": "Tulis tangan, dan simpan di tempat aman",
+    "successOnboardingComplete": "Akun Anda berhasil dibuat! Selamat datang!"
+  },
+  "OnboardingOrganization": {
+    "bodyAvatar": "Foto Anda adalah cara bagaimana orang dapat mengenali dompet Anda di aplikasi Circles.",
+    "bodyEmail": "Kami tidak akan menyebarluaskan alamat email Anda dan hanya menggunakannya untuk menginformasikan perubahan penting pada platform",
+    "bodyPrefund": "Setiap aktivitas dalam sistem Circles memerlukan sedikit biaya pemeliharaan. Kami merekomendasikan untuk menempatkan 1 Circles atau lebih dalam dompet baru Anda untuk menyelesaikan pengaturan",
+    "bodyUsername": "Nama dompet Anda adalah cara bagaimana orang dapat mencari Dompet Bersama Anda di aplikasi Circles",
+    "errorSignup": "Gangguan server: {errorMessage}",
+    "formEmail": "Email",
+    "formPrefundAmount": "Jumlah dana",
+    "formPrefundInvalid": "Jumlah ini lebih besar dari sisa token Anda saat ini",
+    "formPrefundSender": "Dikirim oleh",
+    "formUsername": "Nama dompet",
+    "headingAvatar": "Tambahkan Foto",
+    "headingEmail": "Masukan Email",
+    "headingPrefund": "Dana terbagi",
+    "headingUsername": "Nama dompet Anda",
+    "successOnboardingComplete": "Dompet bersama Anda telah berhasil dibuat! Sekarang Anda dapat mulai mengundang anggota lainnya."
+  },
+  "OnboardingStepper": {
+    "buttonFinish": "Daftarkan Saya!",
+    "buttonNextStep": "Lanjutkan"
+  },
+  "OrganizationMembers": {
+    "buttonRemoveMember": "Hapus",
+    "dialogCancel": "Batal",
+    "dialogConfirm": "Konfirmasi",
+    "dialogRemoveMember": "Apakah Anda yakin untuk menghapus @{username} dari dompet bersama ini?",
+    "dialogTitle": "Hapus @{username}",
+    "errorRemovedMember": "Gangguan, @{username} tidak dapat dihapus dari dompet bersama",
+    "headingMembers": "Anggota",
+    "successRemovedMember": "Anda telah berhasil menghapus @{username} dari dompet bersama ini."
+  },
+  "OrganizationMembersAdd": {
+    "dialogBody": "Kepercayaan adalah Kekuatan. Ketikan Anda menambahkan seseorang berarti Anda berbagi kekuatan untuk mengirimkan Circles dari dompet bersama Anda.",
+    "dialogBodyCannotAdd": "Setelah menjadi anggota sebuah dompet bersama, Anda tidak dapat menambahkan dompet bersama lainnya",
+    "dialogCancel": "Batal",
+    "dialogConfirm": "Tambah anggota",
+    "dialogTitle": "Tambah @{username}",
+    "errorAddedMember": "Gangguan, @{username} tidak dapat ditambahkan ke dalam dompet bersama",
+    "headingAddMember": "Tambah Anggota",
+    "linkLearnMore": "Pelajari lebih lanjut",
+    "successAddedMember": "Anda telah berhasil menambahkan @{username} ke dompet bersama ini."
+  },
+  "Profile": {
+    "bodyActivity": "Aktivitas",
+    "bodyNoActivities": "Belum ada aktivitas.",
+    "bodyNoMutualFriends": "Teman terpercaya tidak ditemukan",
+    "bodyStatusCommonFriends": {
+      "one": "@{username} dipercaya oleh satu orang yang Anda percayai",
+      "other": "@{username} dipercaya oleh {count} orang yang Anda percayai",
+      "zero": "@{username} tidak dipercaya oleh orang - orang yang Anda percayai"
+    },
+    "bodyStatusMeTrusting": "Anda percaya @{username}",
+    "bodyStatusMutualTrust": "Anda dan  @{username} percaya satu sama lain",
+    "bodyStatusNotDeployedYet": "Akun ini belum diverifikasi",
+    "bodyStatusTrustingMe": "@{username} percaya Anda",
+    "bodyTrustedBy": "Di percaya oleh",
+    "shareText": "Lihat profil Circles PDU saya!",
+    "tooltipSafeIsYou": "Ini adalah profil Anda",
+    "tooltipSafeNotDeployed": "Akun ini belum diverifikasi"
+  },
+  "ProfileMini": {
+    "bodyMutualFriends": {
+      "one": "Anda mempunyai satu hubungan yang Anda percayai bersama dengan @{username}",
+      "other": "Anda mempunyai {count} hubungan yang Anda percayai bersama dengan @{username}",
+      "zero": "Anda tidak mempunyai hubungan yang Anda percayai bersama dengan @{username}"
+    },
+    "bodyUndeployedToken": "Akun tidak terverifikasi"
+  },
+  "QRCodeScanner": {
+    "notificationError": "tidak dapat membuka pemindai kode QR: {error}."
+  },
+  "QRGenerator": {
+    "bodyPaymentNoteInvalid": "Anda tidak dapat menuliskan simbol khusus seperti {}<>^ dan lebih dari 100 karakter",
+    "buttonShowQRCode": "Tunjukan Kode QR",
+    "dialogClose": "Tutup",
+    "dialogSaveFile": "Simpan sebagai berkas .png",
+    "dialogShare": "bagikan tautan pembayaran",
+    "formAmount": "Jumlah",
+    "formPaymentNote": "Catatan",
+    "formReceiver": "Kirim ke",
+    "headingGenerator": "Generator QR"
+  },
+  "Search": {
+    "headingSearch": "Jaringan Kepercayaan"
+  },
+  "SeedPhrase": {
+    "bodyDescription": "Cetak ini dan simpan dengan aman:",
+    "buttonCopyToClipboard": "Salin teks",
+    "headingExportSeedPhrase": "Expor rangkaian kata kunci"
+  },
+  "Send": {
+    "headingSendCircles": "Kirim Circles"
+  },
+  "SendConfirm": {
+    "bodyAmountTooHigh": {
+      "one": "Saat ini Anda hanya bisa mengirimkan maksimal sejumlah You can currently only send a maximum of {count} Circles to @{username}.",
+      "other": "Saat ini Anda hanya bisa mengirimkan maksimal sejumlah You can currently only send a maximum of {count} Circles to @{username}.",
+      "zero": "Saat ini Anda tidak dapat mengirimkan apapun ke @{username} yang berarti, tidak ada jalur kepercayaan yang terjalin diantara Anda."
+    },
+    "bodyMaxFlow": "Jumlah Maksimal: {amount}",
+    "bodyPaymentNoteInvalid": "Anda tidak dapat menuliskan simbol khusus seperti {}<>^ dan lebih dari 100 karakter",
+    "buttonSubmitAmount": "Kirim",
+    "dialogSendCancel": "Batal",
+    "dialogSendConfirm": "Konfirmasi",
+    "dialogSendDescription": "Kirim {amount} Circles ke @{username}",
+    "errorMessage": "Gangguan .. {errorMessage}",
+    "errorMessageTransferInvalid": "Tidak dapat mengirim Circles karena transaksi tidak sah.",
+    "errorMessageTransferNotFound": "Tidak dapat mengirim Circles karena saat ini tidak ada jalur kepercayaan antara @{username} dan Anda ..",
+    "errorMessageTransferTooComplex": "Tidak dapat mengirim Circles karena terlalu banyak proses yang harus dilalui untuk mengirimkan Circles ke @{username}. Pertimbangkan untuk mengirimkan jumlah yang lebih kecil dan minta @{username} untuk mempercayai Anda secara langsung untuk membuat transaksi ini lebih mudah",
+    "errorMessageTransferUnknown": "Gangguan! Tidak dapat mengirim Circles.",
+    "formAmount": "Masukan jumlah",
+    "formPaymentNote": "Tambahkan catatan",
+    "formReceiver": "Kirim ke",
+    "formSender": "Dikirim dari",
+    "headingSendCircles": "Kirim Circles",
+    "successMessage": "Anda berhasil mengirim sejumlah {amount} Circles ke @{username}!",
+    "tooltipMaxFlow": "Ini adalah jumlah maksimal Circle yang dapat Anda kirimkan dalam jaringan kepercayaan ke @{username}"
+  },
+  "Settings": {
+    "bodyDeviceAddress": "Alamat perangkat",
+    "bodySafeAddress": "Alamat profil",
+    "bodyTokenAddress": "Alamat token",
+    "buttonBurnWallet": "Akhiri sesi",
+    "headingDangerZone": "Zona berbahaya",
+    "headingSettings": "Pengaturan",
+    "headingStatus": "Status"
+  },
+  "Share": {
+    "buttonQRGenerator": "Buat Kode QR",
+    "buttonShareProfileLink": "Bagi",
+    "headingShare": "Kode QR saya ",
+    "shareText": "Hai! Lihat profil Circles PDU saya!"
+  },
+  "TransferInfoBalanceCard": {
+    "bodyTotalBalance": "Total poin Anda: {balance}",
+    "tooltipTotalBalance": "Ini adalah total Circles Anda saat ini yang Anda miliki dalam akun Circles Anda"
+  },
+  "Tutorial": {
+    "buttonFinish": "Mengerti.",
+    "buttonNextStep": "Selanjutnya",
+    "buttonSkip": "Lewati"
+  },
+  "TutorialOnboarding": {
+    "bodyBuildYourOwnEconomy": "Circles tidak mempunyai kepemimpinan terpusat sehingga Anda bisa mengembangkannya sendiri. Anda dapat mengundang teman - teman dan pemilik usaha setempat  untuk mendukung dan menciptakan ekonomi alternatif",
+    "bodyUnconditionalIncome": "Circles dirancang untuk menjadi pendapatan dasar dari bawah ke atas. Ketika Anda membuat akun circles,  Circles diberikan kepada Anda tanpa syarat apapun secara teratur",
+    "bodyWebOfTrust": "Anda dapat menggunakan Circles dengan orang yang Anda percayai, dan orang -orang yang mereka percayai. ",
+    "headingBuildYourOwnEconomy": "Bangun ekonomi Anda sendiri",
+    "headingUnconditionalIncome": "Pendapatan tanpa syarat",
+    "headingWebOfTrust": "Jaringan Kepercayaan"
+  },
+  "TutorialOrganization": {
+    "finish": "Ayo mulai!",
+    "next": "Selanjutnya",
+    "slideBody1": "Dengan dompet bersama, anggota dapat mengumpulkan Circles pribadi mereka dan mengatur proyek bersama dengan orang - orang yang Anda percayai. Dompet ini tidak akan menerima Pendapatan Dasar.",
+    "slideBody2": "Organisasi, keluarga, komunitas dan individu dapat menggunakan dompet ini untuk menyimpan Circles bersama - sama, atau memantau usaha pribadi.",
+    "slideBody3": "Sebagai kelompok, Anda dapat mempercayai seseorang agar dapat menerima Circles dari mereka. Anda juga dapat mengirim dan menerima Circles dari kelompok lainnya.",
+    "slideBody3Link": "Pelajari lebih lanjut cara mengatur Circles dengan grup lain.",
+    "slideHeading1": "Dompet bersama",
+    "slideHeading2": "Sejahtera bersama",
+    "slideHeading3": "Berbagi kepercayaan"
+  },
+  "UBI": {
+    "infoUbiPayoutReceived": "Anda menerima {payout} Circles!"
+  },
+  "Validation": {
+    "bodyDoNotReset": "Jangan mengatur ulang perangkat Anda atau Anda akan perlu memulihkan data Anda dengan menggunakan rangkaian kata kunci",
+    "bodyTrustDescription": "Untuk menerima pendapatan dasar Anda",
+    "bodyTrustDescriptionEmphasize": "Tiga orang harus mempercayai profil Anda",
+    "buttonShareProfileLink": "Bagikan Tautan Profil",
+    "headingBuildYourWebOfTrust": "Verifikasi Akun Anda",
+    "tooltipLeftTrustConnections": "Anda memerlukan {connections} koneksi kepercayaan sebelum Anda bisa membuat akun"
+  },
+  "ValidationLock": {
+    "bodyThisMayTakeMinutes": "Ini mungkin akan memerlukan beberapa menit. Mohon untuk tetap membuka perangkat Anda.",
+    "bodyYourCirclesLoading": "Sedang memuat akun Circles Anda!"
+  },
+  "ValidationShare": {
+    "buttonShareProfileLink": "Bagikan Tautan Profil",
+    "headingShowYourQR": "Perlihatkan kode QR atau profil Anda ke orang lain untuk menerima kepercayaan",
+    "shareText": "Hai! Lihat profil Circles saya!"
+  },
+  "ValidationStatus": {
+    "bodyReadyForDeployment": "Akun Anda sudah siap sekarang, klik tombol di bawah ini untuk membuatnya:",
+    "buttonStartDeployment": "Buat Akun"
+  },
+  "VerifiedEmailInput": {
+    "formEmailInvalid": "Alamat email tidak valid"
+  },
+  "VerifiedUsernameInput": {
+    "formUnknownError": "Kesalahan tidak diketahui",
+    "formUsernameInvalidFormat": "Hanya karakter dasar dan angka (A-Z, 0-9) yang diperbolehkan, tidak boleh ada simbol atau spasi, 3-24 karakter",
+    "formUsernameTaken": "Nama sudah terdaftar"
+  },
+  "Welcome": {
+    "buttonLogin": "Masuk",
+    "buttonSignUp": "Daftar",
+    "headingWelcomeToCircles": "Selamat datang di Circles",
+    "linkAboutCircles": "Tentang Circles",
+    "linkContactUs": "Hubungi kami",
+    "linkFAQ": "FAQ",
+    "linkPrivacyLegal": "Privasi + Hukum"
+  }
+}

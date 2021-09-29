@@ -104,7 +104,8 @@
   "LocaleSelector": {
     "de": "DE",
     "en": "EN",
-    "es": "ES"
+    "es": "ES",
+    "id": "ID"
   },
   "Login": {
     "bodyEnterYourSeedPhrase": "Enter your seed phrase below to restore your wallet:",

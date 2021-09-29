@@ -1,5 +1,5 @@
 export const DEFAULT_LOCALE = 'en';
-export const LOCALES = ['en'];
+export const LOCALES = ['en', 'id'];
 
 const locales = LOCALES.reduce((acc, locale) => {
   acc[locale] = require(`./${locale}.json`);
