@@ -1,3 +1,4 @@
+// This component was used in the dashboard view in 2021 but was removed indefinitely
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
