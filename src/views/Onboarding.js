@@ -1,4 +1,5 @@
 import { Box, ListItem, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -23,6 +24,15 @@ import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { createNewAccount } from '~/store/onboarding/actions';
 import logError, { formatErrorMessage } from '~/utils/debug';
+
+const useStyles = makeStyles(() => ({
+  dotList: {
+    fontSize: '16px',
+    paddingTop: '8px',
+    paddingBottom: '0px',
+    display: 'list-item',
+  },
+}));
 
 const Onboarding = () => {
   const dispatch = useDispatch();
@@ -220,6 +230,8 @@ const OnboardingStepSecureWallet = ({ onDisabledChange }) => {
 };
 
 const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
+  const classes = useStyles();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const mnemonic = useMemo(() => {
@@ -245,16 +257,16 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
       <Typography paragraph>
         {translate('Onboarding.bodySaveSeedPhraseHelper')}
       </Typography>
-      <ListItem>
+      <ListItem className={classes.dotList}>
         {translate('Onboarding.listItemSaveSeedPhraseHelper1')}
       </ListItem>
-      <ListItem>
+      <ListItem className={classes.dotList}>
         {translate('Onboarding.listItemSaveSeedPhraseHelper2')}
       </ListItem>
-      <ListItem>
+      <ListItem className={classes.dotList}>
         {translate('Onboarding.listItemSaveSeedPhraseHelper3')}
       </ListItem>
-      <ListItem>
+      <ListItem className={classes.dotList}>
         {translate('Onboarding.listItemSaveSeedPhraseHelper4')}
       </ListItem>
     </Fragment>
