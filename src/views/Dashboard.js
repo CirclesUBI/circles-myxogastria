@@ -1,5 +1,5 @@
 import {
-  Avatar,
+  Badge,
   Box,
   CircularProgress,
   Container,
@@ -168,7 +168,6 @@ const Dashboard = () => {
 };
 
 const DashboardActivityIcon = () => {
-  const classes = useStyles();
   const { categories, lastSeenAt } = useSelector((state) => {
     return state.activity;
   });
@@ -199,12 +198,10 @@ const DashboardActivityIcon = () => {
     >
       {isPending ? (
         <CircularProgress size={28} />
-      ) : count > 0 ? (
-        <Avatar className={classes.notificationCount}>
-          {count > 99 ? '99+' : count}
-        </Avatar>
       ) : (
-        <IconNotification style={{ fontSize: 28 }} />
+        <Badge badgeContent={count} color="primary" max={99}>
+          <IconNotification style={{ fontSize: 28 }} />
+        </Badge>
       )}
     </IconButton>
   );
