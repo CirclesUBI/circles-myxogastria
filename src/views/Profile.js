@@ -319,11 +319,14 @@ const ProfileSendButton = ({ address, deploymentStatus }) => {
 
   // Check against these three cases where we can't send Circles
   //
-  // a) We look at our own profile
-  // b) Our Safe is not deployed yet
-  // c) The profiles Safe is not deployed yet
+  // a) We look at our own profile - don't show any button
+  // b) Our Safe is not deployed yet - show disabled button
+  // c) The profiles Safe is not deployed yet - show disabled button
+  if (safe.currentAccount === address) {
+    return;
+  }
+
   const isSendDisabled =
-    safe.currentAccount === address ||
     safe.pendingNonce !== null ||
     (!deploymentStatus.isDeployed && !isOrganization);
 
@@ -351,7 +354,7 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
 
   const { isOrganization, isReady } = useIsOrganization(address);
 
-  const isDisabled = safe.currentAccount === address;
+  const isOwnAccount = safe.currentAccount === address;
 
   const [isTrustConfirmOpen, setIsTrustConfirmOpen] = useState(false);
   const [isRevokeTrustOpen, setIsRevokeTrustOpen] = useState(false);
@@ -407,7 +410,7 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
         onConfirm={handleRevokeTrustClose}
         onSuccess={handleRevokeTrustSuccess}
       />
-      {!isOrganization && (
+      {!isOrganization && !isOwnAccount && (
         <IconButton
           classes={{
             root: clsx(classes.trustButton, {
@@ -415,7 +418,7 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
             }),
             disabled: classes.trustButtonDisabled,
           }}
-          disabled={isDisabled || trustStatus.isPending || !isReady}
+          disabled={trustStatus.isPending || !isReady}
           onClick={
             trustStatus.isMeTrusting ? handleRevokeTrustOpen : handleTrustOpen
           }
