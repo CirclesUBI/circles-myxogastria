@@ -24,7 +24,7 @@ import { IconCheck } from '~/styles/icons';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => ({
-  leftTrustConnections: {
+  trustConnectionsCircle: {
     backgroundColor: 'transparent',
     border: `1px solid ${theme.palette.primary.main}`,
     color: theme.palette.primary.main,
@@ -65,8 +65,8 @@ const Validation = () => {
             connections: leftTrustConnections,
           })}
         >
-          <Avatar className={classes.leftTrustConnections}>
-            {isDeploymentReady ? <IconCheck /> : leftTrustConnections}
+          <Avatar className={classes.trustConnectionsCircle}>
+            {isDeploymentReady ? <IconCheck /> : trust.connections}
           </Avatar>
         </Tooltip>
       </Header>
