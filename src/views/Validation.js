@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { VALIDATION_SHARE_PATH } from '~/routes';
 
+import AppNote from '~/components/AppNote';
 import AvatarWithQR from '~/components/AvatarWithQR';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import Button from '~/components/Button';
@@ -73,6 +74,7 @@ const Validation = () => {
         <Container maxWidth="sm">
           <Box mb={6} mt={2}>
             <BalanceDisplay />
+            <AppNote />
           </Box>
           <Typography align="center" variant="h2">
             {translate('Validation.headingBuildYourWebOfTrust')}
