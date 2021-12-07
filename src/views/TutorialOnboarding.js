@@ -5,9 +5,11 @@ import { useDispatch } from 'react-redux';
 import TourBuildYourOwnEconomySVG from '%/images/tour-build-your-own-economy.svg';
 import TourUnconditionalIncomeSVG from '%/images/tour-unconditional-income.svg';
 import TourWebOfTrustSVG from '%/images/tour-web-of-trust.svg';
+import ExternalLink from '~/components/ExternalLink';
 import Tutorial from '~/components/Tutorial';
 import translate from '~/services/locale';
 import { ACCOUNT_CREATE, finishTutorial } from '~/store/tutorial/actions';
+import { FAQ_URL } from '~/utils/constants';
 
 const TutorialOnboarding = (props) => {
   const dispatch = useDispatch();
@@ -16,7 +18,7 @@ const TutorialOnboarding = (props) => {
     {
       image: <TourUnconditionalIncomeSVG />,
       heading: translate('TutorialOnboarding.headingUnconditionalIncome'),
-      body: translate('TutorialOnboarding.bodyUnconditionalIncome'),
+      body: <TutorialOnboardingSlideOne />,
     },
     {
       image: <TourWebOfTrustSVG />,
@@ -40,6 +42,17 @@ const TutorialOnboarding = (props) => {
 
   return (
     <Tutorial isSkippable slides={slides} onExit={onExit} onFinish={onFinish} />
+  );
+};
+
+const TutorialOnboardingSlideOne = () => {
+  return (
+    <>
+      {translate('TutorialOnboarding.bodyUnconditionalIncome')}{' '}
+      <ExternalLink href={FAQ_URL} underline="always">
+        {translate('TutorialOnboarding.bodyLearnMore')}
+      </ExternalLink>
+    </>
   );
 };
 
