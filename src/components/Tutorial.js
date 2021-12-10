@@ -1,24 +1,28 @@
-import { IconButton, MobileStepper } from '@material-ui/core';
+import { IconButton, MobileStepper, useScrollTrigger } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 
+import BackgroundCurved from '~/components/BackgroundCurved';
 import Button from '~/components/Button';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import TutorialSlide from '~/components/TutorialSlide';
 import View from '~/components/View';
+import { useCustomScrollTrigger } from '~/hooks/header';
 import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   tutorialMobileStepper: {
     flexGrow: 1,
+    background: 'transparent',
   },
   tutorialMobileStepperDot: {
-    backgroundColor: 'transparent',
-    border: `1px solid ${theme.palette.text.primary}`,
+    backgroundColor: `${theme.palette.common.white}`,
+    border: `1px solid ${theme.palette.common.white}`,
   },
   tutorialMobileStepperDots: {
     position: 'absolute',
@@ -27,11 +31,21 @@ const useStyles = makeStyles((theme) => ({
   },
   tutorialMobileStepperDotActive: {
     backgroundColor: theme.palette.text.primary,
+    border: `1px solid ${theme.palette.text.primary}`,
   },
   tutorialSkipButton: {
     fontWeight: theme.typography.fontWeightMedium,
     textTransform: 'uppercase',
     marginRight: -3,
+  },
+  tutorialHeader: {
+    background: 'transparent',
+  },
+  tutorialHeaderWithScroll: {
+    background: `${theme.palette.common.white}`,
+    transition: `${theme.transitions.create(['background'], {
+      duration: '300ms',
+    })}`,
   },
 }));
 
@@ -82,8 +96,15 @@ const Tutorial = (props) => {
 const TutorialHeader = (props) => {
   const classes = useStyles();
 
+  const isScrolled = useCustomScrollTrigger();
+
   return (
-    <Header padding="0">
+    <Header
+      className={clsx(classes.tutorialHeader, {
+        [classes.tutorialHeaderWithScroll]: isScrolled,
+      })}
+      padding="0"
+    >
       <MobileStepper
         activeStep={props.current}
         backButton={
@@ -118,15 +139,17 @@ const TutorialHeader = (props) => {
 };
 
 const TutorialSlides = ({ slides, current, handleChangeIndex }) => (
-  <View>
-    <div>
-      <SwipeableViews index={current} onChangeIndex={handleChangeIndex}>
-        {slides.map((slide, index) => (
-          <TutorialSlide key={index} {...slide} />
-        ))}
-      </SwipeableViews>
-    </div>
-  </View>
+  <BackgroundCurved>
+    <View>
+      <div>
+        <SwipeableViews index={current} onChangeIndex={handleChangeIndex}>
+          {slides.map((slide, index) => (
+            <TutorialSlide {...slide} key={index} />
+          ))}
+        </SwipeableViews>
+      </div>
+    </View>
+  </BackgroundCurved>
 );
 
 const TutorialFooter = (props) => {

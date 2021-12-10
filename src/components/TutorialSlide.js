@@ -17,7 +17,7 @@ const TutorialSlideImage = ({ image }) => {
 
 const TutorialSlide = ({ image, heading, body }) => {
   return (
-    <Box padding={4}>
+    <Box padding={4} paddingTop={9}>
       <TutorialSlideImage image={image} />
       <Typography align="center" gutterBottom variant="h2">
         {heading}
@@ -32,7 +32,7 @@ TutorialSlideImage.propTypes = {
 };
 
 TutorialSlide.propTypes = {
-  body: PropTypes.string.isRequired,
+  body: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   heading: PropTypes.string.isRequired,
   image: PropTypes.node.isRequired,
 };
