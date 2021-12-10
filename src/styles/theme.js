@@ -167,6 +167,7 @@ export default createMuiTheme({
       '@global': {
         body: {
           overflowX: 'hidden',
+          backgroundColor: colors.white,
         },
         '@font-face': [
           notoSans,
@@ -212,6 +213,8 @@ export default createMuiTheme({
         fontSize: 18,
       },
     },
+
+    // box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   },
   custom: {
     colors,
