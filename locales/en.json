@@ -194,7 +194,10 @@
     "headingEmail": "Enter Email",
     "headingPrefund": "Fund your shared",
     "headingUsername": "Name your wallet",
-    "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
+    "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now.",
+    "stepperFirstStep": "Create Wallet",
+    "stepperSecondStep": "Deposit Funds",
+    "stepperThirdStep": "Add Members"
   },
   "OnboardingStepper": {
     "buttonFinish": "Sign me up!",
