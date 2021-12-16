@@ -9,6 +9,7 @@ import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import StepperHorizontal from '~/components/StepperHorizontal';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
@@ -20,6 +21,12 @@ const useStyles = makeStyles(() => ({
     paddingRight: 19,
     paddingLeft: 19,
   },
+
+  hideProgressBar: {
+    '& .MuiMobileStepper-progress': {
+      display: 'none',
+    },
+  },
 }));
 
 const OnboardingStepper = ({
@@ -28,6 +35,7 @@ const OnboardingStepper = ({
   onValuesChange,
   steps,
   values,
+  isHorizontalStepper,
 }) => {
   const classes = useStyles();
 
@@ -66,6 +74,24 @@ const OnboardingStepper = ({
     return <Redirect push to={exitPath} />;
   }
 
+  const stepsStepperHorizontal = [
+    translate('OnboardingOrganization.stepperFirstStep'),
+    translate('OnboardingOrganization.stepperSecondStep'),
+    translate('OnboardingOrganization.stepperThirdStep'),
+  ];
+
+  const activeStepForStepperHorizontal = () => {
+    switch (current) {
+      case 0:
+        return 0;
+      case 1:
+      case 2:
+        return 1;
+      case 3:
+        return 2;
+    }
+  };
+
   return (
     <Fragment>
       <Header>
@@ -80,7 +106,10 @@ const OnboardingStepper = ({
               </IconButton>
             )
           }
-          className={classes.onboardingMobileStepper}
+          className={
+            (classes.onboardingMobileStepper,
+            isHorizontalStepper ? classes.hideProgressBar : null)
+          }
           nextButton={
             <IconButton edge="end" onClick={onExit}>
               <IconClose />
@@ -92,6 +121,14 @@ const OnboardingStepper = ({
         />
       </Header>
       <View>
+        {isHorizontalStepper && (
+          <Box>
+            <StepperHorizontal
+              activeStep={activeStepForStepperHorizontal()}
+              steps={stepsStepperHorizontal}
+            />
+          </Box>
+        )}
         <Container maxWidth="sm">
           <Box textAlign="center">
             <OnboardingCurrentStep
@@ -121,6 +158,7 @@ const OnboardingStepper = ({
 
 OnboardingStepper.propTypes = {
   exitPath: PropTypes.string.isRequired,
+  isHorizontalStepper: PropTypes.bool,
   onFinish: PropTypes.func.isRequired,
   onValuesChange: PropTypes.func.isRequired,
   steps: PropTypes.array.isRequired,
