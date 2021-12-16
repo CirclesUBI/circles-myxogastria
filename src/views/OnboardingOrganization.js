@@ -105,13 +105,16 @@ const OnboardingOrganization = () => {
   }
 
   return (
-    <OnboardingStepper
-      exitPath={DASHBOARD_PATH}
-      steps={steps}
-      values={values}
-      onFinish={onFinish}
-      onValuesChange={setValues}
-    />
+    <>
+      <OnboardingStepper
+        exitPath={DASHBOARD_PATH}
+        isHorizontalStepper={true}
+        steps={steps}
+        values={values}
+        onFinish={onFinish}
+        onValuesChange={setValues}
+      />
+    </>
   );
 };
 
