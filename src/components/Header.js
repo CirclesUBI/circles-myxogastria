@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { useCustomScrollTrigger } from '~/hooks/header';
+import { useCustomScrollTrigger } from '~/hooks/scrollTrigger';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

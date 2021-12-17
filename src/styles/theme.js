@@ -161,6 +161,7 @@ export default createMuiTheme({
     qrCodeScannerVideo: 12000,
     spinnerOverlay: 20000,
     layer1: 10,
+    backgroundCurvedWrapper: 0,
   },
   overrides: {
     MuiCssBaseline: {
