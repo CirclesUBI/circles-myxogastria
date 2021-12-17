@@ -9,10 +9,10 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     right: 0,
     bottom: '50%',
-    zIndex: 0,
+    zIndex: theme.zIndex.backgroundCurvedWrapper,
     top: 0,
     margin: '0 auto',
-    background: 'linear-gradient(180deg, #48B2B7 0%, #06FC9D 100%)',
+    background: theme.custom.gradients.blue,
   },
   background: {
     position: 'absolute',

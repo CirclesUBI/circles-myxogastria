@@ -11,7 +11,7 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import TutorialSlide from '~/components/TutorialSlide';
 import View from '~/components/View';
-import { useCustomScrollTrigger } from '~/hooks/header';
+import { useCustomScrollTrigger } from '~/hooks/scrollTrigger';
 import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
 
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     background: 'transparent',
   },
   tutorialMobileStepperDot: {
-    backgroundColor: `${theme.palette.common.white}`,
+    backgroundColor: theme.palette.common.white,
     border: `1px solid ${theme.palette.common.white}`,
   },
   tutorialMobileStepperDots: {
@@ -42,10 +42,10 @@ const useStyles = makeStyles((theme) => ({
     background: 'transparent',
   },
   tutorialHeaderWithScroll: {
-    background: `${theme.palette.common.white}`,
-    transition: `${theme.transitions.create(['background'], {
+    background: theme.palette.common.white,
+    transition: theme.transitions.create(['background'], {
       duration: '300ms',
-    })}`,
+    }),
   },
 }));
 

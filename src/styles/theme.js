@@ -39,6 +39,8 @@ export const colors = {
   purpleDark: '#660f33',
   turquoise: '#47cccb',
   turquoiseDark: '#369998',
+  fountainBlue: '#48B2B7',
+  springGreen: '#06FC9D',
 };
 
 const gradients = {
@@ -49,6 +51,7 @@ const gradients = {
   info: `linear-gradient(90deg, ${colors.blue} 0%, ${colors.purpleLight} 100%)`,
   success: `linear-gradient(90deg, ${colors.green} 0%, ${colors.blue} 100%)`,
   warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
+  blue: `linear-gradient(180deg, #48B2B7 0%, #06FC9D 100%)`,
 };
 
 const components = {
@@ -137,6 +140,7 @@ export default createMuiTheme({
     qrCodeScannerSpinner: 11000,
     qrCodeScannerVideo: 12000,
     spinnerOverlay: 20000,
+    backgroundCurvedWrapper: 0,
   },
   overrides: {
     MuiCssBaseline: {
