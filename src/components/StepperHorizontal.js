@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
       '&.MuiStepConnector-active, &.MuiStepConnector-completed': {
         '& .MuiStepConnector-lineHorizontal': {
-          background: theme.custom.gradients.blueFromToptoBottom,
+          background: theme.custom.gradients.blueGreen,
           border: '2px solid transparent',
         },
       },
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
       },
 
       '&.MuiStepIcon-active, &.MuiStepIcon-completed': {
-        background: theme.custom.gradients.blueFromToptoBottom,
+        background: theme.custom.gradients.blueGreen,
         border: '2px solid transparent',
 
         '& .MuiStepIcon-text': {
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
       color: theme.custom.colors.grayDark,
 
       '&.MuiStepLabel-completed, &.MuiStepLabel-active': {
-        backgroundImage: theme.custom.gradients.blue,
+        backgroundImage: theme.custom.gradients.greenBlue,
         backgroundClip: 'text',
         ['-webkit-background-clip']: 'text',
         color: 'transparent',

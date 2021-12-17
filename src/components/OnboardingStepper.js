@@ -81,6 +81,7 @@ const OnboardingStepper = ({
   ];
 
   const activeStepForStepperHorizontal = () => {
+    // we have more screens/views than steps in our stepper thus that we need to adapt
     switch (current) {
       case 0:
         return 0;

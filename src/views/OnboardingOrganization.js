@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -126,7 +126,7 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
   };
 
   return (
-    <Fragment>
+    <>
       <Typography align="center" gutterBottom variant="h2">
         {translate('OnboardingOrganization.headingUsername')}
       </Typography>
@@ -141,7 +141,7 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
           onStatusChange={onDisabledChange}
         />
       </Box>
-    </Fragment>
+    </>
   );
 };
 
@@ -174,7 +174,7 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
   }, [emailValid, privacy, terms, onDisabledChange]);
 
   return (
-    <Fragment>
+    <>
       <Typography align="center" gutterBottom variant="h2">
         {translate('Onboarding.headingEmail')}
       </Typography>
@@ -195,7 +195,7 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
           </Box>
         </Box>
       </Box>
-    </Fragment>
+    </>
   );
 };
 
@@ -207,7 +207,7 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
   };
 
   return (
-    <Fragment>
+    <>
       <Typography align="center" gutterBottom variant="h2">
         {translate('OnboardingOrganization.headingAvatar')}
       </Typography>
@@ -219,7 +219,7 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
           onUpload={handleUpload}
         />
       </Box>
-    </Fragment>
+    </>
   );
 };
 
@@ -251,7 +251,7 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
   }, [onDisabledChange, isError, values.prefundValue]);
 
   return (
-    <Fragment>
+    <>
       <Typography align="center" gutterBottom variant="h2">
         {translate('OnboardingOrganization.headingPrefund')}
       </Typography>
@@ -280,7 +280,7 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
           </Grid>
         </Grid>
       </Box>
-    </Fragment>
+    </>
   );
 };
 
