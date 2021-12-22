@@ -41,6 +41,8 @@ export const colors = {
   turquoiseDark: '#369998',
   fountainBlue: '#48B2B7',
   springGreen: '#06FC9D',
+  pizazz: '#FF8E00',
+  ceriseRed: '#D12D5F',
 };
 
 const gradients = {
@@ -53,6 +55,7 @@ const gradients = {
   warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
   greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
   blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
+  orange: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 51.56%)`,
 };
 
 const components = {
