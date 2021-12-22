@@ -1,5 +1,6 @@
 import { Box, Container, IconButton, MobileStepper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import { Redirect } from 'react-router-dom';
@@ -20,6 +21,11 @@ const useStyles = makeStyles(() => ({
     paddingTop: 9,
     paddingRight: 19,
     paddingLeft: 19,
+    background: 'transparent',
+  },
+
+  onboardingStepperHeader: {
+    background: 'transparent',
   },
 
   hideProgressBar: {
@@ -95,7 +101,7 @@ const OnboardingStepper = ({
 
   return (
     <Fragment>
-      <Header>
+      <Header className={classes.onboardingStepperHeader}>
         <MobileStepper
           activeStep={current}
           backButton={
@@ -107,10 +113,9 @@ const OnboardingStepper = ({
               </IconButton>
             )
           }
-          className={
-            (classes.onboardingMobileStepper,
-            isHorizontalStepper ? classes.hideProgressBar : null)
-          }
+          className={clsx(classes.onboardingMobileStepper, {
+            [classes.hideProgressBar]: isHorizontalStepper,
+          })}
           nextButton={
             <IconButton edge="end" onClick={onExit}>
               <IconClose />

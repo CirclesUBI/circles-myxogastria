@@ -4,9 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+import theme from '../styles/theme';
 import { DASHBOARD_PATH } from '~/routes';
 
 import AvatarUploader from '~/components/AvatarUploader';
+import BackgroundCurved from '~/components/BackgroundCurved';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
 import OnboardingStepper from '~/components/OnboardingStepper';
@@ -106,14 +108,16 @@ const OnboardingOrganization = () => {
 
   return (
     <>
-      <OnboardingStepper
-        exitPath={DASHBOARD_PATH}
-        isHorizontalStepper={true}
-        steps={steps}
-        values={values}
-        onFinish={onFinish}
-        onValuesChange={setValues}
-      />
+      <BackgroundCurved gradient={theme.custom.gradients.orange}>
+        <OnboardingStepper
+          exitPath={DASHBOARD_PATH}
+          isHorizontalStepper={true}
+          steps={steps}
+          values={values}
+          onFinish={onFinish}
+          onValuesChange={setValues}
+        />
+      </BackgroundCurved>
     </>
   );
 };
