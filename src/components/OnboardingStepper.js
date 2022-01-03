@@ -126,7 +126,7 @@ const OnboardingStepper = ({
           variant="progress"
         />
       </Header>
-      <View>
+      <View mt={8}>
         {isHorizontalStepper && (
           <Box>
             <StepperHorizontal
