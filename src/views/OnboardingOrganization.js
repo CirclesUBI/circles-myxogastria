@@ -1,4 +1,5 @@
 import { Box, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -88,8 +89,8 @@ const OnboardingOrganization = () => {
   };
 
   const steps = [
-    OrganizationStepUsername,
     OrganizationStepEmail,
+    OrganizationStepUsername,
     OrganizationStepAvatar,
     OrganizationStepPrefund,
   ];
@@ -109,14 +110,16 @@ const OnboardingOrganization = () => {
   return (
     <>
       <BackgroundCurved gradient={theme.custom.gradients.orange}>
-        <OnboardingStepper
-          exitPath={DASHBOARD_PATH}
-          isHorizontalStepper={true}
-          steps={steps}
-          values={values}
-          onFinish={onFinish}
-          onValuesChange={setValues}
-        />
+        <Box mt={4}>
+          <OnboardingStepper
+            exitPath={DASHBOARD_PATH}
+            isHorizontalStepper={true}
+            steps={steps}
+            values={values}
+            onFinish={onFinish}
+            onValuesChange={setValues}
+          />
+        </Box>
       </BackgroundCurved>
     </>
   );
@@ -150,6 +153,14 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
 };
 
 const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
+  const useStyles = makeStyles((theme) => ({
+    organizationEmailContainer: {
+      position: 'relative',
+      zIndex: theme.zIndex.layer1,
+    },
+  }));
+
+  const classes = useStyles();
   const [emailValid, setEmailValid] = useState(false);
   const [privacy, setPrivacy] = useState(false);
   const [terms, setTerms] = useState(false);
@@ -178,11 +189,10 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
   }, [emailValid, privacy, terms, onDisabledChange]);
 
   return (
-    <>
+    <Box className={classes.organizationEmailContainer}>
       <Typography align="center" gutterBottom variant="h2">
         {translate('Onboarding.headingEmail')}
       </Typography>
-      <Typography>{translate('Onboarding.bodyEmail')}</Typography>
       <Box mt={3}>
         <VerifiedEmailInput
           label={translate('Onboarding.formEmail')}
@@ -190,6 +200,11 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
           onChange={handleEmail}
           onStatusChange={handleEmailStatus}
         />
+        <Box mb={3} mt={6}>
+          <Typography>
+            {translate('Onboarding.bodyEmailOrganization')}
+          </Typography>
+        </Box>
         <Box mt={2} textAlign={'left'}>
           <Box>
             <CheckboxPrivacy checked={privacy} onChange={handlePrivacy} />
@@ -199,7 +214,7 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
           </Box>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 
