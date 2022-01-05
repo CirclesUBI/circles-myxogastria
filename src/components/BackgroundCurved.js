@@ -23,10 +23,6 @@ const useStyles = makeStyles((theme) => {
       '&::after': {
         width: 750,
         height: 750,
-        [theme.breakpoints.up('sm')]: {
-          width: 1153,
-          height: 808,
-        },
         position: 'absolute',
         display: 'block',
         top: 476,
@@ -35,6 +31,10 @@ const useStyles = makeStyles((theme) => {
         backgroundColor: 'white',
         borderRadius: '50%',
         transform: 'translate3d(-50%, -50%, 0)',
+        [theme.breakpoints.up('sm')]: {
+          width: 1153,
+          height: 808,
+        },
       },
     },
   };

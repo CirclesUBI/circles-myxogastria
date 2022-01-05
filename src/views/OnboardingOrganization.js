@@ -244,13 +244,6 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
     });
   };
 
-  const ORGANIZATION_RING_SIZES = {
-    tiny: '77%',
-    small: '108%',
-    medium: '108%',
-    large: '108%',
-  };
-
   return (
     <Box className={classes.organizationStepAvatarContainer}>
       <Typography align="center" gutterBottom variant="h6">
