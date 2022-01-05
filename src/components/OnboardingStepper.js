@@ -33,6 +33,10 @@ const useStyles = makeStyles(() => ({
       display: 'none',
     },
   },
+
+  stepperHorizontalContainer: {
+    marginBottom: '10px',
+  },
 }));
 
 const OnboardingStepper = ({
@@ -128,7 +132,7 @@ const OnboardingStepper = ({
       </Header>
       <View mt={8}>
         {isHorizontalStepper && (
-          <Box>
+          <Box className={classes.stepperHorizontalContainer}>
             <StepperHorizontal
               activeStep={activeStepForStepperHorizontal()}
               steps={stepsStepperHorizontal}
