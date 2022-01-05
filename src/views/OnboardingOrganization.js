@@ -90,9 +90,9 @@ const OnboardingOrganization = () => {
 
   const steps = [
     OrganizationStepEmail,
+    OrganizationStepPrefund,
     OrganizationStepUsername,
     OrganizationStepAvatar,
-    OrganizationStepPrefund,
   ];
 
   const handleTutorialFinish = () => {
@@ -114,6 +114,7 @@ const OnboardingOrganization = () => {
           <OnboardingStepper
             exitPath={DASHBOARD_PATH}
             isHorizontalStepper={true}
+            mb={16}
             steps={steps}
             values={values}
             onFinish={onFinish}
@@ -126,6 +127,14 @@ const OnboardingOrganization = () => {
 };
 
 const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
+  const useStyles = makeStyles((theme) => ({
+    organizationStepUsernameContainer: {
+      position: 'relative',
+      zIndex: theme.zIndex.layer1,
+    },
+  }));
+  const classes = useStyles();
+
   const handleChange = (username) => {
     onChange({
       username,
@@ -133,14 +142,11 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
   };
 
   return (
-    <>
+    <Box className={classes.organizationStepUsernameContainer}>
       <Typography align="center" gutterBottom variant="h2">
         {translate('OnboardingOrganization.headingUsername')}
       </Typography>
-      <Typography>
-        {translate('OnboardingOrganization.bodyUsername')}
-      </Typography>
-      <Box mt={4}>
+      <Box mb={6} mt={4}>
         <VerifiedUsernameInput
           label={translate('OnboardingOrganization.formUsername')}
           value={values.username}
@@ -148,7 +154,12 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
           onStatusChange={onDisabledChange}
         />
       </Box>
-    </>
+      <Box mb={4}>
+        <Typography mb={18}>
+          {translate('OnboardingOrganization.bodyUsername')}
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 
@@ -190,7 +201,7 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
 
   return (
     <Box className={classes.organizationEmailContainer}>
-      <Typography align="center" gutterBottom variant="h2">
+      <Typography align="center" gutterBottom variant="h6">
         {translate('Onboarding.headingEmail')}
       </Typography>
       <Box mt={3}>
@@ -219,32 +230,55 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
 };
 
 const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
+  const useStyles = makeStyles((theme) => ({
+    organizationStepAvatarContainer: {
+      position: 'relative',
+      zIndex: theme.zIndex.layer1,
+    },
+  }));
+  const classes = useStyles();
+
   const handleUpload = (avatarUrl) => {
     onChange({
       avatarUrl,
     });
   };
 
+  const ORGANIZATION_RING_SIZES = {
+    tiny: '77%',
+    small: '108%',
+    medium: '108%',
+    large: '108%',
+  };
+
   return (
-    <>
-      <Typography align="center" gutterBottom variant="h2">
+    <Box className={classes.organizationStepAvatarContainer}>
+      <Typography align="center" gutterBottom variant="h6">
         {translate('OnboardingOrganization.headingAvatar')}
       </Typography>
-      <Typography>{translate('OnboardingOrganization.bodyAvatar')}</Typography>
-      <Box mt={4}>
+      <Box mb={4} mt={4}>
         <AvatarUploader
+          shouldHaveIndicator
           value={values.avatarUrl}
           onLoadingChange={onDisabledChange}
           onUpload={handleUpload}
         />
       </Box>
-    </>
+    </Box>
   );
 };
 
 const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
   const [isError, setIsError] = useState(false);
   const { safe, token } = useSelector((state) => state);
+
+  const useStyles = makeStyles((theme) => ({
+    organizationStepPrefundContainer: {
+      position: 'relative',
+      zIndex: theme.zIndex.layer1,
+    },
+  }));
+  const classes = useStyles();
 
   const maxAmount = parseFloat(
     formatCirclesValue(web3.utils.toBN(token.balance)),
@@ -270,19 +304,21 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
   }, [onDisabledChange, isError, values.prefundValue]);
 
   return (
-    <>
-      <Typography align="center" gutterBottom variant="h2">
+    <Box className={classes.organizationStepPrefundContainer}>
+      <Typography align="center" gutterBottom variant="h6">
         {translate('OnboardingOrganization.headingPrefund')}
       </Typography>
       <Typography>{translate('OnboardingOrganization.bodyPrefund')}</Typography>
       <Box mt={4}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TransferInfoBalanceCard
-              address={safe.currentAccount}
-              balance={token.balance}
-              label={translate('OnboardingOrganization.formPrefundSender')}
-            />
+            <Box mb={1.5}>
+              <TransferInfoBalanceCard
+                address={safe.currentAccount}
+                balance={token.balance}
+                label={translate('OnboardingOrganization.formPrefundSender')}
+              />
+            </Box>
           </Grid>
           <Grid item xs={12}>
             <TransferCirclesInput
@@ -299,7 +335,7 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
           </Grid>
         </Grid>
       </Box>
-    </>
+    </Box>
   );
 };
 
