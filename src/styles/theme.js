@@ -137,6 +137,9 @@ export default createMuiTheme({
       fontSize: '18px',
       fontWeight: fontWeightMedium,
       lineHeight: '25px',
+      '&.MuiTypography-gutterBottom': {
+        marginBottom: '12px',
+      },
     },
   },
   zIndex: {
@@ -193,6 +196,7 @@ export default createMuiTheme({
     MuiButton: {
       root: {
         transition: 'color .01s',
+        fontSize: 18,
       },
     },
   },
