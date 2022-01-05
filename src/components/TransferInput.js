@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     color: theme.palette.text.primary,
     fontWeight: theme.typography.fontWeightMedium,
-    fontSize: 12,
+    fontSize: 18,
     textAlign: 'left',
   },
   inputError: {
