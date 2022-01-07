@@ -13,8 +13,28 @@ const useStyles = makeStyles((theme) => {
       zIndex: theme.zIndex.backgroundCurvedWrapper,
       top: 0,
       margin: '0 auto',
-      background: (props) => props.gradient,
+      background: (props) => {
+        if (
+          typeof window != 'undefined' &&
+          window.innerWidth >= theme.breakpoints.values.sm
+        ) {
+          switch (props.gradient) {
+            case 'turquoise':
+              return theme.custom.gradients.greenBlueDesktop;
+            case 'orange':
+              return theme.custom.gradients.orangeDesktop;
+          }
+        } else {
+          switch (props.gradient) {
+            case 'turquoise':
+              return theme.custom.gradients.greenBlue;
+            case 'orange':
+              return theme.custom.gradients.orange;
+          }
+        }
+      },
     },
+
     background: {
       position: 'absolute',
       width: '100%',
@@ -55,6 +75,7 @@ const BackgroundCurved = (props) => {
 
 BackgroundCurved.propTypes = {
   children: PropTypes.node,
+  gradient: PropTypes.string,
 };
 
 export default BackgroundCurved;
