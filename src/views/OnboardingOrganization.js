@@ -109,7 +109,7 @@ const OnboardingOrganization = () => {
 
   return (
     <>
-      <BackgroundCurved gradient={theme.custom.gradients.orange}>
+      <BackgroundCurved gradient="orange">
         <Box mt={4}>
           <OnboardingStepper
             exitPath={DASHBOARD_PATH}

@@ -55,7 +55,8 @@ const gradients = {
   warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
   greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
   blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
-  orange: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 51.56%)`,
+  orange: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 100%)`,
+  orangeDesktop: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 200%)`,
 };
 
 const components = {
