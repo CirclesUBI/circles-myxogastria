@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => {
         borderRadius: '50%',
         transform: 'translate3d(-50%, -50%, 0)',
         [theme.breakpoints.up('sm')]: {
-          width: 1153,
+          width: 1188,
           height: 808,
         },
       },
