@@ -59,7 +59,6 @@ const gradients = {
   info: `linear-gradient(90deg, ${colors.blue} 0%, ${colors.purpleLight} 100%)`,
   success: `linear-gradient(90deg, ${colors.green} 0%, ${colors.blue} 100%)`,
   warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
-<<<<<<< HEAD
   greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
   blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
   orange: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 100%)`,
@@ -69,9 +68,6 @@ const gradients = {
 const shadows = {
   gray: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   grayUp: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
-=======
-  blue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
->>>>>>> c803146... Update gradient color with variables
 };
 
 const components = {

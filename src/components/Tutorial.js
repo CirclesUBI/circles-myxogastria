@@ -139,7 +139,7 @@ const TutorialHeader = (props) => {
 };
 
 const TutorialSlides = ({ slides, current, handleChangeIndex }) => (
-  <BackgroundCurved>
+  <BackgroundCurved gradient="turquoise">
     <View>
       <div>
         <SwipeableViews index={current} onChangeIndex={handleChangeIndex}>
