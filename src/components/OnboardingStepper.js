@@ -1,4 +1,10 @@
-import { Box, Container, IconButton, MobileStepper } from '@material-ui/core';
+import {
+  Box,
+  Container,
+  IconButton,
+  MobileStepper,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -66,6 +72,10 @@ const OnboardingStepper = ({
 
   const onNext = () => {
     setCurrent(current + 1);
+    // TODO: temporary if to be able to move to next step
+    if (current + 1 === screenNames.ADD_MEMBERS) {
+      return;
+    }
     setIsDisabled(true);
   };
 
@@ -79,6 +89,7 @@ const OnboardingStepper = ({
 
   const OnboardingCurrentStep = steps[current];
   const isLastSlide = current === steps.length - 1;
+  const isAddPhotoSlide = current === 3;
 
   if (isRedirect) {
     return <Redirect push to={exitPath} />;
@@ -90,16 +101,45 @@ const OnboardingStepper = ({
     translate('OnboardingOrganization.stepperThirdStep'),
   ];
 
+  const screenNames = {
+    ENTER_EMAIL: 0,
+    FUND_YOUR_ORGANIZATION: 1,
+    CREATE_YOUR_USERNAME: 2,
+    ADD_PHOTO: 3,
+    ADD_MEMBERS: 4,
+  };
+  const stepperSteps = {
+    CREATE_WALLET: 0,
+    MAKE_PROFILE: 1,
+    ADD_MEMBERS: 2,
+  };
+
   const activeStepForStepperHorizontal = () => {
     // we have more screens/views than steps in our stepper thus that we need to adapt
     switch (current) {
-      case 0:
-        return 0;
-      case 1:
-      case 2:
-        return 1;
-      case 3:
-        return 2;
+      case screenNames.ENTER_EMAIL:
+        return stepperSteps.CREATE_WALLET;
+      case screenNames.FUND_YOUR_ORGANIZATION:
+      case screenNames.CREATE_YOUR_USERNAME:
+        return stepperSteps.MAKE_PROFILE;
+      case screenNames.ADD_PHOTO:
+        return stepperSteps.ADD_MEMBERS;
+      case screenNames.ADD_MEMBERS:
+        return stepperSteps.ADD_MEMBERS;
+    }
+  };
+
+  const btnTransleteTextForNextStep = () => {
+    switch (current) {
+      case screenNames.ENTER_EMAIL:
+        return translate('OnboardingStepper.buttonSubmit');
+      case screenNames.FUND_YOUR_ORGANIZATION:
+        return translate('OnboardingStepper.buttonFinish');
+      case screenNames.CREATE_YOUR_USERNAME:
+      case screenNames.ADD_PHOTO:
+        return translate('OnboardingStepper.buttonSubmit');
+      case screenNames.ADD_MEMBERS:
+        return translate('OnboardingStepper.skipStep');
     }
   };
 
@@ -151,15 +191,20 @@ const OnboardingStepper = ({
       </View>
       <Footer>
         <AppNote />
+        {isAddPhotoSlide ? (
+          <Box mb={1}>
+            <Typography align="center" onClick={onNext}>
+              {translate('OnboardingOrganization.skipStep')}
+            </Typography>
+          </Box>
+        ) : null}
         <Button
           disabled={isDisabled}
           fullWidth
           isPrimary
           onClick={isLastSlide ? onFinish : onNext}
         >
-          {isLastSlide
-            ? translate('OnboardingStepper.buttonFinish')
-            : translate('OnboardingStepper.buttonNextStep')}
+          {btnTransleteTextForNextStep()}
         </Button>
       </Footer>
     </Fragment>
