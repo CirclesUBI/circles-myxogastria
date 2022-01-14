@@ -106,7 +106,6 @@ const AvatarUploader = ({
         )}
         <Avatar
           className={classes.avatarUpload}
-          shouldHaveIndicator
           src={isLoading ? null : value}
           onClick={handleUploadClick}
         >
