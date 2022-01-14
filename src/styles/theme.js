@@ -43,6 +43,7 @@ export const colors = {
   springGreen: '#06FC9D',
   pizazz: '#FF8E00',
   ceriseRed: '#D12D5F',
+  blueRibbon: '#2B44FF',
 };
 
 const gradients = {

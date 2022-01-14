@@ -194,6 +194,7 @@
     "headingEmail": "Enter Email",
     "headingPrefund": "Fund your organization",
     "headingUsername": "Create Your Username",
+    "skipStep": "I'll do this later",
     "stepperFirstStep": "Create Wallet",
     "stepperSecondStep": "Make Profile",
     "stepperThirdStep": "Add Members",
@@ -201,7 +202,9 @@
   },
   "OnboardingStepper": {
     "buttonFinish": "Sign me up!",
-    "buttonNextStep": "Continue"
+    "buttonNextStep": "Continue",
+    "buttonSubmit": "Submit",
+    "skipStep": "I'll do this later"
   },
   "OrganizationMembers": {
     "buttonRemoveMember": "Remove",
