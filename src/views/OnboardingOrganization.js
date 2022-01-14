@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import theme from '../styles/theme';
 import { DASHBOARD_PATH } from '~/routes';
 
 import AvatarUploader from '~/components/AvatarUploader';
@@ -31,6 +30,24 @@ import {
 } from '~/store/tutorial/actions';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import { formatCirclesValue } from '~/utils/format';
+import OrganizationMembersAdd from '~/views/OrganizationMembersAdd';
+
+const moveUpFront = (theme) => ({
+  position: 'relative',
+  zIndex: theme.zIndex.layer1,
+});
+const useStyles = makeStyles((theme) => ({
+  organizationStepAddMembersContainer: moveUpFront(theme),
+  organizationStepUsernameContainer: moveUpFront(theme),
+  organizationEmailContainer: moveUpFront(theme),
+  organizationStepAvatarContainer: moveUpFront(theme),
+  organizationStepPrefundContainer: moveUpFront(theme),
+  CheckboxesContainer: {
+    '& a': {
+      color: theme.custom.colors.blueRibbon,
+    },
+  },
+}));
 
 const OnboardingOrganization = () => {
   const dispatch = useDispatch();
@@ -93,6 +110,7 @@ const OnboardingOrganization = () => {
     OrganizationStepPrefund,
     OrganizationStepUsername,
     OrganizationStepAvatar,
+    OrganizationStepAddMembers,
   ];
 
   const handleTutorialFinish = () => {
@@ -126,51 +144,7 @@ const OnboardingOrganization = () => {
   );
 };
 
-const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
-  const useStyles = makeStyles((theme) => ({
-    organizationStepUsernameContainer: {
-      position: 'relative',
-      zIndex: theme.zIndex.layer1,
-    },
-  }));
-  const classes = useStyles();
-
-  const handleChange = (username) => {
-    onChange({
-      username,
-    });
-  };
-
-  return (
-    <Box className={classes.organizationStepUsernameContainer}>
-      <Typography align="center" gutterBottom variant="h2">
-        {translate('OnboardingOrganization.headingUsername')}
-      </Typography>
-      <Box mb={6} mt={4}>
-        <VerifiedUsernameInput
-          label={translate('OnboardingOrganization.formUsername')}
-          value={values.username}
-          onChange={handleChange}
-          onStatusChange={onDisabledChange}
-        />
-      </Box>
-      <Box mb={4}>
-        <Typography mb={18}>
-          {translate('OnboardingOrganization.bodyUsername')}
-        </Typography>
-      </Box>
-    </Box>
-  );
-};
-
 const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
-  const useStyles = makeStyles((theme) => ({
-    organizationEmailContainer: {
-      position: 'relative',
-      zIndex: theme.zIndex.layer1,
-    },
-  }));
-
   const classes = useStyles();
   const [emailValid, setEmailValid] = useState(false);
   const [privacy, setPrivacy] = useState(false);
@@ -216,7 +190,7 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
             {translate('Onboarding.bodyEmailOrganization')}
           </Typography>
         </Box>
-        <Box mt={2} textAlign={'left'}>
+        <Box className={classes.CheckboxesContainer} mt={2} textAlign={'left'}>
           <Box>
             <CheckboxPrivacy checked={privacy} onChange={handlePrivacy} />
           </Box>
@@ -229,50 +203,10 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
   );
 };
 
-const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
-  const useStyles = makeStyles((theme) => ({
-    organizationStepAvatarContainer: {
-      position: 'relative',
-      zIndex: theme.zIndex.layer1,
-    },
-  }));
-  const classes = useStyles();
-
-  const handleUpload = (avatarUrl) => {
-    onChange({
-      avatarUrl,
-    });
-  };
-
-  return (
-    <Box className={classes.organizationStepAvatarContainer}>
-      <Typography align="center" gutterBottom variant="h6">
-        {translate('OnboardingOrganization.headingAvatar')}
-      </Typography>
-      <Box mb={4} mt={4}>
-        <AvatarUploader
-          shouldHaveIndicator
-          value={values.avatarUrl}
-          onLoadingChange={onDisabledChange}
-          onUpload={handleUpload}
-        />
-      </Box>
-    </Box>
-  );
-};
-
 const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
+  const classes = useStyles();
   const [isError, setIsError] = useState(false);
   const { safe, token } = useSelector((state) => state);
-
-  const useStyles = makeStyles((theme) => ({
-    organizationStepPrefundContainer: {
-      position: 'relative',
-      zIndex: theme.zIndex.layer1,
-    },
-  }));
-  const classes = useStyles();
-
   const maxAmount = parseFloat(
     formatCirclesValue(web3.utils.toBN(token.balance)),
   );
@@ -328,6 +262,73 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
           </Grid>
         </Grid>
       </Box>
+    </Box>
+  );
+};
+
+const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
+  const classes = useStyles();
+
+  const handleChange = (username) => {
+    onChange({
+      username,
+    });
+  };
+
+  return (
+    <Box className={classes.organizationStepUsernameContainer}>
+      <Typography align="center" gutterBottom variant="h6">
+        {translate('OnboardingOrganization.headingUsername')}
+      </Typography>
+      <Box mb={6} mt={4}>
+        <VerifiedUsernameInput
+          label={translate('OnboardingOrganization.formUsername')}
+          value={values.username}
+          onChange={handleChange}
+          onStatusChange={onDisabledChange}
+        />
+      </Box>
+      <Box mb={4}>
+        <Typography mb={18}>
+          {translate('OnboardingOrganization.bodyUsername')}
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
+
+const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
+  const classes = useStyles();
+
+  const handleUpload = (avatarUrl) => {
+    onChange({
+      avatarUrl,
+    });
+  };
+
+  return (
+    <Box className={classes.organizationStepAvatarContainer}>
+      <Typography align="center" gutterBottom variant="h6">
+        {translate('OnboardingOrganization.headingAvatar')}
+      </Typography>
+      <Box mb={4} mt={4}>
+        <AvatarUploader
+          shouldHaveIndicator
+          value={values.avatarUrl}
+          onLoadingChange={onDisabledChange}
+          onUpload={handleUpload}
+        />
+      </Box>
+    </Box>
+  );
+};
+
+const OrganizationStepAddMembers = () => {
+  const classes = useStyles();
+
+  return (
+    <Box className={classes.organizationStepAddMembersContainer}>
+      <OrganizationMembersAdd />
     </Box>
   );
 };
