@@ -1,30 +1,22 @@
-import { Container, IconButton } from '@material-ui/core';
+import { Box, Container, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, generatePath } from 'react-router-dom';
 
-import {
-  DASHBOARD_PATH,
-  MY_PROFILE_PATH,
-  ORGANIZATION_MEMBERS_PATH,
-  QR_GENERATOR_PATH,
-  SEND_PATH,
-} from '~/routes';
+import { DASHBOARD_PATH } from '~/routes';
 
+import ActivityIcon from '~/components/ActivityIcon';
 import ActivityStreamWithTabs from '~/components/ActivityStreamWithTabs';
 import AppNote from '~/components/AppNote';
+import AvatarHeader from '~/components/AvatarHeader';
+import BackgroundCurved from '~/components/BackgroundCurved';
 import BalanceDisplayOrganization from '~/components/BalanceDisplayOrganization';
-import ButtonAction from '~/components/ButtonAction';
-import ButtonSend from '~/components/ButtonSend';
-import CenteredHeading from '~/components/CenteredHeading';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
 import Navigation from '~/components/Navigation';
-import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
-import { IconMembers, IconMenu, IconQRLarge } from '~/styles/icons';
+import { IconMenu } from '~/styles/icons';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {
@@ -57,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     ...transitionMixin(theme),
+    background: 'transparent',
   },
   headerExpanded: {
     ...transitionExpandedMixin(theme),
@@ -70,6 +63,17 @@ const useStyles = makeStyles((theme) => ({
   viewExpanded: {
     ...transitionExpandedMixin(theme),
     overflow: 'hidden',
+  },
+  dashboardOrganizationContainer: {
+    marginTop: '95px',
+  },
+  balanceContainer: {
+    margin: '0 auto',
+    textAlign: 'center',
+  },
+  userDataContainer: {
+    position: 'relative',
+    top: '45px',
   },
 }));
 
@@ -88,28 +92,19 @@ const DashboardOrganization = () => {
 
   return (
     <Fragment>
-      <Header
-        className={clsx(classes.header, {
-          [classes.headerExpanded]: isMenuExpanded,
-        })}
-      >
-        <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
-          <IconMenu />
-        </IconButton>
-        <CenteredHeading>
-          <Link className={classes.profileLink} to={MY_PROFILE_PATH}>
-            <UsernameDisplay address={safe.currentAccount} />
-          </Link>
-        </CenteredHeading>
-        <IconButton
-          aria-label="Members"
-          component={Link}
-          edge="end"
-          to={ORGANIZATION_MEMBERS_PATH}
+      <BackgroundCurved gradient="orange">
+        <Header
+          className={clsx(classes.header, {
+            [classes.headerExpanded]: isMenuExpanded,
+          })}
         >
-          <IconMembers />
-        </IconButton>
-      </Header>
+          <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
+            <IconMenu />
+          </IconButton>
+          <AvatarHeader />
+          <ActivityIcon />
+        </Header>
+      </BackgroundCurved>
       <Navigation
         className={classes.navigation}
         isExpanded={isMenuExpanded}
@@ -120,28 +115,17 @@ const DashboardOrganization = () => {
           [classes.viewExpanded]: isMenuExpanded,
         })}
       >
-        <Container maxWidth="sm">
-          <BalanceDisplayOrganization />
+        <Container
+          className={classes.dashboardOrganizationContainer}
+          maxWidth="sm"
+        >
+          <Box className={classes.balanceContainer}>
+            <BalanceDisplayOrganization />
+          </Box>
           <AppNote />
           <ActivityStreamWithTabs basePath={DASHBOARD_PATH} />
         </Container>
       </View>
-      <ButtonAction
-        aria-label="Generate QR"
-        className={clsx(classes.fabQR, {
-          [classes.fabExpanded]: isMenuExpanded,
-        })}
-        component={Link}
-        to={QR_GENERATOR_PATH}
-      >
-        <IconQRLarge fontSize="large" />
-      </ButtonAction>
-      <ButtonSend
-        className={clsx(classes.fab, {
-          [classes.fabExpanded]: isMenuExpanded,
-        })}
-        to={generatePath(SEND_PATH)}
-      />
       <Drawer />
     </Fragment>
   );
