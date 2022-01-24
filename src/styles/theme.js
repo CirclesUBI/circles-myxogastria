@@ -27,8 +27,13 @@ const monochrome = {
   white: '#fff',
 };
 
+const rgba = {
+  doveGray: 'rgb(107, 101, 101,0.5)',
+};
+
 export const colors = {
   ...monochrome,
+  ...rgba,
   red: '#cc0000',
   green: '#45e6af',
   blue: '#3ce6e1',
