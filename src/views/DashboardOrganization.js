@@ -2,7 +2,6 @@ import { Box, Container, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React, { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import { DASHBOARD_PATH } from '~/routes';
 
@@ -15,6 +14,7 @@ import BalanceDisplayOrganization from '~/components/BalanceDisplayOrganization'
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
 import Navigation from '~/components/Navigation';
+import NavigationFloating from '~/components/NavigationFloating';
 import View from '~/components/View';
 import { IconMenu } from '~/styles/icons';
 
@@ -80,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
 const DashboardOrganization = () => {
   const classes = useStyles();
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
-  const safe = useSelector((state) => state.safe);
 
   const handleMenuToggle = () => {
     setIsMenuExpanded(!isMenuExpanded);
@@ -124,6 +123,7 @@ const DashboardOrganization = () => {
           </Box>
           <AppNote />
           <ActivityStreamWithTabs basePath={DASHBOARD_PATH} />
+          <NavigationFloating />
         </Container>
       </View>
       <Drawer />

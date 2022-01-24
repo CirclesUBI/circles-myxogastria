@@ -60,6 +60,10 @@ const gradients = {
   orangeDesktop: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 200%)`,
 };
 
+const shadows = {
+  gray: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+};
+
 const components = {
   appBarHeight: 64,
   appMaxWidth: 900,
@@ -206,5 +210,6 @@ export default createMuiTheme({
     colors,
     components,
     gradients,
+    shadows,
   },
 });
