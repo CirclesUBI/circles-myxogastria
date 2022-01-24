@@ -71,10 +71,12 @@
   },
   "DialogTrust": {
     "dialogTrustCancel": "Cancel",
-    "dialogTrustConfirm": "Trust",
-    "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can affect the security of the app. In order to stay safe only trust people you know in real life.",
-    "dialogTrustTitle": "Do you trust @{username}?",
+    "dialogTrustConfirm": "Add Member",
+    "dialogTrustDescription": "Trust is Power. When you trust somebody it means that you are sharing the power to issue circles.",
+    "dialogTrustTitle": "Add @{username}?",
     "errorTrust": "Something went wrong when you tried to trust @{username} ...",
+    "externalLink": "Learn more",
+    "afterExternalLink": "here",
     "successTrust": "Nice. You trusted @{username}!"
   },
   "DialogTrustRevoke": {
