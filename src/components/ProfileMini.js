@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(0.5),
     padding: theme.spacing(1),
     border: `1px solid ${theme.palette.grey['300']}`,
-    borderRadius: 7,
+    borderRadius: '50%',
   },
   cardActionIcon: {
     color: theme.palette.primary.main,
@@ -85,6 +85,7 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
     <Fragment>
       <DialogTrust
         address={address}
+        avatar={<Avatar address={address} />}
         isOpen={isTrustOpen}
         onClose={handleTrustClose}
         onConfirm={handleTrustClose}
