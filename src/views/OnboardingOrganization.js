@@ -3,14 +3,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { generatePath } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
-import { DASHBOARD_PATH } from '~/routes';
+import { DASHBOARD_PATH, PROFILE_PATH } from '~/routes';
+import { ORGANIZATION_PATH } from '~/routes';
 
 import AvatarUploader from '~/components/AvatarUploader';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
+import Finder from '~/components/Finder';
 import OnboardingStepper from '~/components/OnboardingStepper';
 import TransferCirclesInput from '~/components/TransferCirclesInput';
 import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
@@ -30,7 +33,6 @@ import {
 } from '~/store/tutorial/actions';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import { formatCirclesValue } from '~/utils/format';
-import OrganizationMembersAdd from '~/views/OrganizationMembersAdd';
 
 const moveUpFront = (theme) => ({
   position: 'relative',
@@ -106,11 +108,11 @@ const OnboardingOrganization = () => {
   };
 
   const steps = [
+    OrganizationStepAddMembers,
     OrganizationStepEmail,
     OrganizationStepPrefund,
     OrganizationStepUsername,
     OrganizationStepAvatar,
-    OrganizationStepAddMembers,
   ];
 
   const handleTutorialFinish = () => {
@@ -325,10 +327,23 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
 
 const OrganizationStepAddMembers = () => {
   const classes = useStyles();
+  const [redirectPath, setRedirectPath] = useState(null);
+
+  const handleSelect = (address) => {
+    setRedirectPath(
+      generatePath(PROFILE_PATH, {
+        address,
+      }),
+    );
+  };
+
+  if (redirectPath) {
+    return <Redirect push to={redirectPath} />;
+  }
 
   return (
     <Box className={classes.organizationStepAddMembersContainer}>
-      <OrganizationMembersAdd />
+      <Finder basePath={ORGANIZATION_PATH} hasActions onSelect={handleSelect} />
     </Box>
   );
 };
