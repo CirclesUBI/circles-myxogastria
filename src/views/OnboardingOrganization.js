@@ -108,11 +108,11 @@ const OnboardingOrganization = () => {
   };
 
   const steps = [
-    OrganizationStepAddMembers,
     OrganizationStepEmail,
     OrganizationStepPrefund,
     OrganizationStepUsername,
     OrganizationStepAvatar,
+    OrganizationStepAddMembers,
   ];
 
   const handleTutorialFinish = () => {
