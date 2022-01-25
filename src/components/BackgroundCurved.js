@@ -51,6 +51,12 @@ const useStyles = makeStyles((theme) => {
           width: 1153,
           height: 808,
         },
+        [theme.breakpoints.up('md')]: {
+          top: '77px',
+          width: '200%',
+          height: '200%',
+          transform: 'translate3d(-50%, 0, 0)',
+        },
       },
     },
   };
