@@ -1,21 +1,35 @@
-import { Box, Container, IconButton } from '@material-ui/core';
+import {
+  Box,
+  ButtonGroup,
+  Container,
+  Grid,
+  IconButton,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React, { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { DASHBOARD_PATH } from '~/routes';
+import { SEARCH_PATH, SEND_PATH } from '~/routes';
 
 import ActivityIcon from '~/components/ActivityIcon';
-import ActivityStreamWithTabs from '~/components/ActivityStreamWithTabs';
 import AppNote from '~/components/AppNote';
 import AvatarHeader from '~/components/AvatarHeader';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import BalanceDisplayOrganization from '~/components/BalanceDisplayOrganization';
+import Button from '~/components/Button';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
+import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import NavigationFloating from '~/components/NavigationFloating';
 import View from '~/components/View';
+import { useUpdateLoop } from '~/hooks/update';
+import translate from '~/services/locale';
+import {
+  checkFinishedActivities,
+  checkPendingActivities,
+} from '~/store/activity/actions';
 import { IconMenu } from '~/styles/icons';
 
 const transitionMixin = ({ transitions }) => ({
@@ -75,11 +89,28 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     top: '45px',
   },
+  buttonContainer: {
+    marginTop: '30px',
+    marginBottom: '70px',
+    padding: '0 15px',
+    '& a:first-of-type': {
+      border: 0,
+    },
+    '& a:nth-of-type(2)': {
+      borderLeftStyle: 'none',
+    },
+  },
 }));
 
 const DashboardOrganization = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
+
+  useUpdateLoop(async () => {
+    await dispatch(checkFinishedActivities());
+    await dispatch(checkPendingActivities());
+  });
 
   const handleMenuToggle = () => {
     setIsMenuExpanded(!isMenuExpanded);
@@ -122,7 +153,17 @@ const DashboardOrganization = () => {
             <BalanceDisplayOrganization />
           </Box>
           <AppNote />
-          <ActivityStreamWithTabs basePath={DASHBOARD_PATH} />
+          <Grid item xs={12}>
+            <ButtonGroup className={classes.buttonContainer} fullWidth>
+              <Button isOutline isPrimary to={SEARCH_PATH}>
+                {translate('DashboardOrganization.buttonTrustPeople')}
+              </Button>
+              <Button isOutline to={SEND_PATH}>
+                {translate('DashboardOrganization.buttonSendCircles')}
+              </Button>
+            </ButtonGroup>
+          </Grid>
+          <LastInteractions />
           <NavigationFloating />
         </Container>
       </View>
