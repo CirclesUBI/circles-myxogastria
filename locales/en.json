@@ -63,6 +63,10 @@
   "Dashboard": {
     "formSearch": "Add or search contacts"
   },
+  "DashboardOrganization": {
+    "buttonTrustPeople": "Trust People",
+    "buttonSendCircles": "Send Circles"
+  },
   "DialogBurn": {
     "dialogBurnCancel": "Cancel",
     "dialogBurnConfirm": "End Session",
