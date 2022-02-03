@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.0] - 2022-02-03
+
+### Added 
+
+- Improved seedphrase information in sign up process [#246](https://github.com/CirclesUBI/circles-myxogastria/pull/246)
+- General app notifications are shown also on validation page (not only in the dashboard)
+
+### Changed
+
+- The number of validators counts up instead of down [#258](https://github.com/CirclesUBI/circles-myxogastria/pull/260)
+- The round notification counter in the top right of the dashboard is replaced by a bell symbol with a counter [#255](https://github.com/CirclesUBI/circles-myxogastria/pull/255)
+- The help text of the serach bar [#254](https://github.com/CirclesUBI/circles-myxogastria/pull/254)
+
+### Removed 
+
+- Some locked or disabled trust buttons [#260](https://github.com/CirclesUBI/circles-myxogastria/pull/260) and [#245](https://github.com/CirclesUBI/circles-myxogastria/pull/245)
+- Donation note in dashboard [#252](https://github.com/CirclesUBI/circles-myxogastria/pull/252)
+
 ## [1.9.3] - 2021-08-29
 
 ### Added
