@@ -323,7 +323,7 @@ const ProfileSendButton = ({ address, deploymentStatus }) => {
   // b) Our Safe is not deployed yet - show disabled button
   // c) The profiles Safe is not deployed yet - show disabled button
   if (safe.currentAccount === address) {
-    return;
+    return null;
   }
 
   const isSendDisabled =
