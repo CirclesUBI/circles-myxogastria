@@ -12,6 +12,7 @@ import React, { Fragment, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import AppNote from '~/components/AppNote';
+import AvatarHeader from '~/components/AvatarHeader';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import Footer from '~/components/Footer';
@@ -42,6 +43,7 @@ const useStyles = makeStyles(() => ({
 
   stepperHorizontalContainer: {
     marginBottom: '10px',
+    marginTop: '30px',
   },
 }));
 
@@ -52,6 +54,7 @@ const OnboardingStepper = ({
   steps,
   values,
   isHorizontalStepper,
+  todoRemoveFlag,
 }) => {
   const classes = useStyles();
 
@@ -129,7 +132,7 @@ const OnboardingStepper = ({
     }
   };
 
-  const btnTransleteTextForNextStep = () => {
+  const btnTranslateTextForNextStep = () => {
     switch (current) {
       case screenNames.ENTER_EMAIL:
         return translate('OnboardingStepper.buttonSubmit');
@@ -169,6 +172,9 @@ const OnboardingStepper = ({
           steps={steps.length + 1}
           variant="progress"
         />
+        {todoRemoveFlag && current >= screenNames.ADD_PHOTO && (
+          <AvatarHeader hideImage={current == screenNames.ADD_PHOTO} />
+        )}
       </Header>
       <View mt={8}>
         {isHorizontalStepper && (
@@ -204,7 +210,7 @@ const OnboardingStepper = ({
           isPrimary
           onClick={isLastSlide ? onFinish : onNext}
         >
-          {btnTransleteTextForNextStep()}
+          {btnTranslateTextForNextStep()}
         </Button>
       </Footer>
     </Fragment>
@@ -217,6 +223,7 @@ OnboardingStepper.propTypes = {
   onFinish: PropTypes.func.isRequired,
   onValuesChange: PropTypes.func.isRequired,
   steps: PropTypes.array.isRequired,
+  todoRemoveFlag: PropTypes.bool,
   values: PropTypes.object.isRequired,
 };
 
