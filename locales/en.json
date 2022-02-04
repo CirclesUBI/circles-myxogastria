@@ -67,6 +67,14 @@
     "buttonTrustPeople": "Trust People",
     "buttonSendCircles": "Send Circles"
   },
+  "DialogAddMember": {
+    "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to send circles from your shared wallet.",
+    "dialogBodyCannotAdd": "You cannot add another shared wallet as a member of a shared wallet.",
+    "dialogCancel": "Cancel",
+    "dialogConfirm": "Add member",
+    "dialogTitle": "Add @{username}",
+    "linkLearnMore": "Learn more"
+  },
   "DialogBurn": {
     "dialogBurnCancel": "Cancel",
     "dialogBurnConfirm": "End Session",
@@ -105,7 +113,7 @@
     "bodyFilterIndirect": "In your network",
     "bodyNoResultsGiven": "No search results found!",
     "buttonLoadMore": "Show more",
-    "formSearch": "Search"
+    "formSearch": "Add or search contacts"
   },
   "LocaleSelector": {
     "de": "DE",
@@ -142,6 +150,13 @@
     "linkFAQ": "FAQ",
     "linkMarketplace": "Marketplace",
     "linkPrivacyLegal": "Privacy / Legal",
+    "linkSupport": "Support"
+  },
+  "NavigationFloating": {
+    "linkAddMembers": "Add Members",
+    "linkEditProfile": "Edit Profile",
+    "linkMyWallets": "My Wallets",
+    "linkMarketplace": "Marketplace",
     "linkSupport": "Support"
   },
   "NotFound": {
@@ -200,9 +215,10 @@
     "headingEmail": "Enter Email",
     "headingPrefund": "Fund your organization",
     "headingUsername": "Create Your Username",
+    "headingAddMembers": "Add members",
     "skipStep": "I'll do this later",
     "stepperFirstStep": "Create Wallet",
-    "stepperSecondStep": "Make Profile",
+    "stepperSecondStep": "Deposit Funds",
     "stepperThirdStep": "Add Members",
     "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
   },
@@ -223,14 +239,8 @@
     "successRemovedMember": "You've successfully removed @{username} from this shared wallet."
   },
   "OrganizationMembersAdd": {
-    "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to send circles from your shared wallet.",
-    "dialogBodyCannotAdd": "You cannot add another shared wallet as a member of a shared wallet.",
-    "dialogCancel": "Cancel",
-    "dialogConfirm": "Add member",
-    "dialogTitle": "Add @{username}",
     "errorAddedMember": "Something went wrong, @{username} could not be added to the shared wallet",
     "headingAddMember": "Add member",
-    "linkLearnMore": "Learn more",
     "successAddedMember": "You've successfully added @{username} to this shared wallet."
   },
   "Profile": {
