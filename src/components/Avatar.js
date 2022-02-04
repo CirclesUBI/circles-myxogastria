@@ -71,7 +71,7 @@ const Avatar = ({ address, size = 'small', ...props }) => {
 };
 
 Avatar.propTypes = {
-  address: PropTypes.string.isRequired,
+  address: PropTypes.string,
   size: PropTypes.string,
 };
 
