@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     padding: theme.spacing(2),
     height: 66,
-    boxShadow: 'inset 1px 1px 1px 1px rgba(0,0,0,0.15)',
+    boxShadow: theme.custom.shadows.grayUp,
   },
   inputLabel: {
     marginBottom: theme.spacing(1),
