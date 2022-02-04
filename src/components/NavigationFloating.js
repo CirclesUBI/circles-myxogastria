@@ -1,8 +1,14 @@
 import { Fab, Menu, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
+import { MY_PROFILE_PATH, ORGANIZATION_MEMBERS_ADD_PATH } from '~/routes';
+
+import ExternalLink from '~/components/ExternalLink';
+import translate from '~/services/locale';
 import { IconClose } from '~/styles/icons';
+import { MARKETPLACE_MARKET_URL } from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   menuNavigation: {
@@ -34,6 +40,13 @@ const useStyles = makeStyles((theme) => ({
       textAlign: 'center',
       fontSize: '16px',
       fontWeight: '500',
+
+      '& a': {
+        color: theme.custom.colors.purple,
+        fontSize: '16px',
+        fontWeight: '500',
+        textDecoration: 'none',
+      },
     },
   },
 
@@ -101,11 +114,27 @@ export default function NavigationFloating() {
         }}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Add Members</MenuItem>
-        <MenuItem onClick={handleClose}>Edit Probile</MenuItem>
-        <MenuItem onClick={handleClose}>My Walelts</MenuItem>
-        <MenuItem onClick={handleClose}>Marketplace</MenuItem>
-        <MenuItem onClick={handleClose}>Support</MenuItem>
+        <MenuItem>
+          <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
+            {translate('NavigationFloating.linkAddMembers')}
+          </Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          {translate('NavigationFloating.linkEditProfile')}
+        </MenuItem>
+        <MenuItem>
+          <Link to={MY_PROFILE_PATH}>
+            {translate('NavigationFloating.linkMyWallets')}
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <ExternalLink href={MARKETPLACE_MARKET_URL}>
+            {translate('NavigationFloating.linkMarketplace')}
+          </ExternalLink>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          {translate('NavigationFloating.linkSupport')}
+        </MenuItem>
         <IconClose
           className={classes.menuNavigationIconClose}
           onClick={handleClose}
