@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import Avatar from '~/components/Avatar';
 import Dialog from '~/components/Dialog';
 import { useUserdata } from '~/hooks/username';
 import translate from '~/services/locale';
@@ -63,7 +62,6 @@ const DialogTrust = ({
 
   return (
     <Dialog
-      avatar={<Avatar address={address} size="smallXl" />}
       cancelLabel={translate('DialogTrust.dialogTrustCancel')}
       confirmLabel={translate('DialogTrust.dialogTrustConfirm')}
       externalPath="#"
