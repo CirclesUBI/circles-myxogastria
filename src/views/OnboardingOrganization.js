@@ -21,6 +21,7 @@ import TutorialOrganization from '~/components/TutorialOrganization';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
 import { useUpdateLoop } from '~/hooks/update';
+import core from '~/services/core';
 import translate from '~/services/locale';
 import { validateAmount } from '~/services/token';
 import web3 from '~/services/web3';
@@ -130,17 +131,16 @@ const OnboardingOrganization = () => {
   return (
     <>
       <BackgroundCurved gradient="orange">
-        <Box mt={4}>
-          <OnboardingStepper
-            exitPath={DASHBOARD_PATH}
-            isHorizontalStepper={true}
-            mb={16}
-            steps={steps}
-            values={values}
-            onFinish={onFinish}
-            onValuesChange={setValues}
-          />
-        </Box>
+        <OnboardingStepper
+          exitPath={DASHBOARD_PATH}
+          isHorizontalStepper={true}
+          mb={16}
+          steps={steps}
+          todoRemoveFlag={true}
+          values={values}
+          onFinish={onFinish}
+          onValuesChange={setValues}
+        />
       </BackgroundCurved>
     </>
   );
@@ -328,8 +328,26 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
 const OrganizationStepAddMembers = () => {
   const classes = useStyles();
   const [redirectPath, setRedirectPath] = useState(null);
+  const [filteredSafeAddresses, setFilteredSafeAddresses] = useState([]);
+  const safe = useSelector((state) => state.safe);
 
-  const handleSelect = (address) => {
+  // // Prepare filter so it removes all search results which are already
+  // // organization members
+  useEffect(() => {
+    const update = async () => {
+      const result = await core.organization.getMembers(safe.currentAccount);
+
+      setFilteredSafeAddresses(
+        result.reduce((acc, item) => {
+          return acc.concat(item.safeAddresses);
+        }, []),
+      );
+    };
+
+    update();
+  }, [safe.currentAccount]);
+
+  const handleOnSelectFinder = (address) => {
     setRedirectPath(
       generatePath(PROFILE_PATH, {
         address,
@@ -343,7 +361,18 @@ const OrganizationStepAddMembers = () => {
 
   return (
     <Box className={classes.organizationStepAddMembersContainer}>
-      <Finder basePath={ORGANIZATION_PATH} hasActions onSelect={handleSelect} />
+      <Box mb={4}>
+        <Typography align="center" gutterBottom variant="h6">
+          {translate('OnboardingOrganization.headingAddMembers')}
+        </Typography>
+      </Box>
+      <Finder
+        basePath={ORGANIZATION_PATH}
+        filteredSafeAddresses={filteredSafeAddresses}
+        hasActions
+        isWalletCreation
+        onSelect={handleOnSelectFinder}
+      />
     </Box>
   );
 };
