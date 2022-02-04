@@ -9,16 +9,21 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Avatar from '~/components/Avatar';
-import DialogTrust from '~/components/DialogTrust';
+import DialogAddMember from '~/components/DialogAddMember';
 import { usePendingTransfer } from '~/hooks/activity';
 import { useTrustConnection } from '~/hooks/network';
 import { useIsOrganization } from '~/hooks/organization';
 import { useRelativeSendLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
+import core from '~/services/core';
 import translate from '~/services/locale';
+import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { addSafeOwner } from '~/store/safe/actions';
 import { IconFriends, IconSend, IconTrust } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -51,15 +56,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
+const ProfileMini = ({
+  address,
+  className,
+  hasActions = false,
+  isWalletCreation,
+  ...props
+}) => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
 
   const sendPath = useRelativeSendLink(address);
   const { username } = useUserdata(address);
   const connection = useTrustConnection(address);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [isRedirect, setIsRedirect] = useState(false);
-  const [isTrustOpen, setIsTrustOpen] = useState(false);
 
   const mutualFriendsCount = connection.mutualConnections.length;
 
@@ -70,11 +83,48 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
 
   const handleTrust = (event) => {
     event.stopPropagation();
-    setIsTrustOpen(true);
+    setIsOpen(true);
   };
 
-  const handleTrustClose = () => {
-    setIsTrustOpen(false);
+  const handleAddMember = async () => {
+    try {
+      dispatch(showSpinnerOverlay());
+
+      // Find device address connected to this safe
+      const ownerAddresses = await core.safe.getOwners(address);
+
+      // Add all device addresses to organization safe
+      await Promise.all(
+        ownerAddresses.map((ownerAddress) => {
+          return dispatch(addSafeOwner(ownerAddress));
+        }),
+      );
+
+      dispatch(
+        notify({
+          text: translate('OrganizationMembersAdd.successAddedMember', {
+            username,
+          }),
+          type: NotificationsTypes.SUCCESS,
+        }),
+      );
+    } catch {
+      dispatch(
+        notify({
+          text: translate('OrganizationMembersAdd.errorAddedMember', {
+            username,
+          }),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+    }
+
+    setIsOpen(false);
+    dispatch(hideSpinnerOverlay());
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
   };
 
   if (isRedirect) {
@@ -83,12 +133,12 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
 
   return (
     <Fragment>
-      <DialogTrust
+      <DialogAddMember
         address={address}
-        avatar={<Avatar address={address} />}
-        isOpen={isTrustOpen}
-        onClose={handleTrustClose}
-        onConfirm={handleTrustClose}
+        handleAddMember={handleAddMember}
+        handleClose={handleClose}
+        isOpen={isOpen}
+        username={username}
       />
       <Card {...props} className={className}>
         <CardHeader
@@ -97,6 +147,7 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
               <ProfileMiniActions
                 address={address}
                 connection={connection}
+                isWalletCreation={isWalletCreation}
                 onSend={handleSend}
                 onTrust={handleTrust}
               />
@@ -131,7 +182,13 @@ const ProfileMini = ({ address, className, hasActions = false, ...props }) => {
   );
 };
 
-const ProfileMiniActions = ({ address, onTrust, onSend, connection }) => {
+const ProfileMiniActions = ({
+  address,
+  onTrust,
+  onSend,
+  connection,
+  isWalletCreation,
+}) => {
   const classes = useStyles();
 
   const { isMeTrusting, isPending: isPendingTrust } = connection;
@@ -157,7 +214,7 @@ const ProfileMiniActions = ({ address, onTrust, onSend, connection }) => {
             </IconButton>
           </Fragment>
         )}
-      {!isPendingSend && (
+      {!isPendingSend && !isWalletCreation && (
         <IconButton
           aria-label="Send"
           className={classes.cardActionButton}
@@ -174,11 +231,13 @@ ProfileMini.propTypes = {
   address: PropTypes.string.isRequired,
   className: PropTypes.string,
   hasActions: PropTypes.bool,
+  isWalletCreation: PropTypes.bool,
 };
 
 ProfileMiniActions.propTypes = {
   address: PropTypes.string.isRequired,
   connection: PropTypes.object.isRequired,
+  isWalletCreation: PropTypes.bool,
   onSend: PropTypes.func.isRequired,
   onTrust: PropTypes.func.isRequired,
 };
