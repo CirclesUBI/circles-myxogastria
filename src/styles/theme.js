@@ -67,6 +67,7 @@ const gradients = {
 
 const shadows = {
   gray: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  grayUp: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
 };
 
 const components = {
