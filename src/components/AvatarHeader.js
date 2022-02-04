@@ -1,5 +1,6 @@
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,6 +11,10 @@ import Avatar from '~/components/Avatar';
 import UsernameDisplay from '~/components/UsernameDisplay';
 
 const useStyles = makeStyles((theme) => ({
+  avatarContainer: {
+    width: '80px',
+    height: '80px',
+  },
   userDataContainer: {
     position: 'absolute',
     top: '45px',
@@ -31,18 +36,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AvatarHeader = () => {
+const AvatarHeader = ({ hideImage }) => {
   const classes = useStyles();
 
   const safe = useSelector((state) => state.safe);
 
   return (
     <Box className={classes.userDataContainer}>
-      <Avatar
-        address={safe.currentAccount}
-        className={classes.avatarContainer}
-        size={'smallXl'}
-      ></Avatar>
+      <Box className={classes.avatarContainer}>
+        {!hideImage && (
+          <Avatar
+            address={safe.currentAccount}
+            className={classes.avatarContainer}
+            size={'smallXl'}
+          />
+        )}
+      </Box>
       <Box className={classes.textContainer}>
         <Link className={classes.profileLink} to={MY_PROFILE_PATH}>
           <UsernameDisplay address={safe.currentAccount} />
@@ -50,6 +59,10 @@ const AvatarHeader = () => {
       </Box>
     </Box>
   );
+};
+
+AvatarHeader.propTypes = {
+  hideImage: PropTypes.bool,
 };
 
 export default AvatarHeader;
