@@ -8,7 +8,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import AppNote from '~/components/AppNote';
@@ -19,6 +19,7 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import StepperHorizontal from '~/components/StepperHorizontal';
 import View from '~/components/View';
+import { useQuery } from '~/hooks/url';
 import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
 
@@ -59,6 +60,16 @@ const OnboardingStepper = ({
   const classes = useStyles();
 
   const [current, setCurrent] = useState(0);
+  const { filter, query: inputSearch } = useQuery();
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    if (filter || inputSearch) {
+      setCurrent(screenNames.ADD_MEMBERS);
+    }
+  }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
+
   const [isRedirect, setIsRedirect] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
