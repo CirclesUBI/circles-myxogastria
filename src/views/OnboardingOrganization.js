@@ -21,7 +21,6 @@ import TutorialOrganization from '~/components/TutorialOrganization';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
 import { useUpdateLoop } from '~/hooks/update';
-import core from '~/services/core';
 import translate from '~/services/locale';
 import { validateAmount } from '~/services/token';
 import web3 from '~/services/web3';
@@ -328,24 +327,6 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
 const OrganizationStepAddMembers = () => {
   const classes = useStyles();
   const [redirectPath, setRedirectPath] = useState(null);
-  const [filteredSafeAddresses, setFilteredSafeAddresses] = useState([]);
-  const safe = useSelector((state) => state.safe);
-
-  // // Prepare filter so it removes all search results which are already
-  // // organization members
-  useEffect(() => {
-    const update = async () => {
-      const result = await core.organization.getMembers(safe.currentAccount);
-
-      setFilteredSafeAddresses(
-        result.reduce((acc, item) => {
-          return acc.concat(item.safeAddresses);
-        }, []),
-      );
-    };
-
-    update();
-  }, [safe.currentAccount]);
 
   const handleOnSelectFinder = (address) => {
     setRedirectPath(
@@ -368,7 +349,6 @@ const OrganizationStepAddMembers = () => {
       </Box>
       <Finder
         basePath={ORGANIZATION_PATH}
-        filteredSafeAddresses={filteredSafeAddresses}
         hasActions
         isWalletCreation
         onSelect={handleOnSelectFinder}
