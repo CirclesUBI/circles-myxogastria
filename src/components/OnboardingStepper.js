@@ -183,10 +183,10 @@ const OnboardingStepper = ({
           steps={steps.length + 1}
           variant="progress"
         />
-        {todoRemoveFlag && current >= screenNames.ADD_PHOTO && (
-          <AvatarHeader hideImage={current == screenNames.ADD_PHOTO} />
-        )}
       </Header>
+      {todoRemoveFlag && current >= screenNames.ADD_PHOTO && (
+        <AvatarHeader hideImage={current == screenNames.ADD_PHOTO} />
+      )}
       <View mt={8}>
         {isHorizontalStepper && (
           <Box className={classes.stepperHorizontalContainer}>
