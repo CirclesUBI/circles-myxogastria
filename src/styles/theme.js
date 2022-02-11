@@ -49,6 +49,7 @@ export const colors = {
   pizazz: '#FF8E00',
   ceriseRed: '#D12D5F',
   blueRibbon: '#2B44FF',
+  turquoise2: '#31D7AB',
 };
 
 const gradients = {
@@ -60,9 +61,10 @@ const gradients = {
   success: `linear-gradient(90deg, ${colors.green} 0%, ${colors.blue} 100%)`,
   warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
   greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
-  blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
   orange: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 100%)`,
   orangeDesktop: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 200%)`,
+  greenBlueDesktop: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.turquoise2} 100%)`,
+  blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
 };
 
 const shadows = {
@@ -160,12 +162,14 @@ export default createMuiTheme({
     qrCodeScannerVideo: 12000,
     spinnerOverlay: 20000,
     layer1: 10,
+    backgroundCurvedWrapper: 0,
   },
   overrides: {
     MuiCssBaseline: {
       '@global': {
         body: {
           overflowX: 'hidden',
+          backgroundColor: colors.white,
         },
         '@font-face': [
           notoSans,
