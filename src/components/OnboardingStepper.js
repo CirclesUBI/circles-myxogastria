@@ -20,7 +20,6 @@ import Header from '~/components/Header';
 import StepperHorizontal from '~/components/StepperHorizontal';
 import View from '~/components/View';
 import { useQuery } from '~/hooks/url';
-import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
 
 const useStyles = makeStyles(() => ({
@@ -53,6 +52,8 @@ const OnboardingStepper = ({
   onFinish,
   onValuesChange,
   steps,
+  stepperConfiguration,
+  stepsButtons,
   values,
   isHorizontalStepper,
   todoRemoveFlag,
@@ -103,17 +104,11 @@ const OnboardingStepper = ({
 
   const OnboardingCurrentStep = steps[current];
   const isLastSlide = current === steps.length - 1;
-  const isAddPhotoSlide = current === 3;
+  // const isAddPhotoSlide = current === 3;
 
   if (isRedirect) {
     return <Redirect push to={exitPath} />;
   }
-
-  const stepsStepperHorizontal = [
-    translate('OnboardingOrganization.stepperFirstStep'),
-    translate('OnboardingOrganization.stepperSecondStep'),
-    translate('OnboardingOrganization.stepperThirdStep'),
-  ];
 
   const screenNames = {
     ENTER_EMAIL: 0,
@@ -122,40 +117,18 @@ const OnboardingStepper = ({
     ADD_PHOTO: 3,
     ADD_MEMBERS: 4,
   };
-  const stepperSteps = {
-    CREATE_WALLET: 0,
-    MAKE_PROFILE: 1,
-    ADD_MEMBERS: 2,
-  };
 
   const activeStepForStepperHorizontal = () => {
-    // we have more screens/views than steps in our stepper thus that we need to adapt
-    switch (current) {
-      case screenNames.ENTER_EMAIL:
-        return stepperSteps.CREATE_WALLET;
-      case screenNames.FUND_YOUR_ORGANIZATION:
-      case screenNames.CREATE_YOUR_USERNAME:
-        return stepperSteps.MAKE_PROFILE;
-      case screenNames.ADD_PHOTO:
-        return stepperSteps.ADD_MEMBERS;
-      case screenNames.ADD_MEMBERS:
-        return stepperSteps.ADD_MEMBERS;
+    if (current <= stepperConfiguration[0].activeTillScreen) {
+      return 0;
+    } else if (current <= stepperConfiguration[1].activeTillScreen) {
+      return 1;
+    } else if (current <= stepperConfiguration[2].activeTillScreen) {
+      return 2;
     }
   };
 
-  const btnTranslateTextForNextStep = () => {
-    switch (current) {
-      case screenNames.ENTER_EMAIL:
-        return translate('OnboardingStepper.buttonSubmit');
-      case screenNames.FUND_YOUR_ORGANIZATION:
-        return translate('OnboardingStepper.buttonFinish');
-      case screenNames.CREATE_YOUR_USERNAME:
-      case screenNames.ADD_PHOTO:
-        return translate('OnboardingStepper.buttonSubmit');
-      case screenNames.ADD_MEMBERS:
-        return translate('OnboardingStepper.skipStep');
-    }
-  };
+  const stepNames = stepperConfiguration.map((step) => step.stepName);
 
   return (
     <Fragment>
@@ -184,15 +157,15 @@ const OnboardingStepper = ({
           variant="progress"
         />
       </Header>
-      {todoRemoveFlag && current >= screenNames.ADD_PHOTO && (
+      {/* {todoRemoveFlag && current >= screenNames.ADD_PHOTO && (
         <AvatarHeader hideImage={current == screenNames.ADD_PHOTO} />
-      )}
+      )} */}
       <View mt={8}>
         {isHorizontalStepper && (
           <Box className={classes.stepperHorizontalContainer}>
             <StepperHorizontal
               activeStep={activeStepForStepperHorizontal()}
-              steps={stepsStepperHorizontal}
+              steps={stepNames}
             />
           </Box>
         )}
@@ -208,10 +181,10 @@ const OnboardingStepper = ({
       </View>
       <Footer>
         <AppNote />
-        {isAddPhotoSlide ? (
+        {stepsButtons[current].additionalBtn ? (
           <Box mb={1}>
             <Typography align="center" onClick={onNext}>
-              {translate('OnboardingOrganization.skipStep')}
+              {stepsButtons[current].additionalBtn}
             </Typography>
           </Box>
         ) : null}
@@ -221,7 +194,7 @@ const OnboardingStepper = ({
           isPrimary
           onClick={isLastSlide ? onFinish : onNext}
         >
-          {btnTranslateTextForNextStep()}
+          {stepsButtons[current].btnNextStep}
         </Button>
       </Footer>
     </Fragment>
@@ -233,7 +206,9 @@ OnboardingStepper.propTypes = {
   isHorizontalStepper: PropTypes.bool,
   onFinish: PropTypes.func.isRequired,
   onValuesChange: PropTypes.func.isRequired,
+  stepperConfiguration: PropTypes.array.isRequired,
   steps: PropTypes.array.isRequired,
+  stepsButtons: PropTypes.array.isRequired,
   todoRemoveFlag: PropTypes.bool,
   values: PropTypes.object.isRequired,
 };
