@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
   },
   inputError: {
     '&.Mui-error': {
-      color: theme.custom.colors.red,
+      color: theme.custom.colors.disco,
     },
   },
   inputAmountError: {
-    color: theme.custom.colors.red,
+    color: theme.custom.colors.disco,
   },
 }));
 
