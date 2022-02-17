@@ -2,33 +2,40 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   seedContainer: {
     flexWrap: 'wrap',
     listStyle: 'none',
     margin: 0,
-    padding: '0 16px',
+    padding: '0 16px 0 24px',
   },
   seedItem: {
-    background: '#fff',
+    background: theme.custom.colors.grayLightest,
     borderRadius: 4,
     border: '1px solid rgba(0, 0, 0, 0.1)',
-    boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
+    boxShadow: theme.custom.shadows.gray,
     display: 'inline-block',
-    marginBottom: 16,
-    marginLeft: 9,
-    padding: 8,
+    marginBottom: 6,
+    fontSize: '12px',
+    color: theme.custom.colors.grayDarker,
+    marginLeft: 22,
+    padding: '0 0 0 6px',
     position: 'relative',
     textAlign: 'left',
     whiteSpace: 'pre',
-    width: 'calc(33.3% - 9px)',
-    '&:nth-child(3n + 1)': {
+    width: '20%',
+    '&:nth-child(4n + 1)': {
       marginLeft: 0,
     },
     '&:before': {
       content: 'attr(data)',
       marginRight: 4,
       opacity: 0.4,
+      position: 'absolute',
+      left: '-23px',
+      width: '20px',
+      height: '20px',
+      textAlign: 'right',
     },
   },
 }));
