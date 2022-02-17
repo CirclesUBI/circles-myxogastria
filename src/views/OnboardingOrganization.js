@@ -114,6 +114,52 @@ const OnboardingOrganization = () => {
     OrganizationStepAddMembers,
   ];
 
+  const screenNames = {
+    ENTER_EMAIL: 0,
+    FUND_YOUR_ORGANIZATION: 1,
+    CREATE_YOUR_USERNAME: 2,
+    ADD_PHOTO: 3,
+    ADD_MEMBERS: 4,
+  };
+
+  const stepperConfiguration = [
+    {
+      stepName: translate('OnboardingOrganization.stepperFirstStep'),
+      activeTillScreen: screenNames.ENTER_EMAIL,
+    },
+    {
+      stepName: translate('OnboardingOrganization.stepperSecondStep'),
+      activeTillScreen: screenNames.CREATE_YOUR_USERNAME,
+    },
+    {
+      stepName: translate('OnboardingOrganization.stepperThirdStep'),
+      activeTillScreen: screenNames.ADD_MEMBERS,
+    },
+  ];
+
+  const stepsButtons = [
+    {
+      btnNextStep: translate('OnboardingStepper.buttonSubmit'),
+      additionalBtn: '',
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonFinish'),
+      additionalBtn: '',
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonSubmit'),
+      additionalBtn: '',
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonSubmit'),
+      additionalBtn: translate('OnboardingStepper.skipStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.skipStep'),
+      additionalBtn: '',
+    },
+  ];
+
   const handleTutorialFinish = () => {
     dispatch(finishTutorial(ORGANIZATION_TUTORIAL));
   };
@@ -133,7 +179,9 @@ const OnboardingOrganization = () => {
           exitPath={DASHBOARD_PATH}
           isHorizontalStepper={true}
           mb={16}
+          stepperConfiguration={stepperConfiguration}
           steps={steps}
+          stepsButtons={stepsButtons}
           todoRemoveFlag={true}
           values={values}
           onFinish={onFinish}
@@ -186,8 +234,8 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
           onStatusChange={handleEmailStatus}
         />
         <Box mb={3} mt={6}>
-          <Typography>
-            {translate('Onboarding.bodyEmailOrganization')}
+          <Typography className="lightGreyText">
+            {translate('Onboarding.bodyEmail')}
           </Typography>
         </Box>
         <Box className={classes.CheckboxesContainer} mt={2} textAlign={'left'}>
@@ -235,7 +283,9 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
       <Typography align="center" gutterBottom variant="h6">
         {translate('OnboardingOrganization.headingPrefund')}
       </Typography>
-      <Typography>{translate('OnboardingOrganization.bodyPrefund')}</Typography>
+      <Typography className="lightGreyText">
+        {translate('OnboardingOrganization.bodyPrefund')}
+      </Typography>
       <Box mt={4}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
