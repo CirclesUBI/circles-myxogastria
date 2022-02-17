@@ -29,6 +29,7 @@ const monochrome = {
 
 const rgba = {
   doveGray: 'rgb(107, 101, 101,0.5)',
+  dialogGray: 'rgba(0, 0, 0, 0.25)',
 };
 
 export const colors = {
@@ -50,6 +51,7 @@ export const colors = {
   ceriseRed: '#D12D5F',
   blueRibbon: '#2B44FF',
   turquoise2: '#31D7AB',
+  disco: '#99164C',
 };
 
 const gradients = {
@@ -204,6 +206,13 @@ export default createMuiTheme({
       root: {
         font: fontFamily,
         fontWeight: fontWeightLight,
+      },
+    },
+    MuiTypography: {
+      root: {
+        '&.lightGreyText': {
+          color: colors.grayDarker,
+        },
       },
     },
     // @NOTE: This is a workaround to fix an issue with Safari 14.1.1
