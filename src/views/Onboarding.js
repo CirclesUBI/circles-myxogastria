@@ -1,12 +1,13 @@
-import { Box, ListItem, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import React, { Fragment, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { WELCOME_PATH } from '~/routes';
 
 import AvatarUploader from '~/components/AvatarUploader';
+import BackgroundCurved from '~/components/BackgroundCurved';
 import ButtonClipboard from '~/components/ButtonClipboard';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
@@ -25,12 +26,61 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { createNewAccount } from '~/store/onboarding/actions';
 import logError, { formatErrorMessage } from '~/utils/debug';
 
-const useStyles = makeStyles(() => ({
+const moveUpFront = (theme) => ({
+  position: 'relative',
+  zIndex: theme.zIndex.layer1,
+});
+const useStyles = makeStyles((theme) => ({
   dotList: {
     fontSize: '16px',
-    paddingTop: '8px',
-    paddingBottom: '0px',
-    display: 'list-item',
+    fontWeight: '300',
+    paddingTop: '4px',
+    paddingBottom: '4px',
+    paddingLeft: '15px',
+    position: 'relative',
+    textAlign: 'left',
+    listStyleType: 'none',
+    '&:before': {
+      position: 'absolute',
+      content: '""',
+      top: '12px',
+      width: '4px',
+      height: '4px',
+      borderRadius: '50%',
+      left: 0,
+      background: theme.custom.colors.black,
+    },
+    '&::marker': {
+      display: 'none',
+    },
+  },
+  userStepEmailContainer: moveUpFront(theme),
+  userStepUsernameContainer: moveUpFront(theme),
+  userStepAvatarContainer: moveUpFront(theme),
+  userStepSecureWalletContainer: moveUpFront(theme),
+  userStepSeedPhrase: moveUpFront(theme),
+  userStepSeedChallenge: moveUpFront(theme),
+  userStepSecureWalletBodyTxt: {
+    padding: '45px',
+  },
+  CheckboxesContainer: {
+    '& a': {
+      color: theme.custom.colors.blueRibbon,
+    },
+  },
+  dialogContentContainer: {
+    '& >p': {
+      marginBottom: '30px',
+    },
+  },
+  userStepSeedPhraseTxtContainer: {
+    padding: '0 45px',
+  },
+  userStepSeedPhraseLink: {
+    fontSize: '16px',
+    fontWeight: 300,
+    marginTop: '10px',
+    display: 'block',
   },
 }));
 
@@ -76,51 +126,85 @@ const Onboarding = () => {
   };
 
   const steps = [
-    OnboardingStepUsername,
     OnboardingStepEmail,
+    OnboardingStepUsername,
+    OnboardingStepAvatar,
     OnboardingStepSecureWallet,
     OnboardingStepSeedPhrase,
     OnboardingStepSeedChallenge,
-    OnboardingStepAvatar,
+  ];
+
+  const screenNames = {
+    ENTER_EMAIL: 0,
+    CREATE_YOUR_USERNAME: 1,
+    ADD_PHOTO: 2,
+    SECURE_YOUR_WALLET: 3,
+    SAVE_YOUR_SEEDPHRASE: 4,
+    SEEDPHRASE_CHALLENGE: 5,
+  };
+
+  const stepperConfiguration = [
+    {
+      stepName: translate('Onboarding.stepperFirstStep'),
+      activeTillScreen: screenNames.ENTER_EMAIL,
+    },
+    {
+      stepName: translate('Onboarding.stepperSecondStep'),
+      activeTillScreen: screenNames.SAVE_YOUR_SEEDPHRASE,
+    },
+    {
+      stepName: translate('Onboarding.stepperThirdStep'),
+      activeTillScreen: screenNames.SEEDPHRASE_CHALLENGE,
+    },
+  ];
+
+  const stepsButtons = [
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+      additionalBtn: '',
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+      additionalBtn: '',
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+      additionalBtn: translate('OnboardingStepper.skipStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+      additionalBtn: '',
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+      additionalBtn: '',
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+      additionalBtn: '',
+    },
   ];
 
   return (
-    <OnboardingStepper
-      exitPath={WELCOME_PATH}
-      steps={steps}
-      values={values}
-      onFinish={onFinish}
-      onValuesChange={setValues}
-    />
-  );
-};
-
-const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
-  const handleChange = (username) => {
-    onChange({
-      username,
-    });
-  };
-
-  return (
-    <Fragment>
-      <Typography align="center" gutterBottom variant="h2">
-        {translate('Onboarding.headingUsername')}
-      </Typography>
-      <Typography>{translate('Onboarding.bodyUsername')}</Typography>
-      <Box mt={4}>
-        <VerifiedUsernameInput
-          label={translate('Onboarding.formUsername')}
-          value={values.username}
-          onChange={handleChange}
-          onStatusChange={onDisabledChange}
-        />
-      </Box>
-    </Fragment>
+    <BackgroundCurved gradient="turquoise">
+      <OnboardingStepper
+        exitPath={WELCOME_PATH}
+        isHorizontalStepper={true}
+        mb={16}
+        stepperConfiguration={stepperConfiguration}
+        steps={steps}
+        stepsButtons={stepsButtons}
+        todoRemoveFlag={true}
+        values={values}
+        onFinish={onFinish}
+        onValuesChange={setValues}
+      />
+    </BackgroundCurved>
   );
 };
 
 const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
+  const classes = useStyles();
   const [emailValid, setEmailValid] = useState(false);
   const [privacy, setPrivacy] = useState(false);
   const [terms, setTerms] = useState(false);
@@ -149,11 +233,10 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
   }, [emailValid, privacy, terms, onDisabledChange]);
 
   return (
-    <Fragment>
-      <Typography align="center" gutterBottom variant="h2">
+    <Box className={classes.userStepEmailContainer}>
+      <Typography align="center" gutterBottom variant="h6">
         {translate('Onboarding.headingEmail')}
       </Typography>
-      <Typography>{translate('Onboarding.bodyEmail')}</Typography>
       <Box mt={3}>
         <VerifiedEmailInput
           label={translate('Onboarding.formEmail')}
@@ -161,6 +244,11 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
           onChange={handleEmail}
           onStatusChange={handleEmailStatus}
         />
+        <Box mb={3} mt={6}>
+          <Typography className="lightGreyText">
+            {translate('Onboarding.bodyEmail')}
+          </Typography>
+        </Box>
         <Box mt={2} textAlign={'left'}>
           <Box>
             <CheckboxPrivacy checked={privacy} onChange={handlePrivacy} />
@@ -170,12 +258,67 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
           </Box>
         </Box>
       </Box>
-    </Fragment>
+    </Box>
+  );
+};
+
+const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
+  const classes = useStyles();
+  const handleChange = (username) => {
+    onChange({
+      username,
+    });
+  };
+
+  return (
+    <Box className={classes.userStepUsernameContainer}>
+      <Typography align="center" gutterBottom variant="h6">
+        {translate('Onboarding.headingUsername')}
+      </Typography>
+      <Box mt={3}>
+        <VerifiedUsernameInput
+          label={translate('Onboarding.formUsername')}
+          value={values.username}
+          onChange={handleChange}
+          onStatusChange={onDisabledChange}
+        />
+      </Box>
+      <Box mb={3} mt={6}>
+        <Typography className="lightGreyText">
+          {translate('Onboarding.bodyUsername')}
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
+
+const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
+  const classes = useStyles();
+  const handleUpload = (avatarUrl) => {
+    onChange({
+      avatarUrl,
+    });
+  };
+
+  return (
+    <Box className={classes.userStepAvatarContainer}>
+      <Typography align="center" gutterBottom variant="h6">
+        {translate('Onboarding.headingAvatar')}
+      </Typography>
+      <Box mt={4}>
+        <AvatarUploader
+          value={values.avatarUrl}
+          onLoadingChange={onDisabledChange}
+          onUpload={handleUpload}
+        />
+      </Box>
+    </Box>
   );
 };
 
 const OnboardingStepSecureWallet = ({ onDisabledChange }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const classes = useStyles();
   const handleOpen = (event) => {
     event.preventDefault();
     setIsOpen(true);
@@ -186,7 +329,7 @@ const OnboardingStepSecureWallet = ({ onDisabledChange }) => {
   };
 
   const dialogContent = (
-    <Fragment>
+    <Box className={classes.dialogContentContainer}>
       <Typography paragraph>
         {translate('Onboarding.bodyAboutSeedPhraseP1')}
       </Typography>
@@ -196,7 +339,7 @@ const OnboardingStepSecureWallet = ({ onDisabledChange }) => {
       <Typography paragraph>
         {translate('Onboarding.bodyAboutSeedPhraseP3')}
       </Typography>
-    </Fragment>
+    </Box>
   );
 
   useEffect(() => {
@@ -204,7 +347,7 @@ const OnboardingStepSecureWallet = ({ onDisabledChange }) => {
   }, [onDisabledChange]);
 
   return (
-    <Fragment>
+    <Box className={classes.userStepSecureWalletContainer}>
       <DialogInfo
         dialogContent={dialogContent}
         handleClose={handleClose}
@@ -212,20 +355,22 @@ const OnboardingStepSecureWallet = ({ onDisabledChange }) => {
         isOpen={isOpen}
         title={translate('Onboarding.headingAboutSeedPhrase')}
       />
-      <Typography align="center" gutterBottom variant="h2">
+      <Typography align="center" gutterBottom variant="h6">
         {translate('Onboarding.headingSecureWallet')}
       </Typography>
-      <Typography paragraph>
-        {translate('Onboarding.bodySecureWalletP1A')}
-        <ExternalLink href="#" underline="always" onClick={handleOpen}>
-          {translate('Onboarding.bodySecureWalletP1Link')}
-        </ExternalLink>
-        {translate('Onboarding.bodySecureWalletP1B')}
-      </Typography>
-      <Typography paragraph>
-        {translate('Onboarding.bodySecureWalletP2')}
-      </Typography>
-    </Fragment>
+      <Box className={classes.userStepSecureWalletBodyTxt}>
+        <Typography className="lightGreyText" paragraph>
+          {translate('Onboarding.bodySecureWalletP1A')}
+          <ExternalLink href="#" onClick={handleOpen}>
+            {translate('Onboarding.bodySecureWalletP1Link')}
+          </ExternalLink>
+          {translate('Onboarding.bodySecureWalletP1B')}
+        </Typography>
+        <Typography className="lightGreyText" paragraph>
+          {translate('Onboarding.bodySecureWalletP2')}
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 
@@ -253,27 +398,27 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
   }, [onDisabledChange]);
 
   const dialogContent = (
-    <Fragment>
-      <Typography paragraph>
+    <Box p={2}>
+      <Typography align="left" paragraph>
         {translate('Onboarding.bodySaveSeedPhraseHelper')}
       </Typography>
-      <ListItem className={classes.dotList}>
+      <li className={classes.dotList}>
         {translate('Onboarding.listItemSaveSeedPhraseHelper1')}
-      </ListItem>
-      <ListItem className={classes.dotList}>
+      </li>
+      <li className={classes.dotList}>
         {translate('Onboarding.listItemSaveSeedPhraseHelper2')}
-      </ListItem>
-      <ListItem className={classes.dotList}>
+      </li>
+      <li className={classes.dotList}>
         {translate('Onboarding.listItemSaveSeedPhraseHelper3')}
-      </ListItem>
-      <ListItem className={classes.dotList}>
+      </li>
+      <li className={classes.dotList}>
         {translate('Onboarding.listItemSaveSeedPhraseHelper4')}
-      </ListItem>
-    </Fragment>
+      </li>
+    </Box>
   );
 
   return (
-    <Fragment>
+    <Box className={classes.userStepSeedPhrase}>
       <DialogInfo
         dialogContent={dialogContent}
         handleClose={handleClose}
@@ -281,28 +426,41 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
         isOpen={isOpen}
         title={translate('Onboarding.headingSaveSeedPhraseHelper')}
       />
-      <Typography align="center" gutterBottom variant="h2">
+      <Typography align="center" gutterBottom variant="h6">
         {translate('Onboarding.headingSeedPhrase')}
       </Typography>
-      <Typography>{translate('Onboarding.bodySeedPhrase')}</Typography>
-      <Box my={4}>
+      <Box className={classes.userStepSeedPhraseTxtContainer}>
+        <Typography className="lightGreyText">
+          {translate('Onboarding.bodySeedPhrase')}
+        </Typography>
+      </Box>
+      <Box my={1}>
         <Mnemonic text={mnemonic} />
       </Box>
-      <Typography>{translate('Onboarding.footerSeedPhrase')}</Typography>
-      <ExternalLink href="#" underline="always" onClick={handleOpen}>
-        {translate('Onboarding.linkHelperSaveSeedPhrase')}
-      </ExternalLink>
+      <Box mb={1}>
+        <Typography className="lightGreyText">
+          {translate('Onboarding.footerSeedPhrase')}
+        </Typography>
+        <ExternalLink
+          className={classes.userStepSeedPhraseLink}
+          href="#"
+          onClick={handleOpen}
+        >
+          {translate('Onboarding.linkHelperSaveSeedPhrase')}
+        </ExternalLink>
+      </Box>
       <Footer>
         <ButtonClipboard fullWidth isOutline text={mnemonic}>
           {translate('SeedPhrase.buttonCopyToClipboard')}
         </ButtonClipboard>
       </Footer>
-    </Fragment>
+    </Box>
   );
 };
 
 const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
   const [challenge, setChallenge] = useState('');
+  const classes = useStyles();
 
   const wordIndex = useMemo(() => {
     return Math.floor(Math.random() * 24);
@@ -328,8 +486,8 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
   }, [onDisabledChange, isValid]);
 
   return (
-    <Fragment>
-      <Typography align="center" gutterBottom variant="h2">
+    <Box className={classes.userStepSeedChallenge}>
+      <Typography align="center" gutterBottom variant="h6">
         {translate('Onboarding.headingSeedPhraseChallenge')}
       </Typography>
       <Typography>
@@ -353,31 +511,7 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
           onPaste={handlePaste}
         />
       </Box>
-    </Fragment>
-  );
-};
-
-const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
-  const handleUpload = (avatarUrl) => {
-    onChange({
-      avatarUrl,
-    });
-  };
-
-  return (
-    <Fragment>
-      <Typography align="center" gutterBottom variant="h2">
-        {translate('Onboarding.headingAvatar')}
-      </Typography>
-      <Typography>{translate('Onboarding.bodyAvatar')}</Typography>
-      <Box mt={4}>
-        <AvatarUploader
-          value={values.avatarUrl}
-          onLoadingChange={onDisabledChange}
-          onUpload={handleUpload}
-        />
-      </Box>
-    </Fragment>
+    </Box>
   );
 };
 
