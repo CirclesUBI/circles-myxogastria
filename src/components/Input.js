@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.text.primary,
     },
     '&.Mui-error': {
-      color: theme.custom.colors.red,
+      color: theme.custom.colors.disco,
     },
   },
   inputUnderline: {
@@ -26,12 +26,12 @@ const useStyles = makeStyles((theme) => ({
       borderBottomColor: theme.palette.text.primary,
     },
     '&.Mui-error::after': {
-      borderBottomColor: theme.custom.colors.red,
+      borderBottomColor: theme.custom.colors.disco,
     },
   },
   formHelperText: {
     '&.Mui-error': {
-      color: theme.custom.colors.red,
+      color: theme.custom.colors.disco,
     },
   },
 }));
