@@ -29,16 +29,14 @@ const useStyles = makeStyles(() => ({
     paddingRight: 19,
     paddingLeft: 19,
     background: 'transparent',
+
+    '& .MuiMobileStepper-progress': {
+      display: 'none',
+    },
   },
 
   onboardingStepperHeader: {
     background: 'transparent',
-  },
-
-  hideProgressBar: {
-    '& .MuiMobileStepper-progress': {
-      display: 'none',
-    },
   },
 
   stepperHorizontalContainer: {
@@ -54,19 +52,20 @@ const OnboardingStepper = ({
   steps,
   stepperConfiguration,
   stepsButtons,
+  stepsScreens,
   values,
-  isHorizontalStepper,
-  todoRemoveFlag,
 }) => {
   const classes = useStyles();
 
   const [current, setCurrent] = useState(0);
+  const [username, setUsername] = useState('');
   const { filter, query: inputSearch } = useQuery();
 
   /* eslint-disable react-hooks/exhaustive-deps */
+  // Go back to ADD MEMBER screen from details profile
   useEffect(() => {
     if (filter || inputSearch) {
-      setCurrent(screenNames.ADD_MEMBERS);
+      setCurrent(stepsScreens.ADD_MEMBERS);
     }
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
@@ -87,11 +86,10 @@ const OnboardingStepper = ({
 
   const onNext = () => {
     setCurrent(current + 1);
-    // TODO: temporary if to be able to move to next step
-    if (current + 1 === screenNames.ADD_MEMBERS) {
-      return;
+
+    if (values.username) {
+      setUsername(values.username);
     }
-    setIsDisabled(true);
   };
 
   const onPrevious = () => {
@@ -104,19 +102,10 @@ const OnboardingStepper = ({
 
   const OnboardingCurrentStep = steps[current];
   const isLastSlide = current === steps.length - 1;
-  // const isAddPhotoSlide = current === 3;
 
   if (isRedirect) {
     return <Redirect push to={exitPath} />;
   }
-
-  const screenNames = {
-    ENTER_EMAIL: 0,
-    FUND_YOUR_ORGANIZATION: 1,
-    CREATE_YOUR_USERNAME: 2,
-    ADD_PHOTO: 3,
-    ADD_MEMBERS: 4,
-  };
 
   const activeStepForStepperHorizontal = () => {
     if (current <= stepperConfiguration[0].activeTillScreen) {
@@ -144,9 +133,7 @@ const OnboardingStepper = ({
               </IconButton>
             )
           }
-          className={clsx(classes.onboardingMobileStepper, {
-            [classes.hideProgressBar]: isHorizontalStepper,
-          })}
+          className={classes.onboardingMobileStepper}
           nextButton={
             <IconButton edge="end" onClick={onExit}>
               <IconClose />
@@ -157,18 +144,19 @@ const OnboardingStepper = ({
           variant="progress"
         />
       </Header>
-      {/* {todoRemoveFlag && current >= screenNames.ADD_PHOTO && (
-        <AvatarHeader hideImage={current == screenNames.ADD_PHOTO} />
-      )} */}
+      {current >= stepsScreens.ADD_PHOTO && (
+        <AvatarHeader
+          hideImage={current === stepsScreens.ADD_PHOTO}
+          username={username}
+        />
+      )}
       <View mt={8}>
-        {isHorizontalStepper && (
-          <Box className={classes.stepperHorizontalContainer}>
-            <StepperHorizontal
-              activeStep={activeStepForStepperHorizontal()}
-              steps={stepNames}
-            />
-          </Box>
-        )}
+        <Box className={classes.stepperHorizontalContainer}>
+          <StepperHorizontal
+            activeStep={activeStepForStepperHorizontal()}
+            steps={stepNames}
+          />
+        </Box>
         <Container maxWidth="sm">
           <Box textAlign="center">
             <OnboardingCurrentStep
@@ -203,13 +191,12 @@ const OnboardingStepper = ({
 
 OnboardingStepper.propTypes = {
   exitPath: PropTypes.string.isRequired,
-  isHorizontalStepper: PropTypes.bool,
   onFinish: PropTypes.func.isRequired,
   onValuesChange: PropTypes.func.isRequired,
   stepperConfiguration: PropTypes.array.isRequired,
   steps: PropTypes.array.isRequired,
   stepsButtons: PropTypes.array.isRequired,
-  todoRemoveFlag: PropTypes.bool,
+  stepsScreens: PropTypes.object,
   values: PropTypes.object.isRequired,
 };
 
