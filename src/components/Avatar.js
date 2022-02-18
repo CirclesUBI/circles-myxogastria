@@ -26,6 +26,8 @@ const ORGANIZATION_RING_SIZES = {
 const useStyles = makeStyles(() => ({
   avatarContainer: {
     position: 'relative',
+    margin: '0 auto',
+    maxWidth: '80px',
   },
   organizationIndicator: {
     position: 'absolute',
@@ -60,11 +62,9 @@ const Avatar = ({ address, size = 'small', ...props }) => {
         }}
         {...props}
       >
-        {avatarUrl && initials ? (
-          initials.toUpperCase()
-        ) : (
-          <Jazzicon address={address} size={sizePixel} />
-        )}
+        {avatarUrl && initials
+          ? initials.toUpperCase()
+          : address && <Jazzicon address={address} size={sizePixel} />}
       </MuiAvatar>
     </Box>
   );
