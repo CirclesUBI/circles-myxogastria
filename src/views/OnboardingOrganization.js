@@ -114,7 +114,7 @@ const OnboardingOrganization = () => {
     OrganizationStepAddMembers,
   ];
 
-  const screenNames = {
+  const stepsScreens = {
     ENTER_EMAIL: 0,
     FUND_YOUR_ORGANIZATION: 1,
     CREATE_YOUR_USERNAME: 2,
@@ -125,15 +125,15 @@ const OnboardingOrganization = () => {
   const stepperConfiguration = [
     {
       stepName: translate('OnboardingOrganization.stepperFirstStep'),
-      activeTillScreen: screenNames.ENTER_EMAIL,
+      activeTillScreen: stepsScreens.ENTER_EMAIL,
     },
     {
       stepName: translate('OnboardingOrganization.stepperSecondStep'),
-      activeTillScreen: screenNames.CREATE_YOUR_USERNAME,
+      activeTillScreen: stepsScreens.CREATE_YOUR_USERNAME,
     },
     {
       stepName: translate('OnboardingOrganization.stepperThirdStep'),
-      activeTillScreen: screenNames.ADD_MEMBERS,
+      activeTillScreen: stepsScreens.ADD_MEMBERS,
     },
   ];
 
@@ -177,12 +177,11 @@ const OnboardingOrganization = () => {
       <BackgroundCurved gradient="orange">
         <OnboardingStepper
           exitPath={DASHBOARD_PATH}
-          isHorizontalStepper={true}
           mb={16}
           stepperConfiguration={stepperConfiguration}
           steps={steps}
           stepsButtons={stepsButtons}
-          todoRemoveFlag={true}
+          stepsScreens={stepsScreens}
           values={values}
           onFinish={onFinish}
           onValuesChange={setValues}
