@@ -134,7 +134,7 @@ const Onboarding = () => {
     OnboardingStepSeedChallenge,
   ];
 
-  const screenNames = {
+  const stepsScreens = {
     ENTER_EMAIL: 0,
     CREATE_YOUR_USERNAME: 1,
     ADD_PHOTO: 2,
@@ -146,15 +146,15 @@ const Onboarding = () => {
   const stepperConfiguration = [
     {
       stepName: translate('Onboarding.stepperFirstStep'),
-      activeTillScreen: screenNames.ENTER_EMAIL,
+      activeTillScreen: stepsScreens.ENTER_EMAIL,
     },
     {
       stepName: translate('Onboarding.stepperSecondStep'),
-      activeTillScreen: screenNames.SAVE_YOUR_SEEDPHRASE,
+      activeTillScreen: stepsScreens.SAVE_YOUR_SEEDPHRASE,
     },
     {
       stepName: translate('Onboarding.stepperThirdStep'),
-      activeTillScreen: screenNames.SEEDPHRASE_CHALLENGE,
+      activeTillScreen: stepsScreens.SEEDPHRASE_CHALLENGE,
     },
   ];
 
@@ -189,12 +189,11 @@ const Onboarding = () => {
     <BackgroundCurved gradient="turquoise">
       <OnboardingStepper
         exitPath={WELCOME_PATH}
-        isHorizontalStepper={true}
         mb={16}
         stepperConfiguration={stepperConfiguration}
         steps={steps}
         stepsButtons={stepsButtons}
-        todoRemoveFlag={true}
+        stepsScreens={stepsScreens}
         values={values}
         onFinish={onFinish}
         onValuesChange={setValues}
