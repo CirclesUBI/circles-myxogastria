@@ -117,6 +117,11 @@ const OnboardingStepper = ({
   };
 
   const stepNames = stepperConfiguration.map((step) => step.stepName);
+  const CopyToClipboardBtn = stepsButtons[current].additionalBtnSecond;
+
+  // const CopyToClipboardBtn = stepsButtons[current].additionalBtnSecond
+  //   ? stepsButtons[current].additionalBtnSecond
+  //   : null;
 
   return (
     <Fragment>
@@ -175,9 +180,7 @@ const OnboardingStepper = ({
             </Typography>
           </Box>
         )}
-        {/* {stepsButtons[current].additionalBtnSecond && (
-          <Button>additionalBtnSecond</Button>
-        )} */}
+        {stepsButtons[current].additionalBtnSecond && <CopyToClipboardBtn />}
         <Button
           disabled={isDisabled}
           fullWidth
