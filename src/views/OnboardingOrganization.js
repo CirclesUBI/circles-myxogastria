@@ -40,7 +40,7 @@ const moveUpFront = (theme) => ({
 });
 const useStyles = makeStyles((theme) => ({
   organizationStepAddMembersContainer: moveUpFront(theme),
-  organizationStepUsernameContainer: moveUpFront(theme),
+  organizationStepWalletNameContainer: moveUpFront(theme),
   organizationEmailContainer: moveUpFront(theme),
   organizationStepAvatarContainer: moveUpFront(theme),
   organizationStepPrefundContainer: moveUpFront(theme),
@@ -110,7 +110,7 @@ const OnboardingOrganization = () => {
   const steps = [
     OrganizationStepEmail,
     OrganizationStepPrefund,
-    OrganizationStepUsername,
+    OrganizationStepWalletName,
     OrganizationStepAvatar,
     OrganizationStepAddMembers,
   ];
@@ -118,7 +118,7 @@ const OnboardingOrganization = () => {
   const stepsScreens = {
     ENTER_EMAIL: 0,
     FUND_YOUR_ORGANIZATION: 1,
-    CREATE_YOUR_USERNAME: 2,
+    NAME_YOUR_WALLET: 2,
     ADD_PHOTO: 3,
     ADD_MEMBERS: 4,
   };
@@ -130,7 +130,7 @@ const OnboardingOrganization = () => {
     },
     {
       stepName: translate('OnboardingOrganization.stepperSecondStep'),
-      activeTillScreen: stepsScreens.CREATE_YOUR_USERNAME,
+      activeTillScreen: stepsScreens.NAME_YOUR_WALLET,
     },
     {
       stepName: translate('OnboardingOrganization.stepperThirdStep'),
@@ -149,7 +149,7 @@ const OnboardingOrganization = () => {
       btnNextStep: translate('OnboardingStepper.buttonSubmit'),
     },
     {
-      btnNextStep: translate('OnboardingStepper.buttonSubmit'),
+      btnNextStep: translate('OnboardingStepper.buttonFinish'),
       additionalBtn: translate('OnboardingStepper.skipStep'),
     },
     {
@@ -312,7 +312,7 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
   );
 };
 
-const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
+const OrganizationStepWalletName = ({ onDisabledChange, values, onChange }) => {
   const classes = useStyles();
 
   const handleChange = (username) => {
@@ -322,9 +322,9 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
   };
 
   return (
-    <Box className={classes.organizationStepUsernameContainer}>
+    <Box className={classes.organizationStepWalletNameContainer}>
       <Typography align="center" gutterBottom variant="h6">
-        {translate('OnboardingOrganization.headingUsername')}
+        {translate('OnboardingOrganization.headingWalletName')}
       </Typography>
       <Box mb={6} mt={4}>
         <VerifiedUsernameInput
@@ -408,7 +408,7 @@ const stepProps = {
   values: PropTypes.object.isRequired,
 };
 
-OrganizationStepUsername.propTypes = {
+OrganizationStepWalletName.propTypes = {
   ...stepProps,
 };
 
