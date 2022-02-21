@@ -6,7 +6,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
@@ -169,13 +168,16 @@ const OnboardingStepper = ({
       </View>
       <Footer>
         <AppNote />
-        {stepsButtons[current].additionalBtn ? (
+        {stepsButtons[current].additionalBtn && (
           <Box mb={1}>
             <Typography align="center" onClick={onNext}>
               {stepsButtons[current].additionalBtn}
             </Typography>
           </Box>
-        ) : null}
+        )}
+        {/* {stepsButtons[current].additionalBtnSecond && (
+          <Button>additionalBtnSecond</Button>
+        )} */}
         <Button
           disabled={isDisabled}
           fullWidth
