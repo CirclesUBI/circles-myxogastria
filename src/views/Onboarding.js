@@ -82,6 +82,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '10px',
     display: 'block',
   },
+  buttonCopyToClipboard: {
+    height: '43.5px',
+    marginBottom: '6px',
+  },
 }));
 
 const Onboarding = () => {
@@ -161,11 +165,9 @@ const Onboarding = () => {
   const stepsButtons = [
     {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-      additionalBtn: '',
     },
     {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-      additionalBtn: '',
     },
     {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
@@ -173,15 +175,13 @@ const Onboarding = () => {
     },
     {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-      additionalBtn: '',
     },
     {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-      additionalBtn: '',
+      additionalBtnSecond: CopyToClipboardBtn,
     },
     {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-      additionalBtn: '',
     },
   ];
 
@@ -199,6 +199,25 @@ const Onboarding = () => {
         onValuesChange={setValues}
       />
     </BackgroundCurved>
+  );
+};
+
+const CopyToClipboardBtn = () => {
+  const classes = useStyles();
+  const mnemonic = useMemo(() => {
+    const privateKey = getPrivateKey();
+    return toSeedPhrase(privateKey);
+  }, []);
+
+  return (
+    <ButtonClipboard
+      className={classes.buttonCopyToClipboard}
+      fullWidth
+      isOutline
+      text={mnemonic}
+    >
+      {translate('SeedPhrase.buttonCopyToClipboard')}
+    </ButtonClipboard>
   );
 };
 
@@ -448,11 +467,6 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
           {translate('Onboarding.linkHelperSaveSeedPhrase')}
         </ExternalLink>
       </Box>
-      <Footer>
-        <ButtonClipboard fullWidth isOutline text={mnemonic}>
-          {translate('SeedPhrase.buttonCopyToClipboard')}
-        </ButtonClipboard>
-      </Footer>
     </Box>
   );
 };
