@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     listStyle: 'none',
     margin: 0,
-    padding: '0 16px 0 24px',
+    padding: '0 0 0 10px',
   },
   seedItem: {
     background: theme.custom.colors.grayLightest,
