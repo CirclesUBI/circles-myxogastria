@@ -13,7 +13,6 @@ import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
 import DialogInfo from '~/components/DialogInfo';
 import ExternalLink from '~/components/ExternalLink';
-import Footer from '~/components/Footer';
 import Input from '~/components/Input';
 import Mnemonic from '~/components/Mnemonic';
 import OnboardingStepper from '~/components/OnboardingStepper';

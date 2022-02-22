@@ -89,7 +89,7 @@ const LastInteractionsAccount = ({ address }) => {
   return (
     <Grid item>
       <MuiLink component={Link} to={profilePath}>
-        <Avatar address={address} size="medium" />
+        <Avatar address={address} size="smallXl" />
         <Typography className={classes.username} noWrap>
           <UsernameDisplay address={address} />
         </Typography>
