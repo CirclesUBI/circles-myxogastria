@@ -13,6 +13,8 @@ import UsernameDisplay from '~/components/UsernameDisplay';
 const useStyles = makeStyles((theme) => ({
   avatarContainer: {
     height: '80px',
+    margin: '0 auto',
+    width: '80px',
   },
   userDataContainer: {
     position: 'absolute',

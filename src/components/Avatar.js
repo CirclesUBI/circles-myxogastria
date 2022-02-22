@@ -27,7 +27,6 @@ const useStyles = makeStyles(() => ({
   avatarContainer: {
     position: 'relative',
     margin: '0 auto',
-    maxWidth: '80px',
   },
   organizationIndicator: {
     position: 'absolute',
