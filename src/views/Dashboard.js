@@ -1,28 +1,28 @@
 import {
   Box,
+  ButtonGroup,
   Container,
+  Grid,
   IconButton,
-  Input,
-  InputAdornment,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import React, { Fragment, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, generatePath, useHistory } from 'react-router-dom';
+import React, { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { MY_PROFILE_PATH, SEARCH_PATH, SEND_PATH } from '~/routes';
+import { SEARCH_PATH, SEND_PATH } from '~/routes';
 
 import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
-import BalanceDisplay from '~/components/BalanceDisplay';
-import ButtonSend from '~/components/ButtonSend';
-import CenteredHeading from '~/components/CenteredHeading';
+import AvatarHeader from '~/components/AvatarHeader';
+import BackgroundCurved from '~/components/BackgroundCurved';
+import BalanceDisplayOrganization from '~/components/BalanceDisplayOrganization';
+import Button from '~/components/Button';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
-import UsernameDisplay from '~/components/UsernameDisplay';
+import NavigationFloating from '~/components/NavigationFloating';
 import View from '~/components/View';
 import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
@@ -30,7 +30,7 @@ import {
   checkFinishedActivities,
   checkPendingActivities,
 } from '~/store/activity/actions';
-import { IconMenu, IconSearch } from '~/styles/icons';
+import { IconMenu } from '~/styles/icons';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {
@@ -48,26 +48,22 @@ const transitionExpandedMixin = ({ transitions, custom }) => ({
 });
 
 const useStyles = makeStyles((theme) => ({
-  dashboardProfile: {
-    flexGrow: 1,
-  },
   profileLink: {
     textDecoration: 'none',
     color: theme.palette.text.primary,
   },
-  fabSend: {
+  fab: {
     ...transitionMixin(theme),
   },
-  fabSendExpanded: {
-    ...transitionExpandedMixin(theme),
+  fabQR: {
+    bottom: theme.spacing(12.5),
   },
-  fabSendIcon: {
-    position: 'relative',
-    top: 1,
-    left: -1,
+  fabExpanded: {
+    ...transitionExpandedMixin(theme),
   },
   header: {
     ...transitionMixin(theme),
+    background: 'transparent',
   },
   headerExpanded: {
     ...transitionExpandedMixin(theme),
@@ -82,20 +78,27 @@ const useStyles = makeStyles((theme) => ({
     ...transitionExpandedMixin(theme),
     overflow: 'hidden',
   },
-  searchInput: {
-    padding: theme.spacing(1, 2),
-    borderRadius: 10,
-    backgroundColor: theme.palette.grey['100'],
-    color: theme.palette.grey['800'],
+  dashboardContainer: {
+    marginTop: '95px',
   },
-  notificationCount: {
-    width: '28px',
-    height: '28px',
-    backgroundColor: 'transparent',
-    border: `1px solid ${theme.palette.primary.main}`,
-    color: theme.palette.primary.main,
-    fontSize: 12,
-    fontWeight: theme.typography.fontWeightMedium,
+  balanceContainer: {
+    margin: '0 auto',
+    textAlign: 'center',
+  },
+  userDataContainer: {
+    position: 'relative',
+    top: '45px',
+  },
+  buttonContainer: {
+    marginTop: '30px',
+    marginBottom: '70px',
+    padding: '0 15px',
+    '& a:first-of-type': {
+      border: 0,
+    },
+    '& a:nth-of-type(2)': {
+      borderLeftStyle: 'none',
+    },
   },
 }));
 
@@ -103,7 +106,6 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
-  const safe = useSelector((state) => state.safe);
 
   useUpdateLoop(async () => {
     await dispatch(checkFinishedActivities());
@@ -120,21 +122,19 @@ const Dashboard = () => {
 
   return (
     <Fragment>
-      <Header
-        className={clsx(classes.header, {
-          [classes.headerExpanded]: isMenuExpanded,
-        })}
-      >
-        <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
-          <IconMenu />
-        </IconButton>
-        <CenteredHeading>
-          <Link className={classes.profileLink} to={MY_PROFILE_PATH}>
-            <UsernameDisplay address={safe.currentAccount} />
-          </Link>
-        </CenteredHeading>
-        <ActivityIcon />
-      </Header>
+      <BackgroundCurved gradient="turquoise">
+        <Header
+          className={clsx(classes.header, {
+            [classes.headerExpanded]: isMenuExpanded,
+          })}
+        >
+          <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
+            <IconMenu />
+          </IconButton>
+          <AvatarHeader />
+          <ActivityIcon />
+        </Header>
+      </BackgroundCurved>
       <Navigation
         className={classes.navigation}
         isExpanded={isMenuExpanded}
@@ -145,52 +145,27 @@ const Dashboard = () => {
           [classes.viewExpanded]: isMenuExpanded,
         })}
       >
-        <Container maxWidth="sm">
-          <BalanceDisplay />
-          <AppNote />
-          <Box my={2}>
-            <DashboardSearch />
+        <Container className={classes.dashboardContainer} maxWidth="sm">
+          <Box className={classes.balanceContainer}>
+            <BalanceDisplayOrganization />
           </Box>
+          <AppNote />
+          <Grid item xs={12}>
+            <ButtonGroup className={classes.buttonContainer} fullWidth>
+              <Button isOutline isPrimary to={SEARCH_PATH}>
+                {translate('Dashboard.buttonTrustPeople')}
+              </Button>
+              <Button isOutline to={SEND_PATH}>
+                {translate('Dashboard.buttonSendCircles')}
+              </Button>
+            </ButtonGroup>
+          </Grid>
           <LastInteractions />
+          <NavigationFloating gradient="turquoise" />
         </Container>
       </View>
-      <ButtonSend
-        className={clsx(classes.fabSend, {
-          [classes.fabSendExpanded]: isMenuExpanded,
-        })}
-        to={generatePath(SEND_PATH)}
-      />
       <Drawer />
     </Fragment>
-  );
-};
-
-const DashboardSearch = () => {
-  const classes = useStyles();
-  const history = useHistory();
-  const ref = useRef();
-
-  const handleSearchSelect = () => {
-    ref.current.blur();
-    history.push(generatePath(SEARCH_PATH));
-  };
-
-  return (
-    <Input
-      className={classes.searchInput}
-      disableUnderline={true}
-      endAdornment={
-        <InputAdornment position="end">
-          <IconSearch fontSize="small" />
-        </InputAdornment>
-      }
-      fullWidth
-      id="search"
-      placeholder={translate('Dashboard.formSearch')}
-      readOnly
-      ref={ref}
-      onClick={handleSearchSelect}
-    />
   );
 };
 
