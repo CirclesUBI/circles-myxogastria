@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
     background: theme.custom.gradients.purple,
     color: theme.palette.common.white,
     '&.Mui-disabled': {
-      background: theme.custom.gradients.gray,
+      background: theme.custom.gradients.grayDark,
+      color: theme.custom.colors.white,
     },
   },
   buttonWhite: {
