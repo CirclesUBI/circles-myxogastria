@@ -1,5 +1,6 @@
 import { Fab, Menu, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -55,7 +56,14 @@ const useStyles = makeStyles((theme) => ({
     right: '15px',
     position: 'fixed',
     color: theme.custom.colors.white,
-    background: theme.custom.gradients.orange,
+    background: (props) => {
+      switch (props.gradient) {
+        case 'turquoise':
+          return theme.custom.gradients.greenBlue;
+        case 'orange':
+          return theme.custom.gradients.orange;
+      }
+    },
   },
 
   dotsText: {
@@ -74,8 +82,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavigationFloating() {
-  const classes = useStyles();
+export default function NavigationFloating(props) {
+  const classes = useStyles(props);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -143,3 +151,7 @@ export default function NavigationFloating() {
     </div>
   );
 }
+
+NavigationFloating.propTypes = {
+  gradient: PropTypes.string,
+};
