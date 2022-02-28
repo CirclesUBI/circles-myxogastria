@@ -61,7 +61,8 @@
     "infoCopiedMessage": "Text copied to clipboard"
   },
   "Dashboard": {
-    "formSearch": "Search for accounts"
+    "buttonTrustPeople": "Trust People",
+    "buttonSendCircles": "Send Circles"
   },
   "DashboardOrganization": {
     "buttonTrustPeople": "Trust People",
@@ -130,6 +131,7 @@
     "errorRestoreFailedUnknown": "Could not restore account due to an unknown error.",
     "errorRestoreFailedUnknownSafe": "The account you tried to restore is not registered.",
     "headingLogin": "Login",
+    "inputPlaceholder": "Start typing...",
     "linkSupport": "Go to support.",
     "successWelcome": "Successfully connected to account. Welcome!"
   },
