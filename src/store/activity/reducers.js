@@ -79,7 +79,7 @@ function mergeActivities(currentActivities, newActivities) {
       } else {
         // Change pending state when remote activity was detected to false.
         // Finding a remote activity means that the activity got already mined
-        // + indexed by the graph!
+        // + indexed by the subgraph (or an alternative data indexer)!
         currentActivities[duplicateItemIndex].isPending = false;
       }
 
