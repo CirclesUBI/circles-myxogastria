@@ -75,6 +75,7 @@ const components = {
   appMaxWidth: 900,
   appMinWidth: 360,
   avatarSize: 50,
+  avatarUploader: 85,
   navigationWidth: 300,
 };
 
