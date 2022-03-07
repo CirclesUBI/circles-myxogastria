@@ -62,7 +62,7 @@ const gradients = {
   greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
   blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
   orange: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 100%)`,
-  orangeDesktop: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 200%)`,
+  orangeDesktop: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 60%)`,
 };
 
 const shadows = {
