@@ -349,7 +349,7 @@ const OrganizationStepAddMembers = () => {
       <Finder
         basePath={ORGANIZATION_PATH}
         hasActions
-        isWalletCreation
+        isSharedWalletCreation
         onSelect={handleOnSelectFinder}
       />
     </Box>

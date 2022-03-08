@@ -60,7 +60,7 @@ const ProfileMini = ({
   address,
   className,
   hasActions = false,
-  isWalletCreation,
+  isSharedWalletCreation,
   ...props
 }) => {
   const classes = useStyles();
@@ -147,7 +147,7 @@ const ProfileMini = ({
               <ProfileMiniActions
                 address={address}
                 connection={connection}
-                isWalletCreation={isWalletCreation}
+                isSharedWalletCreation={isSharedWalletCreation}
                 onSend={handleSend}
                 onTrust={handleTrust}
               />
@@ -187,7 +187,7 @@ const ProfileMiniActions = ({
   onTrust,
   onSend,
   connection,
-  isWalletCreation,
+  isSharedWalletCreation,
 }) => {
   const classes = useStyles();
 
@@ -214,7 +214,7 @@ const ProfileMiniActions = ({
             </IconButton>
           </Fragment>
         )}
-      {!isPendingSend && !isWalletCreation && (
+      {!isPendingSend && !isSharedWalletCreation && (
         <IconButton
           aria-label="Send"
           className={classes.cardActionButton}
@@ -231,13 +231,13 @@ ProfileMini.propTypes = {
   address: PropTypes.string.isRequired,
   className: PropTypes.string,
   hasActions: PropTypes.bool,
-  isWalletCreation: PropTypes.bool,
+  isSharedWalletCreation: PropTypes.bool,
 };
 
 ProfileMiniActions.propTypes = {
   address: PropTypes.string.isRequired,
   connection: PropTypes.object.isRequired,
-  isWalletCreation: PropTypes.bool,
+  isSharedWalletCreation: PropTypes.bool,
   onSend: PropTypes.func.isRequired,
   onTrust: PropTypes.func.isRequired,
 };
