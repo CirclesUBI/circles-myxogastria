@@ -18,7 +18,7 @@ const fontSize = 12;
 
 const useStyles = makeStyles((theme) => ({
   cardContainer: {
-    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    boxShadow: theme.custom.shadows.gray,
   },
   cardHeader: {
     padding: theme.spacing(1),
