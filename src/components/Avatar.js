@@ -10,6 +10,7 @@ import { useIsOrganization, useUserdata } from '~/hooks/username';
 const SIZE_MULTIPLIERS = {
   tiny: 0.8,
   small: 1,
+  smallXl: 1.6,
   medium: 2,
   large: 3,
 };
@@ -17,6 +18,7 @@ const SIZE_MULTIPLIERS = {
 const ORGANIZATION_RING_SIZES = {
   tiny: '77%',
   small: '108%',
+  smallXl: '109%',
   medium: '108%',
   large: '108%',
 };
@@ -69,7 +71,7 @@ const Avatar = ({ address, size = 'small', ...props }) => {
 };
 
 Avatar.propTypes = {
-  address: PropTypes.string.isRequired,
+  address: PropTypes.string,
   size: PropTypes.string,
 };
 

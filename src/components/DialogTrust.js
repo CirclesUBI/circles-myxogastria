@@ -64,6 +64,7 @@ const DialogTrust = ({
     <Dialog
       cancelLabel={translate('DialogTrust.dialogTrustCancel')}
       confirmLabel={translate('DialogTrust.dialogTrustConfirm')}
+      externalPath="#"
       id="trust"
       open={isOpen}
       text={translate('DialogTrust.dialogTrustDescription', { username })}

@@ -27,8 +27,13 @@ const monochrome = {
   white: '#fff',
 };
 
+const rgba = {
+  doveGray: 'rgb(107, 101, 101,0.5)',
+};
+
 export const colors = {
   ...monochrome,
+  ...rgba,
   red: '#cc0000',
   green: '#45e6af',
   blue: '#3ce6e1',
@@ -39,6 +44,11 @@ export const colors = {
   purpleDark: '#660f33',
   turquoise: '#47cccb',
   turquoiseDark: '#369998',
+  fountainBlue: '#48B2B7',
+  springGreen: '#06FC9D',
+  pizazz: '#FF8E00',
+  ceriseRed: '#D12D5F',
+  blueRibbon: '#2B44FF',
 };
 
 const gradients = {
@@ -49,6 +59,15 @@ const gradients = {
   info: `linear-gradient(90deg, ${colors.blue} 0%, ${colors.purpleLight} 100%)`,
   success: `linear-gradient(90deg, ${colors.green} 0%, ${colors.blue} 100%)`,
   warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
+  greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
+  blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
+  orange: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 100%)`,
+  orangeDesktop: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 60%)`,
+};
+
+const shadows = {
+  gray: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  grayUp: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
 };
 
 const components = {
@@ -56,6 +75,7 @@ const components = {
   appMaxWidth: 900,
   appMinWidth: 360,
   avatarSize: 50,
+  avatarUploader: 85,
   navigationWidth: 300,
 };
 
@@ -130,6 +150,9 @@ export default createMuiTheme({
       fontSize: '18px',
       fontWeight: fontWeightMedium,
       lineHeight: '25px',
+      '&.MuiTypography-gutterBottom': {
+        marginBottom: '12px',
+      },
     },
   },
   zIndex: {
@@ -137,6 +160,7 @@ export default createMuiTheme({
     qrCodeScannerSpinner: 11000,
     qrCodeScannerVideo: 12000,
     spinnerOverlay: 20000,
+    layer1: 10,
   },
   overrides: {
     MuiCssBaseline: {
@@ -185,6 +209,7 @@ export default createMuiTheme({
     MuiButton: {
       root: {
         transition: 'color .01s',
+        fontSize: 18,
       },
     },
   },
@@ -192,5 +217,6 @@ export default createMuiTheme({
     colors,
     components,
     gradients,
+    shadows,
   },
 });

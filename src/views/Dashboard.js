@@ -1,7 +1,5 @@
 import {
-  Badge,
   Box,
-  CircularProgress,
   Container,
   IconButton,
   Input,
@@ -15,6 +13,7 @@ import { Link, generatePath, useHistory } from 'react-router-dom';
 
 import { MY_PROFILE_PATH, SEARCH_PATH, SEND_PATH } from '~/routes';
 
+import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import ButtonSend from '~/components/ButtonSend';
@@ -31,8 +30,7 @@ import {
   checkFinishedActivities,
   checkPendingActivities,
 } from '~/store/activity/actions';
-import { CATEGORIES } from '~/store/activity/reducers';
-import { IconMenu, IconNotification, IconSearch } from '~/styles/icons';
+import { IconMenu, IconSearch } from '~/styles/icons';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {
@@ -135,7 +133,7 @@ const Dashboard = () => {
             <UsernameDisplay address={safe.currentAccount} />
           </Link>
         </CenteredHeading>
-        <DashboardActivityIcon />
+        <ActivityIcon />
       </Header>
       <Navigation
         className={classes.navigation}
@@ -164,46 +162,6 @@ const Dashboard = () => {
       />
       <Drawer />
     </Fragment>
-  );
-};
-
-const DashboardActivityIcon = () => {
-  const { categories, lastSeenAt } = useSelector((state) => {
-    return state.activity;
-  });
-
-  // Is there any pending transactions?
-  const isPending = CATEGORIES.find((category) => {
-    return !!categories[category].activities.find((activity) => {
-      return activity.isPending;
-    });
-  });
-
-  // Count how many activities we haven't seen yet
-  const count = CATEGORIES.reduce((acc, category) => {
-    return (
-      acc +
-      categories[category].activities.reduce((itemAcc, activity) => {
-        return activity.createdAt > lastSeenAt ? itemAcc + 1 : itemAcc;
-      }, 0)
-    );
-  }, 0);
-
-  return (
-    <IconButton
-      aria-label="Activities"
-      component={Link}
-      edge="end"
-      to="/activities"
-    >
-      {isPending ? (
-        <CircularProgress size={28} />
-      ) : (
-        <Badge badgeContent={count} color="primary" max={99}>
-          <IconNotification style={{ fontSize: 28 }} />
-        </Badge>
-      )}
-    </IconButton>
   );
 };
 

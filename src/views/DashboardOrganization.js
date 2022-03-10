@@ -1,30 +1,36 @@
-import { Container, IconButton } from '@material-ui/core';
+import {
+  Box,
+  ButtonGroup,
+  Container,
+  Grid,
+  IconButton,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React, { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, generatePath } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import {
-  DASHBOARD_PATH,
-  MY_PROFILE_PATH,
-  ORGANIZATION_MEMBERS_PATH,
-  QR_GENERATOR_PATH,
-  SEND_PATH,
-} from '~/routes';
+import { SEARCH_PATH, SEND_PATH } from '~/routes';
 
-import ActivityStreamWithTabs from '~/components/ActivityStreamWithTabs';
+import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
+import AvatarHeader from '~/components/AvatarHeader';
+import BackgroundCurved from '~/components/BackgroundCurved';
 import BalanceDisplayOrganization from '~/components/BalanceDisplayOrganization';
-import ButtonAction from '~/components/ButtonAction';
-import ButtonSend from '~/components/ButtonSend';
-import CenteredHeading from '~/components/CenteredHeading';
+import Button from '~/components/Button';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
+import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
-import UsernameDisplay from '~/components/UsernameDisplay';
+import NavigationFloating from '~/components/NavigationFloating';
 import View from '~/components/View';
-import { IconMembers, IconMenu, IconQRLarge } from '~/styles/icons';
+import { useUpdateLoop } from '~/hooks/update';
+import translate from '~/services/locale';
+import {
+  checkFinishedActivities,
+  checkPendingActivities,
+} from '~/store/activity/actions';
+import { IconMenu } from '~/styles/icons';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {
@@ -57,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     ...transitionMixin(theme),
+    background: 'transparent',
   },
   headerExpanded: {
     ...transitionExpandedMixin(theme),
@@ -71,12 +78,39 @@ const useStyles = makeStyles((theme) => ({
     ...transitionExpandedMixin(theme),
     overflow: 'hidden',
   },
+  dashboardOrganizationContainer: {
+    marginTop: '95px',
+  },
+  balanceContainer: {
+    margin: '0 auto',
+    textAlign: 'center',
+  },
+  userDataContainer: {
+    position: 'relative',
+    top: '45px',
+  },
+  buttonContainer: {
+    marginTop: '30px',
+    marginBottom: '70px',
+    padding: '0 15px',
+    '& a:first-of-type': {
+      border: 0,
+    },
+    '& a:nth-of-type(2)': {
+      borderLeftStyle: 'none',
+    },
+  },
 }));
 
 const DashboardOrganization = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
-  const safe = useSelector((state) => state.safe);
+
+  useUpdateLoop(async () => {
+    await dispatch(checkFinishedActivities());
+    await dispatch(checkPendingActivities());
+  });
 
   const handleMenuToggle = () => {
     setIsMenuExpanded(!isMenuExpanded);
@@ -88,28 +122,19 @@ const DashboardOrganization = () => {
 
   return (
     <Fragment>
-      <Header
-        className={clsx(classes.header, {
-          [classes.headerExpanded]: isMenuExpanded,
-        })}
-      >
-        <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
-          <IconMenu />
-        </IconButton>
-        <CenteredHeading>
-          <Link className={classes.profileLink} to={MY_PROFILE_PATH}>
-            <UsernameDisplay address={safe.currentAccount} />
-          </Link>
-        </CenteredHeading>
-        <IconButton
-          aria-label="Members"
-          component={Link}
-          edge="end"
-          to={ORGANIZATION_MEMBERS_PATH}
+      <BackgroundCurved gradient="orange">
+        <Header
+          className={clsx(classes.header, {
+            [classes.headerExpanded]: isMenuExpanded,
+          })}
         >
-          <IconMembers />
-        </IconButton>
-      </Header>
+          <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
+            <IconMenu />
+          </IconButton>
+          <AvatarHeader />
+          <ActivityIcon />
+        </Header>
+      </BackgroundCurved>
       <Navigation
         className={classes.navigation}
         isExpanded={isMenuExpanded}
@@ -120,28 +145,28 @@ const DashboardOrganization = () => {
           [classes.viewExpanded]: isMenuExpanded,
         })}
       >
-        <Container maxWidth="sm">
-          <BalanceDisplayOrganization />
+        <Container
+          className={classes.dashboardOrganizationContainer}
+          maxWidth="sm"
+        >
+          <Box className={classes.balanceContainer}>
+            <BalanceDisplayOrganization />
+          </Box>
           <AppNote />
-          <ActivityStreamWithTabs basePath={DASHBOARD_PATH} />
+          <Grid item xs={12}>
+            <ButtonGroup className={classes.buttonContainer} fullWidth>
+              <Button isOutline isPrimary to={SEARCH_PATH}>
+                {translate('DashboardOrganization.buttonTrustPeople')}
+              </Button>
+              <Button isOutline to={SEND_PATH}>
+                {translate('DashboardOrganization.buttonSendCircles')}
+              </Button>
+            </ButtonGroup>
+          </Grid>
+          <LastInteractions />
+          <NavigationFloating />
         </Container>
       </View>
-      <ButtonAction
-        aria-label="Generate QR"
-        className={clsx(classes.fabQR, {
-          [classes.fabExpanded]: isMenuExpanded,
-        })}
-        component={Link}
-        to={QR_GENERATOR_PATH}
-      >
-        <IconQRLarge fontSize="large" />
-      </ButtonAction>
-      <ButtonSend
-        className={clsx(classes.fab, {
-          [classes.fabExpanded]: isMenuExpanded,
-        })}
-        to={generatePath(SEND_PATH)}
-      />
       <Drawer />
     </Fragment>
   );
