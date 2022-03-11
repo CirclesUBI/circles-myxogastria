@@ -66,7 +66,7 @@ const gradients = {
   warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
   greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
   orange: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 100%)`,
-  orangeDesktop: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 200%)`,
+  orangeDesktop: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 60%)`,
   greenBlueDesktop: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.turquoise2} 100%)`,
   blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
 };
@@ -81,6 +81,7 @@ const components = {
   appMaxWidth: 900,
   appMinWidth: 360,
   avatarSize: 50,
+  avatarUploader: 85,
   navigationWidth: 300,
 };
 

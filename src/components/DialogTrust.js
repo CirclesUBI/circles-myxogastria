@@ -71,7 +71,7 @@ const DialogTrust = ({
       title={translate('DialogTrust.dialogTrustTitle', { username })}
       onClose={handleTrustClose}
       onConfirm={handleTrust}
-    ></Dialog>
+    />
   );
 };
 

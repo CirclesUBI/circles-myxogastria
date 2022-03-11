@@ -47,14 +47,6 @@ const useStyles = makeStyles((theme) => ({
   buttonWhiteText: {
     color: theme.custom.colors.white,
   },
-  emptyWhiteText: {
-    background: 'transparent',
-    border: 0,
-
-    '&:hover': {
-      background: 'transparent',
-    },
-  },
 }));
 
 // eslint-disable-next-line react/display-name
@@ -63,7 +55,6 @@ const Button = React.forwardRef(
     {
       children,
       className: classNameExternal,
-      emptyWhiteText,
       isDanger,
       isDark,
       isOutline,
@@ -84,7 +75,6 @@ const Button = React.forwardRef(
       [classes.buttonPrimary]: isPrimary,
       [classes.buttonWhite]: isWhite,
       [classes.buttonWhiteText]: isWhiteText,
-      [classes.emptyWhiteText]: emptyWhiteText,
     });
 
     return React.createElement(
@@ -108,7 +98,6 @@ const Button = React.forwardRef(
 Button.propTypes = {
   children: PropTypes.any.isRequired,
   className: PropTypes.string,
-  emptyWhiteText: PropTypes.bool,
   isDanger: PropTypes.bool,
   isDark: PropTypes.bool,
   isOutline: PropTypes.bool,
