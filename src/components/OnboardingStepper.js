@@ -6,7 +6,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
@@ -20,7 +19,6 @@ import Header from '~/components/Header';
 import StepperHorizontal from '~/components/StepperHorizontal';
 import View from '~/components/View';
 import { useQuery } from '~/hooks/url';
-import translate from '~/services/locale';
 import { IconBack, IconClose } from '~/styles/icons';
 
 const useStyles = makeStyles(() => ({
@@ -30,16 +28,14 @@ const useStyles = makeStyles(() => ({
     paddingRight: 19,
     paddingLeft: 19,
     background: 'transparent',
+
+    '& .MuiMobileStepper-progress': {
+      display: 'none',
+    },
   },
 
   onboardingStepperHeader: {
     background: 'transparent',
-  },
-
-  hideProgressBar: {
-    '& .MuiMobileStepper-progress': {
-      display: 'none',
-    },
   },
 
   stepperHorizontalContainer: {
@@ -53,19 +49,22 @@ const OnboardingStepper = ({
   onFinish,
   onValuesChange,
   steps,
+  stepperConfiguration,
+  stepsButtons,
+  stepsScreens,
   values,
-  isHorizontalStepper,
-  todoRemoveFlag,
 }) => {
   const classes = useStyles();
 
   const [current, setCurrent] = useState(0);
+  const [username, setUsername] = useState('');
   const { filter, query: inputSearch } = useQuery();
 
   /* eslint-disable react-hooks/exhaustive-deps */
+  // Go back to ADD MEMBER screen from details profile
   useEffect(() => {
     if (filter || inputSearch) {
-      setCurrent(screenNames.ADD_MEMBERS);
+      setCurrent(stepsScreens.ADD_MEMBERS);
     }
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
@@ -86,11 +85,10 @@ const OnboardingStepper = ({
 
   const onNext = () => {
     setCurrent(current + 1);
-    // TODO: temporary if to be able to move to next step
-    if (current + 1 === screenNames.ADD_MEMBERS) {
-      return;
+
+    if (values.username) {
+      setUsername(values.username);
     }
-    setIsDisabled(true);
   };
 
   const onPrevious = () => {
@@ -103,59 +101,23 @@ const OnboardingStepper = ({
 
   const OnboardingCurrentStep = steps[current];
   const isLastSlide = current === steps.length - 1;
-  const isAddPhotoSlide = current === 3;
 
   if (isRedirect) {
     return <Redirect push to={exitPath} />;
   }
 
-  const stepsStepperHorizontal = [
-    translate('OnboardingOrganization.stepperFirstStep'),
-    translate('OnboardingOrganization.stepperSecondStep'),
-    translate('OnboardingOrganization.stepperThirdStep'),
-  ];
-
-  const screenNames = {
-    ENTER_EMAIL: 0,
-    FUND_YOUR_ORGANIZATION: 1,
-    CREATE_YOUR_USERNAME: 2,
-    ADD_PHOTO: 3,
-    ADD_MEMBERS: 4,
-  };
-  const stepperSteps = {
-    CREATE_WALLET: 0,
-    MAKE_PROFILE: 1,
-    ADD_MEMBERS: 2,
-  };
-
   const activeStepForStepperHorizontal = () => {
-    // we have more screens/views than steps in our stepper thus that we need to adapt
-    switch (current) {
-      case screenNames.ENTER_EMAIL:
-        return stepperSteps.CREATE_WALLET;
-      case screenNames.FUND_YOUR_ORGANIZATION:
-      case screenNames.CREATE_YOUR_USERNAME:
-        return stepperSteps.MAKE_PROFILE;
-      case screenNames.ADD_PHOTO:
-        return stepperSteps.ADD_MEMBERS;
-      case screenNames.ADD_MEMBERS:
-        return stepperSteps.ADD_MEMBERS;
+    if (current <= stepperConfiguration[0].activeTillScreen) {
+      return 0;
+    } else if (current <= stepperConfiguration[1].activeTillScreen) {
+      return 1;
+    } else if (current <= stepperConfiguration[2].activeTillScreen) {
+      return 2;
     }
   };
 
-  const btnTranslateTextForNextStep = () => {
-    switch (current) {
-      case screenNames.ENTER_EMAIL:
-        return translate('OnboardingStepper.buttonSubmit');
-      case screenNames.FUND_YOUR_ORGANIZATION:
-        return translate('OnboardingStepper.buttonFinish');
-      case screenNames.CREATE_YOUR_USERNAME:
-      case screenNames.ADD_PHOTO:
-        return translate('OnboardingStepper.buttonSubmit');
-      case screenNames.ADD_MEMBERS:
-        return translate('OnboardingStepper.skipStep');
-    }
-  };
+  const stepNames = stepperConfiguration.map((step) => step.stepName);
+  const CopyToClipboardBtn = stepsButtons[current].additionalBtnSecond;
 
   return (
     <Fragment>
@@ -171,9 +133,7 @@ const OnboardingStepper = ({
               </IconButton>
             )
           }
-          className={clsx(classes.onboardingMobileStepper, {
-            [classes.hideProgressBar]: isHorizontalStepper,
-          })}
+          className={classes.onboardingMobileStepper}
           nextButton={
             <IconButton edge="end" onClick={onExit}>
               <IconClose />
@@ -184,18 +144,19 @@ const OnboardingStepper = ({
           variant="progress"
         />
       </Header>
-      {todoRemoveFlag && current >= screenNames.ADD_PHOTO && (
-        <AvatarHeader hideImage={current == screenNames.ADD_PHOTO} />
+      {current >= stepsScreens.ADD_PHOTO && (
+        <AvatarHeader
+          hideImage={current === stepsScreens.ADD_PHOTO}
+          username={username}
+        />
       )}
       <View mt={8}>
-        {isHorizontalStepper && (
-          <Box className={classes.stepperHorizontalContainer}>
-            <StepperHorizontal
-              activeStep={activeStepForStepperHorizontal()}
-              steps={stepsStepperHorizontal}
-            />
-          </Box>
-        )}
+        <Box className={classes.stepperHorizontalContainer}>
+          <StepperHorizontal
+            activeStep={activeStepForStepperHorizontal()}
+            steps={stepNames}
+          />
+        </Box>
         <Container maxWidth="sm">
           <Box textAlign="center">
             <OnboardingCurrentStep
@@ -208,20 +169,21 @@ const OnboardingStepper = ({
       </View>
       <Footer>
         <AppNote />
-        {isAddPhotoSlide ? (
+        {stepsButtons[current].additionalBtn && (
           <Box mb={1}>
             <Typography align="center" onClick={onNext}>
-              {translate('OnboardingOrganization.skipStep')}
+              {stepsButtons[current].additionalBtn}
             </Typography>
           </Box>
-        ) : null}
+        )}
+        {stepsButtons[current].additionalBtnSecond && <CopyToClipboardBtn />}
         <Button
           disabled={isDisabled}
           fullWidth
           isPrimary
           onClick={isLastSlide ? onFinish : onNext}
         >
-          {btnTranslateTextForNextStep()}
+          {stepsButtons[current].btnNextStep}
         </Button>
       </Footer>
     </Fragment>
@@ -230,11 +192,12 @@ const OnboardingStepper = ({
 
 OnboardingStepper.propTypes = {
   exitPath: PropTypes.string.isRequired,
-  isHorizontalStepper: PropTypes.bool,
   onFinish: PropTypes.func.isRequired,
   onValuesChange: PropTypes.func.isRequired,
+  stepperConfiguration: PropTypes.array.isRequired,
   steps: PropTypes.array.isRequired,
-  todoRemoveFlag: PropTypes.bool,
+  stepsButtons: PropTypes.array.isRequired,
+  stepsScreens: PropTypes.object,
   values: PropTypes.object.isRequired,
 };
 

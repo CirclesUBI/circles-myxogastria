@@ -12,13 +12,13 @@ import UsernameDisplay from '~/components/UsernameDisplay';
 
 const useStyles = makeStyles((theme) => ({
   avatarContainer: {
-    width: '80px',
     height: '80px',
+    margin: '0 auto',
+    width: '80px',
   },
   userDataContainer: {
     position: 'absolute',
     top: '45px',
-    width: '80px',
     left: '0',
     right: '0',
     margin: '0 auto',
@@ -36,10 +36,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AvatarHeader = ({ hideImage }) => {
+const AvatarHeader = ({ hideImage, username }) => {
   const classes = useStyles();
 
   const safe = useSelector((state) => state.safe);
+
+  const displayedUsername = username ? (
+    `@${username}`
+  ) : safe.currentAccount ? (
+    <UsernameDisplay address={safe.currentAccount} />
+  ) : null;
 
   return (
     <Box className={classes.userDataContainer}>
@@ -54,7 +60,7 @@ const AvatarHeader = ({ hideImage }) => {
       </Box>
       <Box className={classes.textContainer}>
         <Link className={classes.profileLink} to={MY_PROFILE_PATH}>
-          <UsernameDisplay address={safe.currentAccount} />
+          {displayedUsername}
         </Link>
       </Box>
     </Box>
@@ -63,6 +69,7 @@ const AvatarHeader = ({ hideImage }) => {
 
 AvatarHeader.propTypes = {
   hideImage: PropTypes.bool,
+  username: PropTypes.string,
 };
 
 export default AvatarHeader;

@@ -61,7 +61,8 @@
     "infoCopiedMessage": "Text copied to clipboard"
   },
   "Dashboard": {
-    "formSearch": "Search for accounts"
+    "buttonTrustPeople": "Trust People",
+    "buttonSendCircles": "Send Circles"
   },
   "DashboardOrganization": {
     "buttonTrustPeople": "Trust People",
@@ -130,6 +131,7 @@
     "errorRestoreFailedUnknown": "Could not restore account due to an unknown error.",
     "errorRestoreFailedUnknownSafe": "The account you tried to restore is not registered.",
     "headingLogin": "Login",
+    "inputPlaceholder": "Start typing...",
     "linkSupport": "Go to support.",
     "successWelcome": "Successfully connected to account. Welcome!"
   },
@@ -169,8 +171,7 @@
     "bodyAboutSeedPhraseP2": "It is important to keep your magic words secret and safe. If someone has access to your magic words, they can access your private account.",
     "bodyAboutSeedPhraseP3": "Save them in a private place that you can access. If you lose them, not even the Circles team can recover it.",
     "bodyAvatar": "Your photo is how your friends can search for you on the Circles App.",
-    "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
-    "bodyEmailOrganization": "We will never share this!",
+    "bodyEmail": "We will never share this!",
     "bodySaveSeedPhraseHelper": "Save it in a place where only you can access it. If you lose it, not even the Circles Team can recover it.",
     "bodySecureWalletP1A": "Don’t risk losing your account. Protect your wallet by saving your ",
     "bodySecureWalletP1Link": "magic words",
@@ -192,17 +193,19 @@
     "headingSaveSeedPhraseHelper": "Where to store your magic words",
     "headingSecureWallet": "Secure Your Wallet",
     "headingSeedPhrase": "Save your magic words",
-    "headingSeedPhraseChallenge": "Did you save your Seed Phrase?",
+    "headingSeedPhraseChallenge": "Did you save your Magic Words?",
     "headingUsername": "Create Your Username",
     "linkHelperSaveSeedPhrase": "Need tips on where to save it?",
     "listItemSaveSeedPhraseHelper1": "Add to a password manager",
     "listItemSaveSeedPhraseHelper2": "Save in a notes application",
     "listItemSaveSeedPhraseHelper3": "Send to yourself in email",
     "listItemSaveSeedPhraseHelper4": "Hand write, and put somewhere safe",
+    "stepperFirstStep": "Create Profile",
+    "stepperSecondStep": "Secure Wallet",
+    "stepperThirdStep": "Verification",
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },
   "OnboardingOrganization": {
-    "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
     "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. Send 1 or more Circles to your new wallet to finish setup.",
     "bodyUsername": "Your username is how your friends can search for you on the Circles App. We recommend you to name your Shared Wallet after your Organization's name.",
     "errorSignup": "A server error occurred: {errorMessage}",
@@ -214,9 +217,8 @@
     "headingAvatar": "Add Photo",
     "headingEmail": "Enter Email",
     "headingPrefund": "Fund your organization",
-    "headingUsername": "Create Your Username",
+    "headingWalletName": "Name your shared wallet",
     "headingAddMembers": "Add members",
-    "skipStep": "I'll do this later",
     "stepperFirstStep": "Create Wallet",
     "stepperSecondStep": "Deposit Funds",
     "stepperThirdStep": "Add Members",
@@ -339,14 +341,15 @@
     "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
   },
   "Tutorial": {
-    "buttonFinish": "Got it.",
+    "buttonFinish": "Got it. Sign me up!",
     "buttonNextStep": "Next",
     "buttonSkip": "Skip"
   },
   "TutorialOnboarding": {
-    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support and create an alternative economy.",
-    "bodyUnconditionalIncome": "Circles is designed to be a basic income from the bottom-up. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
-    "bodyWebOfTrust": "You can spend Circles with people you trust, and the people they trust. ",
+    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support an alternative economy.",
+    "bodyUnconditionalIncome": "Circles is designed similar to a basic income. Because it is people-powered, it is based on trust. To receive your basic income, three people already trusted in the Circles system must trust your profile. This way you are unconditionally issued Circles tokens on a regular basis.",
+    "bodyWebOfTrust": "You can spend Circles with people who you trust. The more connected your community is, the more valuable your Circles become.",
+    "bodyLearnMore": "Learn more",
     "headingBuildYourOwnEconomy": "Build Your Own Economy",
     "headingUnconditionalIncome": "Unconditional Income",
     "headingWebOfTrust": "A Web of Trust"

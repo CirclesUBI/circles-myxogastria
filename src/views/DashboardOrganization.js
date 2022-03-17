@@ -164,7 +164,7 @@ const DashboardOrganization = () => {
             </ButtonGroup>
           </Grid>
           <LastInteractions />
-          <NavigationFloating />
+          <NavigationFloating gradient="orange" />
         </Container>
       </View>
       <Drawer />

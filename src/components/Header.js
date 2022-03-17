@@ -1,8 +1,10 @@
-import { AppBar, Toolbar, useScrollTrigger } from '@material-ui/core';
+import { AppBar, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
+
+import { useCustomScrollTrigger } from '~/hooks/scrollTrigger';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -17,10 +19,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = ({ children, className, ...props }) => {
   const classes = useStyles();
 
-  const isScrolled = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  });
+  const isScrolled = useCustomScrollTrigger();
 
   return (
     <AppBar

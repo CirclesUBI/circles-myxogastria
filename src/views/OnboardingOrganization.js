@@ -39,7 +39,7 @@ const moveUpFront = (theme) => ({
 });
 const useStyles = makeStyles((theme) => ({
   organizationStepAddMembersContainer: moveUpFront(theme),
-  organizationStepUsernameContainer: moveUpFront(theme),
+  organizationStepWalletNameContainer: moveUpFront(theme),
   organizationEmailContainer: moveUpFront(theme),
   organizationStepAvatarContainer: moveUpFront(theme),
   organizationStepPrefundContainer: moveUpFront(theme),
@@ -109,9 +109,51 @@ const OnboardingOrganization = () => {
   const steps = [
     OrganizationStepEmail,
     OrganizationStepPrefund,
-    OrganizationStepUsername,
+    OrganizationStepWalletName,
     OrganizationStepAvatar,
     OrganizationStepAddMembers,
+  ];
+
+  const stepsScreens = {
+    ENTER_EMAIL: 0,
+    FUND_YOUR_ORGANIZATION: 1,
+    NAME_YOUR_WALLET: 2,
+    ADD_PHOTO: 3,
+    ADD_MEMBERS: 4,
+  };
+
+  const stepperConfiguration = [
+    {
+      stepName: translate('OnboardingOrganization.stepperFirstStep'),
+      activeTillScreen: stepsScreens.ENTER_EMAIL,
+    },
+    {
+      stepName: translate('OnboardingOrganization.stepperSecondStep'),
+      activeTillScreen: stepsScreens.NAME_YOUR_WALLET,
+    },
+    {
+      stepName: translate('OnboardingOrganization.stepperThirdStep'),
+      activeTillScreen: stepsScreens.ADD_MEMBERS,
+    },
+  ];
+
+  const stepsButtons = [
+    {
+      btnNextStep: translate('OnboardingStepper.buttonSubmit'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonFinish'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonSubmit'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonFinish'),
+      additionalBtn: translate('OnboardingStepper.skipStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.skipStep'),
+    },
   ];
 
   const handleTutorialFinish = () => {
@@ -131,10 +173,11 @@ const OnboardingOrganization = () => {
       <BackgroundCurved gradient="orange">
         <OnboardingStepper
           exitPath={DASHBOARD_PATH}
-          isHorizontalStepper={true}
           mb={16}
+          stepperConfiguration={stepperConfiguration}
           steps={steps}
-          todoRemoveFlag={true}
+          stepsButtons={stepsButtons}
+          stepsScreens={stepsScreens}
           values={values}
           onFinish={onFinish}
           onValuesChange={setValues}
@@ -186,8 +229,8 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
           onStatusChange={handleEmailStatus}
         />
         <Box mb={3} mt={6}>
-          <Typography>
-            {translate('Onboarding.bodyEmailOrganization')}
+          <Typography className="lightGreyText">
+            {translate('Onboarding.bodyEmail')}
           </Typography>
         </Box>
         <Box className={classes.CheckboxesContainer} mt={2} textAlign={'left'}>
@@ -235,7 +278,9 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
       <Typography align="center" gutterBottom variant="h6">
         {translate('OnboardingOrganization.headingPrefund')}
       </Typography>
-      <Typography>{translate('OnboardingOrganization.bodyPrefund')}</Typography>
+      <Typography className="lightGreyText">
+        {translate('OnboardingOrganization.bodyPrefund')}
+      </Typography>
       <Box mt={4}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -266,7 +311,7 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
   );
 };
 
-const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
+const OrganizationStepWalletName = ({ onDisabledChange, values, onChange }) => {
   const classes = useStyles();
 
   const handleChange = (username) => {
@@ -276,9 +321,9 @@ const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
   };
 
   return (
-    <Box className={classes.organizationStepUsernameContainer}>
+    <Box className={classes.organizationStepWalletNameContainer}>
       <Typography align="center" gutterBottom variant="h6">
-        {translate('OnboardingOrganization.headingUsername')}
+        {translate('OnboardingOrganization.headingWalletName')}
       </Typography>
       <Box mb={6} mt={4}>
         <VerifiedUsernameInput
@@ -362,7 +407,7 @@ const stepProps = {
   values: PropTypes.object.isRequired,
 };
 
-OrganizationStepUsername.propTypes = {
+OrganizationStepWalletName.propTypes = {
   ...stepProps,
 };
 

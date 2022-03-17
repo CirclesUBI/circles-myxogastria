@@ -29,6 +29,7 @@ const monochrome = {
 
 const rgba = {
   doveGray: 'rgb(107, 101, 101,0.5)',
+  dialogGray: 'rgba(0, 0, 0, 0.25)',
 };
 
 export const colors = {
@@ -49,10 +50,14 @@ export const colors = {
   pizazz: '#FF8E00',
   ceriseRed: '#D12D5F',
   blueRibbon: '#2B44FF',
+  turquoise2: '#31D7AB',
+  disco: '#99164C',
 };
 
 const gradients = {
   gray: `linear-gradient(280deg, ${colors.grayDark} 0%, ${colors.gray} 100%)`,
+  grayDark:
+    'linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(284.04deg, rgba(0, 0, 0, 0.49) 0%, rgba(0, 0, 0, 0.12) 100%);',
   purple: `linear-gradient(280deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
   turquoise: `linear-gradient(0deg, ${colors.green} 0%, ${colors.turquoise} 100%)`,
   error: `linear-gradient(90deg, ${colors.purpleDark}, ${colors.purple} 100%)`,
@@ -60,9 +65,10 @@ const gradients = {
   success: `linear-gradient(90deg, ${colors.green} 0%, ${colors.blue} 100%)`,
   warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
   greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
-  blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
   orange: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 100%)`,
   orangeDesktop: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 60%)`,
+  greenBlueDesktop: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.turquoise2} 100%)`,
+  blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
 };
 
 const shadows = {
@@ -161,12 +167,14 @@ export default createMuiTheme({
     qrCodeScannerVideo: 12000,
     spinnerOverlay: 20000,
     layer1: 10,
+    backgroundCurvedWrapper: 0,
   },
   overrides: {
     MuiCssBaseline: {
       '@global': {
         body: {
           overflowX: 'hidden',
+          backgroundColor: colors.white,
         },
         '@font-face': [
           notoSans,
@@ -200,6 +208,13 @@ export default createMuiTheme({
       root: {
         font: fontFamily,
         fontWeight: fontWeightLight,
+      },
+    },
+    MuiTypography: {
+      root: {
+        '&.lightGreyText': {
+          color: colors.grayDarker,
+        },
       },
     },
     // @NOTE: This is a workaround to fix an issue with Safari 14.1.1
