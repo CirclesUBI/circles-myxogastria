@@ -232,11 +232,6 @@ const Routes = () => {
       />
       <OnboardingRoute component={Login} exact path={LOGIN_PATH} />
       <SessionRoute component={Validation} exact path={VALIDATION_PATH} />
-      {/* <SessionRoute
-        component={ValidationShare}
-        exact
-        path={VALIDATION_SHARE_PATH}
-      /> */}
       <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
       <TrustedRoute component={Send} exact path={SEND_PATH} />
       <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
