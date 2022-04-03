@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
   },
   buttonOutline: {
-    height: 36.5, // Make it as high as the other buttons
+    height: '43.5px', // Make it as high as the other buttons
     color: theme.palette.primary.main,
     border: `${theme.palette.primary.main} 2px solid`,
     '&.Mui-disabled': {
