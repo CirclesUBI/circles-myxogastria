@@ -45,6 +45,8 @@ const AvatarHeader = ({ hideImage, username }) => {
     `@${username}`
   ) : safe.currentAccount ? (
     <UsernameDisplay address={safe.currentAccount} />
+  ) : safe.pendingAddress ? (
+    <UsernameDisplay address={safe.pendingAddress} />
   ) : null;
 
   return (
@@ -52,7 +54,7 @@ const AvatarHeader = ({ hideImage, username }) => {
       <Box className={classes.avatarContainer}>
         {!hideImage && (
           <Avatar
-            address={safe.currentAccount}
+            address={safe.currentAccount || safe.pendingAddress}
             className={classes.avatarContainer}
             size={'smallXl'}
           />
