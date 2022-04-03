@@ -84,9 +84,9 @@
   },
   "DialogTrust": {
     "dialogTrustCancel": "Cancel",
-    "dialogTrustConfirm": "Add Member",
+    "dialogTrustConfirm": "Trust",
     "dialogTrustDescription": "Trust is Power. When you trust somebody it means that you are sharing the power to issue circles.",
-    "dialogTrustTitle": "Add @{username}?",
+    "dialogTrustTitle": "Trust @{username}?",
     "errorTrust": "Something went wrong when you tried to trust @{username} ...",
     "externalLink": "Learn more",
     "afterExternalLink": "here",
@@ -228,6 +228,8 @@
     "buttonFinish": "Sign me up!",
     "buttonNextStep": "Continue",
     "buttonSubmit": "Submit",
+    "buttonShareProfile": "Share Profile Link",
+    "buttonCreateAccount": "Create Account",
     "skipStep": "I'll do this later"
   },
   "OrganizationMembers": {
@@ -336,6 +338,9 @@
     "headingShare": "My QR Code",
     "shareText": "Hey! Check out my Circles UBI profile!"
   },
+  "ShareBox": {
+    "headingShowYourQR": "Show your QR code or profile to others to receive trust."
+  },
   "TransferInfoBalanceCard": {
     "bodyTotalBalance": "Your total balance: {balance}",
     "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
@@ -369,7 +374,7 @@
     "infoUbiPayoutReceived": "You received {payout} Circles!"
   },
   "Validation": {
-    "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your seed phrase.",
+    "bodyDoNotReset": "Do not reset your browser local storage or you will need to recover your data with your seed phrase.",
     "bodyTrustDescription": "To receive your basic income,",
     "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
     "buttonShareProfileLink": "Share Profile Link",
