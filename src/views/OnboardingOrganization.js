@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { generatePath } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
-import { DASHBOARD_PATH, PROFILE_PATH } from '~/routes';
-import { ORGANIZATION_PATH } from '~/routes';
+import { DASHBOARD_PATH, ORGANIZATION_PATH, PROFILE_PATH } from '~/routes';
 
 import AvatarUploader from '~/components/AvatarUploader';
 import BackgroundCurved from '~/components/BackgroundCurved';
@@ -395,7 +394,7 @@ const OrganizationStepAddMembers = () => {
       <Finder
         basePath={ORGANIZATION_PATH}
         hasActions
-        isWalletCreation
+        isSharedWalletCreation
         onSelect={handleOnSelectFinder}
       />
     </Box>

@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core';
 import { Step } from '@material-ui/core';
-import { StepButton } from '@material-ui/core';
+import { StepButton as StepperButton } from '@material-ui/core';
 import { Stepper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  stepperBtn: {
+  stepperButton: {
     '& .MuiSvgIcon-root.MuiStepIcon-root': {
       color: '#fff',
       fontWeight: '600',
@@ -73,7 +73,9 @@ const StepperHorizontal = ({ steps, activeStep }) => {
       >
         {steps.map((label) => (
           <Step key={label}>
-            <StepButton className={classes.stepperBtn}>{label}</StepButton>
+            <StepperButton className={classes.stepperButton}>
+              {label}
+            </StepperButton>
           </Step>
         ))}
       </Stepper>

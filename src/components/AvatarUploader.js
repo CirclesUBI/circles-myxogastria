@@ -15,8 +15,8 @@ const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const useStyles = makeStyles((theme) => ({
   avatarUpload: {
     margin: '0 auto',
-    width: 85,
-    height: 85,
+    width: theme.custom.components.avatarUploader,
+    height: theme.custom.components.avatarUploader,
     color: theme.palette.text.primary,
     fontSize: '30px',
     fontWeight: theme.typography.fontWeightMedium,
@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
   },
   avatarUploaderContainer: {
-    width: 85,
-    height: 85,
+    width: theme.custom.components.avatarUploader,
+    height: theme.custom.components.avatarUploader,
     margin: '0 auto',
     position: 'relative',
   },
