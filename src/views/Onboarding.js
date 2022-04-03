@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
   userStepSecureWalletContainer: moveUpFront(theme),
   userStepSeedPhrase: moveUpFront(theme),
   userStepSeedChallenge: moveUpFront(theme),
+  userValidationAccount: moveUpFront(theme),
   userStepSecureWalletBodyTxt: {
     padding: '45px',
   },
@@ -87,8 +88,65 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+export const stepsScreens = {
+  ENTER_EMAIL: 0,
+  CREATE_YOUR_USERNAME: 1,
+  ADD_PHOTO: 2,
+  SECURE_YOUR_WALLET: 3,
+  SAVE_YOUR_SEEDPHRASE: 4,
+  SEEDPHRASE_CHALLENGE: 5,
+  VERIFY_YOUR_ACCOUNT: 6,
+};
+
+export const stepperConfiguration = [
+  {
+    stepName: translate('Onboarding.stepperFirstStep'),
+    activeTillScreen: stepsScreens.ENTER_EMAIL,
+  },
+  {
+    stepName: translate('Onboarding.stepperSecondStep'),
+    activeTillScreen: stepsScreens.SEEDPHRASE_CHALLENGE,
+  },
+  {
+    stepName: translate('Onboarding.stepperThirdStep'),
+    activeTillScreen: stepsScreens.VERIFY_YOUR_ACCOUNT,
+  },
+];
+
 const Onboarding = () => {
   const dispatch = useDispatch();
+
+  const steps = [
+    OnboardingStepEmail,
+    OnboardingStepUsername,
+    OnboardingStepAvatar,
+    OnboardingStepSecureWallet,
+    OnboardingStepSeedPhrase,
+    OnboardingStepSeedChallenge,
+  ];
+
+  const stepsButtons = [
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+      additionalBtn: translate('OnboardingStepper.skipStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+      additionalBtnSecond: CopyToClipboardBtn,
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+    },
+  ];
 
   const [values, setValues] = useState({
     avatarUrl: '',
@@ -127,62 +185,6 @@ const Onboarding = () => {
 
     dispatch(hideSpinnerOverlay());
   };
-
-  const steps = [
-    OnboardingStepEmail,
-    OnboardingStepUsername,
-    OnboardingStepAvatar,
-    OnboardingStepSecureWallet,
-    OnboardingStepSeedPhrase,
-    OnboardingStepSeedChallenge,
-  ];
-
-  const stepsScreens = {
-    ENTER_EMAIL: 0,
-    CREATE_YOUR_USERNAME: 1,
-    ADD_PHOTO: 2,
-    SECURE_YOUR_WALLET: 3,
-    SAVE_YOUR_SEEDPHRASE: 4,
-    SEEDPHRASE_CHALLENGE: 5,
-  };
-
-  const stepperConfiguration = [
-    {
-      stepName: translate('Onboarding.stepperFirstStep'),
-      activeTillScreen: stepsScreens.ENTER_EMAIL,
-    },
-    {
-      stepName: translate('Onboarding.stepperSecondStep'),
-      activeTillScreen: stepsScreens.SAVE_YOUR_SEEDPHRASE,
-    },
-    {
-      stepName: translate('Onboarding.stepperThirdStep'),
-      activeTillScreen: stepsScreens.SEEDPHRASE_CHALLENGE,
-    },
-  ];
-
-  const stepsButtons = [
-    {
-      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-    },
-    {
-      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-    },
-    {
-      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-      additionalBtn: translate('OnboardingStepper.skipStep'),
-    },
-    {
-      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-    },
-    {
-      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-      additionalBtnSecond: CopyToClipboardBtn,
-    },
-    {
-      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-    },
-  ];
 
   return (
     <BackgroundCurved gradient="turquoise">
