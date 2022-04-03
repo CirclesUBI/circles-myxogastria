@@ -18,10 +18,20 @@ const useStyles = makeStyles((theme) => ({
     },
 
     '& .MuiMenu-paper': {
-      background: theme.custom.gradients.orange,
+      background: (props) => {
+        switch (props.gradient) {
+          case 'orange':
+            return theme.custom.gradients.orange;
+          case 'turquoise':
+            return theme.custom.gradients.greenBlue;
+          default:
+            return theme.custom.gradients.greenBlue;
+        }
+      },
       borderRadius: 0,
       borderBottomRightRadius: '26px',
-      width: '100%',
+      width: 'calc(100% - 30px)',
+      maxWidth: '385px',
       padding: '17px 0 30px',
     },
 
@@ -62,6 +72,8 @@ const useStyles = makeStyles((theme) => ({
           return theme.custom.gradients.greenBlue;
         case 'orange':
           return theme.custom.gradients.orange;
+        default:
+          return theme.custom.gradients.greenBlue;
       }
     },
   },
