@@ -39,12 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ValidationStatus = () => {
   const classes = useStyles();
-  const { app, safe, trust } = useSelector((state) => state);
-
-  // Safe and Token is already deployed or being deployed right now?
-  if (app.isValidated || safe.pendingIsLocked) {
-    return null;
-  }
+  const { safe, trust } = useSelector((state) => state);
 
   // Attempt deployment if one of two conditions is met:
   //
