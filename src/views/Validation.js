@@ -87,13 +87,6 @@ const Validation = () => {
 
   const stepNames = stepperConfiguration.map((step) => step.stepName);
 
-  // Attempt deployment if one of two conditions is met:
-  //
-  // 1. We have enough incoming trust connections, the Relayer will
-  // pay for our fees
-  // 2. We funded the Safe ourselves manually
-  const isReady = safe.pendingIsFunded || trust.isTrusted;
-
   const onDeploy = async () => {
     await dispatch(finalizeNewAccount());
   };
@@ -159,7 +152,7 @@ const Validation = () => {
         <Fragment>
           <Box mb={0} mt={2}>
             <Button
-              disabled={isReady ? false : true}
+              disabled={!isDeploymentReady}
               fullWidth
               isPrimary
               onClick={onDeploy}
