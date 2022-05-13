@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey['100'],
     color: theme.palette.grey['800'],
     fontWeight: theme.typography.fontWeightLight,
+    fontSize: '12px',
   },
   alertIcon: {
     color: theme.palette.grey['800'],

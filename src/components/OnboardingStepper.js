@@ -176,15 +176,19 @@ const OnboardingStepper = ({
             </Typography>
           </Box>
         )}
-        {stepsButtons[current].additionalBtnSecond && <CopyToClipboardBtn />}
-        <Button
-          disabled={isDisabled}
-          fullWidth
-          isPrimary
-          onClick={isLastSlide ? onFinish : onNext}
-        >
-          {stepsButtons[current].btnNextStep}
-        </Button>
+        {stepsButtons[current].additionalBtnSecond && (
+          <CopyToClipboardBtn onClick={onFinish} />
+        )}
+        {stepsButtons[current].btnNextStep && (
+          <Button
+            disabled={isDisabled}
+            fullWidth
+            isPrimary
+            onClick={isLastSlide ? onFinish : onNext}
+          >
+            {stepsButtons[current].btnNextStep}
+          </Button>
+        )}
       </Footer>
     </Fragment>
   );
