@@ -78,9 +78,6 @@ const useStyles = makeStyles((theme) => ({
     ...transitionExpandedMixin(theme),
     overflow: 'hidden',
   },
-  dashboardContainer: {
-    marginTop: '95px',
-  },
   balanceContainer: {
     margin: '0 auto',
     textAlign: 'center',
@@ -131,9 +128,9 @@ const Dashboard = () => {
           <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
             <IconMenu />
           </IconButton>
-          <AvatarHeader />
           <ActivityIcon />
         </Header>
+        <AvatarHeader />
       </BackgroundCurved>
       <Navigation
         className={classes.navigation}
@@ -145,7 +142,7 @@ const Dashboard = () => {
           [classes.viewExpanded]: isMenuExpanded,
         })}
       >
-        <Container className={classes.dashboardContainer} maxWidth="sm">
+        <Container maxWidth="sm">
           <Box className={classes.balanceContainer}>
             <BalanceDisplayOrganization />
           </Box>
@@ -161,7 +158,7 @@ const Dashboard = () => {
             </ButtonGroup>
           </Grid>
           <LastInteractions />
-          <NavigationFloating gradient="turquoise" />
+          <NavigationFloating color="turquoise" />
         </Container>
       </View>
       <Drawer />
