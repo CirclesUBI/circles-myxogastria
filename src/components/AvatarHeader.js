@@ -17,10 +17,8 @@ const useStyles = makeStyles((theme) => ({
     width: '80px',
   },
   userDataContainer: {
-    position: 'absolute',
     top: '45px',
-    left: '0',
-    right: '0',
+    position: 'relative',
     margin: '0 auto',
   },
   textContainer: {
