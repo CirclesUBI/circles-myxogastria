@@ -50,7 +50,7 @@ const Welcome = () => {
             {translate('Welcome.headingWelcomeToCircles')}
           </Typography>
         </Box>
-        <Grid alignItems="center" container justify="center">
+        <Grid alignItems="center" container justifyContent="center">
           <Button
             className={classes.welcomeButton}
             isOutline
