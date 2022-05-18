@@ -41,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   validationContainer: {
-    marginTop: '94px',
     position: 'relative',
     zIndex: theme.zIndex.layer1,
     textAlign: 'center',
@@ -115,8 +114,8 @@ const Validation = () => {
     <BackgroundCurved gradient="turquoise">
       <Header className={classes.validationHeader}>
         <ActivityIcon />
-        <AvatarHeader />
       </Header>
+      <AvatarHeader />
       <DialogFromBottom
         dialogOpen={dialogOpen}
         footer={dialogContentFooter}

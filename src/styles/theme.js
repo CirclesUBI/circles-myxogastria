@@ -52,6 +52,7 @@ export const colors = {
   blueRibbon: '#2B44FF',
   turquoise2: '#31D7AB',
   disco: '#99164C',
+  violet: '#5A2F56',
 };
 
 const gradients = {
@@ -69,6 +70,8 @@ const gradients = {
   orangeDesktop: `linear-gradient(180deg, ${colors.pizazz} 0%, ${colors.ceriseRed} 60%)`,
   greenBlueDesktop: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.turquoise2} 100%)`,
   blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
+  violet: `linear-gradient(180deg, #A75183 0%, ${colors.violet} 33.2%)`,
+  violetTutorial: `linear-gradient(180deg, #A75183 0%, ${colors.violet} 100%)`,
 };
 
 const shadows = {

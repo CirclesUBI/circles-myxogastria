@@ -170,7 +170,7 @@ const OnboardingOrganization = () => {
 
   return (
     <>
-      <BackgroundCurved gradient="orange">
+      <BackgroundCurved gradient="violet">
         <OnboardingStepper
           exitPath={DASHBOARD_PATH}
           mb={16}

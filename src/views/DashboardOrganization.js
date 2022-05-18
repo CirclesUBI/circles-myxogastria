@@ -78,9 +78,6 @@ const useStyles = makeStyles((theme) => ({
     ...transitionExpandedMixin(theme),
     overflow: 'hidden',
   },
-  dashboardOrganizationContainer: {
-    marginTop: '95px',
-  },
   balanceContainer: {
     margin: '0 auto',
     textAlign: 'center',
@@ -122,7 +119,7 @@ const DashboardOrganization = () => {
 
   return (
     <Fragment>
-      <BackgroundCurved gradient="orange">
+      <BackgroundCurved gradient="violet">
         <Header
           className={clsx(classes.header, {
             [classes.headerExpanded]: isMenuExpanded,
@@ -131,9 +128,9 @@ const DashboardOrganization = () => {
           <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
             <IconMenu />
           </IconButton>
-          <AvatarHeader />
           <ActivityIcon />
         </Header>
+        <AvatarHeader />
       </BackgroundCurved>
       <Navigation
         className={classes.navigation}
@@ -145,10 +142,7 @@ const DashboardOrganization = () => {
           [classes.viewExpanded]: isMenuExpanded,
         })}
       >
-        <Container
-          className={classes.dashboardOrganizationContainer}
-          maxWidth="sm"
-        >
+        <Container maxWidth="sm">
           <Box className={classes.balanceContainer}>
             <BalanceDisplayOrganization />
           </Box>
@@ -164,7 +158,7 @@ const DashboardOrganization = () => {
             </ButtonGroup>
           </Grid>
           <LastInteractions />
-          <NavigationFloating gradient="orange" />
+          <NavigationFloating color="violet" isAddMembersLink />
         </Container>
       </View>
       <Drawer />

@@ -40,7 +40,6 @@ const useStyles = makeStyles(() => ({
 
   stepperHorizontalContainer: {
     marginBottom: '10px',
-    marginTop: '30px',
   },
 }));
 
@@ -118,6 +117,7 @@ const OnboardingStepper = ({
 
   const stepNames = stepperConfiguration.map((step) => step.stepName);
   const CopyToClipboardBtn = stepsButtons[current].additionalBtnSecond;
+  const withHeaderAvatar = current >= stepsScreens.ADD_PHOTO;
 
   return (
     <Fragment>
@@ -144,14 +144,17 @@ const OnboardingStepper = ({
           variant="progress"
         />
       </Header>
-      {current >= stepsScreens.ADD_PHOTO && (
+      {withHeaderAvatar && (
         <AvatarHeader
           hideImage={current === stepsScreens.ADD_PHOTO}
           username={username}
         />
       )}
-      <View mt={8}>
-        <Box className={classes.stepperHorizontalContainer}>
+      <View mt={withHeaderAvatar ? 0 : 8}>
+        <Box
+          className={classes.stepperHorizontalContainer}
+          mt={withHeaderAvatar ? 0 : '30px'}
+        >
           <StepperHorizontal
             activeStep={activeStepForStepperHorizontal()}
             steps={stepNames}

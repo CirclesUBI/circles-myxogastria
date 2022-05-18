@@ -1,6 +1,7 @@
 import { Box, Typography } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -37,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(0.5),
     fontSize: '2.3rem',
   },
+  smallFont: {
+    fontSize: '36px',
+    '& .MuiSvgIcon-root': {
+      fontSize: '1.8rem',
+    },
+  },
 }));
 
 const BalanceDisplayOrganization = () => {
@@ -50,15 +57,27 @@ const BalanceDisplayOrganization = () => {
   });
 
   const isLoading = token.balance === null && !safe.pendingNonce;
+  let tokenBalance;
+  let isSmallFont = false;
+  if (token.balance !== null) {
+    tokenBalance = formatCirclesValue(token.balance);
+    isSmallFont = tokenBalance.length >= 10;
+  } else {
+    tokenBalance = 0;
+  }
 
   return (
     <Box className={classes.box}>
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <Typography className={classes.balance}>
+        <Typography
+          className={clsx(classes.balance, {
+            [classes.smallFont]: isSmallFont,
+          })}
+        >
           <IconCircles className={classes.balanceIcon} />
-          {token.balance !== null ? formatCirclesValue(token.balance) : 0}
+          {tokenBalance}
         </Typography>
       )}
     </Box>

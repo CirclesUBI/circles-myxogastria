@@ -17,15 +17,15 @@ const useStyles = makeStyles((theme) => ({
       background: theme.custom.colors.doveGray,
     },
 
-    '& .MuiMenu-paper': {
+    '& .MuiMenu-paper.MuiMenu-paper': {
       background: (props) => {
-        switch (props.gradient) {
-          case 'orange':
-            return theme.custom.gradients.orange;
+        switch (props.color) {
           case 'turquoise':
-            return theme.custom.gradients.greenBlue;
+            return theme.custom.colors.fountainBlue;
+          case 'violet':
+            return theme.custom.colors.violet;
           default:
-            return theme.custom.gradients.greenBlue;
+            return theme.custom.colors.fountainBlue;
         }
       },
       borderRadius: 0,
@@ -67,13 +67,13 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     color: theme.custom.colors.white,
     background: (props) => {
-      switch (props.gradient) {
-        case 'turquoise':
-          return theme.custom.gradients.greenBlue;
-        case 'orange':
-          return theme.custom.gradients.orange;
+      switch (props.color) {
+        case 'fountainBlue':
+          return theme.custom.colors.fountainBlue;
+        case 'violet':
+          return theme.custom.colors.violet;
         default:
-          return theme.custom.gradients.greenBlue;
+          return theme.custom.colors.fountainBlue;
       }
     },
   },
@@ -134,11 +134,13 @@ export default function NavigationFloating(props) {
         }}
         onClose={handleClose}
       >
-        <MenuItem>
-          <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
-            {translate('NavigationFloating.linkAddMembers')}
-          </Link>
-        </MenuItem>
+        {props.isAddMembersLink && (
+          <MenuItem>
+            <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
+              {translate('NavigationFloating.linkAddMembers')}
+            </Link>
+          </MenuItem>
+        )}
         <MenuItem onClick={handleClose}>
           {translate('NavigationFloating.linkEditProfile')}
         </MenuItem>
@@ -166,4 +168,5 @@ export default function NavigationFloating(props) {
 
 NavigationFloating.propTypes = {
   gradient: PropTypes.string,
+  isAddMembersLink: PropTypes.bool,
 };

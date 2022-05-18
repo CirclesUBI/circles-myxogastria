@@ -21,15 +21,15 @@ const useStyles = makeStyles((theme) => {
           switch (props.gradient) {
             case 'turquoise':
               return theme.custom.gradients.greenBlueDesktop;
-            case 'orange':
-              return theme.custom.gradients.orangeDesktop;
+            case 'violet':
+              return theme.custom.gradients.violet;
           }
         } else {
           switch (props.gradient) {
             case 'turquoise':
               return theme.custom.gradients.greenBlue;
-            case 'orange':
-              return theme.custom.gradients.orange;
+            case 'violet':
+              return theme.custom.gradients.violet;
           }
         }
       },

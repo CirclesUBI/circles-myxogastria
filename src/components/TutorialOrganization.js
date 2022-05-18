@@ -15,8 +15,7 @@ import { IconBack, IconClose } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    background:
-      'linear-gradient(180deg, rgba(215,58,83,1) 0%, rgba(251,134,9,1) 100%)',
+    background: theme.custom.gradients.violetTutorial,
   },
   background: {
     position: 'absolute',
