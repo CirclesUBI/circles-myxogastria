@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.2] - 2022-05.19
+
+### Changed
+
+- Updated node dependencies
+- URL to circles marketplace corrected
+
+## [1.10.1] - 2022-02-11
+
+### Changed
+
+- Updated dependencies (no changes to the users)
+
 ## [1.10.0] - 2022-02-03
 
 ### Added 
