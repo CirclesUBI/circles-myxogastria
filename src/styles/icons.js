@@ -10,7 +10,7 @@ import circles from '%/images/circles.svg';
 import closeOutline from '%/images/close-outline.svg';
 import close from '%/images/close.svg';
 import connections from '%/images/connections.svg';
-import dragonFly from '%/images/dragonfly2.svg';
+import edit from '%/images/edit.svg';
 import facebook from '%/images/facebook.svg';
 import follow from '%/images/follow.svg';
 import friends from '%/images/friends.svg';
@@ -68,8 +68,8 @@ export const IconConnections = (props) => {
   return <SvgIcon component={connections} {...props} viewBox="0 0 21 20" />;
 };
 
-export const IconDragonFly = (props) => {
-  return <SvgIcon component={dragonFly} {...props} viewBox="0 0 56 36" />;
+export const IconEdit = (props) => {
+  return <SvgIcon component={edit} {...props} viewBox="0 0 30 30" />;
 };
 
 export const IconFacebook = (props) => {

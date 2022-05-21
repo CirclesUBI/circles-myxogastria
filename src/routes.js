@@ -7,6 +7,7 @@ import { ACCOUNT_CREATE } from '~/store/tutorial/actions';
 import Activities from '~/views/Activities';
 import Dashboard from '~/views/Dashboard';
 import DashboardOrganization from '~/views/DashboardOrganization';
+import EditProfile from '~/views/EditProfile';
 import Error from '~/views/Error';
 import Login from '~/views/Login';
 import NotFound from '~/views/NotFound';
@@ -33,6 +34,7 @@ export const MY_PROFILE_PATH = '/profile';
 // Main routes
 export const ACTIVITIES_PATH = '/activities';
 export const DASHBOARD_PATH = '/';
+export const EDIT_PROFILE_PATH = '/edit';
 export const LOGIN_PATH = '/welcome/login';
 export const ONBOARDING_PATH = '/welcome/onboarding';
 export const ORGANIZATION_MEMBERS_ADD_PATH = '/sharedwallet/members/add';
@@ -239,20 +241,21 @@ const Routes = () => {
         path={ONBOARDING_PATH}
       />
       <OnboardingRoute component={Login} exact path={LOGIN_PATH} />
+      <TrustedRoute component={Activities} exact path={ACTIVITIES_PATH} />
+      <TrustedRoute component={EditProfile} exact path={EDIT_PROFILE_PATH} />
+      <TrustedRoute component={Profile} exact path={PROFILE_PATH} />
+      <TrustedRoute component={QRGenerator} exact path={QR_GENERATOR_PATH} />
+      <TrustedRoute component={Search} exact path={SEARCH_PATH} />
+      <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
+      <TrustedRoute component={Send} exact path={SEND_PATH} />
+      <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
+      <TrustedRoute component={Share} exact path={SHARE_PATH} />
       <SessionRoute
         component={Validation}
         exact
         fromValidation
         path={VALIDATION_PATH}
       />
-      <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
-      <TrustedRoute component={Send} exact path={SEND_PATH} />
-      <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
-      <TrustedRoute component={Share} exact path={SHARE_PATH} />
-      <TrustedRoute component={Profile} exact path={PROFILE_PATH} />
-      <TrustedRoute component={Activities} exact path={ACTIVITIES_PATH} />
-      <TrustedRoute component={QRGenerator} exact path={QR_GENERATOR_PATH} />
-      <TrustedRoute component={Search} exact path={SEARCH_PATH} />
       <OrganizationRoute
         component={OrganizationMembersAdd}
         exact
