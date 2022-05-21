@@ -109,6 +109,15 @@
     "buttonClose": "Close",
     "buttonDonate": "Donate now"
   },
+  "EditProfile": {
+    "heading": "Edit profile",
+    "bodyCancel": "Cancel editing profile?",
+    "buttonCancel": "Cancel",
+    "buttonContinue": "Continue editing",
+    "buttonSave": "Update",
+    "optionCamera": "Camera",
+    "optionFile": "Gallery"
+  },
   "Finder": {
     "bodyFilterDirect": "Directly trusted",
     "bodyFilterExternal": "External",
