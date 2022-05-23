@@ -16,7 +16,7 @@ import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
 import AvatarHeader from '~/components/AvatarHeader';
 import BackgroundCurved from '~/components/BackgroundCurved';
-import BalanceDisplayOrganization from '~/components/BalanceDisplayOrganization';
+import BalanceDisplay from '~/components/BalanceDisplay';
 import Button from '~/components/Button';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
@@ -144,7 +144,7 @@ const Dashboard = () => {
       >
         <Container maxWidth="sm">
           <Box className={classes.balanceContainer}>
-            <BalanceDisplayOrganization />
+            <BalanceDisplay />
           </Box>
           <AppNote />
           <Grid item xs={12}>
