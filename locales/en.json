@@ -37,9 +37,6 @@
   "AvatarUploader": {
     "errorAvatarUpload": "Ups, Something went wrong!\nMake sure your image is a jpeg or png of maximum 1 MB."
   },
-  "BalanceDisplay": {
-    "tooltipYourBalance": "Your basic income is issued continuously at the rate of {rate} Circles a month."
-  },
   "ButtonClipboard": {
     "buttonCopy": "Copy to clipboard",
     "infoCopiedMessage": "Text copied to clipboard"
