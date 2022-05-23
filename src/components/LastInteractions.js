@@ -87,7 +87,7 @@ const LastInteractionsAccount = ({ address }) => {
   const profilePath = useRelativeProfileLink(address);
 
   return (
-    <Grid item>
+    <Grid item style={{ width: '96px' }}>
       <MuiLink component={Link} to={profilePath}>
         <Avatar address={address} size="smallXl" />
         <Typography className={classes.username} noWrap>
