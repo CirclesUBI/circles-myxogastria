@@ -56,8 +56,13 @@ const useStyles = makeStyles((theme) => {
           height: 808,
         },
         [theme.breakpoints.up('md')]: {
+          width: '1369px',
+          height: '878px',
+          top: '516px',
+        },
+        [theme.breakpoints.up('lg')]: {
           top: '77px',
-          width: '200%',
+          width: '150%',
           height: '200%',
           transform: 'translate3d(-50%, 0, 0)',
         },
