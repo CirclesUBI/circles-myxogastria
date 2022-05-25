@@ -45,6 +45,7 @@ const useStyles = makeStyles(() => ({
 
 const OnboardingStepper = ({
   exitPath,
+  isOrganization,
   onFinish,
   onValuesChange,
   steps,
@@ -121,7 +122,10 @@ const OnboardingStepper = ({
 
   return (
     <Fragment>
-      <Header className={classes.onboardingStepperHeader}>
+      <Header
+        className={classes.onboardingStepperHeader}
+        isOrganization={isOrganization}
+      >
         <MobileStepper
           activeStep={current}
           backButton={
@@ -199,6 +203,7 @@ const OnboardingStepper = ({
 
 OnboardingStepper.propTypes = {
   exitPath: PropTypes.string.isRequired,
+  isOrganization: PropTypes.bool,
   onFinish: PropTypes.func.isRequired,
   onValuesChange: PropTypes.func.isRequired,
   stepperConfiguration: PropTypes.array.isRequired,
