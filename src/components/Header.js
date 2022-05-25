@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   headerContainer: {
     position: 'fixed',
     width: '100%',
-    // height: '64px',
+    height: '64px',
     left: 0,
     zIndex: '1000',
   },
