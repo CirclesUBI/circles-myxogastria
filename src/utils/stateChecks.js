@@ -71,6 +71,7 @@ export async function loop(
 export async function waitAndRetryOnFail(
   requestFn,
   loopFn,
+  onErrorFn,
   {
     maxAttemptsOnFail = RETRIES_ON_FAIL_DEFAULT,
     waitAfterFail = WAIT_AFTER_FAIL_DEFAULT,
@@ -91,6 +92,10 @@ export async function waitAndRetryOnFail(
       // Finish when request was successful and condition arrived!
       return response;
     } catch (error) {
+      // When there is an error I want to do something
+      if (onErrorFn) {
+        await onErrorFn();
+      }
       // Something went wrong, either the condition did not arrive or the
       // request failed
       if (attempt >= maxAttemptsOnFail) {
