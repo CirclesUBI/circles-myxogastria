@@ -72,6 +72,7 @@ const gradients = {
   blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
   violet: `linear-gradient(180deg, #A75183 0%, ${colors.violet} 33.2%)`,
   violetTutorial: `linear-gradient(180deg, #A75183 0%, ${colors.violet} 100%)`,
+  pinkGradient: `linear-gradient(180deg, rgba(255, 255, 255, 0) 73.27%, #D22E60 122.82%)`,
 };
 
 const shadows = {
