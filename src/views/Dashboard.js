@@ -16,6 +16,7 @@ import { Link, generatePath, useHistory } from 'react-router-dom';
 import { MY_PROFILE_PATH, SEARCH_PATH, SEND_PATH } from '~/routes';
 
 import AppNote from '~/components/AppNote';
+import AppNototificationInfo from '~/components/AppNotificationInfo';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import ButtonSend from '~/components/ButtonSend';
 import CenteredHeading from '~/components/CenteredHeading';
@@ -153,6 +154,7 @@ const Dashboard = () => {
           <Box my={2}>
             <DashboardSearch />
           </Box>
+          <AppNototificationInfo />
           <LastInteractions />
         </Container>
       </View>
