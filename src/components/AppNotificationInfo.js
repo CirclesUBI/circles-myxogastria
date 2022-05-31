@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     padding: '15px 20px',
     background: theme.custom.colors.jaggedIce,
-    marginBottom: '16px',
+    marginBottom:
 
     '& p': {
       color: theme.custom.colors.grayDarkest,
@@ -61,7 +61,7 @@ const AppNototificationInfo = () => {
       </p>
       <p>
         As most changes in life, this won&apos;t be easy, and it won&apos;t be
-        advantageous for everyone equally. Luckily, we are in the same boat
+        advantageous for everyone equally. Luckily, we are all in the same boat
         working on adapting to the changes, and are positive we will be able to
         implement them together in a smooth way!
       </p>
