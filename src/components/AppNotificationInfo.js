@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     padding: '15px 20px',
     background: theme.custom.colors.jaggedIce,
+    marginBottom: '16px',
 
     '& p': {
       color: theme.custom.colors.grayDarkest,
