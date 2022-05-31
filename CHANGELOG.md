@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.1] - 2022-05-31
+
+### Changed
+
+- Correct margin and text for app info box
+
 ## [1.11.0] - 2022-05-31
 
 ### Added
