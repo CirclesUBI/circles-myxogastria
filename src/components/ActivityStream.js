@@ -385,7 +385,7 @@ const ActivityStreamAvatars = ({ addressOrigin, addressTarget }) => {
         horizontal: 'right',
       }}
       badgeContent={<Avatar address={addressTarget} size="tiny" />}
-      overlap="circle"
+      overlap="circular"
     >
       <Avatar address={addressOrigin} size="tiny" />
     </Badge>
