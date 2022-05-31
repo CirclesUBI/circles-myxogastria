@@ -39,6 +39,7 @@ export const colors = {
   purpleDark: '#660f33',
   turquoise: '#47cccb',
   turquoiseDark: '#369998',
+  jaggedIce: '#C8E8EA',
 };
 
 const gradients = {
