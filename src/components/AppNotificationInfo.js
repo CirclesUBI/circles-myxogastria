@@ -14,32 +14,32 @@ const useStyles = makeStyles((theme) => ({
 
     '& p': {
       color: theme.custom.colors.grayDarkest,
-      fontSize: '9px',
-      marginBottom: '12px',
+      fontSize: '11px',
+      margin: '5px 0',
     },
 
     '& a': {
-      fontSize: '9px',
+      fontSize: '11px',
+      textDecoration: 'underline',
     },
   },
 
   title: {
     color: theme.custom.colors.grayDarkest,
     fontSize: '12px',
-    fontWeight: '700',
-    paddingLeft: '48px',
+    fontWeight: '500',
     display: 'block',
-    marginBottom: '18px',
+    marginBottom: '5px',
   },
 
   dragonflyIconContainer: {
     position: 'absolute',
-    top: '4px',
-    left: '2px',
+    top: '-4px',
+    right: '-16px',
 
     '& .MuiSvgIcon-root': {
-      width: '60px',
-      height: '37px',
+      width: '56px',
+      height: '36px',
     },
   },
 }));
@@ -60,7 +60,7 @@ const AppNototificationInfo = () => {
       </p>
       <p>
         As most changes in life, this won&apos;t be easy, and it won&apos;t be
-        advantageous for everyone equally. Luckily, we are in the same boat
+        advantageous for everyone equally. Luckily, we are all in the same boat
         working on adapting to the changes, and are positive we will be able to
         implement them together in a smooth way!
       </p>
