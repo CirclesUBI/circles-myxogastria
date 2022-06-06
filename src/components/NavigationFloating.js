@@ -55,13 +55,21 @@ const useStyles = makeStyles((theme) => ({
       textAlign: 'center',
       fontSize: '16px',
       fontWeight: '500',
+      textDecoration: 'none',
 
       '& a': {
         color: theme.custom.colors.purple,
         fontSize: '16px',
         fontWeight: '500',
-        textDecoration: 'none',
       },
+    },
+
+    '& a': {
+      textDecoration: 'none',
+    },
+
+    '& a:hover': {
+      textDecoration: 'none',
     },
   },
 
@@ -139,32 +147,24 @@ export default function NavigationFloating(props) {
         onClose={handleClose}
       >
         {props.isAddMembersLink && (
-          <MenuItem>
-            <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
+          <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
+            <MenuItem>
               {translate('NavigationFloating.linkAddMembers')}
-            </Link>
-          </MenuItem>
+            </MenuItem>
+          </Link>
         )}
-        <MenuItem>
-          <Link to={EDIT_PROFILE}>
-            {translate('NavigationFloating.linkEditProfile')}
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link to={MY_PROFILE_PATH}>
-            {translate('NavigationFloating.linkMyWallets')}
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <ExternalLink href={MARKETPLACE_MARKET_URL}>
-            {translate('NavigationFloating.linkMarketplace')}
-          </ExternalLink>
-        </MenuItem>
-        <MenuItem>
-          <ExternalLink href={FAQ_URL}>
-            {translate('NavigationFloating.linkSupport')}
-          </ExternalLink>
-        </MenuItem>
+        <Link to={EDIT_PROFILE}>
+          <MenuItem>{translate('NavigationFloating.linkEditProfile')}</MenuItem>
+        </Link>
+        <Link to={MY_PROFILE_PATH}>
+          <MenuItem>{translate('NavigationFloating.linkMyWallets')}</MenuItem>
+        </Link>
+        <ExternalLink href={MARKETPLACE_MARKET_URL}>
+          <MenuItem>{translate('NavigationFloating.linkMarketplace')}</MenuItem>
+        </ExternalLink>
+        <ExternalLink href={FAQ_URL}>
+          <MenuItem>{translate('NavigationFloating.linkSupport')}</MenuItem>
+        </ExternalLink>
         <IconClose
           className={classes.menuNavigationIconClose}
           onClick={handleClose}
