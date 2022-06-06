@@ -4,12 +4,16 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { MY_PROFILE_PATH, ORGANIZATION_MEMBERS_ADD_PATH } from '~/routes';
+import {
+  EDIT_PROFILE,
+  MY_PROFILE_PATH,
+  ORGANIZATION_MEMBERS_ADD_PATH,
+} from '~/routes';
 
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
 import { IconClose } from '~/styles/icons';
-import { MARKETPLACE_MARKET_URL } from '~/utils/constants';
+import { FAQ_URL, MARKETPLACE_MARKET_URL } from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   menuNavigation: {
@@ -141,8 +145,10 @@ export default function NavigationFloating(props) {
             </Link>
           </MenuItem>
         )}
-        <MenuItem onClick={handleClose}>
-          {translate('NavigationFloating.linkEditProfile')}
+        <MenuItem>
+          <Link to={EDIT_PROFILE}>
+            {translate('NavigationFloating.linkEditProfile')}
+          </Link>
         </MenuItem>
         <MenuItem>
           <Link to={MY_PROFILE_PATH}>
@@ -154,8 +160,10 @@ export default function NavigationFloating(props) {
             {translate('NavigationFloating.linkMarketplace')}
           </ExternalLink>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          {translate('NavigationFloating.linkSupport')}
+        <MenuItem>
+          <ExternalLink href={FAQ_URL}>
+            {translate('NavigationFloating.linkSupport')}
+          </ExternalLink>
         </MenuItem>
         <IconClose
           className={classes.menuNavigationIconClose}
