@@ -210,6 +210,7 @@ async function loopTransfer(from, to, value, paymentNote) {
     () => {
       return true;
     },
+    {},
     () => {
       return core.token.updateTransferSteps(from, to, value);
     },

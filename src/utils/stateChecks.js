@@ -71,11 +71,11 @@ export async function loop(
 export async function waitAndRetryOnFail(
   requestFn,
   loopFn,
-  onErrorFn,
   {
     maxAttemptsOnFail = RETRIES_ON_FAIL_DEFAULT,
     waitAfterFail = WAIT_AFTER_FAIL_DEFAULT,
   } = {},
+  onErrorFn,
 ) {
   // Count all attempts to retry when something failed
   let attempt = 1;
