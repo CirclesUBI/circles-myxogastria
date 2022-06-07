@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     minHeight: theme.custom.components.appBarHeight,
     justifyContent: 'space-between',
+
+    '& button, & a.MuiIconButton-root': {
+      color: theme.custom.colors.white,
+    },
   },
 }));
 
