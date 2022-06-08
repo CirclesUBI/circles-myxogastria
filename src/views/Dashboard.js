@@ -151,10 +151,10 @@ const Dashboard = () => {
         <Container maxWidth="sm">
           <BalanceDisplay />
           <AppNote />
+          <AppNototificationInfo />
           <Box my={2}>
             <DashboardSearch />
           </Box>
-          <AppNototificationInfo />
           <LastInteractions />
         </Container>
       </View>
