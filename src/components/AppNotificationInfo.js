@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     color: 'black',
     padding: '15px 20px',
-    background: theme.custom.colors.jaggedIce,
+    background: theme.custom.colors.silverTree,
     marginBottom: '15px',
 
     '& p': {
@@ -53,17 +53,16 @@ const AppNototificationInfo = () => {
       <Box className={classes.dragonflyIconContainer}>
         <IconDragonFly />
       </Box>
-      <span className={classes.title}>Save the date!</span>
+      <span className={classes.title}>Big changes are coming!</span>
       <p>
-        On the 20th of June, we will enter a new phase of the Circles
-        experiment. This will be the biggest change in the Circles UBI system,
-        which we&apos;ve had until now.
+        The issuance rate of the Circles UBI will be increased. Instead of 8 CRC
+        a day, you will now receive 1 CRC an hour - 24 a day.
       </p>
       <p>
-        As most changes in life, this won&apos;t be easy, and it won&apos;t be
-        advantageous for everyone equally. Luckily, we are all in the same boat
-        working on adapting to the changes, and are positive we will be able to
-        implement them together in a smooth way!
+        With the current changes, the hubs and the Circles users worldwide can
+        keep the same value of 1 CRC = 1 hour. This acts as an anchor to keep
+        the value of UBI more stable across borders, so that people can easily
+        connect to each other.
       </p>
       <ExternalLink href="https://circlesubi.medium.com/the-revaluation-of-the-circles-system-c6eea70e767d">
         Read more here!
