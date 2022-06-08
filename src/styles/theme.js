@@ -40,6 +40,7 @@ export const colors = {
   turquoise: '#47cccb',
   turquoiseDark: '#369998',
   jaggedIce: '#C8E8EA',
+  silverTree: 'rgba(112, 189, 158, 0.40)',
 };
 
 const gradients = {
