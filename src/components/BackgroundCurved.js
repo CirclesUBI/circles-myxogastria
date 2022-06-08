@@ -23,16 +23,16 @@ const useStyles = makeStyles((theme) => {
         ) {
           switch (props.gradient) {
             case 'turquoise':
-              return theme.custom.gradients.greenBlueDesktop;
+              return theme.custom.gradients.greenBlue;
             case 'violet':
-              return theme.custom.gradients.violet;
+              return theme.custom.gradients.violetCurved;
           }
         } else {
           switch (props.gradient) {
             case 'turquoise':
               return theme.custom.gradients.greenBlue;
             case 'violet':
-              return theme.custom.gradients.violet;
+              return theme.custom.gradients.violetCurved;
           }
         }
       },

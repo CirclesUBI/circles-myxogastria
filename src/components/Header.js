@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
       background: (props) => {
         if (props.useSpecialWithColorOnScroll) {
           if (props.isOrganization) {
-            return theme.custom.gradients.violet;
+            return theme.custom.gradients.violetHeader;
           }
           return theme.custom.gradients.greenBlueHeader;
         }
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
       background: (props) => {
         if (props.useSpecialWithColorOnScroll) {
           if (props.isOrganization) {
-            return theme.custom.gradients.violet;
+            return theme.custom.gradients.violetHeader;
           }
           return theme.custom.gradients.greenBlueHeader;
         }
