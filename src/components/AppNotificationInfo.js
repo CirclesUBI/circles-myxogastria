@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '15px 20px',
     background: theme.custom.colors.silverTree,
     marginBottom: '15px',
+    marginTop: '15px',
 
     '& p': {
       color: theme.custom.colors.grayDarkest,
