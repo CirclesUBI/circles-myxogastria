@@ -6,7 +6,6 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -74,10 +73,6 @@ const useStyles = makeStyles((theme) => ({
   view: {
     ...transitionMixin(theme),
   },
-  viewExpanded: {
-    ...transitionExpandedMixin(theme),
-    overflow: 'hidden',
-  },
   balanceContainer: {
     margin: '0 auto',
     textAlign: 'center',
@@ -120,11 +115,7 @@ const Dashboard = () => {
   return (
     <Fragment>
       <BackgroundCurved gradient="turquoise">
-        <Header
-          className={clsx(classes.header, {
-            [classes.headerExpanded]: isMenuExpanded,
-          })}
-        >
+        <Header className={classes.header}>
           <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
             <IconMenu />
           </IconButton>
@@ -137,11 +128,7 @@ const Dashboard = () => {
         isExpanded={isMenuExpanded}
         onClick={handleMenuClick}
       />
-      <View
-        className={clsx(classes.view, {
-          [classes.viewExpanded]: isMenuExpanded,
-        })}
-      >
+      <View className={classes.view}>
         <Container maxWidth="sm">
           <Box className={classes.balanceContainer}>
             <BalanceDisplayOrganization />
