@@ -63,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     ...transitionMixin(theme),
-    background: 'transparent',
   },
   headerExpanded: {
     ...transitionExpandedMixin(theme),
@@ -124,6 +123,8 @@ const DashboardOrganization = () => {
           className={clsx(classes.header, {
             [classes.headerExpanded]: isMenuExpanded,
           })}
+          isOrganization={true}
+          useSpecialWithColorOnScroll={true}
         >
           <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
             <IconMenu />

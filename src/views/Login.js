@@ -32,10 +32,6 @@ import {
 } from '~/utils/errors';
 
 const useStyles = makeStyles((theme) => ({
-  loginHeader: {
-    background: 'transparent',
-  },
-
   container: {
     position: 'relative',
     zIndex: theme.zIndex.layer1,
@@ -100,7 +96,7 @@ const Login = () => {
 
   return (
     <BackgroundCurved gradient="turquoise">
-      <Header className={classes.loginHeader}>
+      <Header>
         <ButtonBack />
       </Header>
       <View>

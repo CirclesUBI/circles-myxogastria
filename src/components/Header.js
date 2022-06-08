@@ -19,24 +19,29 @@ const useStyles = makeStyles((theme) => ({
     '&.MuiPaper-root': {
       transition: 'all 0.15s',
       background: (props) => {
-        if (props.isOrganization) {
-          return theme.custom.gradients.violet;
-        } else {
+        if (props.useSpecialWithColorOnScroll) {
+          if (props.isOrganization) {
+            return theme.custom.gradients.violet;
+          }
           return theme.custom.gradients.greenBlueHeader;
         }
+        return theme.palette.background.default;
       },
       boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.25)',
     },
+    color: 'transparent',
     height: '64px',
   },
   isScrolled: {
     '&.MuiAppBar-root': {
       background: (props) => {
-        if (props.isOrganization) {
-          return theme.custom.gradients.violet;
-        } else {
+        if (props.useSpecialWithColorOnScroll) {
+          if (props.isOrganization) {
+            return theme.custom.gradients.violet;
+          }
           return theme.custom.gradients.greenBlueHeader;
         }
+        return theme.palette.background.default;
       },
       boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
       opacity: 1,
@@ -62,7 +67,6 @@ const Header = ({ children, className, ...props }) => {
         className={clsx(classes.appBar, className, {
           [classes.isScrolled]: isScrolled,
         })}
-        color="transparent"
         {...props}
       ></AppBar>
       <Toolbar className={classes.toolbar}>{children}</Toolbar>
@@ -73,6 +77,8 @@ const Header = ({ children, className, ...props }) => {
 Header.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  isOrganization: PropTypes.bool,
+  useSpecialWithColorOnScroll: PropTypes.bool,
 };
 
 export default Header;

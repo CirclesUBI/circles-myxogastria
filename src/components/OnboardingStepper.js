@@ -34,10 +34,6 @@ const useStyles = makeStyles(() => ({
     },
   },
 
-  onboardingStepperHeader: {
-    background: 'transparent',
-  },
-
   stepperHorizontalContainer: {
     marginBottom: '10px',
   },
@@ -123,8 +119,8 @@ const OnboardingStepper = ({
   return (
     <Fragment>
       <Header
-        className={classes.onboardingStepperHeader}
         isOrganization={isOrganization}
+        useSpecialWithColorOnScroll={true}
       >
         <MobileStepper
           activeStep={current}
