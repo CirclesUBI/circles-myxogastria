@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     position: 'relative',
     zIndex: '10000',
+    '& button, & a.MuiIconButton-root': {
+      color: theme.custom.colors.white,
+    },
   },
 }));
 
