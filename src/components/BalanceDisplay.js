@@ -62,7 +62,7 @@ const BalanceDisplay = () => {
             alignItems="center"
             className={classes.grid}
             container
-            justify="center"
+            justifyContent="center"
             spacing={2}
           >
             <Grid item xs>

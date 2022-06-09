@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 
 import {
   fontFamily as fontFamilyNotoSans,
@@ -39,6 +39,8 @@ export const colors = {
   purpleDark: '#660f33',
   turquoise: '#47cccb',
   turquoiseDark: '#369998',
+  jaggedIce: '#C8E8EA',
+  silverTree: 'rgba(112, 189, 158, 0.40)',
 };
 
 const gradients = {
@@ -61,7 +63,7 @@ const components = {
 
 const fontFamily = `"${fontFamilyNotoSans}", sans-serif`;
 
-export default createMuiTheme({
+export default createTheme({
   breakpoints: {
     values: {
       xs: 0,
