@@ -1,7 +1,8 @@
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -13,6 +14,8 @@ const useStyles = makeStyles((theme) => {
       zIndex: theme.zIndex.backgroundCurvedWrapper,
       top: 0,
       margin: '0 auto',
+      opacity: 1,
+      transition: 'opacity 0.15s',
       background: (props) => {
         if (
           typeof window != 'undefined' &&
@@ -20,21 +23,23 @@ const useStyles = makeStyles((theme) => {
         ) {
           switch (props.gradient) {
             case 'turquoise':
-              return theme.custom.gradients.greenBlueDesktop;
+              return theme.custom.gradients.greenBlue;
             case 'violet':
-              return theme.custom.gradients.violet;
+              return theme.custom.gradients.violetCurved;
           }
         } else {
           switch (props.gradient) {
             case 'turquoise':
               return theme.custom.gradients.greenBlue;
             case 'violet':
-              return theme.custom.gradients.violet;
+              return theme.custom.gradients.violetCurved;
           }
         }
       },
     },
-
+    isHidden: {
+      opacity: 0,
+    },
     background: {
       position: 'absolute',
       width: '100%',
@@ -69,9 +74,21 @@ const useStyles = makeStyles((theme) => {
 const BackgroundCurved = (props) => {
   const classes = useStyles(props);
 
+  const [isHidden, setIsHidden] = useState('');
+
+  useEffect(() => {
+    window.addEventListener('scroll', () =>
+      setIsHidden(window.pageYOffset > 1),
+    );
+  }, []);
+
   return (
     <>
-      <Box className={classes.wrapper}>
+      <Box
+        className={clsx(classes.wrapper, {
+          [classes.isHidden]: isHidden,
+        })}
+      >
         <Box className={classes.background}></Box>
       </Box>
       {props.children}
