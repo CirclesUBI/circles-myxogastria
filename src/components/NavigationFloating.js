@@ -10,6 +10,7 @@ import {
   ORGANIZATION_MEMBERS_ADD_PATH,
 } from '~/routes';
 
+import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
 import { IconClose } from '~/styles/icons';
@@ -39,33 +40,28 @@ const useStyles = makeStyles((theme) => ({
       padding: '17px 0 30px',
     },
 
+    '& .MuiMenu-list': {
+      paddingTop: '25px',
+    },
+
     '& .MuiListItem-root': {
       justifyContent: 'center',
+      cursor: 'auto',
+      width: '100%',
+      marginBottom: '15px',
     },
 
     '& .MuiMenuItem-root': {
-      background: theme.custom.colors.white,
-      border: `1px solid ${theme.custom.colors.purple}`,
-      boxShadow: theme.custom.shadows.gray,
-      borderRadius: '16px',
-      margin: '30px 32px',
-      padding: '9px',
-      minHeight: 'auto',
-      color: theme.custom.colors.purple,
-      textAlign: 'center',
-      fontSize: '16px',
-      fontWeight: '500',
-      textDecoration: 'none',
+      padding: '9px 35px',
+    },
 
-      '& a': {
-        color: theme.custom.colors.purple,
-        fontSize: '16px',
-        fontWeight: '500',
-      },
+    '& .MuiButton-root': {
+      width: '100%',
     },
 
     '& a': {
       textDecoration: 'none',
+      width: '100%',
     },
 
     '& a:hover': {
@@ -99,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
 
   menuNavigationIconClose: {
     color: theme.custom.colors.white,
+    cursor: 'pointer',
     width: '19px',
     position: 'absolute',
     bottom: '-12px',
@@ -148,22 +145,40 @@ export default function NavigationFloating(props) {
       >
         {props.isAddMembersLink && (
           <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
-            <MenuItem>
-              {translate('NavigationFloating.linkAddMembers')}
-            </MenuItem>
+            <Button isOutline isWhite>
+              <MenuItem>
+                {translate('NavigationFloating.linkAddMembers')}
+              </MenuItem>
+            </Button>
           </Link>
         )}
-        <Link to={EDIT_PROFILE}>
-          <MenuItem>{translate('NavigationFloating.linkEditProfile')}</MenuItem>
-        </Link>
-        <Link to={MY_PROFILE_PATH}>
-          <MenuItem>{translate('NavigationFloating.linkMyWallets')}</MenuItem>
-        </Link>
+        <MenuItem>
+          <Link to={EDIT_PROFILE}>
+            <Button isOutline isWhite>
+              {translate('NavigationFloating.linkEditProfile')}
+            </Button>
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link to={MY_PROFILE_PATH}>
+            <Button isOutline isWhite>
+              {translate('NavigationFloating.linkMyWallets')}
+            </Button>
+          </Link>
+        </MenuItem>
         <ExternalLink href={MARKETPLACE_MARKET_URL}>
-          <MenuItem>{translate('NavigationFloating.linkMarketplace')}</MenuItem>
+          <MenuItem>
+            <Button isOutline isWhite>
+              {translate('NavigationFloating.linkMarketplace')}
+            </Button>
+          </MenuItem>
         </ExternalLink>
         <ExternalLink href={FAQ_URL}>
-          <MenuItem>{translate('NavigationFloating.linkSupport')}</MenuItem>
+          <MenuItem>
+            <Button isOutline isWhite>
+              {translate('NavigationFloating.linkSupport')}
+            </Button>
+          </MenuItem>
         </ExternalLink>
         <IconClose
           className={classes.menuNavigationIconClose}
