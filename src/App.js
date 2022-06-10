@@ -52,9 +52,10 @@ const useStyles = makeStyles((theme) => ({
     height: '303px',
     position: 'fixed',
     bottom: '0',
-    background: theme.custom.gradients.pinkGradient,
+    background: theme.custom.gradients.pinkShade,
     opacity: 0,
     transition: 'opacity 0.1s',
+    zIndex: '1',
   },
   isPinkShadow: {
     opacity: '1',
@@ -148,7 +149,7 @@ const App = () => {
             [classes.isPinkShadow]: isPinkShadow,
           })}
         ></Box>
-        <Box className={app} ref={ref} style={{ height }}>
+        <Box className={classes.app} ref={ref} style={{ height }}>
           <UBI />
           <Notifications />
           <SpinnerOverlay isVisible={app.isLoading} />
