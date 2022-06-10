@@ -16,7 +16,7 @@ import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
 import AvatarHeader from '~/components/AvatarHeader';
 import BackgroundCurved from '~/components/BackgroundCurved';
-import BalanceDisplayOrganization from '~/components/BalanceDisplayOrganization';
+import BalanceDisplay from '~/components/BalanceDisplay';
 import Button from '~/components/Button';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
@@ -63,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     ...transitionMixin(theme),
-    background: 'transparent',
   },
   headerExpanded: {
     ...transitionExpandedMixin(theme),
@@ -124,6 +123,8 @@ const DashboardOrganization = () => {
           className={clsx(classes.header, {
             [classes.headerExpanded]: isMenuExpanded,
           })}
+          isOrganization={true}
+          useSpecialWithColorOnScroll={true}
         >
           <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
             <IconMenu />
@@ -144,7 +145,7 @@ const DashboardOrganization = () => {
       >
         <Container maxWidth="sm">
           <Box className={classes.balanceContainer}>
-            <BalanceDisplayOrganization />
+            <BalanceDisplay />
           </Box>
           <AppNote />
           <Grid item xs={12}>

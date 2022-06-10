@@ -33,8 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   validationHeader: {
-    background: 'transparent',
-
     '& .MuiToolbar-regular': {
       justifyContent: 'end',
     },
