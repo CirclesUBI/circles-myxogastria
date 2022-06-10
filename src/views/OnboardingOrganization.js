@@ -139,20 +139,20 @@ const OnboardingOrganization = () => {
 
   const stepsButtons = [
     {
-      btnNextStep: translate('OnboardingStepper.buttonSubmit'),
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
     },
     {
-      btnNextStep: translate('OnboardingStepper.buttonFinish'),
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
     },
     {
-      btnNextStep: translate('OnboardingStepper.buttonSubmit'),
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
     },
     {
-      btnNextStep: translate('OnboardingStepper.buttonFinish'),
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
       additionalBtn: translate('OnboardingStepper.skipStep'),
     },
     {
-      btnNextStep: translate('OnboardingStepper.skipStep'),
+      btnNextStep: translate('OnboardingStepper.buttonFinish'),
     },
   ];
 
