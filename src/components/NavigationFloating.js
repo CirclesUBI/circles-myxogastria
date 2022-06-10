@@ -145,13 +145,13 @@ export default function NavigationFloating(props) {
         onClose={handleClose}
       >
         {props.isAddMembersLink && (
-          <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
-            <Button isOutline isWhite>
-              <MenuItem>
-                {translate('NavigationFloating.linkAddMembers')}
-              </MenuItem>
-            </Button>
-          </Link>
+          <MenuItem>
+            <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
+              <Button isOutline isWhite>
+                  {translate('NavigationFloating.linkAddMembers')}
+              </Button>
+            </Link>
+          </MenuItem>
         )}
         <MenuItem>
           <Link to={EDIT_PROFILE}>
