@@ -70,10 +70,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   fabContainer: {
-    bottom: '15px',
-    right: '15px',
-    position: 'fixed',
-    color: theme.custom.colors.white,
     background: (props) => {
       switch (props.color) {
         case 'fountainBlue':
@@ -84,6 +80,11 @@ const useStyles = makeStyles((theme) => ({
           return theme.custom.colors.fountainBlue;
       }
     },
+    bottom: '15px',
+    color: theme.custom.colors.white,
+    position: 'fixed',
+    right: '15px',
+    zIndex: '2',
   },
 
   dotsText: {
