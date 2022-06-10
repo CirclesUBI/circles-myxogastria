@@ -190,6 +190,7 @@ const Onboarding = () => {
     <BackgroundCurved gradient="turquoise">
       <OnboardingStepper
         exitPath={WELCOME_PATH}
+        isOrganization={false}
         mb={16}
         stepperConfiguration={stepperConfiguration}
         steps={steps}

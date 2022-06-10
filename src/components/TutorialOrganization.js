@@ -178,7 +178,7 @@ const TutorialOrganization = ({ onFinishTutorial }) => {
           </SwipeableViews>
         </Box>
         <Box className={classes.footer} component="footer" p={2}>
-          <Button fullWidth isPrimary onClick={handleNext}>
+          <Button fullWidth isGradientBorder isWhite onClick={handleNext}>
             {isLastSlide
               ? translate('TutorialOrganization.finish')
               : translate('TutorialOrganization.next')}
