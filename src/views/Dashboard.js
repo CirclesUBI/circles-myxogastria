@@ -73,10 +73,6 @@ const useStyles = makeStyles((theme) => ({
   view: {
     ...transitionMixin(theme),
   },
-  viewExpanded: {
-    ...transitionExpandedMixin(theme),
-    overflow: 'hidden',
-  },
   balanceContainer: {
     margin: '0 auto',
     textAlign: 'center',
@@ -138,11 +134,7 @@ const Dashboard = () => {
         isExpanded={isMenuExpanded}
         onClick={handleMenuClick}
       />
-      <View
-        className={clsx(classes.view, {
-          [classes.viewExpanded]: isMenuExpanded,
-        })}
-      >
+      <View className={classes.view}>
         <Container maxWidth="sm">
           <Box className={classes.balanceContainer}>
             <BalanceDisplay />
