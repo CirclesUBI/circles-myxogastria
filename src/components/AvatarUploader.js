@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   indicatorContainer: {
     position: 'absolute',
-    zIndex: 10,
+    zIndex: theme.zIndex.layer1,
     top: '-2px',
     left: 0,
   },
