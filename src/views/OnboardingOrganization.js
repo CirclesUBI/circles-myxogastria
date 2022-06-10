@@ -3,16 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { generatePath } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
-import { DASHBOARD_PATH, ORGANIZATION_PATH, PROFILE_PATH } from '~/routes';
+import { DASHBOARD_PATH } from '~/routes';
 
 import AvatarUploader from '~/components/AvatarUploader';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
-import Finder from '~/components/Finder';
+import MemberSearchAdd from '~/components/MemberSearchAdd';
 import OnboardingStepper from '~/components/OnboardingStepper';
 import TransferCirclesInput from '~/components/TransferCirclesInput';
 import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
@@ -107,10 +106,10 @@ const OnboardingOrganization = () => {
   };
 
   const steps = [
-    OrganizationStepEmail,
-    OrganizationStepPrefund,
-    OrganizationStepWalletName,
-    OrganizationStepAvatar,
+    //OrganizationStepEmail,
+    //OrganizationStepPrefund,
+    //OrganizationStepWalletName,
+    //OrganizationStepAvatar,
     OrganizationStepAddMembers,
   ];
 
@@ -371,15 +370,7 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
 
 const OrganizationStepAddMembers = () => {
   const classes = useStyles();
-  const [redirectPath, setRedirectPath] = useState(null);
-
-  const handleOnSelectFinder = (address) => {
-    setRedirectPath(
-      generatePath(PROFILE_PATH, {
-        address,
-      }),
-    );
-  };
+  const [redirectPath] = useState(null);
 
   if (redirectPath) {
     return <Redirect push to={redirectPath} />;
@@ -392,12 +383,7 @@ const OrganizationStepAddMembers = () => {
           {translate('OnboardingOrganization.headingAddMembers')}
         </Typography>
       </Box>
-      <Finder
-        basePath={ORGANIZATION_PATH}
-        hasActions
-        isSharedWalletCreation
-        onSelect={handleOnSelectFinder}
-      />
+      <MemberSearchAdd />
     </Box>
   );
 };

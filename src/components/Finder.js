@@ -95,7 +95,6 @@ const Finder = ({
   onSelect,
   hasActions,
   filteredSafeAddresses = [],
-  isSharedWalletCreation,
   basePath = SEARCH_PATH,
 }) => {
   const dispatch = useDispatch();
@@ -264,7 +263,6 @@ const Finder = ({
           filterResults={filterResults}
           hasActions={hasActions}
           isLoading={isLoading}
-          isSharedWalletCreation={isSharedWalletCreation}
           selectedFilter={selectedFilter}
           onSelect={onSelect}
         />
@@ -399,7 +397,6 @@ const FinderResults = ({
   isLoading,
   onSelect,
   selectedFilter,
-  isSharedWalletCreation,
 }) => {
   const [limit, setLimit] = useState({
     [FILTER_DIRECT]: PAGE_SIZE,
@@ -442,7 +439,6 @@ const FinderResults = ({
                   <Grid item key={index} xs={12}>
                     <FinderResultsItem
                       hasActions={hasActions}
-                      isSharedWalletCreation={isSharedWalletCreation}
                       user={item}
                       onClick={handleSelect}
                     />
@@ -475,7 +471,6 @@ const FinderResultsItem = (props) => {
       address={props.user.safeAddress}
       className={classes.searchItem}
       hasActions={props.hasActions}
-      isSharedWalletCreation={props.isSharedWalletCreation}
       onClick={handleSelect}
     />
   );
@@ -485,7 +480,6 @@ Finder.propTypes = {
   basePath: PropTypes.string,
   filteredSafeAddresses: PropTypes.arrayOf(PropTypes.string),
   hasActions: PropTypes.bool,
-  isSharedWalletCreation: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
 };
 
@@ -508,14 +502,12 @@ FinderResults.propTypes = {
   filterResults: PropTypes.object.isRequired,
   hasActions: PropTypes.bool,
   isLoading: PropTypes.bool.isRequired,
-  isSharedWalletCreation: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
   selectedFilter: PropTypes.symbol.isRequired,
 };
 
 FinderResultsItem.propTypes = {
   hasActions: PropTypes.bool,
-  isSharedWalletCreation: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };
