@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
     background: theme.custom.gradients.pinkShade,
     opacity: 0,
     transition: 'opacity 0.1s',
-    zIndex: '1',
   },
   isPinkShadow: {
     opacity: '1',

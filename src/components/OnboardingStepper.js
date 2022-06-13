@@ -21,7 +21,7 @@ import View from '~/components/View';
 import { useQuery } from '~/hooks/url';
 import { IconBack, IconClose } from '~/styles/icons';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   onboardingMobileStepper: {
     flexGrow: 1,
     paddingTop: 9,
@@ -36,6 +36,12 @@ const useStyles = makeStyles(() => ({
 
   stepperHorizontalContainer: {
     marginBottom: '10px',
+  },
+
+  skipText: {
+    position: 'relative',
+    zIndex: theme.zIndex.layer2,
+    cursor: 'pointer',
   },
 }));
 
@@ -174,7 +180,11 @@ const OnboardingStepper = ({
         <AppNote />
         {stepsButtons[current].additionalBtn && (
           <Box mb={1}>
-            <Typography align="center" onClick={onNext}>
+            <Typography
+              align="center"
+              className={classes.skipText}
+              onClick={onNext}
+            >
               {stepsButtons[current].additionalBtn}
             </Typography>
           </Box>

@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.custom.colors.white,
     position: 'fixed',
     right: '15px',
-    zIndex: '2',
+    zIndex: theme.zIndex.layer2,
   },
 
   dotsText: {
