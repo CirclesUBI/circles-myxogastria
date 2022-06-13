@@ -228,6 +228,7 @@
   "OnboardingStepper": {
     "buttonFinish": "Sign me up!",
     "buttonNextStep": "Continue",
+    "buttonConfirmSave": "I saved it!",
     "buttonShareProfile": "Share Profile Link",
     "buttonCreateAccount": "Create Account",
     "skipStep": "I'll do this later"

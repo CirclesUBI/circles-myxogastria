@@ -140,7 +140,7 @@ const Onboarding = () => {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
     },
     {
-      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+      btnNextStep: translate('OnboardingStepper.buttonConfirmSave'),
       additionalBtn: CopyToClipboardBtn,
     },
     {
