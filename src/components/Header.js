@@ -53,6 +53,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     position: 'relative',
     zIndex: '10000',
+  },
+  whiteIcons: {
     '& button, & a.MuiIconButton-root': {
       color: theme.custom.colors.white,
     },
@@ -72,7 +74,13 @@ const Header = ({ children, className, ...props }) => {
         })}
         {...props}
       ></AppBar>
-      <Toolbar className={classes.toolbar}>{children}</Toolbar>
+      <Toolbar
+        className={clsx(classes.toolbar, {
+          [classes.whiteIcons]: props.isWhiteIcons,
+        })}
+      >
+        {children}
+      </Toolbar>
     </div>
   );
 };
@@ -81,6 +89,7 @@ Header.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   isOrganization: PropTypes.bool,
+  isWhiteIcons: PropTypes.bool,
   useSpecialWithColorOnScroll: PropTypes.bool,
 };
 
