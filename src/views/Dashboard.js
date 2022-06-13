@@ -120,6 +120,7 @@ const Dashboard = () => {
             [classes.headerExpanded]: isMenuExpanded,
           })}
           isOrganization={false}
+          isWhiteIcons
           useSpecialWithColorOnScroll={true}
         >
           <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
