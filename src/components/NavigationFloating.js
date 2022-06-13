@@ -5,7 +5,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import {
-  EDIT_PROFILE,
+  //EDIT_PROFILE,
   MY_PROFILE_PATH,
   ORGANIZATION_MEMBERS_ADD_PATH,
 } from '~/routes';
@@ -153,13 +153,13 @@ export default function NavigationFloating(props) {
             </Link>
           </MenuItem>
         )}
-        <MenuItem>
+        {/*<MenuItem>
           <Link to={EDIT_PROFILE}>
             <Button isOutline isWhite>
               {translate('NavigationFloating.linkEditProfile')}
             </Button>
           </Link>
-        </MenuItem>
+        </MenuItem>*/}
         <MenuItem>
           <Link to={MY_PROFILE_PATH}>
             <Button isOutline isWhite>
