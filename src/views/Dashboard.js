@@ -119,8 +119,8 @@ const Dashboard = () => {
           className={clsx(classes.header, {
             [classes.headerExpanded]: isMenuExpanded,
           })}
+          hasWhiteIcons
           isOrganization={false}
-          isWhiteIcons
           useSpecialWithColorOnScroll={true}
         >
           <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>

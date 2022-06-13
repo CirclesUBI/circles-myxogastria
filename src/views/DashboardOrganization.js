@@ -116,8 +116,8 @@ const DashboardOrganization = () => {
       <BackgroundCurved gradient="violet">
         <Header
           className={classes.header}
+          hasWhiteIcons
           isOrganization={true}
-          isWhiteIcons
           useSpecialWithColorOnScroll={true}
         >
           <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>

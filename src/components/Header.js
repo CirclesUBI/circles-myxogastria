@@ -76,7 +76,7 @@ const Header = ({ children, className, ...props }) => {
       ></AppBar>
       <Toolbar
         className={clsx(classes.toolbar, {
-          [classes.whiteIcons]: props.isWhiteIcons,
+          [classes.whiteIcons]: props.hasWhiteIcons,
         })}
       >
         {children}
@@ -88,8 +88,8 @@ const Header = ({ children, className, ...props }) => {
 Header.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  hasWhiteIcons: PropTypes.bool,
   isOrganization: PropTypes.bool,
-  isWhiteIcons: PropTypes.bool,
   useSpecialWithColorOnScroll: PropTypes.bool,
 };
 

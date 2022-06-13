@@ -148,7 +148,7 @@ export default function NavigationFloating(props) {
           <MenuItem>
             <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
               <Button isOutline isWhite>
-                  {translate('NavigationFloating.linkAddMembers')}
+                {translate('NavigationFloating.linkAddMembers')}
               </Button>
             </Link>
           </MenuItem>

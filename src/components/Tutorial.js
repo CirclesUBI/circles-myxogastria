@@ -103,7 +103,7 @@ const TutorialHeader = (props) => {
       className={clsx(classes.tutorialHeader, {
         [classes.tutorialHeaderWithScroll]: isScrolled,
       })}
-      isWhiteIcons
+      hasWhiteIcons
       padding="0"
     >
       <MobileStepper
