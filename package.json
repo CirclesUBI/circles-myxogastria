@@ -57,7 +57,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "@circles/core": "^2.11.0",
+    "@circles/core": "^2.11.1-prerelease-5b905db",
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@sentry/browser": "^6.19.7",
