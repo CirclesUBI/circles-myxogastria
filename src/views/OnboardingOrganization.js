@@ -149,7 +149,7 @@ const OnboardingOrganization = () => {
     },
     {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-      additionalBtn: translate('OnboardingStepper.skipStep'),
+      alternativeBtn: translate('OnboardingStepper.skipStep'),
     },
     {
       btnNextStep: translate('OnboardingStepper.buttonFinish'),
@@ -345,12 +345,18 @@ const OrganizationStepWalletName = ({ onDisabledChange, values, onChange }) => {
 
 const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
   const classes = useStyles();
+  const [photoUploaded, setPhotoUploaded] = useState(false);
 
   const handleUpload = (avatarUrl) => {
     onChange({
       avatarUrl,
     });
+    setPhotoUploaded(true);
   };
+
+  useEffect(() => {
+    onDisabledChange(!photoUploaded);
+  }, [onDisabledChange, photoUploaded]);
 
   return (
     <Box className={classes.organizationStepAvatarContainer}>
@@ -369,7 +375,7 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
   );
 };
 
-const OrganizationStepAddMembers = () => {
+const OrganizationStepAddMembers = ({ onDisabledChange }) => {
   const classes = useStyles();
   const [redirectPath, setRedirectPath] = useState(null);
 
@@ -380,6 +386,10 @@ const OrganizationStepAddMembers = () => {
       }),
     );
   };
+
+  useEffect(() => {
+    onDisabledChange(false);
+  }, [onDisabledChange]);
 
   if (redirectPath) {
     return <Redirect push to={redirectPath} />;
@@ -421,6 +431,10 @@ OrganizationStepAvatar.propTypes = {
 };
 
 OrganizationStepPrefund.propTypes = {
+  ...stepProps,
+};
+
+OrganizationStepAddMembers.propTypes = {
   ...stepProps,
 };
 
