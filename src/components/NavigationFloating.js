@@ -5,7 +5,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import {
-  EDIT_PROFILE,
+  //EDIT_PROFILE,
   MY_PROFILE_PATH,
   ORGANIZATION_MEMBERS_ADD_PATH,
 } from '~/routes';
@@ -70,10 +70,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   fabContainer: {
-    bottom: '15px',
-    right: '15px',
-    position: 'fixed',
-    color: theme.custom.colors.white,
     background: (props) => {
       switch (props.color) {
         case 'fountainBlue':
@@ -84,6 +80,11 @@ const useStyles = makeStyles((theme) => ({
           return theme.custom.colors.fountainBlue;
       }
     },
+    bottom: '15px',
+    color: theme.custom.colors.white,
+    position: 'fixed',
+    right: '15px',
+    zIndex: theme.zIndex.layer2,
   },
 
   dotsText: {
@@ -144,21 +145,21 @@ export default function NavigationFloating(props) {
         onClose={handleClose}
       >
         {props.isAddMembersLink && (
-          <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
-            <Button isOutline isWhite>
-              <MenuItem>
+          <MenuItem>
+            <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
+              <Button isOutline isWhite>
                 {translate('NavigationFloating.linkAddMembers')}
-              </MenuItem>
-            </Button>
-          </Link>
+              </Button>
+            </Link>
+          </MenuItem>
         )}
-        <MenuItem>
+        {/*<MenuItem>
           <Link to={EDIT_PROFILE}>
             <Button isOutline isWhite>
               {translate('NavigationFloating.linkEditProfile')}
             </Button>
           </Link>
-        </MenuItem>
+        </MenuItem>*/}
         <MenuItem>
           <Link to={MY_PROFILE_PATH}>
             <Button isOutline isWhite>

@@ -113,6 +113,7 @@ const OnboardingStepper = ({
   return (
     <Fragment>
       <Header
+        hasWhiteIcons
         isOrganization={isOrganization}
         useSpecialWithColorOnScroll={true}
       >

@@ -49,6 +49,7 @@ export const colors = {
   springGreen: '#06FC9D',
   pizazz: '#FF8E00',
   ceriseRed: '#D12D5F',
+  pink: '#D22E60',
   blueRibbon: '#2B44FF',
   disco: '#99164C',
   violet: '#5A2F56',
@@ -67,6 +68,7 @@ const gradients = {
   warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
   greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
   greenBlueHeader: `linear-gradient(207.4deg, ${colors.fountainBlue} 36.45%, ${colors.springGreen} 155.65%)`,
+  pinkShade: `linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, ${colors.pink} 145%)`,
   violetCurved: `linear-gradient(180deg, ${colors.tapestry} 0%, ${colors.violet} 33.2%)`,
   violetHeader: `linear-gradient(207.4deg, ${colors.tapestry} 36.45%, ${colors.violet} 155.65%)`,
   violetTutorial: `linear-gradient(180deg, ${colors.tapestry} 0%, ${colors.violet} 100%)`,
@@ -169,6 +171,7 @@ export default createMuiTheme({
     qrCodeScannerVideo: 12000,
     spinnerOverlay: 20000,
     layer1: 10,
+    layer2: 20,
     backgroundCurvedWrapper: 0,
   },
   overrides: {

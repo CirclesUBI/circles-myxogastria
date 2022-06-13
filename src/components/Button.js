@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
     textTransform: 'none',
     borderRadius: 16,
+    zIndex: theme.zIndex.layer2,
   },
   buttonDark: {
     color: theme.palette.text.primary,
