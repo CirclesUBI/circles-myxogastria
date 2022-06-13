@@ -119,6 +119,7 @@ const Dashboard = () => {
           className={clsx(classes.header, {
             [classes.headerExpanded]: isMenuExpanded,
           })}
+          hasWhiteIcons
           isOrganization={false}
           useSpecialWithColorOnScroll={true}
         >

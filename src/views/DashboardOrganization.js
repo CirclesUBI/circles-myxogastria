@@ -116,6 +116,7 @@ const DashboardOrganization = () => {
       <BackgroundCurved gradient="violet">
         <Header
           className={classes.header}
+          hasWhiteIcons
           isOrganization={true}
           useSpecialWithColorOnScroll={true}
         >
