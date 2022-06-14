@@ -1,10 +1,4 @@
-import {
-  Box,
-  Container,
-  IconButton,
-  MobileStepper,
-  Typography,
-} from '@material-ui/core';
+import { Box, Container, IconButton, MobileStepper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
@@ -21,7 +15,7 @@ import View from '~/components/View';
 import { useQuery } from '~/hooks/url';
 import { IconBack, IconClose } from '~/styles/icons';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   onboardingMobileStepper: {
     flexGrow: 1,
     paddingTop: 9,
@@ -36,12 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
   stepperHorizontalContainer: {
     marginBottom: '10px',
-  },
-
-  skipText: {
-    position: 'relative',
-    zIndex: theme.zIndex.layer2,
-    cursor: 'pointer',
   },
 }));
 
@@ -119,7 +107,7 @@ const OnboardingStepper = ({
   };
 
   const stepNames = stepperConfiguration.map((step) => step.stepName);
-  const CopyToClipboardBtn = stepsButtons[current].additionalBtnSecond;
+  const CopyToClipboardBtn = stepsButtons[current].additionalBtn;
   const withHeaderAvatar = current >= stepsScreens.ADD_PHOTO;
 
   return (
@@ -179,30 +167,30 @@ const OnboardingStepper = ({
       </View>
       <Footer>
         <AppNote />
-        {stepsButtons[current].additionalBtn && (
+        {stepsButtons[current].alternativeBtn && isDisabled && (
           <Box mb={1}>
-            <Typography
-              align="center"
-              className={classes.skipText}
-              onClick={onNext}
+            <Button
+              fullWidth
+              isOutline
+              onClick={isLastSlide ? onFinish : onNext}
             >
-              {stepsButtons[current].additionalBtn}
-            </Typography>
+              {stepsButtons[current].alternativeBtn}
+            </Button>
           </Box>
         )}
-        {stepsButtons[current].additionalBtnSecond && (
-          <CopyToClipboardBtn onClick={onFinish} />
-        )}
-        {stepsButtons[current].btnNextStep && (
-          <Button
-            disabled={isDisabled}
-            fullWidth
-            isPrimary
-            onClick={isLastSlide ? onFinish : onNext}
-          >
-            {stepsButtons[current].btnNextStep}
-          </Button>
-        )}
+        {CopyToClipboardBtn && <CopyToClipboardBtn onClick={onFinish} />}
+        {/*Show standard next step button if no alternative button exists*/}
+        {stepsButtons[current].btnNextStep &&
+          !(stepsButtons[current].alternativeBtn && isDisabled) && (
+            <Button
+              disabled={isDisabled}
+              fullWidth
+              isPrimary
+              onClick={isLastSlide ? onFinish : onNext}
+            >
+              {stepsButtons[current].btnNextStep}
+            </Button>
+          )}
       </Footer>
     </Fragment>
   );
