@@ -68,8 +68,10 @@ const OnboardingStepper = ({
       ...updatedValues,
     });
   };
+  console.log('values', values);
 
   const onDisabledChange = (updatedValue) => {
+    console.log('updated value', updatedValue);
     setIsDisabled(updatedValue);
   };
 
@@ -109,6 +111,7 @@ const OnboardingStepper = ({
   const stepNames = stepperConfiguration.map((step) => step.stepName);
   const CopyToClipboardBtn = stepsButtons[current].additionalBtn;
   const withHeaderAvatar = current >= stepsScreens.ADD_PHOTO;
+  console.log('isDisabled', isDisabled);
 
   return (
     <Fragment>
@@ -167,7 +170,7 @@ const OnboardingStepper = ({
       </View>
       <Footer>
         <AppNote />
-        {stepsButtons[current].alternativeBtn && isDisabled && (
+        {stepsButtons[current].alternativeBtn && (
           <Box mb={1}>
             <Button
               fullWidth
@@ -175,6 +178,18 @@ const OnboardingStepper = ({
               onClick={isLastSlide ? onFinish : onNext}
             >
               {stepsButtons[current].alternativeBtn}
+            </Button>
+          </Box>
+        )}
+        {stepsButtons[current].alternativeBtn && isDisabled && (
+          <Box mb={1}>
+            <Button
+              disabled={isDisabled && !values.avatarUrl}
+              fullWidth
+              isPrimary
+              onClick={isLastSlide ? onFinish : onNext}
+            >
+              {stepsButtons[current].btnNextStep}
             </Button>
           </Box>
         )}
