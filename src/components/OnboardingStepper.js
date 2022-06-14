@@ -68,10 +68,8 @@ const OnboardingStepper = ({
       ...updatedValues,
     });
   };
-  console.log('values', values);
 
   const onDisabledChange = (updatedValue) => {
-    console.log('updated value', updatedValue);
     setIsDisabled(updatedValue);
   };
 
@@ -111,7 +109,6 @@ const OnboardingStepper = ({
   const stepNames = stepperConfiguration.map((step) => step.stepName);
   const CopyToClipboardBtn = stepsButtons[current].additionalBtn;
   const withHeaderAvatar = current >= stepsScreens.ADD_PHOTO;
-  console.log('isDisabled', isDisabled);
 
   return (
     <Fragment>
