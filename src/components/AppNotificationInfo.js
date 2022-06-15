@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     color: 'black',
     padding: '15px 20px',
-    background: theme.custom.colors.silverTree,
+    background: theme.custom.colors.finn,
     marginBottom: '15px',
     marginTop: '15px',
 
@@ -54,16 +54,15 @@ const AppNototificationInfo = () => {
       <Box className={classes.dragonflyIconContainer}>
         <IconDragonFly />
       </Box>
-      <span className={classes.title}>Big changes are coming!</span>
+      <span className={classes.title}>Numbers are getting bigger!</span>
       <p>
-        The issuance rate of the Circles UBI will be increased. Instead of 8 CRC
-        a day, you will now receive 1 CRC an hour - 24 a day.
+        We are switching from displaying inflation to showing balances with a
+        demurrage or decay rate of CRC based on our new issuance rate.
       </p>
       <p>
-        With the current changes, the hubs and the Circles users worldwide can
-        keep the same value of 1 CRC = 1 hour. This acts as an anchor to keep
-        the value of UBI more stable across borders, so that people can easily
-        connect to each other.
+        Based on this, your current balance is going to change as well. If you
+        were holding 50 CRC you will now see 150 CRC. If you had 2000 you will
+        have 6000. Basically, your balance will triple.
       </p>
       <ExternalLink href="https://circlesubi.medium.com/the-revaluation-of-the-circles-system-c6eea70e767d">
         Read more here!
