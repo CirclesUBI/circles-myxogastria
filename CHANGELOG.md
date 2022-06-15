@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.4] - 2022-06-15
+
+### Changed
+
+- Update app info with 15th June message [#394] (https://github.com/CirclesUBI/circles-myxogastria/pull/394)
+
 ## [1.11.3] - 2022-06-08
 
 ### Changed
