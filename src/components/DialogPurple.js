@@ -19,15 +19,9 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
   },
 
-  cancelButton: {
+  root: {
     '&:hover': {
       background: 'transparent',
-    },
-  },
-
-  confirmButton: {
-    '&:hover': {
-      background: theme.custom.colors.white,
     },
   },
 }));
@@ -59,23 +53,13 @@ const DialogPurple = ({
       <Box pb={2} pt={2}>
         {!!onConfirm && (
           <Box display="flex" flexDirection="column" pb={1}>
-            <Button
-              className={classes.confirmButton}
-              isWhite
-              m={2}
-              onClick={onConfirm}
-            >
+            <Button isWhite m={2} onClick={onConfirm}>
               {confirmLabel}
             </Button>
           </Box>
         )}
         <Box display="flex" flexDirection="column">
-          <Button
-            className={classes.cancelButton}
-            isWhiteText
-            m={2}
-            onClick={onClose}
-          >
+          <Button className={classes.root} isWhiteText m={2} onClick={onClose}>
             {cancelLabel}
           </Button>
         </Box>
