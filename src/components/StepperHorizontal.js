@@ -9,18 +9,29 @@ import React from 'react';
 const useStyles = makeStyles((theme) => ({
   stepper: {
     '& .MuiStepConnector-horizontal': {
-      left: 'calc(-50% + 10px)',
-      right: 'calc(50% + 10px)',
-      top: '10px',
+      left: 'calc(-50% + 12px)',
+      right: 'calc(50% + 12px)',
+      top: '11px',
+      [theme.breakpoints.up('md')]: {
+        top: '15px',
+        left: 'calc(-50% + 16px)',
+        right: 'calc(50% + 16px)',
+      },
 
       '& .MuiStepConnector-lineHorizontal': {
-        borderTopWidth: '3px',
+        borderTopWidth: '2.5px',
+        [theme.breakpoints.up('md')]: {
+          borderTopWidth: '3px',
+        },
       },
 
       '&.MuiStepConnector-active, &.MuiStepConnector-completed': {
         '& .MuiStepConnector-lineHorizontal': {
-          background: theme.custom.gradients.blueGreen,
-          border: '2px solid transparent',
+          background: (isOrganization) =>
+            isOrganization
+              ? theme.custom.colors.violet
+              : theme.custom.colors.fountainBlue,
+          border: '1.5px solid transparent',
         },
       },
     },
@@ -32,37 +43,51 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1.3rem',
       borderRadius: '100%',
       border: `2px solid ${theme.custom.colors.grayDark}`,
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.8rem',
+      },
 
       '& .MuiStepIcon-text': {
         fill: theme.custom.colors.grayDark,
       },
 
       '&.MuiStepIcon-active, &.MuiStepIcon-completed': {
-        background: theme.custom.gradients.blueGreen,
+        background: (isOrganization) =>
+          isOrganization
+            ? theme.custom.colors.violet
+            : theme.custom.colors.fountainBlue,
         border: '2px solid transparent',
 
         '& .MuiStepIcon-text': {
-          fill: theme.custom.colors.fountainBlue,
+          fill: (isOrganization) =>
+            isOrganization
+              ? theme.custom.colors.violet
+              : theme.custom.colors.fountainBlue,
         },
       },
     },
 
     '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
       fontSize: '10px',
+      fontWeight: '500',
       color: theme.custom.colors.grayDark,
+      marginTop: '8px',
+      [theme.breakpoints.up('md')]: {
+        fontSize: '12px',
+      },
 
       '&.MuiStepLabel-completed, &.MuiStepLabel-active': {
-        backgroundImage: theme.custom.gradients.greenBlue,
-        backgroundClip: 'text',
-        ['-webkit-background-clip']: 'text',
-        color: 'transparent',
+        color: (isOrganization) =>
+          isOrganization
+            ? theme.custom.colors.violet
+            : theme.custom.colors.fountainBlue,
       },
     },
   },
 }));
 
-const StepperHorizontal = ({ steps, activeStep }) => {
-  const classes = useStyles();
+const StepperHorizontal = ({ steps, activeStep, isOrganization }) => {
+  const classes = useStyles(isOrganization);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -85,6 +110,7 @@ const StepperHorizontal = ({ steps, activeStep }) => {
 
 StepperHorizontal.propTypes = {
   activeStep: PropTypes.number,
+  isOrganization: PropTypes.bool,
   steps: PropTypes.array.isRequired,
 };
 
