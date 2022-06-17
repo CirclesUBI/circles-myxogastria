@@ -18,6 +18,7 @@ import ValidationStatus from '~/components/ValidationStatus';
 import View from '~/components/View';
 import { useUpdateLoop } from '~/hooks/update';
 import { useProfileLink } from '~/hooks/url';
+import { useIsOrganization } from '~/hooks/username';
 import translate from '~/services/locale';
 import { finalizeNewAccount } from '~/store/onboarding/actions';
 import { checkTrustState } from '~/store/trust/actions';
@@ -72,6 +73,7 @@ const Validation = () => {
   const { trust, safe, token } = useSelector((state) => state);
   const [dialogOpen, setDialogOpen] = useState(false);
   const address = safe.currentAccount || safe.pendingAddress;
+  const { isOrganization } = useIsOrganization(address);
   const shareLink = useProfileLink(address);
   const shareText = translate('Share.shareText', { shareLink });
 
@@ -110,7 +112,7 @@ const Validation = () => {
 
   return (
     <BackgroundCurved gradient="turquoise">
-      <Header className={classes.validationHeader}>
+      <Header className={classes.validationHeader} hasWhiteIcons>
         <ActivityIcon />
       </Header>
       <AvatarHeader />
@@ -124,7 +126,11 @@ const Validation = () => {
       </DialogFromBottom>
       <View>
         <Container className={classes.validationContainer} maxWidth="sm">
-          <StepperHorizontal activeStep={2} steps={stepNames} />
+          <StepperHorizontal
+            activeStep={2}
+            isOrganization={isOrganization}
+            steps={stepNames}
+          />
           <Typography align="center" gutterBottom variant="h6">
             {translate('Validation.headingBuildYourWebOfTrust')}
           </Typography>
