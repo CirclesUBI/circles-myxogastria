@@ -99,6 +99,7 @@ export default createTheme({
       md: 960,
       lg: 1280,
       xl: 1920,
+      xlPlus1: 1921,
     },
   },
   props: {
