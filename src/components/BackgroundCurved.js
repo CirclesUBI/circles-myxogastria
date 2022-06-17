@@ -57,8 +57,8 @@ const useStyles = makeStyles((theme) => {
         borderRadius: '50%',
         transform: 'translate3d(-50%, -50%, 0)',
         [theme.breakpoints.up('sm')]: {
-          width: 1188,
-          height: 808,
+          width: '1188px',
+          height: '808px',
         },
         [theme.breakpoints.up('md')]: {
           width: '1369px',
@@ -66,6 +66,11 @@ const useStyles = makeStyles((theme) => {
           top: '516px',
         },
         [theme.breakpoints.up('lg')]: {
+          top: '513px',
+          width: '2050px',
+          height: '865px',
+        },
+        [theme.breakpoints.up('xlPlus1')]: {
           top: '77px',
           width: '150%',
           height: '200%',
