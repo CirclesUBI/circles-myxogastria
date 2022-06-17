@@ -48,6 +48,7 @@ export const SETTINGS_PATH = '/settings';
 export const SHARE_PATH = '/share';
 export const VALIDATION_PATH = '/validation';
 export const WELCOME_PATH = '/welcome';
+export const EDIT_PROFILE = '/editprofile';
 
 const SessionContainer = ({
   component: Component,

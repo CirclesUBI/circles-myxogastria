@@ -4,12 +4,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { MY_PROFILE_PATH, ORGANIZATION_MEMBERS_ADD_PATH } from '~/routes';
+import {
+  //EDIT_PROFILE,
+  MY_PROFILE_PATH,
+  ORGANIZATION_MEMBERS_ADD_PATH,
+} from '~/routes';
 
+import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
 import { IconClose } from '~/styles/icons';
-import { MARKETPLACE_MARKET_URL } from '~/utils/constants';
+import { FAQ_URL, MARKETPLACE_MARKET_URL } from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   menuNavigation: {
@@ -35,37 +40,36 @@ const useStyles = makeStyles((theme) => ({
       padding: '17px 0 30px',
     },
 
+    '& .MuiMenu-list': {
+      paddingTop: '25px',
+    },
+
     '& .MuiListItem-root': {
       justifyContent: 'center',
+      cursor: 'auto',
+      width: '100%',
+      marginBottom: '15px',
     },
 
     '& .MuiMenuItem-root': {
-      background: theme.custom.colors.white,
-      border: `1px solid ${theme.custom.colors.purple}`,
-      boxShadow: theme.custom.shadows.gray,
-      borderRadius: '16px',
-      margin: '30px 32px',
-      padding: '9px',
-      minHeight: 'auto',
-      color: theme.custom.colors.purple,
-      textAlign: 'center',
-      fontSize: '16px',
-      fontWeight: '500',
+      padding: '9px 35px',
+    },
 
-      '& a': {
-        color: theme.custom.colors.purple,
-        fontSize: '16px',
-        fontWeight: '500',
-        textDecoration: 'none',
-      },
+    '& .MuiButton-root': {
+      width: '100%',
+    },
+
+    '& a': {
+      textDecoration: 'none',
+      width: '100%',
+    },
+
+    '& a:hover': {
+      textDecoration: 'none',
     },
   },
 
   fabContainer: {
-    bottom: '15px',
-    right: '15px',
-    position: 'fixed',
-    color: theme.custom.colors.white,
     background: (props) => {
       switch (props.color) {
         case 'fountainBlue':
@@ -76,6 +80,11 @@ const useStyles = makeStyles((theme) => ({
           return theme.custom.colors.fountainBlue;
       }
     },
+    bottom: '15px',
+    color: theme.custom.colors.white,
+    position: 'fixed',
+    right: '15px',
+    zIndex: theme.zIndex.layer2,
   },
 
   dotsText: {
@@ -87,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
 
   menuNavigationIconClose: {
     color: theme.custom.colors.white,
+    cursor: 'pointer',
     width: '19px',
     position: 'absolute',
     bottom: '-12px',
@@ -137,26 +147,40 @@ export default function NavigationFloating(props) {
         {props.isAddMembersLink && (
           <MenuItem>
             <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
-              {translate('NavigationFloating.linkAddMembers')}
+              <Button isOutline isWhite>
+                {translate('NavigationFloating.linkAddMembers')}
+              </Button>
             </Link>
           </MenuItem>
         )}
-        <MenuItem onClick={handleClose}>
-          {translate('NavigationFloating.linkEditProfile')}
-        </MenuItem>
+        {/*<MenuItem>
+          <Link to={EDIT_PROFILE}>
+            <Button isOutline isWhite>
+              {translate('NavigationFloating.linkEditProfile')}
+            </Button>
+          </Link>
+        </MenuItem>*/}
         <MenuItem>
           <Link to={MY_PROFILE_PATH}>
-            {translate('NavigationFloating.linkMyWallets')}
+            <Button isOutline isWhite>
+              {translate('NavigationFloating.linkMyWallets')}
+            </Button>
           </Link>
         </MenuItem>
-        <MenuItem>
-          <ExternalLink href={MARKETPLACE_MARKET_URL}>
-            {translate('NavigationFloating.linkMarketplace')}
-          </ExternalLink>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          {translate('NavigationFloating.linkSupport')}
-        </MenuItem>
+        <ExternalLink href={MARKETPLACE_MARKET_URL}>
+          <MenuItem>
+            <Button isOutline isWhite>
+              {translate('NavigationFloating.linkMarketplace')}
+            </Button>
+          </MenuItem>
+        </ExternalLink>
+        <ExternalLink href={FAQ_URL}>
+          <MenuItem>
+            <Button isOutline isWhite>
+              {translate('NavigationFloating.linkSupport')}
+            </Button>
+          </MenuItem>
+        </ExternalLink>
         <IconClose
           className={classes.menuNavigationIconClose}
           onClick={handleClose}

@@ -6,7 +6,6 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -16,7 +15,7 @@ import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
 import AvatarHeader from '~/components/AvatarHeader';
 import BackgroundCurved from '~/components/BackgroundCurved';
-import BalanceDisplayOrganization from '~/components/BalanceDisplayOrganization';
+import BalanceDisplay from '~/components/BalanceDisplay';
 import Button from '~/components/Button';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
@@ -63,7 +62,6 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     ...transitionMixin(theme),
-    background: 'transparent',
   },
   headerExpanded: {
     ...transitionExpandedMixin(theme),
@@ -73,10 +71,6 @@ const useStyles = makeStyles((theme) => ({
   },
   view: {
     ...transitionMixin(theme),
-  },
-  viewExpanded: {
-    ...transitionExpandedMixin(theme),
-    overflow: 'hidden',
   },
   balanceContainer: {
     margin: '0 auto',
@@ -121,9 +115,10 @@ const DashboardOrganization = () => {
     <Fragment>
       <BackgroundCurved gradient="violet">
         <Header
-          className={clsx(classes.header, {
-            [classes.headerExpanded]: isMenuExpanded,
-          })}
+          className={classes.header}
+          hasWhiteIcons
+          isOrganization={true}
+          useSpecialWithColorOnScroll={true}
         >
           <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
             <IconMenu />
@@ -137,14 +132,10 @@ const DashboardOrganization = () => {
         isExpanded={isMenuExpanded}
         onClick={handleMenuClick}
       />
-      <View
-        className={clsx(classes.view, {
-          [classes.viewExpanded]: isMenuExpanded,
-        })}
-      >
+      <View className={classes.view}>
         <Container maxWidth="sm">
           <Box className={classes.balanceContainer}>
-            <BalanceDisplayOrganization />
+            <BalanceDisplay />
           </Box>
           <AppNote />
           <Grid item xs={12}>

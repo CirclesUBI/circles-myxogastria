@@ -16,7 +16,7 @@ import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
 import AvatarHeader from '~/components/AvatarHeader';
 import BackgroundCurved from '~/components/BackgroundCurved';
-import BalanceDisplayOrganization from '~/components/BalanceDisplayOrganization';
+import BalanceDisplay from '~/components/BalanceDisplay';
 import Button from '~/components/Button';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
@@ -63,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     ...transitionMixin(theme),
-    background: 'transparent',
   },
   headerExpanded: {
     ...transitionExpandedMixin(theme),
@@ -73,10 +72,6 @@ const useStyles = makeStyles((theme) => ({
   },
   view: {
     ...transitionMixin(theme),
-  },
-  viewExpanded: {
-    ...transitionExpandedMixin(theme),
-    overflow: 'hidden',
   },
   balanceContainer: {
     margin: '0 auto',
@@ -124,6 +119,9 @@ const Dashboard = () => {
           className={clsx(classes.header, {
             [classes.headerExpanded]: isMenuExpanded,
           })}
+          hasWhiteIcons
+          isOrganization={false}
+          useSpecialWithColorOnScroll={true}
         >
           <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
             <IconMenu />
@@ -137,14 +135,10 @@ const Dashboard = () => {
         isExpanded={isMenuExpanded}
         onClick={handleMenuClick}
       />
-      <View
-        className={clsx(classes.view, {
-          [classes.viewExpanded]: isMenuExpanded,
-        })}
-      >
+      <View className={classes.view}>
         <Container maxWidth="sm">
           <Box className={classes.balanceContainer}>
-            <BalanceDisplayOrganization />
+            <BalanceDisplay />
           </Box>
           <AppNote />
           <Grid item xs={12}>

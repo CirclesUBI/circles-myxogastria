@@ -134,14 +134,14 @@ const Onboarding = () => {
     },
     {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-      additionalBtn: translate('OnboardingStepper.skipStep'),
+      alternativeBtn: translate('OnboardingStepper.skipStep'),
     },
     {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
     },
     {
-      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-      additionalBtnSecond: CopyToClipboardBtn,
+      btnNextStep: translate('OnboardingStepper.buttonConfirmSave'),
+      additionalBtn: CopyToClipboardBtn,
     },
     {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
@@ -190,6 +190,7 @@ const Onboarding = () => {
     <BackgroundCurved gradient="turquoise">
       <OnboardingStepper
         exitPath={WELCOME_PATH}
+        isOrganization={false}
         mb={16}
         stepperConfiguration={stepperConfiguration}
         steps={steps}
@@ -313,11 +314,18 @@ const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
 
 const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
   const classes = useStyles();
+  const [photoUploaded, setPhotoUploaded] = useState(false);
+
   const handleUpload = (avatarUrl) => {
     onChange({
       avatarUrl,
     });
+    setPhotoUploaded(true);
   };
+
+  useEffect(() => {
+    onDisabledChange(!photoUploaded);
+  }, [onDisabledChange, photoUploaded]);
 
   return (
     <Box className={classes.userStepAvatarContainer}>
