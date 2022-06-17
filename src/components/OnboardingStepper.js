@@ -145,13 +145,14 @@ const OnboardingStepper = ({
           username={username}
         />
       )}
-      <View mt={withHeaderAvatar ? 0 : 8}>
+      <View mt={withHeaderAvatar ? 0 : '84px'}>
         <Box
           className={classes.stepperHorizontalContainer}
           mt={withHeaderAvatar ? 0 : '30px'}
         >
           <StepperHorizontal
             activeStep={activeStepForStepperHorizontal()}
+            isOrganization={isOrganization}
             steps={stepNames}
           />
         </Box>
