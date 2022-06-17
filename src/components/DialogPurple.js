@@ -13,16 +13,10 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 720,
     minWidth: 280,
     minHeight: 240,
-    paddingLeft: '45px',
-    paddingRight: '45px',
+    paddingLeft: theme.spacing(6),
+    paddingRight: theme.spacing(6),
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),
-  },
-
-  root: {
-    '&:hover': {
-      background: 'transparent',
-    },
   },
 }));
 
@@ -59,7 +53,7 @@ const DialogPurple = ({
           </Box>
         )}
         <Box display="flex" flexDirection="column">
-          <Button className={classes.root} isWhiteText m={2} onClick={onClose}>
+          <Button isWhiteText m={2} onClick={onClose}>
             {cancelLabel}
           </Button>
         </Box>
