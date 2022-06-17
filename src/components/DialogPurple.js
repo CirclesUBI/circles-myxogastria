@@ -13,22 +13,10 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 720,
     minWidth: 280,
     minHeight: 240,
-    paddingLeft: '45px',
-    paddingRight: '45px',
+    paddingLeft: theme.spacing(6),
+    paddingRight: theme.spacing(6),
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),
-  },
-
-  cancelButton: {
-    '&:hover': {
-      background: 'transparent',
-    },
-  },
-
-  confirmButton: {
-    '&:hover': {
-      background: theme.custom.colors.white,
-    },
   },
 }));
 
@@ -59,23 +47,13 @@ const DialogPurple = ({
       <Box pb={2} pt={2}>
         {!!onConfirm && (
           <Box display="flex" flexDirection="column" pb={1}>
-            <Button
-              className={classes.confirmButton}
-              isWhite
-              m={2}
-              onClick={onConfirm}
-            >
+            <Button isWhite m={2} onClick={onConfirm}>
               {confirmLabel}
             </Button>
           </Box>
         )}
         <Box display="flex" flexDirection="column">
-          <Button
-            className={classes.cancelButton}
-            isWhiteText
-            m={2}
-            onClick={onClose}
-          >
+          <Button isWhiteText m={2} onClick={onClose}>
             {cancelLabel}
           </Button>
         </Box>
