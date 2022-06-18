@@ -1,4 +1,4 @@
-import { createTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import {
   fontFamily as fontFamilyNotoSans,
@@ -91,7 +91,7 @@ const components = {
 
 const fontFamily = `"${fontFamilyNotoSans}", sans-serif`;
 
-export default createTheme({
+export default createMuiTheme({
   breakpoints: {
     values: {
       xs: 0,
