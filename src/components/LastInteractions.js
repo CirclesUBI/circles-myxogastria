@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: theme.palette.text.primary,
   },
+  link: {
+    position: 'relative',
+  },
 }));
 
 const LastInteractions = () => {
@@ -88,7 +91,7 @@ const LastInteractionsAccount = ({ address }) => {
 
   return (
     <Grid item>
-      <MuiLink component={Link} to={profilePath}>
+      <MuiLink className={classes.link} component={Link} to={profilePath}>
         <Avatar address={address} size="smallXl" />
         <Typography className={classes.username} noWrap>
           <UsernameDisplay address={address} />
