@@ -123,7 +123,7 @@ const Profile = () => {
                   trustStatus={trustStatus}
                 />
               }
-              overlap="circle"
+              overlap="circular"
             >
               <Avatar address={address} size="large" />
             </Badge>

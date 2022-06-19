@@ -38,6 +38,7 @@
     "errorAvatarUpload": "Ups, Something went wrong!\nMake sure your image is a jpeg or png of maximum 1 MB."
   },
   "BalanceDisplay": {
+    "tooltipSharedWalletBalance": "This is the shared wallet balance. Shared wallets do not receive basic income.",
     "tooltipYourBalance": "Your basic income is issued continuously at the rate of {rate} Circles a month."
   },
   "ButtonClipboard": {
@@ -61,7 +62,20 @@
     "infoCopiedMessage": "Text copied to clipboard"
   },
   "Dashboard": {
-    "formSearch": "Search for accounts"
+    "buttonTrustPeople": "Trust People",
+    "buttonSendCircles": "Send Circles"
+  },
+  "DashboardOrganization": {
+    "buttonTrustPeople": "Trust People",
+    "buttonSendCircles": "Send Circles"
+  },
+  "DialogAddMember": {
+    "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to send circles from your shared wallet.",
+    "dialogBodyCannotAdd": "You cannot add another shared wallet as a member of a shared wallet.",
+    "dialogCancel": "Cancel",
+    "dialogConfirm": "Add member",
+    "dialogTitle": "Add @{username}",
+    "linkLearnMore": "Learn more"
   },
   "DialogBurn": {
     "dialogBurnCancel": "Cancel",
@@ -72,9 +86,11 @@
   "DialogTrust": {
     "dialogTrustCancel": "Cancel",
     "dialogTrustConfirm": "Trust",
-    "dialogTrustDescription": "Are you sure you want to trust this person? Trusting someone is dangerous and can affect the security of the app. In order to stay safe only trust people you know in real life.",
-    "dialogTrustTitle": "Do you trust @{username}?",
+    "dialogTrustDescription": "Trust is Power. When you trust somebody it means that you are sharing the power to issue circles.",
+    "dialogTrustTitle": "Trust @{username}?",
     "errorTrust": "Something went wrong when you tried to trust @{username} ...",
+    "externalLink": "Learn more",
+    "afterExternalLink": "here",
     "successTrust": "Nice. You trusted @{username}!"
   },
   "DialogTrustRevoke": {
@@ -99,7 +115,7 @@
     "bodyFilterIndirect": "In your network",
     "bodyNoResultsGiven": "No search results found!",
     "buttonLoadMore": "Show more",
-    "formSearch": "Search"
+    "formSearch": "Add or search contacts"
   },
   "LocaleSelector": {
     "de": "DE",
@@ -116,6 +132,7 @@
     "errorRestoreFailedUnknown": "Could not restore account due to an unknown error.",
     "errorRestoreFailedUnknownSafe": "The account you tried to restore is not registered.",
     "headingLogin": "Login",
+    "inputPlaceholder": "Start typing...",
     "linkSupport": "Go to support.",
     "successWelcome": "Successfully connected to account. Welcome!"
   },
@@ -136,6 +153,13 @@
     "linkFAQ": "FAQ",
     "linkMarketplace": "Marketplace",
     "linkPrivacyLegal": "Privacy / Legal",
+    "linkSupport": "Forum support"
+  },
+  "NavigationFloating": {
+    "linkAddMembers": "Add Members",
+    "linkEditProfile": "Edit Profile",
+    "linkMyWallets": "My Wallets",
+    "linkMarketplace": "Marketplace",
     "linkSupport": "Support"
   },
   "NotFound": {
@@ -148,7 +172,7 @@
     "bodyAboutSeedPhraseP2": "It is important to keep your magic words secret and safe. If someone has access to your magic words, they can access your private account.",
     "bodyAboutSeedPhraseP3": "Save them in a private place that you can access. If you lose them, not even the Circles team can recover it.",
     "bodyAvatar": "Your photo is how your friends can search for you on the Circles App.",
-    "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
+    "bodyEmail": "We will never share this!",
     "bodySaveSeedPhraseHelper": "Save it in a place where only you can access it. If you lose it, not even the Circles Team can recover it.",
     "bodySecureWalletP1A": "Don’t risk losing your account. Protect your wallet by saving your ",
     "bodySecureWalletP1Link": "magic words",
@@ -170,35 +194,44 @@
     "headingSaveSeedPhraseHelper": "Where to store your magic words",
     "headingSecureWallet": "Secure Your Wallet",
     "headingSeedPhrase": "Save your magic words",
-    "headingSeedPhraseChallenge": "Did you save your Seed Phrase?",
+    "headingSeedPhraseChallenge": "Did you save your Magic Words?",
     "headingUsername": "Create Your Username",
     "linkHelperSaveSeedPhrase": "Need tips on where to save it?",
     "listItemSaveSeedPhraseHelper1": "Add to a password manager",
     "listItemSaveSeedPhraseHelper2": "Save in a notes application",
     "listItemSaveSeedPhraseHelper3": "Send to yourself in email",
     "listItemSaveSeedPhraseHelper4": "Hand write, and put somewhere safe",
+    "stepperFirstStep": "Create Profile",
+    "stepperSecondStep": "Secure Wallet",
+    "stepperThirdStep": "Verification",
     "successOnboardingComplete": "Your account was successfully created! Welcome!"
   },
   "OnboardingOrganization": {
-    "bodyAvatar": "Your photo is how people can identify your wallet on the Circles App.",
-    "bodyEmail": "We never share your email address and only use it to inform you about important changes to the platform.",
-    "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. We recommend to issue 1 or more Circles to your new wallet to finish setup.",
-    "bodyUsername": "Your wallet name is how people can search for your shared wallet on the Circles App.",
+    "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. Send 1 or more Circles to your new wallet to finish setup.",
+    "bodyUsername": "Your username is how your friends can search for you on the Circles App. We recommend you to name your Shared Wallet after your Organization's name.",
     "errorSignup": "A server error occurred: {errorMessage}",
     "formEmail": "Email",
     "formPrefundAmount": "Fund amount",
     "formPrefundInvalid": "This amount is higher than your current token balance",
-    "formPrefundSender": "Sent from",
+    "formPrefundSender": "From sender",
     "formUsername": "Wallet name",
     "headingAvatar": "Add Photo",
     "headingEmail": "Enter Email",
-    "headingPrefund": "Fund your shared",
-    "headingUsername": "Name your wallet",
+    "headingPrefund": "Fund your organization",
+    "headingWalletName": "Name your shared wallet",
+    "headingAddMembers": "Add members",
+    "stepperFirstStep": "Create Wallet",
+    "stepperSecondStep": "Deposit Funds",
+    "stepperThirdStep": "Add Members",
     "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
   },
   "OnboardingStepper": {
     "buttonFinish": "Sign me up!",
-    "buttonNextStep": "Continue"
+    "buttonNextStep": "Continue",
+    "buttonConfirmSave": "I saved it!",
+    "buttonShareProfile": "Share Profile Link",
+    "buttonCreateAccount": "Create Account",
+    "skipStep": "I'll do this later"
   },
   "OrganizationMembers": {
     "buttonRemoveMember": "Remove",
@@ -211,14 +244,8 @@
     "successRemovedMember": "You've successfully removed @{username} from this shared wallet."
   },
   "OrganizationMembersAdd": {
-    "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to send circles from your shared wallet.",
-    "dialogBodyCannotAdd": "You cannot add another shared wallet as a member of a shared wallet.",
-    "dialogCancel": "Cancel",
-    "dialogConfirm": "Add member",
-    "dialogTitle": "Add @{username}",
     "errorAddedMember": "Something went wrong, @{username} could not be added to the shared wallet",
     "headingAddMember": "Add member",
-    "linkLearnMore": "Learn more",
     "successAddedMember": "You've successfully added @{username} to this shared wallet."
   },
   "Profile": {
@@ -312,19 +339,23 @@
     "headingShare": "My QR Code",
     "shareText": "Hey! Check out my Circles UBI profile!"
   },
+  "ShareBox": {
+    "headingShowYourQR": "Show your QR code or profile to others to receive trust."
+  },
   "TransferInfoBalanceCard": {
     "bodyTotalBalance": "Your total balance: {balance}",
     "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
   },
   "Tutorial": {
-    "buttonFinish": "Got it.",
+    "buttonFinish": "Got it. Sign me up!",
     "buttonNextStep": "Next",
     "buttonSkip": "Skip"
   },
   "TutorialOnboarding": {
-    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support and create an alternative economy.",
-    "bodyUnconditionalIncome": "Circles is designed to be a basic income from the bottom-up. When you create a Circles account you are unconditionally issued Circles tokens on a regular basis.",
-    "bodyWebOfTrust": "You can spend Circles with people you trust, and the people they trust. ",
+    "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support an alternative economy.",
+    "bodyUnconditionalIncome": "Circles is designed similar to a basic income. Because it is people-powered, it is based on trust. To receive your basic income, three people already trusted in the Circles system must trust your profile. This way you are unconditionally issued Circles tokens on a regular basis.",
+    "bodyWebOfTrust": "You can spend Circles with people who you trust. The more connected your community is, the more valuable your Circles become.",
+    "bodyLearnMore": "Learn more",
     "headingBuildYourOwnEconomy": "Build Your Own Economy",
     "headingUnconditionalIncome": "Unconditional Income",
     "headingWebOfTrust": "A Web of Trust"
@@ -344,7 +375,7 @@
     "infoUbiPayoutReceived": "You received {payout} Circles!"
   },
   "Validation": {
-    "bodyDoNotReset": "Do not reset your browser or you will need to recover your data with your seed phrase.",
+    "bodyDoNotReset": "Do not reset your browser local storage or you will need to recover your data with your seed phrase.",
     "bodyTrustDescription": "To receive your basic income,",
     "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
     "buttonShareProfileLink": "Share Profile Link",

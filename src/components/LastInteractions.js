@@ -72,7 +72,7 @@ const LastInteractions = () => {
   }, [activity.categories, safe.currentAccount]);
 
   return (
-    <Grid alignItems="center" container justify="center" spacing={2}>
+    <Grid alignItems="center" container justifyContent="center" spacing={2}>
       {lastActiveProfiles.map(({ safeAddress }) => {
         return (
           <LastInteractionsAccount address={safeAddress} key={safeAddress} />
@@ -89,7 +89,7 @@ const LastInteractionsAccount = ({ address }) => {
   return (
     <Grid item>
       <MuiLink component={Link} to={profilePath}>
-        <Avatar address={address} size="medium" />
+        <Avatar address={address} size="smallXl" />
         <Typography className={classes.username} noWrap>
           <UsernameDisplay address={address} />
         </Typography>

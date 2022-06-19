@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import QRCodeGenerator from 'qrcode';
 import React, { createRef, useEffect } from 'react';
 
-const QR_CODE_SIZE = 230;
+const QR_CODE_SIZE = 150;
 
 const QRCode = ({ children, data, scale, width, ...props }) => {
   const ref = createRef();
