@@ -61,8 +61,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ children, className, ...props }) => {
-  const classes = useStyles(props);
+const Header = ({
+  children,
+  className,
+  hasWhiteIcons,
+  isOrganization,
+  useSpecialWithColorOnScroll,
+  ...props
+}) => {
+  const classes = useStyles(
+    hasWhiteIcons,
+    isOrganization,
+    useSpecialWithColorOnScroll,
+    props,
+  );
 
   const isScrolled = useCustomScrollTrigger();
 
