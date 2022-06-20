@@ -18,6 +18,9 @@ const { ActivityTypes } = core.activity;
 const MAX_PROFILES = 12;
 
 const useStyles = makeStyles((theme) => ({
+  itemContainer: {
+    width: '116px',
+  },
   username: {
     maxWidth: '100px',
     marginTop: theme.spacing(0.5),
@@ -27,6 +30,13 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+
+    '&:hover': {
+      textDecoration: 'none',
+    },
   },
 }));
 
@@ -90,7 +100,7 @@ const LastInteractionsAccount = ({ address }) => {
   const profilePath = useRelativeProfileLink(address);
 
   return (
-    <Grid item>
+    <Grid className={classes.itemContainer} item>
       <MuiLink className={classes.link} component={Link} to={profilePath}>
         <Avatar address={address} size="smallXl" />
         <Typography className={classes.username} noWrap>
