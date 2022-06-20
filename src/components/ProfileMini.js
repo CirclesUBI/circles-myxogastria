@@ -14,6 +14,7 @@ import { Redirect } from 'react-router-dom';
 
 import Avatar from '~/components/Avatar';
 import DialogAddMember from '~/components/DialogAddMember';
+import DialogTrust from '~/components/DialogTrust';
 import { usePendingTransfer } from '~/hooks/activity';
 import { useTrustConnection } from '~/hooks/network';
 import { useIsOrganization } from '~/hooks/organization';
@@ -133,13 +134,22 @@ const ProfileMini = ({
 
   return (
     <Fragment>
-      <DialogAddMember
-        address={address}
-        handleAddMember={handleAddMember}
-        handleClose={handleClose}
-        isOpen={isOpen}
-        username={username}
-      />
+      {isSharedWalletCreation ? (
+        <DialogAddMember
+          address={address}
+          handleAddMember={handleAddMember}
+          handleClose={handleClose}
+          isOpen={isOpen}
+          username={username}
+        />
+      ) : (
+        <DialogTrust
+          address={address}
+          isOpen={isOpen}
+          onClose={handleClose}
+          onConfirm={handleClose}
+        />
+      )}
       <Card {...props} className={className}>
         <CardHeader
           action={

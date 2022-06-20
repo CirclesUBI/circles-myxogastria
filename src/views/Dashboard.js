@@ -14,6 +14,7 @@ import { SEARCH_PATH, SEND_PATH } from '~/routes';
 
 import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
+import AppNototificationInfo from '~/components/AppNotificationInfo';
 import AvatarHeader from '~/components/AvatarHeader';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import BalanceDisplay from '~/components/BalanceDisplay';
@@ -141,6 +142,7 @@ const Dashboard = () => {
             <BalanceDisplay />
           </Box>
           <AppNote />
+          <AppNototificationInfo />
           <Grid item xs={12}>
             <ButtonGroup className={classes.buttonContainer} fullWidth>
               <Button isOutline isPrimary to={SEARCH_PATH}>

@@ -7,9 +7,56 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.4] - 2022-06-15
+
+### Changed
+
+- Update app info with 15th June message [#394] (https://github.com/CirclesUBI/circles-myxogastria/pull/394)
+
+## [1.11.3] - 2022-06-08
+
+### Changed
+
+- Apply changes for 8th of June app info box [#373] (https://github.com/CirclesUBI/circles-myxogastria/pull/376)
+
+## [1.11.2] - 2022-06-06
+
+### Changed
+
+- Correct margin and text for app info box [#373] (https://github.com/CirclesUBI/circles-myxogastria/pull/373)
+
+## [1.11.1] - 2022-05-31
+
+### Changed
+
+- Correct margin and text for app info box
+
+## [1.11.0] - 2022-05-31
+
+### Added
+
+- Add app info about system transition [#365](https://github.com/CirclesUBI/circles-myxogastria/pull/365)
+
+### Changed
+
+- Update .gitignore [#364](https://github.com/CirclesUBI/circles-myxogastria/pull/364)
+
+## [1.10.2] - 2022-05-19
+
+### Changed
+
+- Updated node dependencies
+- URL to circles marketplace corrected
+
+## [1.10.1] - 2022-02-11
+
+### Changed
+
+- Updated dependencies (no changes to the users)
+
 ## [1.10.0] - 2022-02-03
 
-### Added 
+### Added
 
 - Improved seedphrase information in sign up process [#246](https://github.com/CirclesUBI/circles-myxogastria/pull/246)
 - General app notifications are shown also on validation page (not only in the dashboard)
@@ -20,7 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The round notification counter in the top right of the dashboard is replaced by a bell symbol with a counter [#255](https://github.com/CirclesUBI/circles-myxogastria/pull/255)
 - The help text of the serach bar [#254](https://github.com/CirclesUBI/circles-myxogastria/pull/254)
 
-### Removed 
+### Removed
 
 - Some locked or disabled trust buttons [#260](https://github.com/CirclesUBI/circles-myxogastria/pull/260) and [#245](https://github.com/CirclesUBI/circles-myxogastria/pull/245)
 - Donation note in dashboard [#252](https://github.com/CirclesUBI/circles-myxogastria/pull/252)

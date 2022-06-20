@@ -14,7 +14,7 @@ import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
 import { IconClose } from '~/styles/icons';
-import { FAQ_URL, MARKETPLACE_MARKET_URL } from '~/utils/constants';
+import { FAQ_URL, MARKETPLACE_URL } from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   menuNavigation: {
@@ -167,7 +167,7 @@ export default function NavigationFloating(props) {
             </Button>
           </Link>
         </MenuItem>
-        <ExternalLink href={MARKETPLACE_MARKET_URL}>
+        <ExternalLink href={MARKETPLACE_URL}>
           <MenuItem>
             <Button isOutline isWhite>
               {translate('NavigationFloating.linkMarketplace')}
