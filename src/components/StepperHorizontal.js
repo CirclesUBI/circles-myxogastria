@@ -54,10 +54,7 @@ const useStyles = makeStyles((theme) => {
         },
 
         '&.MuiStepIcon-active, &.MuiStepIcon-completed': {
-          background: (isOrganization) =>
-            isOrganization
-              ? theme.custom.colors.violet
-              : theme.custom.colors.fountainBlue,
+          background: colorTheme,
           border: '2px solid transparent',
 
           '& .MuiStepIcon-text': {
