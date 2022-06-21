@@ -1,12 +1,12 @@
+import { crcToTc } from '@circles/timecircles';
+
 import web3 from '~/services/web3';
 
-export function formatCirclesValue(value, decimals = 2) {
+export function formatCirclesValue(value, date = Date.now(), decimals = 2) {
   const valueEth = web3.utils.fromWei(value);
-  const splitted = valueEth.split('.');
+  // valueEth is a string
+  // crcToTc accepts/converts string to number and returns a number
+  const valueTc = crcToTc(date, valueEth);
 
-  if (splitted.length === 1) {
-    return splitted[0];
-  }
-
-  return `${splitted[0]}.${splitted[1].slice(0, decimals)}`;
+  return valueTc.toFixed(decimals);
 }
