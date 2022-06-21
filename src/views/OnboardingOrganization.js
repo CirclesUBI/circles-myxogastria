@@ -129,7 +129,7 @@ const OnboardingOrganization = () => {
     },
     {
       stepName: translate('OnboardingOrganization.stepperSecondStep'),
-      activeTillScreen: stepsScreens.NAME_YOUR_WALLET,
+      activeTillScreen: stepsScreens.FUND_YOUR_ORGANIZATION,
     },
     {
       stepName: translate('OnboardingOrganization.stepperThirdStep'),

@@ -101,7 +101,7 @@ export const stepsScreens = {
 export const stepperConfiguration = [
   {
     stepName: translate('Onboarding.stepperFirstStep'),
-    activeTillScreen: stepsScreens.ENTER_EMAIL,
+    activeTillScreen: stepsScreens.ADD_PHOTO,
   },
   {
     stepName: translate('Onboarding.stepperSecondStep'),
