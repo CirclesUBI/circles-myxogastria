@@ -69,12 +69,11 @@ const Header = ({
   useSpecialWithColorOnScroll,
   ...props
 }) => {
-  const classes = useStyles(
-    hasWhiteIcons,
+  const classes = useStyles({
     isOrganization,
     useSpecialWithColorOnScroll,
-    props,
-  );
+    ...props,
+  });
 
   const isScrolled = useCustomScrollTrigger();
 
@@ -88,7 +87,7 @@ const Header = ({
       ></AppBar>
       <Toolbar
         className={clsx(classes.toolbar, {
-          [classes.whiteIcons]: props.hasWhiteIcons,
+          [classes.whiteIcons]: hasWhiteIcons,
         })}
       >
         {children}
