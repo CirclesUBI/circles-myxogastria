@@ -208,7 +208,7 @@
   },
   "OnboardingOrganization": {
     "bodyPrefund": "Every activity in the Circles system requires a small maintenance fee. Send 1 or more Circles to your new wallet to finish setup.",
-    "bodyUsername": "Your wallet is how your friends can search for you on the Circles App. We recommend you to name your Shared Wallet after your Organization's name.",
+    "bodyUsername": "Your wallet name is how your friends can search for you on the Circles App. We recommend you to name your Shared Wallet after your Organization's name.",
     "errorSignup": "A server error occurred: {errorMessage}",
     "formEmail": "Email",
     "formPrefundAmount": "Fund amount",
@@ -222,7 +222,7 @@
     "headingAddMembers": "Add members",
     "stepperFirstStep": "Create Profile",
     "stepperSecondStep": "Deposit Funds",
-    "stepperThirdStep": "Custom Wallet",
+    "stepperThirdStep": "Customize Wallet",
     "successOnboardingComplete": "Your shared wallet was successfully created! You can start inviting other members now."
   },
   "OnboardingStepper": {
