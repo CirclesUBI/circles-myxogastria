@@ -43,6 +43,7 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { checkCurrentBalance, transfer } from '~/store/token/actions';
 import { IconSend } from '~/styles/icons';
 import logError, { formatErrorMessage } from '~/utils/debug';
+import { findMaxFlow } from '~/utils/findPath';
 import { formatCirclesValue } from '~/utils/format';
 
 const { ErrorCodes, TransferError } = core.errors;
@@ -188,40 +189,7 @@ const SendConfirm = () => {
   };
 
   useEffect(() => {
-    const getMaxFlow = async () => {
-      // First attempt, try via API
-      try {
-        const response = await core.token.findTransitiveTransfer(
-          safe.currentAccount,
-          address,
-          new web3.utils.BN(web3.utils.toWei('1000000000000000', 'ether')), // Has to be a large amount
-        );
-
-        // Throw an error when no path was found, we should try again with
-        // checking direct sends as the API might not be in sync yet
-        if (response.maxFlowValue === '0') {
-          throw new Error('Zero value found when asking API');
-        }
-
-        setMaxFlow(response.maxFlowValue);
-        return;
-      } catch {
-        setMaxFlow('0');
-      }
-
-      // Second attempt, do contract call
-      try {
-        const sendLimit = await core.token.checkSendLimit(
-          safe.currentAccount,
-          address,
-        );
-        setMaxFlow(sendLimit);
-      } catch (error) {
-        setMaxFlow('0');
-      }
-    };
-
-    getMaxFlow();
+    findMaxFlow(safe.currentAccount, address, setMaxFlow);
   }, [address, safe.currentAccount]);
 
   if (isSent) {
