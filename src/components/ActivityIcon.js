@@ -38,7 +38,12 @@ const DashboardActivityIcon = () => {
       {isPending ? (
         <CircularProgress size={28} />
       ) : (
-        <Badge badgeContent={count} color="primary" max={99}>
+        <Badge
+          badgeContent={count}
+          color="primary"
+          max={99}
+          overlap="rectangular"
+        >
           <IconNotification style={{ fontSize: 28 }} />
         </Badge>
       )}

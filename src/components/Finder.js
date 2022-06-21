@@ -358,6 +358,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
           <Badge
             badgeContent={filterResults[FILTER_DIRECT].length}
             color="primary"
+            overlap="rectangular"
           >
             <IconTrustActive />
           </Badge>
@@ -370,6 +371,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
           <Badge
             badgeContent={filterResults[FILTER_INDIRECT].length}
             color="primary"
+            overlap="rectangular"
           >
             <IconFollow />
           </Badge>
@@ -382,6 +384,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
           <Badge
             badgeContent={filterResults[FILTER_EXTERNAL].length}
             color="primary"
+            overlap="rectangular"
           >
             <IconWorld />
           </Badge>
