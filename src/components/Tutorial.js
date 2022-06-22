@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translateX(-50%)',
   },
   tutorialMobileStepperDotActive: {
-    backgroundColor: theme.palette.text.primary,
-    border: `1px solid ${theme.palette.text.primary}`,
+    background: theme.custom.colors.purpleDark,
+    border: `2px solid ${theme.custom.colors.purpleDark}`,
   },
   tutorialSkipButton: {
     fontWeight: theme.typography.fontWeightMedium,
@@ -73,6 +73,7 @@ const Tutorial = (props) => {
     <Fragment>
       <TutorialHeader
         current={current}
+        isSkippable={props.isSkippable}
         total={total}
         onExit={props.onExit}
         onPrevious={onPrevious}
@@ -85,6 +86,7 @@ const Tutorial = (props) => {
       />
       <TutorialFooter
         current={current}
+        finishBtnText={props.finishBtnText}
         total={total}
         onFinish={onFinish}
         onNext={onNext}
@@ -95,8 +97,17 @@ const Tutorial = (props) => {
 
 const TutorialHeader = (props) => {
   const classes = useStyles();
-
   const isScrolled = useCustomScrollTrigger();
+
+  const backbuttonClickHandler = () => {
+    if (props.current === 0) {
+      props.onExit();
+    } else if (props.isPreviousBtn) {
+      props.onPrevious();
+    } else {
+      props.onExit();
+    }
+  };
 
   return (
     <Header
@@ -105,15 +116,16 @@ const TutorialHeader = (props) => {
       })}
       hasWhiteIcons
       padding="0"
+      useSpecialWithColorOnScroll={true}
     >
       <MobileStepper
         activeStep={props.current}
         backButton={
-          <IconButton
-            edge="start"
-            onClick={props.current === 0 ? props.onExit : props.onPrevious}
-          >
-            {props.current === 0 ? <IconClose /> : <IconBack />}
+          <IconButton edge="start" onClick={backbuttonClickHandler}>
+            <TutorialHeaderBackButton
+              current={props.current}
+              isPreviousBtn={props.isPreviousBtn}
+            />
           </IconButton>
         }
         classes={{
@@ -123,13 +135,15 @@ const TutorialHeader = (props) => {
           dotActive: classes.tutorialMobileStepperDotActive,
         }}
         nextButton={
-          <Button
-            className={classes.tutorialSkipButton}
-            isDark
-            onClick={props.onSkip}
-          >
-            {translate('Tutorial.buttonSkip')}
-          </Button>
+          props.isSkippable ? (
+            <Button
+              className={classes.tutorialSkipButton}
+              isDark
+              onClick={props.onSkip}
+            >
+              {translate('Tutorial.buttonSkip')}
+            </Button>
+          ) : null
         }
         position="top"
         steps={props.total}
@@ -138,6 +152,9 @@ const TutorialHeader = (props) => {
     </Header>
   );
 };
+
+const TutorialHeaderBackButton = ({ current, isPreviousBtn }) =>
+  current === 0 ? <IconClose /> : isPreviousBtn ? <IconBack /> : <IconClose />;
 
 const TutorialSlides = ({ slides, current, handleChangeIndex }) => (
   <BackgroundCurved gradient="turquoise">
@@ -164,7 +181,7 @@ const TutorialFooter = (props) => {
         onClick={isLastSlide ? props.onFinish : props.onNext}
       >
         {isLastSlide
-          ? translate('Tutorial.buttonFinish')
+          ? props.finishBtnText
           : translate('Tutorial.buttonNextStep')}
       </Button>
     </Footer>
@@ -172,6 +189,9 @@ const TutorialFooter = (props) => {
 };
 
 Tutorial.propTypes = {
+  finishBtnText: PropTypes.string.isRequired,
+  isPreviousBtn: PropTypes.bool,
+  isSkippable: PropTypes.bool,
   onExit: PropTypes.func.isRequired,
   onFinish: PropTypes.func.isRequired,
   slides: PropTypes.array.isRequired,
@@ -179,10 +199,17 @@ Tutorial.propTypes = {
 
 TutorialHeader.propTypes = {
   current: PropTypes.number.isRequired,
+  isPreviousBtn: PropTypes.bool,
+  isSkippable: PropTypes.bool,
   onExit: PropTypes.func.isRequired,
   onPrevious: PropTypes.func.isRequired,
   onSkip: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
+};
+
+TutorialHeaderBackButton.propTypes = {
+  current: PropTypes.number.isRequired,
+  isPreviousBtn: PropTypes.bool,
 };
 
 TutorialSlides.propTypes = {
@@ -193,6 +220,7 @@ TutorialSlides.propTypes = {
 
 TutorialFooter.propTypes = {
   current: PropTypes.number.isRequired,
+  finishBtnText: PropTypes.string.isRequired,
   onFinish: PropTypes.func.isRequired,
   onNext: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
