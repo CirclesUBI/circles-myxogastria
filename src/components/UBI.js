@@ -48,7 +48,7 @@ const UBI = () => {
       dispatch(
         notify({
           text: translate('UBI.infoUbiPayoutReceived', {
-            payout: formatCirclesValue(payout, 4),
+            payout: formatCirclesValue(payout, Date.now(), 4),
           }),
           type: NotificationsTypes.INFO,
           timeout: 10000,
