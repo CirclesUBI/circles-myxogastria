@@ -8,7 +8,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React, { Fragment, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { SEARCH_PATH, SEND_PATH } from '~/routes';
 
@@ -24,6 +24,7 @@ import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import NavigationFloating from '~/components/NavigationFloating';
+import TutorialTransition from '~/components/TutorialTransition';
 import View from '~/components/View';
 import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
@@ -31,6 +32,10 @@ import {
   checkFinishedActivities,
   checkPendingActivities,
 } from '~/store/activity/actions';
+import {
+  TRANSITION_WALKTHROUGH,
+  finishTutorial,
+} from '~/store/tutorial/actions';
 import { IconMenu } from '~/styles/icons';
 
 const transitionMixin = ({ transitions }) => ({
@@ -99,6 +104,9 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
+  const { isFinished: isTutorialFinished } = useSelector((state) => {
+    return state.tutorial[TRANSITION_WALKTHROUGH];
+  });
 
   useUpdateLoop(async () => {
     await dispatch(checkFinishedActivities());
@@ -112,6 +120,20 @@ const Dashboard = () => {
   const handleMenuClick = () => {
     setIsMenuExpanded(false);
   };
+
+  const onFinishHandler = () => {
+    dispatch(finishTutorial(TRANSITION_WALKTHROUGH));
+  };
+
+  const onExitHandler = () => {
+    dispatch(finishTutorial(TRANSITION_WALKTHROUGH));
+  };
+
+  if (!isTutorialFinished) {
+    return (
+      <TutorialTransition onExit={onExitHandler} onFinish={onFinishHandler} />
+    );
+  }
 
   return (
     <Fragment>
