@@ -2,11 +2,13 @@ import { crcToTc } from '@circles/timecircles';
 
 import web3 from '~/services/web3';
 
-export function formatCirclesValue(value, date = Date.now(), decimals = 2) {
-  const valueEth = web3.utils.fromWei(value);
-  // valueEth is a string
-  // crcToTc accepts/converts string to number and returns a number
-  const valueTc = crcToTc(date, valueEth);
+export function formatCirclesValue(
+  valueInFreckles,
+  timestamp = Date.now(),
+  decimals = 2,
+) {
+  const valueInCircles = web3.utils.fromWei(valueInFreckles);
+  const valueInTimeCircles = crcToTc(timestamp, valueInCircles);
 
-  return valueTc.toFixed(decimals);
+  return valueInTimeCircles.toFixed(decimals);
 }
