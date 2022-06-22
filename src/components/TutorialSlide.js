@@ -1,6 +1,15 @@
 import { Box, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
+
+const useStyles = makeStyles(() => ({
+  textContainer: {
+    textAlign: 'center',
+    fontSize: '1rem',
+    fontWeight: '300',
+  },
+}));
 
 const TutorialSlideImage = ({ image }) => {
   return (
@@ -16,13 +25,15 @@ const TutorialSlideImage = ({ image }) => {
 };
 
 const TutorialSlide = ({ image, heading, body }) => {
+  const classes = useStyles();
+
   return (
     <Box padding={4} paddingTop={9}>
       <TutorialSlideImage image={image} />
-      <Typography align="center" gutterBottom variant="h2">
+      <Typography align="center" gutterBottom variant="h6">
         {heading}
       </Typography>
-      <Typography align="center">{body}</Typography>
+      <Box className={classes.textContainer}>{body}</Box>
     </Box>
   );
 };
