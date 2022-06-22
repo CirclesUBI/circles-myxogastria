@@ -41,7 +41,14 @@ const TutorialOnboarding = (props) => {
   };
 
   return (
-    <Tutorial isSkippable slides={slides} onExit={onExit} onFinish={onFinish} />
+    <Tutorial
+      finishBtnText={translate('Tutorial.buttonFinish')}
+      isPreviousBtn
+      isSkippable
+      slides={slides}
+      onExit={onExit}
+      onFinish={onFinish}
+    />
   );
 };
 
