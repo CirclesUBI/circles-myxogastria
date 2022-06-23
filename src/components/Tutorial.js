@@ -73,6 +73,7 @@ const Tutorial = (props) => {
     <Fragment>
       <TutorialHeader
         current={current}
+        isPreviousBtn={props.isPreviousBtn}
         isSkippable={props.isSkippable}
         total={total}
         onExit={props.onExit}
