@@ -8,7 +8,7 @@ describe('Format utils', () => {
       const format = formatCirclesValue;
       const circlesInceptionTimestamp = new Date("2020-10-15T00:00:00.000Z").getTime();
 
-      expect(format(toWei('100', 'ether'), circlesInceptionTimestamp)).toBe('300.00');
+      expect(format(toWei('100', 'ether'), circlesInceptionTimestamp)).toBe('300');
       expect(format(toWei('1.12345', 'ether'), circlesInceptionTimestamp)).toBe('3.37');
       expect(format(toWei('1.12345', 'ether'), circlesInceptionTimestamp, 3)).toBe('3.370');
     });
