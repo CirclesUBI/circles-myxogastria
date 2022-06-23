@@ -13,3 +13,5 @@ export const SUPPORT_URL = 'https://chat.joincircles.net';
 export const TELEGRAM_URL = 'https://t.me/CirclesUBI';
 export const TERMS_URL = 'https://joincircles.net/terms';
 export const TWITTER_URL = 'https://twitter.com/CirclesUBI';
+export const TRANSITION_ARTICE_URL =
+  'https://circlesubi.medium.com/the-revaluation-of-the-circles-system-c6eea70e767d';
