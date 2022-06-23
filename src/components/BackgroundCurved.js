@@ -86,10 +86,12 @@ const BackgroundCurved = (props) => {
 
   const [isHidden, setIsHidden] = useState('');
 
+  const shouldBeHidden = () => setIsHidden(window.pageYOffset > 1);
+
   useEffect(() => {
-    window.addEventListener('scroll', () =>
-      setIsHidden(window.pageYOffset > 1),
-    );
+    window.addEventListener('scroll', shouldBeHidden);
+
+    return window.removeEventListener('scroll', shouldBeHidden);
   }, []);
 
   return (
