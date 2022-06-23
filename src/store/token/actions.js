@@ -220,7 +220,9 @@ export function transfer(to, amount, paymentNote = '') {
     const from = safe.currentAccount;
 
     try {
-      const value = new web3.utils.BN(core.utils.toFreckles(tcToCrc(amount)));
+      const value = new web3.utils.BN(
+        core.utils.toFreckles(tcToCrc(Date.now(), Number(amount))),
+      );
       const txHash = await core.token.transfer(from, to, value, paymentNote);
 
       dispatch(

@@ -8,7 +8,7 @@ export function formatCirclesValue(
   decimals = 2,
 ) {
   const valueInCircles = web3.utils.fromWei(valueInFreckles);
-  const valueInTimeCircles = crcToTc(timestamp, valueInCircles);
+  const valueInTimeCircles = crcToTc(timestamp, Number(valueInCircles));
 
   return valueInTimeCircles.toFixed(decimals);
 }
