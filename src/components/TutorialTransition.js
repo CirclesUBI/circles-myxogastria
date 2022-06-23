@@ -14,7 +14,11 @@ const useStyles = makeStyles((theme) => ({
   listContainer: {
     textAlign: 'left',
     listStyle: 'none',
-
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'left',
+      maxWidth: '500px',
+      margin: '0 auto',
+    },
     '& > li': {
       position: 'relative',
 
@@ -67,6 +71,7 @@ const TutorialTransition = (props) => {
   return (
     <Tutorial
       finishBtnText={translate('Tutorial.buttonFinish2')}
+      isPreviousBtn
       slides={slides}
       onExit={onExit}
       onFinish={onFinish}
