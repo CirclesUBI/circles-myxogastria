@@ -91,13 +91,7 @@ const SendConfirm = () => {
   );
 
   const isAmountTooHigh = amount
-    ? web3.utils
-        .toBN(maxAmount)
-        .lte(
-          web3.utils.toBN(
-            amount ? web3.utils.toWei(amount.toString(), 'ether') : '0',
-          ),
-        )
+    ? Number(formatCirclesValue(maxAmount)) < Number(amount)
     : false;
 
   const isPaymentNoteInvalid =
