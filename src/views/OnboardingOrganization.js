@@ -1,14 +1,18 @@
 import { Box, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { generatePath } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
-import { DASHBOARD_PATH } from '~/routes';
+import { DASHBOARD_PATH, ORGANIZATION_PATH, PROFILE_PATH } from '~/routes';
 
 import AvatarUploader from '~/components/AvatarUploader';
+import BackgroundCurved from '~/components/BackgroundCurved';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
+import Finder from '~/components/Finder';
 import OnboardingStepper from '~/components/OnboardingStepper';
 import TransferCirclesInput from '~/components/TransferCirclesInput';
 import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
@@ -28,6 +32,23 @@ import {
 } from '~/store/tutorial/actions';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import { formatCirclesValue } from '~/utils/format';
+
+const moveUpFront = (theme) => ({
+  position: 'relative',
+  zIndex: theme.zIndex.layer1,
+});
+const useStyles = makeStyles((theme) => ({
+  organizationStepAddMembersContainer: moveUpFront(theme),
+  organizationStepWalletNameContainer: moveUpFront(theme),
+  organizationEmailContainer: moveUpFront(theme),
+  organizationStepAvatarContainer: moveUpFront(theme),
+  organizationStepPrefundContainer: moveUpFront(theme),
+  CheckboxesContainer: {
+    '& a': {
+      color: theme.custom.colors.blueRibbon,
+    },
+  },
+}));
 
 const OnboardingOrganization = () => {
   const dispatch = useDispatch();
@@ -86,10 +107,53 @@ const OnboardingOrganization = () => {
   };
 
   const steps = [
-    OrganizationStepUsername,
     OrganizationStepEmail,
-    OrganizationStepAvatar,
     OrganizationStepPrefund,
+    OrganizationStepWalletName,
+    OrganizationStepAvatar,
+    OrganizationStepAddMembers,
+  ];
+
+  const stepsScreens = {
+    ENTER_EMAIL: 0,
+    FUND_YOUR_ORGANIZATION: 1,
+    NAME_YOUR_WALLET: 2,
+    ADD_PHOTO: 3,
+    ADD_MEMBERS: 4,
+  };
+
+  const stepperConfiguration = [
+    {
+      stepName: translate('OnboardingOrganization.stepperFirstStep'),
+      activeTillScreen: stepsScreens.ENTER_EMAIL,
+    },
+    {
+      stepName: translate('OnboardingOrganization.stepperSecondStep'),
+      activeTillScreen: stepsScreens.FUND_YOUR_ORGANIZATION,
+    },
+    {
+      stepName: translate('OnboardingOrganization.stepperThirdStep'),
+      activeTillScreen: stepsScreens.ADD_MEMBERS,
+    },
+  ];
+
+  const stepsButtons = [
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+      alternativeBtn: translate('OnboardingStepper.skipStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonFinish'),
+    },
   ];
 
   const stepsScreens = {
@@ -143,44 +207,27 @@ const OnboardingOrganization = () => {
   }
 
   return (
-    <OnboardingStepper
-      exitPath={DASHBOARD_PATH}
-      steps={steps}
-      values={values}
-      onFinish={onFinish}
-      onValuesChange={setValues}
-    />
-  );
-};
-
-const OrganizationStepUsername = ({ onDisabledChange, values, onChange }) => {
-  const handleChange = (username) => {
-    onChange({
-      username,
-    });
-  };
-
-  return (
-    <Fragment>
-      <Typography align="center" gutterBottom variant="h2">
-        {translate('OnboardingOrganization.headingUsername')}
-      </Typography>
-      <Typography>
-        {translate('OnboardingOrganization.bodyUsername')}
-      </Typography>
-      <Box mt={4}>
-        <VerifiedUsernameInput
-          label={translate('OnboardingOrganization.formUsername')}
-          value={values.username}
-          onChange={handleChange}
-          onStatusChange={onDisabledChange}
+    <>
+      <BackgroundCurved gradient="violet">
+        <OnboardingStepper
+          exitPath={DASHBOARD_PATH}
+          isOrganization={true}
+          mb={16}
+          stepperConfiguration={stepperConfiguration}
+          steps={steps}
+          stepsButtons={stepsButtons}
+          stepsScreens={stepsScreens}
+          values={values}
+          onFinish={onFinish}
+          onValuesChange={setValues}
         />
-      </Box>
-    </Fragment>
+      </BackgroundCurved>
+    </>
   );
 };
 
 const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
+  const classes = useStyles();
   const [emailValid, setEmailValid] = useState(false);
   const [privacy, setPrivacy] = useState(false);
   const [terms, setTerms] = useState(false);
@@ -209,11 +256,10 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
   }, [emailValid, privacy, terms, onDisabledChange]);
 
   return (
-    <Fragment>
-      <Typography align="center" gutterBottom variant="h2">
+    <Box className={classes.organizationEmailContainer}>
+      <Typography align="center" gutterBottom variant="h6">
         {translate('Onboarding.headingEmail')}
       </Typography>
-      <Typography>{translate('Onboarding.bodyEmail')}</Typography>
       <Box mt={3}>
         <VerifiedEmailInput
           label={translate('Onboarding.formEmail')}
@@ -221,7 +267,12 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
           onChange={handleEmail}
           onStatusChange={handleEmailStatus}
         />
-        <Box mt={2} textAlign={'left'}>
+        <Box mb={3} mt={6}>
+          <Typography className="lightGreyText">
+            {translate('Onboarding.bodyEmail')}
+          </Typography>
+        </Box>
+        <Box className={classes.CheckboxesContainer} mt={2} textAlign={'left'}>
           <Box>
             <CheckboxPrivacy checked={privacy} onChange={handlePrivacy} />
           </Box>
@@ -230,38 +281,14 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
           </Box>
         </Box>
       </Box>
-    </Fragment>
-  );
-};
-
-const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
-  const handleUpload = (avatarUrl) => {
-    onChange({
-      avatarUrl,
-    });
-  };
-
-  return (
-    <Fragment>
-      <Typography align="center" gutterBottom variant="h2">
-        {translate('OnboardingOrganization.headingAvatar')}
-      </Typography>
-      <Typography>{translate('OnboardingOrganization.bodyAvatar')}</Typography>
-      <Box mt={4}>
-        <AvatarUploader
-          value={values.avatarUrl}
-          onLoadingChange={onDisabledChange}
-          onUpload={handleUpload}
-        />
-      </Box>
-    </Fragment>
+    </Box>
   );
 };
 
 const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
+  const classes = useStyles();
   const [isError, setIsError] = useState(false);
   const { safe, token } = useSelector((state) => state);
-
   const maxAmount = parseFloat(
     formatCirclesValue(web3.utils.toBN(token.balance)),
   );
@@ -286,19 +313,23 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
   }, [onDisabledChange, isError, values.prefundValue]);
 
   return (
-    <Fragment>
-      <Typography align="center" gutterBottom variant="h2">
+    <Box className={classes.organizationStepPrefundContainer}>
+      <Typography align="center" gutterBottom variant="h6">
         {translate('OnboardingOrganization.headingPrefund')}
       </Typography>
-      <Typography>{translate('OnboardingOrganization.bodyPrefund')}</Typography>
+      <Typography className="lightGreyText">
+        {translate('OnboardingOrganization.bodyPrefund')}
+      </Typography>
       <Box mt={4}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TransferInfoBalanceCard
-              address={safe.currentAccount}
-              balance={token.balance}
-              label={translate('OnboardingOrganization.formPrefundSender')}
-            />
+            <Box mb={1.5}>
+              <TransferInfoBalanceCard
+                address={safe.currentAccount}
+                balance={token.balance}
+                label={translate('OnboardingOrganization.formPrefundSender')}
+              />
+            </Box>
           </Grid>
           <Grid item xs={12}>
             <TransferCirclesInput
@@ -315,7 +346,107 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
           </Grid>
         </Grid>
       </Box>
-    </Fragment>
+    </Box>
+  );
+};
+
+const OrganizationStepWalletName = ({ onDisabledChange, values, onChange }) => {
+  const classes = useStyles();
+
+  const handleChange = (username) => {
+    onChange({
+      username,
+    });
+  };
+
+  return (
+    <Box className={classes.organizationStepWalletNameContainer}>
+      <Typography align="center" gutterBottom variant="h6">
+        {translate('OnboardingOrganization.headingWalletName')}
+      </Typography>
+      <Box mb={6} mt={4}>
+        <VerifiedUsernameInput
+          label={translate('OnboardingOrganization.formUsername')}
+          value={values.username}
+          onChange={handleChange}
+          onStatusChange={onDisabledChange}
+        />
+      </Box>
+      <Box mb={4}>
+        <Typography mb={18}>
+          {translate('OnboardingOrganization.bodyUsername')}
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
+
+const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
+  const classes = useStyles();
+  const [photoUploaded, setPhotoUploaded] = useState(false);
+
+  const handleUpload = (avatarUrl) => {
+    onChange({
+      avatarUrl,
+    });
+    setPhotoUploaded(true);
+  };
+
+  useEffect(() => {
+    onDisabledChange(!photoUploaded);
+  }, [onDisabledChange, photoUploaded]);
+
+  return (
+    <Box className={classes.organizationStepAvatarContainer}>
+      <Typography align="center" gutterBottom variant="h6">
+        {translate('OnboardingOrganization.headingAvatar')}
+      </Typography>
+      <Box mb={4} mt={4}>
+        <AvatarUploader
+          shouldHaveIndicator
+          value={values.avatarUrl}
+          onLoadingChange={onDisabledChange}
+          onUpload={handleUpload}
+        />
+      </Box>
+    </Box>
+  );
+};
+
+const OrganizationStepAddMembers = ({ onDisabledChange }) => {
+  const classes = useStyles();
+  const [redirectPath, setRedirectPath] = useState(null);
+
+  const handleOnSelectFinder = (address) => {
+    setRedirectPath(
+      generatePath(PROFILE_PATH, {
+        address,
+      }),
+    );
+  };
+
+  useEffect(() => {
+    onDisabledChange(false);
+  }, [onDisabledChange]);
+
+  if (redirectPath) {
+    return <Redirect push to={redirectPath} />;
+  }
+
+  return (
+    <Box className={classes.organizationStepAddMembersContainer}>
+      <Box mb={4}>
+        <Typography align="center" gutterBottom variant="h6">
+          {translate('OnboardingOrganization.headingAddMembers')}
+        </Typography>
+      </Box>
+      <Finder
+        basePath={ORGANIZATION_PATH}
+        hasActions
+        isSharedWalletCreation
+        onSelect={handleOnSelectFinder}
+      />
+    </Box>
   );
 };
 
@@ -325,7 +456,7 @@ const stepProps = {
   values: PropTypes.object.isRequired,
 };
 
-OrganizationStepUsername.propTypes = {
+OrganizationStepWalletName.propTypes = {
   ...stepProps,
 };
 
@@ -338,6 +469,10 @@ OrganizationStepAvatar.propTypes = {
 };
 
 OrganizationStepPrefund.propTypes = {
+  ...stepProps,
+};
+
+OrganizationStepAddMembers.propTypes = {
   ...stepProps,
 };
 

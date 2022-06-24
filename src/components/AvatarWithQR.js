@@ -27,7 +27,7 @@ const AvatarWithQR = ({ address, ...props }) => {
       }}
       badgeContent={<IconQR className={classes.avatarBadgeIcon} />}
       className={classes.avatarBadge}
-      overlap="circle"
+      overlap="circular"
     >
       <Avatar address={address} {...props} />
     </Badge>

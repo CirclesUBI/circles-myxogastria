@@ -15,8 +15,7 @@ import { IconBack, IconClose } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    background:
-      'linear-gradient(180deg, rgba(215,58,83,1) 0%, rgba(251,134,9,1) 100%)',
+    background: theme.custom.gradients.violetTutorial,
   },
   background: {
     position: 'absolute',
@@ -24,23 +23,25 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     overflow: 'hidden',
     '&::after': {
-      [theme.breakpoints.up('sm')]: {
-        bottom: 100,
-        top: 'auto',
-        width: '200%',
-        height: '200%',
-        transform: 'translate3d(-50%, 0, 0)',
-      },
       position: 'absolute',
       display: 'block',
-      top: '50%',
       left: '50%',
-      width: 600,
-      height: 600,
+      width: 750,
+      height: 750,
       content: '""',
       backgroundColor: 'white',
       borderRadius: '50%',
-      transform: 'translate3d(-50%, -50%, 0)',
+      top: 'auto',
+      bottom: '100px',
+      transform: 'translate3d(-50%, 0, 0)',
+
+      [theme.breakpoints.up('sm')]: {
+        top: 'auto',
+        width: '200%',
+        bottom: 100,
+        height: '200%',
+        transform: 'translate3d(-50%, 0, 0)',
+      },
     },
   },
   slideContainer: {
@@ -177,7 +178,7 @@ const TutorialOrganization = ({ onFinishTutorial }) => {
           </SwipeableViews>
         </Box>
         <Box className={classes.footer} component="footer" p={2}>
-          <Button fullWidth isPrimary onClick={handleNext}>
+          <Button fullWidth isGradientBorder isWhite onClick={handleNext}>
             {isLastSlide
               ? translate('TutorialOrganization.finish')
               : translate('TutorialOrganization.next')}

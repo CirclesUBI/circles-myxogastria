@@ -18,12 +18,25 @@ const { ActivityTypes } = core.activity;
 const MAX_PROFILES = 12;
 
 const useStyles = makeStyles((theme) => ({
+  itemContainer: {
+    width: '116px',
+  },
   username: {
     maxWidth: '100px',
     marginTop: theme.spacing(0.5),
     textAlign: 'center',
     textDecoration: 'none',
     color: theme.palette.text.primary,
+  },
+  link: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+
+    '&:hover': {
+      textDecoration: 'none',
+    },
   },
 }));
 
@@ -72,7 +85,7 @@ const LastInteractions = () => {
   }, [activity.categories, safe.currentAccount]);
 
   return (
-    <Grid alignItems="center" container justify="center" spacing={2}>
+    <Grid alignItems="center" container justifyContent="center" spacing={2}>
       {lastActiveProfiles.map(({ safeAddress }) => {
         return (
           <LastInteractionsAccount address={safeAddress} key={safeAddress} />
@@ -87,9 +100,9 @@ const LastInteractionsAccount = ({ address }) => {
   const profilePath = useRelativeProfileLink(address);
 
   return (
-    <Grid item>
-      <MuiLink component={Link} to={profilePath}>
-        <Avatar address={address} size="medium" />
+    <Grid className={classes.itemContainer} item>
+      <MuiLink className={classes.link} component={Link} to={profilePath}>
+        <Avatar address={address} size="smallXl" />
         <Typography className={classes.username} noWrap>
           <UsernameDisplay address={address} />
         </Typography>
