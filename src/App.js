@@ -1,11 +1,9 @@
 import { Box, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import { SnackbarProvider } from 'notistack';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { use100vh } from 'react-div-100vh';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useLocation } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Routes from '~/routes';
