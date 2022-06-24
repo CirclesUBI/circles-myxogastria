@@ -92,6 +92,44 @@ const OnboardingOrganization = () => {
     OrganizationStepPrefund,
   ];
 
+  const stepsScreens = {
+    ENTER_EMAIL: 0,
+    FUND_YOUR_ORGANIZATION: 1,
+    NAME_YOUR_WALLET: 2,
+    ADD_PHOTO: 3,
+  };
+
+  const stepperConfiguration = [
+    {
+      stepName: translate('OnboardingOrganization.stepperFirstStep'),
+      activeTillScreen: stepsScreens.ENTER_EMAIL,
+    },
+    {
+      stepName: translate('OnboardingOrganization.stepperSecondStep'),
+      activeTillScreen: stepsScreens.FUND_YOUR_ORGANIZATION,
+    },
+    {
+      stepName: translate('OnboardingOrganization.stepperThirdStep'),
+      activeTillScreen: stepsScreens.ADD_PHOTO,
+    },
+  ];
+
+  const stepsButtons = [
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+    },
+    {
+      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
+    },
+    {
+      alternativeBtn: translate('OnboardingStepper.skipStep'),
+      btnNextStep: translate('OnboardingStepper.buttonFinish'),
+    },
+  ];
+
   const handleTutorialFinish = () => {
     dispatch(finishTutorial(ORGANIZATION_TUTORIAL));
   };
