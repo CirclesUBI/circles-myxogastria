@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import {
   //EDIT_PROFILE,
   MY_PROFILE_PATH,
-  ORGANIZATION_MEMBERS_ADD_PATH,
+  ORGANIZATION_MEMBERS_PATH,
 } from '~/routes';
 
 import Button from '~/components/Button';
@@ -146,7 +146,7 @@ export default function NavigationFloating(props) {
       >
         {props.isAddMembersLink && (
           <MenuItem>
-            <Link to={ORGANIZATION_MEMBERS_ADD_PATH}>
+            <Link to={ORGANIZATION_MEMBERS_PATH}>
               <Button isOutline isWhite>
                 {translate('NavigationFloating.linkAddMembers')}
               </Button>
