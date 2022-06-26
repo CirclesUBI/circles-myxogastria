@@ -146,7 +146,9 @@ const OnboardingOrganization = () => {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
     },
     {
-      alternativeBtn: `${translate('OnboardingStepper.skipStep')}. ${translate('OnboardingStepper.buttonFinish')}`,
+      alternativeBtn: `${translate('OnboardingStepper.skipStep')}. ${translate(
+        'OnboardingStepper.buttonFinish',
+      )}`,
       btnNextStep: translate('OnboardingStepper.buttonFinish'),
     },
   ];
