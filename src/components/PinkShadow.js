@@ -41,23 +41,22 @@ const PinkShadow = (props) => {
   // Fix issue where there was always one pixel too much in the calculation
   const height = use100vh() - 1;
 
-  useEffect(() => {
+  const applyPinkShadow = () => {
     const { scrollHeight, clientHeight } = ref.current;
     if (scrollHeight <= clientHeight + window.pageYOffset + 1) {
       setIsPinkShadow(false);
     } else {
       setIsPinkShadow(true);
     }
+  };
+
+  useEffect(() => {
+    applyPinkShadow();
   }, [location]);
 
   useEffect(() => {
     const onScroll = () => {
-      const { scrollHeight, clientHeight } = ref.current;
-      if (scrollHeight <= clientHeight + window.pageYOffset + 1) {
-        setIsPinkShadow(false);
-      } else {
-        setIsPinkShadow(true);
-      }
+      applyPinkShadow();
     };
 
     window.addEventListener('scroll', onScroll);
@@ -67,12 +66,13 @@ const PinkShadow = (props) => {
 
   useEffect(() => {
     const { scrollHeight, clientHeight } = ref.current;
-
     if (
       scrollHeight > clientHeight &&
       !(scrollHeight <= clientHeight + window.pageYOffset + 1)
     ) {
       setIsPinkShadow(true);
+    } else {
+      setIsPinkShadow(false);
     }
   }, [ref.current?.scrollHeight]);
 
