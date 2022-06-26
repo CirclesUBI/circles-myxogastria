@@ -111,7 +111,6 @@ const OnboardingOrganization = () => {
     OrganizationStepPrefund,
     OrganizationStepWalletName,
     OrganizationStepAvatar,
-    OrganizationStepAddMembers,
   ];
 
   const stepsScreens = {
@@ -119,7 +118,6 @@ const OnboardingOrganization = () => {
     FUND_YOUR_ORGANIZATION: 1,
     NAME_YOUR_WALLET: 2,
     ADD_PHOTO: 3,
-    ADD_MEMBERS: 4,
   };
 
   const stepperConfiguration = [
@@ -133,7 +131,7 @@ const OnboardingOrganization = () => {
     },
     {
       stepName: translate('OnboardingOrganization.stepperThirdStep'),
-      activeTillScreen: stepsScreens.ADD_MEMBERS,
+      activeTillScreen: stepsScreens.ADD_PHOTO,
     },
   ];
 
@@ -148,10 +146,9 @@ const OnboardingOrganization = () => {
       btnNextStep: translate('OnboardingStepper.buttonNextStep'),
     },
     {
-      btnNextStep: translate('OnboardingStepper.buttonNextStep'),
-      alternativeBtn: translate('OnboardingStepper.skipStep'),
-    },
-    {
+      alternativeBtn: `${translate('OnboardingStepper.skipStep')}. ${translate(
+        'OnboardingStepper.buttonFinish',
+      )}`,
       btnNextStep: translate('OnboardingStepper.buttonFinish'),
     },
   ];
