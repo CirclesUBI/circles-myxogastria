@@ -23,9 +23,12 @@ export function formatCirclesValue(
   valueInFreckles,
   timestamp = Date.now(),
   nbrOfDecimals = 2,
+  roundDown = true,
 ) {
   const valueInCircles = web3.utils.fromWei(valueInFreckles);
   const valueInTimeCircles = crcToTc(timestamp, Number(valueInCircles));
 
-  return roundDownToString(valueInTimeCircles, nbrOfDecimals);
+  return roundDown
+    ? roundDownToString(valueInTimeCircles, nbrOfDecimals)
+    : valueInTimeCircles.toFixed().toString();
 }
