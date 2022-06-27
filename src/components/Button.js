@@ -10,12 +10,13 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
     textTransform: 'none',
     borderRadius: 16,
+    zIndex: theme.zIndex.layer2,
   },
   buttonDark: {
     color: theme.palette.text.primary,
   },
   buttonOutline: {
-    height: 36.5, // Make it as high as the other buttons
+    height: '43.5px', // Make it as high as the other buttons
     color: theme.palette.primary.main,
     border: `${theme.palette.primary.main} 2px solid`,
     '&.Mui-disabled': {
@@ -33,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
     background: theme.custom.gradients.purple,
     color: theme.palette.common.white,
     '&.Mui-disabled': {
-      background: theme.custom.gradients.gray,
+      background: theme.custom.gradients.grayDark,
+      color: theme.custom.colors.white,
     },
   },
   buttonWhite: {
@@ -45,6 +47,11 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonWhiteText: {
     color: theme.custom.colors.white,
+  },
+  buttonGradientBorder: {
+    background: `linear-gradient(${theme.custom.colors.white}, ${theme.custom.colors.white}) padding-box,
+    linear-gradient(to right, ${theme.custom.colors.purple}, ${theme.custom.colors.purpleDark}) border-box`,
+    border: '1px solid transparent',
   },
 }));
 
@@ -60,6 +67,7 @@ const Button = React.forwardRef(
       isPrimary,
       isWhite,
       isWhiteText,
+      isGradientBorder,
       to,
       ...props
     },
@@ -74,6 +82,7 @@ const Button = React.forwardRef(
       [classes.buttonPrimary]: isPrimary,
       [classes.buttonWhite]: isWhite,
       [classes.buttonWhiteText]: isWhiteText,
+      [classes.buttonGradientBorder]: isGradientBorder,
     });
 
     return React.createElement(
@@ -99,6 +108,7 @@ Button.propTypes = {
   className: PropTypes.string,
   isDanger: PropTypes.bool,
   isDark: PropTypes.bool,
+  isGradientBorder: PropTypes.bool,
   isOutline: PropTypes.bool,
   isPrimary: PropTypes.bool,
   isWhite: PropTypes.bool,

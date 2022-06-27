@@ -4,6 +4,7 @@ import {
   CircularProgress,
   Grid,
   Input,
+  InputAdornment,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,6 +32,7 @@ import { useQuery } from '~/hooks/url';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import { checkTrustState } from '~/store/trust/actions';
+import { IconSearch } from '~/styles/icons';
 import { IconFollow, IconTrustActive, IconWorld } from '~/styles/icons';
 import debounce from '~/utils/debounce';
 
@@ -69,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
   searchItem: {
     cursor: 'pointer',
+    boxShadow: theme.custom.shadows.gray,
   },
   bottomNavigation: {
     marginBottom: theme.spacing(2),
@@ -92,6 +95,7 @@ const Finder = ({
   onSelect,
   hasActions,
   filteredSafeAddresses = [],
+  isSharedWalletCreation,
   basePath = SEARCH_PATH,
 }) => {
   const dispatch = useDispatch();
@@ -225,7 +229,7 @@ const Finder = ({
 
   return (
     <Fragment>
-      <Box mb={1}>
+      <Box mb={4}>
         <FinderSearchBar
           basePath={basePath}
           input={input}
@@ -260,6 +264,7 @@ const Finder = ({
           filterResults={filterResults}
           hasActions={hasActions}
           isLoading={isLoading}
+          isSharedWalletCreation={isSharedWalletCreation}
           selectedFilter={selectedFilter}
           onSelect={onSelect}
         />
@@ -326,6 +331,11 @@ const FinderSearchBar = ({
       autoFocus
       className={classes.searchInput}
       disableUnderline={true}
+      endAdornment={
+        <InputAdornment position="end">
+          <IconSearch fontSize="small" />
+        </InputAdornment>
+      }
       fullWidth
       id="search"
       placeholder={translate('Finder.formSearch')}
@@ -348,6 +358,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
           <Badge
             badgeContent={filterResults[FILTER_DIRECT].length}
             color="primary"
+            overlap="rectangular"
           >
             <IconTrustActive />
           </Badge>
@@ -360,6 +371,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
           <Badge
             badgeContent={filterResults[FILTER_INDIRECT].length}
             color="primary"
+            overlap="rectangular"
           >
             <IconFollow />
           </Badge>
@@ -372,6 +384,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
           <Badge
             badgeContent={filterResults[FILTER_EXTERNAL].length}
             color="primary"
+            overlap="rectangular"
           >
             <IconWorld />
           </Badge>
@@ -389,6 +402,7 @@ const FinderResults = ({
   isLoading,
   onSelect,
   selectedFilter,
+  isSharedWalletCreation,
 }) => {
   const [limit, setLimit] = useState({
     [FILTER_DIRECT]: PAGE_SIZE,
@@ -431,6 +445,7 @@ const FinderResults = ({
                   <Grid item key={index} xs={12}>
                     <FinderResultsItem
                       hasActions={hasActions}
+                      isSharedWalletCreation={isSharedWalletCreation}
                       user={item}
                       onClick={handleSelect}
                     />
@@ -463,6 +478,7 @@ const FinderResultsItem = (props) => {
       address={props.user.safeAddress}
       className={classes.searchItem}
       hasActions={props.hasActions}
+      isSharedWalletCreation={props.isSharedWalletCreation}
       onClick={handleSelect}
     />
   );
@@ -472,6 +488,7 @@ Finder.propTypes = {
   basePath: PropTypes.string,
   filteredSafeAddresses: PropTypes.arrayOf(PropTypes.string),
   hasActions: PropTypes.bool,
+  isSharedWalletCreation: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
 };
 
@@ -494,12 +511,14 @@ FinderResults.propTypes = {
   filterResults: PropTypes.object.isRequired,
   hasActions: PropTypes.bool,
   isLoading: PropTypes.bool.isRequired,
+  isSharedWalletCreation: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
   selectedFilter: PropTypes.symbol.isRequired,
 };
 
 FinderResultsItem.propTypes = {
   hasActions: PropTypes.bool,
+  isSharedWalletCreation: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 };

@@ -83,7 +83,7 @@ const MyProfile = () => {
             <Button isOutline to={profilePath}>
               {translate('MyProfile.buttonShowProfile')}
             </Button>
-            <Button isPrimary to={SHARE_PATH}>
+            <Button isOutline isPrimary to={SHARE_PATH}>
               {translate('MyProfile.buttonShowQR')}
             </Button>
           </ButtonGroup>
