@@ -149,7 +149,7 @@ export function formatMessage({
   // Check if find a value in the data (during transfers)
   if ('value' in dataCopy) {
     // Convert the value according to its denominator
-    const valueInCircles = formatCirclesValue(dataCopy.value, date);
+    const valueInCircles = formatCirclesValue(dataCopy.value, date, 2, false);
     dataCopy.denominator = 'Circles';
     dataCopy.value = valueInCircles;
   }
