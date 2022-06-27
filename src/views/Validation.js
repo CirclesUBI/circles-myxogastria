@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ActivityIcon from '~/components/ActivityIcon';
 import AvatarHeader from '~/components/AvatarHeader';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import Button from '~/components/Button';
@@ -112,9 +111,7 @@ const Validation = () => {
 
   return (
     <BackgroundCurved gradient="turquoise">
-      <Header className={classes.validationHeader} hasWhiteIcons>
-        <ActivityIcon />
-      </Header>
+      <Header className={classes.validationHeader} hasWhiteIcons />
       <AvatarHeader />
       <DialogFromBottom
         dialogOpen={dialogOpen}
