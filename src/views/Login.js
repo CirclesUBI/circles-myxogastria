@@ -5,15 +5,17 @@ import {
   Paper,
   Typography,
 } from '@material-ui/core';
-import React, { Fragment, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { ONBOARDING_PATH } from '~/routes';
 
+import LoginIconSVG from '%/images/login.svg';
+import BackgroundCurved from '~/components/BackgroundCurved';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
-import CenteredHeading from '~/components/CenteredHeading';
 import ExternalLink from '~/components/ExternalLink';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
@@ -29,8 +31,27 @@ import {
   RESTORE_ACCOUNT_UNKNOWN_SAFE,
 } from '~/utils/errors';
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    position: 'relative',
+    zIndex: theme.zIndex.layer1,
+  },
+
+  textContainer: {
+    textAlign: 'center',
+    maxWidth: '250px',
+    margin: '0 auto',
+  },
+
+  loginImg: {
+    textAlign: 'center',
+    marginTop: '-41px',
+  },
+}));
+
 const Login = () => {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const [seedPhrase, setSeedPhrase] = useState('');
 
@@ -74,23 +95,29 @@ const Login = () => {
   const isValid = parsedPhrase.length === 24;
 
   return (
-    <Fragment>
+    <BackgroundCurved gradient="turquoise">
       <Header>
         <ButtonBack />
-        <CenteredHeading>{translate('Login.headingLogin')}</CenteredHeading>
       </Header>
       <View>
-        <Container maxWidth="sm">
-          <Typography align="center">
-            {translate('Login.bodyEnterYourSeedPhrase')}
-          </Typography>
-          <Box mb={7} mt={4}>
+        <Container className={classes.container} maxWidth="sm">
+          <Box className={classes.loginImg}>
+            <LoginIconSVG></LoginIconSVG>
+          </Box>
+          <Box mb={7} mt={14}>
+            <Typography align="center" gutterBottom variant="h6">
+              {translate('Login.headingLogin')}
+            </Typography>
+            <Typography className={classes.textContainer}>
+              {translate('Login.bodyEnterYourSeedPhrase')}
+            </Typography>
             <Paper p={2}>
               <Input
                 fullWidth
                 id="seedPhrase"
                 isError={seedPhrase.length > 0 && !isValid}
                 multiline
+                placeholder={translate('Login.inputPlaceholder')}
                 rows={4}
                 style={{ padding: '1rem' }}
                 value={seedPhrase}
@@ -122,7 +149,7 @@ const Login = () => {
           {translate('Login.buttonSubmit')}
         </Button>
       </Footer>
-    </Fragment>
+    </BackgroundCurved>
   );
 };
 

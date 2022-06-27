@@ -1,20 +1,15 @@
 import {
   Avatar,
-  Box,
   Step,
   StepConnector,
   StepIcon,
   Stepper,
-  Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import Button from '~/components/Button';
-import translate from '~/services/locale';
-import { finalizeNewAccount } from '~/store/onboarding/actions';
 import { IconCheck } from '~/styles/icons';
 import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
 
@@ -44,8 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ValidationStatus = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const { app, safe, trust } = useSelector((state) => state);
+  const { safe, trust } = useSelector((state) => state);
 
   // Attempt deployment if one of two conditions is met:
   //
@@ -53,15 +47,6 @@ const ValidationStatus = () => {
   // pay for our fees
   // 2. We funded the Safe ourselves manually
   const isReady = safe.pendingIsFunded || trust.isTrusted;
-
-  const onDeploy = async () => {
-    await dispatch(finalizeNewAccount());
-  };
-
-  // Safe and Token is already deployed or being deployed right now?
-  if (app.isValidated || safe.pendingIsLocked) {
-    return null;
-  }
 
   return (
     <Fragment>
@@ -90,25 +75,6 @@ const ValidationStatus = () => {
           );
         })}
       </Stepper>
-      {isReady ? (
-        <Fragment>
-          <Typography align="center" gutterBottom>
-            {translate('ValidationStatus.bodyReadyForDeployment')}
-          </Typography>
-          <Box my={4}>
-            <Button fullWidth isPrimary onClick={onDeploy}>
-              {translate('ValidationStatus.buttonStartDeployment')}
-            </Button>
-          </Box>
-        </Fragment>
-      ) : (
-        <Typography align="center">
-          {translate('Validation.bodyTrustDescription')}{' '}
-          <strong>
-            {translate('Validation.bodyTrustDescriptionEmphasize')}
-          </strong>
-        </Typography>
-      )}
     </Fragment>
   );
 };

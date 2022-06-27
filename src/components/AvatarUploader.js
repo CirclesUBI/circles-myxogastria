@@ -1,10 +1,11 @@
-import { Avatar, CircularProgress } from '@material-ui/core';
+import { Avatar, Box, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import mime from 'mime/lite';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import GroupWalletCircleSVG from '%/images/organization-indicator.svg';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -14,18 +15,37 @@ const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const useStyles = makeStyles((theme) => ({
   avatarUpload: {
     margin: '0 auto',
-    width: theme.spacing(15),
-    height: theme.spacing(15),
+    width: theme.custom.components.avatarUploader,
+    height: theme.custom.components.avatarUploader,
     color: theme.palette.text.primary,
     fontSize: '30px',
     fontWeight: theme.typography.fontWeightMedium,
-    backgroundColor: 'transparent',
+    backgroundColor: theme.custom.colors.white,
     border: `1px solid ${theme.palette.text.primary}`,
     cursor: 'pointer',
+    position: 'relative',
+    zIndex: theme.zIndex.layer1,
+  },
+  indicatorContainer: {
+    position: 'absolute',
+    zIndex: theme.zIndex.layer1,
+    top: '-2px',
+    left: 0,
+  },
+  avatarUploaderContainer: {
+    width: theme.custom.components.avatarUploader,
+    height: theme.custom.components.avatarUploader,
+    margin: '0 auto',
+    position: 'relative',
   },
 }));
 
-const AvatarUploader = ({ onLoadingChange, onUpload, value }) => {
+const AvatarUploader = ({
+  onLoadingChange,
+  onUpload,
+  value,
+  shouldHaveIndicator,
+}) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -78,20 +98,27 @@ const AvatarUploader = ({ onLoadingChange, onUpload, value }) => {
 
   return (
     <Fragment>
-      <Avatar
-        className={classes.avatarUpload}
-        src={isLoading ? null : value}
-        onClick={handleUploadClick}
-      >
-        {isLoading ? <CircularProgress /> : '+'}
-      </Avatar>
-      <input
-        accept={fileTypesStr}
-        ref={fileInputElem}
-        style={{ display: 'none' }}
-        type="file"
-        onChange={handleChange}
-      />
+      <Box className={classes.avatarUploaderContainer}>
+        {shouldHaveIndicator && (
+          <Box className={classes.indicatorContainer}>
+            <GroupWalletCircleSVG width={94} />
+          </Box>
+        )}
+        <Avatar
+          className={classes.avatarUpload}
+          src={isLoading ? null : value}
+          onClick={handleUploadClick}
+        >
+          {isLoading ? <CircularProgress /> : '+'}
+        </Avatar>
+        <input
+          accept={fileTypesStr}
+          ref={fileInputElem}
+          style={{ display: 'none' }}
+          type="file"
+          onChange={handleChange}
+        />
+      </Box>
     </Fragment>
   );
 };
@@ -99,6 +126,7 @@ const AvatarUploader = ({ onLoadingChange, onUpload, value }) => {
 AvatarUploader.propTypes = {
   onLoadingChange: PropTypes.func.isRequired,
   onUpload: PropTypes.func.isRequired,
+  shouldHaveIndicator: PropTypes.bool,
   value: PropTypes.string,
 };
 
