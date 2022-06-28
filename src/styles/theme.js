@@ -27,8 +27,14 @@ const monochrome = {
   white: '#fff',
 };
 
+const rgba = {
+  doveGray: 'rgb(107, 101, 101,0.5)',
+  dialogGray: 'rgba(0, 0, 0, 0.25)',
+};
+
 export const colors = {
   ...monochrome,
+  ...rgba,
   red: '#cc0000',
   green: '#45e6af',
   blue: '#3ce6e1',
@@ -41,16 +47,40 @@ export const colors = {
   turquoiseDark: '#369998',
   jaggedIce: '#C8E8EA',
   silverTree: 'rgba(112, 189, 158, 0.40)',
+  finn: 'rgba(90, 47, 86, 0.3)',
+  fountainBlue: '#48B2B7',
+  springGreen: '#06FC9D',
+  pizazz: '#FF8E00',
+  ceriseRed: '#D12D5F',
+  pink: '#D22E60',
+  blueRibbon: '#2B44FF',
+  disco: '#99164C',
+  violet: '#5A2F56',
+  tapestry: '#A75183',
 };
 
 const gradients = {
+  blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
   gray: `linear-gradient(280deg, ${colors.grayDark} 0%, ${colors.gray} 100%)`,
+  grayDark:
+    'linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(284.04deg, rgba(0, 0, 0, 0.49) 0%, rgba(0, 0, 0, 0.12) 100%);',
   purple: `linear-gradient(280deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
-  turquoise: `linear-gradient(0deg, ${colors.green} 0%, ${colors.turquoise} 100%)`,
   error: `linear-gradient(90deg, ${colors.purpleDark}, ${colors.purple} 100%)`,
   info: `linear-gradient(90deg, ${colors.blue} 0%, ${colors.purpleLight} 100%)`,
   success: `linear-gradient(90deg, ${colors.green} 0%, ${colors.blue} 100%)`,
   warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
+  greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
+  greenBlueHeader: `linear-gradient(207.4deg, ${colors.fountainBlue} 36.45%, ${colors.springGreen} 155.65%)`,
+  pinkShade: `linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, ${colors.pink} 145%)`,
+  violetCurved: `linear-gradient(180deg, ${colors.tapestry} 0%, ${colors.violet} 33.2%)`,
+  violetHeader: `linear-gradient(207.4deg, ${colors.tapestry} 36.45%, ${colors.violet} 155.65%)`,
+  violetTutorial: `linear-gradient(180deg, ${colors.tapestry} 0%, ${colors.violet} 100%)`,
+  turquoise: `linear-gradient(0deg, ${colors.green} 0%, ${colors.turquoise} 100%)`,
+};
+
+const shadows = {
+  gray: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  grayUp: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
 };
 
 const components = {
@@ -58,6 +88,7 @@ const components = {
   appMaxWidth: 900,
   appMinWidth: 360,
   avatarSize: 50,
+  avatarUploader: 85,
   navigationWidth: 300,
 };
 
@@ -71,6 +102,7 @@ export default createTheme({
       md: 960,
       lg: 1280,
       xl: 1920,
+      xlPlus1: 1921,
     },
   },
   props: {
@@ -132,6 +164,9 @@ export default createTheme({
       fontSize: '18px',
       fontWeight: fontWeightMedium,
       lineHeight: '25px',
+      '&.MuiTypography-gutterBottom': {
+        marginBottom: '12px',
+      },
     },
   },
   zIndex: {
@@ -139,12 +174,16 @@ export default createTheme({
     qrCodeScannerSpinner: 11000,
     qrCodeScannerVideo: 12000,
     spinnerOverlay: 20000,
+    layer1: 10,
+    layer2: 20,
+    backgroundCurvedWrapper: 0,
   },
   overrides: {
     MuiCssBaseline: {
       '@global': {
         body: {
           overflowX: 'hidden',
+          backgroundColor: colors.white,
         },
         '@font-face': [
           notoSans,
@@ -180,6 +219,13 @@ export default createTheme({
         fontWeight: fontWeightLight,
       },
     },
+    MuiTypography: {
+      root: {
+        '&.lightGreyText': {
+          color: colors.grayDarker,
+        },
+      },
+    },
     // @NOTE: This is a workaround to fix an issue with Safari 14.1.1
     // displaying the button color wrong after it changed to enabled state.
     //
@@ -187,6 +233,7 @@ export default createTheme({
     MuiButton: {
       root: {
         transition: 'color .01s',
+        fontSize: 18,
       },
     },
   },
@@ -194,5 +241,6 @@ export default createTheme({
     colors,
     components,
     gradients,
+    shadows,
   },
 });

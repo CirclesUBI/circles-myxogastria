@@ -25,7 +25,6 @@ import Share from '~/views/Share';
 import TutorialOnboarding from '~/views/TutorialOnboarding';
 import Validation from '~/views/Validation';
 import ValidationLock from '~/views/ValidationLock';
-import ValidationShare from '~/views/ValidationShare';
 import Welcome from '~/views/Welcome';
 
 // Routes in Drawer component
@@ -48,8 +47,8 @@ export const SEND_PATH = '/send';
 export const SETTINGS_PATH = '/settings';
 export const SHARE_PATH = '/share';
 export const VALIDATION_PATH = '/validation';
-export const VALIDATION_SHARE_PATH = '/validation/share';
 export const WELCOME_PATH = '/welcome';
+export const EDIT_PROFILE = '/editprofile';
 
 const SessionContainer = ({
   component: Component,
@@ -234,11 +233,6 @@ const Routes = () => {
       />
       <OnboardingRoute component={Login} exact path={LOGIN_PATH} />
       <SessionRoute component={Validation} exact path={VALIDATION_PATH} />
-      <SessionRoute
-        component={ValidationShare}
-        exact
-        path={VALIDATION_SHARE_PATH}
-      />
       <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
       <TrustedRoute component={Send} exact path={SEND_PATH} />
       <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />

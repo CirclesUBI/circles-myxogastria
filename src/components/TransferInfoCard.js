@@ -17,6 +17,9 @@ import { useUserdata } from '~/hooks/username';
 const fontSize = 12;
 
 const useStyles = makeStyles((theme) => ({
+  cardContainer: {
+    boxShadow: theme.custom.shadows.gray,
+  },
   cardHeader: {
     padding: theme.spacing(1),
     textAlign: 'left',
@@ -28,12 +31,15 @@ const useStyles = makeStyles((theme) => ({
     '&>*': {
       marginRight: theme.spacing(0.5),
     },
+    '&>span': {
+      color: theme.custom.colors.grayDarkest,
+    },
   },
   inputLabel: {
     marginBottom: theme.spacing(1),
     color: theme.palette.text.primary,
     fontWeight: theme.typography.fontWeightMedium,
-    fontSize,
+    fontSize: '18px',
     textAlign: 'left',
   },
 }));
@@ -53,7 +59,7 @@ const TransferInfoCard = ({
       <InputLabel className={classes.inputLabel} htmlFor="receiver">
         {label}
       </InputLabel>
-      <Card>
+      <Card className={classes.cardContainer}>
         <CardHeader
           avatar={<Avatar address={address} size="tiny" />}
           className={classes.cardHeader}
