@@ -5,7 +5,7 @@ import web3 from '~/services/web3';
 const roundDownToString = (amount, nbrOfDecimals) => {
   const [wholeNumber, decimals] = amount.toString().split('.');
 
-  if (!decimals) {
+  if (!decimals || decimals == '' || nbrOfDecimals == 0) {
     return wholeNumber;
   }
 
@@ -17,6 +17,7 @@ const roundDownToString = (amount, nbrOfDecimals) => {
  * @param {string} valueInFreckles
  * @param {Date | number} timestamp date of Time Circles conversion (default present time)
  * @param {number} decimals number of decimals in returned Time Circles value (default 2)
+ * @param {roundDown} bool if true returned value will never round up (default), false to use normal mathematical rounding
  * @returns formatted Time Circles value as string (rounded down at specified number of decimals)
  */
 export function formatCirclesValue(
@@ -30,5 +31,5 @@ export function formatCirclesValue(
 
   return roundDown
     ? roundDownToString(valueInTimeCircles, nbrOfDecimals)
-    : valueInTimeCircles.toFixed().toString();
+    : valueInTimeCircles.toFixed(nbrOfDecimals).toString();
 }
