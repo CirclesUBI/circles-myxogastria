@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import { ACCOUNT_CREATE } from '~/store/tutorial/actions';
 import Activities from '~/views/Activities';
