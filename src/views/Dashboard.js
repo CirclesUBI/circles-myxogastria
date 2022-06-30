@@ -7,8 +7,9 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import { SEARCH_PATH, SEND_PATH } from '~/routes';
 
@@ -106,6 +107,14 @@ const Dashboard = () => {
   const { isFinished: isTutorialFinished } = useSelector((state) => {
     return state.tutorial[TRANSITION_WALKTHROUGH];
   });
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state.fromValidation) {
+      dispatch(finishTutorial(TRANSITION_WALKTHROUGH));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useUpdateLoop(async () => {
     await dispatch(checkFinishedActivities());
