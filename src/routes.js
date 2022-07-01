@@ -55,6 +55,7 @@ const SessionContainer = ({
   isAuthorizationRequired = false,
   isValidationRequired = false,
   isOrganizationRequired = false,
+  fromValidation = false,
 }) => {
   const { app, safe } = useSelector((state) => state);
   let isValid = true;
@@ -98,7 +99,9 @@ const SessionContainer = ({
       return <Redirect to={VALIDATION_PATH} />;
     }
 
-    return <Redirect to={DASHBOARD_PATH} />;
+    return (
+      <Redirect to={{ pathname: DASHBOARD_PATH, state: { fromValidation } }} />
+    );
   }
 
   return <Redirect to={WELCOME_PATH} />;
@@ -114,10 +117,14 @@ const OnboardingRoute = ({ component, path }) => {
   );
 };
 
-const SessionRoute = ({ component, path }) => {
+const SessionRoute = ({ component, path, fromValidation }) => {
   return (
     <Route path={path}>
-      <SessionContainer component={component} isAuthorizationRequired />
+      <SessionContainer
+        component={component}
+        fromValidation={fromValidation}
+        isAuthorizationRequired
+      />
     </Route>
   );
 };
@@ -232,7 +239,12 @@ const Routes = () => {
         path={ONBOARDING_PATH}
       />
       <OnboardingRoute component={Login} exact path={LOGIN_PATH} />
-      <SessionRoute component={Validation} exact path={VALIDATION_PATH} />
+      <SessionRoute
+        component={Validation}
+        exact
+        fromValidation
+        path={VALIDATION_PATH}
+      />
       <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
       <TrustedRoute component={Send} exact path={SEND_PATH} />
       <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
@@ -264,6 +276,7 @@ const Routes = () => {
 
 SessionContainer.propTypes = {
   component: PropTypes.elementType.isRequired,
+  fromValidation: PropTypes.bool,
   isAuthorizationRequired: PropTypes.bool,
   isOrganizationRequired: PropTypes.bool,
   isValidationRequired: PropTypes.bool,
@@ -276,6 +289,7 @@ OnboardingRoute.propTypes = {
 
 SessionRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
+  fromValidation: PropTypes.bool,
   path: PropTypes.string.isRequired,
 };
 
