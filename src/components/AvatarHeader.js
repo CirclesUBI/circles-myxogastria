@@ -51,11 +51,13 @@ const AvatarHeader = ({ hideImage, username }) => {
     <Box className={classes.userDataContainer}>
       <Box className={classes.avatarContainer}>
         {!hideImage && (
-          <Avatar
-            address={safe.currentAccount || safe.pendingAddress}
-            className={classes.avatarContainer}
-            size={'smallXl'}
-          />
+          <Link to={MY_PROFILE_PATH}>
+            <Avatar
+              address={safe.currentAccount || safe.pendingAddress}
+              className={classes.avatarContainer}
+              size={'smallXl'}
+            />
+          </Link>
         )}
       </Box>
       <Box className={classes.textContainer}>
