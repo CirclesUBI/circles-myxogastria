@@ -5,6 +5,7 @@ import activity from '%/images/activity.svg';
 import add from '%/images/add.svg';
 import alert from '%/images/alert.svg';
 import arrow from '%/images/arrow.svg';
+import camera from '%/images/edit.svg';
 import check from '%/images/check.svg';
 import circles from '%/images/circles.svg';
 import closeOutline from '%/images/close-outline.svg';
@@ -46,6 +47,10 @@ export const IconAlert = (props) => {
 
 export const IconBack = (props) => {
   return <SvgIcon component={arrow} {...props} viewBox="0 0 12 18" />;
+};
+
+export const IconCamera = (props) => {
+  return <SvgIcon component={camera} viewBox="0 0 20 20" {...props} />;
 };
 
 export const IconCheck = (props) => {
