@@ -117,7 +117,7 @@ export function createNewOrganization(
       );
 
       // Prefund the organization with Tokens from the user (transfer)
-      const amount = web3.utils.BN(
+      const amount = new web3.utils.BN(
         core.utils.toFreckles(tcToCrc(Date.now(), Number(prefundValue))),
       );
       await waitAndRetryOnFail(

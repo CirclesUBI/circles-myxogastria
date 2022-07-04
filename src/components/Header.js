@@ -97,7 +97,7 @@ const Header = ({
 };
 
 Header.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
   hasWhiteIcons: PropTypes.bool,
   isOrganization: PropTypes.bool,

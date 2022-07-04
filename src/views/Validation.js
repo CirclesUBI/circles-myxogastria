@@ -111,7 +111,11 @@ const Validation = () => {
 
   return (
     <BackgroundCurved gradient="turquoise">
-      <Header className={classes.validationHeader} hasWhiteIcons />
+      <Header
+        className={classes.validationHeader}
+        hasWhiteIcons
+        useSpecialWithColorOnScroll
+      />
       <AvatarHeader />
       <DialogFromBottom
         dialogOpen={dialogOpen}
