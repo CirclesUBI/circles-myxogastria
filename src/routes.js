@@ -294,6 +294,7 @@ SessionContainer.propTypes = {
 
 OnboardingRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
+  hideTransitionTutorial: PropTypes.bool,
   path: PropTypes.string.isRequired,
 };
 
