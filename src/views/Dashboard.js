@@ -110,7 +110,7 @@ const Dashboard = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.state?.fromValidation) {
+    if (location.state?.hideTransitionTutorial) {
       dispatch(finishTutorial(TRANSITION_WALKTHROUGH));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

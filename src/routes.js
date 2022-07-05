@@ -55,7 +55,7 @@ const SessionContainer = ({
   isAuthorizationRequired = false,
   isValidationRequired = false,
   isOrganizationRequired = false,
-  fromValidation = false,
+  hideTransitionTutorial = false,
 }) => {
   const { app, safe } = useSelector((state) => state);
   let isValid = true;
@@ -100,7 +100,9 @@ const SessionContainer = ({
     }
 
     return (
-      <Redirect to={{ pathname: DASHBOARD_PATH, state: { fromValidation } }} />
+      <Redirect
+        to={{ pathname: DASHBOARD_PATH, state: { hideTransitionTutorial } }}
+      />
     );
   }
 
@@ -109,20 +111,23 @@ const SessionContainer = ({
 
 // Containers for routes with different permissions
 
-const OnboardingRoute = ({ component, path }) => {
-  return (
-    <Route path={path}>
-      <SessionContainer component={component} />
-    </Route>
-  );
-};
-
-const SessionRoute = ({ component, path, fromValidation }) => {
+const OnboardingRoute = ({ component, path, hideTransitionTutorial }) => {
   return (
     <Route path={path}>
       <SessionContainer
         component={component}
-        fromValidation={fromValidation}
+        hideTransitionTutorial={hideTransitionTutorial}
+      />
+    </Route>
+  );
+};
+
+const SessionRoute = ({ component, path, hideTransitionTutorial }) => {
+  return (
+    <Route path={path}>
+      <SessionContainer
+        component={component}
+        hideTransitionTutorial={hideTransitionTutorial}
         isAuthorizationRequired
       />
     </Route>
@@ -238,11 +243,16 @@ const Routes = () => {
         exact
         path={ONBOARDING_PATH}
       />
-      <OnboardingRoute component={Login} exact path={LOGIN_PATH} />
+      <OnboardingRoute
+        component={Login}
+        exact
+        hideTransitionTutorial
+        path={LOGIN_PATH}
+      />
       <SessionRoute
         component={Validation}
         exact
-        fromValidation
+        hideTransitionTutorial
         path={VALIDATION_PATH}
       />
       <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
@@ -276,7 +286,7 @@ const Routes = () => {
 
 SessionContainer.propTypes = {
   component: PropTypes.elementType.isRequired,
-  fromValidation: PropTypes.bool,
+  hideTransitionTutorial: PropTypes.bool,
   isAuthorizationRequired: PropTypes.bool,
   isOrganizationRequired: PropTypes.bool,
   isValidationRequired: PropTypes.bool,
@@ -289,7 +299,7 @@ OnboardingRoute.propTypes = {
 
 SessionRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
-  fromValidation: PropTypes.bool,
+  hideTransitionTutorial: PropTypes.bool,
   path: PropTypes.string.isRequired,
 };
 
