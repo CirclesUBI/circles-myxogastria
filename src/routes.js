@@ -55,6 +55,7 @@ const SessionContainer = ({
   isAuthorizationRequired = false,
   isValidationRequired = false,
   isOrganizationRequired = false,
+  hideTransitionTutorial = false,
 }) => {
   const { app, safe } = useSelector((state) => state);
   let isValid = true;
@@ -98,7 +99,11 @@ const SessionContainer = ({
       return <Redirect to={VALIDATION_PATH} />;
     }
 
-    return <Redirect to={DASHBOARD_PATH} />;
+    return (
+      <Redirect
+        to={{ pathname: DASHBOARD_PATH, state: { hideTransitionTutorial } }}
+      />
+    );
   }
 
   return <Redirect to={WELCOME_PATH} />;
@@ -106,18 +111,25 @@ const SessionContainer = ({
 
 // Containers for routes with different permissions
 
-const OnboardingRoute = ({ component, path }) => {
+const OnboardingRoute = ({ component, path, hideTransitionTutorial }) => {
   return (
     <Route path={path}>
-      <SessionContainer component={component} />
+      <SessionContainer
+        component={component}
+        hideTransitionTutorial={hideTransitionTutorial}
+      />
     </Route>
   );
 };
 
-const SessionRoute = ({ component, path }) => {
+const SessionRoute = ({ component, path, hideTransitionTutorial }) => {
   return (
     <Route path={path}>
-      <SessionContainer component={component} isAuthorizationRequired />
+      <SessionContainer
+        component={component}
+        hideTransitionTutorial={hideTransitionTutorial}
+        isAuthorizationRequired
+      />
     </Route>
   );
 };
@@ -231,8 +243,18 @@ const Routes = () => {
         exact
         path={ONBOARDING_PATH}
       />
-      <OnboardingRoute component={Login} exact path={LOGIN_PATH} />
-      <SessionRoute component={Validation} exact path={VALIDATION_PATH} />
+      <OnboardingRoute
+        component={Login}
+        exact
+        hideTransitionTutorial
+        path={LOGIN_PATH}
+      />
+      <SessionRoute
+        component={Validation}
+        exact
+        hideTransitionTutorial
+        path={VALIDATION_PATH}
+      />
       <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
       <TrustedRoute component={Send} exact path={SEND_PATH} />
       <TrustedRoute component={SeedPhrase} exact path={SEED_PHRASE_PATH} />
@@ -264,6 +286,7 @@ const Routes = () => {
 
 SessionContainer.propTypes = {
   component: PropTypes.elementType.isRequired,
+  hideTransitionTutorial: PropTypes.bool,
   isAuthorizationRequired: PropTypes.bool,
   isOrganizationRequired: PropTypes.bool,
   isValidationRequired: PropTypes.bool,
@@ -271,11 +294,13 @@ SessionContainer.propTypes = {
 
 OnboardingRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
+  hideTransitionTutorial: PropTypes.bool,
   path: PropTypes.string.isRequired,
 };
 
 SessionRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
+  hideTransitionTutorial: PropTypes.bool,
   path: PropTypes.string.isRequired,
 };
 

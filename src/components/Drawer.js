@@ -29,10 +29,6 @@ const DrawerElement = () => {
 
   const isExpanded = !!useRouteMatch(`(${[MY_PROFILE_PATH].join('|')})`);
 
-  const onOpen = () => {
-    // Do nothing ...
-  };
-
   const onClose = () => {
     history.push(DASHBOARD_PATH);
   };
@@ -45,7 +41,6 @@ const DrawerElement = () => {
       }}
       open={isExpanded}
       onClose={onClose}
-      onOpen={onOpen}
     >
       <Container disableGutters maxWidth="sm">
         <Switch location={location}>
