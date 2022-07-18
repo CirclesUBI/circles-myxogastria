@@ -10,7 +10,7 @@ import circles from '%/images/circles.svg';
 import closeOutline from '%/images/close-outline.svg';
 import close from '%/images/close.svg';
 import connections from '%/images/connections.svg';
-import dragonFly from '%/images/dragonfly2.svg';
+import edit from '%/images/edit.svg';
 import facebook from '%/images/facebook.svg';
 import follow from '%/images/follow.svg';
 import friends from '%/images/friends.svg';
@@ -30,6 +30,7 @@ import trustActive from '%/images/trust-active.svg';
 import trustMutual from '%/images/trust-mutual.svg';
 import trust from '%/images/trust.svg';
 import twitter from '%/images/twitter.svg';
+import uploadPhoto from '%/images/uploadPhoto.svg';
 import world from '%/images/world.svg';
 
 export const IconActivity = (props) => {
@@ -68,12 +69,12 @@ export const IconConnections = (props) => {
   return <SvgIcon component={connections} {...props} viewBox="0 0 21 20" />;
 };
 
-export const IconDragonFly = (props) => {
-  return <SvgIcon component={dragonFly} {...props} viewBox="0 0 56 36" />;
-};
-
 export const IconFacebook = (props) => {
   return <SvgIcon component={facebook} {...props} viewBox="0 0 11 20" />;
+};
+
+export const IconEdit = (props) => {
+  return <SvgIcon component={edit} {...props} viewBox="0 0 30 30" />;
 };
 
 export const IconFollow = (props) => {
@@ -146,6 +147,10 @@ export const IconTrustMutual = (props) => {
 
 export const IconTwitter = (props) => {
   return <SvgIcon component={twitter} {...props} viewBox="0 0 21 18" />;
+};
+
+export const IconUploadPhoto = (props) => {
+  return <SvgIcon component={uploadPhoto} {...props} viewBox="0 0 64 34" />;
 };
 
 export const IconWorld = (props) => {
