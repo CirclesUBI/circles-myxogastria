@@ -7,6 +7,7 @@ import { ACCOUNT_CREATE } from '~/store/tutorial/actions';
 import Activities from '~/views/Activities';
 import Dashboard from '~/views/Dashboard';
 import DashboardOrganization from '~/views/DashboardOrganization';
+import EditProfile from '~/views/EditProfile';
 import Error from '~/views/Error';
 import Login from '~/views/Login';
 import NotFound from '~/views/NotFound';
@@ -33,6 +34,7 @@ export const MY_PROFILE_PATH = '/profile';
 // Main routes
 export const ACTIVITIES_PATH = '/activities';
 export const DASHBOARD_PATH = '/';
+export const EDIT_PROFILE_PATH = '/edit';
 export const LOGIN_PATH = '/welcome/login';
 export const ONBOARDING_PATH = '/welcome/onboarding';
 export const ORGANIZATION_MEMBERS_ADD_PATH = '/sharedwallet/members/add';
@@ -48,7 +50,6 @@ export const SETTINGS_PATH = '/settings';
 export const SHARE_PATH = '/share';
 export const VALIDATION_PATH = '/validation';
 export const WELCOME_PATH = '/welcome';
-export const EDIT_PROFILE = '/editprofile';
 
 const SessionContainer = ({
   component: Component,
@@ -261,6 +262,7 @@ const Routes = () => {
       <TrustedRoute component={Share} exact path={SHARE_PATH} />
       <TrustedRoute component={Profile} exact path={PROFILE_PATH} />
       <TrustedRoute component={Activities} exact path={ACTIVITIES_PATH} />
+      <TrustedRoute component={EditProfile} exact path={EDIT_PROFILE_PATH} />
       <TrustedRoute component={QRGenerator} exact path={QR_GENERATOR_PATH} />
       <TrustedRoute component={Search} exact path={SEARCH_PATH} />
       <OrganizationRoute
