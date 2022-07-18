@@ -109,6 +109,19 @@
     "buttonClose": "Close",
     "buttonDonate": "Donate now"
   },
+  "EditProfile": {
+    "heading": "Edit profile",
+    "bodyCancel": "Cancel Editing Profile?",
+    "buttonCancel": "Cancel",
+    "buttonContinue": "Continue Editing",
+    "buttonSave": "Save changes",
+    "optionCamera": "Camera",
+    "optionFile": "Gallery",
+    "errorNameTaken": "Sorry, this name is already taken!",
+    "errorInvalidName": "Ups! Invalid name, try again.",
+    "usernameExplanation": "Your username is how your friends can search for you on the Circles App.",
+    "charactersExplanation": "Only basic characters and numbers (A-Z, 0-9) are allowed, no symbols or whitespace, 3-24 characters"
+  },
   "Finder": {
     "bodyFilterDirect": "Directly trusted",
     "bodyFilterExternal": "External",
