@@ -51,7 +51,7 @@ DialogInfo.propTypes = {
   handleClose: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };
 
 export default React.memo(DialogInfo);
