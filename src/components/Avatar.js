@@ -29,11 +29,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Avatar = ({ address, size = 'small', ...props }) => {
+const Avatar = ({ address, size = 'small', url, ...props }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const { avatarUrl, username } = useUserdata(address);
+  let { avatarUrl, username } = useUserdata(address);
+  if (!avatarUrl && url) {
+    avatarUrl = url;
+  }
+
   const { isOrganization } = useIsOrganization(address);
 
   const sizePixelAvatar =
@@ -68,6 +72,7 @@ const Avatar = ({ address, size = 'small', ...props }) => {
 Avatar.propTypes = {
   address: PropTypes.string,
   size: PropTypes.string,
+  url: PropTypes.string,
 };
 
 export default React.memo(Avatar);
