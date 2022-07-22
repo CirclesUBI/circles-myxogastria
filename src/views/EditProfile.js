@@ -1,13 +1,16 @@
 import {
   Badge,
   Box,
+  CircularProgress,
   Container,
   IconButton,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import mime from 'mime/lite';
+import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { DASHBOARD_PATH } from '~/routes';
@@ -19,11 +22,18 @@ import CenteredHeading from '~/components/CenteredHeading';
 import DialogInfo from '~/components/DialogInfo';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import UploadFromCamera from '~/components/UploadFromCamera';
+import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
 import View from '~/components/View';
 import { useUserdata } from '~/hooks/username';
+import core from '~/services/core';
 import translate from '~/services/locale';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { IconUploadPhoto } from '~/styles/icons';
+
+const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const BOTTOM_SPACING = '30px';
 
 const useStyles = makeStyles((theme) => ({
   uploadButton: {
@@ -49,13 +59,139 @@ const useStyles = makeStyles((theme) => ({
     },
 
     '& >p': {
-      marginBottom: '30px',
+      marginBottom: BOTTOM_SPACING,
     },
   },
   continueButton: {
-    marginBottom: '30px',
+    marginBottom: BOTTOM_SPACING,
+  },
+  actionButtonsContainer: {
+    marginBottom: BOTTOM_SPACING,
+  },
+  circularProgressContainer: {
+    marginBottom: BOTTOM_SPACING,
+  },
+  usernameInputContainer: {
+    marginBottom: BOTTOM_SPACING,
+    marginTop: '50px',
   },
 }));
+
+const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isUploadFromCamera, setIsUploadFromCamera] = useState(false);
+  const fileInputElem = useRef();
+
+  const galleryBtnHandler = (event) => {
+    event.preventDefault();
+    fileInputElem.current.click();
+    setIsUploadFromCamera(false);
+  };
+  const cameraBtnHandler = () => {
+    setIsUploadFromCamera(true);
+  };
+
+  const uploadFile = async (event) => {
+    const { files } = event.target;
+    if (files.length === 0) {
+      return;
+    }
+
+    uploadPhoto(files);
+  };
+
+  async function uploadPhoto(files) {
+    setIsLoading(true);
+
+    let data;
+
+    if (files.length) {
+      data = [...files].reduce((acc, file) => {
+        acc.append('files', file, file.name);
+        return acc;
+      }, new FormData());
+    } else {
+      data = new FormData();
+      data.append('file', files);
+    }
+
+    try {
+      const result = await core.utils.requestAPI({
+        path: ['uploads', 'avatar'],
+        method: 'POST',
+        data,
+      });
+
+      onFileUpload(result.data.url);
+      handleClose();
+    } catch (error) {
+      dispatch(
+        notify({
+          text: translate('AvatarUploader.errorAvatarUpload'),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+    }
+    setIsLoading(false);
+  }
+
+  const onImageCaptureErrorHandler = () => {
+    dispatch(
+      notify({
+        text: translate('EditProfile.errorImageCapture'),
+        type: NotificationsTypes.ERROR,
+      }),
+    );
+  };
+
+  const fileTypesStr = IMAGE_FILE_TYPES.map((ext) => {
+    return mime.getType(ext);
+  }).join(',');
+
+  return (
+    <Box className={classes.dialogContentContainer}>
+      <Box className={classes.actionButtonsContainer}>
+        {isLoading ? (
+          <Box className={classes.circularProgressContainer}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <>
+            <Button
+              className={classes.continueButton}
+              fullWidth
+              isOutline
+              isWhite
+              onClick={galleryBtnHandler}
+            >
+              {translate('EditProfile.optionFile')}
+            </Button>
+            <input
+              accept={fileTypesStr}
+              ref={fileInputElem}
+              style={{ display: 'none' }}
+              type="file"
+              onChange={uploadFile}
+            />
+          </>
+        )}
+        <Button fullWidth isOutline isWhite onClick={cameraBtnHandler}>
+          {translate('EditProfile.optionCamera')}
+        </Button>
+      </Box>
+      {isUploadFromCamera && (
+        <UploadFromCamera
+          imageCaptureError={onImageCaptureErrorHandler}
+          isUploading={isLoading}
+          uploadImgSrc={uploadImgSrc}
+          uploadPhoto={uploadPhoto}
+        />
+      )}
+    </Box>
+  );
+};
 
 const EditProfile = () => {
   const classes = useStyles();
@@ -64,6 +200,8 @@ const EditProfile = () => {
   const [isOpenDialogCloseInfo, setIsOpenDialogCloseInfo] = useState(false);
   const [isOpenDialogUploadInfo, setIsOpenDialogUploadInfo] = useState(false);
   const [usernameInput, setUsernameInput] = useState(username);
+  const [emailInput, setEmailInput] = useState('email');
+  const [profilePicUrl, setProfilePicUrl] = useState('');
 
   const safe = useSelector((state) => state.safe);
   const { username } = useUserdata(safe.currentAccount);
@@ -72,28 +210,30 @@ const EditProfile = () => {
     setIsOpenDialogCloseInfo(true);
   };
 
-  const onChangeHandler = (username) => {
+  const onChangeUsernameHandler = (username) => {
     setUsernameInput(username);
+  };
+
+  const onChangeEmailHandler = (email) => {
+    setEmailInput(email);
   };
 
   const onDisabledChange = (updatedValue) => {
     setIsDisabled(updatedValue);
   };
 
-  const saveChangesHandler = () => {
-    console.log('saveChangesHandler');
-  };
+  const saveChangesHandler = () => {};
 
   const dialogCloseInfoHandler = () => {
-    console.log('dialogInfoCloseHandler');
     setIsClose(true);
   };
 
-  const galleryHandler = () => {
-    console.log('gallery handler');
+  const onFileUploadHandler = (updatedValue) => {
+    setProfilePicUrl(updatedValue);
   };
-  const cameraHandler = () => {
-    console.log('camera handler');
+
+  const uploadImgSrcHandler = (updatedValue) => {
+    setProfilePicUrl(updatedValue);
   };
 
   useEffect(() => {
@@ -112,23 +252,6 @@ const EditProfile = () => {
       </Button>
       <Button fullWidth isOutline isWhite onClick={dialogCloseInfoHandler}>
         {translate('EditProfile.buttonCancel')}
-      </Button>
-    </Box>
-  );
-
-  const dialogContentUpload = (
-    <Box className={classes.dialogContentContainer}>
-      <Button
-        className={classes.continueButton}
-        fullWidth
-        isOutline
-        isWhite
-        onClick={galleryHandler}
-      >
-        {translate('EditProfile.optionFile')}
-      </Button>
-      <Button fullWidth isOutline isWhite onClick={cameraHandler}>
-        {translate('EditProfile.optionCamera')}
       </Button>
     </Box>
   );
@@ -153,7 +276,13 @@ const EditProfile = () => {
             title={translate('EditProfile.bodyCancel')}
           />
           <DialogInfo
-            dialogContent={dialogContentUpload}
+            dialogContent={
+              <DialogContentUpload
+                handleClose={() => setIsOpenDialogUploadInfo(false)}
+                uploadImgSrc={uploadImgSrcHandler}
+                onFileUpload={onFileUploadHandler}
+              />
+            }
             handleClose={() => setIsOpenDialogUploadInfo(false)}
             id="dialogUpload"
             isOpen={isOpenDialogUploadInfo}
@@ -172,14 +301,23 @@ const EditProfile = () => {
               <Avatar
                 address={safe.currentAccount || safe.pendingAddress}
                 size="large"
+                url={profilePicUrl}
               />
             </Badge>
           </Box>
-          <Box>
+          <Box className={classes.usernameInputContainer}>
             <VerifiedUsernameInput
               label={translate('Onboarding.formUsername')}
               value={usernameInput}
-              onChange={onChangeHandler}
+              onChange={onChangeUsernameHandler}
+              onStatusChange={onDisabledChange}
+            />
+          </Box>
+          <Box>
+            <VerifiedEmailInput
+              label={translate('Onboarding.formEmail')}
+              value={emailInput}
+              onChange={onChangeEmailHandler}
               onStatusChange={onDisabledChange}
             />
           </Box>
@@ -205,6 +343,12 @@ const EditProfile = () => {
       </Footer>
     </>
   );
+};
+
+DialogContentUpload.propTypes = {
+  handleClose: PropTypes.func,
+  onFileUpload: PropTypes.func.isRequired,
+  uploadImgSrc: PropTypes.func,
 };
 
 export default EditProfile;
