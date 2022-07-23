@@ -21,9 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hide transition tutorial after login - from login screen as well [#452](https://github.com/CirclesUBI/circles-myxogastria/pull/452)
 - Children in Header are not required as Validation page shows
 - Change to time circles in shared wallet onboarding prefunding
-- 415 transitions screens should not show up for new users [#440](https://github.com/CirclesUBI/circles-myxogastria/pull/440)
+- Transition screens should not show up for new users [#440](https://github.com/CirclesUBI/circles-myxogastria/pull/440)
 - Remove prop onOpen from Drawer [#445](https://github.com/CirclesUBI/circles-myxogastria/pull/445)
-- Translate time circles to circles before funding new shard wallet [#443](https://github.com/CirclesUBI/circles-myxogastria/issues/442)
+- Translate time circles to circles before funding new shared wallet [#443](https://github.com/CirclesUBI/circles-myxogastria/issues/442)
 - Round values in activity log mathematically instead of always rounding down [#432](https://github.com/CirclesUBI/circles-myxogastria/pull/432)
 
 ### Fixed
