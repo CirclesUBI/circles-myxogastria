@@ -182,8 +182,6 @@ const SendConfirm = () => {
     dispatch(hideSpinnerOverlay());
   };
 
-  console.log('Maxamount', maxAmount);
-
   let amountErrorBool;
   if (maxAmount.words && maxAmount.words.length >= 0) {
     amountErrorBool = maxAmount.words[0] != 0;
