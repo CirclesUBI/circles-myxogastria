@@ -308,7 +308,9 @@ const SendConfirm = () => {
       </View>
       <Footer>
         <Button
-          disabled={isPaymentNoteInvalid}
+          disabled={
+            amount === '' || isPaymentNoteInvalid || !amount || amount <= 0
+          }
           fullWidth
           isPrimary
           onClick={handleConfirmOpen}
