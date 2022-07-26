@@ -7,59 +7,89 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2022-07-05
+
+### Added
+
+- Add missing prop in OnboardingRoute component [#453](https://github.com/CirclesUBI/circles-myxogastria/pull/453)
+- Add additional check for fromValidation variable [#447](https://github.com/CirclesUBI/circles-myxogastria/pull/447)
+- Add wallets link to dashboard avatar [#435](https://github.com/CirclesUBI/circles-myxogastria/issues/418)
+- Link to icons for adding to mobile homescreens [#441](https://github.com/CirclesUBI/circles-myxogastria/pull/441)
+
+### Changed
+
+- Hide transition tutorial after login - from login screen as well [#452](https://github.com/CirclesUBI/circles-myxogastria/pull/452)
+- Children in Header are not required as Validation page shows
+- Change to time circles in shared wallet onboarding prefunding
+- Transition screens should not show up for new users [#440](https://github.com/CirclesUBI/circles-myxogastria/pull/440)
+- Remove prop onOpen from Drawer [#445](https://github.com/CirclesUBI/circles-myxogastria/pull/445)
+- Translate time circles to circles before funding new shared wallet [#443](https://github.com/CirclesUBI/circles-myxogastria/issues/442)
+- Round values in activity log mathematically instead of always rounding down [#432](https://github.com/CirclesUBI/circles-myxogastria/pull/432)
+
+### Fixed
+
+- Fix header on scroll in Validation view
+- Fix decimals in formatCirclesValue [#438](https://github.com/CirclesUBI/circles-myxogastria/pull/438)
+- Fix header and backgroundCurved component during scroll [#431](https://github.com/CirclesUBI/circles-myxogastria/pull/431)
+
+### Removed
+
+- Remove notification icon from validation view [#433](https://github.com/CirclesUBI/circles-myxogastria/pull/433)
 
 ## [2.0.0] - 2022-06-27
 
 ### Changed
-* Time Circles launch
-  * Switching to displaying all values in Time Circles instead of original CRC as on the Blockchain 
-    * [About the transition](https://circlesubi.medium.com/the-revaluation-of-the-circles-system-c6eea70e767d))
-    * [Time circles calculation](https://aboutcircles.com/t/conversion-from-crc-to-time-circles-and-back/463)
-* Major design iteration including:
-  * Smoother guidance in wallet creation
-  * Friendlier trust and transaction experience
-  * A quick entry for you to switch between wallets
-  * Visual differentiation between Individual Wallets and Shared Wallets
-  * Showing the way to our new Marketplace
-* Minor dependency updates
+
+- Time Circles launch
+  - Switching to displaying all values in Time Circles instead of original CRC as on the Blockchain
+    - [About the transition](https://circlesubi.medium.com/the-revaluation-of-the-circles-system-c6eea70e767d))
+    - [Time circles calculation](https://aboutcircles.com/t/conversion-from-crc-to-time-circles-and-back/463)
+- Major design iteration including:
+  - Smoother guidance in wallet creation
+  - Friendlier trust and transaction experience
+  - A quick entry for you to switch between wallets
+  - Visual differentiation between Individual Wallets and Shared Wallets
+  - Showing the way to our new Marketplace
+- Minor dependency updates
 
 #### Pull requests in detail:
-* Updated shared wallet creation process by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/307
-* Update login by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/321
-* New validation view by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/330
-* Redesigning updates by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/333
-* Make size of shared wallet ring consistent with avatar size by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/358
-* Correct AppNote message on larger screens by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/368
-* Change icons color in Header by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/359
-* Remove circle around balance by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/378
-* 349 when scrolling curved background should dissapear and new header bar should appear by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/357
-* 337 right bottom menu bottons should be clickable outside text field by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/374
-* 336 change links in menus by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/372
-* 340 design onboarding oganisations should have white buttons not solid by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/371
-* 303 list of shared wallets cannot be scrolled by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/355
-* Opening dashboard doesnt move content by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/375
-* 348 pink shadow at bottom while scrolling by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/363
-* 380 floating menu fixes by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/384
-* Remove zIndex of pink shade by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/386
-* Prevent shifting a content when opening dashboard menu on Organizatio… by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/389
-* 379 not all header icons should be white by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/388
-* Improve organization onboarding process button texts by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/383
-* 391 development console log errors due to a merged commit by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/397
-* Adjust BackgroundCurved wave for larger screens by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/356
-* Replace createTheme with old createMuiTheme as it is breaking preview by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/400
-* Differentiate Dialog in ProfileMini component depending if we Add mem… by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/401
-* Fix colsole errors in development by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/404
-* 335 fix step navigation in onboarding including color gradient by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/398
-* Restore white icons after mistake in 98b21a7f93d6546ef7222550b7b09049bb9d7286 by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/409
-* 390 transition screens to new wallet by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/410
-* Remove time circles notification box completely by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/412
-* Bump eventsource from 1.1.0 to 1.1.2 by @dependabot in https://github.com/CirclesUBI/circles-myxogastria/pull/395
-* Bump cross-fetch from 2.2.3 to 2.2.6 by @dependabot in https://github.com/CirclesUBI/circles-myxogastria/pull/351
-* Bump protobufjs from 6.11.2 to 6.11.3 by @dependabot in https://github.com/CirclesUBI/circles-myxogastria/pull/370
-* Time circles by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/407
-* 406 pink shade remaining after you switch views by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/426
-* Add members button goes first to list of members by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/423
-* 414 shared wallet creation process improvement by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/422
+
+- Updated shared wallet creation process by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/307
+- Update login by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/321
+- New validation view by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/330
+- Redesigning updates by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/333
+- Make size of shared wallet ring consistent with avatar size by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/358
+- Correct AppNote message on larger screens by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/368
+- Change icons color in Header by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/359
+- Remove circle around balance by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/378
+- 349 when scrolling curved background should dissapear and new header bar should appear by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/357
+- 337 right bottom menu bottons should be clickable outside text field by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/374
+- 336 change links in menus by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/372
+- 340 design onboarding oganisations should have white buttons not solid by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/371
+- 303 list of shared wallets cannot be scrolled by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/355
+- Opening dashboard doesnt move content by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/375
+- 348 pink shadow at bottom while scrolling by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/363
+- 380 floating menu fixes by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/384
+- Remove zIndex of pink shade by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/386
+- Prevent shifting a content when opening dashboard menu on Organizatio… by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/389
+- 379 not all header icons should be white by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/388
+- Improve organization onboarding process button texts by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/383
+- 391 development console log errors due to a merged commit by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/397
+- Adjust BackgroundCurved wave for larger screens by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/356
+- Replace createTheme with old createMuiTheme as it is breaking preview by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/400
+- Differentiate Dialog in ProfileMini component depending if we Add mem… by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/401
+- Fix colsole errors in development by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/404
+- 335 fix step navigation in onboarding including color gradient by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/398
+- Restore white icons after mistake in 98b21a7f93d6546ef7222550b7b09049bb9d7286 by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/409
+- 390 transition screens to new wallet by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/410
+- Remove time circles notification box completely by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/412
+- Bump eventsource from 1.1.0 to 1.1.2 by @dependabot in https://github.com/CirclesUBI/circles-myxogastria/pull/395
+- Bump cross-fetch from 2.2.3 to 2.2.6 by @dependabot in https://github.com/CirclesUBI/circles-myxogastria/pull/351
+- Bump protobufjs from 6.11.2 to 6.11.3 by @dependabot in https://github.com/CirclesUBI/circles-myxogastria/pull/370
+- Time circles by @louilinn in https://github.com/CirclesUBI/circles-myxogastria/pull/407
+- 406 pink shade remaining after you switch views by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/426
+- Add members button goes first to list of members by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/423
+- 414 shared wallet creation process improvement by @mikozet in https://github.com/CirclesUBI/circles-myxogastria/pull/422
 
 ## [1.11.4] - 2022-06-15
 
