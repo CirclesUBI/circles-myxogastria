@@ -123,6 +123,7 @@
     "errorNameTaken": "Sorry, this name is already taken!",
     "errorInvalidName": "Ups! Invalid name, try again.",
     "errorImageCapture": "Sorry, there was a problem with image capture",
+    "errorSaveChanges": "Sorry, there was a problem with saving changes",
     "usernameExplanation": "Your username is how your friends can search for you on the Circles App.",
     "charactersExplanation": "Only basic characters and numbers (A-Z, 0-9) are allowed, no symbols or whitespace, 3-24 characters"
   },

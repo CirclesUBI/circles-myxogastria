@@ -29,8 +29,10 @@ import View from '~/components/View';
 import { useUserdata } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
+import web3 from '~/services/web3';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { IconUploadPhoto } from '~/styles/icons';
+import { getDeviceDetect } from '~/utils/deviceDetect';
 
 const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const BOTTOM_SPACING = '30px';
@@ -54,10 +56,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   dialogContentContainer: {
-    [theme.breakpoints.up('md')]: {
-      minWidth: '350px',
-    },
-
     '& >p': {
       marginBottom: BOTTOM_SPACING,
     },
@@ -202,6 +200,8 @@ const EditProfile = () => {
   const [usernameInput, setUsernameInput] = useState(username);
   const [emailInput, setEmailInput] = useState('email');
   const [profilePicUrl, setProfilePicUrl] = useState('');
+  const dispatch = useDispatch();
+  const deviceDetect = getDeviceDetect();
 
   const safe = useSelector((state) => state.safe);
   const { username } = useUserdata(safe.currentAccount);
@@ -222,7 +222,29 @@ const EditProfile = () => {
     setIsDisabled(updatedValue);
   };
 
-  const saveChangesHandler = () => {};
+  const saveChangesHandler = async () => {
+    // const test = await core.safe.getAddresses(safe.currentAccount);
+    // console.log('test', test);
+
+    try {
+      const result = await core.user.update({
+        safeAddress: test,
+        username: usernameInput,
+        email: emailInput,
+        avatarUrl: 'https://picsum.photos/200/300',
+        // avatarUrl: profilePicUrl,
+      });
+      console.log('result', result);
+    } catch (error) {
+      console.log('error', error);
+      dispatch(
+        notify({
+          text: translate('EditProfile.errorSaveChanges'),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+    }
+  };
 
   const dialogCloseInfoHandler = () => {
     setIsClose(true);
@@ -270,12 +292,15 @@ const EditProfile = () => {
         <Container maxWidth="sm">
           <DialogInfo
             dialogContent={dialogContentClose}
+            fullWidth
             handleClose={() => setIsOpenDialogCloseInfo(false)}
             id="dialogContentClose"
             isOpen={isOpenDialogCloseInfo}
+            maxWidth={'xs'}
             title={translate('EditProfile.bodyCancel')}
           />
           <DialogInfo
+            className={classes.dialogUploadContainer}
             dialogContent={
               <DialogContentUpload
                 handleClose={() => setIsOpenDialogUploadInfo(false)}
@@ -283,9 +308,11 @@ const EditProfile = () => {
                 onFileUpload={onFileUploadHandler}
               />
             }
+            fullWidth
             handleClose={() => setIsOpenDialogUploadInfo(false)}
             id="dialogUpload"
             isOpen={isOpenDialogUploadInfo}
+            maxWidth={'xs'}
           />
           <Box align="center" mb={2} mt={4}>
             <Badge
