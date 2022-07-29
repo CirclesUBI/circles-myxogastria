@@ -26,7 +26,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DialogInfo = ({ dialogContent, handleClose, id, isOpen, title }) => {
+const DialogInfo = ({
+  dialogContent,
+  handleClose,
+  id,
+  isOpen,
+  title,
+  fullWidth,
+  maxWidth,
+}) => {
   const classes = useStyles();
 
   return (
@@ -34,6 +42,8 @@ const DialogInfo = ({ dialogContent, handleClose, id, isOpen, title }) => {
       aria-describedby={`dialog-${id}-text`}
       aria-labelledby={`dialog-${id}-description`}
       className={classes.dialogContainer}
+      fullWidth={fullWidth}
+      maxWidth={maxWidth}
       open={isOpen}
       onClose={handleClose}
     >
@@ -48,9 +58,11 @@ const DialogInfo = ({ dialogContent, handleClose, id, isOpen, title }) => {
 
 DialogInfo.propTypes = {
   dialogContent: PropTypes.element,
+  fullWidth: PropTypes.bool,
   handleClose: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
+  maxWidth: PropTypes.string,
   title: PropTypes.string,
 };
 
