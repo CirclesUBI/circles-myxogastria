@@ -7,6 +7,7 @@ import safeReducer from '~/store/safe/reducers';
 import tokenReducer from '~/store/token/reducers';
 import trustReducer from '~/store/trust/reducers';
 import tutorialReducer from '~/store/tutorial/reducers';
+import userInputsDataReducer from '~/store/userInputsData/reducers';
 import walletReducer from '~/store/wallet/reducers';
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   app: appReducer,
   notifications: notificationsReducer,
   safe: safeReducer,
+  userInputs: userInputsDataReducer,
   token: tokenReducer,
   trust: trustReducer,
   tutorial: tutorialReducer,
