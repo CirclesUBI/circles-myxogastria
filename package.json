@@ -5,7 +5,10 @@
   "main": "src/index.js",
   "private": true,
   "contributors": [
-    "adzialocha"
+    "adzialocha",
+    "mikozet",
+    "louilinn",
+    "llunaCreixent"
   ],
   "license": "AGPL-3.0",
   "repository": {
