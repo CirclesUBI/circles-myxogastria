@@ -47,7 +47,6 @@ const OnboardingStepper = ({
   const classes = useStyles();
 
   const [current, setCurrent] = useState(0);
-  const [username, setUsername] = useState('');
   const { filter, query: inputSearch } = useQuery();
 
   /* eslint-disable react-hooks/exhaustive-deps */
