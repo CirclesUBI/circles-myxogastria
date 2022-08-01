@@ -75,10 +75,6 @@ const OnboardingStepper = ({
 
   const onNext = () => {
     setCurrent(current + 1);
-
-    if (values.username) {
-      setUsername(values.username);
-    }
   };
 
   const onPrevious = () => {
@@ -140,10 +136,7 @@ const OnboardingStepper = ({
         />
       </Header>
       {withHeaderAvatar && (
-        <AvatarHeader
-          hideImage={current === stepsScreens.ADD_PHOTO}
-          username={username}
-        />
+        <AvatarHeader hideImage={current === stepsScreens.ADD_PHOTO} />
       )}
       <View mt={withHeaderAvatar ? 0 : '84px'}>
         <Box
