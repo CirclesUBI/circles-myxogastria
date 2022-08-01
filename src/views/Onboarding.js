@@ -23,6 +23,10 @@ import { getPrivateKey, toSeedPhrase } from '~/services/wallet';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { createNewAccount } from '~/store/onboarding/actions';
+import {
+  updateAvatarUrlUserInputsData,
+  updateUsernameUserInputsData,
+} from '~/store/userInputsData/actions';
 import logError, { formatErrorMessage } from '~/utils/debug';
 
 const moveUpFront = (theme) => ({
@@ -284,10 +288,12 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
 
 const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const handleChange = (username) => {
     onChange({
       username,
     });
+    dispatch(updateUsernameUserInputsData(username));
   };
 
   return (
@@ -314,6 +320,7 @@ const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
 
 const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [photoUploaded, setPhotoUploaded] = useState(false);
 
   const handleUpload = (avatarUrl) => {
@@ -321,6 +328,7 @@ const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
       avatarUrl,
     });
     setPhotoUploaded(true);
+    dispatch(updateAvatarUrlUserInputsData(avatarUrl));
   };
 
   useEffect(() => {

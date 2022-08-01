@@ -30,6 +30,10 @@ import {
   ORGANIZATION_TUTORIAL,
   finishTutorial,
 } from '~/store/tutorial/actions';
+import {
+  updateAvatarUrlUserInputsData,
+  updateUsernameUserInputsData,
+} from '~/store/userInputsData/actions';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import { formatCirclesValue } from '~/utils/format';
 
@@ -311,11 +315,13 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
 
 const OrganizationStepWalletName = ({ onDisabledChange, values, onChange }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const handleChange = (username) => {
     onChange({
       username,
     });
+    dispatch(updateUsernameUserInputsData(username));
   };
 
   return (
@@ -342,6 +348,8 @@ const OrganizationStepWalletName = ({ onDisabledChange, values, onChange }) => {
 
 const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   const [photoUploaded, setPhotoUploaded] = useState(false);
 
   const handleUpload = (avatarUrl) => {
@@ -349,6 +357,7 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
       avatarUrl,
     });
     setPhotoUploaded(true);
+    dispatch(updateAvatarUrlUserInputsData(avatarUrl));
   };
 
   useEffect(() => {
