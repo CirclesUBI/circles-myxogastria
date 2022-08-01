@@ -2,6 +2,7 @@ import { Box, Avatar as MuiAvatar } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import GroupWalletCircleSVG from '%/images/organization-indicator.svg';
 import Jazzicon from '~/components/Jazzicon';
@@ -32,6 +33,7 @@ const useStyles = makeStyles(() => ({
 const Avatar = ({ address, size = 'small', ...props }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const userInputs = useSelector((state) => state.userInputs);
 
   const { avatarUrl, username } = useUserdata(address);
   const { isOrganization } = useIsOrganization(address);
@@ -40,6 +42,9 @@ const Avatar = ({ address, size = 'small', ...props }) => {
     theme.custom.components.avatarSize * SIZE_MULTIPLIERS[size];
   const sizePixelRing = sizePixelAvatar * ORGANIZATION_RING_MULTIPLIER;
   const initials = username.slice(0, 2) === '0x' ? null : username.slice(0, 2);
+
+  // if data is not ready take it from state
+  let avatarUrlFixed = avatarUrl ? avatarUrl : userInputs?.avatarUrl;
 
   return (
     <Box className={classes.avatarContainer}>
@@ -50,14 +55,14 @@ const Avatar = ({ address, size = 'small', ...props }) => {
       )}
       <MuiAvatar
         alt={username}
-        src={avatarUrl}
+        src={avatarUrlFixed}
         style={{
           width: sizePixelAvatar,
           height: sizePixelAvatar,
         }}
         {...props}
       >
-        {avatarUrl && initials
+        {avatarUrlFixed && initials
           ? initials.toUpperCase()
           : address && <Jazzicon address={address} size={sizePixelAvatar} />}
       </MuiAvatar>

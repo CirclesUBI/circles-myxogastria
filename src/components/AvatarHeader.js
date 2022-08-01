@@ -34,10 +34,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AvatarHeader = ({ hideImage, username }) => {
+const AvatarHeader = ({ hideImage }) => {
   const classes = useStyles();
 
   const safe = useSelector((state) => state.safe);
+  const userInputs = useSelector((state) => state.userInputs);
+  const username = userInputs?.username;
 
   const displayedUsername = username ? (
     `@${username}`
@@ -71,7 +73,6 @@ const AvatarHeader = ({ hideImage, username }) => {
 
 AvatarHeader.propTypes = {
   hideImage: PropTypes.bool,
-  username: PropTypes.string,
 };
 
 export default AvatarHeader;
