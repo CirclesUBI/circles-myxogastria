@@ -34,6 +34,7 @@ const DialogInfo = ({
   title,
   fullWidth,
   maxWidth,
+  isBtnClose = true,
 }) => {
   const classes = useStyles();
 
@@ -50,7 +51,7 @@ const DialogInfo = ({
       <DialogTitle id={`dialog-${id}-title`}>{title}</DialogTitle>
       <DialogContent>{dialogContent}</DialogContent>
       <DialogActions style={{ justifyContent: 'center' }}>
-        <ButtonClose onClick={handleClose} />
+        {isBtnClose && <ButtonClose onClick={handleClose} />}
       </DialogActions>
     </MuiDialog>
   );
@@ -60,7 +61,8 @@ DialogInfo.propTypes = {
   dialogContent: PropTypes.element,
   fullWidth: PropTypes.bool,
   handleClose: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  isBtnClose: PropTypes.bool,
   isOpen: PropTypes.bool.isRequired,
   maxWidth: PropTypes.string,
   title: PropTypes.string,
