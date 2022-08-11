@@ -116,6 +116,12 @@ const user = {
       avatarUrl,
     });
   },
+
+  getEmail: async (safeAddress) => {
+    return await requestCore('user', 'getEmail', {
+      safeAddress,
+    });
+  },
 };
 
 // Trust module
