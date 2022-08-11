@@ -21,6 +21,7 @@ const useStyles = makeStyles(() => ({
   avatarContainer: {
     position: 'relative',
     margin: '0 auto',
+    cursor: 'pointer',
   },
   organizationIndicator: {
     position: 'absolute',
@@ -34,9 +35,8 @@ const Avatar = ({ address, size = 'small', url, ...props }) => {
   const theme = useTheme();
 
   let { avatarUrl, username } = useUserdata(address);
-  if (!avatarUrl && url) {
-    avatarUrl = url;
-  }
+
+  if (url) avatarUrl = url;
 
   const { isOrganization } = useIsOrganization(address);
 
