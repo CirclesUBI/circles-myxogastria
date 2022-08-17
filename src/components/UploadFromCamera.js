@@ -13,13 +13,11 @@ const BOTTOM_SPACING = '25px';
 const useStyles = makeStyles((theme) => ({
   uploadFromCameraContainer: {},
   cameraContainer: {
-    marginBottom: BOTTOM_SPACING,
     maxWidth: '350px',
-    height: '272px',
     margin: '0 auto',
 
     [theme.breakpoints.up('sm')]: {
-      height: '337px',
+      height: '400px',
     },
   },
   imageContainer: {
@@ -42,11 +40,12 @@ const useStyles = makeStyles((theme) => ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
   },
-  uploadBtn: {
+  tryAgainBtn: {
     marginBottom: BOTTOM_SPACING,
   },
   btnContainer: {
     maxWidth: '350px',
+    minHeight: '112px',
     margin: '0 auto',
   },
   loadingMask: {
@@ -93,14 +92,16 @@ const UploadFromCamera = ({
   return (
     <Box className={classes.uploadFromCameraContainer}>
       {showImgCapture && (
-        <Box className={classes.cameraContainer}>
-          <ImageCapture
-            userMediaConfig={config}
-            width={'100%'}
-            onCapture={onCapture}
-            onError={onError}
-          />
-        </Box>
+        <>
+          <Box className={classes.cameraContainer}>
+            <ImageCapture
+              userMediaConfig={config}
+              width={'100%'}
+              onCapture={onCapture}
+              onError={onError}
+            />
+          </Box>
+        </>
       )}
       {!showImgCapture && (
         <Box className={classes.imageContainer}>
@@ -117,16 +118,15 @@ const UploadFromCamera = ({
       {imgSrc && !showImgCapture && (
         <Box className={classes.btnContainer}>
           <Button
-            className={classes.uploadBtn}
+            className={classes.tryAgainBtn}
             fullWidth
-            isOutline
-            isPrimary
-            onClick={btnUploadHandler}
+            isWithoutBorder
+            onClick={resetPhoto}
           >
-            {translate('EditProfile.optionUpload')}
+            {translate('EditProfile.optionTryAgain')}
           </Button>
-          <Button fullWidth isOutline isWhite onClick={resetPhoto}>
-            {translate('EditProfile.optionReset')}
+          <Button fullWidth isOutline isPrimary onClick={btnUploadHandler}>
+            {translate('EditProfile.optionUpload')}
           </Button>
         </Box>
       )}

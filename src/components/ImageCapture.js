@@ -36,6 +36,16 @@ const useStyles = makeStyles((theme) => ({
   },
   imageCaptureContainer: {
     position: 'relative',
+
+    [theme.breakpoints.up('sm')]: {
+      minHeight: '400px',
+    },
+  },
+  captureBtn: {
+    marginBottom: '25px',
+  },
+  uploadBtn: {
+    cursor: 'not-allowed',
   },
 }));
 
@@ -107,8 +117,17 @@ const ImageCapture = ({ onCapture, onError, width, userMediaConfig }) => {
         <video autoPlay playsInline ref={playerRef} width={width}></video>
       </Box>
       <canvas className={classes.imageCanvas} ref={canvasRef} />
-      <Button disabled={isLoading} fullWidth isPrimary onClick={captureImage}>
+      <Button
+        className={classes.captureBtn}
+        disabled={isLoading}
+        fullWidth
+        isPrimary
+        onClick={captureImage}
+      >
         {translate('EditProfile.optionCapture')}
+      </Button>
+      <Button className={classes.uploadBtn} fullWidth isWithoutBorder>
+        {translate('EditProfile.optionUpload')}
       </Button>
     </Box>
   );
