@@ -42,9 +42,9 @@ const AvatarHeader = ({ hideImage, username }) => {
   const displayedUsername = username ? (
     `@${username}`
   ) : safe.currentAccount ? (
-    <UsernameDisplay address={safe.currentAccount} />
+    <UsernameDisplay address={safe.currentAccount} useCache={false} />
   ) : safe.pendingAddress ? (
-    <UsernameDisplay address={safe.pendingAddress} />
+    <UsernameDisplay address={safe.pendingAddress} useCache={false} />
   ) : null;
 
   return (
@@ -56,6 +56,7 @@ const AvatarHeader = ({ hideImage, username }) => {
               address={safe.currentAccount || safe.pendingAddress}
               className={classes.avatarContainer}
               size={'smallXl'}
+              useCache={false}
             />
           </Link>
         )}
