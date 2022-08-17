@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import Input from '~/components/Input';
+import { useUserdata } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import debounce from '~/utils/debounce';
@@ -10,6 +11,8 @@ const DEBOUNCE_DELAY = 500;
 const MAX_USERNAME_LENGTH = 24;
 
 const VerifiedUsernameInput = ({
+  address,
+  allowCurrentUser,
   label,
   onChange,
   onStatusChange,
@@ -29,6 +32,7 @@ const VerifiedUsernameInput = ({
   }, [value, onStatusChange, isError, isLoading]);
 
   const [errorMessage, setErrorMessage] = useState('');
+  const { username: userUsername } = useUserdata(address);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedUsernameCheck = useCallback(
@@ -66,9 +70,14 @@ const VerifiedUsernameInput = ({
     (username) => {
       setIsError(false);
       setIsLoading(true);
-      debouncedUsernameCheck(username);
+      if (username === userUsername && allowCurrentUser) {
+        setIsLoading(false);
+        return;
+      } else {
+        debouncedUsernameCheck(username);
+      }
     },
-    [debouncedUsernameCheck],
+    [debouncedUsernameCheck, allowCurrentUser, userUsername],
   );
 
   return (
@@ -87,6 +96,8 @@ const VerifiedUsernameInput = ({
 };
 
 VerifiedUsernameInput.propTypes = {
+  address: PropTypes.string,
+  allowCurrentUser: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onStatusChange: PropTypes.func.isRequired,
