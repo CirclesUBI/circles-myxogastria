@@ -6,7 +6,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import mime from 'mime/lite';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +28,6 @@ import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { IconUploadPhoto } from '~/styles/icons';
 
-const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const BOTTOM_SPACING = '30px';
 
 const useStyles = makeStyles((theme) => ({
@@ -143,10 +141,6 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
     );
   };
 
-  const fileTypesStr = IMAGE_FILE_TYPES.map((ext) => {
-    return mime.getType(ext);
-  }).join(',');
-
   return (
     <Box className={classes.dialogContentContainer}>
       {!isUploadFromCamera && (
@@ -161,7 +155,8 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
             {translate('EditProfile.optionFile')}
           </Button>
           <input
-            accept={fileTypesStr}
+            accept="image/*"
+            capture="environment"
             ref={fileInputElem}
             style={{ display: 'none' }}
             type="file"
