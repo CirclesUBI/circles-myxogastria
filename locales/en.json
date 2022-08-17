@@ -122,7 +122,7 @@
     "errorSaveChanges": "Sorry, there was a problem with saving changes",
     "heading": "Edit profile",
     "optionCapture": "Capture",
-    "optionReset": "Reset",
+    "optionTryAgain": "Try Again",
     "optionCamera": "Camera",
     "optionUpload": "Upload",
     "optionFile": "Gallery",
