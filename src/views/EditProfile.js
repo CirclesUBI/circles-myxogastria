@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 
 import { DASHBOARD_PATH } from '~/routes';
 
@@ -29,7 +28,6 @@ import core from '~/services/core';
 import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { IconUploadPhoto } from '~/styles/icons';
-import { getDeviceDetect } from '~/utils/deviceDetect';
 
 const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const BOTTOM_SPACING = '30px';
@@ -199,10 +197,9 @@ const EditProfile = () => {
   const [usernameInput, setUsernameInput] = useState(username);
   const [profilePicUrl, setProfilePicUrl] = useState('');
   const dispatch = useDispatch();
-  const deviceDetect = getDeviceDetect();
 
   const safe = useSelector((state) => state.safe);
-  const { username, avatarUrl } = useUserdata(safe.currentAccount);
+  const { username } = useUserdata(safe.currentAccount);
 
   const onChangeUsernameHandler = (username) => {
     setUsernameInput(username);
@@ -211,6 +208,8 @@ const EditProfile = () => {
   const onDisabledChange = (updatedValue) => {
     if (username !== usernameInput) {
       setIsDisabled(updatedValue);
+    } else {
+      setIsDisabled(false);
     }
   };
 
@@ -280,7 +279,7 @@ const EditProfile = () => {
       >
         {translate('EditProfile.buttonContinue')}
       </Button>
-      <Button fullWidth isOutline isWhite onClick={dialogCloseInfoHandler}>
+      <Button fullWidth isWithoutBorder onClick={dialogCloseInfoHandler}>
         {translate('EditProfile.buttonCancel')}
       </Button>
     </Box>
@@ -320,16 +319,6 @@ const EditProfile = () => {
             isOpen={isOpenDialogUploadInfo}
             maxWidth={'xs'}
           />
-          {/* <label htmlFor="cameraFileInput">
-            <span className="btn">Open camera</span>
-            <input
-              accept="image/*"
-              capture="environment"
-              className={classes.openCameraInput}
-              id="cameraFileInput"
-              type="file"
-            />
-          </label> */}
           <Box align="center" mb={2} mt={4}>
             <Badge
               anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -350,6 +339,8 @@ const EditProfile = () => {
           </Box>
           <Box className={classes.usernameInputContainer}>
             <VerifiedUsernameInput
+              address={safe.currentAccount || safe.pendingAddress}
+              allowCurrentUser
               label={translate('Onboarding.formUsername')}
               value={usernameInput}
               onChange={onChangeUsernameHandler}
@@ -376,7 +367,7 @@ const EditProfile = () => {
         >
           {translate('EditProfile.buttonSave')}
         </Button>
-        <Button fullWidth isOutline isWhite onClick={dialogOpenInfoHandler}>
+        <Button fullWidth isWithoutBorder onClick={dialogOpenInfoHandler}>
           {translate('EditProfile.buttonCancel')}
         </Button>
       </Footer>
