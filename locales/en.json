@@ -109,6 +109,26 @@
     "buttonClose": "Close",
     "buttonDonate": "Donate now"
   },
+  "EditProfile": {
+    "bodyCancel": "If you click cancel all changes you made will be lost.",
+    "buttonCancel": "Cancel",
+    "buttonContinue": "Continue Editing",
+    "buttonSave": "Save changes",
+    "charactersExplanation": "Only basic characters and numbers (A-Z, 0-9) are allowed, no symbols or whitespace, 3-24 characters",
+    "confirmationMessage": "Great! Your profile changes have been saved!",
+    "errorNameTaken": "Sorry, this name is already taken!",
+    "errorInvalidName": "Ups! Invalid name, try again.",
+    "errorImageCapture": "Sorry, there was a problem with image capture.",
+    "errorSaveChanges": "Sorry, there was a problem with saving changes.",
+    "heading": "Edit profile",
+    "optionCapture": "Capture",
+    "optionTryAgain": "Try Again",
+    "optionCamera": "Camera",
+    "optionUpload": "Upload",
+    "optionFile": "Gallery",
+    "titleCancel": "Do you want to save changes to your profile?",
+    "usernameExplanation": "Your username is how your friends can search for you on the Circles App."
+  },
   "Finder": {
     "bodyFilterDirect": "Directly trusted",
     "bodyFilterExternal": "External",

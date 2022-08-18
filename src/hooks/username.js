@@ -49,14 +49,14 @@ export function useIsOrganization(address) {
   };
 }
 
-export function useUserdata(address) {
+export function useUserdata(address, useCache = true) {
   const [data, setData] = useState(defaultUserdata(address));
 
   useEffect(() => {
     let isUnloaded = false;
 
     const request = async () => {
-      const result = await resolveUsernames([address]);
+      const result = await resolveUsernames([address], useCache);
 
       if (isUnloaded) {
         return;
@@ -76,7 +76,7 @@ export function useUserdata(address) {
     return () => {
       isUnloaded = true;
     };
-  }, [address]);
+  }, [address, useCache]);
 
   return data;
 }

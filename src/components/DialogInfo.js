@@ -26,7 +26,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DialogInfo = ({ dialogContent, handleClose, id, isOpen, title }) => {
+const DialogInfo = ({
+  dialogContent,
+  handleClose,
+  id,
+  isOpen,
+  title,
+  fullWidth,
+  maxWidth,
+  isBtnClose = true,
+}) => {
   const classes = useStyles();
 
   return (
@@ -34,13 +43,15 @@ const DialogInfo = ({ dialogContent, handleClose, id, isOpen, title }) => {
       aria-describedby={`dialog-${id}-text`}
       aria-labelledby={`dialog-${id}-description`}
       className={classes.dialogContainer}
+      fullWidth={fullWidth}
+      maxWidth={maxWidth}
       open={isOpen}
       onClose={handleClose}
     >
       <DialogTitle id={`dialog-${id}-title`}>{title}</DialogTitle>
       <DialogContent>{dialogContent}</DialogContent>
       <DialogActions style={{ justifyContent: 'center' }}>
-        <ButtonClose onClick={handleClose} />
+        {isBtnClose && <ButtonClose onClick={handleClose} />}
       </DialogActions>
     </MuiDialog>
   );
@@ -48,10 +59,13 @@ const DialogInfo = ({ dialogContent, handleClose, id, isOpen, title }) => {
 
 DialogInfo.propTypes = {
   dialogContent: PropTypes.element,
+  fullWidth: PropTypes.bool,
   handleClose: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  isBtnClose: PropTypes.bool,
   isOpen: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
+  maxWidth: PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default React.memo(DialogInfo);
