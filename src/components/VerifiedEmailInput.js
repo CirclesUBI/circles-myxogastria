@@ -13,6 +13,7 @@ const VerifiedEmailInput = ({
   onChange,
   onStatusChange,
   value = '',
+  ...props
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -75,6 +76,7 @@ const VerifiedEmailInput = ({
       type="email"
       value={value}
       onChange={handleChange}
+      {...props}
     />
   );
 };

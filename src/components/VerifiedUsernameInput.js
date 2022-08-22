@@ -17,6 +17,7 @@ const VerifiedUsernameInput = ({
   onChange,
   onStatusChange,
   value = '',
+  ...props
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -91,6 +92,7 @@ const VerifiedUsernameInput = ({
       type="text"
       value={value}
       onChange={handleChange}
+      {...props}
     />
   );
 };
