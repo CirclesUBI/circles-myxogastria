@@ -272,7 +272,9 @@ const SendConfirm = () => {
                   amount:
                     maxFlow !== null && maxFlow != '0'
                       ? formatCirclesValue(maxAmount)
-                      : translate('SendConfirm.errorMessageCannotBeCalculated'),
+                      : maxFlow == '0'
+                      ? translate('SendConfirm.errorMessageCannotBeCalculated')
+                      : '',
                 })}
                 tooltip={translate('SendConfirm.tooltipMaxFlow', {
                   username: receiver,
