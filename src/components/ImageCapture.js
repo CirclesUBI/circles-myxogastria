@@ -96,9 +96,11 @@ const ImageCapture = ({ onCapture, onError, width, userMediaConfig }) => {
         onCapture({
           blob,
           png: pngData,
-          file: new File([blob], `${new Date().getTime()}.png`, {
-            type: 'image/png',
-          }),
+          file: [
+            new File([blob], `${new Date().getTime()}.png`, {
+              type: 'image/png',
+            }),
+          ],
         });
       });
     }
