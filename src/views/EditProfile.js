@@ -6,6 +6,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import mime from 'mime/lite';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,8 +31,12 @@ import core from '~/services/core';
 import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { IconUploadPhoto } from '~/styles/icons';
+import compressImage from '~/utils/compressImage';
+import logError from '~/utils/debug';
+import { getDeviceDetect } from '~/utils/deviceDetect';
 
 const SPACING = '30px';
+const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const useStyles = makeStyles((theme) => ({
   uploadButton: {
@@ -92,12 +97,20 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadFromCamera, setIsUploadFromCamera] = useState(false);
   const fileInputElem = useRef();
+  const fileInputElemMob = useRef();
+  const deviceDetect = getDeviceDetect();
+  const isDesktop = deviceDetect.isDesktop();
+
+  const galleryBtnMobileHandler = () => {
+    fileInputElemMob.current.click();
+  };
 
   const galleryBtnHandler = (event) => {
     event.preventDefault();
     fileInputElem.current.click();
     setIsUploadFromCamera(false);
   };
+
   const cameraBtnHandler = () => {
     setIsUploadFromCamera(true);
   };
@@ -108,25 +121,26 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
       return;
     }
 
-    uploadPhoto(files);
+    uploadPhoto([...files]);
   };
 
   async function uploadPhoto(files) {
     setIsLoading(true);
 
-    let data;
-
-    if (files.length) {
-      data = [...files].reduce((acc, file) => {
-        acc.append('files', file, file.name);
-        return acc;
-      }, new FormData());
-    } else {
-      data = new FormData();
-      data.append('files', files);
-    }
-
     try {
+      let data;
+      let optimiseFiles = await compressImage(files);
+
+      if (optimiseFiles.length) {
+        data = [...optimiseFiles].reduce((acc, file) => {
+          acc.append('files', file, file.name);
+          return acc;
+        }, new FormData());
+      } else {
+        data = new FormData();
+        data.append('files', optimiseFiles);
+      }
+
       const result = await core.utils.requestAPI({
         path: ['uploads', 'avatar'],
         method: 'POST',
@@ -136,6 +150,7 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
       onFileUpload(result.data.url);
       handleClose();
     } catch (error) {
+      logError(error);
       dispatch(
         notify({
           text: translate('AvatarUploader.errorAvatarUpload'),
@@ -156,6 +171,10 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
     );
   };
 
+  const fileTypesStr = IMAGE_FILE_TYPES.map((ext) => {
+    return mime.getType(ext);
+  }).join(',');
+
   return (
     <Box className={classes.dialogContentContainer}>
       {!isUploadFromCamera && (
@@ -165,9 +184,44 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
             fullWidth
             isOutline
             isWhite
-            onClick={galleryBtnHandler}
+            onClick={galleryBtnMobileHandler}
           >
             {translate('EditProfile.optionFile')}
+          </Button>
+          <input
+            accept={fileTypesStr}
+            ref={fileInputElemMob}
+            style={{ display: 'none' }}
+            type="file"
+            onChange={uploadFile}
+          />
+        </>
+      )}
+      {!isUploadFromCamera && isDesktop && (
+        <Box className={classes.actionButtonsContainer}>
+          <Button fullWidth isOutline isWhite onClick={cameraBtnHandler}>
+            {translate('EditProfile.optionCamera')}
+          </Button>
+        </Box>
+      )}
+      {isUploadFromCamera && isDesktop && (
+        <UploadFromCamera
+          imageCaptureError={onImageCaptureErrorHandler}
+          isUploading={isLoading}
+          uploadImgSrc={uploadImgSrc}
+          uploadPhoto={uploadPhoto}
+        />
+      )}
+      {!isDesktop && (
+        <>
+          <Button
+            className={classes.continueButton}
+            fullWidth
+            isOutline
+            isWhite
+            onClick={galleryBtnHandler}
+          >
+            {translate('EditProfile.optionCamera')}
           </Button>
           <input
             accept="image/*"
@@ -178,21 +232,6 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
             onChange={uploadFile}
           />
         </>
-      )}
-      {!isUploadFromCamera && (
-        <Box className={classes.actionButtonsContainer}>
-          <Button fullWidth isOutline isWhite onClick={cameraBtnHandler}>
-            {translate('EditProfile.optionCamera')}
-          </Button>
-        </Box>
-      )}
-      {isUploadFromCamera && (
-        <UploadFromCamera
-          imageCaptureError={onImageCaptureErrorHandler}
-          isUploading={isLoading}
-          uploadImgSrc={uploadImgSrc}
-          uploadPhoto={uploadPhoto}
-        />
       )}
     </Box>
   );
@@ -216,6 +255,7 @@ const EditProfile = () => {
   const [informationText, setInformationText] = useState(
     translate('EditProfile.informationText'),
   );
+  const [useCacheOnRedirect, setUseCacheOnRedirect] = useState(true);
   const dispatch = useDispatch();
 
   const safe = useSelector((state) => state.safe);
@@ -252,6 +292,7 @@ const EditProfile = () => {
       );
 
       if (result) {
+        setUseCacheOnRedirect(false);
         dispatch(
           notify({
             text: translate('EditProfile.confirmationMessage'),
@@ -261,6 +302,7 @@ const EditProfile = () => {
         setIsClose(true);
       }
     } catch (error) {
+      logError(error);
       dispatch(
         notify({
           text: translate('EditProfile.errorSaveChanges'),
@@ -367,7 +409,14 @@ const EditProfile = () => {
   );
 
   if (isClose) {
-    return <Redirect to={DASHBOARD_PATH} />;
+    return (
+      <Redirect
+        to={{
+          pathname: DASHBOARD_PATH,
+          state: { useCache: useCacheOnRedirect },
+        }}
+      />
+    );
   }
 
   return (
