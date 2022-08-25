@@ -116,7 +116,7 @@ const Validation = () => {
         hasWhiteIcons
         useSpecialWithColorOnScroll
       />
-      <AvatarHeader />
+      <AvatarHeader useCache={false} />
       <DialogFromBottom
         dialogOpen={dialogOpen}
         footer={dialogContentFooter}

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AvatarHeader = ({ hideImage, username }) => {
+const AvatarHeader = ({ hideImage, username, useCache = true }) => {
   const classes = useStyles();
 
   const safe = useSelector((state) => state.safe);
@@ -42,9 +42,9 @@ const AvatarHeader = ({ hideImage, username }) => {
   const displayedUsername = username ? (
     `@${username}`
   ) : safe.currentAccount ? (
-    <UsernameDisplay address={safe.currentAccount} useCache={false} />
+    <UsernameDisplay address={safe.currentAccount} useCache={useCache} />
   ) : safe.pendingAddress ? (
-    <UsernameDisplay address={safe.pendingAddress} useCache={false} />
+    <UsernameDisplay address={safe.pendingAddress} useCache={useCache} />
   ) : null;
 
   return (
@@ -56,7 +56,7 @@ const AvatarHeader = ({ hideImage, username }) => {
               address={safe.currentAccount || safe.pendingAddress}
               className={classes.avatarContainer}
               size={'smallXl'}
-              useCache={false}
+              useCache={useCache}
             />
           </Link>
         )}
@@ -72,6 +72,7 @@ const AvatarHeader = ({ hideImage, username }) => {
 
 AvatarHeader.propTypes = {
   hideImage: PropTypes.bool,
+  useCache: PropTypes.bool,
   username: PropTypes.string,
 };
 
