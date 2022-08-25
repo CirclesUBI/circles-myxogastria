@@ -1,11 +1,14 @@
 {
   "name": "circles-myxogastria",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Webapp and mobile client for Circles",
   "main": "src/index.js",
   "private": true,
   "contributors": [
-    "adzialocha"
+    "adzialocha",
+    "mikozet",
+    "louilinn",
+    "llunaCreixent"
   ],
   "license": "AGPL-3.0",
   "repository": {
