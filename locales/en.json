@@ -119,6 +119,7 @@
     "errorInvalidName": "Ups! Invalid name, try again.",
     "errorImageCapture": "Sorry, there was a problem with image capture.",
     "errorSaveChanges": "Sorry, there was a problem with saving changes.",
+    "errorCompressImage": "Sorry, there was a problem with compressing uploaded image",
     "heading": "Edit profile",
     "informationText": "Here you can change the main information of your Wallet.",
     "informationText2": "Your username can have basic characters and numbers (A-Z, 0-9) are allowed, no symbols or whitespace, 3-24 characters. No symbols or whitespace are allowed.",
