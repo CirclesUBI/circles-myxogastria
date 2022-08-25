@@ -182,6 +182,11 @@ const SendConfirm = () => {
     dispatch(hideSpinnerOverlay());
   };
 
+  let amountErrorBool;
+  if (maxAmount.words && maxAmount.words.length >= 0) {
+    amountErrorBool = maxAmount.words[0] != 0;
+  }
+
   useEffect(() => {
     findMaxFlow(safe.currentAccount, address, setMaxFlow);
   }, [address, safe.currentAccount]);
@@ -264,7 +269,12 @@ const SendConfirm = () => {
                 isLoading={maxFlow === null}
                 label={translate('SendConfirm.formReceiver')}
                 text={translate('SendConfirm.bodyMaxFlow', {
-                  amount: maxFlow !== null ? formatCirclesValue(maxAmount) : '',
+                  amount:
+                    maxFlow !== null && maxFlow != '0'
+                      ? formatCirclesValue(maxAmount)
+                      : maxFlow == '0'
+                      ? translate('SendConfirm.errorMessageCannotBeCalculated')
+                      : '',
                 })}
                 tooltip={translate('SendConfirm.tooltipMaxFlow', {
                   username: receiver,
@@ -279,7 +289,7 @@ const SendConfirm = () => {
                   username: receiver,
                 })}
                 id="amount"
-                isError={isAmountTooHigh}
+                isError={amountErrorBool && isAmountTooHigh}
                 label={translate('SendConfirm.formAmount')}
                 value={amount}
                 onChange={handleAmountChange}
@@ -301,7 +311,7 @@ const SendConfirm = () => {
       <Footer>
         <Button
           disabled={
-            !amount || amount <= 0 || isAmountTooHigh || isPaymentNoteInvalid
+            amount === '' || isPaymentNoteInvalid || !amount || amount <= 0
           }
           fullWidth
           isPrimary
