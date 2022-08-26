@@ -104,6 +104,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
+  const [useDataFromCache, setIsUseDataFromCache] = useState(true);
   const { isFinished: isTutorialFinished } = useSelector((state) => {
     return state.tutorial[TRANSITION_WALKTHROUGH];
   });
@@ -115,6 +116,14 @@ const Dashboard = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (location.state?.useCache === false) {
+      setIsUseDataFromCache(false);
+      // Clear location state as we will use cache next time if possible
+      window.history.replaceState({}, document.title);
+    }
+  }, [location?.state]);
 
   useUpdateLoop(async () => {
     await dispatch(checkFinishedActivities());
@@ -159,7 +168,7 @@ const Dashboard = () => {
           </IconButton>
           <ActivityIcon />
         </Header>
-        <AvatarHeader />
+        <AvatarHeader useCache={useDataFromCache} />
       </BackgroundCurved>
       <Navigation
         className={classes.navigation}

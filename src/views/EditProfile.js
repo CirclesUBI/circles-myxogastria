@@ -6,8 +6,9 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import mime from 'mime/lite';
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -16,10 +17,13 @@ import { DASHBOARD_PATH } from '~/routes';
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import CenteredHeading from '~/components/CenteredHeading';
+import CheckboxPrivacy from '~/components/CheckboxPrivacy';
+import CheckboxTerms from '~/components/CheckboxTerms';
 import DialogInfo from '~/components/DialogInfo';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import UploadFromCamera from '~/components/UploadFromCamera';
+import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
 import View from '~/components/View';
 import { useUserdata } from '~/hooks/username';
@@ -27,8 +31,12 @@ import core from '~/services/core';
 import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { IconUploadPhoto } from '~/styles/icons';
+import compressImage from '~/utils/compressImage';
+import logError from '~/utils/debug';
+import { getDeviceDetect } from '~/utils/deviceDetect';
 
-const BOTTOM_SPACING = '30px';
+const SPACING = '30px';
+const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const useStyles = makeStyles((theme) => ({
   uploadButton: {
@@ -50,17 +58,17 @@ const useStyles = makeStyles((theme) => ({
   },
   dialogContentContainer: {
     '& >p': {
-      marginBottom: BOTTOM_SPACING,
+      marginBottom: SPACING,
     },
   },
   continueButton: {
-    marginBottom: BOTTOM_SPACING,
+    marginBottom: SPACING,
   },
   actionButtonsContainer: {
-    marginBottom: BOTTOM_SPACING,
+    marginBottom: SPACING,
   },
   usernameInputContainer: {
-    marginBottom: BOTTOM_SPACING,
+    marginBottom: SPACING,
     marginTop: '50px',
   },
   openCameraInput: {
@@ -68,6 +76,18 @@ const useStyles = makeStyles((theme) => ({
   },
   saveButton: {
     marginBottom: '20px',
+  },
+  informationContainer: {
+    maxWidth: '350px',
+    margin: `${SPACING} 42px ${SPACING}`,
+  },
+  informationText: {
+    textAlign: 'center',
+    marginBottom: '15px',
+  },
+  emailInputContainer: {
+    position: 'relative',
+    zIndex: theme.zIndex.layer1,
   },
 }));
 
@@ -77,12 +97,20 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadFromCamera, setIsUploadFromCamera] = useState(false);
   const fileInputElem = useRef();
+  const fileInputElemMob = useRef();
+  const deviceDetect = getDeviceDetect();
+  const isDesktop = deviceDetect.isDesktop();
+
+  const galleryBtnMobileHandler = () => {
+    fileInputElemMob.current.click();
+  };
 
   const galleryBtnHandler = (event) => {
     event.preventDefault();
     fileInputElem.current.click();
     setIsUploadFromCamera(false);
   };
+
   const cameraBtnHandler = () => {
     setIsUploadFromCamera(true);
   };
@@ -93,25 +121,26 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
       return;
     }
 
-    uploadPhoto(files);
+    uploadPhoto([...files]);
   };
 
   async function uploadPhoto(files) {
     setIsLoading(true);
 
-    let data;
-
-    if (files.length) {
-      data = [...files].reduce((acc, file) => {
-        acc.append('files', file, file.name);
-        return acc;
-      }, new FormData());
-    } else {
-      data = new FormData();
-      data.append('files', files);
-    }
-
     try {
+      let data;
+      let optimiseFiles = await compressImage(files);
+
+      if (optimiseFiles.length) {
+        data = [...optimiseFiles].reduce((acc, file) => {
+          acc.append('files', file, file.name);
+          return acc;
+        }, new FormData());
+      } else {
+        data = new FormData();
+        data.append('files', optimiseFiles);
+      }
+
       const result = await core.utils.requestAPI({
         path: ['uploads', 'avatar'],
         method: 'POST',
@@ -121,6 +150,7 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
       onFileUpload(result.data.url);
       handleClose();
     } catch (error) {
+      logError(error);
       dispatch(
         notify({
           text: translate('AvatarUploader.errorAvatarUpload'),
@@ -141,6 +171,10 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
     );
   };
 
+  const fileTypesStr = IMAGE_FILE_TYPES.map((ext) => {
+    return mime.getType(ext);
+  }).join(',');
+
   return (
     <Box className={classes.dialogContentContainer}>
       {!isUploadFromCamera && (
@@ -150,9 +184,44 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
             fullWidth
             isOutline
             isWhite
-            onClick={galleryBtnHandler}
+            onClick={galleryBtnMobileHandler}
           >
             {translate('EditProfile.optionFile')}
+          </Button>
+          <input
+            accept={fileTypesStr}
+            ref={fileInputElemMob}
+            style={{ display: 'none' }}
+            type="file"
+            onChange={uploadFile}
+          />
+        </>
+      )}
+      {!isUploadFromCamera && isDesktop && (
+        <Box className={classes.actionButtonsContainer}>
+          <Button fullWidth isOutline isWhite onClick={cameraBtnHandler}>
+            {translate('EditProfile.optionCamera')}
+          </Button>
+        </Box>
+      )}
+      {isUploadFromCamera && isDesktop && (
+        <UploadFromCamera
+          imageCaptureError={onImageCaptureErrorHandler}
+          isUploading={isLoading}
+          uploadImgSrc={uploadImgSrc}
+          uploadPhoto={uploadPhoto}
+        />
+      )}
+      {!isDesktop && (
+        <>
+          <Button
+            className={classes.continueButton}
+            fullWidth
+            isOutline
+            isWhite
+            onClick={galleryBtnHandler}
+          >
+            {translate('EditProfile.optionCamera')}
           </Button>
           <input
             accept="image/*"
@@ -163,21 +232,6 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
             onChange={uploadFile}
           />
         </>
-      )}
-      {!isUploadFromCamera && (
-        <Box className={classes.actionButtonsContainer}>
-          <Button fullWidth isOutline isWhite onClick={cameraBtnHandler}>
-            {translate('EditProfile.optionCamera')}
-          </Button>
-        </Box>
-      )}
-      {isUploadFromCamera && (
-        <UploadFromCamera
-          imageCaptureError={onImageCaptureErrorHandler}
-          isUploading={isLoading}
-          uploadImgSrc={uploadImgSrc}
-          uploadPhoto={uploadPhoto}
-        />
       )}
     </Box>
   );
@@ -190,7 +244,18 @@ const EditProfile = () => {
   const [isOpenDialogCloseInfo, setIsOpenDialogCloseInfo] = useState(false);
   const [isOpenDialogUploadInfo, setIsOpenDialogUploadInfo] = useState(false);
   const [usernameInput, setUsernameInput] = useState(username);
+  const [usernameValid, setUsernameValid] = useState();
+  const [emailInput, setEmailInput] = useState();
+  const [currentUserEmail, setCurrentUserEmail] = useState();
+  const [isConsentInfo, setIsConsentInfo] = useState(false);
   const [profilePicUrl, setProfilePicUrl] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
+  const [privacy, setPrivacy] = useState(true);
+  const [terms, setTerms] = useState(true);
+  const [informationText, setInformationText] = useState(
+    translate('EditProfile.informationText'),
+  );
+  const [useCacheOnRedirect, setUseCacheOnRedirect] = useState(true);
   const dispatch = useDispatch();
 
   const safe = useSelector((state) => state.safe);
@@ -200,11 +265,16 @@ const EditProfile = () => {
     setUsernameInput(username);
   };
 
-  const onDisabledChange = (updatedValue) => {
+  const onDisabledChange = useCallback((updatedValue) => {
+    setIsDisabled(updatedValue);
+  }, []);
+
+  const onUsernameStatusChange = (updatedValue) => {
     if (username !== usernameInput) {
-      setIsDisabled(updatedValue);
+      // Username status returns FALSE when valid
+      setUsernameValid(!updatedValue);
     } else {
-      setIsDisabled(false);
+      setUsernameValid(true);
     }
   };
 
@@ -214,15 +284,15 @@ const EditProfile = () => {
 
   async function editUserData() {
     try {
-      const userEmail = await core.user.getEmail(safe.currentAccount);
       const result = await core.user.update(
         safe.currentAccount,
         usernameInput,
-        userEmail,
+        emailInput,
         profilePicUrl,
       );
 
       if (result) {
+        setUseCacheOnRedirect(false);
         dispatch(
           notify({
             text: translate('EditProfile.confirmationMessage'),
@@ -232,6 +302,7 @@ const EditProfile = () => {
         setIsClose(true);
       }
     } catch (error) {
+      logError(error);
       dispatch(
         notify({
           text: translate('EditProfile.errorSaveChanges'),
@@ -261,6 +332,63 @@ const EditProfile = () => {
     setUsernameInput(username);
   }, [username]);
 
+  const handleEmailStatus = (status) => {
+    // Email status returns FALSE when valid
+    setEmailValid(!status);
+  };
+
+  const handleEmail = (email) => {
+    setEmailInput(email);
+    if (email !== currentUserEmail) {
+      setIsConsentInfo(true);
+      setPrivacy(false);
+      setTerms(false);
+    } else {
+      setIsConsentInfo(false);
+      setPrivacy(true);
+      setTerms(true);
+    }
+  };
+
+  const handlePrivacy = ({ target: { checked } }) => {
+    setPrivacy(checked);
+  };
+
+  const handleTerms = ({ target: { checked } }) => {
+    setTerms(checked);
+  };
+
+  const onUsernameInputFocusHandler = () => {
+    setInformationText(translate('EditProfile.informationText2'));
+  };
+  const onUsernameInputBlurHandler = () => {
+    setInformationText(translate('EditProfile.informationText'));
+  };
+
+  const onEmailInputBlurHandler = () => {
+    if (emailInput === currentUserEmail) {
+      setInformationText(translate('EditProfile.informationText'));
+    }
+  };
+
+  const onEmailInputFocusHandler = () => {
+    setInformationText(translate('EditProfile.informationText3'));
+  };
+
+  useEffect(() => {
+    onDisabledChange(
+      ![emailValid, privacy, terms, usernameValid].every((b) => b === true),
+    );
+  }, [emailValid, privacy, terms, usernameValid, onDisabledChange]);
+
+  useEffect(() => {
+    (async () => {
+      const userEmail = await core.user.getEmail(safe.currentAccount);
+      setEmailInput(userEmail);
+      setCurrentUserEmail(userEmail);
+    })();
+  }, [safe.currentAccount]);
+
   const dialogContentClose = (
     <Box className={classes.dialogContentContainer}>
       <Typography className="lightGreyText">
@@ -281,7 +409,14 @@ const EditProfile = () => {
   );
 
   if (isClose) {
-    return <Redirect to={DASHBOARD_PATH} />;
+    return (
+      <Redirect
+        to={{
+          pathname: DASHBOARD_PATH,
+          state: { useCache: useCacheOnRedirect },
+        }}
+      />
+    );
   }
 
   return (
@@ -338,17 +473,41 @@ const EditProfile = () => {
               allowCurrentUser
               label={translate('Onboarding.formUsername')}
               value={usernameInput}
+              onBlur={onUsernameInputBlurHandler}
               onChange={onChangeUsernameHandler}
-              onStatusChange={onDisabledChange}
+              onFocus={onUsernameInputFocusHandler}
+              onStatusChange={onUsernameStatusChange}
             />
           </Box>
-          <Box className={classes.textContainer} mb={3} mt={6}>
-            <Typography className="lightGreyText">
-              {translate('EditProfile.usernameExplanation')}
-            </Typography>
-            <Typography className="lightGreyText">
-              {translate('EditProfile.charactersExplanation')}
-            </Typography>
+          <Box className={classes.emailInputContainer}>
+            <VerifiedEmailInput
+              label={translate('Onboarding.formEmail')}
+              value={emailInput}
+              onBlur={onEmailInputBlurHandler}
+              onChange={handleEmail}
+              onFocus={onEmailInputFocusHandler}
+              onStatusChange={handleEmailStatus}
+            />
+            <Box className={classes.informationContainer}>
+              <Box className={classes.informationText}>
+                <Typography className="lightGreyText">
+                  {informationText}
+                </Typography>
+              </Box>
+              {isConsentInfo && (
+                <>
+                  <Box>
+                    <CheckboxPrivacy
+                      checked={privacy}
+                      onChange={handlePrivacy}
+                    />
+                  </Box>
+                  <Box>
+                    <CheckboxTerms checked={terms} onChange={handleTerms} />
+                  </Box>
+                </>
+              )}
+            </Box>
           </Box>
         </Container>
       </View>
