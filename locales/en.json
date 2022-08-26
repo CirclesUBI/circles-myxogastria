@@ -122,7 +122,7 @@
     "errorCompressImage": "Sorry, there was a problem with compressing uploaded image",
     "heading": "Edit profile",
     "informationText": "Here you can change the main information of your Wallet.",
-    "informationText2": "Your username can have basic characters and numbers (A-Z, 0-9) are allowed, no symbols or whitespace, 3-24 characters. No symbols or whitespace are allowed.",
+    "informationText2": "Your username can have basic characters and numbers (a-z, A-Z, 0-9) are allowed, no symbols or whitespace, 3-24 characters. No symbols or whitespace are allowed.",
     "informationText3": "Just a reminder. Your privacy is very important to us. We will never share this!",
     "optionCapture": "Capture",
     "optionTryAgain": "Try Again",
