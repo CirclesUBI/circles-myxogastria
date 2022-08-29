@@ -6,8 +6,9 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import { SEARCH_PATH, SEND_PATH } from '~/routes';
 
@@ -97,6 +98,16 @@ const DashboardOrganization = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
+  const [useDataFromCache, setIsUseDataFromCache] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.useCache === false) {
+      setIsUseDataFromCache(false);
+      // Clear location state as we will use cache next time if possible
+      window.history.replaceState({}, document.title);
+    }
+  }, [location?.state]);
 
   useUpdateLoop(async () => {
     await dispatch(checkFinishedActivities());
@@ -125,7 +136,7 @@ const DashboardOrganization = () => {
           </IconButton>
           <ActivityIcon />
         </Header>
-        <AvatarHeader />
+        <AvatarHeader useCache={useDataFromCache} />
       </BackgroundCurved>
       <Navigation
         className={classes.navigation}
