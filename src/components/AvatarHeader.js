@@ -34,7 +34,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AvatarHeader = ({ hideImage, username, useCache = true }) => {
+const AvatarHeader = ({
+  hideImage,
+  username,
+  useCache = true,
+  withClickEffect,
+  withHoverEffect,
+}) => {
   const classes = useStyles();
 
   const safe = useSelector((state) => state.safe);
@@ -57,6 +63,8 @@ const AvatarHeader = ({ hideImage, username, useCache = true }) => {
               className={classes.avatarContainer}
               size={'smallXl'}
               useCache={useCache}
+              withClickEffect={withClickEffect}
+              withHoverEffect={withHoverEffect}
             />
           </Link>
         )}
@@ -74,6 +82,8 @@ AvatarHeader.propTypes = {
   hideImage: PropTypes.bool,
   useCache: PropTypes.bool,
   username: PropTypes.string,
+  withClickEffect: PropTypes.bool,
+  withHoverEffect: PropTypes.bool,
 };
 
 export default AvatarHeader;
