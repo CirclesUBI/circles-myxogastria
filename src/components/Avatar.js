@@ -1,11 +1,13 @@
 import { Box, Avatar as MuiAvatar } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
 import GroupWalletCircleSVG from '%/images/organization-indicator.svg';
 import Jazzicon from '~/components/Jazzicon';
 import { useIsOrganization, useUserdata } from '~/hooks/username';
+import { IconPlus } from '~/styles/icons';
 
 const ORGANIZATION_RING_MULTIPLIER = 1.085;
 
@@ -17,7 +19,7 @@ const SIZE_MULTIPLIERS = {
   large: 3,
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   avatarContainer: {
     position: 'relative',
     margin: '0 auto',
@@ -28,11 +30,40 @@ const useStyles = makeStyles(() => ({
     top: 0,
     left: 0,
   },
+  circleGrey: {
+    background: theme.custom.colors.greyHover,
+    border: `2px solid ${theme.custom.colors.fountainBlue}`,
+    position: 'absolute',
+    left: '-1px',
+    top: '-1px',
+    borderRadius: '50%',
+    zIndex: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 0,
+    transition: 'opacity 0.1s ease-in-out',
+  },
+  isHovered: {
+    opacity: 1,
+  },
+  plusIcon: {
+    fontSize: '20px',
+  },
 }));
 
-const Avatar = ({ address, size = 'small', url, useCache, ...props }) => {
+const Avatar = ({
+  address,
+  size = 'small',
+  url,
+  useCache,
+  withHoverEffect,
+  withClickEffect,
+  ...props
+}) => {
   const classes = useStyles();
   const theme = useTheme();
+  const [isHovered, setIsHovered] = useState(false);
 
   let { avatarUrl, username } = useUserdata(address, useCache);
 
@@ -46,10 +77,32 @@ const Avatar = ({ address, size = 'small', url, useCache, ...props }) => {
   const initials = username.slice(0, 2) === '0x' ? null : username.slice(0, 2);
 
   return (
-    <Box className={classes.avatarContainer}>
+    <Box
+      className={classes.avatarContainer}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {isOrganization && (
         <Box className={classes.organizationIndicator}>
           <GroupWalletCircleSVG width={sizePixelRing} />
+        </Box>
+      )}
+      {(withHoverEffect || withClickEffect) && (
+        <Box className={classes.withClickEffect}>
+          <Box
+            className={clsx(classes.circleGrey, {
+              [classes.isHovered]: isHovered || withClickEffect,
+            })}
+            style={{
+              width: sizePixelAvatar + 2,
+              height: sizePixelAvatar + 2,
+            }}
+          >
+            <IconPlus
+              className={classes.plusIcon}
+              style={{ fontSize: size === 'large' ? '20px' : '16px' }}
+            />
+          </Box>
         </Box>
       )}
       <MuiAvatar
@@ -74,6 +127,8 @@ Avatar.propTypes = {
   size: PropTypes.string,
   url: PropTypes.string,
   useCache: PropTypes.bool,
+  withClickEffect: PropTypes.bool,
+  withHoverEffect: PropTypes.bool,
 };
 
 export default React.memo(Avatar);
