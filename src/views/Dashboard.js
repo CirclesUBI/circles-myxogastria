@@ -9,9 +9,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 
 import { SEARCH_PATH, SEND_PATH } from '~/routes';
+import { MY_PROFILE_PATH } from '~/routes';
 
 import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
@@ -109,6 +110,9 @@ const Dashboard = () => {
     return state.tutorial[TRANSITION_WALKTHROUGH];
   });
   const location = useLocation();
+  const isAvatarWithClickEffect = !!useRouteMatch(
+    `(${[MY_PROFILE_PATH].join('|')})`,
+  );
 
   useEffect(() => {
     if (location.state?.hideTransitionTutorial) {
@@ -168,7 +172,11 @@ const Dashboard = () => {
           </IconButton>
           <ActivityIcon />
         </Header>
-        <AvatarHeader useCache={useDataFromCache} />
+        <AvatarHeader
+          useCache={useDataFromCache}
+          withClickEffect={isAvatarWithClickEffect}
+          withHoverEffect
+        />
       </BackgroundCurved>
       <Navigation
         className={classes.navigation}
