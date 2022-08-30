@@ -1,10 +1,4 @@
-import {
-  Badge,
-  Box,
-  Container,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
+import { Box, Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import mime from 'mime/lite';
 import PropTypes from 'prop-types';
@@ -30,7 +24,6 @@ import { useUserdata } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import { IconUploadPhoto } from '~/styles/icons';
 import compressImage from '~/utils/compressImage';
 import logError from '~/utils/debug';
 import { getDeviceDetect } from '~/utils/deviceDetect';
@@ -39,16 +32,11 @@ const SPACING = '30px';
 const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const useStyles = makeStyles((theme) => ({
-  uploadButton: {
-    background: theme.custom.gradients.purple,
-    color: theme.palette.common.white,
-    padding: 0,
-  },
-  uploadButtonIcon: {
+  avatarHl: {
+    display: 'inline-flex',
     position: 'relative',
-    left: 1,
-    width: '2.2em',
-    height: '2.2em',
+    flexShrink: 0,
+    verticalAlign: 'middle',
   },
   textContainer: {
     textAlign: 'center',
@@ -80,6 +68,9 @@ const useStyles = makeStyles((theme) => ({
   informationContainer: {
     maxWidth: '350px',
     margin: `${SPACING} 42px ${SPACING}`,
+    [theme.breakpoints.up('sm')]: {
+      margin: `${SPACING} auto ${SPACING}`,
+    },
   },
   informationText: {
     textAlign: 'center',
@@ -450,22 +441,18 @@ const EditProfile = () => {
             maxWidth={'xs'}
           />
           <Box align="center" mb={2} mt={4}>
-            <Badge
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-              badgeContent={
-                <IconButton className={classes.uploadButton}>
-                  <IconUploadPhoto className={classes.uploadButtonIcon} />
-                </IconButton>
-              }
-              overlap="circular"
+            <Box
+              className={classes.avatarHl}
               onClick={() => setIsOpenDialogUploadInfo(true)}
             >
               <Avatar
                 address={safe.currentAccount || safe.pendingAddress}
                 size="large"
                 url={profilePicUrl}
+                withClickEffect={isOpenDialogUploadInfo}
+                withHoverEffect
               />
-            </Badge>
+            </Box>
           </Box>
           <Box className={classes.usernameInputContainer}>
             <VerifiedUsernameInput
