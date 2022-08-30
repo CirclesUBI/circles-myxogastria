@@ -8,9 +8,9 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 
-import { SEARCH_PATH, SEND_PATH } from '~/routes';
+import { MY_PROFILE_PATH, SEARCH_PATH, SEND_PATH } from '~/routes';
 
 import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
@@ -100,6 +100,9 @@ const DashboardOrganization = () => {
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
   const [useDataFromCache, setIsUseDataFromCache] = useState(true);
   const location = useLocation();
+  const isAvatarWithClickEffect = !!useRouteMatch(
+    `(${[MY_PROFILE_PATH].join('|')})`,
+  );
 
   useEffect(() => {
     if (location.state?.useCache === false) {
@@ -136,7 +139,11 @@ const DashboardOrganization = () => {
           </IconButton>
           <ActivityIcon />
         </Header>
-        <AvatarHeader useCache={useDataFromCache} />
+        <AvatarHeader
+          useCache={useDataFromCache}
+          withClickEffect={isAvatarWithClickEffect}
+          withHoverEffect
+        />
       </BackgroundCurved>
       <Navigation
         className={classes.navigation}
