@@ -1,3 +1,4 @@
+import { tcToCrc } from '@circles/timecircles';
 import { DateTime } from 'luxon';
 
 import core from '~/services/core';
@@ -217,6 +218,13 @@ async function loopTransfer(from, to, value, paymentNote) {
   );
 }
 
+/**
+ * Transfer circles to another safe
+ * @param {string} to Receiver safe address of Circles transfer
+ * @param {number} amount Amount in Time Circles
+ * @param {string} paymentNote Message for recipient
+ * @returns response
+ */
 export function transfer(to, amount, paymentNote = '') {
   return async (dispatch, getState) => {
     dispatch({
@@ -227,7 +235,9 @@ export function transfer(to, amount, paymentNote = '') {
     const from = safe.currentAccount;
 
     try {
-      const value = new web3.utils.BN(core.utils.toFreckles(amount));
+      const value = new web3.utils.BN(
+        core.utils.toFreckles(tcToCrc(Date.now(), Number(amount))),
+      );
       const txHash = await loopTransfer(from, to, value, paymentNote);
 
       dispatch(

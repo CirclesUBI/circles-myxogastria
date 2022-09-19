@@ -43,6 +43,7 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { checkCurrentBalance, transfer } from '~/store/token/actions';
 import { IconSend } from '~/styles/icons';
 import logError, { formatErrorMessage } from '~/utils/debug';
+import { findMaxFlow } from '~/utils/findPath';
 import { formatCirclesValue } from '~/utils/format';
 
 const { ErrorCodes, TransferError } = core.errors;
@@ -90,13 +91,7 @@ const SendConfirm = () => {
   );
 
   const isAmountTooHigh = amount
-    ? web3.utils
-        .toBN(maxAmount)
-        .lte(
-          web3.utils.toBN(
-            amount ? web3.utils.toWei(amount.toString(), 'ether') : '0',
-          ),
-        )
+    ? Number(formatCirclesValue(maxAmount)) < Number(amount)
     : false;
 
   const isPaymentNoteInvalid =
@@ -187,41 +182,13 @@ const SendConfirm = () => {
     dispatch(hideSpinnerOverlay());
   };
 
+  let amountErrorBool;
+  if (maxAmount.words && maxAmount.words.length >= 0) {
+    amountErrorBool = maxAmount.words[0] != 0;
+  }
+
   useEffect(() => {
-    const getMaxFlow = async () => {
-      // First attempt, try via API
-      try {
-        const response = await core.token.findTransitiveTransfer(
-          safe.currentAccount,
-          address,
-          new web3.utils.BN(web3.utils.toWei('1000000000000000', 'ether')), // Has to be a large amount
-        );
-
-        // Throw an error when no path was found, we should try again with
-        // checking direct sends as the API might not be in sync yet
-        if (response.maxFlowValue === '0') {
-          throw new Error('Zero value found when asking API');
-        }
-
-        setMaxFlow(response.maxFlowValue);
-        return;
-      } catch {
-        setMaxFlow('0');
-      }
-
-      // Second attempt, do contract call
-      try {
-        const sendLimit = await core.token.checkSendLimit(
-          safe.currentAccount,
-          address,
-        );
-        setMaxFlow(sendLimit);
-      } catch (error) {
-        setMaxFlow('0');
-      }
-    };
-
-    getMaxFlow();
+    findMaxFlow(safe.currentAccount, address, setMaxFlow);
   }, [address, safe.currentAccount]);
 
   if (isSent) {
@@ -302,7 +269,12 @@ const SendConfirm = () => {
                 isLoading={maxFlow === null}
                 label={translate('SendConfirm.formReceiver')}
                 text={translate('SendConfirm.bodyMaxFlow', {
-                  amount: maxFlow !== null ? formatCirclesValue(maxAmount) : '',
+                  amount:
+                    maxFlow !== null && maxFlow != '0'
+                      ? formatCirclesValue(maxAmount)
+                      : maxFlow == '0'
+                      ? translate('SendConfirm.errorMessageCannotBeCalculated')
+                      : '',
                 })}
                 tooltip={translate('SendConfirm.tooltipMaxFlow', {
                   username: receiver,
@@ -317,7 +289,7 @@ const SendConfirm = () => {
                   username: receiver,
                 })}
                 id="amount"
-                isError={isAmountTooHigh}
+                isError={amountErrorBool && isAmountTooHigh}
                 label={translate('SendConfirm.formAmount')}
                 value={amount}
                 onChange={handleAmountChange}
@@ -339,7 +311,7 @@ const SendConfirm = () => {
       <Footer>
         <Button
           disabled={
-            !amount || amount <= 0 || isAmountTooHigh || isPaymentNoteInvalid
+            amount === '' || isPaymentNoteInvalid || !amount || amount <= 0
           }
           fullWidth
           isPrimary

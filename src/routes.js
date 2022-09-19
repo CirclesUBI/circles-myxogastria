@@ -25,7 +25,6 @@ import Share from '~/views/Share';
 import TutorialOnboarding from '~/views/TutorialOnboarding';
 import Validation from '~/views/Validation';
 import ValidationLock from '~/views/ValidationLock';
-import ValidationShare from '~/views/ValidationShare';
 import Welcome from '~/views/Welcome';
 
 // Routes in Drawer component
@@ -48,14 +47,15 @@ export const SEND_PATH = '/send';
 export const SETTINGS_PATH = '/settings';
 export const SHARE_PATH = '/share';
 export const VALIDATION_PATH = '/validation';
-export const VALIDATION_SHARE_PATH = '/validation/share';
 export const WELCOME_PATH = '/welcome';
+export const EDIT_PROFILE = '/editprofile';
 
 const SessionContainer = ({
   component: Component,
   isAuthorizationRequired = false,
   isValidationRequired = false,
   isOrganizationRequired = false,
+  hideTransitionTutorial = false,
 }) => {
   const { app, safe } = useSelector((state) => state);
   let isValid = true;
@@ -99,7 +99,11 @@ const SessionContainer = ({
       return <Redirect to={VALIDATION_PATH} />;
     }
 
-    return <Redirect to={DASHBOARD_PATH} />;
+    return (
+      <Redirect
+        to={{ pathname: DASHBOARD_PATH, state: { hideTransitionTutorial } }}
+      />
+    );
   }
 
   return <Redirect to={WELCOME_PATH} />;
@@ -107,18 +111,25 @@ const SessionContainer = ({
 
 // Containers for routes with different permissions
 
-const OnboardingRoute = ({ component, path }) => {
+const OnboardingRoute = ({ component, path, hideTransitionTutorial }) => {
   return (
     <Route path={path}>
-      <SessionContainer component={component} />
+      <SessionContainer
+        component={component}
+        hideTransitionTutorial={hideTransitionTutorial}
+      />
     </Route>
   );
 };
 
-const SessionRoute = ({ component, path }) => {
+const SessionRoute = ({ component, path, hideTransitionTutorial }) => {
   return (
     <Route path={path}>
-      <SessionContainer component={component} isAuthorizationRequired />
+      <SessionContainer
+        component={component}
+        hideTransitionTutorial={hideTransitionTutorial}
+        isAuthorizationRequired
+      />
     </Route>
   );
 };
@@ -232,12 +243,17 @@ const Routes = () => {
         exact
         path={ONBOARDING_PATH}
       />
-      <OnboardingRoute component={Login} exact path={LOGIN_PATH} />
-      <SessionRoute component={Validation} exact path={VALIDATION_PATH} />
-      <SessionRoute
-        component={ValidationShare}
+      <OnboardingRoute
+        component={Login}
         exact
-        path={VALIDATION_SHARE_PATH}
+        hideTransitionTutorial
+        path={LOGIN_PATH}
+      />
+      <SessionRoute
+        component={Validation}
+        exact
+        hideTransitionTutorial
+        path={VALIDATION_PATH}
       />
       <TrustedRoute component={SendConfirm} exact path={SEND_CONFIRM_PATH} />
       <TrustedRoute component={Send} exact path={SEND_PATH} />
@@ -270,6 +286,7 @@ const Routes = () => {
 
 SessionContainer.propTypes = {
   component: PropTypes.elementType.isRequired,
+  hideTransitionTutorial: PropTypes.bool,
   isAuthorizationRequired: PropTypes.bool,
   isOrganizationRequired: PropTypes.bool,
   isValidationRequired: PropTypes.bool,
@@ -277,11 +294,13 @@ SessionContainer.propTypes = {
 
 OnboardingRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
+  hideTransitionTutorial: PropTypes.bool,
   path: PropTypes.string.isRequired,
 };
 
 SessionRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
+  hideTransitionTutorial: PropTypes.bool,
   path: PropTypes.string.isRequired,
 };
 

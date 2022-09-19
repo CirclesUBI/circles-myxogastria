@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
   },
   welcomeExternalLink: {
     color: theme.palette.text.primary,
+    zIndex: theme.zIndex.layer2,
+    position: 'relative',
   },
 }));
 

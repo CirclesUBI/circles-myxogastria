@@ -1,3 +1,5 @@
+import { tcToCrc } from '@circles/timecircles';
+
 import core from '~/services/core';
 import {
   generateDeterministicNonce,
@@ -114,9 +116,9 @@ export function createNewOrganization(
         },
       );
 
-      // Prefund the organization with Tokens from the user
-      const amount = web3.utils.toBN(
-        web3.utils.toWei(prefundValue.toString(), 'ether'),
+      // Prefund the organization with Tokens from the user (transfer)
+      const amount = new web3.utils.BN(
+        core.utils.toFreckles(tcToCrc(Date.now(), Number(prefundValue))),
       );
       await waitAndRetryOnFail(
         async () => {

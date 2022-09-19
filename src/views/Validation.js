@@ -1,27 +1,28 @@
-import { Avatar, Box, Container, Tooltip, Typography } from '@material-ui/core';
+import { Box, Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-import { VALIDATION_SHARE_PATH } from '~/routes';
-
-import AppNote from '~/components/AppNote';
-import AvatarWithQR from '~/components/AvatarWithQR';
-import BalanceDisplay from '~/components/BalanceDisplay';
+import AvatarHeader from '~/components/AvatarHeader';
+import BackgroundCurved from '~/components/BackgroundCurved';
 import Button from '~/components/Button';
-import CenteredHeading from '~/components/CenteredHeading';
+import ButtonShare from '~/components/ButtonShare';
+import DialogFromBottom from '~/components/DialogFromBottom';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import HumbleAlert from '~/components/HumbleAlert';
-import UsernameDisplay from '~/components/UsernameDisplay';
+import ShareBox from '~/components/ShareBox';
+import StepperHorizontal from '~/components/StepperHorizontal';
 import ValidationStatus from '~/components/ValidationStatus';
 import View from '~/components/View';
 import { useUpdateLoop } from '~/hooks/update';
+import { useProfileLink } from '~/hooks/url';
+import { useIsOrganization } from '~/hooks/username';
 import translate from '~/services/locale';
+import { finalizeNewAccount } from '~/store/onboarding/actions';
 import { checkTrustState } from '~/store/trust/actions';
-import { IconCheck } from '~/styles/icons';
-import { NEEDED_TRUST_CONNECTIONS } from '~/utils/constants';
+import { IconBack } from '~/styles/icons';
+import { stepperConfiguration } from '~/views/Onboarding';
 
 const useStyles = makeStyles((theme) => ({
   trustConnectionsCircle: {
@@ -30,54 +31,115 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
   },
+
+  validationHeader: {
+    '& .MuiToolbar-regular': {
+      justifyContent: 'end',
+    },
+  },
+
+  validationContainer: {
+    position: 'relative',
+    zIndex: theme.zIndex.layer1,
+    textAlign: 'center',
+  },
+
+  onboardingMobileStepper: {
+    flexGrow: 1,
+    paddingTop: 9,
+    paddingRight: 19,
+    paddingLeft: 19,
+    background: 'transparent',
+
+    '& .MuiMobileStepper-progress': {
+      display: 'none',
+    },
+  },
+
+  DialogFromBottomContainer: {
+    width: '100%',
+
+    '& .MuiDialog-paper': {
+      width: '100%',
+      margin: 0,
+    },
+  },
 }));
 
 const Validation = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-
   const { trust, safe, token } = useSelector((state) => state);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const address = safe.currentAccount || safe.pendingAddress;
+  const { isOrganization } = useIsOrganization(address);
+  const shareLink = useProfileLink(address);
+  const shareText = translate('Share.shareText', { shareLink });
 
   useUpdateLoop(async () => {
     await dispatch(checkTrustState());
   });
 
-  const leftTrustConnections = Math.max(
-    0,
-    NEEDED_TRUST_CONNECTIONS - trust.connections,
-  );
-
   const isDeploymentReady =
     safe.pendingIsFunded || token.isFunded || trust.isTrusted;
 
+  const stepNames = stepperConfiguration.map((step) => step.stepName);
+
+  const onDeploy = async () => {
+    await dispatch(finalizeNewAccount());
+  };
+
+  const shareProfileBtnHandler = () => {
+    setDialogOpen(true);
+  };
+
+  const dialogCloseHandler = () => {
+    setDialogOpen(false);
+  };
+
+  const dialogContentFooter = () => {
+    return (
+      <ButtonShare fullWidth isPrimary text={shareText} url={shareLink}>
+        {translate('Validation.buttonShareProfileLink')}
+      </ButtonShare>
+    );
+  };
+
+  const dialogContentHeader = () => {
+    return <IconBack onClick={dialogCloseHandler} />;
+  };
+
   return (
-    <Fragment>
-      <Header>
-        <Link to={VALIDATION_SHARE_PATH}>
-          <AvatarWithQR address={safe.pendingAddress} />
-        </Link>
-        <CenteredHeading>
-          <UsernameDisplay address={safe.pendingAddress} />
-        </CenteredHeading>
-        <Tooltip
-          arrow
-          title={translate('Validation.tooltipLeftTrustConnections', {
-            connections: leftTrustConnections,
-          })}
-        >
-          <Avatar className={classes.trustConnectionsCircle}>
-            {isDeploymentReady ? <IconCheck /> : trust.connections}
-          </Avatar>
-        </Tooltip>
-      </Header>
+    <BackgroundCurved gradient="turquoise">
+      <Header
+        className={classes.validationHeader}
+        hasWhiteIcons
+        useSpecialWithColorOnScroll
+      />
+      <AvatarHeader />
+      <DialogFromBottom
+        dialogOpen={dialogOpen}
+        footer={dialogContentFooter}
+        header={dialogContentHeader}
+        onCloseHandler={dialogCloseHandler}
+      >
+        <ShareBox address={address} />
+      </DialogFromBottom>
       <View>
-        <Container maxWidth="sm">
-          <Box mb={6} mt={2}>
-            <BalanceDisplay />
-            <AppNote />
-          </Box>
-          <Typography align="center" variant="h2">
+        <Container className={classes.validationContainer} maxWidth="sm">
+          <StepperHorizontal
+            activeStep={2}
+            isOrganization={isOrganization}
+            steps={stepNames}
+          />
+          <Typography align="center" gutterBottom variant="h6">
             {translate('Validation.headingBuildYourWebOfTrust')}
+          </Typography>
+          <Typography>
+            {translate('Validation.bodyTrustDescription')}
+          </Typography>
+          <Typography>
+            {translate('Validation.bodyTrustDescriptionEmphasize')}
           </Typography>
           <ValidationStatus />
         </Container>
@@ -86,13 +148,25 @@ const Validation = () => {
         <HumbleAlert>{translate('Validation.bodyDoNotReset')}</HumbleAlert>
         {!isDeploymentReady && (
           <Box mt={2}>
-            <Button fullWidth isPrimary to={VALIDATION_SHARE_PATH}>
+            <Button fullWidth isOutline onClick={shareProfileBtnHandler}>
               {translate('Validation.buttonShareProfileLink')}
             </Button>
           </Box>
         )}
+        <Fragment>
+          <Box mb={0} mt={2}>
+            <Button
+              disabled={!isDeploymentReady}
+              fullWidth
+              isPrimary
+              onClick={onDeploy}
+            >
+              {translate('ValidationStatus.buttonStartDeployment')}
+            </Button>
+          </Box>
+        </Fragment>
       </Footer>
-    </Fragment>
+    </BackgroundCurved>
   );
 };
 

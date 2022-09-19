@@ -1,16 +1,13 @@
-import { Box, Container, Typography, makeStyles } from '@material-ui/core';
-import PropTypes from 'prop-types';
+import { Container } from '@material-ui/core';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ORGANIZATION_MEMBERS_ADD_PATH } from '~/routes';
 
-import Avatar from '~/components/Avatar';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonQRCodeScanner from '~/components/ButtonQRCodeScanner';
 import CenteredHeading from '~/components/CenteredHeading';
-import DialogPurple from '~/components/DialogPurple';
-import ExternalLink from '~/components/ExternalLink';
+import DialogAddMember from '~/components/DialogAddMember';
 import Finder from '~/components/Finder';
 import Header from '~/components/Header';
 import View from '~/components/View';
@@ -20,17 +17,6 @@ import translate from '~/services/locale';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { addSafeOwner } from '~/store/safe/actions';
-
-const useParagraphStyles = makeStyles((theme) => ({
-  paragraph: {
-    color: theme.custom.colors.grayLightest,
-  },
-  link: {
-    color: theme.custom.colors.grayLightest,
-  },
-}));
-
-const swInfoLink = 'https://www.joincircles.net/faq?open=21';
 
 const OrganizationMembersAdd = () => {
   const dispatch = useDispatch();
@@ -112,7 +98,7 @@ const OrganizationMembersAdd = () => {
 
   return (
     <Fragment>
-      <OrganizationMembersAddDialog
+      <DialogAddMember
         address={address}
         handleAddMember={handleAddMember}
         handleClose={handleClose}
@@ -138,60 +124,6 @@ const OrganizationMembersAdd = () => {
       </View>
     </Fragment>
   );
-};
-
-const OrganizationMembersAddDialog = ({
-  username,
-  address,
-  handleAddMember,
-  handleClose,
-  isOpen,
-  isOrganization,
-}) => {
-  const classes = useParagraphStyles();
-  const confirmLabel = isOrganization
-    ? null
-    : translate('OrganizationMembersAdd.dialogConfirm');
-  const dialogBody = isOrganization
-    ? translate('OrganizationMembersAdd.dialogBodyCannotAdd')
-    : translate('OrganizationMembersAdd.dialogBody');
-  const onConfirm = isOrganization ? null : handleAddMember;
-
-  return (
-    <DialogPurple
-      cancelLabel={translate('OrganizationMembersAdd.dialogCancel')}
-      confirmLabel={confirmLabel}
-      open={isOpen}
-      title={translate('OrganizationMembersAdd.dialogTitle', { username })}
-      onClose={handleClose}
-      onConfirm={onConfirm}
-    >
-      <Box display="flex" justifyContent="center" mb={2}>
-        <Avatar address={address} size="medium" />
-      </Box>
-      <Typography className={classes.paragraph} paragraph>
-        {dialogBody}
-      </Typography>
-      <ExternalLink
-        className={classes.link}
-        href={swInfoLink}
-        underline="always"
-      >
-        <Typography paragraph>
-          {translate('OrganizationMembersAdd.linkLearnMore')}
-        </Typography>
-      </ExternalLink>
-    </DialogPurple>
-  );
-};
-
-OrganizationMembersAddDialog.propTypes = {
-  address: PropTypes.string,
-  handleAddMember: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  isOrganization: PropTypes.bool.isRequired,
-  username: PropTypes.string.isRequired,
 };
 
 export default OrganizationMembersAdd;
