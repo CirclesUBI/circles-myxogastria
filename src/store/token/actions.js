@@ -203,6 +203,21 @@ export function requestUBIPayout(payout) {
   };
 }
 
+async function loopTransfer(from, to, value, paymentNote) {
+  return await waitAndRetryOnFail(
+    () => {
+      return core.token.transfer(from, to, value, paymentNote);
+    },
+    () => {
+      return true;
+    },
+    {},
+    () => {
+      return core.token.updateTransferSteps(from, to, value);
+    },
+  );
+}
+
 /**
  * Transfer circles to another safe
  * @param {string} to Receiver safe address of Circles transfer
@@ -223,7 +238,7 @@ export function transfer(to, amount, paymentNote = '') {
       const value = new web3.utils.BN(
         core.utils.toFreckles(tcToCrc(Date.now(), Number(amount))),
       );
-      const txHash = await core.token.transfer(from, to, value, paymentNote);
+      const txHash = await loopTransfer(from, to, value, paymentNote);
 
       dispatch(
         addPendingActivity({

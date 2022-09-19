@@ -75,6 +75,7 @@ export async function waitAndRetryOnFail(
     maxAttemptsOnFail = RETRIES_ON_FAIL_DEFAULT,
     waitAfterFail = WAIT_AFTER_FAIL_DEFAULT,
   } = {},
+  onErrorFn,
 ) {
   // Count all attempts to retry when something failed
   let attempt = 1;
@@ -91,6 +92,10 @@ export async function waitAndRetryOnFail(
       // Finish when request was successful and condition arrived!
       return response;
     } catch (error) {
+      // When there is an error I want to do something
+      if (onErrorFn) {
+        await onErrorFn();
+      }
       // Something went wrong, either the condition did not arrive or the
       // request failed
       if (attempt >= maxAttemptsOnFail) {
