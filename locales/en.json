@@ -160,8 +160,8 @@
   },
   "MyProfile": {
     "buttonCreateOrganization": "Create Shared Wallet",
-    "buttonShowProfile": "Show Profile",
-    "buttonShowQR": "Show QR Code"
+    "buttonEditProfile": "Edit Profile",
+    "buttonShareProfile": "Share Profile"
   },
   "Navigation": {
     "buttonActivityLog": "Activity Log",
