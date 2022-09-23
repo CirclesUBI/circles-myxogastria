@@ -35,7 +35,6 @@ import {
   FAQ_URL,
   MARKETPLACE_URL,
   PRIVACY_LEGAL_URL,
-  SUPPORT_URL,
   TELEGRAM_URL,
   TWITTER_URL,
 } from '~/utils/constants';
@@ -172,11 +171,6 @@ const NavigationFooter = () => {
         <Grid item xs={6}>
           <NavigationExternalLink href={ABOUT_URL}>
             {translate('Navigation.linkAbout')}
-          </NavigationExternalLink>
-        </Grid>
-        <Grid item xs={6}>
-          <NavigationExternalLink href={SUPPORT_URL}>
-            {translate('Navigation.linkSupport')}
           </NavigationExternalLink>
         </Grid>
         <Grid item xs={6}>
