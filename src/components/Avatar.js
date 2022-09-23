@@ -57,6 +57,7 @@ const Avatar = ({
   size = 'small',
   url,
   useCache,
+  hidePlusIcon,
   withHoverEffect,
   withClickEffect,
   ...props
@@ -98,10 +99,12 @@ const Avatar = ({
               height: sizePixelAvatar + 2,
             }}
           >
-            <IconPlus
-              className={classes.plusIcon}
-              style={{ fontSize: size === 'large' ? '20px' : '16px' }}
-            />
+            {!hidePlusIcon && (
+              <IconPlus
+                className={classes.plusIcon}
+                style={{ fontSize: size === 'large' ? '20px' : '16px' }}
+              />
+            )}
           </Box>
         </Box>
       )}
@@ -124,6 +127,7 @@ const Avatar = ({
 
 Avatar.propTypes = {
   address: PropTypes.string,
+  hidePlusIcon: PropTypes.bool,
   size: PropTypes.string,
   url: PropTypes.string,
   useCache: PropTypes.bool,

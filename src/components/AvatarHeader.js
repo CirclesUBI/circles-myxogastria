@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AvatarHeader = ({
   hideImage,
+  hidePlusIcon,
   username,
   useCache = true,
   withClickEffect,
@@ -61,6 +62,7 @@ const AvatarHeader = ({
             <Avatar
               address={safe.currentAccount || safe.pendingAddress}
               className={classes.avatarContainer}
+              hidePlusIcon={hidePlusIcon}
               size={'smallXl'}
               useCache={useCache}
               withClickEffect={withClickEffect}
@@ -80,6 +82,7 @@ const AvatarHeader = ({
 
 AvatarHeader.propTypes = {
   hideImage: PropTypes.bool,
+  hidePlusIcon: PropTypes.bool,
   useCache: PropTypes.bool,
   username: PropTypes.string,
   withClickEffect: PropTypes.bool,
