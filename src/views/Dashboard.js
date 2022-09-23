@@ -173,6 +173,7 @@ const Dashboard = () => {
           <ActivityIcon />
         </Header>
         <AvatarHeader
+          hidePlusIcon
           useCache={useDataFromCache}
           withClickEffect={isAvatarWithClickEffect}
           withHoverEffect
