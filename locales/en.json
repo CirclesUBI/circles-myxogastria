@@ -370,7 +370,6 @@
   },
   "Tutorial": {
     "buttonFinish": "Got it. Sign me up!",
-    "buttonFinish2": "Move forward!",
     "buttonNextStep": "Next",
     "buttonSkip": "Skip"
   },
@@ -393,22 +392,6 @@
     "slideHeading1": "Shared Wallet",
     "slideHeading2": "Share Wealth",
     "slideHeading3": "Share Trust"
-  },
-  "TutorialTransition": {
-    "slideBody11": "The issuance rate of CRC will increase. Instead of 8 CRC a day, you will now receive 1 CRC an hour (24 CRC a day).",
-    "slideBody12": "With the current changes, Circles users worldwide can share the same value of 1 CRC = 1 hour. This helps to keep the value of UBI more stable across borders.",
-    "slideBody21": "The increase in your daily UBI will also work retroactively and make your balance increase based on the amount of time you've spent at Circles. If you were holding 50 CRC you will now see around 150 CRC. Basically, your balance will tripple.",
-    "slideBody22": "Another change is that we are now displaying balances with a demurrage or decay rate.",
-    "slideBodyLink": "Read more here!",
-    "slideBody31": "All this will come with a redesign of our Wallet. Our wallet can now:",
-    "slideBody3ListItem": "Guide new users on how to create a wallet smoothly.",
-    "slideBody3ListItem2": "Provide you with friendly trust and transaction experiences.",
-    "slideBody3ListItem3": "Offer a quick entry for you to switch in between wallets.",
-    "slideBody3ListItem4": "Visually differentiate Individual Wallets from Shared Wallets.",
-    "slideBody3ListItem5": "Show you the way to our new Marketplace.",
-    "slideHeading1": "Re-launching Circles UBI!",
-    "slideHeading2": "Numbers are getting bigger!",
-    "slideHeading3": "Welcome to your new Wallet!"
   },
   "UBI": {
     "infoUbiPayoutReceived": "You received {payout} Circles!"
