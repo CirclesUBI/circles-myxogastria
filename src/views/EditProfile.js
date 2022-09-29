@@ -10,6 +10,7 @@ import { DASHBOARD_PATH } from '~/routes';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
+import ButtonBack from '~/components/ButtonBack';
 import CenteredHeading from '~/components/CenteredHeading';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
@@ -413,6 +414,7 @@ const EditProfile = () => {
   return (
     <>
       <Header>
+        <ButtonBack />
         <CenteredHeading>{translate('EditProfile.heading')}</CenteredHeading>
       </Header>
       <View>

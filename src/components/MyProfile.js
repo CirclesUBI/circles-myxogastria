@@ -15,14 +15,18 @@ import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
-import { DASHBOARD_PATH, ORGANIZATION_PATH, SHARE_PATH } from '~/routes';
+import {
+  DASHBOARD_PATH,
+  EDIT_PROFILE_PATH,
+  ORGANIZATION_PATH,
+  SHARE_PATH,
+} from '~/routes';
 
 import Avatar from '~/components/Avatar';
 import AvatarWithQR from '~/components/AvatarWithQR';
 import Button from '~/components/Button';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import { useUpdateLoop } from '~/hooks/update';
-import { useRelativeProfileLink } from '~/hooks/url';
 import translate from '~/services/locale';
 import { switchAccount } from '~/store/app/actions';
 import { checkSharedSafeState } from '~/store/safe/actions';
@@ -43,7 +47,6 @@ const MyProfile = () => {
   const [isRedirect, setIsRedirect] = useState(false);
 
   const safe = useSelector((state) => state.safe);
-  const profilePath = useRelativeProfileLink(safe.currentAccount);
 
   useUpdateLoop(async () => {
     await dispatch(checkSharedSafeState());
@@ -80,11 +83,11 @@ const MyProfile = () => {
         </Grid>
         <Grid item xs={12}>
           <ButtonGroup fullWidth>
-            <Button isOutline to={profilePath}>
-              {translate('MyProfile.buttonShowProfile')}
+            <Button isOutline to={EDIT_PROFILE_PATH}>
+              {translate('MyProfile.buttonEditProfile')}
             </Button>
             <Button isOutline isPrimary to={SHARE_PATH}>
-              {translate('MyProfile.buttonShowQR')}
+              {translate('MyProfile.buttonShareProfile')}
             </Button>
           </ButtonGroup>
         </Grid>
