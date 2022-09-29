@@ -5,14 +5,12 @@ export const ACCOUNT_CREATE = 'accountCreate';
 export const ORGANIZATION_CREATE = 'settingsKeys';
 export const SETTINGS_KEYS = 'settingsKeys';
 export const ORGANIZATION_TUTORIAL = 'organizationalTutorial';
-export const TRANSITION_WALKTHROUGH = 'transitionWalkthrough';
 
 const TUTORIALS = [
   ACCOUNT_CREATE,
   ORGANIZATION_CREATE,
   SETTINGS_KEYS,
   ORGANIZATION_TUTORIAL,
-  TRANSITION_WALKTHROUGH,
 ];
 
 export function initializeTutorials() {
