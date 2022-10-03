@@ -89,7 +89,7 @@ export function createNewOrganization(
       const nonce = generateDeterministicNonceFromName(name);
       const safeAddress = await core.safe.prepareDeploy(nonce);
 
-      // Register organization in on-chain database
+      // Register organization in off-chain database
       await core.user.register(nonce, safeAddress, name, email, avatarUrl);
 
       dispatch(hideSpinnerOverlay());
