@@ -148,14 +148,14 @@
     "bodyEnterYourSeedPhrase": "Enter your seed phrase below to restore your wallet:",
     "bodyLostYourSeedPhrase": "Lost your seed phrase?",
     "bodyNeedHelp": "Questions?",
-    "buttonCreateNewWallet": "Sign up here.",
+    "buttonCreateNewWallet": "Sign up here",
     "buttonSubmit": "Submit",
     "errorRestoreFailedInvalidSeedphrase": "Your seed phrase is invalid.",
     "errorRestoreFailedUnknown": "Could not restore account due to an unknown error.",
     "errorRestoreFailedUnknownSafe": "The account you tried to restore is not registered.",
     "headingLogin": "Login",
     "inputPlaceholder": "Start typing...",
-    "linkSupport": "Go to support.",
+    "linkSupport": "Send an email",
     "successWelcome": "Successfully connected to account. Welcome!"
   },
   "MyProfile": {
