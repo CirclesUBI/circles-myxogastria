@@ -8,7 +8,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React, { Fragment, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 
 import { SEARCH_PATH, SEND_PATH } from '~/routes';
@@ -25,7 +25,6 @@ import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import NavigationFloating from '~/components/NavigationFloating';
-import TutorialTransition from '~/components/TutorialTransition';
 import View from '~/components/View';
 import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
@@ -33,10 +32,6 @@ import {
   checkFinishedActivities,
   checkPendingActivities,
 } from '~/store/activity/actions';
-import {
-  TRANSITION_WALKTHROUGH,
-  finishTutorial,
-} from '~/store/tutorial/actions';
 import { IconMenu } from '~/styles/icons';
 
 const transitionMixin = ({ transitions }) => ({
@@ -106,20 +101,10 @@ const Dashboard = () => {
   const classes = useStyles();
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
   const [useDataFromCache, setIsUseDataFromCache] = useState(true);
-  const { isFinished: isTutorialFinished } = useSelector((state) => {
-    return state.tutorial[TRANSITION_WALKTHROUGH];
-  });
   const location = useLocation();
   const isAvatarWithClickEffect = !!useRouteMatch(
     `(${[MY_PROFILE_PATH].join('|')})`,
   );
-
-  useEffect(() => {
-    if (location.state?.hideTransitionTutorial) {
-      dispatch(finishTutorial(TRANSITION_WALKTHROUGH));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (location.state?.useCache === false) {
@@ -141,20 +126,6 @@ const Dashboard = () => {
   const handleMenuClick = () => {
     setIsMenuExpanded(false);
   };
-
-  const onFinishHandler = () => {
-    dispatch(finishTutorial(TRANSITION_WALKTHROUGH));
-  };
-
-  const onExitHandler = () => {
-    dispatch(finishTutorial(TRANSITION_WALKTHROUGH));
-  };
-
-  if (!isTutorialFinished) {
-    return (
-      <TutorialTransition onExit={onExitHandler} onFinish={onFinishHandler} />
-    );
-  }
 
   return (
     <Fragment>
