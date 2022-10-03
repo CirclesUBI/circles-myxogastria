@@ -2,6 +2,7 @@ import { Box, Container, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import AppNote from '~/components/AppNote';
 import Button from '~/components/Button';
 import DialogBurn from '~/components/DialogBurn';
 import HumbleAlert from '~/components/HumbleAlert';
@@ -33,6 +34,7 @@ const CriticalError = () => {
             ? translate('CriticalError.bodyCriticalErrorDescription')
             : translate('CriticalError.bodyCriticalErrorTryAgain')}
         </Typography>
+        <AppNote />
         {app.errorMessage && (
           <Box my={2} style={{ wordBreak: 'break-word' }}>
             <HumbleAlert>
