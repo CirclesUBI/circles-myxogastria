@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { ONBOARDING_PATH } from '~/routes';
 
 import LoginIconSVG from '%/images/login.svg';
+import AppNote from '~/components/AppNote';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
@@ -140,6 +141,7 @@ const Login = () => {
         </Container>
       </View>
       <Footer>
+        <AppNote />
         <Button
           disabled={!isValid}
           fullWidth
