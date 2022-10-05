@@ -54,10 +54,10 @@
     "rimraf": "^3.0.2",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^4.2.3",
-    "truffle": "^5.5.14",
+    "truffle": "^5.5.32",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.3"
+    "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
     "@circles/core": "^2.12.0",
