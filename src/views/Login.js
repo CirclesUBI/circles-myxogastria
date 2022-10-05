@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { ONBOARDING_PATH } from '~/routes';
 
 import LoginIconSVG from '%/images/login.svg';
+import AppNote from '~/components/AppNote';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
@@ -25,7 +26,7 @@ import translate from '~/services/locale';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { restoreAccount } from '~/store/onboarding/actions';
-import { SUPPORT_URL } from '~/utils/constants';
+import { EMAIL_URL } from '~/utils/constants';
 import {
   RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
   RESTORE_ACCOUNT_UNKNOWN_SAFE,
@@ -133,13 +134,14 @@ const Login = () => {
           </Typography>
           <Typography align="center">
             {translate('Login.bodyNeedHelp')}{' '}
-            <ExternalLink href={SUPPORT_URL}>
+            <ExternalLink href={EMAIL_URL}>
               {translate('Login.linkSupport')}
             </ExternalLink>
           </Typography>
         </Container>
       </View>
       <Footer>
+        <AppNote />
         <Button
           disabled={!isValid}
           fullWidth

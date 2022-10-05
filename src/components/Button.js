@@ -53,6 +53,17 @@ const useStyles = makeStyles((theme) => ({
     linear-gradient(to right, ${theme.custom.colors.purple}, ${theme.custom.colors.purpleDark}) border-box`,
     border: '1px solid transparent',
   },
+  buttonWithoutBorder: {
+    border: 0,
+    background: theme.custom.gradients.purple,
+    backgroundClip: 'text',
+    color: 'transparent',
+    '-webkit-background-clip': 'text',
+    '-webkit-text-fill-color': 'transparent',
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+  },
 }));
 
 // eslint-disable-next-line react/display-name
@@ -68,6 +79,7 @@ const Button = React.forwardRef(
       isWhite,
       isWhiteText,
       isGradientBorder,
+      isWithoutBorder,
       to,
       ...props
     },
@@ -83,6 +95,7 @@ const Button = React.forwardRef(
       [classes.buttonWhite]: isWhite,
       [classes.buttonWhiteText]: isWhiteText,
       [classes.buttonGradientBorder]: isGradientBorder,
+      [classes.buttonWithoutBorder]: isWithoutBorder,
     });
 
     return React.createElement(
@@ -113,6 +126,7 @@ Button.propTypes = {
   isPrimary: PropTypes.bool,
   isWhite: PropTypes.bool,
   isWhiteText: PropTypes.bool,
+  isWithoutBorder: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
 };

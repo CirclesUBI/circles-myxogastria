@@ -107,6 +107,21 @@ const user = {
       query,
     });
   },
+
+  update: async (safeAddress, username, email, avatarUrl) => {
+    return await requestCore('user', 'update', {
+      safeAddress,
+      username,
+      email,
+      avatarUrl,
+    });
+  },
+
+  getEmail: async (safeAddress) => {
+    return await requestCore('user', 'getEmail', {
+      safeAddress,
+    });
+  },
 };
 
 // Trust module

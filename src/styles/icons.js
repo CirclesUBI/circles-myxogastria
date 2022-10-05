@@ -10,7 +10,7 @@ import circles from '%/images/circles.svg';
 import closeOutline from '%/images/close-outline.svg';
 import close from '%/images/close.svg';
 import connections from '%/images/connections.svg';
-import dragonFly from '%/images/dragonfly2.svg';
+import edit from '%/images/edit.svg';
 import facebook from '%/images/facebook.svg';
 import follow from '%/images/follow.svg';
 import friends from '%/images/friends.svg';
@@ -18,6 +18,7 @@ import mail from '%/images/mail.svg';
 import members from '%/images/members.svg';
 import menu from '%/images/menu.svg';
 import notification from '%/images/notification.svg';
+import plus from '%/images/plus.svg';
 import qrLarge from '%/images/qr-large.svg';
 import qr from '%/images/qr.svg';
 import scan from '%/images/scan.svg';
@@ -30,6 +31,7 @@ import trustActive from '%/images/trust-active.svg';
 import trustMutual from '%/images/trust-mutual.svg';
 import trust from '%/images/trust.svg';
 import twitter from '%/images/twitter.svg';
+import uploadPhoto from '%/images/uploadPhoto.svg';
 import world from '%/images/world.svg';
 
 export const IconActivity = (props) => {
@@ -68,12 +70,12 @@ export const IconConnections = (props) => {
   return <SvgIcon component={connections} {...props} viewBox="0 0 21 20" />;
 };
 
-export const IconDragonFly = (props) => {
-  return <SvgIcon component={dragonFly} {...props} viewBox="0 0 56 36" />;
-};
-
 export const IconFacebook = (props) => {
   return <SvgIcon component={facebook} {...props} viewBox="0 0 11 20" />;
+};
+
+export const IconEdit = (props) => {
+  return <SvgIcon component={edit} {...props} viewBox="0 0 30 30" />;
 };
 
 export const IconFollow = (props) => {
@@ -98,6 +100,10 @@ export const IconMenu = (props) => {
 
 export const IconNotification = (props) => {
   return <SvgIcon component={notification} {...props} viewBox="0 0 29 34" />;
+};
+
+export const IconPlus = (props) => {
+  return <SvgIcon component={plus} {...props} viewBox="0 0 20 20" />;
 };
 
 export const IconQR = (props) => {
@@ -146,6 +152,10 @@ export const IconTrustMutual = (props) => {
 
 export const IconTwitter = (props) => {
   return <SvgIcon component={twitter} {...props} viewBox="0 0 21 18" />;
+};
+
+export const IconUploadPhoto = (props) => {
+  return <SvgIcon component={uploadPhoto} {...props} viewBox="0 0 64 34" />;
 };
 
 export const IconWorld = (props) => {

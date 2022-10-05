@@ -8,10 +8,11 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import React, { Fragment, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 
 import { SEARCH_PATH, SEND_PATH } from '~/routes';
+import { MY_PROFILE_PATH } from '~/routes';
 
 import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
@@ -24,7 +25,6 @@ import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import NavigationFloating from '~/components/NavigationFloating';
-import TutorialTransition from '~/components/TutorialTransition';
 import View from '~/components/View';
 import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
@@ -32,10 +32,6 @@ import {
   checkFinishedActivities,
   checkPendingActivities,
 } from '~/store/activity/actions';
-import {
-  TRANSITION_WALKTHROUGH,
-  finishTutorial,
-} from '~/store/tutorial/actions';
 import { IconMenu } from '~/styles/icons';
 
 const transitionMixin = ({ transitions }) => ({
@@ -104,17 +100,19 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
-  const { isFinished: isTutorialFinished } = useSelector((state) => {
-    return state.tutorial[TRANSITION_WALKTHROUGH];
-  });
+  const [useDataFromCache, setIsUseDataFromCache] = useState(true);
   const location = useLocation();
+  const isAvatarWithClickEffect = !!useRouteMatch(
+    `(${[MY_PROFILE_PATH].join('|')})`,
+  );
 
   useEffect(() => {
-    if (location.state?.hideTransitionTutorial) {
-      dispatch(finishTutorial(TRANSITION_WALKTHROUGH));
+    if (location.state?.useCache === false) {
+      setIsUseDataFromCache(false);
+      // Clear location state as we will use cache next time if possible
+      window.history.replaceState({}, document.title);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location?.state]);
 
   useUpdateLoop(async () => {
     await dispatch(checkFinishedActivities());
@@ -128,20 +126,6 @@ const Dashboard = () => {
   const handleMenuClick = () => {
     setIsMenuExpanded(false);
   };
-
-  const onFinishHandler = () => {
-    dispatch(finishTutorial(TRANSITION_WALKTHROUGH));
-  };
-
-  const onExitHandler = () => {
-    dispatch(finishTutorial(TRANSITION_WALKTHROUGH));
-  };
-
-  if (!isTutorialFinished) {
-    return (
-      <TutorialTransition onExit={onExitHandler} onFinish={onFinishHandler} />
-    );
-  }
 
   return (
     <Fragment>
@@ -159,7 +143,12 @@ const Dashboard = () => {
           </IconButton>
           <ActivityIcon />
         </Header>
-        <AvatarHeader />
+        <AvatarHeader
+          hidePlusIcon
+          useCache={useDataFromCache}
+          withClickEffect={isAvatarWithClickEffect}
+          withHoverEffect
+        />
       </BackgroundCurved>
       <Navigation
         className={classes.navigation}

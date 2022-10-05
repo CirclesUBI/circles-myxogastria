@@ -34,7 +34,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AvatarHeader = ({ hideImage, username }) => {
+const AvatarHeader = ({
+  hideImage,
+  hidePlusIcon,
+  username,
+  useCache = true,
+  withClickEffect,
+  withHoverEffect,
+}) => {
   const classes = useStyles();
 
   const safe = useSelector((state) => state.safe);
@@ -42,9 +49,9 @@ const AvatarHeader = ({ hideImage, username }) => {
   const displayedUsername = username ? (
     `@${username}`
   ) : safe.currentAccount ? (
-    <UsernameDisplay address={safe.currentAccount} />
+    <UsernameDisplay address={safe.currentAccount} useCache={useCache} />
   ) : safe.pendingAddress ? (
-    <UsernameDisplay address={safe.pendingAddress} />
+    <UsernameDisplay address={safe.pendingAddress} useCache={useCache} />
   ) : null;
 
   return (
@@ -55,7 +62,11 @@ const AvatarHeader = ({ hideImage, username }) => {
             <Avatar
               address={safe.currentAccount || safe.pendingAddress}
               className={classes.avatarContainer}
+              hidePlusIcon={hidePlusIcon}
               size={'smallXl'}
+              useCache={useCache}
+              withClickEffect={withClickEffect}
+              withHoverEffect={withHoverEffect}
             />
           </Link>
         )}
@@ -71,7 +82,11 @@ const AvatarHeader = ({ hideImage, username }) => {
 
 AvatarHeader.propTypes = {
   hideImage: PropTypes.bool,
+  hidePlusIcon: PropTypes.bool,
+  useCache: PropTypes.bool,
   username: PropTypes.string,
+  withClickEffect: PropTypes.bool,
+  withHoverEffect: PropTypes.bool,
 };
 
 export default AvatarHeader;

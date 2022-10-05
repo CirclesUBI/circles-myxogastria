@@ -6,7 +6,7 @@ const requests = {};
 const requested = [];
 const failed = [];
 
-export default async function resolveUsernames(addresses) {
+export default async function resolveUsernames(addresses, useCache) {
   const requestKey = addresses.sort().join('');
 
   addresses.forEach((address) => {
@@ -15,7 +15,7 @@ export default async function resolveUsernames(addresses) {
 
   // Check if we're currently requesting the same addresses and return it
   // instead of doing the same request again
-  if (requestKey in requests) {
+  if (useCache && requestKey in requests) {
     return requests[requestKey];
   }
 
@@ -24,7 +24,7 @@ export default async function resolveUsernames(addresses) {
     return key.includes(requestKey);
   });
 
-  if (supersetRequestKey) {
+  if (useCache && supersetRequestKey) {
     return requests[supersetRequestKey];
   }
 
@@ -35,7 +35,7 @@ export default async function resolveUsernames(addresses) {
 
     // Prepare request
     addresses.forEach((address) => {
-      if (address in cache) {
+      if (useCache && address in cache) {
         // Use result from cache to not ask server again
         result[address] = cache[address];
       } else if (!failed.includes[address]) {
