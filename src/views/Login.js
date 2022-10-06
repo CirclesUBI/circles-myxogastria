@@ -48,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     marginTop: '-41px',
   },
+
+  paperContainer: {
+    boxShadow: 'none',
+  },
 }));
 
 const Login = () => {
@@ -112,7 +116,7 @@ const Login = () => {
             <Typography className={classes.textContainer}>
               {translate('Login.bodyEnterYourSeedPhrase')}
             </Typography>
-            <Paper p={2}>
+            <Paper classes={{ root: classes.paperContainer }} p={2}>
               <Input
                 fullWidth
                 id="seedPhrase"
@@ -120,7 +124,6 @@ const Login = () => {
                 multiline
                 placeholder={translate('Login.inputPlaceholder')}
                 rows={4}
-                style={{ padding: '1rem' }}
                 value={seedPhrase}
                 onChange={handleChange}
               />
