@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] - 2022-08-25
+
+### Changed
+
+- Remove dependency on maxflow calculation when sending transfers [#463](https://github.com/CirclesUBI/circles-myxogastria/pull/463)
+- Update Contributors
+
 ## [2.0.1] - 2022-07-05
 
 ### Added

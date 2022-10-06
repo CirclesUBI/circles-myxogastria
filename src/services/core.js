@@ -211,6 +211,14 @@ const token = {
     });
   },
 
+  updateTransferSteps: async (from, to, value) => {
+    return await requestCore('token', 'updateTransferSteps', {
+      from,
+      to,
+      value,
+    });
+  },
+
   checkUBIPayout: async (safeAddress) => {
     return await requestCore('token', 'checkUBIPayout', {
       safeAddress,

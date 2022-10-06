@@ -1,11 +1,14 @@
 {
   "name": "circles-myxogastria",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "description": "Webapp and mobile client for Circles",
   "main": "src/index.js",
   "private": true,
   "contributors": [
-    "adzialocha"
+    "adzialocha",
+    "mikozet",
+    "louilinn",
+    "llunaCreixent"
   ],
   "license": "AGPL-3.0",
   "repository": {
@@ -22,17 +25,17 @@
     "test:watch": "npm run test -- --watch"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.12",
-    "@babel/node": "^7.17.10",
-    "@babel/plugin-proposal-class-properties": "^7.17.12",
+    "@babel/core": "^7.19.1",
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/node": "^7.19.1",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-object-rest-spread": "^7.17.12",
-    "@babel/plugin-transform-runtime": "^7.17.12",
-    "@babel/preset-env": "^7.17.12",
-    "@babel/preset-react": "^7.17.12",
+    "@babel/plugin-transform-runtime": "^7.18.9",
+    "@babel/preset-env": "^7.19.1",
+    "@babel/preset-react": "^7.18.6",
     "@svgr/webpack": "^5.5.0",
-    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^11.2.7",
-    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.5",
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.7",
@@ -54,7 +57,7 @@
     "truffle": "^5.5.14",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.3"
   },
   "dependencies": {
     "@circles/core": "^2.12.0",

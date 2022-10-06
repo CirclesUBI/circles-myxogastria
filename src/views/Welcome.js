@@ -14,9 +14,9 @@ import View from '~/components/View';
 import translate from '~/services/locale';
 import {
   ABOUT_URL,
+  EMAIL_URL,
   FAQ_URL,
   PRIVACY_LEGAL_URL,
-  SUPPORT_URL,
 } from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -78,7 +78,7 @@ const Welcome = () => {
               </WelcomeExternalLink>
             </Grid>
             <Grid item xs={12}>
-              <WelcomeExternalLink href={SUPPORT_URL}>
+              <WelcomeExternalLink href={EMAIL_URL}>
                 {translate('Welcome.linkContactUs')}
               </WelcomeExternalLink>
             </Grid>
