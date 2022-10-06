@@ -114,14 +114,6 @@ const Dashboard = () => {
     }
   }, [location?.state]);
 
-  useEffect(() => {
-    if (location.state?.useCache === false) {
-      setIsUseDataFromCache(false);
-      // Clear location state as we will use cache next time if possible
-      window.history.replaceState({}, document.title);
-    }
-  }, [location?.state]);
-
   useUpdateLoop(async () => {
     await dispatch(checkFinishedActivities());
     await dispatch(checkPendingActivities());
