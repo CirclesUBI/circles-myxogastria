@@ -14,15 +14,15 @@ jobs:
     name: Assign to Project
     steps:
     - name: Assign all NEW issues to project 50
-      uses: srggrs/assign-one-project-github-action@1.3.1
+      uses: srggrs/assign-one-project-github-action@1.2.1
       if: github.event.action == 'opened'
       with:
         project: 'https://github.com/orgs/CirclesUBI/projects/50'
 
     - name: Assign issues with `bug` label to project 23
-      uses: srggrs/assign-one-project-github-action@1.3.1
+      uses: srggrs/assign-one-project-github-action@1.2.1
       if: |
-        contains(github.event.issue.labels.*.name, 'bug :boom:') ||
+        contains(github.event.issue.labels.*.name, 'bug :boom:')
       with:
         project: 'https://github.com/orgs/CirclesUBI/projects/23'
         column_name: 'Labeled'
