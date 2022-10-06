@@ -13,6 +13,7 @@ const MAX_USERNAME_LENGTH = 24;
 const VerifiedUsernameInput = ({
   address,
   allowCurrentUser,
+  isOrganization,
   label,
   onChange,
   onStatusChange,
@@ -88,6 +89,7 @@ const VerifiedUsernameInput = ({
       inputProps={{ maxLength: MAX_USERNAME_LENGTH }}
       isError={isError}
       isLoading={isLoading}
+      isOrganization={isOrganization}
       label={label}
       type="text"
       value={value}
@@ -100,6 +102,7 @@ const VerifiedUsernameInput = ({
 VerifiedUsernameInput.propTypes = {
   address: PropTypes.string,
   allowCurrentUser: PropTypes.bool,
+  isOrganization: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onStatusChange: PropTypes.func.isRequired,
