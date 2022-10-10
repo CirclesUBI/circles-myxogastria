@@ -208,11 +208,7 @@ const Input = ({
               <InputAdornment position="end">
                 <CircularProgress size={15} />
               </InputAdornment>
-            ) : (
-              !isError &&
-              value.length > 0 &&
-              isShowingCheck && <IconCheck color="secondary" fontSize="small" />
-            )
+            ) : null
           }
           id={id}
           value={value}
