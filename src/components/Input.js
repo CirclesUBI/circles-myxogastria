@@ -10,8 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { IconCheck } from '~/styles/icons';
-
 const useStyles = makeStyles((theme) => ({
   inputLabel: {
     transform: 'translate(28px, -6px)',
@@ -174,7 +172,6 @@ const Input = ({
   label,
   isLoading,
   isOrganization = false,
-  isShowingCheck = true,
   value,
   ...props
 }) => {
