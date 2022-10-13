@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2022-10-13
+
+### Changed
+- Made user notification in app customizable based on view in app [#512](https://github.com/CirclesUBI/circles-myxogastria/pull/512)
+
 ## [2.2.0] - 2022-10-05
 
 ### Added
