@@ -146,8 +146,8 @@ const Validation = () => {
         </Container>
       </View>
       <Footer>
-        <HumbleAlert>{translate('Validation.bodyDoNotReset')}</HumbleAlert>
         <AppNote messageVersion="validation" />
+        <HumbleAlert>{translate('Validation.bodyDoNotReset')}</HumbleAlert>
         {!isDeploymentReady && (
           <Box mt={2}>
             <Button fullWidth isOutline onClick={shareProfileBtnHandler}>
