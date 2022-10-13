@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.1] - 2022-10-13
+
+### Fixed
+- Removed unintentional plus icon on shared wallet avatar in dashboard [#510](https://github.com/CirclesUBI/circles-myxogastria/pull/510)
+
 ## [2.3.0] - 2022-10-13
 
 ### Changed
