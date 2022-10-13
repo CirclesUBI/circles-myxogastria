@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import AppNote from '~/components/AppNote';
 import AvatarHeader from '~/components/AvatarHeader';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import Button from '~/components/Button';
@@ -146,6 +147,7 @@ const Validation = () => {
       </View>
       <Footer>
         <HumbleAlert>{translate('Validation.bodyDoNotReset')}</HumbleAlert>
+        <AppNote messageVersion="validation" />
         {!isDeploymentReady && (
           <Box mt={2}>
             <Button fullWidth isOutline onClick={shareProfileBtnHandler}>
