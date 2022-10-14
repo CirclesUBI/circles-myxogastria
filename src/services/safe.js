@@ -25,13 +25,15 @@ export function generateDeterministicNonce(address) {
 // Returns a deterministic CREATE2 nonce from a string to predict a
 // to-be-deployed Safe address. This is useful for generating nonces from
 // usernames.
+// Using simple insecure string hash https://gist.github.com/jlevy/c246006675becc446360a798e2b2d781
 export function generateDeterministicNonceFromName(str) {
-  // Convert each character in the string to its regarding character code
-  const charCodeStr = str.split('').reduce((acc, char) => {
-    return `${acc}${char.charCodeAt()}`;
+  const charCodeStr = str.split('').reduce((nonce, char) => {
+    const code = char.charCodeAt();
+    nonce = (nonce << 5) - nonce + code;
+    return nonce & nonce;
   }, '');
-  // Make this number smaller
-  return parseInt(charCodeStr.slice(0, 30)) % 123456789;
+
+  return Math.abs(charCodeStr);
 }
 
 export function getNonce() {
