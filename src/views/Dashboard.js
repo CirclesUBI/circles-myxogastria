@@ -160,7 +160,7 @@ const Dashboard = () => {
           <Box className={classes.balanceContainer}>
             <BalanceDisplay />
           </Box>
-          <AppNote />
+          <AppNote messageVersion="dashboard" />
           <Grid item xs={12}>
             <ButtonGroup className={classes.buttonContainer} fullWidth>
               <Button isOutline isPrimary to={SEARCH_PATH}>

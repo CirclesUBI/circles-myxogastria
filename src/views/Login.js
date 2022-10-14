@@ -144,7 +144,7 @@ const Login = () => {
         </Container>
       </View>
       <Footer>
-        <AppNote />
+        <AppNote messageVersion="login" />
         <Button
           disabled={!isValid}
           fullWidth
