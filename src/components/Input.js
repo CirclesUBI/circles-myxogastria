@@ -10,160 +10,159 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const useStyles = makeStyles((theme) => ({
-  inputLabel: {
-    transform: 'translate(28px, -6px)',
-    background: theme.custom.colors.white,
-    fontSize: '12px',
-    padding: '2px 6px',
-    transition: 'none',
-    color: (isOrganization) =>
-      isOrganization
-        ? theme.custom.colors.violet
-        : theme.custom.colors.fountainBlue,
-    borderRadius: '10px',
-    lineHeight: '16px',
+// const textColor = (isOrganization) => {}
+const useStyles = makeStyles((theme) => {
+  const textColor = (isOrganization) => {
+    return isOrganization
+      ? theme.custom.colors.violet
+      : theme.custom.colors.fountainBlue;
+  };
 
-    '&.MuiInputLabel-outlined.MuiInputLabel-shrink': {
+  const backgroundColor = (isOrganization) => {
+    return isOrganization
+      ? theme.custom.colors.cornflowerBlue
+      : theme.custom.colors.blackSqueeze;
+  };
+
+  return {
+    inputLabel: {
       transform: 'translate(28px, -6px)',
-    },
+      background: theme.custom.colors.white,
+      fontSize: '12px',
+      padding: '2px 6px',
+      transition: 'none',
+      color: textColor,
+      borderRadius: '10px',
+      lineHeight: '16px',
 
-    '&.Mui-focused': {
-      color: (isOrganization) =>
-        isOrganization
-          ? theme.custom.colors.violet
-          : theme.custom.colors.fountainBlue,
-    },
-
-    '&.Mui-focused.Mui-error': {
-      color: theme.custom.colors.purple,
-    },
-
-    '&:has(+ .MuiOutlinedInput-root:hover)': {
-      background: (isOrganization) =>
-        isOrganization
-          ? theme.custom.colors.cornflowerBlue
-          : theme.custom.colors.blackSqueeze,
-    },
-
-    '&:has(+ .MuiOutlinedInput-root.Mui-error:hover)': {
-      background: theme.custom.colors.wepeep,
-    },
-  },
-
-  inputLabelError: {
-    color: theme.custom.colors.purple,
-  },
-
-  inputLabelClasses: {
-    background: 'white',
-    padding: '0 10px',
-  },
-
-  formHelperText: {
-    position: 'absolute',
-    padding: '2px 6px',
-    bottom: '-6px',
-    fontSize: '12px',
-    right: '30px',
-    background: theme.custom.colors.white,
-    borderRadius: '10px',
-    lineHeight: '16px',
-  },
-
-  outlinedInput: {
-    padding: '13.5px 14px',
-    borderRadius: '25px',
-    color: theme.custom.colors.violet,
-  },
-
-  outlinedInputRoot: {
-    borderRadius: '25px',
-    border: `3px solid transparent`,
-
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: (isOrganization) =>
-        isOrganization
-          ? theme.custom.colors.violet
-          : theme.custom.colors.fountainBlue,
-      borderWidth: '1px',
-    },
-
-    '&:hover': {
-      '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: (isOrganization) =>
-          isOrganization
-            ? theme.custom.colors.violet
-            : theme.custom.colors.fountainBlue,
+      '&.MuiInputLabel-outlined.MuiInputLabel-shrink': {
+        transform: 'translate(28px, -6px)',
       },
 
-      '& .MuiOutlinedInput-input': {
-        background: (isOrganization) =>
-          isOrganization
-            ? theme.custom.colors.cornflowerBlue
-            : theme.custom.colors.blackSqueeze,
+      '&.Mui-focused': {
+        color: textColor,
       },
 
-      '&.Mui-error': {
-        '& .MuiOutlinedInput-notchedOutline': {
-          borderColor: theme.custom.colors.purple,
-        },
-
-        '& .MuiOutlinedInput-input': {
-          background: theme.custom.colors.wepeep,
-        },
+      '&.Mui-focused.Mui-error': {
+        color: theme.custom.colors.purple,
       },
 
-      '& +.MuiFormHelperText-root.Mui-error': {
+      '&:has(+ .MuiOutlinedInput-root:hover)': {
+        background: backgroundColor,
+      },
+
+      '&:has(+ .MuiOutlinedInput-root.Mui-error:hover)': {
         background: theme.custom.colors.wepeep,
       },
     },
 
-    '& .MuiSvgIcon-root': {
-      marginLeft: '5px',
+    inputLabelError: {
+      color: theme.custom.colors.purple,
     },
 
-    '&.MuiOutlinedInput-multiline': {
-      padding: 0,
+    inputLabelClasses: {
+      background: 'white',
+      padding: '0 10px',
     },
-  },
 
-  outlinedInputFocused: {
-    border: (isOrganization) =>
-      isOrganization
-        ? `3px solid ${theme.custom.colors.lola} `
-        : `3px solid ${theme.custom.colors.swansDown}`,
-    borderColor: (isOrganization) =>
-      isOrganization ? theme.custom.colors.lola : theme.custom.colors.swansDown,
-
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: (isOrganization) =>
-        isOrganization
-          ? `${theme.custom.colors.violet} !important`
-          : `${theme.custom.colors.fountainBlue} !important`, // should work without important but doesn't...
-      borderWidth: '2px',
+    formHelperText: {
+      position: 'absolute',
+      padding: '2px 6px',
+      bottom: '-6px',
+      fontSize: '12px',
+      right: '30px',
+      background: theme.custom.colors.white,
+      borderRadius: '10px',
+      lineHeight: '16px',
     },
-  },
 
-  outlinedInputError: {
-    borderColor: 'transparent',
+    outlinedInput: {
+      padding: '13.5px 14px',
+      borderRadius: '25px',
+      color: theme.custom.colors.violet,
+    },
 
-    '&.Mui-focused': {
-      border: `3px solid ${theme.custom.colors.wepeep}`,
-      borderColor: theme.custom.colors.wepeep,
+    outlinedInputRoot: {
+      borderRadius: '25px',
+      border: `3px solid transparent`,
 
       '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: `${theme.custom.colors.purple} !important`, // should work without important but doesn't...
+        borderColor: textColor,
+        borderWidth: '1px',
+      },
+
+      '&:hover': {
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: textColor,
+        },
+
+        '& .MuiOutlinedInput-input': {
+          background: backgroundColor,
+        },
+
+        '&.Mui-error': {
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.custom.colors.purple,
+          },
+
+          '& .MuiOutlinedInput-input': {
+            background: theme.custom.colors.wepeep,
+          },
+        },
+
+        '& +.MuiFormHelperText-root.Mui-error': {
+          background: theme.custom.colors.wepeep,
+        },
+      },
+
+      '& .MuiSvgIcon-root': {
+        marginLeft: '5px',
+      },
+
+      '&.MuiOutlinedInput-multiline': {
+        padding: 0,
+      },
+    },
+
+    outlinedInputFocused: {
+      border: (isOrganization) =>
+        isOrganization
+          ? `3px solid ${theme.custom.colors.lola} `
+          : `3px solid ${theme.custom.colors.swansDown}`,
+      borderColor: (isOrganization) =>
+        isOrganization
+          ? theme.custom.colors.lola
+          : theme.custom.colors.swansDown,
+
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: (isOrganization) =>
+          isOrganization
+            ? `${theme.custom.colors.violet} !important`
+            : `${theme.custom.colors.fountainBlue} !important`, // should work without important but doesn't...
         borderWidth: '2px',
       },
     },
 
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.custom.colors.purple,
-      borderWidth: '2px',
+    outlinedInputError: {
+      borderColor: 'transparent',
+
+      '&.Mui-focused': {
+        border: `3px solid ${theme.custom.colors.wepeep}`,
+        borderColor: theme.custom.colors.wepeep,
+
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: `${theme.custom.colors.purple} !important`, // should work without important but doesn't...
+          borderWidth: '2px',
+        },
+      },
+
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.custom.colors.purple,
+        borderWidth: '2px',
+      },
     },
-  },
-}));
+  };
+});
 
 const Input = ({
   isError,
