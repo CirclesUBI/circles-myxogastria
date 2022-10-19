@@ -146,7 +146,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   outlinedInputError: {
-    borderColor: theme.custom.colors.wepeep,
+    borderColor: 'transparent',
 
     '&.Mui-focused': {
       border: `3px solid ${theme.custom.colors.wepeep}`,
