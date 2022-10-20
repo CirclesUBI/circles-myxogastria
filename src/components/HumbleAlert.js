@@ -15,6 +15,15 @@ const useStyles = makeStyles((theme) => ({
   alertIcon: {
     color: theme.palette.grey['800'],
   },
+  alertContent: {
+    '& a': {
+      textDecoration: 'none',
+      color: theme.custom.colors.blueRibbon,
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
+  },
 }));
 
 const HumbleAlert = ({ children }) => {
@@ -26,7 +35,10 @@ const HumbleAlert = ({ children }) => {
       icon={<IconAlert className={classes.alertIcon} fontSize="inherit" />}
       severity="info"
     >
-      {children}
+      <div
+        className={classes.alertContent}
+        dangerouslySetInnerHTML={{ __html: children }}
+      />
     </Alert>
   );
 };
