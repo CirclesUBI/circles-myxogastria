@@ -1,6 +1,6 @@
 import {
-  generateRandomNonce,
   generateDeterministicNonceFromName,
+  generateRandomNonce,
   getNonce,
   hasNonce,
   removeNonce,
@@ -34,9 +34,14 @@ describe('Safe service', () => {
   });
 
   it('should generate a deterministic nonce from name that is different from a similar name', () => {
-    const nonce1 = generateDeterministicNonceFromName('test20220104');
-    const nonce2 = generateDeterministicNonceFromName('test20220105');
+    const accountName1 = 'test20220104';
+    const accountName2 = 'test20220105';
+
+    const nonce1 = generateDeterministicNonceFromName(accountName1);
+    const nonce2 = generateDeterministicNonceFromName(accountName2);
+    const nonce3 = generateDeterministicNonceFromName(accountName2);
 
     expect(nonce1).not.toEqual(nonce2);
+    expect(nonce2).toBe(nonce3); // Deterministic
   });
 });
