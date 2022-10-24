@@ -1,12 +1,15 @@
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, useHistory } from 'react-router-dom';
 
+import { IconMegaphone } from '../styles/icons';
 import { ACTIVITIES_PATH } from '~/routes';
 
 import ActivityStream from '~/components/ActivityStream';
+import NewsFeed from '~/components/NewsFeed';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
 import { useQuery } from '~/hooks/url';
@@ -16,12 +19,14 @@ import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
 import { IconConnections, IconTransactions } from '~/styles/icons';
 
 const { ActivityFilterTypes } = core.activity;
+const { newsItems } = core.news;
 
 const DEFAULT_CATEGORY = ActivityFilterTypes.TRANSFERS;
 
 const QUERY_FILTER_MAP = {
   transfers: ActivityFilterTypes.TRANSFERS,
   connections: ActivityFilterTypes.CONNECTIONS,
+  news: 'News',
 };
 
 const filterToQuery = (filterName) => {
@@ -30,9 +35,16 @@ const filterToQuery = (filterName) => {
   });
 };
 
+const useStyles = makeStyles(() => ({
+  tabNavigationContainer: {
+    marginBottom: '43px',
+  },
+}));
+
 const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const classes = useStyles();
 
   const { category } = useQuery();
   const preselectedCategory =
@@ -44,7 +56,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
 
   const activity = categories[selectedCategory];
-  const isLoading = activity.isLoadingMore || activity.lastUpdated === 0;
+  const isLoading = activity?.isLoadingMore || activity?.lastUpdated === 0;
 
   const handleLoadMore = () => {
     dispatch(loadMoreActivities(selectedCategory));
@@ -66,9 +78,17 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
     };
   }, [dispatch]);
 
+  const handleLoadMoreNews = () => {};
+  const isLoadingMoreNews = false;
+  const isMoreAvailableNews = false;
+
   return (
-    <Fragment>
-      <TabNavigation value={selectedCategory} onChange={handleFilterSelection}>
+    <>
+      <TabNavigation
+        className={classes.tabNavigationContainer}
+        value={selectedCategory}
+        onChange={handleFilterSelection}
+      >
         <TabNavigationAction
           icon={<IconTransactions />}
           label={translate('ActivityStreamWithTabs.bodyFilterTransactions')}
@@ -79,16 +99,33 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
           label={translate('ActivityStreamWithTabs.bodyFilterConnections')}
           value={ActivityFilterTypes.CONNECTIONS}
         />
+        <TabNavigationAction
+          icon={<IconMegaphone />}
+          itemsCounter={newsItems.length + 1}
+          label={translate('ActivityStreamWithTabs.bodyFilterNews')}
+          value={'News'}
+        />
       </TabNavigation>
-      <ActivityStream
-        activities={activity.activities}
-        isLoading={isLoading}
-        isMoreAvailable={activity.isMoreAvailable}
-        lastSeenAt={lastSeenAt}
-        lastUpdatedAt={activity.lastUpdatedAt}
-        onLoadMore={handleLoadMore}
-      />
-    </Fragment>
+      {activity && (
+        <ActivityStream
+          activities={activity?.activities}
+          isLoading={isLoading}
+          isMoreAvailable={activity?.isMoreAvailable}
+          lastSeenAt={lastSeenAt}
+          lastUpdatedAt={activity?.lastUpdatedAt}
+          onLoadMore={handleLoadMore}
+        />
+      )}
+      {/* TODO merge(?) NewsFeed with ActivityStream depending on API */}
+      {preselectedCategory === 'News' && (
+        <NewsFeed
+          isLoading={isLoadingMoreNews}
+          isMoreAvailable={isMoreAvailableNews}
+          news={newsItems}
+          onLoadMore={handleLoadMoreNews}
+        ></NewsFeed>
+      )}
+    </>
   );
 };
 
