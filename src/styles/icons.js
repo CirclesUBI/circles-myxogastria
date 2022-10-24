@@ -7,14 +7,18 @@ import alert from '%/images/alert.svg';
 import arrow from '%/images/arrow.svg';
 import check from '%/images/check.svg';
 import circles from '%/images/circles.svg';
+import circles_logo_light from '%/images/circles_light.svg';
 import closeOutline from '%/images/close-outline.svg';
 import close from '%/images/close.svg';
 import connections from '%/images/connections.svg';
 import edit from '%/images/edit.svg';
+import exclamation_and_question_mark from '%/images/exclamation_and_question_mark.svg';
 import facebook from '%/images/facebook.svg';
 import follow from '%/images/follow.svg';
 import friends from '%/images/friends.svg';
+import heart_with_exclamation_mark from '%/images/heart_with_exclamation_mark.svg';
 import mail from '%/images/mail.svg';
+import megaphone from '%/images/megaphone.svg';
 import members from '%/images/members.svg';
 import menu from '%/images/menu.svg';
 import notification from '%/images/notification.svg';
@@ -58,6 +62,12 @@ export const IconCircles = (props) => {
   return <SvgIcon component={circles} viewBox="0 0 24 34" {...props} />;
 };
 
+export const IconCirclesLogoLight = (props) => {
+  return (
+    <SvgIcon component={circles_logo_light} {...props} viewBox="0 0 32 32" />
+  );
+};
+
 export const IconClose = (props) => {
   return <SvgIcon component={close} {...props} viewBox="0 0 20 20" />;
 };
@@ -67,7 +77,17 @@ export const IconCloseOutline = (props) => {
 };
 
 export const IconConnections = (props) => {
-  return <SvgIcon component={connections} {...props} viewBox="0 0 21 20" />;
+  return <SvgIcon component={connections} {...props} viewBox="0 0 24 16" />;
+};
+
+export const IconExclamationAndQuestionMark = (props) => {
+  return (
+    <SvgIcon
+      component={exclamation_and_question_mark}
+      {...props}
+      viewBox="0 0 32 25"
+    />
+  );
 };
 
 export const IconFacebook = (props) => {
@@ -86,8 +106,22 @@ export const IconFriends = (props) => {
   return <SvgIcon component={friends} {...props} viewBox="0 0 12 12" />;
 };
 
+export const IconHeartWithExclamationMark = (props) => {
+  return (
+    <SvgIcon
+      component={heart_with_exclamation_mark}
+      {...props}
+      viewBox="0 0 29 33"
+    />
+  );
+};
+
 export const IconMail = (props) => {
   return <SvgIcon component={mail} {...props} viewBox="0 0 21 18" />;
+};
+
+export const IconMegaphone = (props) => {
+  return <SvgIcon component={megaphone} {...props} viewBox="0 0 23 23" />;
 };
 
 export const IconMembers = (props) => {
@@ -135,7 +169,7 @@ export const IconTelegram = (props) => {
 };
 
 export const IconTransactions = (props) => {
-  return <SvgIcon component={transactions} {...props} viewBox="0 0 20 20" />;
+  return <SvgIcon component={transactions} {...props} viewBox="0 0 19 24" />;
 };
 
 export const IconTrust = (props) => {
