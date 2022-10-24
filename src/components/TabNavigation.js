@@ -7,6 +7,10 @@ import React from 'react';
 const useStyles = makeStyles((theme) => ({
   tabs: {
     marginBottom: theme.spacing(2),
+
+    '& .MuiTabs-indicator': {
+      backgroundColor: theme.custom.colors.fountainBlue,
+    },
   },
 }));
 
