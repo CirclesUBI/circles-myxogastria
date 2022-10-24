@@ -59,6 +59,8 @@ export const colors = {
   tapestry: '#A75183',
   greyHover: 'rgba(222, 213, 221, 0.8)',
   cornflowerBlue: '#efeaef80',
+  blackSqueeze: '#EDF7F8',
+  oldLavender: '#7B5978',
 };
 
 const gradients = {
@@ -83,6 +85,7 @@ const gradients = {
 const shadows = {
   gray: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   grayUp: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
+  grayAround: '0px 0px 4px rgba(45, 24, 43, 0.25)',
 };
 
 const components = {
@@ -144,6 +147,9 @@ export default createTheme({
     },
   },
   typography: {
+    poster: {
+      color: 'red',
+    },
     fontFamily,
     fontWeightLight,
     fontWeightRegular,
