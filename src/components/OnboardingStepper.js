@@ -167,7 +167,7 @@ const OnboardingStepper = ({
         </Container>
       </View>
       <Footer>
-        <AppNote />
+        <AppNote messageVersion="onboarding" />
         {stepsButtons[current].alternativeBtn && isDisabled && (
           <Box mb={1}>
             <Button
