@@ -249,6 +249,75 @@ const activity = {
   },
 };
 
+// News module
+const news = {
+  newsItems: [
+    {
+      id: '1',
+      title: 'We have some problems! In two lines, in two lines ',
+      text: 'Lorem ipsum text...',
+      url: 'https://market.joincircles.net/',
+      date: '15.05.2022',
+      icon: 'IconHeartWithExclamationMark',
+    },
+    {
+      id: '2',
+      title: 'Welcome to Circles!',
+      text: 'Lorem ipsum text...',
+      url: 'https://market.joincircles.net/',
+      date: '15.05.2022',
+      icon: 'IconCirclesLogoLight',
+    },
+    {
+      id: '3',
+      title: 'New Features!',
+      text: 'Lorem ipsum text...',
+      url: 'https://market.joincircles.net/',
+      date: '15.05.2022',
+      icon: 'IconExclamationAndQuestionMark',
+    },
+    {
+      id: '4',
+      title: 'We have some problems! In two lines, in two lines ',
+      text: 'Lorem ipsum text...',
+      url: 'https://market.joincircles.net/',
+      date: '15.05.2022',
+      icon: 'IconExclamationAndQuestionMark',
+    },
+    {
+      id: '5',
+      title: '2We have some problems! In two lines, in two lines ',
+      text: 'Lorem ipsum text...',
+      url: 'https://market.joincircles.net/',
+      date: '15.05.2022',
+      icon: 'IconHeartWithExclamationMark',
+    },
+    {
+      id: '6',
+      title: '2Welcome to Circles!',
+      text: 'Lorem ipsum text...',
+      url: 'https://market.joincircles.net/',
+      date: '15.05.2022',
+      icon: 'IconCirclesLogoLight',
+    },
+    {
+      id: '7',
+      title: '2New Features!',
+      text: 'Lorem ipsum text...',
+      url: 'https://market.joincircles.net/',
+      date: '15.05.2022',
+      icon: 'IconExclamationAndQuestionMark',
+    },
+    {
+      id: '8',
+      title: '2We have some problems! In two lines',
+      text: 'Lorem ipsum text...',
+      url: 'https://market.joincircles.net/',
+      date: '15.05.2022',
+      icon: 'IconExclamationAndQuestionMark',
+    },
+  ],
+};
 // Organization module
 
 const organization = {
@@ -310,6 +379,7 @@ const errors = {
 export default {
   activity,
   errors,
+  news,
   organization,
   safe,
   token,
