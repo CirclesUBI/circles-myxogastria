@@ -6,14 +6,17 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, useHistory } from 'react-router-dom';
 
+import { IconMegaphone } from '../styles/icons';
 import { ACTIVITIES_PATH } from '~/routes';
 
 import ActivityStream from '~/components/ActivityStream';
 import BadgeTab from '~/components/BadgeTab';
 import ButtonIcon from '~/components/ButtonIcon';
 import DialogExportStatement from '~/components/DialogExportStatement';
+import NewsFeed from '~/components/NewsFeed';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
+import { useQuery } from '~/hooks/url';
 import { useIsOrganization } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
@@ -22,6 +25,7 @@ import { CATEGORIES } from '~/store/activity/reducers';
 import { IconConnections, IconTransactions } from '~/styles/icons';
 
 const { ActivityFilterTypes } = core.activity;
+const { newsItems } = core.news;
 
 const DEFAULT_CATEGORY = ActivityFilterTypes.CONNECTIONS;
 
@@ -31,11 +35,15 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'flex-end',
     margin: '-15px 0 30px',
   },
+  tabNavigationContainer: {
+    marginBottom: '43px',
+  },
 }));
 
 const QUERY_FILTER_MAP = {
   transfers: ActivityFilterTypes.TRANSFERS,
   connections: ActivityFilterTypes.CONNECTIONS,
+  news: 'News',
 };
 
 const filterToQuery = (filterName) => {
@@ -49,6 +57,12 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const { category } = useQuery();
+  const preselectedCategory =
+    category in QUERY_FILTER_MAP
+      ? QUERY_FILTER_MAP[category]
+      : DEFAULT_CATEGORY;
 
   const [categorySetByUser, setCategorySetByUser] = useState(false);
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
@@ -85,7 +99,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   );
 
   const activity = categories[selectedCategory];
-  const isLoading = activity.isLoadingMore || activity.lastUpdated === 0;
+  const isLoading = activity?.isLoadingMore || activity?.lastUpdated === 0;
 
   const handleLoadMore = () => {
     dispatch(loadMoreActivities(selectedCategory));
@@ -136,10 +150,17 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
       handleFilterSelection(null, category);
     }
   }, [handleFilterSelection]);
+  const handleLoadMoreNews = () => {};
+  const isLoadingMoreNews = false;
+  const isMoreAvailableNews = false;
 
   return (
-    <Fragment>
-      <TabNavigation value={selectedCategory} onChange={handleFilterSelection}>
+    <>
+      <TabNavigation
+        className={classes.tabNavigationContainer}
+        value={selectedCategory}
+        onChange={handleFilterSelection}
+      >
         <TabNavigationAction
           icon={
             <BadgeTab
@@ -161,6 +182,12 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
           }
           label={translate('ActivityStreamWithTabs.bodyFilterConnections')}
           value={ActivityFilterTypes.CONNECTIONS}
+        />
+        <TabNavigationAction
+          icon={<IconMegaphone />}
+          itemsCounter={newsItems.length + 1}
+          label={translate('ActivityStreamWithTabs.bodyFilterNews')}
+          value={'News'}
         />
       </TabNavigation>
       {selectedCategory === ActivityFilterTypes.TRANSFERS && isOrganization && (
@@ -184,7 +211,26 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
         lastUpdatedAt={activity.lastUpdatedAt}
         onLoadMore={handleLoadMore}
       />
-    </Fragment>
+      {activity && (
+        <ActivityStream
+          activities={activity?.activities}
+          isLoading={isLoading}
+          isMoreAvailable={activity?.isMoreAvailable}
+          lastSeenAt={lastSeenAt}
+          lastUpdatedAt={activity?.lastUpdatedAt}
+          onLoadMore={handleLoadMore}
+        />
+      )}
+      {/* TODO merge(?) NewsFeed with ActivityStream depending on API */}
+      {preselectedCategory === 'News' && (
+        <NewsFeed
+          isLoading={isLoadingMoreNews}
+          isMoreAvailable={isMoreAvailableNews}
+          news={newsItems}
+          onLoadMore={handleLoadMoreNews}
+        ></NewsFeed>
+      )}
+    </>
   );
 };
 
