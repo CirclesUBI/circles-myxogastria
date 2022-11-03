@@ -7,27 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.2] - 2022-10-20
+
+### Changed
+
+- Add possibility of adding html to banner content [#521](https://github.com/CirclesUBI/circles-myxogastria/pull/521)
+
 ## [2.3.1] - 2022-10-13
 
 ### Fixed
+
 - Removed unintentional plus icon on shared wallet avatar in dashboard [#510](https://github.com/CirclesUBI/circles-myxogastria/pull/510)
 
 ## [2.3.0] - 2022-10-13
 
 ### Changed
+
 - Made user notification in app customizable based on view in app [#512](https://github.com/CirclesUBI/circles-myxogastria/pull/512)
 
 ## [2.2.0] - 2022-10-05
 
 ### Added
+
 - Added functionality to edit profile name, email and avatar [#484](https://github.com/CirclesUBI/circles-myxogastria/pull/484)
 - Added improvement for transitive transfers. Upon transaction failure, trigger an update of trust network around the user and retry transaction [#362](https://github.com/CirclesUBI/circles-myxogastria/pull/362)
 - Added occational user notification to more views: login view and error view [#496](https://github.com/CirclesUBI/circles-myxogastria/pull/496)
 
 ### Removed
+
 - Removed the time circles transition screens [#488](https://github.com/CirclesUBI/circles-myxogastria/pull/488)
 
 ### Changed
+
 - Changed the support link in the login and welcome views and removed from left side menu [#485](https://github.com/CirclesUBI/circles-myxogastria/pull/485)
 - Minor dependency updates [#502](https://github.com/CirclesUBI/circles-myxogastria/pull/502)
 
