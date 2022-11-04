@@ -288,7 +288,7 @@ const news = {
     {
       id: '1',
       title: 'We have some problems! In two lines, in two lines ',
-      text: 'Lorem ipsum text...',
+      text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
       date: '15.05.2022',
       icon: 'IconHeartWithExclamationMark',
@@ -296,7 +296,7 @@ const news = {
     {
       id: '2',
       title: 'Welcome to Circles!',
-      text: 'Lorem ipsum text...',
+      text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
       date: '15.05.2022',
       icon: 'IconCirclesLogoLight',
@@ -304,7 +304,7 @@ const news = {
     {
       id: '3',
       title: 'New Features!',
-      text: 'Lorem ipsum text...',
+      text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
       date: '15.05.2022',
       icon: 'IconExclamationAndQuestionMark',
@@ -312,7 +312,7 @@ const news = {
     {
       id: '4',
       title: 'We have some problems! In two lines, in two lines ',
-      text: 'Lorem ipsum text...',
+      text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
       date: '15.05.2022',
       icon: 'IconExclamationAndQuestionMark',
@@ -320,7 +320,7 @@ const news = {
     {
       id: '5',
       title: '2We have some problems! In two lines, in two lines ',
-      text: 'Lorem ipsum text...',
+      text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
       date: '15.05.2022',
       icon: 'IconHeartWithExclamationMark',
@@ -328,7 +328,7 @@ const news = {
     {
       id: '6',
       title: '2Welcome to Circles!',
-      text: 'Lorem ipsum text...',
+      text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
       date: '15.05.2022',
       icon: 'IconCirclesLogoLight',
@@ -336,7 +336,7 @@ const news = {
     {
       id: '7',
       title: '2New Features!',
-      text: 'Lorem ipsum text...',
+      text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
       date: '15.05.2022',
       icon: 'IconExclamationAndQuestionMark',
@@ -344,7 +344,7 @@ const news = {
     {
       id: '8',
       title: '2We have some problems! In two lines',
-      text: 'Lorem ipsum text...',
+      text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
       date: '15.05.2022',
       icon: 'IconExclamationAndQuestionMark',
