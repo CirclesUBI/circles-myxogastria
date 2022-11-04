@@ -61,6 +61,7 @@ export const colors = {
   cornflowerBlue: '#efeaef80',
   blackSqueeze: '#EDF7F8',
   oldLavender: '#7B5978',
+  mountbattenPink: '#9C8299',
 };
 
 const gradients = {
