@@ -1,7 +1,15 @@
-import { Box, CircularProgress } from '@material-ui/core';
+import {
+  Box,
+  Card,
+  CircularProgress,
+  Collapse,
+  Divider,
+  IconButton,
+  Zoom,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '~/components/Button';
 import translate from '~/services/locale';
@@ -10,15 +18,13 @@ import {
   IconExclamationAndQuestionMark,
   IconHeartWithExclamationMark,
 } from '~/styles/icons';
+import { IconCloseOutline } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   newsItemContainer: {
     boxShadow: theme.custom.shadows.grayAround,
     borderRadius: '5px',
     background: theme.custom.colors.whiteAlmost,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
     padding: '16px',
     gap: '18px',
     marginBottom: '12px',
@@ -28,10 +34,31 @@ const useStyles = makeStyles((theme) => ({
       background: theme.custom.colors.blackSqueeze,
     },
   },
+  newsItemHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  newsItemContentContainer: {
+    paddingTop: '16px',
+  },
+  divider: { backgroundColor: theme.custom.colors.oldLavender },
+  content: {
+    paddingTop: '16px',
+    color: theme.custom.colors.violet,
+    '& p:last-of-type': {
+      display: 'inline',
+    },
+    '& a': {
+      color: theme.custom.colors.purple,
+      textDecoration: 'none',
+    },
+  },
   iconContainer: {
     width: '33px',
     height: '33px',
     display: 'flex',
+    marginRight: '18px',
     alignItems: 'center',
     justifyContent: 'center',
 
@@ -43,10 +70,19 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: theme.custom.colors.violet,
     display: 'block',
+    fontWeight: '500',
   },
   date: {
     color: theme.custom.colors.oldLavender,
     fontSize: '12px',
+  },
+  cardContentCloseIcon: {
+    color: theme.custom.colors.oldLavender,
+
+    '&:hover': {
+      color: theme.custom.colors.mountbattenPink,
+      backgroundColor: 'transparent',
+    },
   },
 }));
 
@@ -93,18 +129,53 @@ const NewsList = ({ news }) => {
 
 const NewsItem = ({ newsItem }) => {
   const classes = useStyles();
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleBtnContent = () => {
+    setIsExpanded(!isExpanded);
+  };
   const Icon = iconSelector(newsItem.icon);
 
   return (
-    <Box className={classes.newsItemContainer}>
-      <Box className={classes.iconContainer}>
-        <Icon />
+    <Card className={classes.newsItemContainer} onClick={handleBtnContent}>
+      <Box className={classes.newsItemHeader}>
+        <Box className={classes.iconContainer}>
+          <Icon />
+        </Box>
+        <Box>
+          <span className={classes.title}>{newsItem.title}</span>
+          <span className={classes.date}>{newsItem.date}</span>
+        </Box>
       </Box>
-      <Box>
-        <span className={classes.title}>{newsItem.title}</span>
-        <span className={classes.date}>{newsItem.date}</span>
-      </Box>
-    </Box>
+      <Collapse in={isExpanded}>
+        <Box className={classes.newsItemContentContainer}>
+          <Divider classes={{ root: classes.divider }} />
+          <Box
+            className={classes.content}
+            dangerouslySetInnerHTML={{
+              __html: `${newsItem.text} <a href=${
+                newsItem.url
+              } rel="noopener noreferrer" target="_blank">${translate(
+                'ActivityStream.linkLearnMore',
+              )}</a>`,
+            }}
+          />
+          <Zoom
+            in={isExpanded}
+            style={{ transitionDelay: isExpanded ? '250ms' : '0ms' }}
+          >
+            <Box display="flex" justifyContent="center">
+              <IconButton
+                classes={{ root: classes.cardContentCloseIcon }}
+                onClick={handleBtnContent}
+              >
+                <IconCloseOutline />
+              </IconButton>
+            </Box>
+          </Zoom>
+        </Box>
+      </Collapse>
+    </Card>
   );
 };
 
