@@ -22,6 +22,7 @@ const safeReducer = (state = initialState, action) => {
         isOrganization: { $set: action.meta.isOrganization },
         pendingAddress: { $set: action.meta.pendingAddress },
         pendingNonce: { $set: action.meta.pendingNonce },
+        safeVersion: { $set: action.meta.safeVersion },
       });
     case ActionTypes.SAFE_UPDATE_NONCE:
       return update(state, {

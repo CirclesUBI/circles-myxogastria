@@ -4,9 +4,11 @@ import {
   getCurrentAccount,
   getNonce,
   getSafeAddress,
+  getSafeVersion,
   hasCurrentAccount,
   hasNonce,
   hasSafeAddress,
+  hasSafeVersion,
   removeCurrentAccount,
   removeNonce,
   removeSafeAddress,
@@ -63,6 +65,8 @@ export function initializeSafe() {
       ? await core.organization.isOrganization(currentAccount)
       : false;
 
+    const safeVersion = hasSafeVersion() ? getSafeVersion() : null;
+
     dispatch({
       type: ActionTypes.SAFE_INITIALIZE_SUCCESS,
       meta: {
@@ -70,6 +74,7 @@ export function initializeSafe() {
         isOrganization,
         pendingAddress,
         pendingNonce,
+        safeVersion,
       },
     });
   };

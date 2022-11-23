@@ -9,6 +9,7 @@ import {
 const NONCE_NAME = 'nonce';
 const SAFE_ADDRESS_NAME = 'safeAddress';
 const SAFE_CURRENT_ACCOUNT = 'currentAccount';
+const SAFE_VERSION_NAME = 'safeVersion'
 
 export const MAX_NONCE = 10000;
 
@@ -104,4 +105,24 @@ export function setCurrentAccount(safeAddress) {
 
 export function removeCurrentAccount() {
   removeItem(SAFE_CURRENT_ACCOUNT);
+}
+
+export function getSafeVersion() {
+  if (!isAvailable()) {
+    throw new Error('LocalStorage is not available');
+  }
+
+  if (hasSafeVersion()) {
+    return getItem(SAFE_VERSION_NAME);
+  }
+
+  return null;
+}
+
+export function hasSafeVersion() {
+  return hasItem(SAFE_VERSION_NAME);
+}
+
+export function setSafeVersion(safeVersion) {
+  setItem(SAFE_VERSION_NAME, safeVersion);
 }
