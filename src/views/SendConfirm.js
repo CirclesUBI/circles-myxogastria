@@ -54,6 +54,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey['900'],
     wordWrap: 'break-word',
   },
+  sendIcon: {
+    color: theme.custom.colors.disco,
+    fontSize: 'inherit',
+  },
 }));
 
 const SendConfirm = () => {
@@ -221,7 +225,7 @@ const SendConfirm = () => {
                 height: '100px',
               }}
             >
-              <IconSend color="primary" fontSize="inherit" />
+              <IconSend className={classes.sendIcon} />
             </Box>
           </Zoom>
           <Typography align="center" gutterBottom>
