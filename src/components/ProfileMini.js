@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '50%',
   },
   cardActionIcon: {
-    color: theme.palette.primary.main,
+    color: theme.custom.colors.disco,
     fontSize: 16,
   },
   mutualFriends: {
