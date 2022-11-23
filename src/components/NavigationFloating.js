@@ -13,10 +13,7 @@ import {
 import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
-import { 
-  IconClose,
-  IconMore
-} from '~/styles/icons';
+import { IconClose, IconMore } from '~/styles/icons';
 import { FAQ_URL, MARKETPLACE_URL } from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => {
