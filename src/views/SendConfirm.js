@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   sendIcon: {
     color: theme.custom.colors.disco,
     fontSize: 'inherit',
-  }
+  },
 }));
 
 const SendConfirm = () => {
