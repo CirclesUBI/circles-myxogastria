@@ -9,7 +9,7 @@ import {
 const NONCE_NAME = 'nonce';
 const SAFE_ADDRESS_NAME = 'safeAddress';
 const SAFE_CURRENT_ACCOUNT = 'currentAccount';
-const SAFE_VERSION_NAME = 'safeVersion'
+const SAFE_VERSION_NAME = 'safeVersion';
 
 export const MAX_NONCE = 10000;
 
