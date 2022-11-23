@@ -82,6 +82,18 @@ const safe = {
       ownerAddress,
     });
   },
+
+  getVersion: async (safeAddress) => {
+    return await requestCore('safe', 'getVersion', {
+      safeAddress,
+    });
+  },
+
+  updateToLastVersion: async (safeAddress) => {
+    return await requestCore('safe', 'updateToLastVersion', {
+      safeAddress,
+    });
+  },
 };
 
 // User module
