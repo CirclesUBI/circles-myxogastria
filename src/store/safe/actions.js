@@ -443,19 +443,14 @@ export function updateSafeVersion() {
       return;
     }
 
-    // TODO: this would go in another place
-    if (safe.safeVersion && safe.safeVersion === SAFE_LAST_VERSION) {
-      return;
-    }
-
     dispatch({
       type: ActionTypes.SAFE_VERSION_UPDATE,
     });
 
     try {
-      await core.token.updateToLastVersion(safe.currentAccount);
+      await core.safe.updateToLastVersion(safe.currentAccount);
 
-      const version = core.token.getVersion(safe.currentAccount);
+      const version = core.safe.getVersion(safe.currentAccount);
       setSafeVersion(version);
 
       dispatch({
