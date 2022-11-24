@@ -19,7 +19,6 @@ import {
 } from '~/services/safe';
 import web3 from '~/services/web3';
 import ActionTypes from '~/store/safe/types';
-import { SAFE_LAST_VERSION } from '~/utils/constants';
 import { isDeployed, waitAndRetryOnFail } from '~/utils/stateChecks';
 
 export function initializeSafe() {
