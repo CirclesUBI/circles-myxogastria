@@ -106,6 +106,10 @@ const safeReducer = (state = initialState, action) => {
       });
     case ActionTypes.SAFE_RESET:
       return update(state, { $set: initialState });
+    case ActionTypes.SAFE_VERSION_UPDATE_SUCCESS:
+      return update(state, {
+        safeVersion: { $set: action.meta.version },
+      });
     default:
       return state;
   }

@@ -15,9 +15,11 @@ import {
   setCurrentAccount,
   setNonce,
   setSafeAddress,
+  setSafeVersion,
 } from '~/services/safe';
 import web3 from '~/services/web3';
 import ActionTypes from '~/store/safe/types';
+import { SAFE_LAST_VERSION } from '~/utils/constants';
 import { isDeployed, waitAndRetryOnFail } from '~/utils/stateChecks';
 
 export function initializeSafe() {
@@ -429,5 +431,45 @@ export function resetSafe() {
 
   return {
     type: ActionTypes.SAFE_RESET,
+  };
+}
+
+export function updateSafeVersion() {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    // No safe address given yet
+    if (!safe.currentAccount) {
+      return;
+    }
+
+    // TODO: this would go in another place
+    if (safe.safeVersion && safe.safeVersion === SAFE_LAST_VERSION) {
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.SAFE_VERSION_UPDATE,
+    });
+
+    try {
+      await core.token.updateToLastVersion(safe.currentAccount);
+
+      const version = core.token.getVersion(safe.currentAccount);
+      setSafeVersion(version);
+
+      dispatch({
+        type: ActionTypes.SAFE_VERSION_UPDATE_SUCCESS,
+        meta: {
+          version,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.SAFE_VERSION_UPDATE_ERROR,
+      });
+
+      throw error;
+    }
   };
 }
