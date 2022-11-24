@@ -12,6 +12,7 @@ const initialState = {
   pendingNonce: null,
   owners: [],
   ownersIsLoading: false,
+  safeVersion: null,
 };
 
 const safeReducer = (state = initialState, action) => {
