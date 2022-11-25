@@ -449,7 +449,7 @@ export function updateSafeVersion() {
     try {
       await core.safe.updateToLastVersion(safe.currentAccount);
 
-      const version = core.safe.getVersion(safe.currentAccount);
+      const version = await core.safe.getVersion(safe.currentAccount);
       setSafeVersion(version);
 
       dispatch({
