@@ -12,6 +12,7 @@ import {
   removeCurrentAccount,
   removeNonce,
   removeSafeAddress,
+  removeSafeVersion,
   setCurrentAccount,
   setNonce,
   setSafeAddress,
@@ -184,6 +185,7 @@ export function switchCurrentAccount(address) {
   return async (dispatch) => {
     const isOrganization = await core.organization.isOrganization(address);
 
+    removeSafeVersion();
     setCurrentAccount(address);
 
     dispatch({
@@ -427,6 +429,7 @@ export function resetSafe() {
   removeNonce();
   removeSafeAddress();
   removeCurrentAccount();
+  removeSafeVersion();
 
   return {
     type: ActionTypes.SAFE_RESET,

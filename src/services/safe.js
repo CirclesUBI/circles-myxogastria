@@ -126,3 +126,7 @@ export function hasSafeVersion() {
 export function setSafeVersion(safeVersion) {
   setItem(SAFE_VERSION_NAME, safeVersion);
 }
+
+export function removeSafeVersion() {
+  removeItem(SAFE_VERSION_NAME);
+}
