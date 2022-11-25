@@ -426,10 +426,10 @@ export function removeSafeOwner(address) {
 }
 
 export function resetSafe() {
+  removeSafeVersion();
   removeNonce();
   removeSafeAddress();
   removeCurrentAccount();
-  removeSafeVersion();
 
   return {
     type: ActionTypes.SAFE_RESET,

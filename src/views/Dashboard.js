@@ -129,6 +129,7 @@ const Dashboard = () => {
 
   return (
     <Fragment>
+      <SafeVersion />
       <BackgroundCurved gradient="turquoise">
         <Header
           className={clsx(classes.header, {

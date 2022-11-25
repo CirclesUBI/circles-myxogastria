@@ -127,6 +127,7 @@ const DashboardOrganization = () => {
 
   return (
     <Fragment>
+      <SafeVersion />
       <BackgroundCurved gradient="violet">
         <Header
           className={classes.header}
