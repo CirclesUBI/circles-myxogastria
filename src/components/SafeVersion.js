@@ -21,15 +21,15 @@ const SafeVersion = () => {
     }
 
     const checkSafeVersion = async () => {
-      // Check if we can the Safe version is the base
-      const version = await core.safe.getVersion(safe.currentAccount);
-
-      if (version !== SAFE_CRC_VERSION) {
+      // Check that the Safe version is the Circles base version
+      if (await core.safe.getVersion(safe.currentAccount) !== SAFE_CRC_VERSION) {
         return;
       }
 
       // .. and update the Safe!
-      await dispatch(updateSafeVersion());
+      await dispatch(await updateSafeVersion());
+
+      const version = await core.safe.getVersion(safe.currentAccount)
 
       // Display the action to the user
       dispatch(

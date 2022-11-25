@@ -433,7 +433,7 @@ export function resetSafe() {
   };
 }
 
-export function updateSafeVersion() {
+export async function updateSafeVersion() {
   return async (dispatch, getState) => {
     const { safe } = getState();
 
