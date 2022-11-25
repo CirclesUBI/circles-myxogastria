@@ -23,7 +23,6 @@ import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import NavigationFloating from '~/components/NavigationFloating';
-import SafeVersion from '~/components/SafeVersion';
 import View from '~/components/View';
 import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
@@ -128,7 +127,6 @@ const DashboardOrganization = () => {
 
   return (
     <Fragment>
-      <SafeVersion />
       <BackgroundCurved gradient="violet">
         <Header
           className={classes.header}
