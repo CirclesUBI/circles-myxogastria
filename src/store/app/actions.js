@@ -1,3 +1,4 @@
+import { removeSafeVersion } from '~/services/safe';
 import { setUser } from '~/services/sentry';
 import resolveUsernames from '~/services/username';
 import {
@@ -10,6 +11,7 @@ import {
   checkSharedSafeState,
   initializeSafe,
   resetSafe,
+  resetSafeVersion,
   switchCurrentAccount,
 } from '~/store/safe/actions';
 import { checkTokenState, resetToken } from '~/store/token/actions';
@@ -126,6 +128,8 @@ export function switchAccount(address) {
     }
 
     await dispatch(switchCurrentAccount(address));
+    await removeSafeVersion();
+    await dispatch(resetSafeVersion());
     await dispatch(resetToken());
     await dispatch(resetActivities({ isClearingStorage: false }));
     await dispatch(initializeActivities());
@@ -136,7 +140,8 @@ export function switchAccount(address) {
 export function burnApp() {
   return async (dispatch) => {
     dispatch(showSpinnerOverlay());
-
+    await dispatch(resetSafeVersion());
+    await removeSafeVersion();
     await dispatch(burnWallet());
     await dispatch(resetSafe());
     await dispatch(checkAuthState());

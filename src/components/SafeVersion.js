@@ -6,7 +6,6 @@ import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { updateSafeVersion } from '~/store/safe/actions';
 import { SAFE_CRC_VERSION, SAFE_LAST_VERSION } from '~/utils/constants';
-
 const SafeVersion = () => {
   const dispatch = useDispatch();
   const { safe } = useSelector((state) => state);
@@ -29,7 +28,8 @@ const SafeVersion = () => {
       }
 
       // .. and update the Safe!
-      await dispatch(await updateSafeVersion());
+
+      await dispatch(updateSafeVersion());
 
       const version = await core.safe.getVersion(safe.currentAccount);
 

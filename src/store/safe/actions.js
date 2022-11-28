@@ -180,15 +180,13 @@ export function createSafeWithNonce(pendingNonce) {
     }
   };
 }
-
 export function switchCurrentAccount(address) {
   return async (dispatch) => {
     const isOrganization = await core.organization.isOrganization(address);
 
-    removeSafeVersion();
-    setCurrentAccount(address);
+    await setCurrentAccount(address);
 
-    dispatch({
+    await dispatch({
       type: ActionTypes.SAFE_SWITCH_ACCOUNT,
       meta: {
         address,
@@ -436,7 +434,7 @@ export function resetSafe() {
   };
 }
 
-export async function updateSafeVersion() {
+export function updateSafeVersion() {
   return async (dispatch, getState) => {
     const { safe } = getState();
 
@@ -468,5 +466,16 @@ export async function updateSafeVersion() {
 
       throw error;
     }
+  };
+}
+
+export function resetSafeVersion() {
+  return async (dispatch) => {
+    dispatch({
+      type: ActionTypes.SAFE_VERSION_UPDATE_SUCCESS,
+      meta: {
+        version: null,
+      },
+    });
   };
 }
