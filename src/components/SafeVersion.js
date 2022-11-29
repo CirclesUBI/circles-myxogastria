@@ -12,20 +12,8 @@ const SafeVersion = () => {
   const dispatch = useDispatch();
   const { safe } = useSelector((state) => state);
 
-  /* eslint-disable */
-
-  console.log(
-    'SafeVersion safe.currentAccount at beginning',
-    safe.currentAccount,
-  );
-
   useEffect(() => {
     // If no safe address or version is already the last
-
-    console.log('SafeVersion safe.currentAccount', safe.currentAccount);
-    console.log('SafeVersion safe.safeVersion', safe.safeVersion);
-    console.log('SafeVersion getSafeVersion()', getSafeVersion());
-
     if (
       !safe.currentAccount ||
       (safe.safeVersion && safe.safeVersion === SAFE_LAST_VERSION) ||
@@ -37,7 +25,6 @@ const SafeVersion = () => {
     const checkSafeVersion = async () => {
       // Check that the Safe version is the Circles base version
 
-      console.log('UPS IM making ETH call!');
       const currentSafeVersion = await core.safe.getVersion(
         safe.currentAccount,
       );
@@ -63,8 +50,6 @@ const SafeVersion = () => {
         }),
       );
     };
-
-    /* eslint-enable */
 
     checkSafeVersion();
   }, [dispatch, safe.currentAccount, safe.safeVersion]);
