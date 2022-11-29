@@ -448,9 +448,16 @@ export function updateSafeVersion() {
     });
 
     try {
+<<<<<<< HEAD
       await core.safe.updateToLastVersion(safe.currentAccount);
       const version = await core.safe.getVersion(safe.currentAccount);
 
+=======
+      // await core.safe.updateToLastVersion(safe.currentAccount);
+
+      const version = await core.safe.getVersion(safe.currentAccount);
+      throw 'some sort of error is going here';
+>>>>>>> 39f4f35 (commit)
       setSafeVersion(version);
 
       dispatch({
