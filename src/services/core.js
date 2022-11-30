@@ -8,6 +8,7 @@ const core = new CirclesCore(web3, {
   fallbackHandlerAddress: process.env.SAFE_DEFAULT_CALLBACK_HANDLER,
   graphNodeEndpoint: process.env.GRAPH_NODE_EXTERNAL,
   hubAddress: process.env.HUB_ADDRESS,
+  multiSendCallOnlyAddress: process.env.MULTISEND_CALLONLY_ADDRESS,
   proxyFactoryAddress: process.env.PROXY_FACTORY_ADDRESS,
   relayServiceEndpoint: process.env.RELAY_SERVICE_EXTERNAL,
   safeMasterAddress: process.env.SAFE_ADDRESS,
