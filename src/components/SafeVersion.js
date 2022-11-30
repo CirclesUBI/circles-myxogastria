@@ -34,7 +34,6 @@ const SafeVersion = () => {
       }
 
       // .. and update the Safe!
-
       await dispatch(updateSafeVersion());
 
       const version = await core.safe.getVersion(safe.currentAccount);
