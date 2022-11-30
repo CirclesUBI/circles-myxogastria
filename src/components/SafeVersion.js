@@ -42,11 +42,16 @@ const SafeVersion = () => {
       // }
 >>>>>>> 39f4f35 (commit)
 
+<<<<<<< HEAD
       try {
         // .. and update the Safe!
         await dispatch(updateSafeVersion());
 
         const version = await core.safe.getVersion(safe.currentAccount);
+=======
+      // .. and update the Safe!
+      await dispatch(updateSafeVersion());
+>>>>>>> 5a56b37 (Remove blank line)
 
         // Display the action to the user
         dispatch(
