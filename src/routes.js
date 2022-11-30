@@ -169,6 +169,7 @@ const OnboardingOrganizationContainer = () => {
   }
   return <OnboardingOrganization />;
 };
+
 const DashboardContainer = () => {
   const safe = useSelector((state) => state.safe);
   if (safe.isOrganization) {
