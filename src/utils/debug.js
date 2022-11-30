@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 
 import core from '~/services/core';
+import translate from '~/services/locale';
 import { captureException } from '~/services/sentry';
 
-const { TransferError, RequestError, CoreError } = core.errors;
+const { ErrorCodes, TransferError, RequestError, CoreError } = core.errors;
 
 export function formatErrorMessage(error) {
   // Display internal error message to user for debugging purposes
@@ -42,4 +43,32 @@ export default function logError(error) {
   }
 
   console.groupEnd();
+}
+/*eslint-disable */
+
+export function translateErrorForUser(error) {
+  let text;
+  // console.log({ error });
+  // debugger;
+
+  console.log('translateErrorForUser(error)', translateErrorForUser(error));
+  console.log('error.code', error.code);
+  console.log('ErrorCodes.INSUFFICIENT_FUNDS', ErrorCodes.INSUFFICIENT_FUNDS);
+
+  console.log('error instanceof CoreError', error instanceof CoreError);
+
+  if (error instanceof CoreError) {
+    console.log('Im in if :)');
+    if (error.code == ErrorCodes.INSUFFICIENT_FUNDS) {
+      text = translate('ErrorCodes.CoreErrorInsufficientFunds');
+    }
+  } else if (error instanceof TransferError) {
+    /*eslint-disable no-empty */
+  } else if (error instanceof RequestError) {
+    /*eslint-enable no-empty */
+  }
+  console.log('text2', text);
+  /*eslint-enable*/
+
+  return text;
 }

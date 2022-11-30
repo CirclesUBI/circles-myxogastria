@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 import core from '~/services/core';
 import {
   generateDeterministicNonce,
@@ -21,6 +23,8 @@ import {
 import web3 from '~/services/web3';
 import ActionTypes from '~/store/safe/types';
 import { isDeployed, waitAndRetryOnFail } from '~/utils/stateChecks';
+
+const { ErrorCodes, TransferError, RequestError, CoreError } = core.errors;
 
 export function initializeSafe() {
   return async (dispatch) => {
@@ -433,6 +437,44 @@ export function resetSafe() {
     type: ActionTypes.SAFE_RESET,
   };
 }
+function createSymbolObject(values) {
+  return values.reduce((acc, type) => {
+    acc[type] = Symbol(type);
+    return acc;
+  }, {});
+}
+
+// export const ErrorCodes = createSymbolObject([
+//   'FAILED_REQUEST',
+//   'INSUFFICIENT_FUNDS',
+//   'INVALID_OPTIONS',
+//   'INVALID_TRANSFER',
+//   'SAFE_NOT_FOUND',
+//   'TOKEN_NOT_FOUND',
+//   'TOO_COMPLEX_TRANSFER',
+//   'TOO_MANY_ATTEMPTS',
+//   'TRANSFER_NOT_FOUND',
+//   'UNKNOWN_ERROR',
+// ]);
+
+// class CoreError extends Error {
+//   constructor(
+//     message = 'Unknown error occurred',
+//     code = ErrorCodes.UNKNOWN_ERROR,
+//   ) {
+//     super(message);
+
+//     this.name = 'CoreError';
+
+//     if (typeof Error.captureStackTrace === 'function') {
+//       Error.captureStackTrace(this, this.constructor);
+//     } else {
+//       this.stack = new Error(message).stack;
+//     }
+
+//     this.code = code;
+//   }
+// }
 
 export function updateSafeVersion() {
   return async (dispatch, getState) => {
@@ -451,7 +493,12 @@ export function updateSafeVersion() {
       // await core.safe.updateToLastVersion(safe.currentAccount);
 
       const version = await core.safe.getVersion(safe.currentAccount);
-      throw 'some sort of error is going here';
+
+      throw new CoreError(
+        'No tokens given to pay transaction',
+        ErrorCodes.INSUFFICIENT_FUNDS,
+      );
+
       setSafeVersion(version);
 
       dispatch({
@@ -461,6 +508,13 @@ export function updateSafeVersion() {
         },
       });
     } catch (error) {
+      console.log(
+        'actions error instanceof CoreError',
+        error instanceof CoreError,
+      );
+      console.log('actions error.code', error.code);
+      console.log('actions error', { error });
+
       dispatch({
         type: ActionTypes.SAFE_VERSION_UPDATE_ERROR,
       });
@@ -480,3 +534,4 @@ export function resetSafeVersion() {
     });
   };
 }
+/*eslint-enable*/
