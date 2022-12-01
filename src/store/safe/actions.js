@@ -507,7 +507,8 @@ export function updateSafeVersion() {
       });
     } catch (error) {
       console.log('error tu jest2:');
-      console.log(error);
+      console.log({ error });
+      console.log(typeof error);
 
       dispatch({
         type: ActionTypes.SAFE_VERSION_UPDATE_ERROR,
