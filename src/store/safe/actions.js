@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 import core from '~/services/core';
 import {
   generateDeterministicNonce,
@@ -480,3 +482,4 @@ export function resetSafeVersion() {
     });
   };
 }
+/*eslint-enable*/

@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -57,3 +58,4 @@ const SafeVersion = () => {
 };
 
 export default SafeVersion;
+/*eslint-enable*/
