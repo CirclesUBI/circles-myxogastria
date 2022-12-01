@@ -436,6 +436,19 @@ export function resetSafe() {
   };
 }
 
+export const ErrorCodes = createSymbolObject([
+  'FAILED_REQUEST',
+  'INSUFFICIENT_FUNDS',
+  'INVALID_OPTIONS',
+  'INVALID_TRANSFER',
+  'SAFE_NOT_FOUND',
+  'TOKEN_NOT_FOUND',
+  'TOO_COMPLEX_TRANSFER',
+  'TOO_MANY_ATTEMPTS',
+  'TRANSFER_NOT_FOUND',
+  'UNKNOWN_ERROR',
+]);
+
 class CoreError extends Error {
   constructor(
     message = 'Unknown error occurred',
