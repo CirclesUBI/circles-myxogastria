@@ -26,29 +26,34 @@ const SafeVersion = () => {
     const checkSafeVersion = async () => {
       // Check that the Safe version is the Circles base version
 
-      const currentSafeVersion = await core.safe.getVersion(
-        safe.currentAccount,
-      );
-      // if (currentSafeVersion !== SAFE_CRC_VERSION) {
-      //   setSafeVersion(currentSafeVersion);
-      //   return;
-      // }
+      try {
+        const currentSafeVersion = await core.safe.getVersion(
+          safe.currentAccount,
+        );
+        // if (currentSafeVersion !== SAFE_CRC_VERSION) {
+        //   setSafeVersion(currentSafeVersion);
+        //   return;
+        // }
 
-      // .. and update the Safe!
-      await dispatch(updateSafeVersion());
+        // .. and update the Safe!
+        await dispatch(updateSafeVersion());
 
-      const version = await core.safe.getVersion(safe.currentAccount);
+        const version = await core.safe.getVersion(safe.currentAccount);
 
-      // Display the action to the user
-      dispatch(
-        notify({
-          text: translate('SafeVersion.infoUpdatedVersion', {
-            version: version,
+        // Display the action to the user
+        dispatch(
+          notify({
+            text: translate('SafeVersion.infoUpdatedVersion', {
+              version: version,
+            }),
+            type: NotificationsTypes.INFO,
+            timeout: 10000,
           }),
-          type: NotificationsTypes.INFO,
-          timeout: 10000,
-        }),
-      );
+        );
+      } catch (error) {
+        console.log('SafeVersion error is coming', error);
+        throw error;
+      }
     };
 
     checkSafeVersion();

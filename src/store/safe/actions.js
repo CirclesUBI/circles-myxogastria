@@ -436,6 +436,25 @@ export function resetSafe() {
   };
 }
 
+class CoreError extends Error {
+  constructor(
+    message = 'Unknown error occurred',
+    code = ErrorCodes.UNKNOWN_ERROR,
+  ) {
+    super(message);
+
+    this.name = 'CoreError';
+
+    if (typeof Error.captureStackTrace === 'function') {
+      Error.captureStackTrace(this, this.constructor);
+    } else {
+      this.stack = new Error(message).stack;
+    }
+
+    this.code = code;
+  }
+}
+
 export function updateSafeVersion() {
   return async (dispatch, getState) => {
     const { safe } = getState();
@@ -453,7 +472,12 @@ export function updateSafeVersion() {
       // await core.safe.updateToLastVersion(safe.currentAccount);
 
       const version = await core.safe.getVersion(safe.currentAccount);
-      throw 'some sort of error is going here';
+
+      throw new CoreError(
+        'No tokens given to pay transaction',
+        ErrorCodes.INSUFFICIENT_FUNDS,
+      );
+
       setSafeVersion(version);
 
       dispatch({
@@ -463,6 +487,7 @@ export function updateSafeVersion() {
         },
       });
     } catch (error) {
+      console.log('error tu jest:', error);
       dispatch({
         type: ActionTypes.SAFE_VERSION_UPDATE_ERROR,
       });
