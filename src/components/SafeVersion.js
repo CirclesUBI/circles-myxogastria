@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,6 +27,7 @@ const SafeVersion = () => {
     const checkSafeVersion = async () => {
       // Check that the Safe version is the Circles base version
 
+<<<<<<< HEAD
       const currentSafeVersion = await core.safe.getVersion(
         safe.currentAccount,
       );
@@ -53,6 +55,22 @@ const SafeVersion = () => {
       await dispatch(updateSafeVersion());
 >>>>>>> 5a56b37 (Remove blank line)
 
+=======
+      try {
+        const currentSafeVersion = await core.safe.getVersion(
+          safe.currentAccount,
+        );
+        // if (currentSafeVersion !== SAFE_CRC_VERSION) {
+        //   setSafeVersion(currentSafeVersion);
+        //   return;
+        // }
+
+        // .. and update the Safe!
+        await dispatch(updateSafeVersion());
+
+        const version = await core.safe.getVersion(safe.currentAccount);
+
+>>>>>>> ecca1ca (commit)
         // Display the action to the user
         dispatch(
           notify({
@@ -64,6 +82,7 @@ const SafeVersion = () => {
           }),
         );
       } catch (error) {
+<<<<<<< HEAD
         // Display the action to the user
         dispatch(
           notify({
@@ -73,6 +92,10 @@ const SafeVersion = () => {
           }),
         );
         logError(error);
+=======
+        console.log('SafeVersion error is coming', error);
+        throw error;
+>>>>>>> ecca1ca (commit)
       }
     };
 
@@ -83,3 +106,4 @@ const SafeVersion = () => {
 };
 
 export default SafeVersion;
+/*eslint-enable*/
