@@ -506,7 +506,9 @@ export function updateSafeVersion() {
         },
       });
     } catch (error) {
-      console.log('error tu jest:', error);
+      console.log('error tu jest2:');
+      console.log(error);
+
       dispatch({
         type: ActionTypes.SAFE_VERSION_UPDATE_ERROR,
       });
