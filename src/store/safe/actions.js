@@ -435,6 +435,12 @@ export function resetSafe() {
     type: ActionTypes.SAFE_RESET,
   };
 }
+function createSymbolObject(values) {
+  return values.reduce((acc, type) => {
+    acc[type] = Symbol(type);
+    return acc;
+  }, {});
+}
 
 export const ErrorCodes = createSymbolObject([
   'FAILED_REQUEST',
