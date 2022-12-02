@@ -4,15 +4,19 @@ import {
   getCurrentAccount,
   getNonce,
   getSafeAddress,
+  getSafeVersion,
   hasCurrentAccount,
   hasNonce,
   hasSafeAddress,
+  hasSafeVersion,
   removeCurrentAccount,
   removeNonce,
   removeSafeAddress,
+  removeSafeVersion,
   setCurrentAccount,
   setNonce,
   setSafeAddress,
+  setSafeVersion,
 } from '~/services/safe';
 import web3 from '~/services/web3';
 import ActionTypes from '~/store/safe/types';
@@ -63,6 +67,8 @@ export function initializeSafe() {
       ? await core.organization.isOrganization(currentAccount)
       : false;
 
+    const safeVersion = hasSafeVersion() ? getSafeVersion() : null;
+
     dispatch({
       type: ActionTypes.SAFE_INITIALIZE_SUCCESS,
       meta: {
@@ -70,6 +76,7 @@ export function initializeSafe() {
         isOrganization,
         pendingAddress,
         pendingNonce,
+        safeVersion,
       },
     });
   };
@@ -173,14 +180,13 @@ export function createSafeWithNonce(pendingNonce) {
     }
   };
 }
-
 export function switchCurrentAccount(address) {
   return async (dispatch) => {
     const isOrganization = await core.organization.isOrganization(address);
 
-    setCurrentAccount(address);
+    await setCurrentAccount(address);
 
-    dispatch({
+    await dispatch({
       type: ActionTypes.SAFE_SWITCH_ACCOUNT,
       meta: {
         address,
@@ -418,11 +424,58 @@ export function removeSafeOwner(address) {
 }
 
 export function resetSafe() {
+  removeSafeVersion();
   removeNonce();
   removeSafeAddress();
   removeCurrentAccount();
 
   return {
     type: ActionTypes.SAFE_RESET,
+  };
+}
+
+export function updateSafeVersion() {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    // No safe address given yet
+    if (!safe.currentAccount) {
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.SAFE_VERSION_UPDATE,
+    });
+
+    try {
+      await core.safe.updateToLastVersion(safe.currentAccount);
+
+      const version = await core.safe.getVersion(safe.currentAccount);
+      setSafeVersion(version);
+
+      dispatch({
+        type: ActionTypes.SAFE_VERSION_UPDATE_SUCCESS,
+        meta: {
+          version,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.SAFE_VERSION_UPDATE_ERROR,
+      });
+
+      throw error;
+    }
+  };
+}
+
+export function resetSafeVersion() {
+  return async (dispatch) => {
+    dispatch({
+      type: ActionTypes.SAFE_VERSION_UPDATE_SUCCESS,
+      meta: {
+        version: null,
+      },
+    });
   };
 }
