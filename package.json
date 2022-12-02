@@ -60,7 +60,7 @@
     "webpack-dev-server": "^3.11.3"
   },
   "dependencies": {
-    "@circles/core": "^3.1.1",
+    "@circles/core": "^3.1.3",
     "@circles/timecircles": "^1.0.6",
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
