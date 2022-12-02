@@ -131,6 +131,9 @@
     "optionFile": "Gallery",
     "titleCancel": "Do you want to save changes to your profile?"
   },
+  "ErrorCodes": {
+    "CoreErrorInsufficientFunds": "Please send some Circles to this account if you want to perform any transaction"
+  },
   "Finder": {
     "bodyFilterDirect": "Directly trusted",
     "bodyFilterExternal": "External",
