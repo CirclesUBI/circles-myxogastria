@@ -44,21 +44,10 @@ export default function logError(error) {
 
   console.groupEnd();
 }
-/*eslint-disable */
 
 export function translateErrorForUser(error) {
   let text;
-  // console.log({ error });
-  // debugger;
-
-  console.log('translateErrorForUser(error)', translateErrorForUser(error));
-  console.log('error.code', error.code);
-  console.log('ErrorCodes.INSUFFICIENT_FUNDS', ErrorCodes.INSUFFICIENT_FUNDS);
-
-  console.log('error instanceof CoreError', error instanceof CoreError);
-
   if (error instanceof CoreError) {
-    console.log('Im in if :)');
     if (error.code == ErrorCodes.INSUFFICIENT_FUNDS) {
       text = translate('ErrorCodes.CoreErrorInsufficientFunds');
     }
@@ -67,8 +56,6 @@ export function translateErrorForUser(error) {
   } else if (error instanceof RequestError) {
     /*eslint-enable no-empty */
   }
-  console.log('text2', text);
-  /*eslint-enable*/
 
   return text;
 }
