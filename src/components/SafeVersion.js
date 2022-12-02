@@ -16,61 +16,39 @@ const SafeVersion = () => {
 
   useEffect(() => {
     // If no safe address or version is already the last
-    // if (
-    //   !safe.currentAccount ||
-    //   (safe.safeVersion && safe.safeVersion === SAFE_LAST_VERSION) ||
-    //   getSafeVersion() === SAFE_LAST_VERSION
-    // ) {
-    //   return;
-    // }
+    if (
+      !safe.currentAccount ||
+      (safe.safeVersion && safe.safeVersion === SAFE_LAST_VERSION) ||
+      getSafeVersion() === SAFE_LAST_VERSION
+    ) {
+      return;
+    }
 
     const checkSafeVersion = async () => {
       // Check that the Safe version is the Circles base version
-
-<<<<<<< HEAD
       const currentSafeVersion = await core.safe.getVersion(
         safe.currentAccount,
       );
-<<<<<<< HEAD
 
       if (currentSafeVersion !== SAFE_CRC_VERSION) {
         setSafeVersion(currentSafeVersion);
         return;
       }
-=======
-      // if (currentSafeVersion !== SAFE_CRC_VERSION) {
-      //   setSafeVersion(currentSafeVersion);
-      //   return;
-      // }
->>>>>>> 39f4f35 (commit)
 
-<<<<<<< HEAD
-      try {
-        // .. and update the Safe!
-        await dispatch(updateSafeVersion());
-
-        const version = await core.safe.getVersion(safe.currentAccount);
-=======
-      // .. and update the Safe!
-      await dispatch(updateSafeVersion());
->>>>>>> 5a56b37 (Remove blank line)
-
-=======
       try {
         const currentSafeVersion = await core.safe.getVersion(
           safe.currentAccount,
         );
-        // if (currentSafeVersion !== SAFE_CRC_VERSION) {
-        //   setSafeVersion(currentSafeVersion);
-        //   return;
-        // }
+        if (currentSafeVersion !== SAFE_CRC_VERSION) {
+          setSafeVersion(currentSafeVersion);
+          return;
+        }
 
         // .. and update the Safe!
         await dispatch(updateSafeVersion());
 
         const version = await core.safe.getVersion(safe.currentAccount);
 
->>>>>>> ecca1ca (commit)
         // Display the action to the user
         dispatch(
           notify({
@@ -82,7 +60,6 @@ const SafeVersion = () => {
           }),
         );
       } catch (error) {
-<<<<<<< HEAD
         // Display the action to the user
         dispatch(
           notify({
@@ -92,10 +69,6 @@ const SafeVersion = () => {
           }),
         );
         logError(error);
-=======
-        console.log('SafeVersion error is coming', error);
-        throw error;
->>>>>>> ecca1ca (commit)
       }
     };
 
