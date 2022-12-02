@@ -9,6 +9,7 @@ import Routes from '~/routes';
 
 import Notifications from '~/components/Notifications';
 import PinkShadow from '~/components/PinkShadow';
+import SafeVersion from '~/components/SafeVersion';
 import SpinnerOverlay from '~/components/SpinnerOverlay';
 import UBI from '~/components/UBI';
 import { initializeApp } from '~/store/app/actions';
@@ -91,6 +92,7 @@ const App = () => {
       <Router>
         <PinkShadow>
           <UBI />
+          <SafeVersion />
           <Notifications />
           <SpinnerOverlay isVisible={app.isLoading} />
           <Routes />
