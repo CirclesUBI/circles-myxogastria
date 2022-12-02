@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 2022-12-02
+
+### Added
+- Documentation comment on how env. variable "user notification" can be used [#524](https://github.com/CirclesUBI/circles-myxogastria/pull/524)
+
+### Changed
+- Compatibility with Safe version 1.3.0 and automatic upgrade for signed-in wallets to 1.3.0+L2 [#542](https://github.com/CirclesUBI/circles-myxogastria/pull/542)
+- Dependency updates [#539](https://github.com/CirclesUBI/circles-myxogastria/pull/539), [#552](https://github.com/CirclesUBI/circles-myxogastria/pull/552), [#553](https://github.com/CirclesUBI/circles-myxogastria/pull/553)
+
+### Removed
+- Deleted unnecessary github actions [#538](https://github.com/CirclesUBI/circles-myxogastria/pull/538)
+
 ## [2.3.2] - 2022-10-20
 
 ### Changed
