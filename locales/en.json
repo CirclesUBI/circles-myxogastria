@@ -310,9 +310,6 @@
     "formReceiver": "Sent to",
     "headingGenerator": "QR Generator"
   },
-  "SafeVersion": {
-    "infoUpdatedVersion": "Your Safe has been updated to the version {version}!"
-  },
   "Search": {
     "headingSearch": "Trust Network"
   },
