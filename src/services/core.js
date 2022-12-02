@@ -5,6 +5,7 @@ import web3 from '~/services/web3';
 
 const core = new CirclesCore(web3, {
   apiServiceEndpoint: process.env.API_SERVICE_EXTERNAL,
+  fallbackHandlerAddress: process.env.SAFE_DEFAULT_CALLBACK_HANDLER,
   graphNodeEndpoint: process.env.GRAPH_NODE_EXTERNAL,
   hubAddress: process.env.HUB_ADDRESS,
   proxyFactoryAddress: process.env.PROXY_FACTORY_ADDRESS,
@@ -79,6 +80,18 @@ const safe = {
   getAddresses: async (ownerAddress) => {
     return await requestCore('safe', 'getAddresses', {
       ownerAddress,
+    });
+  },
+
+  getVersion: async (safeAddress) => {
+    return await requestCore('safe', 'getVersion', {
+      safeAddress,
+    });
+  },
+
+  updateToLastVersion: async (safeAddress) => {
+    return await requestCore('safe', 'updateToLastVersion', {
+      safeAddress,
     });
   },
 };
