@@ -51,10 +51,6 @@ export function translateErrorForUser(error) {
     if (error.code == ErrorCodes.INSUFFICIENT_FUNDS) {
       text = translate('ErrorCodes.CoreErrorInsufficientFunds');
     }
-  } else if (error instanceof TransferError) {
-    /*eslint-disable no-empty */
-  } else if (error instanceof RequestError) {
-    /*eslint-enable no-empty */
   }
 
   return text;
