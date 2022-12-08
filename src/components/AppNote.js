@@ -25,8 +25,9 @@ const notification = {
     text: process.env.USER_NOTIFICATION_DASHBOARD,
   },
   default: {
-    color: theme.custom.colors.fountainBlue,
-    icon: 'IconAlert',
+    color:
+      process.env.USER_NOTIFICATION_COLOR || theme.custom.colors.fountainBlue,
+    icon: process.env.USER_NOTIFICATION_ICON || 'IconAlert',
     text: process.env.USER_NOTIFICATION,
   },
   error: {
