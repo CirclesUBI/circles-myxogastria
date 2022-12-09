@@ -53,13 +53,16 @@ const AppNote = ({ messageVersion }) => {
   const message = notification[choice].text
     ? notification[choice].text
     : notification['default'].text;
+  const color = notification[choice].color
+    ? notification[choice].color
+    : notification['default'].color;
+  const icon = notification[choice].icon
+    ? notification[choice].icon
+    : notification['default'].icon;
 
   return message ? (
     <Box className={classes.appNoteContainer} my={2}>
-      <HumbleAlert
-        color={notification[choice].color}
-        icon={notification[choice].icon}
-      >
+      <HumbleAlert color={color} icon={icon}>
         {message}
       </HumbleAlert>
     </Box>

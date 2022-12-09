@@ -3,8 +3,6 @@ import { Alert } from '@material-ui/lab';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import theme from '../styles/theme';
-
 import { iconSelector } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => {
@@ -33,11 +31,7 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const HumbleAlert = ({
-  children,
-  icon = 'IconAlert',
-  color = theme.custom.colors.fountainBlue,
-}) => {
+const HumbleAlert = ({ children, icon, color }) => {
   const classes = useStyles({ color });
   const IconElement = iconSelector(icon);
 
