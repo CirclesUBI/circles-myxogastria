@@ -1,3 +1,4 @@
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -6,6 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.4.1] - 2022-12-12
+
+### Fixed
+- Merged the fix of an issue where naming a new shared wallet similar to an existing wallet you own, fails to create the new wallet [#555](https://github.com/CirclesUBI/circles-myxogastria/pull/555) and [#515](https://github.com/CirclesUBI/circles-myxogastria/pull/515)
+
+### Updated
+- Circles core dependency update [#554](https://github.com/CirclesUBI/circles-myxogastria/pull/554)
 
 ## [2.4.0] - 2022-12-02
 
