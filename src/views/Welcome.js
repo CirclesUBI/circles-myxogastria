@@ -22,7 +22,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   welcomeButton: {
     minWidth: 115,
-    height: 37,
+    height: 40,
     paddingTop: theme.spacing(0.5),
     paddingRight: theme.spacing(2),
     paddingBottom: theme.spacing(0.5),

@@ -7,20 +7,47 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    fontWeight: theme.typography.fontWeightRegular,
+    fontWeight: theme.typography.fontWeightMedium,
+    fontSize: '16px',
     textTransform: 'none',
-    borderRadius: 16,
+    borderRadius: 30,
     zIndex: theme.zIndex.layer2,
   },
   buttonDark: {
     color: theme.palette.text.primary,
   },
   buttonOutline: {
-    height: '43.5px', // Make it as high as the other buttons
     color: theme.palette.primary.main,
-    border: `${theme.palette.primary.main} 2px solid`,
+
+    background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
+    ${theme.custom.gradients.pinkToPurple} border-box`,
+    position: 'relative',
+    border: '1px solid transparent',
+    borderRadius: '30px',
+    '&:hover': {
+      background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
+      ${theme.custom.gradients.lightPinkToPurple} border-box`,
+
+      '& .MuiButton-label': {
+        background: theme.custom.gradients.lightPinkToPurple,
+        '-webkit-background-clip': 'text',
+        '-webkit-text-fill-color': 'transparent',
+      },
+    },
     '&.Mui-disabled': {
-      borderColor: theme.palette.action.disabled,
+      background: theme.custom.colors.whiteAlmost,
+      borderColor: theme.custom.colors.lola,
+
+      '& .MuiButton-label': {
+        background: 'none',
+        color: theme.custom.colors.lola,
+        '-webkit-text-fill-color': theme.custom.colors.lola,
+      },
+    },
+    '& .MuiButton-label': {
+      background: theme.custom.gradients.pinkToPurple,
+      '-webkit-background-clip': 'text',
+      '-webkit-text-fill-color': 'transparent',
     },
   },
   buttonDanger: {
@@ -33,9 +60,20 @@ const useStyles = makeStyles((theme) => ({
   buttonPrimary: {
     background: theme.custom.gradients.purple,
     color: theme.palette.common.white,
+    '&:hover': {
+      background: theme.custom.gradients.purpleHover,
+    },
     '&.Mui-disabled': {
-      background: theme.custom.gradients.grayDark,
-      color: theme.custom.colors.white,
+      background: theme.custom.colors.lola,
+      borderRadius: '30px',
+      color: theme.custom.colors.lily,
+      height: '40px',
+    },
+  },
+  buttonGradientOpposite: {
+    background: theme.custom.gradients.purpleOpposite,
+    '&:hover': {
+      background: theme.custom.gradients.purpleOppositeHover,
     },
   },
   buttonWhite: {
@@ -74,6 +112,8 @@ const Button = React.forwardRef(
       className: classNameExternal,
       isDanger,
       isDark,
+      isDisabled,
+      isGradientOpposite,
       isOutline,
       isPrimary,
       isWhite,
@@ -91,6 +131,7 @@ const Button = React.forwardRef(
       [classes.buttonDanger]: isDanger,
       [classes.buttonDark]: isDark,
       [classes.buttonOutline]: isOutline,
+      [classes.buttonGradientOpposite]: isGradientOpposite,
       [classes.buttonPrimary]: isPrimary,
       [classes.buttonWhite]: isWhite,
       [classes.buttonWhiteText]: isWhiteText,
@@ -121,7 +162,9 @@ Button.propTypes = {
   className: PropTypes.string,
   isDanger: PropTypes.bool,
   isDark: PropTypes.bool,
+  isDisabled: PropTypes.bool,
   isGradientBorder: PropTypes.bool,
+  isGradientOpposite: PropTypes.bool,
   isOutline: PropTypes.bool,
   isPrimary: PropTypes.bool,
   isWhite: PropTypes.bool,

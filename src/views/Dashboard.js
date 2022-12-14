@@ -86,12 +86,25 @@ const useStyles = makeStyles((theme) => ({
   buttonContainer: {
     marginTop: '30px',
     marginBottom: '70px',
-    padding: '0 15px',
+    padding: '0 16px',
     '& a:first-of-type': {
       border: 0,
+      marginRight: '4px',
+      padding: '6px 15px',
+      '&.Mui-disabled': {
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0,
+      },
     },
     '& a:nth-of-type(2)': {
       borderLeftStyle: 'none',
+      marginLeft: '4px',
+      padding: '6px 15px',
+      border: 0,
+      '&.Mui-disabled': {
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
+      },
     },
   },
 }));
@@ -163,10 +176,10 @@ const Dashboard = () => {
           <AppNote messageVersion="dashboard" />
           <Grid item xs={12}>
             <ButtonGroup className={classes.buttonContainer} fullWidth>
-              <Button isOutline isPrimary to={SEARCH_PATH}>
+              <Button isPrimary to={SEARCH_PATH}>
                 {translate('Dashboard.buttonTrustPeople')}
               </Button>
-              <Button isOutline to={SEND_PATH}>
+              <Button isGradientOpposite isPrimary to={SEND_PATH}>
                 {translate('Dashboard.buttonSendCircles')}
               </Button>
             </ButtonGroup>
