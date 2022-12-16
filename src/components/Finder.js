@@ -3,8 +3,6 @@ import {
   Box,
   CircularProgress,
   Grid,
-  Input,
-  InputAdornment,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,6 +22,7 @@ import { SEARCH_PATH } from '~/routes';
 
 import TourWebOfTrustSVG from '%/images/tour-web-of-trust.svg';
 import Button from '~/components/Button';
+import Input from '~/components/Input';
 import ProfileMini from '~/components/ProfileMini';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
@@ -32,7 +31,6 @@ import { useQuery } from '~/hooks/url';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import { checkTrustState } from '~/store/trust/actions';
-import { IconSearch } from '~/styles/icons';
 import { IconFollow, IconTrustActive, IconWorld } from '~/styles/icons';
 import debounce from '~/utils/debounce';
 
@@ -62,32 +60,9 @@ function filterToQuery(filterName) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  searchInput: {
-    marginRight: theme.spacing(1),
-    padding: theme.spacing(1, 2),
-    borderRadius: 10,
-    backgroundColor: theme.palette.grey['100'],
-    color: theme.palette.grey['800'],
-  },
   searchItem: {
     cursor: 'pointer',
     boxShadow: theme.custom.shadows.gray,
-  },
-  bottomNavigation: {
-    marginBottom: theme.spacing(2),
-  },
-  bottomNavigationAction: {
-    maxWidth: 'none',
-  },
-  bottomNavigationLabel: {
-    marginTop: theme.spacing(1),
-    fontWeight: theme.typography.fontWeightLight,
-    fontSize: '0.9rem',
-    borderBottom: '2px solid transparent',
-    '&.Mui-selected': {
-      fontSize: '0.9rem',
-      borderBottom: `2px solid ${theme.palette.primary.main}`,
-    },
   },
 }));
 
@@ -282,7 +257,8 @@ const FinderSearchBar = ({
   onSelect,
 }) => {
   const history = useHistory();
-  const classes = useStyles();
+  const safe = useSelector((state) => state.safe);
+  const isOrganization = safe?.isOrganization;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
@@ -329,15 +305,11 @@ const FinderSearchBar = ({
     <Input
       autoComplete="off"
       autoFocus
-      className={classes.searchInput}
       disableUnderline={true}
-      endAdornment={
-        <InputAdornment position="end">
-          <IconSearch fontSize="small" />
-        </InputAdornment>
-      }
       fullWidth
       id="search"
+      isOrganization={isOrganization}
+      label={translate('Finder.formLabel')}
       placeholder={translate('Finder.formSearch')}
       value={input}
       onChange={onInputChange}
