@@ -221,6 +221,7 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
       </Typography>
       <Box mt={3}>
         <VerifiedEmailInput
+          isOrganization
           label={translate('Onboarding.formEmail')}
           value={values.email}
           onChange={handleEmail}
@@ -325,6 +326,7 @@ const OrganizationStepWalletName = ({ onDisabledChange, values, onChange }) => {
       </Typography>
       <Box mb={6} mt={4}>
         <VerifiedUsernameInput
+          isOrganization
           label={translate('OnboardingOrganization.formUsername')}
           value={values.username}
           onChange={handleChange}

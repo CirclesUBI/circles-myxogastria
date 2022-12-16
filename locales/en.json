@@ -140,6 +140,7 @@
     "bodyFilterIndirect": "In your network",
     "bodyNoResultsGiven": "No search results found!",
     "buttonLoadMore": "Show more",
+    "formLabel": "Search",
     "formSearch": "Add or search contacts"
   },
   "LocaleSelector": {

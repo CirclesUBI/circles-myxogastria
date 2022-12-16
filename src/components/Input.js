@@ -4,37 +4,164 @@ import {
   FormHelperText,
   InputAdornment,
   InputLabel,
-  Input as MuiInput,
+  OutlinedInput,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { IconCheck } from '~/styles/icons';
+const useStyles = makeStyles((theme) => {
+  const textColor = (isOrganization) => {
+    return isOrganization
+      ? theme.custom.colors.violet
+      : theme.custom.colors.fountainBlue;
+  };
 
-const useStyles = makeStyles((theme) => ({
-  inputLabel: {
-    '&.Mui-focused': {
-      color: theme.palette.text.primary,
+  const backgroundColor = (isOrganization) => {
+    return isOrganization
+      ? theme.custom.colors.cornflowerBlue
+      : theme.custom.colors.blackSqueeze;
+  };
+
+  return {
+    inputLabel: {
+      transform: 'translate(28px, -6px)',
+      background: theme.custom.colors.white,
+      fontSize: '12px',
+      padding: '2px 6px',
+      transition: 'none',
+      color: textColor,
+      borderRadius: '10px',
+      lineHeight: '16px',
+
+      '&.MuiInputLabel-outlined.MuiInputLabel-shrink': {
+        transform: 'translate(28px, -6px)',
+      },
+
+      '&.Mui-focused': {
+        color: textColor,
+      },
+
+      '&.Mui-focused.Mui-error': {
+        color: theme.custom.colors.purple,
+      },
+
+      '&:has(+ .MuiOutlinedInput-root:hover)': {
+        background: backgroundColor,
+      },
+
+      '&:has(+ .MuiOutlinedInput-root.Mui-error:hover)': {
+        background: theme.custom.colors.wepeep,
+      },
     },
-    '&.Mui-error': {
-      color: theme.custom.colors.disco,
+
+    inputLabelError: {
+      color: theme.custom.colors.purple,
     },
-  },
-  inputUnderline: {
-    '&.Mui-focused::after': {
-      borderBottomColor: theme.palette.text.primary,
+
+    inputLabelClasses: {
+      background: 'white',
+      padding: '0 10px',
     },
-    '&.Mui-error::after': {
-      borderBottomColor: theme.custom.colors.disco,
+
+    formHelperText: {
+      position: 'absolute',
+      padding: '2px 6px',
+      bottom: '-6px',
+      fontSize: '12px',
+      right: '30px',
+      background: theme.custom.colors.white,
+      borderRadius: '10px',
+      lineHeight: '16px',
     },
-  },
-  formHelperText: {
-    '&.Mui-error': {
-      color: theme.custom.colors.disco,
+
+    outlinedInput: {
+      padding: '13.5px 14px',
+      borderRadius: '25px',
+      color: theme.custom.colors.violet,
     },
-  },
-}));
+
+    outlinedInputRoot: {
+      borderRadius: '25px',
+      border: `3px solid transparent`,
+
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: textColor,
+        borderWidth: '1px',
+      },
+
+      '&:hover': {
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: textColor,
+        },
+
+        '& .MuiOutlinedInput-input': {
+          background: backgroundColor,
+        },
+
+        '&.Mui-error': {
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.custom.colors.purple,
+          },
+
+          '& .MuiOutlinedInput-input': {
+            background: theme.custom.colors.wepeep,
+          },
+        },
+
+        '& +.MuiFormHelperText-root.Mui-error': {
+          background: theme.custom.colors.wepeep,
+        },
+      },
+
+      '& .MuiSvgIcon-root': {
+        marginLeft: '5px',
+      },
+
+      '&.MuiOutlinedInput-multiline': {
+        padding: 0,
+      },
+    },
+
+    outlinedInputFocused: {
+      border: (isOrganization) =>
+        isOrganization
+          ? `3px solid ${theme.custom.colors.lola} `
+          : `3px solid ${theme.custom.colors.swansDown}`,
+      borderColor: (isOrganization) =>
+        isOrganization
+          ? theme.custom.colors.lola
+          : theme.custom.colors.swansDown,
+
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: (isOrganization) =>
+          isOrganization
+            ? `${theme.custom.colors.violet} !important`
+            : `${theme.custom.colors.fountainBlue} !important`, // should work without important but doesn't...
+        borderWidth: '2px',
+      },
+    },
+
+    outlinedInputError: {
+      borderColor: 'transparent',
+
+      '&.Mui-focused': {
+        border: `3px solid ${theme.custom.colors.wepeep}`,
+        borderColor: theme.custom.colors.wepeep,
+
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: `${theme.custom.colors.purple} !important`, // should work without important but doesn't...
+          borderWidth: '2px',
+        },
+      },
+
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.custom.colors.purple,
+        borderWidth: '2px',
+      },
+    },
+  };
+});
 
 const Input = ({
   isError,
@@ -42,45 +169,53 @@ const Input = ({
   errorMessage,
   label,
   isLoading,
-  isShowingCheck = true,
+  isOrganization = false,
   value,
   ...props
 }) => {
-  const classes = useStyles();
+  const classes = useStyles(isOrganization);
 
   return (
-    <FormControl error={isError} fullWidth>
-      {label && (
-        <InputLabel className={classes.inputLabel} htmlFor={id}>
-          {label}
-        </InputLabel>
-      )}
-      <MuiInput
-        autoComplete="off"
-        classes={{
-          underline: classes.inputUnderline,
-        }}
-        endAdornment={
-          isLoading ? (
-            <InputAdornment position="end">
-              <CircularProgress size={15} />
-            </InputAdornment>
-          ) : (
-            !isError &&
-            value.length > 0 &&
-            isShowingCheck && <IconCheck color="secondary" fontSize="small" />
-          )
-        }
-        id={id}
-        value={value}
-        {...props}
-      />
-      {isError && errorMessage && (
-        <FormHelperText className={classes.formHelperText}>
-          {errorMessage}
-        </FormHelperText>
-      )}
-    </FormControl>
+    <>
+      <FormControl error={isError} fullWidth>
+        {label && (
+          <InputLabel
+            classes={{
+              root: classes.inputLabel,
+              error: classes.inputLabelError,
+            }}
+            htmlFor={id}
+            variant="outlined"
+          >
+            {label}
+          </InputLabel>
+        )}
+        <OutlinedInput
+          autoComplete="off"
+          classes={{
+            input: classes.outlinedInput,
+            root: classes.outlinedInputRoot,
+            focused: classes.outlinedInputFocused,
+            error: classes.outlinedInputError,
+          }}
+          endAdornment={
+            isLoading ? (
+              <InputAdornment position="end">
+                <CircularProgress size={15} />
+              </InputAdornment>
+            ) : null
+          }
+          id={id}
+          value={value}
+          {...props}
+        />
+        {isError && errorMessage && (
+          <FormHelperText className={classes.formHelperText}>
+            {errorMessage}
+          </FormHelperText>
+        )}
+      </FormControl>
+    </>
   );
 };
 
@@ -89,6 +224,7 @@ Input.propTypes = {
   id: PropTypes.string.isRequired,
   isError: PropTypes.bool,
   isLoading: PropTypes.bool,
+  isOrganization: PropTypes.bool,
   isShowingCheck: PropTypes.bool,
   label: PropTypes.string,
   value: PropTypes.any.isRequired,
