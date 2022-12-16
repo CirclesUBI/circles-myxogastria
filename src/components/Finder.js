@@ -257,6 +257,8 @@ const FinderSearchBar = ({
   onSelect,
 }) => {
   const history = useHistory();
+  const safe = useSelector((state) => state.safe);
+  const isOrganization = safe?.isOrganization;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
@@ -306,6 +308,7 @@ const FinderSearchBar = ({
       disableUnderline={true}
       fullWidth
       id="search"
+      isOrganization={isOrganization}
       label={translate('Finder.formLabel')}
       placeholder={translate('Finder.formSearch')}
       value={input}
