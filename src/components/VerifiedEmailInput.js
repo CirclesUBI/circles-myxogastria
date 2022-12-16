@@ -9,6 +9,7 @@ import debounce from '~/utils/debounce';
 const DEBOUNCE_DELAY = 500;
 
 const VerifiedEmailInput = ({
+  isOrganization,
   label,
   onChange,
   onStatusChange,
@@ -72,6 +73,7 @@ const VerifiedEmailInput = ({
       id="email"
       isError={isError}
       isLoading={isLoading}
+      isOrganization={isOrganization}
       label={label}
       type="email"
       value={value}
@@ -82,6 +84,7 @@ const VerifiedEmailInput = ({
 };
 
 VerifiedEmailInput.propTypes = {
+  isOrganization: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onStatusChange: PropTypes.func.isRequired,

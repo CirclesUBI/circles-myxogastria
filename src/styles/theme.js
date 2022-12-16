@@ -58,7 +58,11 @@ export const colors = {
   violet: '#5A2F56',
   tapestry: '#A75183',
   greyHover: 'rgba(222, 213, 221, 0.8)',
-  cornflowerBlue: '#efeaef80',
+  cornflowerBlue: '#efeaef',
+  swansDown: '#DAF0F1',
+  blackSqueeze: '#EDF7F8',
+  wepeep: '#F5D2E1',
+  lola: '#DED5DD',
 };
 
 const gradients = {

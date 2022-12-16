@@ -37,7 +37,7 @@ const TransferInput = ({
   const classes = useStyles();
 
   return (
-    <Fragment>
+    <>
       <InputLabel className={classes.inputLabel} htmlFor={id}>
         {label}
       </InputLabel>
@@ -58,7 +58,7 @@ const TransferInput = ({
           {errorMessage}
         </FormHelperText>
       )}
-    </Fragment>
+    </>
   );
 };
 
