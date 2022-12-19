@@ -12,13 +12,25 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     borderRadius: 30,
     zIndex: theme.zIndex.layer2,
-  },
-  buttonDark: {
-    color: theme.palette.text.primary,
+    background: theme.custom.gradients.purple,
+    color: theme.palette.common.white,
+    height: '40px',
+    '&:hover': {
+      background: theme.custom.gradients.purpleHover,
+    },
+    '&.Mui-disabled': {
+      background: theme.custom.colors.lola,
+      borderRadius: '30px',
+      color: theme.custom.colors.lily,
+      'pointer-events': 'visible',
+
+      '&:hover': {
+        background: theme.custom.colors.lola,
+      },
+    },
   },
   buttonOutline: {
     color: theme.palette.primary.main,
-
     background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
     ${theme.custom.gradients.pinkToPurple} border-box`,
     position: 'relative',
@@ -53,45 +65,21 @@ const useStyles = makeStyles((theme) => ({
   buttonDanger: {
     background: theme.custom.colors.red,
     color: theme.palette.common.white,
-    '&:hover': {
-      backgroundColor: theme.custom.colors.red,
-    },
-  },
-  buttonPrimary: {
-    background: theme.custom.gradients.purple,
-    color: theme.palette.common.white,
-    '&:hover': {
-      background: theme.custom.gradients.purpleHover,
-    },
-    '&.Mui-disabled': {
-      background: theme.custom.colors.lola,
-      borderRadius: '30px',
-      color: theme.custom.colors.lily,
-      height: '40px',
-    },
-  },
-  buttonGradientOpposite: {
-    background: theme.custom.gradients.purpleOpposite,
-    '&:hover': {
-      background: theme.custom.gradients.purpleOppositeHover,
-    },
-  },
-  buttonWhite: {
-    background: theme.custom.colors.white,
-    color: theme.custom.colors.purpleDark,
-    '&:hover': {
-      backgroundColor: theme.custom.colors.grayLight,
-    },
   },
   buttonWhiteText: {
     color: theme.custom.colors.white,
+    background: 'transparent',
+    '&:hover': {
+      background: theme.custom.colors.hoverBtn,
+      '& .MuiButton-label': {
+        '-webkit-text-fill-color': theme.custom.colors.white,
+      },
+    },
+    '& .MuiButton-label': {
+      '-webkit-text-fill-color': theme.custom.colors.white,
+    },
   },
-  buttonGradientBorder: {
-    background: `linear-gradient(${theme.custom.colors.white}, ${theme.custom.colors.white}) padding-box,
-    linear-gradient(to right, ${theme.custom.colors.purple}, ${theme.custom.colors.purpleDark}) border-box`,
-    border: '1px solid transparent',
-  },
-  buttonWithoutBorder: {
+  buttonText: {
     border: 0,
     background: theme.custom.gradients.purple,
     backgroundClip: 'text',
@@ -99,7 +87,19 @@ const useStyles = makeStyles((theme) => ({
     '-webkit-background-clip': 'text',
     '-webkit-text-fill-color': 'transparent',
     '&:hover': {
-      backgroundColor: 'transparent',
+      background: theme.custom.colors.lightPinkToPurple,
+      '-webkit-background-clip': 'text',
+      '-webkit-text-fill-color': 'transparent',
+    },
+    '&.Mui-disabled': {
+      background: 'transparent',
+      color: theme.custom.colors.lily,
+      '-webkit-text-fill-color': theme.custom.colors.lily,
+
+      '&:hover': {
+        cursor: 'not-allowed',
+        'pointer-events': 'visible',
+      },
     },
   },
 }));
@@ -111,14 +111,9 @@ const Button = React.forwardRef(
       children,
       className: classNameExternal,
       isDanger,
-      isDark,
-      isGradientOpposite,
       isOutline,
-      isPrimary,
-      isWhite,
       isWhiteText,
-      isGradientBorder,
-      isWithoutBorder,
+      isText,
       to,
       ...props
     },
@@ -128,14 +123,9 @@ const Button = React.forwardRef(
 
     const className = clsx(classes.button, classNameExternal, {
       [classes.buttonDanger]: isDanger,
-      [classes.buttonDark]: isDark,
       [classes.buttonOutline]: isOutline,
-      [classes.buttonGradientOpposite]: isGradientOpposite,
-      [classes.buttonPrimary]: isPrimary,
-      [classes.buttonWhite]: isWhite,
       [classes.buttonWhiteText]: isWhiteText,
-      [classes.buttonGradientBorder]: isGradientBorder,
-      [classes.buttonWithoutBorder]: isWithoutBorder,
+      [classes.buttonText]: isText,
     });
 
     return React.createElement(
@@ -160,14 +150,9 @@ Button.propTypes = {
   children: PropTypes.any.isRequired,
   className: PropTypes.string,
   isDanger: PropTypes.bool,
-  isDark: PropTypes.bool,
-  isGradientBorder: PropTypes.bool,
-  isGradientOpposite: PropTypes.bool,
   isOutline: PropTypes.bool,
-  isPrimary: PropTypes.bool,
-  isWhite: PropTypes.bool,
+  isText: PropTypes.bool,
   isWhiteText: PropTypes.bool,
-  isWithoutBorder: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
 };

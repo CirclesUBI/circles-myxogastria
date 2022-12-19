@@ -57,7 +57,7 @@ const CriticalError = () => {
             </HumbleAlert>
           </Box>
         )}
-        <Button fullWidth isPrimary onClick={onReload}>
+        <Button fullWidth onClick={onReload}>
           {translate('CriticalError.buttonReload')}
         </Button>
         <Box mt={2}>

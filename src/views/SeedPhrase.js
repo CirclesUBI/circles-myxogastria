@@ -34,7 +34,7 @@ const SeedPhrase = () => {
         </Container>
       </View>
       <Footer>
-        <ButtonClipboard fullWidth isPrimary text={mnemonic}>
+        <ButtonClipboard fullWidth text={mnemonic}>
           {translate('SeedPhrase.buttonCopyToClipboard')}
         </ButtonClipboard>
       </Footer>

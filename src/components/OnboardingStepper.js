@@ -186,7 +186,6 @@ const OnboardingStepper = ({
             <Button
               disabled={isDisabled}
               fullWidth
-              isPrimary
               onClick={isLastSlide ? onFinish : onNext}
             >
               {stepsButtons[current].btnNextStep}

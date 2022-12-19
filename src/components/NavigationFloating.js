@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => {
   const backgroundHoverTheme = (props) => {
     switch (props?.color) {
       case 'turquoise':
-        return theme.custom.colors.fountainBlue2;
+        return theme.custom.colors.fountainBlueLighter;
       case 'violet':
         return theme.custom.colors.oldLavender;
       case 'white':
@@ -57,16 +57,16 @@ const useStyles = makeStyles((theme) => {
   };
 
   const borderHoverTheme = (props) => {
-    const borderFountainBlue2 = `1px solid ${theme.custom.colors.fountainBlue2}`;
+    const borderFountainBlueLighter = `1px solid ${theme.custom.colors.fountainBlueLighter}`;
     switch (props?.color) {
       case 'turquoise':
-        return borderFountainBlue2;
+        return borderFountainBlueLighter;
       case 'violet':
         return `1px solid ${theme.custom.colors.oldLavender}`;
       case 'white':
-        return borderFountainBlue2;
+        return borderFountainBlueLighter;
       default:
-        return borderFountainBlue2;
+        return borderFountainBlueLighter;
     }
   };
   return {
@@ -130,7 +130,7 @@ const useStyles = makeStyles((theme) => {
         '& .MuiFab-label': {
           color: (props) =>
             props?.color === 'white'
-              ? theme.custom.colors.fountainBlue2
+              ? theme.custom.colors.fountainBlueLighter
               : theme.custom.colors.whiteAlmost,
         },
       },
@@ -203,7 +203,7 @@ export default function NavigationFloating(props) {
         {props.isAddMembersLink && (
           <MenuItem>
             <Link to={ORGANIZATION_MEMBERS_PATH}>
-              <Button isOutline isWhite>
+              <Button isOutline>
                 {translate('NavigationFloating.linkAddMembers')}
               </Button>
             </Link>
@@ -211,28 +211,28 @@ export default function NavigationFloating(props) {
         )}
         <MenuItem>
           <Link to={EDIT_PROFILE_PATH}>
-            <Button isOutline isWhite>
+            <Button isOutline>
               {translate('NavigationFloating.linkEditProfile')}
             </Button>
           </Link>
         </MenuItem>
         <MenuItem>
           <Link to={MY_PROFILE_PATH}>
-            <Button isOutline isWhite>
+            <Button isOutline>
               {translate('NavigationFloating.linkMyWallets')}
             </Button>
           </Link>
         </MenuItem>
         <ExternalLink href={MARKETPLACE_URL}>
           <MenuItem>
-            <Button isOutline isWhite>
+            <Button isOutline>
               {translate('NavigationFloating.linkMarketplace')}
             </Button>
           </MenuItem>
         </ExternalLink>
         <ExternalLink href={FAQ_URL}>
           <MenuItem>
-            <Button isOutline isWhite>
+            <Button isOutline>
               {translate('NavigationFloating.linkSupport')}
             </Button>
           </MenuItem>

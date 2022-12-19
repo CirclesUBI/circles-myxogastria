@@ -1,6 +1,5 @@
 import {
   Box,
-  ButtonGroup,
   Grid,
   List,
   ListItem,
@@ -24,7 +23,7 @@ import {
 
 import Avatar from '~/components/Avatar';
 import AvatarWithQR from '~/components/AvatarWithQR';
-import Button from '~/components/Button';
+import ButtonTrust from '~/components/ButtonTrust';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
@@ -82,14 +81,12 @@ const MyProfile = () => {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <ButtonGroup fullWidth>
-            <Button isOutline to={EDIT_PROFILE_PATH}>
-              {translate('MyProfile.buttonEditProfile')}
-            </Button>
-            <Button isOutline isPrimary to={SHARE_PATH}>
-              {translate('MyProfile.buttonShareProfile')}
-            </Button>
-          </ButtonGroup>
+          <ButtonTrust
+            leftBtnPath={EDIT_PROFILE_PATH}
+            leftBtnText={translate('MyProfile.buttonEditProfile')}
+            rightBtnPath={SHARE_PATH}
+            rightBtnText={translate('MyProfile.buttonShareProfile')}
+          />
         </Grid>
       </Grid>
       <List>

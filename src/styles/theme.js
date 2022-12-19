@@ -30,6 +30,10 @@ const monochrome = {
 const rgba = {
   doveGray: 'rgb(107, 101, 101,0.5)',
   dialogGray: 'rgba(0, 0, 0, 0.25)',
+  silverTree: 'rgba(112, 189, 158, 0.40)',
+  finn: 'rgba(90, 47, 86, 0.3)',
+  greyHover: 'rgba(222, 213, 221, 0.8)',
+  hoverBtn: 'rgba(0, 0, 0, 0.04)',
 };
 
 export const colors = {
@@ -46,10 +50,8 @@ export const colors = {
   turquoise: '#47cccb',
   turquoiseDark: '#369998',
   jaggedIce: '#C8E8EA',
-  silverTree: 'rgba(112, 189, 158, 0.40)',
-  finn: 'rgba(90, 47, 86, 0.3)',
   fountainBlue: '#48B2B7',
-  fountainBlue2: '#6CC1C5',
+  fountainBlueLighter: '#6CC1C5',
   springGreen: '#06FC9D',
   pizazz: '#FF8E00',
   ceriseRed: '#D12D5F',
