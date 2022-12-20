@@ -375,12 +375,16 @@ const EditProfile = () => {
 
   useEffect(() => {
     (async () => {
-      try {
+      if (safe.currentAccount) {
         const userEmail = await core.user.getEmail(safe.currentAccount);
-        setEmailInput(userEmail);
-        setCurrentUserEmail(userEmail);
-      } catch (error) {
-        logError(error);
+        if (userEmail.status !== 404) {
+          setEmailInput(userEmail);
+          setCurrentUserEmail(userEmail);
+        } else {
+          setEmailInput('');
+          setCurrentUserEmail('');
+        }
+      } else {
         setEmailInput('');
         setCurrentUserEmail('');
       }
