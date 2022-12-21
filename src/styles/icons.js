@@ -29,6 +29,7 @@ import share from '%/images/share.svg';
 import telegram from '%/images/telegram.svg';
 import transactions from '%/images/transactions.svg';
 import trustActive from '%/images/trust-active.svg';
+import trustEggShape from '%/images/trust-egg-shape.svg';
 import trustMutual from '%/images/trust-mutual.svg';
 import trust from '%/images/trust.svg';
 import twitter from '%/images/twitter.svg';
@@ -143,16 +144,20 @@ export const IconTransactions = (props) => {
   return <SvgIcon component={transactions} {...props} viewBox="0 0 20 20" />;
 };
 
+export const IconTrustCustomShape = (props) => {
+  return <SvgIcon component={trustEggShape} {...props} viewBox="0 0 55 55" />;
+};
+
 export const IconTrust = (props) => {
-  return <SvgIcon component={trust} {...props} viewBox="0 0 27 29" />;
+  return <SvgIcon component={trust} {...props} viewBox="0 0 30 38" />;
 };
 
 export const IconTrustActive = (props) => {
-  return <SvgIcon component={trustActive} {...props} viewBox="0 0 25 27" />;
+  return <SvgIcon component={trustActive} {...props} viewBox="0 0 32 38" />;
 };
 
 export const IconTrustMutual = (props) => {
-  return <SvgIcon component={trustMutual} {...props} viewBox="0 0 25 29" />;
+  return <SvgIcon component={trustMutual} {...props} viewBox="0 0 29 34" />;
 };
 
 export const IconTwitter = (props) => {

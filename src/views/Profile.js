@@ -49,6 +49,7 @@ import {
   IconShare,
   IconTrust,
   IconTrustActive,
+  IconTrustCustomShape,
   IconTrustMutual,
 } from '~/styles/icons';
 import NotFound from '~/views/NotFound';
@@ -62,18 +63,76 @@ const PAGE_SIZE = 10;
 
 const useStyles = makeStyles((theme) => ({
   trustButton: {
-    background: theme.custom.gradients.purple,
-    color: theme.palette.common.white,
+    background: 'transparent',
+    color: theme.palette.common.whiteAlmost,
+    padding: '0',
+    '& stop:first-of-type': {
+      stopColor: theme.custom.colors.purpleDark,
+    },
+    '& stop:last-of-type': {
+      stopColor: theme.custom.colors.purple,
+    },
+    '&:hover': {
+      '& stop:first-of-type': {
+        stopColor: theme.custom.colors.cannonPink,
+      },
+      '& stop:last-of-type': {
+        stopColor: theme.custom.colors.cranberry,
+      },
+    },
   },
-  trustButtonActive: {
-    background: theme.custom.gradients.turquoise,
+  trustButtonIsMeTrusting: {
+    '& stop:first-of-type': {
+      stopColor: theme.custom.colors.violet,
+    },
+    '& stop:last-of-type': {
+      stopColor: theme.custom.colors.violet,
+    },
+    '&:hover': {
+      '& stop:first-of-type': {
+        stopColor: theme.custom.colors.oldLavender,
+      },
+      '& stop:last-of-type': {
+        stopColor: theme.custom.colors.oldLavender,
+      },
+    },
+  },
+  trustButtonMutuallyTrusted: {
+    '& stop:first-of-type': {
+      stopColor: theme.custom.colors.fountainBlue,
+    },
+    '& stop:last-of-type': {
+      stopColor: theme.custom.colors.fountainBlue,
+    },
+    '&:hover': {
+      '& stop:first-of-type': {
+        stopColor: theme.custom.colors.fountainBlueLighter,
+      },
+      '& stop:last-of-type': {
+        stopColor: theme.custom.colors.fountainBlueLighter,
+      },
+    },
   },
   trustButtonDisabled: {
     background: theme.custom.gradients.gray,
   },
+  trustButtonContainer: {
+    width: '55px',
+    height: '55px',
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   trustButtonIcon: {
     position: 'relative',
     left: 1,
+    fontSize: '2.4rem',
+  },
+  trustButtonIconBackground: {
+    width: '55px',
+    height: '55px',
+    position: 'absolute',
   },
   mutualUserCard: {
     cursor: 'pointer',
@@ -414,7 +473,10 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
         <IconButton
           classes={{
             root: clsx(classes.trustButton, {
-              [classes.trustButtonActive]: trustStatus.isMeTrusting,
+              [classes.trustButtonIsMeTrusting]: trustStatus.isMeTrusting,
+              [classes.trustButtonIsTrustingMe]: trustStatus.isTrustingMe,
+              [classes.trustButtonMutuallyTrusted]:
+                trustStatus.isMeTrusting && trustStatus.isTrustingMe,
             }),
             disabled: classes.trustButtonDisabled,
           }}
@@ -426,7 +488,12 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
           {trustStatus.isPending ? (
             <CircularProgress size={24} />
           ) : (
-            <TrustIcon className={classes.trustButtonIcon} />
+            <Box className={classes.trustButtonContainer}>
+              <IconTrustCustomShape
+                className={classes.trustButtonIconBackground}
+              />
+              <TrustIcon className={classes.trustButtonIcon} />
+            </Box>
           )}
         </IconButton>
       )}
