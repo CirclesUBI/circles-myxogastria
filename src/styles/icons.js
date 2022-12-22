@@ -11,6 +11,7 @@ import circles from '%/images/circles.svg';
 import closeOutline from '%/images/close-outline.svg';
 import close from '%/images/close.svg';
 import connections from '%/images/connections.svg';
+import customRoundShape from '%/images/custom-round-shape.svg';
 import edit from '%/images/edit.svg';
 import facebook from '%/images/facebook.svg';
 import follow from '%/images/follow.svg';
@@ -29,7 +30,6 @@ import share from '%/images/share.svg';
 import telegram from '%/images/telegram.svg';
 import transactions from '%/images/transactions.svg';
 import trustActive from '%/images/trust-active.svg';
-import trustEggShape from '%/images/trust-egg-shape.svg';
 import trustMutual from '%/images/trust-mutual.svg';
 import trust from '%/images/trust.svg';
 import twitter from '%/images/twitter.svg';
@@ -145,7 +145,9 @@ export const IconTransactions = (props) => {
 };
 
 export const IconTrustCustomShape = (props) => {
-  return <SvgIcon component={trustEggShape} {...props} viewBox="0 0 55 55" />;
+  return (
+    <SvgIcon component={customRoundShape} {...props} viewBox="0 0 55 55" />
+  );
 };
 
 export const IconTrust = (props) => {

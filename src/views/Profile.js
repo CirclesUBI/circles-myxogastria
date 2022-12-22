@@ -1,15 +1,12 @@
 import {
   Badge,
   Box,
-  CircularProgress,
   Container,
   Grid,
-  IconButton,
   Tooltip,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,6 +26,7 @@ import Header from '~/components/Header';
 import ProfileMini from '~/components/ProfileMini';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
+import UnevenRoundButton from '~/components/UnevenRoundButton';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import { usePendingTransfer } from '~/hooks/activity';
@@ -43,15 +41,7 @@ import {
   checkPendingActivities,
 } from '~/store/activity/actions';
 import { checkTrustState } from '~/store/trust/actions';
-import {
-  IconActivity,
-  IconFriends,
-  IconShare,
-  IconTrust,
-  IconTrustActive,
-  IconTrustCustomShape,
-  IconTrustMutual,
-} from '~/styles/icons';
+import { IconActivity, IconFriends, IconShare } from '~/styles/icons';
 import NotFound from '~/views/NotFound';
 
 const PANEL_ACTIVITY = Symbol('panelActivity');
@@ -61,79 +51,7 @@ const DEFAULT_PANEL = PANEL_TRUST;
 
 const PAGE_SIZE = 10;
 
-const useStyles = makeStyles((theme) => ({
-  trustButton: {
-    background: 'transparent',
-    color: theme.palette.common.whiteAlmost,
-    padding: '0',
-    '& stop:first-of-type': {
-      stopColor: theme.custom.colors.purpleDark,
-    },
-    '& stop:last-of-type': {
-      stopColor: theme.custom.colors.purple,
-    },
-    '&:hover': {
-      '& stop:first-of-type': {
-        stopColor: theme.custom.colors.cannonPink,
-      },
-      '& stop:last-of-type': {
-        stopColor: theme.custom.colors.cranberry,
-      },
-    },
-  },
-  trustButtonIsMeTrusting: {
-    '& stop:first-of-type': {
-      stopColor: theme.custom.colors.violet,
-    },
-    '& stop:last-of-type': {
-      stopColor: theme.custom.colors.violet,
-    },
-    '&:hover': {
-      '& stop:first-of-type': {
-        stopColor: theme.custom.colors.oldLavender,
-      },
-      '& stop:last-of-type': {
-        stopColor: theme.custom.colors.oldLavender,
-      },
-    },
-  },
-  trustButtonMutuallyTrusted: {
-    '& stop:first-of-type': {
-      stopColor: theme.custom.colors.fountainBlue,
-    },
-    '& stop:last-of-type': {
-      stopColor: theme.custom.colors.fountainBlue,
-    },
-    '&:hover': {
-      '& stop:first-of-type': {
-        stopColor: theme.custom.colors.fountainBlueLighter,
-      },
-      '& stop:last-of-type': {
-        stopColor: theme.custom.colors.fountainBlueLighter,
-      },
-    },
-  },
-  trustButtonDisabled: {
-    background: theme.custom.gradients.gray,
-  },
-  trustButtonContainer: {
-    width: '55px',
-    height: '55px',
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  trustButtonIcon: {
-    position: 'relative',
-    left: 1,
-    fontSize: '2.4rem',
-  },
-  trustButtonIconBackground: {
-    width: '55px',
-    height: '55px',
-    position: 'absolute',
-  },
+const useStyles = makeStyles(() => ({
   mutualUserCard: {
     cursor: 'pointer',
   },
@@ -408,7 +326,6 @@ const ProfileSendButton = ({ address, deploymentStatus }) => {
 };
 
 const ProfileTrustButton = ({ address, trustStatus }) => {
-  const classes = useStyles();
   const safe = useSelector((state) => state.safe);
 
   const { isOrganization, isReady } = useIsOrganization(address);
@@ -418,12 +335,6 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
   const [isTrustConfirmOpen, setIsTrustConfirmOpen] = useState(false);
   const [isRevokeTrustOpen, setIsRevokeTrustOpen] = useState(false);
   const [isSent, setIsSent] = useState(false);
-
-  const TrustIcon = trustStatus.isMeTrusting
-    ? trustStatus.isTrustingMe
-      ? IconTrustMutual
-      : IconTrustActive
-    : IconTrust;
 
   const handleTrustOpen = () => {
     setIsTrustConfirmOpen(true);
@@ -470,32 +381,12 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
         onSuccess={handleRevokeTrustSuccess}
       />
       {!isOrganization && !isOwnAccount && (
-        <IconButton
-          classes={{
-            root: clsx(classes.trustButton, {
-              [classes.trustButtonIsMeTrusting]: trustStatus.isMeTrusting,
-              [classes.trustButtonIsTrustingMe]: trustStatus.isTrustingMe,
-              [classes.trustButtonMutuallyTrusted]:
-                trustStatus.isMeTrusting && trustStatus.isTrustingMe,
-            }),
-            disabled: classes.trustButtonDisabled,
-          }}
-          disabled={trustStatus.isPending || !isReady}
-          onClick={
-            trustStatus.isMeTrusting ? handleRevokeTrustOpen : handleTrustOpen
-          }
-        >
-          {trustStatus.isPending ? (
-            <CircularProgress size={24} />
-          ) : (
-            <Box className={classes.trustButtonContainer}>
-              <IconTrustCustomShape
-                className={classes.trustButtonIconBackground}
-              />
-              <TrustIcon className={classes.trustButtonIcon} />
-            </Box>
-          )}
-        </IconButton>
+        <UnevenRoundButton
+          handleRevokeTrustOpen={handleRevokeTrustOpen}
+          handleTrustOpen={handleTrustOpen}
+          isReady={isReady}
+          trustStatus={trustStatus}
+        />
       )}
     </Fragment>
   );
