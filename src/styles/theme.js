@@ -30,10 +30,8 @@ const monochrome = {
 const rgba = {
   doveGray: 'rgb(107, 101, 101,0.5)',
   dialogGray: 'rgba(0, 0, 0, 0.25)',
-  silverTree: 'rgba(112, 189, 158, 0.40)',
-  finn: 'rgba(90, 47, 86, 0.3)',
   greyHover: 'rgba(222, 213, 221, 0.8)',
-  hoverBtn: 'rgba(0, 0, 0, 0.04)',
+  lightGrey: 'rgba(0, 0, 0, 0.04)',
 };
 
 export const colors = {

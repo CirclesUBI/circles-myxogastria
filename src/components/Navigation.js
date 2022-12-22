@@ -131,7 +131,7 @@ const NavigationMain = ({ onClick }) => {
   return (
     <Box className={classes.navigationMain} component="main">
       <NavigationLink to={SEARCH_PATH} onClick={onClick}>
-        {translate('Navigation.buttonTrustPeople')}
+        {translate('Navigation.buttonDoublePeople')}
       </NavigationLink>
       <NavigationLink to={generatePath(SEND_PATH)} onClick={onClick}>
         {translate('Navigation.buttonSendCircles')}

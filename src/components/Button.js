@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.custom.colors.white,
     background: 'transparent',
     '&:hover': {
-      background: theme.custom.colors.hoverBtn,
+      background: theme.custom.colors.lightGrey,
       '& .MuiButton-label': {
         '-webkit-text-fill-color': theme.custom.colors.white,
       },

@@ -23,7 +23,7 @@ import {
 
 import Avatar from '~/components/Avatar';
 import AvatarWithQR from '~/components/AvatarWithQR';
-import ButtonTrust from '~/components/ButtonTrust';
+import ButtonDouble from '~/components/ButtonDouble';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
@@ -81,7 +81,7 @@ const MyProfile = () => {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <ButtonTrust
+          <ButtonDouble
             leftBtnPath={EDIT_PROFILE_PATH}
             leftBtnText={translate('MyProfile.buttonEditProfile')}
             rightBtnPath={SHARE_PATH}

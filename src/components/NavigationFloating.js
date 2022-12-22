@@ -60,11 +60,10 @@ const useStyles = makeStyles((theme) => {
     const borderFountainBlueLighter = `1px solid ${theme.custom.colors.fountainBlueLighter}`;
     switch (props?.color) {
       case 'turquoise':
+      case 'white':
         return borderFountainBlueLighter;
       case 'violet':
         return `1px solid ${theme.custom.colors.oldLavender}`;
-      case 'white':
-        return borderFountainBlueLighter;
       default:
         return borderFountainBlueLighter;
     }

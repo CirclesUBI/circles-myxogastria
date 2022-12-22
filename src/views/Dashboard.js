@@ -13,7 +13,7 @@ import AppNote from '~/components/AppNote';
 import AvatarHeader from '~/components/AvatarHeader';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import BalanceDisplay from '~/components/BalanceDisplay';
-import ButtonTrust from '~/components/ButtonTrust';
+import ButtonDouble from '~/components/ButtonDouble';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
@@ -145,7 +145,7 @@ const Dashboard = () => {
           </Box>
           <AppNote messageVersion="dashboard" />
           <Grid item xs={12}>
-            <ButtonTrust
+            <ButtonDouble
               leftBtnPath={SEARCH_PATH}
               leftBtnText={translate('Dashboard.buttonTrustPeople')}
               rightBtnPath={SEND_PATH}

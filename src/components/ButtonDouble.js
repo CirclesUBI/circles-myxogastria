@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ButtonTrust = ({ leftBtnText, rightBtnText }) => {
+const ButtonDouble = ({ leftBtnText, rightBtnText }) => {
   const classes = useStyles();
 
   return (
@@ -55,11 +55,11 @@ const ButtonTrust = ({ leftBtnText, rightBtnText }) => {
   );
 };
 
-ButtonTrust.propTypes = {
+ButtonDouble.propTypes = {
   leftBtnPath: PropTypes.string.isRequired,
   leftBtnText: PropTypes.string.isRequired,
   rightBtnPath: PropTypes.string.isRequired,
   rightBtnText: PropTypes.string.isRequired,
 };
 
-export default ButtonTrust;
+export default ButtonDouble;
