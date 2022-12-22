@@ -65,7 +65,6 @@ export const colors = {
   wepeep: '#F5D2E1',
   lola: '#DED5DD',
   cornflowerBlue: '#efeaef80',
-  lola: '#DED5DD',
   lily: '#BDACBB',
   cannonPink: '#853F5C',
   cranberry: '#D64B85',
