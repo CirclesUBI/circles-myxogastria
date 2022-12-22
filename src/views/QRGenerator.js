@@ -168,7 +168,6 @@ const QRGenerator = () => {
         <Button
           disabled={isPaymentNoteInvalid || !amount || !validateAmount(amount)}
           fullWidth
-          isPrimary
           onClick={handleShowQR}
         >
           {translate('QRGenerator.buttonShowQRCode')}

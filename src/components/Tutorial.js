@@ -139,7 +139,7 @@ const TutorialHeader = (props) => {
           props.isSkippable ? (
             <Button
               className={classes.tutorialSkipButton}
-              isDark
+              isWhiteText
               onClick={props.onSkip}
             >
               {translate('Tutorial.buttonSkip')}
@@ -176,11 +176,7 @@ const TutorialFooter = (props) => {
 
   return (
     <Footer>
-      <Button
-        fullWidth
-        isPrimary
-        onClick={isLastSlide ? props.onFinish : props.onNext}
-      >
+      <Button fullWidth onClick={isLastSlide ? props.onFinish : props.onNext}>
         {isLastSlide
           ? props.finishBtnText
           : translate('Tutorial.buttonNextStep')}

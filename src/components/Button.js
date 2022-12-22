@@ -7,53 +7,79 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    fontWeight: theme.typography.fontWeightRegular,
+    fontWeight: theme.typography.fontWeightMedium,
+    fontSize: '16px',
     textTransform: 'none',
-    borderRadius: 16,
+    borderRadius: 30,
     zIndex: theme.zIndex.layer2,
-  },
-  buttonDark: {
-    color: theme.palette.text.primary,
+    background: theme.custom.gradients.purple,
+    color: theme.palette.common.white,
+    height: '40px',
+    '&:hover': {
+      background: theme.custom.gradients.purpleHover,
+    },
+    '&.Mui-disabled': {
+      background: theme.custom.colors.lola,
+      borderRadius: '30px',
+      color: theme.custom.colors.lily,
+      'pointer-events': 'visible',
+
+      '&:hover': {
+        background: theme.custom.colors.lola,
+      },
+    },
   },
   buttonOutline: {
-    height: '43.5px', // Make it as high as the other buttons
     color: theme.palette.primary.main,
-    border: `${theme.palette.primary.main} 2px solid`,
+    background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
+    ${theme.custom.gradients.pinkToPurple} border-box`,
+    position: 'relative',
+    border: '1px solid transparent',
+    borderRadius: '30px',
+    '&:hover': {
+      background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
+      ${theme.custom.gradients.lightPinkToPurple} border-box`,
+
+      '& .MuiButton-label': {
+        background: theme.custom.gradients.lightPinkToPurple,
+        '-webkit-background-clip': 'text',
+        '-webkit-text-fill-color': 'transparent',
+      },
+    },
     '&.Mui-disabled': {
-      borderColor: theme.palette.action.disabled,
+      background: theme.custom.colors.whiteAlmost,
+      borderColor: theme.custom.colors.lola,
+
+      '& .MuiButton-label': {
+        background: 'none',
+        color: theme.custom.colors.lola,
+        '-webkit-text-fill-color': theme.custom.colors.lola,
+      },
+    },
+    '& .MuiButton-label': {
+      background: theme.custom.gradients.pinkToPurple,
+      '-webkit-background-clip': 'text',
+      '-webkit-text-fill-color': 'transparent',
     },
   },
   buttonDanger: {
     background: theme.custom.colors.red,
     color: theme.palette.common.white,
-    '&:hover': {
-      backgroundColor: theme.custom.colors.red,
-    },
-  },
-  buttonPrimary: {
-    background: theme.custom.gradients.purple,
-    color: theme.palette.common.white,
-    '&.Mui-disabled': {
-      background: theme.custom.gradients.grayDark,
-      color: theme.custom.colors.white,
-    },
-  },
-  buttonWhite: {
-    background: theme.custom.colors.white,
-    color: theme.custom.colors.purpleDark,
-    '&:hover': {
-      backgroundColor: theme.custom.colors.grayLight,
-    },
   },
   buttonWhiteText: {
     color: theme.custom.colors.white,
+    background: 'transparent',
+    '&:hover': {
+      background: theme.custom.colors.lightGrey,
+      '& .MuiButton-label': {
+        '-webkit-text-fill-color': theme.custom.colors.white,
+      },
+    },
+    '& .MuiButton-label': {
+      '-webkit-text-fill-color': theme.custom.colors.white,
+    },
   },
-  buttonGradientBorder: {
-    background: `linear-gradient(${theme.custom.colors.white}, ${theme.custom.colors.white}) padding-box,
-    linear-gradient(to right, ${theme.custom.colors.purple}, ${theme.custom.colors.purpleDark}) border-box`,
-    border: '1px solid transparent',
-  },
-  buttonWithoutBorder: {
+  buttonText: {
     border: 0,
     background: theme.custom.gradients.purple,
     backgroundClip: 'text',
@@ -61,7 +87,19 @@ const useStyles = makeStyles((theme) => ({
     '-webkit-background-clip': 'text',
     '-webkit-text-fill-color': 'transparent',
     '&:hover': {
-      backgroundColor: 'transparent',
+      background: theme.custom.colors.lightPinkToPurple,
+      '-webkit-background-clip': 'text',
+      '-webkit-text-fill-color': 'transparent',
+    },
+    '&.Mui-disabled': {
+      background: 'transparent',
+      color: theme.custom.colors.lily,
+      '-webkit-text-fill-color': theme.custom.colors.lily,
+
+      '&:hover': {
+        cursor: 'not-allowed',
+        'pointer-events': 'visible',
+      },
     },
   },
 }));
@@ -73,13 +111,9 @@ const Button = React.forwardRef(
       children,
       className: classNameExternal,
       isDanger,
-      isDark,
       isOutline,
-      isPrimary,
-      isWhite,
       isWhiteText,
-      isGradientBorder,
-      isWithoutBorder,
+      isText,
       to,
       ...props
     },
@@ -89,13 +123,9 @@ const Button = React.forwardRef(
 
     const className = clsx(classes.button, classNameExternal, {
       [classes.buttonDanger]: isDanger,
-      [classes.buttonDark]: isDark,
       [classes.buttonOutline]: isOutline,
-      [classes.buttonPrimary]: isPrimary,
-      [classes.buttonWhite]: isWhite,
       [classes.buttonWhiteText]: isWhiteText,
-      [classes.buttonGradientBorder]: isGradientBorder,
-      [classes.buttonWithoutBorder]: isWithoutBorder,
+      [classes.buttonText]: isText,
     });
 
     return React.createElement(
@@ -120,13 +150,9 @@ Button.propTypes = {
   children: PropTypes.any.isRequired,
   className: PropTypes.string,
   isDanger: PropTypes.bool,
-  isDark: PropTypes.bool,
-  isGradientBorder: PropTypes.bool,
   isOutline: PropTypes.bool,
-  isPrimary: PropTypes.bool,
-  isWhite: PropTypes.bool,
+  isText: PropTypes.bool,
   isWhiteText: PropTypes.bool,
-  isWithoutBorder: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
 };

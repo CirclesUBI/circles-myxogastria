@@ -47,7 +47,7 @@ const DialogPurple = ({
       <Box pb={2} pt={2}>
         {!!onConfirm && (
           <Box display="flex" flexDirection="column" pb={1}>
-            <Button isWhite m={2} onClick={onConfirm}>
+            <Button isOutline m={2} onClick={onConfirm}>
               {confirmLabel}
             </Button>
           </Box>
