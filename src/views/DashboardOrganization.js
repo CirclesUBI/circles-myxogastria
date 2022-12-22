@@ -1,10 +1,4 @@
-import {
-  Box,
-  ButtonGroup,
-  Container,
-  Grid,
-  IconButton,
-} from '@material-ui/core';
+import { Box, Container, Grid, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -17,7 +11,7 @@ import AppNote from '~/components/AppNote';
 import AvatarHeader from '~/components/AvatarHeader';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import BalanceDisplay from '~/components/BalanceDisplay';
-import Button from '~/components/Button';
+import ButtonDouble from '~/components/ButtonDouble';
 import Drawer from '~/components/Drawer';
 import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
@@ -80,17 +74,6 @@ const useStyles = makeStyles((theme) => ({
   userDataContainer: {
     position: 'relative',
     top: '45px',
-  },
-  buttonContainer: {
-    marginTop: '30px',
-    marginBottom: '70px',
-    padding: '0 15px',
-    '& a:first-of-type': {
-      border: 0,
-    },
-    '& a:nth-of-type(2)': {
-      borderLeftStyle: 'none',
-    },
   },
 }));
 
@@ -158,14 +141,14 @@ const DashboardOrganization = () => {
           </Box>
           <AppNote messageVersion="dashboard" />
           <Grid item xs={12}>
-            <ButtonGroup className={classes.buttonContainer} fullWidth>
-              <Button isOutline isPrimary to={SEARCH_PATH}>
-                {translate('DashboardOrganization.buttonTrustPeople')}
-              </Button>
-              <Button isOutline to={SEND_PATH}>
-                {translate('DashboardOrganization.buttonSendCircles')}
-              </Button>
-            </ButtonGroup>
+            <ButtonDouble
+              leftBtnPath={SEARCH_PATH}
+              leftBtnText={translate('DashboardOrganization.buttonTrustPeople')}
+              rightBtnPath={SEND_PATH}
+              rightBtnText={translate(
+                'DashboardOrganization.buttonSendCircles',
+              )}
+            />
           </Grid>
           <LastInteractions />
           <NavigationFloating color="violet" isAddMembersLink />

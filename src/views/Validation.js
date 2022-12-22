@@ -157,12 +157,7 @@ const Validation = () => {
         )}
         <Fragment>
           <Box mb={0} mt={2}>
-            <Button
-              disabled={!isDeploymentReady}
-              fullWidth
-              isPrimary
-              onClick={onDeploy}
-            >
+            <Button disabled={!isDeploymentReady} fullWidth onClick={onDeploy}>
               {translate('ValidationStatus.buttonStartDeployment')}
             </Button>
           </Box>

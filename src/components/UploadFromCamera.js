@@ -120,12 +120,12 @@ const UploadFromCamera = ({
           <Button
             className={classes.tryAgainBtn}
             fullWidth
-            isWithoutBorder
+            isText
             onClick={resetPhoto}
           >
             {translate('EditProfile.optionTryAgain')}
           </Button>
-          <Button fullWidth isOutline isPrimary onClick={btnUploadHandler}>
+          <Button fullWidth isOutline onClick={btnUploadHandler}>
             {translate('EditProfile.optionUpload')}
           </Button>
         </Box>
