@@ -22,7 +22,6 @@ import {
 const useStyles = makeStyles((theme) => ({
   welcomeButton: {
     minWidth: 115,
-    height: 37,
     paddingTop: theme.spacing(0.5),
     paddingRight: theme.spacing(2),
     paddingBottom: theme.spacing(0.5),
@@ -61,7 +60,7 @@ const Welcome = () => {
             {translate('Welcome.buttonSignUp')}
           </Button>
           <Divider flexItem orientation="vertical" variant="middle" />
-          <Button className={classes.welcomeButton} isPrimary to={LOGIN_PATH}>
+          <Button className={classes.welcomeButton} to={LOGIN_PATH}>
             {translate('Welcome.buttonLogin')}
           </Button>
         </Grid>

@@ -44,9 +44,6 @@ const useStyles = makeStyles((theme) => ({
   captureBtn: {
     marginBottom: '25px',
   },
-  uploadBtn: {
-    cursor: 'not-allowed',
-  },
 }));
 
 const ImageCapture = ({ onCapture, onError, width, userMediaConfig }) => {
@@ -123,12 +120,11 @@ const ImageCapture = ({ onCapture, onError, width, userMediaConfig }) => {
         className={classes.captureBtn}
         disabled={isLoading}
         fullWidth
-        isPrimary
         onClick={captureImage}
       >
         {translate('EditProfile.optionCapture')}
       </Button>
-      <Button className={classes.uploadBtn} fullWidth isWithoutBorder>
+      <Button disabled={true} fullWidth isText>
         {translate('EditProfile.optionUpload')}
       </Button>
     </Box>

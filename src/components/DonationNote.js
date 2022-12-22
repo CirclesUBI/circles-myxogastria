@@ -64,7 +64,7 @@ const DonationNote = () => {
           {translate('DonationNote.bodyThird')}
         </Typography>
         <Box mb={1} mt={2}>
-          <Button isPrimary onClick={handleDonateClick}>
+          <Button onClick={handleDonateClick}>
             {translate('DonationNote.buttonDonate')}
           </Button>
           <Button className={classes.closeButton} onClick={handleCloseClick}>

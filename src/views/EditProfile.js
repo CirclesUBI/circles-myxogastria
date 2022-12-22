@@ -175,7 +175,6 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
             className={classes.continueButton}
             fullWidth
             isOutline
-            isWhite
             onClick={galleryBtnMobileHandler}
           >
             {translate('EditProfile.optionFile')}
@@ -191,7 +190,7 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
       )}
       {!isUploadFromCamera && isDesktop && (
         <Box className={classes.actionButtonsContainer}>
-          <Button fullWidth isOutline isWhite onClick={cameraBtnHandler}>
+          <Button fullWidth isOutline onClick={cameraBtnHandler}>
             {translate('EditProfile.optionCamera')}
           </Button>
         </Box>
@@ -210,7 +209,6 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
             className={classes.continueButton}
             fullWidth
             isOutline
-            isWhite
             onClick={galleryBtnHandler}
           >
             {translate('EditProfile.optionCamera')}
@@ -391,12 +389,11 @@ const EditProfile = () => {
       <Button
         className={classes.continueButton}
         fullWidth
-        isPrimary
         onClick={() => setIsOpenDialogCloseInfo(false)}
       >
         {translate('EditProfile.buttonContinue')}
       </Button>
-      <Button fullWidth isWithoutBorder onClick={dialogCloseInfoHandler}>
+      <Button fullWidth isText onClick={dialogCloseInfoHandler}>
         {translate('EditProfile.buttonCancel')}
       </Button>
     </Box>
@@ -509,12 +506,11 @@ const EditProfile = () => {
           className={classes.saveButton}
           disabled={isDisabled}
           fullWidth
-          isPrimary
           onClick={saveChangesHandler}
         >
           {translate('EditProfile.buttonSave')}
         </Button>
-        <Button fullWidth isWithoutBorder onClick={dialogOpenInfoHandler}>
+        <Button fullWidth isText onClick={dialogOpenInfoHandler}>
           {translate('EditProfile.buttonCancel')}
         </Button>
       </Footer>
