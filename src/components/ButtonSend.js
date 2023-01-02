@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
     top: 1,
     left: -2,
   },
+  buttonAction: {
+    '&:hover': {
+      background: theme.custom.gradients.purpleOppositeHover,
+    },
+  },
 }));
 
 // eslint-disable-next-line react/display-name
@@ -27,7 +32,7 @@ const ButtonSend = React.forwardRef(
     return (
       <ButtonAction
         aria-label="Send"
-        className={clsx(className, {
+        className={clsx(className, classes.buttonAction, {
           [classes.fabSendDisabled]: disabled || isPending,
         })}
         component={disabled || isPending ? 'div' : Link}

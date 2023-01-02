@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { SEARCH_PATH, SEND_PATH } from '~/routes';
-
 import Button from '~/components/Button';
 // import translate from '~/services/locale';
 
