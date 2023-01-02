@@ -5,7 +5,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 
-import { SEARCH_PATH, SEND_PATH } from '~/routes';
+import { SEARCH_PATH, SHARE_PATH } from '~/routes';
 import { MY_PROFILE_PATH } from '~/routes';
 
 import ActivityIcon from '~/components/ActivityIcon';
@@ -148,7 +148,7 @@ const Dashboard = () => {
             <ButtonDouble
               leftBtnPath={SEARCH_PATH}
               leftBtnText={translate('Dashboard.buttonTrustPeople')}
-              rightBtnPath={SEND_PATH}
+              rightBtnPath={SHARE_PATH}
               rightBtnText={translate('Dashboard.buttonSendCircles')}
             />
           </Grid>

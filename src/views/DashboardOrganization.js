@@ -4,7 +4,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 
-import { MY_PROFILE_PATH, SEARCH_PATH, SEND_PATH } from '~/routes';
+import { MY_PROFILE_PATH, SEARCH_PATH, SHARE_PATH } from '~/routes';
 
 import ActivityIcon from '~/components/ActivityIcon';
 import AppNote from '~/components/AppNote';
@@ -144,7 +144,7 @@ const DashboardOrganization = () => {
             <ButtonDouble
               leftBtnPath={SEARCH_PATH}
               leftBtnText={translate('DashboardOrganization.buttonTrustPeople')}
-              rightBtnPath={SEND_PATH}
+              rightBtnPath={SHARE_PATH}
               rightBtnText={translate(
                 'DashboardOrganization.buttonSendCircles',
               )}
