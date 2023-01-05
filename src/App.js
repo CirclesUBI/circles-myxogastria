@@ -13,7 +13,17 @@ import SafeVersion from '~/components/SafeVersion';
 import SpinnerOverlay from '~/components/SpinnerOverlay';
 import UBI from '~/components/UBI';
 import { initializeApp } from '~/store/app/actions';
-import { IconAlert, IconClose } from '~/styles/icons';
+import { NotificationsTypes } from '~/store/notifications/actions';
+import {
+  IconAlert,
+  IconBrowser,
+  IconCrossInCircle,
+  IconOffline,
+  IconOkTick,
+  IconPartySuccess,
+  IconRefresh,
+  IconTriangleWarning,
+} from '~/styles/icons';
 import logError from '~/utils/debug';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
     color: `${theme.palette.error.contrastText} !important`,
   },
   snackbarSuccess: {
-    background: `${theme.custom.gradients.success} !important`,
-    color: `${theme.palette.success.contrastText} !important`,
+    background: `${theme.custom.colors.fountainBlueLighter} !important`,
+    color: `${theme.custom.colors.whiteAlmost} !important`,
   },
   snackbarIconVariant: {
     marginRight: theme.spacing(1),
@@ -64,28 +74,39 @@ const App = () => {
     initializeState();
   }, [dispatch]);
 
-  const SnackbarIcon = <IconAlert className={classes.snackbarIconVariant} />;
+  const testComponent = <p>test</p>;
 
   return (
     <SnackbarProvider
-      action={(notificationId) => (
-        // eslint-disable-next-line react/display-name
-        <IconButton color="inherit" onClick={onClickDismiss(notificationId)}>
-          <IconClose fontSize="small" />
-        </IconButton>
-      )}
+      Components={{
+        [NotificationsTypes.SUCCESS_BROWSER]: testComponent,
+      }}
+      action={(notificationId) => {
+        return (
+          // eslint-disable-next-line react/display-name
+          <IconButton color="inherit" onClick={onClickDismiss(notificationId)}>
+            <IconCrossInCircle fontSize="small" />
+          </IconButton>
+        );
+      }}
       classes={{
         variantSuccess: classes.snackbarSuccess,
+        variantSuccessBrowser: classes.snackbarSuccess,
         variantError: classes.snackbarError,
+        variantErrorRefresh: classes.snackbarError,
+        variantErrorOffline: classes.snackbarError,
         variantWarning: classes.snackbarWarning,
         variantInfo: classes.snackbarInfo,
       }}
       iconVariant={{
-        info: SnackbarIcon,
-        default: SnackbarIcon,
-        error: SnackbarIcon,
-        success: SnackbarIcon,
-        warning: SnackbarIcon,
+        info: <IconAlert className={classes.snackbarIconVariant} />,
+        default: <IconAlert className={classes.snackbarIconVariant} />,
+        error: <IconTriangleWarning className={classes.snackbarIconVariant} />,
+        errorRefresh: <IconRefresh className={classes.snackbarIconVariant} />,
+        errorOffline: <IconOffline className={classes.snackbarIconVariant} />,
+        success: <IconOkTick className={classes.snackbarIconVariant} />,
+        successBrowser: <IconBrowser className={classes.snackbarIconVariant} />,
+        warning: <IconAlert className={classes.snackbarIconVariant} />,
       }}
       ref={notistackRef}
     >

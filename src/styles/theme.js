@@ -84,7 +84,7 @@ const gradients = {
   lightPinkToPurple: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.cranberry} 100%)`,
   error: `linear-gradient(90deg, ${colors.purpleDark}, ${colors.purple} 100%)`,
   info: `linear-gradient(90deg, ${colors.blue} 0%, ${colors.purpleLight} 100%)`,
-  success: `linear-gradient(90deg, ${colors.green} 0%, ${colors.blue} 100%)`,
+  // success: `linear-gradient(90deg, ${colors.green} 0%, ${colors.blue} 100%)`,
   warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
   greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
   greenBlueHeader: `linear-gradient(207.4deg, ${colors.fountainBlue} 36.45%, ${colors.springGreen} 155.65%)`,

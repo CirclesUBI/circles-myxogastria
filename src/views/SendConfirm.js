@@ -140,13 +140,23 @@ const SendConfirm = () => {
     try {
       await dispatch(transfer(address, amount, paymentNote));
 
+      const text = (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: translate('SendConfirm.successMessage', {
+              amount,
+              username: receiver,
+            }),
+          }}
+        />
+      );
+
       dispatch(
         notify({
-          text: translate('SendConfirm.successMessage', {
-            amount,
-            username: receiver,
-          }),
-          type: NotificationsTypes.SUCCESS,
+          // text: translate('SendConfirm.successMessage', {
+          text,
+          // type: NotificationsTypes.SUCCESS,
+          type: NotificationsTypes.SUCCESS_BROWSER,
         }),
       );
 

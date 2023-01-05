@@ -346,7 +346,7 @@
     "formReceiver": "Sent to",
     "formSender": "Sent from",
     "headingSendCircles": "Send Circles",
-    "successMessage": "You transferred {amount} Circles successfully to @{username}!",
+    "successMessage": "<strong>{amount}circles</strong> sent to @{username}!",
     "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}"
   },
   "Settings": {
