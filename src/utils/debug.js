@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 
 import core from '~/services/core';
+import translate from '~/services/locale';
 import { captureException } from '~/services/sentry';
 
-const { TransferError, RequestError, CoreError } = core.errors;
+const { ErrorCodes, TransferError, RequestError, CoreError } = core.errors;
 
 export function formatErrorMessage(error) {
   // Display internal error message to user for debugging purposes
@@ -42,4 +43,15 @@ export default function logError(error) {
   }
 
   console.groupEnd();
+}
+
+export function translateErrorForUser(error) {
+  let text;
+  if (error instanceof CoreError) {
+    if (error.code == ErrorCodes.INSUFFICIENT_FUNDS) {
+      text = translate('ErrorCodes.CoreErrorInsufficientFunds');
+    }
+  }
+
+  return text;
 }
