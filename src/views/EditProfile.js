@@ -375,7 +375,7 @@ const EditProfile = () => {
 
   useEffect(() => {
     (async () => {
-      const userEmail = await core.user.getEmail(safe.currentAccount);
+      const userEmail = (await core.user.getEmail(safe.currentAccount)) || '';
       setEmailInput(userEmail);
       setCurrentUserEmail(userEmail);
     })();
