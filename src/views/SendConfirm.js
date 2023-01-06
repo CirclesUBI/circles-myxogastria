@@ -141,7 +141,7 @@ const SendConfirm = () => {
       await dispatch(transfer(address, amount, paymentNote));
 
       const text = (
-        <div
+        <span
           dangerouslySetInnerHTML={{
             __html: translate('SendConfirm.successMessage', {
               amount,
@@ -155,8 +155,10 @@ const SendConfirm = () => {
         notify({
           // text: translate('SendConfirm.successMessage', {
           text,
-          // type: NotificationsTypes.SUCCESS,
-          type: NotificationsTypes.SUCCESS_BROWSER,
+          type: NotificationsTypes.SUCCESS,
+          // type: NotificationsTypes.SUCCESS_BROWSER,
+          // type: 'reportComplete',
+          icon: 'IconPartySuccess',
         }),
       );
 

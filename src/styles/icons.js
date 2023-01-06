@@ -224,6 +224,8 @@ export const iconSelector = (icon) => {
       return IconCloseOutline;
     case 'IconConnections':
       return IconConnections;
+    case 'IconCrossInCircle':
+      return IconCrossInCircle;
     case 'IconFacebook':
       return IconFacebook;
     case 'IconEdit':
@@ -240,8 +242,16 @@ export const iconSelector = (icon) => {
       return IconMenu;
     case 'IconNotification':
       return IconNotification;
+    case 'IconOffline':
+      return IconOffline;
+    case 'IconOkTick':
+      return IconOkTick;
+    case 'IconPartySuccess':
+      return IconPartySuccess;
     case 'IconPlus':
       return IconPlus;
+    case 'IconRefresh':
+      return IconRefresh;
     case 'IconQR':
       return IconQR;
     case 'IconQRLarge':
@@ -258,6 +268,8 @@ export const iconSelector = (icon) => {
       return IconTelegram;
     case 'IconTransactions':
       return IconTransactions;
+    case 'IconTriangleWarning':
+      return IconTriangleWarning;
     case 'IconTrustActive':
       return IconTrustActive;
     case 'IconTrustMutual':

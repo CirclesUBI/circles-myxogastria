@@ -74,40 +74,46 @@ const App = () => {
     initializeState();
   }, [dispatch]);
 
-  const testComponent = <p>test</p>;
+  // const ReportCompleteSnackbar = (props) => {
+  //   console.log('props', props);
+  //   return <p>hahaha</p>;
+  // };
 
   return (
     <SnackbarProvider
-      Components={{
-        [NotificationsTypes.SUCCESS_BROWSER]: testComponent,
-      }}
-      action={(notificationId) => {
-        return (
-          // eslint-disable-next-line react/display-name
-          <IconButton color="inherit" onClick={onClickDismiss(notificationId)}>
-            <IconCrossInCircle fontSize="small" />
-          </IconButton>
-        );
-      }}
+      // Components={{
+      //   reportComplete: ReportCompleteSnackbar,
+      // }}
+      // action={(notificationId) => {
+      //   return (
+      //     // eslint-disable-next-line react/display-name
+      //     <IconButton color="inherit" onClick={onClickDismiss(notificationId)}>
+      //       <IconCrossInCircle fontSize="small" />
+      //     </IconButton>
+      //   );
+      // }}
       classes={{
         variantSuccess: classes.snackbarSuccess,
-        variantSuccessBrowser: classes.snackbarSuccess,
+        // variantSuccessBrowser: classes.snackbarSuccess,
         variantError: classes.snackbarError,
-        variantErrorRefresh: classes.snackbarError,
-        variantErrorOffline: classes.snackbarError,
+        // variantErrorRefresh: classes.snackbarError,
+        // variantErrorOffline: classes.snackbarError,
         variantWarning: classes.snackbarWarning,
         variantInfo: classes.snackbarInfo,
       }}
-      iconVariant={{
-        info: <IconAlert className={classes.snackbarIconVariant} />,
-        default: <IconAlert className={classes.snackbarIconVariant} />,
-        error: <IconTriangleWarning className={classes.snackbarIconVariant} />,
-        errorRefresh: <IconRefresh className={classes.snackbarIconVariant} />,
-        errorOffline: <IconOffline className={classes.snackbarIconVariant} />,
-        success: <IconOkTick className={classes.snackbarIconVariant} />,
-        successBrowser: <IconBrowser className={classes.snackbarIconVariant} />,
-        warning: <IconAlert className={classes.snackbarIconVariant} />,
-      }}
+      hideIconVariant
+      // iconVariant={
+      //   {
+      //     info: <IconAlert className={classes.snackbarIconVariant} />,
+      //     default: <IconAlert className={classes.snackbarIconVariant} />,
+      //     error: <IconTriangleWarning className={classes.snackbarIconVariant} />,
+      //     errorRefresh: <IconRefresh className={classes.snackbarIconVariant} />,
+      //     errorOffline: <IconOffline className={classes.snackbarIconVariant} />,
+      //     success: <IconOkTick className={classes.snackbarIconVariant} />,
+      //     successBrowser: <IconBrowser className={classes.snackbarIconVariant} />,
+      //     warning: <IconAlert className={classes.snackbarIconVariant} />,
+      //   }
+      // }
       ref={notistackRef}
     >
       <Router>

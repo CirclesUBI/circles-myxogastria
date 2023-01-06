@@ -17,6 +17,8 @@ export const NotificationsTypes = {
 export default function notify(options) {
   const {
     text,
+    icon,
+    action,
     type = NotificationsTypes.INFO,
     lifetime = DEFAULT_LIFETIME,
   } = options;
@@ -24,6 +26,8 @@ export default function notify(options) {
   return {
     type: ActionTypes.NOTIFICATIONS_ADD,
     meta: {
+      icon,
+      action,
       lifetime,
       text,
       type,
