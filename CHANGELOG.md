@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.4.1] - 2023-01-06
+## [2.4.2] - 2023-01-06
 
 ### Fixed
 - Downgrade core version to v3.1.3, in order to eliminate some errors related to gas fees [#564](https://github.com/CirclesUBI/circles-myxogastria/pull/564)
