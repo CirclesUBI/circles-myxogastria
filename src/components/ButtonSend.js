@@ -9,9 +9,6 @@ import ButtonAction from '~/components/ButtonAction';
 import { IconSend } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
-  fabSendDisabled: {
-    background: theme.custom.gradients.gray,
-  },
   fabSendIcon: {
     position: 'relative',
     top: 1,
@@ -20,6 +17,12 @@ const useStyles = makeStyles((theme) => ({
   buttonAction: {
     '&:hover': {
       background: theme.custom.gradients.purpleOppositeHover,
+    },
+  },
+  fabSendDisabled: {
+    background: theme.custom.gradients.gray,
+    '&:hover': {
+      background: theme.custom.gradients.gray,
     },
   },
 }));
