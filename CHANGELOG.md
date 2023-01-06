@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.1] - 2023-01-06
+
+### Fixed
+- Downgrade core version to v3.1.3, in order to eliminate some errors related to gas fees [#564](https://github.com/CirclesUBI/circles-myxogastria/pull/564)
+- Update error handling for insufficient funds, i.e. no circles in wallet to pay for transactions [#549](https://github.com/CirclesUBI/circles-myxogastria/pull/549)
+- Handle when there is no email for user in database in Edit profile view [#557](https://github.com/CirclesUBI/circles-myxogastria/pull/557)
+
 ## [2.4.1] - 2022-12-12
 
 ### Fixed
