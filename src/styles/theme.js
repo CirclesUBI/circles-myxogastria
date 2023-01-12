@@ -32,6 +32,7 @@ const rgba = {
   dialogGray: 'rgba(0, 0, 0, 0.25)',
   greyHover: 'rgba(222, 213, 221, 0.8)',
   lightGrey: 'rgba(0, 0, 0, 0.04)',
+  lightWhite: 'rgba(255, 255, 255, 0.05)',
 };
 
 export const colors = {
@@ -58,6 +59,7 @@ export const colors = {
   disco: '#99164C',
   violet: '#5A2F56',
   tapestry: '#A75183',
+  deepBlush: '#E078A3',
   greyHover: 'rgba(222, 213, 221, 0.8)',
   swansDown: '#DAF0F1',
   blackSqueeze: '#EDF7F8',
@@ -68,6 +70,7 @@ export const colors = {
   oldLavender: '#7B5978',
   cannonPink: '#853F5C',
   cranberry: '#D64B85',
+  lividBrown: '#482645',
 };
 
 const gradients = {
@@ -82,10 +85,6 @@ const gradients = {
   purpleOppositeHover: `linear-gradient(104.04deg, ${colors.cannonPink} 0%, ${colors.cranberry} 100%)`,
   pinkToPurple: `linear-gradient(284.04deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
   lightPinkToPurple: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.cranberry} 100%)`,
-  error: `linear-gradient(90deg, ${colors.purpleDark}, ${colors.purple} 100%)`,
-  info: `linear-gradient(90deg, ${colors.blue} 0%, ${colors.purpleLight} 100%)`,
-  // success: `linear-gradient(90deg, ${colors.green} 0%, ${colors.blue} 100%)`,
-  warning: `linear-gradient(90deg, ${colors.orangeDark} 0%, ${colors.orange} 100%)`,
   greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
   greenBlueHeader: `linear-gradient(207.4deg, ${colors.fountainBlue} 36.45%, ${colors.springGreen} 155.65%)`,
   pinkShade: `linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, ${colors.pink} 145%)`,
@@ -99,6 +98,8 @@ const shadows = {
   gray: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   grayUp: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
   navigationFloating: '0px 0px 4px rgba(45, 24, 43, 0.25)',
+  lightGray: '0px 0px 4px rgba(204, 30, 102, 0.1)', //special, warning, error, notifications
+  grayBottomRight: ' 1px 1px 4px rgba(204, 30, 102, 0.25)', //success notification
 };
 
 const components = {
@@ -140,23 +141,6 @@ export default createTheme({
     secondary: {
       main: colors.turquoise,
       dark: colors.turquoiseDark,
-    },
-    error: {
-      main: colors.purple,
-      dark: colors.purple,
-    },
-    warning: {
-      main: colors.orange,
-      dark: colors.orangeDark,
-    },
-    info: {
-      main: colors.blue,
-    },
-    success: {
-      main: colors.green,
-    },
-    action: {
-      active: colors.black,
     },
   },
   typography: {

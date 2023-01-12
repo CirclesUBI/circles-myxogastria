@@ -1,21 +1,20 @@
 import { Box, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import { useSnackbar } from 'notistack';
-import { closeSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import translate from '~/services/locale';
-import { removeNotification } from '~/store/notifications/actions';
 import {
-  IconAlert,
-  IconBrowser,
+  NotificationsTypes,
+  removeNotification,
+} from '~/store/notifications/actions';
+import {
   IconCrossInCircle,
-  IconOffline,
   IconOkTick,
   IconPartySuccess,
-  IconRefresh,
   IconTriangleWarning,
   iconSelector,
 } from '~/styles/icons';
@@ -33,11 +32,40 @@ const useStyles = makeStyles((theme) => ({
   iconContainer: {
     marginRight: '18px',
   },
+  iconButtonClose: {
+    borderRadius: '8px',
+    '&:hover': {
+      background: theme.custom.colors.lightWhite,
+    },
+    '& .MuiSvgIcon-root': {
+      fontSize: '1.3rem',
+    },
+  },
+  isSpecial: {
+    '& .MuiSvgIcon-root': {
+      '& path': {
+        fill: theme.custom.colors.violet,
+      },
+    },
+    '&:hover': {
+      background: theme.custom.colors.whiteAlmost,
+      '& .MuiSvgIcon-root': {
+        '& path': {
+          fill: theme.custom.colors.oldLavender,
+        },
+      },
+    },
+  },
 }));
 
-const CloseButton = ({ notificationId, onClickHandler }) => {
+const CloseButton = ({ notificationId, onClickHandler, type }) => {
+  const classes = useStyles();
+
   return (
     <IconButton
+      className={clsx(classes.iconButtonClose, {
+        [classes.isSpecial]: type === NotificationsTypes.WARNING,
+      })}
       color="inherit"
       onClick={() => {
         onClickHandler(notificationId);
@@ -63,6 +91,21 @@ const Notifications = () => {
   };
 
   useEffect(() => {
+    function chooseIcon(icon, type) {
+      if (icon) {
+        return iconSelector(icon);
+      } else {
+        switch (type) {
+          case NotificationsTypes.SUCCESS:
+          case NotificationsTypes.INFO:
+            return <IconOkTick />;
+          case NotificationsTypes.ERROR:
+            return <IconTriangleWarning />;
+          case NotificationsTypes.WARNING:
+            return <IconPartySuccess />;
+        }
+      }
+    }
     messages.forEach(
       ({ id, text, icon, action, lifetime, type, isDismissed }) => {
         if (isDismissed) {
@@ -75,6 +118,7 @@ const Notifications = () => {
         ) : (
           <CloseButton
             notificationId={id}
+            type={type}
             onClickHandler={() => closeSnackbar(id)}
           />
         );
@@ -84,14 +128,13 @@ const Notifications = () => {
           return;
         }
 
-        console.log('text in useEffect', text);
-        console.log('icon in useEffect', icon);
+        const IconElement = chooseIcon(icon, type);
 
-        const IconElement = iconSelector(icon);
         const notificationText = (
           <Box className={classes.iconTextContainer}>
             <Box className={classes.iconContainer}>
-              <IconElement />
+              {IconElement} asdkfj as sadf asdf a sdf asdf asdf asdf sadf fa sdf
+              asdf asdf{' '}
             </Box>
             {text}
           </Box>
@@ -116,9 +159,16 @@ const Notifications = () => {
         storeDisplayed(id);
       },
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, enqueueSnackbar, closeSnackbar, messages]);
 
   return null;
+};
+
+CloseButton.propTypes = {
+  notificationId: PropTypes.number.isRequired,
+  onClickHandler: PropTypes.func.isRequired,
+  type: PropTypes.string,
 };
 
 export default Notifications;

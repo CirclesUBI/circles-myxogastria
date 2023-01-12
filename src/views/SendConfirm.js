@@ -153,12 +153,8 @@ const SendConfirm = () => {
 
       dispatch(
         notify({
-          // text: translate('SendConfirm.successMessage', {
           text,
           type: NotificationsTypes.SUCCESS,
-          // type: NotificationsTypes.SUCCESS_BROWSER,
-          // type: 'reportComplete',
-          icon: 'IconPartySuccess',
         }),
       );
 
