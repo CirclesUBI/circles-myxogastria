@@ -31,7 +31,6 @@ import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
 import TransferInfoCard from '~/components/TransferInfoCard';
 import TransferInput from '~/components/TransferInput';
 import View from '~/components/View';
-// import WelcomeMessage from '~/components/WelcomeMessage';
 import { useUpdateLoop } from '~/hooks/update';
 import { useQuery } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
@@ -158,13 +157,6 @@ const SendConfirm = () => {
           type: NotificationsTypes.SUCCESS,
         }),
       );
-
-      // await dispatch(
-      //   notify({
-      //     text: <WelcomeMessage />,
-      //     type: NotificationsTypes.WARNING,
-      //   }),
-      // );
 
       setIsSent(true);
     } catch (error) {

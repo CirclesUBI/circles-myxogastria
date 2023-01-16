@@ -1,9 +1,7 @@
-// import { consoleSandbox } from '@sentry/utils';
 import update from 'immutability-helper';
 
 import { NotificationsTypes } from '~/store/notifications/actions';
 import ActionTypes from '~/store/notifications/types';
-// import { IconAlert } from '~/styles/icons';
 
 const initialState = {
   messages: [],
@@ -21,7 +19,6 @@ const initialStateMessage = {
 };
 
 const notificationsReducer = (state = initialState, action) => {
-  // console.log('action33', action);
   switch (action.type) {
     case ActionTypes.NOTIFICATIONS_ADD: {
       const message = Object.assign({}, initialStateMessage, action.meta, {

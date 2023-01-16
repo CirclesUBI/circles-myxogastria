@@ -176,8 +176,6 @@ export function checkOnboardingState() {
 
 // Finally deploy the Safe and Token for this user!
 export function finalizeNewAccount() {
-  // const classes = useStyles();
-
   return async (dispatch, getState) => {
     const { safe } = getState();
 

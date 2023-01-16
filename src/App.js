@@ -83,7 +83,6 @@ const App = () => {
         variantInfo: classes.snackbarInfo,
       }}
       hideIconVariant
-      // ref={notistackisOnlineRef}
     >
       <Router>
         <PinkShadow>

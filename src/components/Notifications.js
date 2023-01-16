@@ -138,7 +138,6 @@ const Notifications = () => {
           </Box>
         );
 
-        // const displayText = TextElement(icon, text);
         // Display snackbar using notistack
         enqueueSnackbar(notificationText, {
           action: actionElement,
