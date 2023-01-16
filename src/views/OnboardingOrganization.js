@@ -334,8 +334,11 @@ const OrganizationStepWalletName = ({ onDisabledChange, values, onChange }) => {
         />
       </Box>
       <Box mb={4}>
-        <Typography mb={18}>
+        <Typography className="lightGreyText" paragraph>
           {translate('OnboardingOrganization.bodyUsername')}
+        </Typography>
+        <Typography className="lightGreyText" paragraph>
+          {translate('Onboarding.bodyGuidelinesUsername')}
         </Typography>
       </Box>
     </Box>
