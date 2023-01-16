@@ -64,7 +64,7 @@ export const colors = {
   blackSqueeze: '#EDF7F8',
   wepeep: '#F5D2E1',
   lola: '#DED5DD',
-  cornflowerBlue: '#efeaef80',
+  cornflowerBlue: '#EFEAEF',
   lily: '#BDACBB',
   cannonPink: '#853F5C',
   cranberry: '#D64B85',

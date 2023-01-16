@@ -207,6 +207,7 @@
     "bodySeedPhrase": "This is your account password. You can use this to login into your account on other devices.",
     "bodySeedPhraseChallenge": "Please enter word {wordIndex} in your seed phrase:",
     "bodyUsername": "Your username is how your friends can search for you on the Circles App.",
+    "bodyGuidelinesUsername": "Only basic characters and numbers (A-Z, 0-9) are allowed, no symbols or whitespace, 3-24 characters.",
     "buttonCopyToClipboard": "Copy to clipboard",
     "errorSignup": "A server error occurred during sign up: {errorMessage}",
     "formEmail": "Email",
@@ -427,7 +428,7 @@
   },
   "VerifiedUsernameInput": {
     "formUnknownError": "Unknown error ",
-    "formUsernameInvalidFormat": "Only basic characters and numbers (A-Z, 0-9) are allowed, no symbols or whitespace, 3-24 characters",
+    "formUsernameInvalidFormat": "Input error, please try again.",
     "formUsernameTaken": "Name is already taken"
   },
   "Welcome": {
