@@ -9,13 +9,21 @@ import ButtonAction from '~/components/ButtonAction';
 import { IconSend } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
-  fabSendDisabled: {
-    background: theme.custom.gradients.gray,
-  },
   fabSendIcon: {
     position: 'relative',
     top: 1,
     left: -2,
+  },
+  buttonAction: {
+    '&:hover': {
+      background: theme.custom.gradients.purpleOppositeHover,
+    },
+  },
+  fabSendDisabled: {
+    background: theme.custom.gradients.gray,
+    '&:hover': {
+      background: theme.custom.gradients.gray,
+    },
   },
 }));
 
@@ -27,7 +35,7 @@ const ButtonSend = React.forwardRef(
     return (
       <ButtonAction
         aria-label="Send"
-        className={clsx(className, {
+        className={clsx(className, classes.buttonAction, {
           [classes.fabSendDisabled]: disabled || isPending,
         })}
         component={disabled || isPending ? 'div' : Link}
