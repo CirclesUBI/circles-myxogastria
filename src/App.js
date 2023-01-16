@@ -61,7 +61,7 @@ const App = () => {
   const app = useSelector((state) => state.app);
 
   useEffect(() => {
-    // Initialize app state in redux storea
+    // Initialize app state in redux store
     const initializeState = async () => {
       try {
         await dispatch(initializeApp());
