@@ -113,15 +113,16 @@ const Notifications = () => {
           return;
         }
 
-        const actionElement = action ? (
-          action
-        ) : (
-          <CloseButton
-            notificationId={id}
-            type={type}
-            onClickHandler={() => closeSnackbar(id)}
-          />
-        );
+        const actionElement =
+          action === false ? (
+            action
+          ) : (
+            <CloseButton
+              notificationId={id}
+              type={type}
+              onClickHandler={() => closeSnackbar(id)}
+            />
+          );
 
         // Do nothing if snackbar is already displayed
         if (displayed.includes(id)) {
@@ -132,10 +133,7 @@ const Notifications = () => {
 
         const notificationText = (
           <Box className={classes.iconTextContainer}>
-            <Box className={classes.iconContainer}>
-              {IconElement} asdkfj as sadf asdf a sdf asdf asdf asdf sadf fa sdf
-              asdf asdf{' '}
-            </Box>
+            <Box className={classes.iconContainer}>{IconElement}</Box>
             {text}
           </Box>
         );

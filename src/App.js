@@ -1,11 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'notistack';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Routes from '~/routes';
 
+import InternetConnection from '~/components/InternetConnection';
 import Notifications from '~/components/Notifications';
 import PinkShadow from '~/components/PinkShadow';
 import SafeVersion from '~/components/SafeVersion';
@@ -17,6 +18,13 @@ import logError from '~/utils/debug';
 const useStyles = makeStyles((theme) => ({
   // @NOTE: Hacky use of !important, see related issue:
   // https://github.com/iamhosseindhv/notistack/issues/305
+  snackbarProvider: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+  },
   snackbarInfo: {
     background: `${theme.custom.gradients.pinkToPurple} !important`,
     boxShadow: `${theme.custom.shadows.lightGray} !important`,
@@ -28,6 +36,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '8px !important',
     boxShadow: `${theme.custom.shadows.lightGray} !important`,
     color: `${theme.palette.warning.contrastText} !important`,
+    textAlign: 'center !important',
+    '& span': {
+      background: theme.custom.gradients.lightPinkToPurple,
+      '-webkit-background-clip': 'text',
+      '-webkit-text-fill-color': 'transparent',
+    },
   },
   snackbarSuccess: {
     background: `${theme.custom.colors.fountainBlueLighter} !important`,
@@ -45,10 +59,9 @@ const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const app = useSelector((state) => state.app);
-  const notistackRef = useRef();
 
   useEffect(() => {
-    // Initialize app state in redux store
+    // Initialize app state in redux storea
     const initializeState = async () => {
       try {
         await dispatch(initializeApp());
@@ -62,6 +75,7 @@ const App = () => {
 
   return (
     <SnackbarProvider
+      className={classes.snackbarProvider}
       classes={{
         variantSuccess: classes.snackbarSuccess,
         variantError: classes.snackbarError,
@@ -69,7 +83,7 @@ const App = () => {
         variantInfo: classes.snackbarInfo,
       }}
       hideIconVariant
-      ref={notistackRef}
+      // ref={notistackisOnlineRef}
     >
       <Router>
         <PinkShadow>
@@ -78,6 +92,7 @@ const App = () => {
           <Notifications />
           <SpinnerOverlay isVisible={app.isLoading} />
           <Routes />
+          <InternetConnection />
         </PinkShadow>
       </Router>
     </SnackbarProvider>
