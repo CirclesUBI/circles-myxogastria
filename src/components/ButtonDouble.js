@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { SEARCH_PATH, SEND_PATH } from '~/routes';
-
 import Button from '~/components/Button';
 // import translate from '~/services/locale';
 
@@ -42,13 +40,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ButtonDouble = ({ leftBtnText, rightBtnText }) => {
+const ButtonDouble = ({
+  leftBtnText,
+  leftBtnPath,
+  rightBtnText,
+  rightBtnPath,
+}) => {
   const classes = useStyles();
 
   return (
     <ButtonGroup className={classes.buttonContainer} fullWidth>
-      <Button to={SEARCH_PATH}>{leftBtnText}</Button>
-      <Button className={classes.buttonGradientOpposite} to={SEND_PATH}>
+      <Button to={leftBtnPath}>{leftBtnText}</Button>
+      <Button className={classes.buttonGradientOpposite} to={rightBtnPath}>
         {rightBtnText}
       </Button>
     </ButtonGroup>

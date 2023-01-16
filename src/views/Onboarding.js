@@ -304,8 +304,11 @@ const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
         />
       </Box>
       <Box mb={3} mt={6}>
-        <Typography className="lightGreyText">
+        <Typography className="lightGreyText" paragraph>
           {translate('Onboarding.bodyUsername')}
+        </Typography>
+        <Typography className="lightGreyText" paragraph>
+          {translate('Onboarding.bodyGuidelinesUsername')}
         </Typography>
       </Box>
     </Box>
