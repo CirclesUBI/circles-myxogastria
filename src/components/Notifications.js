@@ -141,6 +141,10 @@ const Notifications = () => {
         // Display snackbar using notistack
         enqueueSnackbar(notificationText, {
           action: actionElement,
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'center',
+          },
           key: id,
           autoHideDuration: lifetime,
           icon,
