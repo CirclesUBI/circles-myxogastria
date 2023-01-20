@@ -2,6 +2,7 @@ import CirclesCore from '@circles/core';
 
 import { getAccount } from '~/services/wallet';
 import web3 from '~/services/web3';
+import { PATHFINDER_HOPS_DEFAULT } from '~/utils/constants';
 
 const core = new CirclesCore(web3, {
   apiServiceEndpoint: process.env.API_SERVICE_EXTERNAL,
@@ -207,28 +208,47 @@ const token = {
     });
   },
 
-  findTransitiveTransfer: async (from, to, value) => {
+  findTransitiveTransfer: async (
+    from,
+    to,
+    value,
+    hops = PATHFINDER_HOPS_DEFAULT,
+  ) => {
     return await requestCore('token', 'findTransitiveTransfer', {
       from,
       to,
       value,
+      hops,
     });
   },
 
-  transfer: async (from, to, value, paymentNote) => {
+  transfer: async (
+    from,
+    to,
+    value,
+    paymentNote,
+    hops = PATHFINDER_HOPS_DEFAULT,
+  ) => {
     return await requestCore('token', 'transfer', {
       from,
       to,
       value,
       paymentNote,
+      hops,
     });
   },
 
-  updateTransferSteps: async (from, to, value) => {
+  updateTransferSteps: async (
+    from,
+    to,
+    value,
+    hops = PATHFINDER_HOPS_DEFAULT,
+  ) => {
     return await requestCore('token', 'updateTransferSteps', {
       from,
       to,
       value,
+      hops,
     });
   },
 
