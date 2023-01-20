@@ -8,13 +8,15 @@ import web3 from '~/services/web3';
  * @param {function} setMaxFlow function to set max flow state variable
  * @returns nothing. Updates MaxFlow state in Freckles.
  */
-export async function findMaxFlow(from, to, setMaxFlow) {
+// TODO: RETRY hops logic
+export async function findMaxFlow(from, to, setMaxFlow, hops = 3) {
   // First attempt, try via API
   try {
     const response = await core.token.findTransitiveTransfer(
       from,
       to,
       new web3.utils.BN(web3.utils.toWei('1000000000000000', 'ether')), // Has to be a large amount
+      hops,
     );
 
     // Throw an error when no path was found, we should try again with
