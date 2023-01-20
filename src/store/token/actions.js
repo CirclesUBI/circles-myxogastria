@@ -203,20 +203,68 @@ export function requestUBIPayout(payout) {
   };
 }
 
-async function loopTransfer(from, to, value, paymentNote) {
-  return await waitAndRetryOnFail(
-    () => {
-      return core.token.transfer(from, to, value, paymentNote);
-    },
-    () => {
-      return true;
-    },
-    {},
-    () => {
-      return core.token.updateTransferSteps(from, to, value);
-    },
-  );
+async function transferLoopHops(
+  from,
+  to,
+  value,
+  paymentNote,
+  initialHops = 3,
+  requestedMaxAttempts = 3,
+  waitAfterFail = 5000,
+) {
+  // Count all attempts to retry with fewer hops when something fails
+  let attempt = 1;
+  let hops = initialHops;
+  const maxAttempts = Math.min(initialHops, requestedMaxAttempts);
+  const TRIED_TOO_MANY_TIMES = 'Tried too many times waiting for condition.';
+
+  // Helper method to wait for a few milliseconds before we move on
+  async function wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    try {
+      // Make transfers request and wait for response
+      const response = core.token.transfer(from, to, value, paymentNote, hops);
+
+      // Return and exit function when the there is no error
+      return response;
+    } catch (error) {
+      // Upon error clean the transfer edges - SHOULD WE DO THIS STILL?
+      // await core.token.updateTransferSteps(from, to, value, hops);
+      if (attempt >= maxAttempts) {
+        // We tried too many times
+        throw error;
+      }
+
+      // Wait when request failed to prevent calling the request too often
+      if (error.message !== TRIED_TOO_MANY_TIMES) {
+        await wait(waitAfterFail);
+      }
+
+      // Lets try again with fewer hops
+      attempt += 1;
+      hops -= 1;
+    }
+  }
 }
+
+// async function loopTransfer(from, to, value, paymentNote) {
+//   return await waitAndRetryOnFail(
+//     () => {
+//       return core.token.transfer(from, to, value, paymentNote);
+//     },
+//     () => {
+//       return true;
+//     },
+//     {},
+//     () => {
+//       return core.token.updateTransferSteps(from, to, value);
+//     },
+//   );
+// }
 
 /**
  * Transfer circles to another safe
@@ -225,7 +273,7 @@ async function loopTransfer(from, to, value, paymentNote) {
  * @param {string} paymentNote Message for recipient
  * @returns response
  */
-export function transfer(to, amount, paymentNote = '') {
+export function transfer(to, amount, paymentNote = '', hops = 3) {
   return async (dispatch, getState) => {
     dispatch({
       type: ActionTypes.TOKEN_TRANSFER,
@@ -238,7 +286,7 @@ export function transfer(to, amount, paymentNote = '') {
       const value = new web3.utils.BN(
         core.utils.toFreckles(tcToCrc(Date.now(), Number(amount))),
       );
-      const txHash = await loopTransfer(from, to, value, paymentNote);
+      const txHash = await transferLoopHops(from, to, value, paymentNote, hops);
 
       dispatch(
         addPendingActivity({
