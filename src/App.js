@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexWrap: 'nowrap',
+    position: 'relative',
+    bottom: '10px',
+    [theme.breakpoints.up('sm')]: {
+      bottom: '25px',
+    },
   },
   snackbarInfo: {
     background: `${theme.custom.gradients.pinkToPurple} !important`,

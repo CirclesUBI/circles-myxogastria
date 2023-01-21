@@ -31,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
   iconContainer: {
     marginRight: '18px',
+    display: 'flex',
+    alignItems: 'center',
   },
   iconButtonClose: {
     borderRadius: '8px',
@@ -40,6 +42,15 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiSvgIcon-root': {
       fontSize: '1.3rem',
     },
+    '& .MuiTouchRipple-root': {
+      display: 'none',
+    },
+  },
+  textContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   isSpecial: {
     '& .MuiSvgIcon-root': {
@@ -134,7 +145,7 @@ const Notifications = () => {
         const notificationText = (
           <Box className={classes.iconTextContainer}>
             <Box className={classes.iconContainer}>{IconElement}</Box>
-            {text}
+            <Box className={classes.textContainer}>{text}</Box>
           </Box>
         );
 
