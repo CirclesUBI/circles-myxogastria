@@ -5,7 +5,7 @@ import activity from '%/images/activity.svg';
 import add from '%/images/add.svg';
 import alert from '%/images/alert.svg';
 import arrow from '%/images/arrow.svg';
-import browserOpen from '%/images/browser_open.svg';
+import browser from '%/images/browser.svg';
 import check from '%/images/check.svg';
 import circles from '%/images/circles.svg';
 import closeOutline from '%/images/close-outline.svg';
@@ -49,6 +49,10 @@ export const IconAlert = (props) => {
 
 export const IconBack = (props) => {
   return <SvgIcon component={arrow} {...props} viewBox="0 0 12 18" />;
+};
+
+export const IconBrowser = (props) => {
+  return <SvgIcon component={browser} {...props} viewBox="0 0 25 25" />;
 };
 
 export const IconCheck = (props) => {
@@ -101,10 +105,6 @@ export const IconMenu = (props) => {
 
 export const IconNotification = (props) => {
   return <SvgIcon component={notification} {...props} viewBox="0 0 29 34" />;
-};
-
-export const IconBrowserOpen = (props) => {
-  return <SvgIcon component={browserOpen} {...props} viewBox="0 0 24 24" />;
 };
 
 export const IconPlus = (props) => {
@@ -177,6 +177,8 @@ export const iconSelector = (icon) => {
       return IconAlert;
     case 'IconBack':
       return IconBack;
+    case 'IconBrowser':
+      return IconBrowser;
     case 'IconCheck':
       return IconCheck;
     case 'IconCircles':
@@ -203,8 +205,6 @@ export const iconSelector = (icon) => {
       return IconMenu;
     case 'IconNotification':
       return IconNotification;
-    case 'IconBrowserOpen':
-      return IconBrowserOpen;
     case 'IconPlus':
       return IconPlus;
     case 'IconQR':

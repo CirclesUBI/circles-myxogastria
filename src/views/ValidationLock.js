@@ -1,13 +1,24 @@
 import { Box, CircularProgress, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import React, { Fragment } from 'react';
 
 import AppNote from '~/components/AppNote';
-import Footer from '~/components/Footer';
+import HumbleAlert from '~/components/HumbleAlert';
 import Logo from '~/components/Logo';
 import View from '~/components/View';
 import translate from '~/services/locale';
+import { colors } from '~/styles/theme';
+
+const useStyles = makeStyles(() => ({
+  boxInfoContainer: {
+    marginTop: '80px',
+    padding: '16px',
+  },
+}));
 
 const ValidationLock = () => {
+  const classes = useStyles();
+
   return (
     <Fragment>
       <View>
@@ -20,15 +31,19 @@ const ValidationLock = () => {
         <Box align="center" mt={2}>
           <CircularProgress />
         </Box>
-      </View>
-      <Footer>
-        <AppNote messageVersion="validation" />
-        <Box my={2}>
-          <Typography align="center">
-            {translate('ValidationLock.bodyThisMayTakeMinutes')}
-          </Typography>
+        <Box className={classes.boxInfoContainer}>
+          <AppNote messageVersion="validation" />
+          {!process.env.USER_NOTIFICATION_VALIDATION && (
+            <HumbleAlert
+              color={colors.fountainBlueLighter}
+              icon="IconBrowser"
+              iconColor={colors.whiteAlmost}
+            >
+              {translate('ValidationLock.bodyThisMayTakeMinutes')}
+            </HumbleAlert>
+          )}
         </Box>
-      </Footer>
+      </View>
     </Fragment>
   );
 };
