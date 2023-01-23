@@ -27,12 +27,15 @@ const useStyles = makeStyles((theme) => {
     },
     alertIcon: {
       color: theme.palette.grey['800'],
+      '& path': {
+        fill: ({ iconColor }) => iconColor,
+      },
     },
   };
 });
 
-const HumbleAlert = ({ children, icon, color }) => {
-  const classes = useStyles({ color });
+const HumbleAlert = ({ children, icon, color, iconColor }) => {
+  const classes = useStyles({ color, iconColor });
   const IconElement = iconSelector(icon);
 
   return (
@@ -53,6 +56,7 @@ HumbleAlert.propTypes = {
   children: PropTypes.node.isRequired,
   color: PropTypes.string,
   icon: PropTypes.string,
+  iconColor: PropTypes.string,
 };
 
 export default HumbleAlert;

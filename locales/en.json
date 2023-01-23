@@ -407,7 +407,7 @@
     "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
   },
   "ValidationLock": {
-    "bodyThisMayTakeMinutes": "This may take a few minutes. Please keep your browser open.",
+    "bodyThisMayTakeMinutes": "This may take a few minutes. Please do not refresh the screen, this may interrupt the process.",
     "bodyYourCirclesLoading": "Your Circles account is loading!"
   },
   "ValidationShare": {
