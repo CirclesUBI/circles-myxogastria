@@ -296,17 +296,25 @@ async function loopTransfer(
 ) {
   if (attemptsLeft === 0 || hops === 0) {
     // cannot attempt transfer
+    console.log(
+      '-- ran out of tries',
+      { attemptsLeft },
+      { hops },
+      { errorsMessages },
+    );
     throw new TransferError(errorsMessages);
   }
-
   try {
+    console.log('Attempting with params ', {from, to, value, paymentNote, hops});
     return core.token.transfer(from, to, value, paymentNote, hops);
   } catch (error) {
+    console.log('ERROR: ', error);
     // if api times out or there are too many steps to fit in one transfer
     if (
       error.request.status === 504 ||
       error.code === ErrorCodes.TOO_COMPLEX_TRANSFER
     ) {
+      console.log('-- retry fewer hops');
       // retry with fewer hops
       return loopTransfer(
         from,
@@ -320,7 +328,9 @@ async function loopTransfer(
     }
     // if the path is invalid
     else if (error.request.status === 422) {
+      console.log('-- update edges');
       // update the edges db for trust-adjacent safes
+      // TODO handle errors for update
       core.token.updateTransferSteps(from, to, value, hops);
       // try after update with same params
       return loopTransfer(
