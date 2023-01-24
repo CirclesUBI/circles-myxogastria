@@ -10,11 +10,12 @@ import { PATHFINDER_HOPS_DEFAULT, ZERO_ADDRESS } from '~/utils/constants';
 import logError from '~/utils/debug';
 import {
   isTokenDeployed,
-  retryLoopUpdateParam,
+  //retryLoopUpdateParam,
   waitAndRetryOnFail,
 } from '~/utils/stateChecks';
 
 const { ActivityTypes } = core.activity;
+const { ErrorCodes, TransferError } = core.errors;
 
 export function deployToken() {
   return async (dispatch, getState) => {
@@ -255,33 +256,84 @@ export function requestUBIPayout(payout) {
 //   }
 // }
 
+// async function loopTransfer(
+//   from,
+//   to,
+//   value,
+//   paymentNote,
+//   hops = PATHFINDER_HOPS_DEFAULT,
+// ) {
+//   return await retryLoopUpdateParam(
+//     // request fn
+//     (hops) => {
+//       return core.token.transfer(from, to, value, paymentNote, hops);
+//     },
+//     // loop fn
+//     () => {
+//       return true;
+//     },
+//     {},
+//     // error fn
+//     (hops) => {
+//       return core.token.updateTransferSteps(from, to, value, hops);
+//     },
+//     // param update fn
+//     (param) => {
+//       return param - 1;
+//     },
+//     hops,
+//   );
+// }
+
 async function loopTransfer(
   from,
   to,
   value,
   paymentNote,
-  hops = PATHFINDER_HOPS_DEFAULT,
+  hops,
+  attemptsLeft,
+  errorsMessages = '',
 ) {
-  return await retryLoopUpdateParam(
-    // request fn
-    (hops) => {
-      return core.token.transfer(from, to, value, paymentNote, hops);
-    },
-    // loop fn
-    () => {
-      return true;
-    },
-    {},
-    // error fn
-    (hops) => {
-      return core.token.updateTransferSteps(from, to, value, hops);
-    },
-    // param update fn
-    (param) => {
-      return param - 1;
-    },
-    hops,
-  );
+  if (attemptsLeft === 0 || hops === 0) {
+    // cannot attempt transfer
+    throw new TransferError(errorsMessages);
+  }
+
+  try {
+    return core.token.transfer(from, to, value, paymentNote, hops);
+  } catch (error) {
+    // if api times out or there are too many steps to fit in one transfer
+    if (
+      error.request.status === 504 ||
+      error.code === ErrorCodes.TOO_COMPLEX_TRANSFER
+    ) {
+      // retry with fewer hops
+      return loopTransfer(
+        from,
+        to,
+        value,
+        paymentNote,
+        hops - 1,
+        attemptsLeft - 1,
+        errorsMessages.concat(' ', error.message),
+      );
+    }
+    // if the path is invalid
+    else if (error.request.status === 422) {
+      // update the edges db for trust-adjacent safes
+      core.token.updateTransferSteps(from, to, value, hops);
+      // try after update with same params
+      return loopTransfer(
+        from,
+        to,
+        value,
+        paymentNote,
+        hops,
+        attemptsLeft - 1,
+        errorsMessages.concat(' ', error.message),
+      );
+    }
+  }
 }
 
 /**
@@ -289,6 +341,8 @@ async function loopTransfer(
  * @param {string} to Receiver safe address of Circles transfer
  * @param {number} amount Amount in Time Circles
  * @param {string} paymentNote Message for recipient
+ * @param {number} hops Maximum number of trust hops away from them sending user inside the trust network for finding transaction steps
+ * @param {number} attempts Maximum number of transfer attempts before accepting defeat
  * @returns response
  */
 export function transfer(
@@ -296,6 +350,7 @@ export function transfer(
   amount,
   paymentNote = '',
   hops = PATHFINDER_HOPS_DEFAULT,
+  attempts = PATHFINDER_HOPS_DEFAULT + 1,
 ) {
   return async (dispatch, getState) => {
     dispatch({
@@ -309,7 +364,14 @@ export function transfer(
       const value = new web3.utils.BN(
         core.utils.toFreckles(tcToCrc(Date.now(), Number(amount))),
       );
-      const txHash = await loopTransfer(from, to, value, paymentNote, hops);
+      const txHash = await loopTransfer(
+        from,
+        to,
+        value,
+        paymentNote,
+        hops,
+        attempts,
+      );
 
       dispatch(
         addPendingActivity({
