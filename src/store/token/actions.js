@@ -294,6 +294,7 @@ async function loopTransfer(
   attemptsLeft,
   errorsMessages = '',
 ) {
+  /* eslint-disable no-console */
   if (attemptsLeft === 0 || hops === 0) {
     // cannot attempt transfer
     console.log(
@@ -305,7 +306,13 @@ async function loopTransfer(
     throw new TransferError(errorsMessages);
   }
   try {
-    console.log('Attempting with params ', {from, to, value, paymentNote, hops});
+    console.log('Attempting with params ', {
+      from,
+      to,
+      value,
+      paymentNote,
+      hops,
+    });
     return core.token.transfer(from, to, value, paymentNote, hops);
   } catch (error) {
     console.log('ERROR: ', error);
@@ -344,6 +351,7 @@ async function loopTransfer(
       );
     }
   }
+  /* eslint-enable no-console */
 }
 
 /**
