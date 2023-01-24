@@ -75,7 +75,7 @@ const CloseButton = ({ notificationId, onClickHandler, type }) => {
   return (
     <IconButton
       className={clsx(classes.iconButtonClose, {
-        [classes.isSpecial]: type === NotificationsTypes.WARNING,
+        [classes.isSpecial]: type === NotificationsTypes.SPECIAL,
       })}
       color="inherit"
       onClick={() => {
@@ -112,7 +112,7 @@ const Notifications = () => {
             return <IconOkTick />;
           case NotificationsTypes.ERROR:
             return <IconTriangleWarning />;
-          case NotificationsTypes.WARNING:
+          case NotificationsTypes.SPECIAL:
             return <IconPartySuccess />;
         }
       }

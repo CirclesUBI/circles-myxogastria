@@ -196,7 +196,7 @@ export function finalizeNewAccount() {
     await dispatch(
       notify({
         text: <WelcomeMessage />,
-        type: NotificationsTypes.WARNING,
+        type: NotificationsTypes.SPECIAL,
       }),
     );
   };

@@ -64,9 +64,7 @@
   },
   "Dashboard": {
     "buttonTrustPeople": "Trust People",
-    "buttonSendCircles": "Send Circles",
-    "welcomeMessageTitle": "Welcome to circles!",
-    "welcomeMessageBody": "You have successfully connected your wallet"
+    "buttonSendCircles": "Send Circles"
   },
   "DashboardOrganization": {
     "buttonTrustPeople": "Trust People",
@@ -439,6 +437,8 @@
     "linkAboutCircles": "About Circles",
     "linkContactUs": "Contact us",
     "linkFAQ": "FAQ",
-    "linkPrivacyLegal": "Privacy + Legal"
+    "linkPrivacyLegal": "Privacy + Legal",
+    "welcomeMessageTitle": "Welcome to circles!",
+    "welcomeMessageBody": "You have successfully connected your wallet"
   }
 }

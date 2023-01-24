@@ -20,13 +20,11 @@ const WelcomeMessage = () => {
   return (
     <div className={classes.textSendConfirmationContainer}>
       <span>
-        <strong>{translate('Dashboard.welcomeMessageTitle')}</strong>
+        <strong>{translate('Welcome.welcomeMessageTitle')}</strong>
       </span>
-      <span>{translate('Dashboard.welcomeMessageBody')}</span>
+      <span>{translate('Welcome.welcomeMessageBody')}</span>
     </div>
   );
 };
-
-WelcomeMessage;
 
 export default WelcomeMessage;

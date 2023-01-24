@@ -58,7 +58,7 @@ const UBI = () => {
       dispatch(
         notify({
           text,
-          type: NotificationsTypes.WARNING,
+          type: NotificationsTypes.SPECIAL,
           timeout: 10000,
         }),
       );

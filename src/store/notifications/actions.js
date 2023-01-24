@@ -7,8 +7,8 @@ export const NOTIFY = Symbol('Notifications');
 export const NotificationsTypes = {
   SUCCESS: 'success',
   INFO: 'info',
-  WARNING: 'warning',
   ERROR: 'error',
+  SPECIAL: 'warning',
 };
 
 export default function notify(options) {

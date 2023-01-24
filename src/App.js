@@ -40,9 +40,14 @@ const useStyles = makeStyles((theme) => ({
     border: `2px solid ${theme.custom.colors.deepBlush} !important`,
     borderRadius: '8px !important',
     boxShadow: `${theme.custom.shadows.lightGray} !important`,
-    color: `${theme.palette.warning.contrastText} !important`,
+    color: `${theme.custom.colors.purple} !important`,
     textAlign: 'center !important',
     '& span': {
+      background: theme.custom.gradients.lightPinkToPurple,
+      '-webkit-background-clip': 'text',
+      '-webkit-text-fill-color': 'transparent',
+    },
+    '& div': {
       background: theme.custom.gradients.lightPinkToPurple,
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
