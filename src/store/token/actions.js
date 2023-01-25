@@ -323,7 +323,7 @@ async function loopTransfer(
     console.log('** status ', error.request.status);
     // if api times out or there are too many steps to fit in one transfer
     if (
-      error.request.status === 504 ||
+      error.name === 'TransferError' ||
       error.code === ErrorCodes.TOO_COMPLEX_TRANSFER
     ) {
       console.log('-- retry fewer hops');
