@@ -6,7 +6,7 @@ const { ErrorCodes } = core.errors;
 const LARGE_AMOUNT = new web3.utils.BN(
   web3.utils.toWei('1000000000000000', 'ether'),
 );
-
+/* eslint-disable no-console */
 // Recursive helper function for findMaxFlow
 async function loopFindMaxFlow(
   from,
@@ -15,11 +15,20 @@ async function loopFindMaxFlow(
   attemptsLeft,
   errorsMessages = '',
 ) {
+  console.log(
+    '** Params',
+    { from },
+    { to },
+    { hops },
+    { attemptsLeft },
+    { errorsMessages },
+  );
   if (attemptsLeft === 0 || hops === 0) {
     // ran out of attempts or hops, cannot attempt further
     throw new Error(errorsMessages);
   }
   try {
+    console.log('** Atempting findTT');
     return await core.token.findTransitiveTransfer(
       from,
       to,
@@ -33,6 +42,7 @@ async function loopFindMaxFlow(
       error.code === ErrorCodes.UNKNOWN_ERROR
     ) {
       // RETRY: with fewer hops
+      console.log('** RETRY ');
       return await loopFindMaxFlow(
         from,
         to,
@@ -43,6 +53,7 @@ async function loopFindMaxFlow(
     }
     // GIVE UP: any other errors will result in propagating the error
     else {
+      console.log('** GIVE UP ');
       throw error;
     }
   }
@@ -58,7 +69,7 @@ async function loopFindMaxFlow(
 export async function findMaxFlow(from, to, setMaxFlow) {
   // First attempting via API
   try {
-    const response = loopFindMaxFlow(
+    const response = await loopFindMaxFlow(
       from,
       to,
       PATHFINDER_HOPS_DEFAULT,
@@ -91,3 +102,4 @@ export async function findMaxFlow(from, to, setMaxFlow) {
     setMaxFlow('0');
   }
 }
+/* eslint-enable no-console */
