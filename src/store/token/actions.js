@@ -313,9 +313,9 @@ async function loopTransfer(
       paymentNote,
       hops,
     });
-    const response = core.token.transfer(from, to, value, paymentNote, hops);
-    console.log('Print after core command within "try"', { response });
-    throw new TransferError();
+    return await core.token.transfer(from, to, value, paymentNote, hops);
+    //console.log('Print after core command within "try"', { response });
+    //throw new TransferError();
   } catch (error) {
     console.log('ERROR: ', error);
     // if api times out or there are too many steps to fit in one transfer
@@ -325,7 +325,7 @@ async function loopTransfer(
     ) {
       console.log('-- retry fewer hops');
       // retry with fewer hops
-      return loopTransfer(
+      return await loopTransfer(
         from,
         to,
         value,
@@ -342,12 +342,12 @@ async function loopTransfer(
       // TODO handle errors for update
       core.token.updateTransferSteps(from, to, value, hops);
       // try after update with same params
-      return loopTransfer(
+      return await loopTransfer(
         from,
         to,
         value,
         paymentNote,
-        hops,
+        hops - 1,
         attemptsLeft - 1,
         errorsMessages.concat(' ', error.message),
       );
