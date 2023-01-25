@@ -114,61 +114,6 @@ export async function waitAndRetryOnFail(
   }
 }
 
-export async function retryLoopUpdateParam(
-  requestFn,
-  loopFn,
-  {
-    requestedMaxAttempts = RETRIES_ON_FAIL_DEFAULT,
-    waitAfterFail = WAIT_AFTER_FAIL_DEFAULT,
-  } = {},
-  onErrorFn,
-  paramUpdateFn,
-  initialParam,
-) {
-  // Count all attempts to retry with fewer hops when something fails
-  let attempt = 1;
-  let param = initialParam;
-  const maxAttempts = param
-    ? Math.min(param, requestedMaxAttempts)
-    : requestedMaxAttempts;
-
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    try {
-      // Make transfers request and wait for response
-      const response = await requestFn(); //core.token.transfer(from, to, value, paymentNote, hops);
-
-      // Wait for a few seconds until our condition arrives
-      await loopFn();
-
-      // Return and exit function when the there is no error
-      return response;
-    } catch (error) {
-      // Upon error clean the transfer edges - SHOULD WE DO THIS STILL?
-      // await core.token.updateTransferSteps(from, to, value, hops);
-      if (onErrorFn) {
-        await onErrorFn();
-      }
-
-      if (attempt >= maxAttempts) {
-        // We tried too many times
-        throw error;
-      }
-
-      // Wait when request failed to prevent calling the request too often
-      if (error.message !== TRIED_TOO_MANY_TIMES) {
-        await wait(waitAfterFail);
-      }
-
-      // Lets try again with fewer hops
-      attempt += 1;
-      if (initialParam && paramUpdateFn) {
-        param = paramUpdateFn(param);
-      }
-    }
-  }
-}
-
 export async function isDeployed(address) {
   await loop(
     () => {
