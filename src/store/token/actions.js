@@ -215,7 +215,7 @@ async function loopTransfer(
   errorsMessages = '',
 ) {
   if (attemptsLeft === 0 || hops === 0) {
-    // run out of attempts or hops, cannot attempt further transfers
+    // ran out of attempts or hops, cannot attempt further transfers
     throw new TransferError(errorsMessages);
   }
   try {
@@ -250,7 +250,7 @@ async function loopTransfer(
     ) {
       // update the edges db for trust-adjacent safes
       await core.token.updateTransferSteps(from, to, value, hops);
-      // try only once after update with the same params
+      // try again after update with the same parameters
       return await loopTransfer(
         from,
         to,
