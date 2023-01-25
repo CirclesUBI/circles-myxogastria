@@ -319,8 +319,7 @@ async function loopTransfer(
   } catch (error) {
     console.log('** ERROR: ', { error });
     console.log('** message ', error.message);
-    console.log('** request ', error.request);
-    console.log('** status ', error.request.status);
+    console.log('** request ', error.name);
     // if api times out or there are too many steps to fit in one transfer
     if (
       error.name === 'TransferError' ||
@@ -339,22 +338,22 @@ async function loopTransfer(
       );
     }
     // if the path is invalid
-    else if (error.request.status === 422) {
-      console.log('-- update edges');
-      // update the edges db for trust-adjacent safes
-      // TODO handle errors for update
-      core.token.updateTransferSteps(from, to, value, hops);
-      // try after update with same params
-      return await loopTransfer(
-        from,
-        to,
-        value,
-        paymentNote,
-        hops - 1,
-        attemptsLeft - 1,
-        errorsMessages.concat(' ', error.message),
-      );
-    }
+    // else if (error.request.status === 422) {
+    //   console.log('-- update edges');
+    //   // update the edges db for trust-adjacent safes
+    //   // TODO handle errors for update
+    //   core.token.updateTransferSteps(from, to, value, hops);
+    //   // try after update with same params
+    //   return await loopTransfer(
+    //     from,
+    //     to,
+    //     value,
+    //     paymentNote,
+    //     hops - 1,
+    //     attemptsLeft - 1,
+    //     errorsMessages.concat(' ', error.message),
+    //   );
+    // }
   }
   /* eslint-enable no-console */
 }
