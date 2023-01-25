@@ -285,6 +285,7 @@ export function requestUBIPayout(payout) {
 //   );
 // }
 
+// Recursive helper function for transfer
 async function loopTransfer(
   from,
   to,
@@ -294,38 +295,24 @@ async function loopTransfer(
   attemptsLeft,
   errorsMessages = '',
 ) {
-  /* eslint-disable no-console */
   if (attemptsLeft === 0 || hops === 0) {
-    // cannot attempt transfer
-    console.log(
-      '-- ran out of tries',
-      { attemptsLeft },
-      { hops },
-      { errorsMessages },
-    );
+    // run out of attempts or hops, cannot attempt further transfers
     throw new TransferError(errorsMessages);
   }
   try {
-    console.log('Attempting with params ', {
-      from,
-      to,
-      value,
-      paymentNote,
-      hops,
-    });
     return await core.token.transfer(from, to, value, paymentNote, hops);
-    //console.log('Print after core command within "try"', { response });
-    //throw new TransferError();
   } catch (error) {
-    console.log('** ERROR: ', { error });
-    console.log('** message ', error.message);
-    console.log('** request ', error.name);
-    // if api times out or there are too many steps to fit in one transfer
+    // RETRY when path is not found or is too long
+    // UPDATE edges database when the path fails and then retry
+    // GIVE UP for other errors
+    // ---
+    // no path or path too long
     if (
-      error.name === 'TransferError' ||
-      error.code === ErrorCodes.TOO_COMPLEX_TRANSFER
+      error.name === 'TransferError' &&
+      (error.code === ErrorCodes.TOO_COMPLEX_TRANSFER || // too many steps in found path
+        error.code === ErrorCodes.UNKNOWN_ERROR || // includes timeout error from api
+        error.code === ErrorCodes.INVALID_TRANSFER) // other errors from find transitive transfer
     ) {
-      console.log('-- retry fewer hops');
       // retry with fewer hops
       return await loopTransfer(
         from,
@@ -337,25 +324,29 @@ async function loopTransfer(
         errorsMessages.concat(' ', error.message),
       );
     }
-    // if the path is invalid
-    // else if (error.request.status === 422) {
-    //   console.log('-- update edges');
-    //   // update the edges db for trust-adjacent safes
-    //   // TODO handle errors for update
-    //   core.token.updateTransferSteps(from, to, value, hops);
-    //   // try after update with same params
-    //   return await loopTransfer(
-    //     from,
-    //     to,
-    //     value,
-    //     paymentNote,
-    //     hops - 1,
-    //     attemptsLeft - 1,
-    //     errorsMessages.concat(' ', error.message),
-    //   );
-    // }
+    // if the path is found but it is invalid
+    else if (
+      (error.name === 'TransferError' && ErrorCodes.TRANSFER_NOT_FOUND) || // search complete and no path found
+      error.name !== 'TransferError' // includes errors from attempting transfer with an invalid path
+    ) {
+      // update the edges db for trust-adjacent safes
+      await core.token.updateTransferSteps(from, to, value, hops);
+      // try only once after update with the same params
+      return await loopTransfer(
+        from,
+        to,
+        value,
+        paymentNote,
+        hops,
+        attemptsLeft - 1,
+        errorsMessages.concat(' ', error.message),
+      );
+    }
+    // any other errors will result in propagating the error
+    else {
+      throw error;
+    }
   }
-  /* eslint-enable no-console */
 }
 
 /**
