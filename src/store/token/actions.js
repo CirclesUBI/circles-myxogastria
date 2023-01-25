@@ -313,7 +313,9 @@ async function loopTransfer(
       paymentNote,
       hops,
     });
-    return core.token.transfer(from, to, value, paymentNote, hops);
+    const response = core.token.transfer(from, to, value, paymentNote, hops);
+    console.log('Print after core command within "try"', { response });
+    throw new TransferError();
   } catch (error) {
     console.log('ERROR: ', error);
     // if api times out or there are too many steps to fit in one transfer
