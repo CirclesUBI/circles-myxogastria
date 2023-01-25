@@ -317,7 +317,10 @@ async function loopTransfer(
     //console.log('Print after core command within "try"', { response });
     //throw new TransferError();
   } catch (error) {
-    console.log('ERROR: ', error);
+    console.log('** ERROR: ', { error });
+    console.log('** message ', error.message);
+    console.log('** request ', error.request);
+    console.log('** status ', error.request.status);
     // if api times out or there are too many steps to fit in one transfer
     if (
       error.request.status === 504 ||
