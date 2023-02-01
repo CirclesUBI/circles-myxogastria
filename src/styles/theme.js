@@ -58,7 +58,6 @@ export const colors = {
   disco: '#99164C',
   violet: '#5A2F56',
   tapestry: '#A75183',
-  oldLavender: '#7B5978',
   greyHover: 'rgba(222, 213, 221, 0.8)',
   swansDown: '#DAF0F1',
   blackSqueeze: '#EDF7F8',
