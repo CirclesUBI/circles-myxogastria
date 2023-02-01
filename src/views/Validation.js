@@ -23,6 +23,7 @@ import translate from '~/services/locale';
 import { finalizeNewAccount } from '~/store/onboarding/actions';
 import { checkTrustState } from '~/store/trust/actions';
 import { IconBack } from '~/styles/icons';
+import { colors } from '~/styles/theme';
 import { stepperConfiguration } from '~/views/Onboarding';
 
 const useStyles = makeStyles((theme) => ({
@@ -147,7 +148,13 @@ const Validation = () => {
       </View>
       <Footer>
         <AppNote messageVersion="validation" />
-        <HumbleAlert>{translate('Validation.bodyDoNotReset')}</HumbleAlert>
+        <HumbleAlert
+          color={colors.fountainBlueLighter}
+          icon="IconBrowser"
+          iconColor={colors.whiteAlmost}
+        >
+          {translate('Validation.bodyDoNotReset')}
+        </HumbleAlert>
         {!isDeploymentReady && (
           <Box mt={2}>
             <Button fullWidth isOutline onClick={shareProfileBtnHandler}>
