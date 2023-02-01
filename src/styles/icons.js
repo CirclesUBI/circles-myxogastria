@@ -5,6 +5,7 @@ import activity from '%/images/activity.svg';
 import add from '%/images/add.svg';
 import alert from '%/images/alert.svg';
 import arrow from '%/images/arrow.svg';
+import browser from '%/images/browser.svg';
 import check from '%/images/check.svg';
 import circles from '%/images/circles.svg';
 import closeOutline from '%/images/close-outline.svg';
@@ -43,11 +44,15 @@ export const IconAdd = (props) => {
 };
 
 export const IconAlert = (props) => {
-  return <SvgIcon component={alert} {...props} viewBox="0 0 20 20" />;
+  return <SvgIcon component={alert} {...props} viewBox="0 0 18 21" />;
 };
 
 export const IconBack = (props) => {
   return <SvgIcon component={arrow} {...props} viewBox="0 0 12 18" />;
+};
+
+export const IconBrowser = (props) => {
+  return <SvgIcon component={browser} {...props} viewBox="0 0 25 25" />;
 };
 
 export const IconCheck = (props) => {
@@ -160,4 +165,75 @@ export const IconUploadPhoto = (props) => {
 
 export const IconWorld = (props) => {
   return <SvgIcon component={world} {...props} viewBox="0 0 20 20" />;
+};
+
+export const iconSelector = (icon) => {
+  switch (icon) {
+    case 'IconActivity':
+      return IconActivity;
+    case 'IconAdd':
+      return IconAdd;
+    case 'IconAlert':
+      return IconAlert;
+    case 'IconBack':
+      return IconBack;
+    case 'IconBrowser':
+      return IconBrowser;
+    case 'IconCheck':
+      return IconCheck;
+    case 'IconCircles':
+      return IconCircles;
+    case 'IconClose':
+      return IconClose;
+    case 'IconCloseOutline':
+      return IconCloseOutline;
+    case 'IconConnections':
+      return IconConnections;
+    case 'IconFacebook':
+      return IconFacebook;
+    case 'IconEdit':
+      return IconEdit;
+    case 'IconFollow':
+      return IconFollow;
+    case 'IconFriends':
+      return IconFriends;
+    case 'IconMail':
+      return IconMail;
+    case 'IconMembers':
+      return IconMembers;
+    case 'IconMenu':
+      return IconMenu;
+    case 'IconNotification':
+      return IconNotification;
+    case 'IconPlus':
+      return IconPlus;
+    case 'IconQR':
+      return IconQR;
+    case 'IconQRLarge':
+      return IconQRLarge;
+    case 'IconScan':
+      return IconScan;
+    case 'IconSearch':
+      return IconSearch;
+    case 'IconSend':
+      return IconSend;
+    case 'IconShare':
+      return IconShare;
+    case 'IconTelegram':
+      return IconTelegram;
+    case 'IconTransactions':
+      return IconTransactions;
+    case 'IconTrustActive':
+      return IconTrustActive;
+    case 'IconTrustMutual':
+      return IconTrustMutual;
+    case 'IconTwitter':
+      return IconTwitter;
+    case 'IconUploadPhoto':
+      return IconUploadPhoto;
+    case 'IconWorld':
+      return IconWorld;
+    default:
+      return IconAlert;
+  }
 };
