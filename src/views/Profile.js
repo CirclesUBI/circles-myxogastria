@@ -19,6 +19,7 @@ import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonSend from '~/components/ButtonSend';
 import ButtonShare from '~/components/ButtonShare';
+import ButtonTrust from '~/components/ButtonTrust';
 import CenteredHeading from '~/components/CenteredHeading';
 import DialogTrust from '~/components/DialogTrust';
 import DialogTrustRevoke from '~/components/DialogTrustRevoke';
@@ -26,7 +27,6 @@ import Header from '~/components/Header';
 import ProfileMini from '~/components/ProfileMini';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
-import UnevenRoundButton from '~/components/UnevenRoundButton';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import View from '~/components/View';
 import { usePendingTransfer } from '~/hooks/activity';
@@ -381,7 +381,7 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
         onSuccess={handleRevokeTrustSuccess}
       />
       {!isOrganization && !isOwnAccount && (
-        <UnevenRoundButton
+        <ButtonTrust
           handleRevokeTrustOpen={handleRevokeTrustOpen}
           handleTrustOpen={handleTrustOpen}
           isReady={isReady}

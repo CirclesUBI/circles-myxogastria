@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UnevenRoundButton = ({
+const ButtonTrust = ({
   isReady,
   trustStatus,
   handleRevokeTrustOpen,
@@ -128,7 +128,7 @@ const UnevenRoundButton = ({
   );
 };
 
-UnevenRoundButton.propTypes = {
+ButtonTrust.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   handleRevokeTrustOpen: PropTypes.func,
@@ -137,4 +137,4 @@ UnevenRoundButton.propTypes = {
   trustStatus: PropTypes.object,
 };
 
-export default UnevenRoundButton;
+export default ButtonTrust;
