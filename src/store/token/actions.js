@@ -220,17 +220,17 @@ async function loopTransfer(
   }
   try {
     return await core.token.transfer(from, to, value, paymentNote, hops);
-  } catch (error) {
+  } catch (transferError) {
     // RETRY when path is not found or is too long
     // UPDATE edges database when the path fails and then retry
     // GIVE UP for other errors
     // ---
     // no path or path too long
     if (
-      error.name === 'TransferError' &&
-      (error.code === ErrorCodes.TOO_COMPLEX_TRANSFER || // too many steps in found path
-        error.code === ErrorCodes.UNKNOWN_ERROR || // includes timeout error from api
-        error.code === ErrorCodes.INVALID_TRANSFER) // other errors from find transitive transfer
+      transferError.name === 'TransferError' &&
+      (transferError.code === ErrorCodes.TOO_COMPLEX_TRANSFER || // too many steps in found path
+        transferError.code === ErrorCodes.UNKNOWN_ERROR || // includes timeout error from api
+        transferError.code === ErrorCodes.INVALID_TRANSFER) // other errors from find transitive transfer
     ) {
       // retry with fewer hops
       return await loopTransfer(
@@ -240,16 +240,35 @@ async function loopTransfer(
         paymentNote,
         hops - 1,
         attemptsLeft - 1,
-        errorsMessages.concat(' ', error.message),
+        errorsMessages.concat(' ', transferError.message),
       );
     }
     // if the path is found but it is invalid
     else if (
-      (error.name === 'TransferError' && ErrorCodes.TRANSFER_NOT_FOUND) || // search complete and no path found
-      error.name !== 'TransferError' // includes errors from attempting transfer with an invalid path
+      // search complete and no path found
+      (transferError.name === 'TransferError' &&
+        ErrorCodes.TRANSFER_NOT_FOUND) ||
+      // includes errors from attempting transfer with an invalid path
+      transferError.name !== 'TransferError'
     ) {
       // update the edges db for trust-adjacent safes
-      await core.token.updateTransferSteps(from, to, value, hops);
+      try {
+        await core.token.updateTransferSteps(from, to, value, hops);
+      } catch (updateError) {
+        return await loopTransfer(
+          from,
+          to,
+          value,
+          paymentNote,
+          hops,
+          attemptsLeft - 1,
+          errorsMessages.concat(
+            ' ',
+            transferError.message,
+            updateError.message,
+          ),
+        );
+      }
       // try again after update with the same parameters
       return await loopTransfer(
         from,
@@ -258,12 +277,12 @@ async function loopTransfer(
         paymentNote,
         hops,
         attemptsLeft - 1,
-        errorsMessages.concat(' ', error.message),
+        errorsMessages.concat(' ', transferError.message),
       );
     }
     // any other errors will result in propagating the error
     else {
-      throw error;
+      throw transferError;
     }
   }
 }
