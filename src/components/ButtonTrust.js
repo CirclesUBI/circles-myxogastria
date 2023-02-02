@@ -7,8 +7,8 @@ import React from 'react';
 import {
   IconTrust,
   IconTrustActive,
-  IconTrustCustomShape,
   IconTrustMutual,
+  IconWobblyCircle,
 } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -120,7 +120,7 @@ const ButtonTrust = ({
         <CircularProgress size={24} />
       ) : (
         <Box className={classes.trustButtonContainer}>
-          <IconTrustCustomShape className={classes.trustButtonIconBackground} />
+          <IconWobblyCircle className={classes.trustButtonIconBackground} />
           <TrustIcon className={classes.trustButtonIcon} />
         </Box>
       )}
@@ -129,7 +129,6 @@ const ButtonTrust = ({
 };
 
 ButtonTrust.propTypes = {
-  children: PropTypes.node.isRequired,
   className: PropTypes.string,
   handleRevokeTrustOpen: PropTypes.func,
   handleTrustOpen: PropTypes.func,
