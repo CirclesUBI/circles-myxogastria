@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: `${theme.custom.shadows.lightGray} !important`,
     color: `${theme.custom.colors.whiteAlmost} !important`,
   },
+  // Warning is used for type special notification
   snackbarWarning: {
     background: `${theme.custom.colors.whiteAlmost} !important`,
     border: `2px solid ${theme.custom.colors.deepBlush} !important`,
