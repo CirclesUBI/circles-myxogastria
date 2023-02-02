@@ -75,7 +75,7 @@
     "immutability-helper": "^3.1.1",
     "isomorphic-fetch": "^3.0.0",
     "jazzicon": "^1.5.0",
-    "luxon": "^1.28.0",
+    "luxon": "^1.28.1",
     "mime": "^2.6.0",
     "notistack": "^1.0.10",
     "qrcode": "^1.5.1",
