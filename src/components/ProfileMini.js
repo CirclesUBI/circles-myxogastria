@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
   cardActionIcon: {
     color: theme.custom.colors.disco,
     fontSize: 16,
+
+    '& path': {
+      fill: 'inherit',
+    },
   },
   mutualFriends: {
     fontSize: 12,

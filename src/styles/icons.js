@@ -33,6 +33,7 @@ import trustMutual from '%/images/trust-mutual.svg';
 import trust from '%/images/trust.svg';
 import twitter from '%/images/twitter.svg';
 import uploadPhoto from '%/images/uploadPhoto.svg';
+import wobblyCircle from '%/images/wobblyCircle.svg';
 import world from '%/images/world.svg';
 
 export const IconActivity = (props) => {
@@ -144,15 +145,15 @@ export const IconTransactions = (props) => {
 };
 
 export const IconTrust = (props) => {
-  return <SvgIcon component={trust} {...props} viewBox="0 0 27 29" />;
+  return <SvgIcon component={trust} {...props} viewBox="0 0 30 38" />;
 };
 
 export const IconTrustActive = (props) => {
-  return <SvgIcon component={trustActive} {...props} viewBox="0 0 25 27" />;
+  return <SvgIcon component={trustActive} {...props} viewBox="0 0 32 38" />;
 };
 
 export const IconTrustMutual = (props) => {
-  return <SvgIcon component={trustMutual} {...props} viewBox="0 0 25 29" />;
+  return <SvgIcon component={trustMutual} {...props} viewBox="0 0 29 34" />;
 };
 
 export const IconTwitter = (props) => {
@@ -161,6 +162,10 @@ export const IconTwitter = (props) => {
 
 export const IconUploadPhoto = (props) => {
   return <SvgIcon component={uploadPhoto} {...props} viewBox="0 0 64 34" />;
+};
+
+export const IconWobblyCircle = (props) => {
+  return <SvgIcon component={wobblyCircle} {...props} viewBox="0 0 55 55" />;
 };
 
 export const IconWorld = (props) => {
