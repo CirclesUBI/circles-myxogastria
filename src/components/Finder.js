@@ -64,6 +64,27 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     boxShadow: theme.custom.shadows.gray,
   },
+  bottomNavigation: {
+    marginBottom: theme.spacing(2),
+  },
+  bottomNavigationAction: {
+    maxWidth: 'none',
+  },
+  bottomNavigationLabel: {
+    marginTop: theme.spacing(1),
+    fontWeight: theme.typography.fontWeightLight,
+    fontSize: '0.9rem',
+    borderBottom: '2px solid transparent',
+    '&.Mui-selected': {
+      fontSize: '0.9rem',
+      borderBottom: `2px solid ${theme.palette.primary.main}`,
+    },
+  },
+  iconTrustActice: {
+    '& path': {
+      fill: 'inherit',
+    },
+  },
 }));
 
 const Finder = ({
@@ -318,6 +339,8 @@ const FinderSearchBar = ({
 };
 
 const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
+  const classes = useStyles();
+
   return (
     <TabNavigation
       value={selectedFilter}
@@ -332,7 +355,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
             color="primary"
             overlap="rectangular"
           >
-            <IconTrustActive />
+            <IconTrustActive className={classes.iconTrustActice} />
           </Badge>
         }
         label={translate('Finder.bodyFilterDirect')}

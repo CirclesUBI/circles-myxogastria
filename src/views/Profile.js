@@ -1,15 +1,12 @@
 import {
   Badge,
   Box,
-  CircularProgress,
   Container,
   Grid,
-  IconButton,
   Tooltip,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,6 +19,7 @@ import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonSend from '~/components/ButtonSend';
 import ButtonShare from '~/components/ButtonShare';
+import ButtonTrust from '~/components/ButtonTrust';
 import CenteredHeading from '~/components/CenteredHeading';
 import DialogTrust from '~/components/DialogTrust';
 import DialogTrustRevoke from '~/components/DialogTrustRevoke';
@@ -43,14 +41,7 @@ import {
   checkPendingActivities,
 } from '~/store/activity/actions';
 import { checkTrustState } from '~/store/trust/actions';
-import {
-  IconActivity,
-  IconFriends,
-  IconShare,
-  IconTrust,
-  IconTrustActive,
-  IconTrustMutual,
-} from '~/styles/icons';
+import { IconActivity, IconFriends, IconShare } from '~/styles/icons';
 import NotFound from '~/views/NotFound';
 
 const PANEL_ACTIVITY = Symbol('panelActivity');
@@ -60,21 +51,7 @@ const DEFAULT_PANEL = PANEL_TRUST;
 
 const PAGE_SIZE = 10;
 
-const useStyles = makeStyles((theme) => ({
-  trustButton: {
-    background: theme.custom.gradients.purple,
-    color: theme.palette.common.white,
-  },
-  trustButtonActive: {
-    background: theme.custom.gradients.turquoise,
-  },
-  trustButtonDisabled: {
-    background: theme.custom.gradients.gray,
-  },
-  trustButtonIcon: {
-    position: 'relative',
-    left: 1,
-  },
+const useStyles = makeStyles(() => ({
   mutualUserCard: {
     cursor: 'pointer',
   },
@@ -349,7 +326,6 @@ const ProfileSendButton = ({ address, deploymentStatus }) => {
 };
 
 const ProfileTrustButton = ({ address, trustStatus }) => {
-  const classes = useStyles();
   const safe = useSelector((state) => state.safe);
 
   const { isOrganization, isReady } = useIsOrganization(address);
@@ -359,12 +335,6 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
   const [isTrustConfirmOpen, setIsTrustConfirmOpen] = useState(false);
   const [isRevokeTrustOpen, setIsRevokeTrustOpen] = useState(false);
   const [isSent, setIsSent] = useState(false);
-
-  const TrustIcon = trustStatus.isMeTrusting
-    ? trustStatus.isTrustingMe
-      ? IconTrustMutual
-      : IconTrustActive
-    : IconTrust;
 
   const handleTrustOpen = () => {
     setIsTrustConfirmOpen(true);
@@ -411,24 +381,12 @@ const ProfileTrustButton = ({ address, trustStatus }) => {
         onSuccess={handleRevokeTrustSuccess}
       />
       {!isOrganization && !isOwnAccount && (
-        <IconButton
-          classes={{
-            root: clsx(classes.trustButton, {
-              [classes.trustButtonActive]: trustStatus.isMeTrusting,
-            }),
-            disabled: classes.trustButtonDisabled,
-          }}
-          disabled={trustStatus.isPending || !isReady}
-          onClick={
-            trustStatus.isMeTrusting ? handleRevokeTrustOpen : handleTrustOpen
-          }
-        >
-          {trustStatus.isPending ? (
-            <CircularProgress size={24} />
-          ) : (
-            <TrustIcon className={classes.trustButtonIcon} />
-          )}
-        </IconButton>
+        <ButtonTrust
+          handleRevokeTrustOpen={handleRevokeTrustOpen}
+          handleTrustOpen={handleTrustOpen}
+          isReady={isReady}
+          trustStatus={trustStatus}
+        />
       )}
     </Fragment>
   );
