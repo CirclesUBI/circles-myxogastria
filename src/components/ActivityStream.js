@@ -152,6 +152,8 @@ const ActivityStreamList = ({ activities, lastSeenAt, lastUpdatedAt }) => {
     };
   });
 
+  // console.log('ActivityStreamList activities', activities);
+
   if (lastUpdatedAt === 0) {
     return null;
   }
