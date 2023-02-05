@@ -99,10 +99,16 @@ const iconSelector = (icon) => {
   }
 };
 
-const NewsFeed = ({ news, isLoading, isMoreAvailable, onLoadMore }) => {
+const NewsFeed = ({
+  news,
+  isLoading,
+  isMoreAvailable,
+  onLoadMore,
+  lastSeenAt,
+}) => {
   return (
     <Box>
-      <NewsList news={news} />
+      <NewsList lastSeenAt={lastSeenAt} news={news} />
       {isLoading && (
         <Box mx="auto" my={2} textAlign="center">
           <CircularProgress />
@@ -119,17 +125,18 @@ const NewsFeed = ({ news, isLoading, isMoreAvailable, onLoadMore }) => {
   );
 };
 
-const NewsList = ({ news }) => {
+const NewsList = ({ news, lastSeenAt }) => {
   const newsListElement = news.map((item) => {
-    return <NewsItem key={item.id} newsItem={item} />;
+    return <NewsItem key={item.id} lastSeenAt={lastSeenAt} newsItem={item} />;
   });
 
   return <Box>{newsListElement}</Box>;
 };
 
-const NewsItem = ({ newsItem }) => {
+const NewsItem = ({ newsItem, lastSeenAt }) => {
   const classes = useStyles();
-  const [isExpanded, setIsExpanded] = useState(false);
+
+  const [isExpanded, setIsExpanded] = useState(newsItem.createdAt > lastSeenAt);
 
   const handleBtnContent = () => {
     setIsExpanded(!isExpanded);
@@ -182,16 +189,20 @@ const NewsItem = ({ newsItem }) => {
 NewsFeed.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   isMoreAvailable: PropTypes.bool.isRequired,
+  lastSeenAt: PropTypes.string,
   news: PropTypes.array.isRequired,
   onLoadMore: PropTypes.func,
 };
 
 NewsList.propTypes = {
+  lastSeenAt: PropTypes.string,
   news: PropTypes.array.isRequired,
 };
 
 NewsItem.propTypes = {
+  lastSeenAt: PropTypes.string,
   newsItem: PropTypes.shape({
+    createdAt: PropTypes.string,
     id: PropTypes.string,
     title: PropTypes.string,
     text: PropTypes.string,
