@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0] - 2023-02-07
+
+### Fixed
+- Updated the retry logic for transfers that time out in the api call and for calculating maximum transferable amount [#581](https://github.com/CirclesUBI/circles-myxogastria/pull/581)
+
 ## [2.4.3] - 2023-02-02
 
 ### Fixed
