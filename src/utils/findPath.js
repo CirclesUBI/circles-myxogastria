@@ -1,5 +1,56 @@
 import core from '~/services/core';
 import web3 from '~/services/web3';
+import { PATHFINDER_HOPS_DEFAULT } from '~/utils/constants';
+
+const { ErrorCodes } = core.errors;
+// The pathfinder returns a maximum transfer value when a too large amount
+// is specified as amount. If the amount is lower than the maximum possible
+// transfers it will not return the maximum.
+// We use 10^15 CRC as this is much higher than any realistic transfer.
+const LARGE_AMOUNT = new web3.utils.BN(
+  web3.utils.toWei('1000000000000000', 'ether'),
+);
+
+// Recursive helper function for findMaxFlow
+async function loopFindMaxFlow(
+  from,
+  to,
+  hops,
+  attemptsLeft,
+  errorsMessages = '',
+) {
+  if (attemptsLeft === 0 || hops === 0) {
+    // ran out of attempts or hops, cannot attempt further
+    throw new Error(errorsMessages);
+  }
+  try {
+    return await core.token.findTransitiveTransfer(
+      from,
+      to,
+      LARGE_AMOUNT,
+      hops,
+    );
+  } catch (error) {
+    // no path or path too long
+    if (
+      error.name === 'TransferError' &&
+      error.code === ErrorCodes.UNKNOWN_ERROR
+    ) {
+      // RETRY: with fewer hops
+      return await loopFindMaxFlow(
+        from,
+        to,
+        hops - 1,
+        attemptsLeft - 1,
+        errorsMessages.concat(' ', error.message),
+      );
+    }
+    // GIVE UP: any other errors will result in propagating the error
+    else {
+      throw error;
+    }
+  }
+}
 
 /**
  * Finds the maximum transferable amount by transitive transfers between two safe addresses
@@ -9,12 +60,13 @@ import web3 from '~/services/web3';
  * @returns nothing. Updates MaxFlow state in Freckles.
  */
 export async function findMaxFlow(from, to, setMaxFlow) {
-  // First attempt, try via API
+  // First attempting via API
   try {
-    const response = await core.token.findTransitiveTransfer(
+    const response = await loopFindMaxFlow(
       from,
       to,
-      new web3.utils.BN(web3.utils.toWei('1000000000000000', 'ether')), // Has to be a large amount
+      PATHFINDER_HOPS_DEFAULT,
+      PATHFINDER_HOPS_DEFAULT,
     );
 
     // Throw an error when no path was found, we should try again with
@@ -29,7 +81,7 @@ export async function findMaxFlow(from, to, setMaxFlow) {
     setMaxFlow('0');
   }
 
-  // Second attempt, do contract call
+  // Then attempt, do contract call
   try {
     const sendLimit = await core.token.checkSendLimit(from, to);
     setMaxFlow(sendLimit);
