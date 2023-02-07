@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.3] - 2023-02-02
+
+### Fixed
+- A typo in the app [#583](https://github.com/CirclesUBI/circles-myxogastria/pull/583)
+- Updated npm dependencies [#571](https://github.com/CirclesUBI/circles-myxogastria/pull/571), [#572](https://github.com/CirclesUBI/circles-myxogastria/pull/572), [#576](https://github.com/CirclesUBI/circles-myxogastria/pull/576), [#572](https://github.com/CirclesUBI/circles-myxogastria/pull/572), [#592](https://github.com/CirclesUBI/circles-myxogastria/pull/592)
+
 ## [2.4.2] - 2023-01-06
 
 ### Fixed
