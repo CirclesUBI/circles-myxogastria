@@ -303,7 +303,6 @@
     "notificationError": "Could not open QR code scanner: {error}."
   },
   "QRGenerator": {
-    "bodyPaymentNoteInvalid": "You cannot write special symbols like {}<br>^ and more than 100 characters.",
     "buttonShowQRCode": "Show QR Code",
     "dialogClose": "Close",
     "dialogSaveFile": "Save as .png file",
@@ -331,7 +330,6 @@
       "zero": "You can currently not send anything to @{username} which means that there is no trust path between you."
     },
     "bodyMaxFlow": "Maximum amount: {amount}",
-    "bodyPaymentNoteInvalid": "You cannot write special symbols like {}<br>^ and more than 100 characters.",
     "buttonSubmitAmount": "Send",
     "dialogSendCancel": "Cancel",
     "dialogSendConfirm": "Confirm",
@@ -368,6 +366,9 @@
   },
   "ShareBox": {
     "headingShowYourQR": "Show your QR code or profile to others to receive trust."
+  },
+  "TextVerification": {
+    "noteInvalid": "You cannot write special symbols like {}<br>^ or more than 100 characters."
   },
   "TransferInfoBalanceCard": {
     "bodyTotalBalance": "Your total balance: {balance}",

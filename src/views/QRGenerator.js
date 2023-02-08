@@ -153,7 +153,7 @@ const QRGenerator = () => {
             </Grid>
             <Grid item xs={12}>
               <TransferInput
-                errorMessage={translate('QRGenerator.bodyPaymentNoteInvalid')}
+                errorMessage={translate('TextVerification.noteInvalid')}
                 id="payment-note"
                 isError={isPaymentNoteInvalid}
                 label={translate('QRGenerator.formPaymentNote')}

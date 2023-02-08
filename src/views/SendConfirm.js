@@ -309,7 +309,7 @@ const SendConfirm = () => {
             </Grid>
             <Grid item xs={12}>
               <TransferInput
-                errorMessage={translate('SendConfirm.bodyPaymentNoteInvalid')}
+                errorMessage={translate('TextVerification.noteInvalid')}
                 id="payment-note"
                 isError={isPaymentNoteInvalid}
                 label={translate('SendConfirm.formPaymentNote')}
