@@ -45,19 +45,6 @@ const SafeVersion = () => {
 
         // .. and update the Safe!
         await dispatch(updateSafeVersion());
-
-        const version = await core.safe.getVersion(safe.currentAccount);
-
-        // Display the action to the user
-        dispatch(
-          notify({
-            text: translate('SafeVersion.infoUpdatedVersion', {
-              version: version,
-            }),
-            type: NotificationsTypes.INFO,
-            timeout: 10000,
-          }),
-        );
       } catch (error) {
         dispatch(
           notify({
