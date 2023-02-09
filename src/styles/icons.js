@@ -90,7 +90,7 @@ export const IconCrossInCircle = (props) => {
 };
 
 export const IconConnections = (props) => {
-  return <SvgIcon component={connections} {...props} viewBox="0 0 21 20" />;
+  return <SvgIcon component={connections} {...props} viewBox="0 0 24 16" />;
 };
 
 export const IconFacebook = (props) => {
@@ -182,7 +182,7 @@ export const IconTelegram = (props) => {
 };
 
 export const IconTransactions = (props) => {
-  return <SvgIcon component={transactions} {...props} viewBox="0 0 20 20" />;
+  return <SvgIcon component={transactions} {...props} viewBox="0 0 19 24" />;
 };
 
 export const IconTriangleWarning = (props) => {
