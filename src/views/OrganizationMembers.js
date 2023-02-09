@@ -132,7 +132,7 @@ const OrganizationMembers = () => {
           text: translate('OrganizationMembers.successRemovedMember', {
             username,
           }),
-          type: NotificationsTypes.SUCCESS,
+          type: NotificationsTypes.INFO,
         }),
       );
 

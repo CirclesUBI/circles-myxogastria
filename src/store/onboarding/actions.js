@@ -1,5 +1,7 @@
 import { tcToCrc } from '@circles/timecircles';
+import React from 'react';
 
+import WelcomeMessage from '~/components/WelcomeMessage';
 import core from '~/services/core';
 import {
   generateDeterministicNonce,
@@ -12,6 +14,7 @@ import {
   showSpinnerOverlay,
   switchAccount,
 } from '~/store/app/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import {
   checkSharedSafeState,
   createSafeWithNonce,
@@ -190,6 +193,12 @@ export function finalizeNewAccount() {
 
     // Finally unlock the Safe (enable UI again)
     await dispatch(unlockSafeDeployment());
+    await dispatch(
+      notify({
+        text: <WelcomeMessage />,
+        type: NotificationsTypes.SPECIAL,
+      }),
+    );
   };
 }
 

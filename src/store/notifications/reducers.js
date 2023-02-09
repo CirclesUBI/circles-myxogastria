@@ -11,6 +11,8 @@ const initialState = {
 const initialStateMessage = {
   id: 1,
   lifetime: 0,
+  icon: 'IconAlert',
+  action: 'actionComponent',
   text: '',
   type: NotificationsTypes.INFO,
   isDismissed: false,
@@ -21,6 +23,8 @@ const notificationsReducer = (state = initialState, action) => {
     case ActionTypes.NOTIFICATIONS_ADD: {
       const message = Object.assign({}, initialStateMessage, action.meta, {
         id: state.nextId,
+        icon: action.meta.icon,
+        action: action.meta.action,
       });
 
       return update(state, {
