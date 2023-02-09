@@ -1,3 +1,4 @@
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import React, { Fragment, useEffect, useState } from 'react';
@@ -30,9 +31,16 @@ const filterToQuery = (filterName) => {
   });
 };
 
+const useStyles = makeStyles(() => ({
+  tabNavigationContainer: {
+    marginBottom: '43px',
+  },
+}));
+
 const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const classes = useStyles();
 
   const { category } = useQuery();
   const preselectedCategory =
@@ -68,7 +76,11 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
 
   return (
     <Fragment>
-      <TabNavigation value={selectedCategory} onChange={handleFilterSelection}>
+      <TabNavigation
+        className={classes.tabNavigationContainer}
+        value={selectedCategory}
+        onChange={handleFilterSelection}
+      >
         <TabNavigationAction
           icon={<IconTransactions />}
           label={translate('ActivityStreamWithTabs.bodyFilterTransactions')}
