@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import core from '~/services/core';
-import translate from '~/services/locale';
 import { getSafeVersion, setSafeVersion } from '~/services/safe';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { updateSafeVersion } from '~/store/safe/actions';
