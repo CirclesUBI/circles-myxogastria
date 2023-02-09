@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import core from '~/services/core';
-import translate from '~/services/locale';
 import { getSafeVersion, setSafeVersion } from '~/services/safe';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { updateSafeVersion } from '~/store/safe/actions';
@@ -45,19 +44,6 @@ const SafeVersion = () => {
 
         // .. and update the Safe!
         await dispatch(updateSafeVersion());
-
-        const version = await core.safe.getVersion(safe.currentAccount);
-
-        // Display the action to the user
-        dispatch(
-          notify({
-            text: translate('SafeVersion.infoUpdatedVersion', {
-              version: version,
-            }),
-            type: NotificationsTypes.INFO,
-            timeout: 10000,
-          }),
-        );
       } catch (error) {
         dispatch(
           notify({
