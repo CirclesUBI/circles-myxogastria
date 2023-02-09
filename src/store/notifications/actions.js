@@ -1,19 +1,21 @@
 import ActionTypes from '~/store/notifications/types';
 
-const DEFAULT_LIFETIME = 5000;
+const DEFAULT_LIFETIME = 10000;
 
 export const NOTIFY = Symbol('Notifications');
 
 export const NotificationsTypes = {
   SUCCESS: 'success',
   INFO: 'info',
-  WARNING: 'warning',
   ERROR: 'error',
+  SPECIAL: 'warning',
 };
 
 export default function notify(options) {
   const {
     text,
+    icon,
+    action,
     type = NotificationsTypes.INFO,
     lifetime = DEFAULT_LIFETIME,
   } = options;
@@ -21,6 +23,8 @@ export default function notify(options) {
   return {
     type: ActionTypes.NOTIFICATIONS_ADD,
     meta: {
+      icon,
+      action,
       lifetime,
       text,
       type,

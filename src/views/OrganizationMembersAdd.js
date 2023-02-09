@@ -78,7 +78,7 @@ const OrganizationMembersAdd = () => {
           text: translate('OrganizationMembersAdd.successAddedMember', {
             username,
           }),
-          type: NotificationsTypes.SUCCESS,
+          type: NotificationsTypes.INFO,
         }),
       );
     } catch {

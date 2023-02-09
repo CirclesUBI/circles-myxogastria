@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import Button from '~/components/Button';
 import translate from '~/services/locale';
-import notify from '~/store/notifications/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 
 const ButtonClipboard = ({ text, children, isIcon, ...props }) => {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const ButtonClipboard = ({ text, children, isIcon, ...props }) => {
     clipboard.on('success', () => {
       dispatch(
         notify({
+          type: NotificationsTypes.SUCCESS,
           text: translate('ButtonClipboard.infoCopiedMessage'),
         }),
       );

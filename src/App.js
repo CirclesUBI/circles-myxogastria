@@ -1,43 +1,68 @@
-import { IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'notistack';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Routes from '~/routes';
 
+import InternetConnection from '~/components/InternetConnection';
 import Notifications from '~/components/Notifications';
 import PinkShadow from '~/components/PinkShadow';
 import SafeVersion from '~/components/SafeVersion';
 import SpinnerOverlay from '~/components/SpinnerOverlay';
 import UBI from '~/components/UBI';
 import { initializeApp } from '~/store/app/actions';
-import { IconAlert, IconClose } from '~/styles/icons';
 import logError from '~/utils/debug';
 
 const useStyles = makeStyles((theme) => ({
-  snackbar: {},
   // @NOTE: Hacky use of !important, see related issue:
   // https://github.com/iamhosseindhv/notistack/issues/305
+  snackbarProvider: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    position: 'relative',
+    bottom: '10px',
+    [theme.breakpoints.up('sm')]: {
+      bottom: '25px',
+    },
+  },
   snackbarInfo: {
-    background: `${theme.custom.gradients.info} !important`,
-    color: `${theme.palette.info.contrastText} !important`,
+    background: `${theme.custom.gradients.pinkToPurple} !important`,
+    boxShadow: `${theme.custom.shadows.lightGray} !important`,
+    color: `${theme.custom.colors.whiteAlmost} !important`,
   },
+  // Warning is used for type special notification
   snackbarWarning: {
-    background: `${theme.custom.gradients.warning} !important`,
-    color: `${theme.palette.warning.contrastText} !important`,
-  },
-  snackbarError: {
-    background: `${theme.custom.gradients.error} !important`,
-    color: `${theme.palette.error.contrastText} !important`,
+    background: `${theme.custom.colors.whiteAlmost} !important`,
+    border: `2px solid ${theme.custom.colors.deepBlush} !important`,
+    borderRadius: '8px !important',
+    boxShadow: `${theme.custom.shadows.lightGray} !important`,
+    color: `${theme.custom.colors.purple} !important`,
+    textAlign: 'center !important',
+    '& span': {
+      background: theme.custom.gradients.lightPinkToPurple,
+      '-webkit-background-clip': 'text',
+      '-webkit-text-fill-color': 'transparent',
+    },
+    '& div': {
+      background: theme.custom.gradients.lightPinkToPurple,
+      '-webkit-background-clip': 'text',
+      '-webkit-text-fill-color': 'transparent',
+    },
   },
   snackbarSuccess: {
-    background: `${theme.custom.gradients.success} !important`,
-    color: `${theme.palette.success.contrastText} !important`,
+    background: `${theme.custom.colors.fountainBlueLighter} !important`,
+    boxShadow: `${theme.custom.shadows.grayBottomRight} !important`,
+    color: `${theme.custom.colors.whiteAlmost} !important`,
   },
-  snackbarIconVariant: {
-    marginRight: theme.spacing(1),
+  snackbarError: {
+    background: `${theme.custom.colors.lividBrown} !important`,
+    boxShadow: `${theme.custom.shadows.lightGray} !important`,
+    color: `${theme.custom.colors.whiteAlmost} !important`,
   },
 }));
 
@@ -45,11 +70,6 @@ const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const app = useSelector((state) => state.app);
-  const notistackRef = useRef();
-
-  const onClickDismiss = (notificationId) => () => {
-    notistackRef.current.closeSnackbar(notificationId);
-  };
 
   useEffect(() => {
     // Initialize app state in redux store
@@ -64,30 +84,16 @@ const App = () => {
     initializeState();
   }, [dispatch]);
 
-  const SnackbarIcon = <IconAlert className={classes.snackbarIconVariant} />;
-
   return (
     <SnackbarProvider
-      action={(notificationId) => (
-        // eslint-disable-next-line react/display-name
-        <IconButton color="inherit" onClick={onClickDismiss(notificationId)}>
-          <IconClose fontSize="small" />
-        </IconButton>
-      )}
+      className={classes.snackbarProvider}
       classes={{
         variantSuccess: classes.snackbarSuccess,
         variantError: classes.snackbarError,
         variantWarning: classes.snackbarWarning,
         variantInfo: classes.snackbarInfo,
       }}
-      iconVariant={{
-        info: SnackbarIcon,
-        default: SnackbarIcon,
-        error: SnackbarIcon,
-        success: SnackbarIcon,
-        warning: SnackbarIcon,
-      }}
-      ref={notistackRef}
+      hideIconVariant
     >
       <Router>
         <PinkShadow>
@@ -96,6 +102,7 @@ const App = () => {
           <Notifications />
           <SpinnerOverlay isVisible={app.isLoading} />
           <Routes />
+          <InternetConnection />
         </PinkShadow>
       </Router>
     </SnackbarProvider>
