@@ -5,12 +5,14 @@ import activity from '%/images/activity.svg';
 import add from '%/images/add.svg';
 import alert from '%/images/alert.svg';
 import arrow from '%/images/arrow.svg';
+import bellRing from '%/images/bell-ring.svg';
 import browser from '%/images/browser.svg';
 import check from '%/images/check.svg';
 import circles from '%/images/circles.svg';
 import closeOutline from '%/images/close-outline.svg';
 import close from '%/images/close.svg';
 import connections from '%/images/connections.svg';
+import crossInCircle from '%/images/cross-in-circle.svg';
 import edit from '%/images/edit.svg';
 import facebook from '%/images/facebook.svg';
 import follow from '%/images/follow.svg';
@@ -19,15 +21,21 @@ import mail from '%/images/mail.svg';
 import members from '%/images/members.svg';
 import menu from '%/images/menu.svg';
 import notification from '%/images/notification.svg';
+import offline from '%/images/offline.svg';
+import okTick from '%/images/ok-tick.svg';
+import partySuccess from '%/images/party-success.svg';
 import plus from '%/images/plus.svg';
 import qrLarge from '%/images/qr-large.svg';
 import qr from '%/images/qr.svg';
+import refresh from '%/images/refresh.svg';
+import reload from '%/images/reload.svg';
 import scan from '%/images/scan.svg';
 import search from '%/images/search.svg';
 import send from '%/images/send.svg';
 import share from '%/images/share.svg';
 import telegram from '%/images/telegram.svg';
 import transactions from '%/images/transactions.svg';
+import triangleWarning from '%/images/triangle-warning.svg';
 import trustActive from '%/images/trust-active.svg';
 import trustMutual from '%/images/trust-mutual.svg';
 import trust from '%/images/trust.svg';
@@ -56,6 +64,10 @@ export const IconBrowser = (props) => {
   return <SvgIcon component={browser} {...props} viewBox="0 0 25 25" />;
 };
 
+export const IconBellRing = (props) => {
+  return <SvgIcon component={bellRing} {...props} viewBox="0 0 25 25" />;
+};
+
 export const IconCheck = (props) => {
   return <SvgIcon component={check} viewBox="0 0 512 512" {...props} />;
 };
@@ -70,6 +82,10 @@ export const IconClose = (props) => {
 
 export const IconCloseOutline = (props) => {
   return <SvgIcon component={closeOutline} {...props} viewBox="0 0 20 20" />;
+};
+
+export const IconCrossInCircle = (props) => {
+  return <SvgIcon component={crossInCircle} {...props} viewBox="0 0 20 20" />;
 };
 
 export const IconConnections = (props) => {
@@ -108,8 +124,28 @@ export const IconNotification = (props) => {
   return <SvgIcon component={notification} {...props} viewBox="0 0 29 34" />;
 };
 
+export const IconOffline = (props) => {
+  return <SvgIcon component={offline} {...props} viewBox="0 0 25 25" />;
+};
+
+export const IconOkTick = (props) => {
+  return <SvgIcon component={okTick} {...props} viewBox="0 0 24 24" />;
+};
+
+export const IconPartySuccess = (props) => {
+  return <SvgIcon component={partySuccess} {...props} viewBox="0 0 25 25" />;
+};
+
 export const IconPlus = (props) => {
   return <SvgIcon component={plus} {...props} viewBox="0 0 20 20" />;
+};
+
+export const IconRefresh = (props) => {
+  return <SvgIcon component={refresh} {...props} viewBox="0 0 25 25" />;
+};
+
+export const IconReload = (props) => {
+  return <SvgIcon component={reload} {...props} viewBox="0 0 25 25" />;
 };
 
 export const IconQR = (props) => {
@@ -142,6 +178,10 @@ export const IconTelegram = (props) => {
 
 export const IconTransactions = (props) => {
   return <SvgIcon component={transactions} {...props} viewBox="0 0 20 20" />;
+};
+
+export const IconTriangleWarning = (props) => {
+  return <SvgIcon component={triangleWarning} {...props} viewBox="0 0 24 24" />;
 };
 
 export const IconTrust = (props) => {
@@ -184,6 +224,8 @@ export const iconSelector = (icon) => {
       return IconBack;
     case 'IconBrowser':
       return IconBrowser;
+    case 'IconBellRing':
+      return IconBellRing;
     case 'IconCheck':
       return IconCheck;
     case 'IconCircles':
@@ -194,6 +236,8 @@ export const iconSelector = (icon) => {
       return IconCloseOutline;
     case 'IconConnections':
       return IconConnections;
+    case 'IconCrossInCircle':
+      return IconCrossInCircle;
     case 'IconFacebook':
       return IconFacebook;
     case 'IconEdit':
@@ -210,12 +254,22 @@ export const iconSelector = (icon) => {
       return IconMenu;
     case 'IconNotification':
       return IconNotification;
+    case 'IconOffline':
+      return IconOffline;
+    case 'IconOkTick':
+      return IconOkTick;
+    case 'IconPartySuccess':
+      return IconPartySuccess;
     case 'IconPlus':
       return IconPlus;
+    case 'IconRefresh':
+      return IconRefresh;
     case 'IconQR':
       return IconQR;
     case 'IconQRLarge':
       return IconQRLarge;
+    case 'IconReload':
+      return IconReload;
     case 'IconScan':
       return IconScan;
     case 'IconSearch':
@@ -228,6 +282,8 @@ export const iconSelector = (icon) => {
       return IconTelegram;
     case 'IconTransactions':
       return IconTransactions;
+    case 'IconTriangleWarning':
+      return IconTriangleWarning;
     case 'IconTrustActive':
       return IconTrustActive;
     case 'IconTrustMutual':

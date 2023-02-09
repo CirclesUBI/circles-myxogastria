@@ -140,12 +140,20 @@ const SendConfirm = () => {
     try {
       await dispatch(transfer(address, amount, paymentNote));
 
+      const text = (
+        <span
+          dangerouslySetInnerHTML={{
+            __html: translate('SendConfirm.successMessage', {
+              amount,
+              username: receiver,
+            }),
+          }}
+        />
+      );
+
       dispatch(
         notify({
-          text: translate('SendConfirm.successMessage', {
-            amount,
-            username: receiver,
-          }),
+          text,
           type: NotificationsTypes.SUCCESS,
         }),
       );
@@ -301,7 +309,7 @@ const SendConfirm = () => {
             </Grid>
             <Grid item xs={12}>
               <TransferInput
-                errorMessage={translate('SendConfirm.bodyPaymentNoteInvalid')}
+                errorMessage={translate('TextVerification.noteInvalid')}
                 id="payment-note"
                 isError={isPaymentNoteInvalid}
                 label={translate('SendConfirm.formPaymentNote')}

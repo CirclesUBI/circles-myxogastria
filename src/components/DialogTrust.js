@@ -56,7 +56,7 @@ const DialogTrust = ({
           text: translate('DialogTrust.successTrust', {
             username,
           }),
-          type: NotificationsTypes.SUCCESS,
+          type: NotificationsTypes.INFO,
         }),
       );
 

@@ -1,15 +1,24 @@
 import { DateTime } from 'luxon';
+import React from 'react';
 
 import {
+  getLastReceivedTransaction,
   getLastSeen,
   removeLastSeen,
+  setLastReceivedTransaction,
   setLastSeen,
   typeToCategory,
 } from '~/services/activity';
 import core from '~/services/core';
+import translate from '~/services/locale';
+import resolveUsernames from '~/services/username';
 import web3 from '~/services/web3';
 import { CATEGORIES } from '~/store/activity/reducers';
 import ActionTypes from '~/store/activity/types';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { formatCirclesValue } from '~/utils/format';
+
+const { ActivityTypes } = core.activity;
 
 const PAGE_SIZE = 10;
 
@@ -121,6 +130,52 @@ export function checkFinishedActivities({
           PAGE_SIZE,
           activity.lastTimestamp,
         );
+
+        // Check received transactions from different users and notify user about them if necessary
+        if (category === CATEGORIES[1]) {
+          const lastReceivedTransactionDate = DateTime.fromISO(
+            getLastReceivedTransaction(),
+          );
+          for await (const receivedTransferActivity of activities) {
+            if (receivedTransferActivity.type === ActivityTypes.HUB_TRANSFER) {
+              const receivedTransferActivityDate = DateTime.fromSeconds(
+                receivedTransferActivity.timestamp,
+              );
+              if (receivedTransferActivityDate > lastReceivedTransactionDate) {
+                const sender = receivedTransferActivity?.data?.from;
+                let senderName = '';
+                const senderData = await resolveUsernames([sender], true);
+                if (sender in senderData) {
+                  senderName = senderData[sender].username;
+                }
+                const valueInCircles = formatCirclesValue(
+                  receivedTransferActivity.data?.value,
+                  2,
+                  false,
+                );
+
+                const text = (
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: translate('SendConfirm.receiveSuccessMessage', {
+                        amount: valueInCircles,
+                        username: senderName,
+                      }),
+                    }}
+                  />
+                );
+
+                dispatch(
+                  notify({
+                    text,
+                    type: NotificationsTypes.SUCCESS,
+                  }),
+                );
+              }
+            }
+          }
+          setLastReceivedTransaction(DateTime.now().toISO());
+        }
 
         dispatch({
           type: ActionTypes.ACTIVITIES_UPDATE_SUCCESS,

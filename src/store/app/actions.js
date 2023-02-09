@@ -1,3 +1,4 @@
+import { initializeLastReceivedTransaction } from '~/services/activity';
 import { removeSafeVersion } from '~/services/safe';
 import { setUser } from '~/services/sentry';
 import resolveUsernames from '~/services/username';
@@ -41,6 +42,7 @@ export function initializeApp() {
       await dispatch(initializeWallet());
       await dispatch(initializeSafe());
       await dispatch(initializeActivities());
+      initializeLastReceivedTransaction();
       await dispatch(checkAuthState());
 
       // Check only once in the beginning if Safe is funded (since this is an

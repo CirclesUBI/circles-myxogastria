@@ -47,7 +47,7 @@ const DialogTrustRevoke = ({
           text: translate('DialogTrustRevoke.successRevokeTrust', {
             username,
           }),
-          type: NotificationsTypes.SUCCESS,
+          type: NotificationsTypes.INFO,
         }),
       );
 

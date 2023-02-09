@@ -15,6 +15,7 @@ import { formatCirclesValue } from '~/utils/format';
 const { ActivityTypes, ActivityFilterTypes } = core.activity;
 
 const LAST_SEEN_NAME = 'lastSeen';
+const LAST_RECEIVED_TRANSACTION = 'lastReceivedTransaction';
 
 // Map ActivityTypes to ActivityFilterTypes / categories
 const TYPES = {
@@ -54,6 +55,23 @@ export function setLastSeen(lastSeen) {
 
 export function removeLastSeen() {
   removeItem(LAST_SEEN_NAME);
+}
+
+export function setLastReceivedTransaction(lastReceived) {
+  setItem(LAST_RECEIVED_TRANSACTION, lastReceived);
+}
+
+export function getLastReceivedTransaction() {
+  if (isAvailable() && hasItem(LAST_RECEIVED_TRANSACTION)) {
+    return getItem(LAST_RECEIVED_TRANSACTION);
+  }
+}
+
+export function initializeLastReceivedTransaction() {
+  if (isAvailable() && !hasItem(LAST_RECEIVED_TRANSACTION)) {
+    const date = DateTime.now().toISO();
+    setLastReceivedTransaction(date);
+  }
 }
 
 // Format the activity message and extract the most interesting bits from it

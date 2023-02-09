@@ -326,7 +326,6 @@ const FinderSearchBar = ({
     <Input
       autoComplete="off"
       autoFocus
-      disableUnderline={true}
       fullWidth
       id="search"
       isOrganization={isOrganization}

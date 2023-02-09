@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import core from '~/services/core';
@@ -44,13 +44,21 @@ const UBI = () => {
       // .. and get it!
       await dispatch(requestUBIPayout(payout));
 
+      const text = (
+        <span
+          dangerouslySetInnerHTML={{
+            __html: translate('UBI.infoUbiPayoutReceived', {
+              payout: formatCirclesValue(payout, Date.now(), 4),
+            }),
+          }}
+        />
+      );
+
       // Display pending UBI to the user
       dispatch(
         notify({
-          text: translate('UBI.infoUbiPayoutReceived', {
-            payout: formatCirclesValue(payout, Date.now(), 4),
-          }),
-          type: NotificationsTypes.INFO,
+          text,
+          type: NotificationsTypes.SPECIAL,
           timeout: 10000,
         }),
       );
