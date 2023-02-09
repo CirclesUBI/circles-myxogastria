@@ -260,7 +260,7 @@ async function loopTransfer(
           to,
           value,
           paymentNote,
-          hops,
+          hops - 1,
           attemptsLeft - 1,
           errorsMessages.concat(
             ' ',
