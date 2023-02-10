@@ -19,7 +19,7 @@ import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
 import { IconConnections, IconTransactions } from '~/styles/icons';
 
 const { ActivityFilterTypes } = core.activity;
-const { newsItems } = core.news;
+const { activities: newsActivities } = core.news;
 
 const DEFAULT_CATEGORY = ActivityFilterTypes.TRANSFERS;
 
@@ -82,6 +82,10 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const isLoadingMoreNews = false;
   const isMoreAvailableNews = false;
 
+  const newNewsActivities = newsActivities.reduceRight((acc, activity) => {
+    return activity.createdAt > lastSeenAt ? acc + 1 : acc;
+  }, 0);
+
   return (
     <>
       <TabNavigation
@@ -101,7 +105,11 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
         />
         <TabNavigationAction
           icon={<IconMegaphone />}
-          itemsCounter={newsItems.length + 1}
+          itemsCounter={
+            preselectedCategory !== 'News' && newNewsActivities
+              ? newNewsActivities
+              : null
+          }
           label={translate('ActivityStreamWithTabs.bodyFilterNews')}
           value={'News'}
         />
@@ -121,7 +129,8 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
         <NewsFeed
           isLoading={isLoadingMoreNews}
           isMoreAvailable={isMoreAvailableNews}
-          news={newsItems}
+          lastSeenAt={lastSeenAt}
+          news={newsActivities}
           onLoadMore={handleLoadMoreNews}
         ></NewsFeed>
       )}
