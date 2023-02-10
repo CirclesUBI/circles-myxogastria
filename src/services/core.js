@@ -292,9 +292,11 @@ const activity = {
 
 // News module
 const news = {
-  newsItems: [
+  activities: [
     {
+      createdAt: '2023-02-05T22:14:01.714+04:00',
       id: '1',
+      isPending: false,
       title: 'We have some problems! In two lines, in two lines ',
       text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
@@ -302,7 +304,9 @@ const news = {
       icon: 'IconHeartWithExclamationMark',
     },
     {
+      createdAt: '2023-02-05T22:12:03.214+04:00',
       id: '2',
+      isPending: false,
       title: 'Welcome to Circles!',
       text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
@@ -310,7 +314,9 @@ const news = {
       icon: 'IconCirclesLogoLight',
     },
     {
+      createdAt: '2023-02-05T22:12:01.000+04:00',
       id: '3',
+      isPending: false,
       title: 'New Features!',
       text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
@@ -318,7 +324,9 @@ const news = {
       icon: 'IconExclamationAndQuestionMark',
     },
     {
+      createdAt: '2023-02-04T12:24:46.000+04:00',
       id: '4',
+      isPending: false,
       title: 'We have some problems! In two lines, in two lines ',
       text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
@@ -326,7 +334,9 @@ const news = {
       icon: 'IconExclamationAndQuestionMark',
     },
     {
+      createdAt: '2023-02-04T12:21:31.000+04:00',
       id: '5',
+      isPending: false,
       title: '2We have some problems! In two lines, in two lines ',
       text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
@@ -334,7 +344,9 @@ const news = {
       icon: 'IconHeartWithExclamationMark',
     },
     {
+      createdAt: '2023-02-03T15:27:33.000+04:00',
       id: '6',
+      isPending: false,
       title: '2Welcome to Circles!',
       text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
@@ -342,7 +354,9 @@ const news = {
       icon: 'IconCirclesLogoLight',
     },
     {
+      createdAt: '2023-02-03T15:25:38.000+04:00',
       id: '7',
+      isPending: false,
       title: '2New Features!',
       text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
@@ -350,7 +364,9 @@ const news = {
       icon: 'IconExclamationAndQuestionMark',
     },
     {
+      createdAt: '2023-02-03T15:02:27.000+04:00',
       id: '8',
+      isPending: false,
       title: '2We have some problems! In two lines',
       text: '<p>Lorem ipsum text...</p><p>Lorem ipsum text </p>',
       url: 'https://market.joincircles.net/',
