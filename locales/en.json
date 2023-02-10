@@ -349,8 +349,10 @@
     "formSender": "Sent from",
     "headingSendCircles": "Send Circles",
     "successMessage": "<strong>{amount}circles</strong> sent to @{username}!",
+    "readMoreLink": "Read more about transitive transactions",
     "receiveSuccessMessage": "You received <strong>{amount}circles</strong> from <br> @{username}.",
-    "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}"
+    "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}",
+    "transferringCirclesInfo": "Transferring circles through the network. This may take a few minutes."
   },
   "Settings": {
     "bodyDeviceAddress": "Device address",

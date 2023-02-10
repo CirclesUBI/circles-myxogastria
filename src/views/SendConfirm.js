@@ -1,13 +1,4 @@
-import {
-  Box,
-  Container,
-  Dialog,
-  DialogContent,
-  Grid,
-  Typography,
-  Zoom,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Container, Grid } from '@material-ui/core';
 import qs from 'qs';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +17,7 @@ import ButtonHome from '~/components/ButtonHome';
 import CenteredHeading from '~/components/CenteredHeading';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import SendConfirmDialog from '~/components/SendConfirmDialog';
 import TransferCirclesInput from '~/components/TransferCirclesInput';
 import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
 import TransferInfoCard from '~/components/TransferInfoCard';
@@ -38,31 +30,16 @@ import core from '~/services/core';
 import translate from '~/services/locale';
 import { validateAmount, validatePaymentNote } from '~/services/token';
 import web3 from '~/services/web3';
-import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { checkCurrentBalance, transfer } from '~/store/token/actions';
-import { IconSend } from '~/styles/icons';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import { findMaxFlow } from '~/utils/findPath';
 import { formatCirclesValue } from '~/utils/format';
 
 const { ErrorCodes, TransferError } = core.errors;
 
-const useStyles = makeStyles((theme) => ({
-  dialogPaymentNote: {
-    fontWeight: theme.typography.fontWeightRegular,
-    color: theme.palette.grey['900'],
-    wordWrap: 'break-word',
-  },
-  sendIcon: {
-    color: theme.custom.colors.disco,
-    fontSize: 'inherit',
-  },
-}));
-
 const SendConfirm = () => {
   const { address } = useParams();
-  const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -81,6 +58,8 @@ const SendConfirm = () => {
   );
 
   const [isConfirmationShown, setIsConfirmationShown] = useState(false);
+  const [isLoadingConfirmationShown, setIsLoadingConfirmationShown] =
+    useState(false);
   const [isSent, setIsSent] = useState(false);
   const [maxFlow, setMaxFlow] = useState(null);
 
@@ -130,12 +109,13 @@ const SendConfirm = () => {
   };
 
   const handleConfirmClose = () => {
-    setIsConfirmationShown(false);
+    setIsLoadingConfirmationShown(false);
   };
 
   const handleSend = async () => {
-    dispatch(showSpinnerOverlay());
     setIsConfirmationShown(false);
+
+    setIsLoadingConfirmationShown(true);
 
     try {
       await dispatch(transfer(address, amount, paymentNote));
@@ -191,7 +171,7 @@ const SendConfirm = () => {
       );
     }
 
-    dispatch(hideSpinnerOverlay());
+    setIsLoadingConfirmationShown(false);
   };
 
   let amountErrorBool;
@@ -209,54 +189,15 @@ const SendConfirm = () => {
 
   return (
     <Fragment>
-      <Dialog
-        aria-describedby={`dialog-send-text`}
-        aria-labelledby={`dialog-send-description`}
-        fullWidth
-        maxWidth="xs"
-        open={isConfirmationShown}
-        onClose={handleConfirmClose}
-      >
-        <DialogContent>
-          <Typography align="center" variant="h6">
-            @{sender}
-          </Typography>
-          <Zoom
-            in={isConfirmationShown}
-            style={{ transitionDelay: isConfirmationShown ? '250ms' : '0ms' }}
-          >
-            <Box
-              my={2}
-              style={{
-                textAlign: 'center',
-                fontSize: '100px',
-                height: '100px',
-              }}
-            >
-              <IconSend className={classes.sendIcon} />
-            </Box>
-          </Zoom>
-          <Typography align="center" gutterBottom>
-            {translate('SendConfirm.dialogSendDescription', {
-              amount,
-              username: receiver,
-            })}
-          </Typography>
-          <Typography align="center" className={classes.dialogPaymentNote}>
-            {paymentNote}
-          </Typography>
-          <Box maxWidth="60%" mb={1} mt={2} mx="auto">
-            <Button autoFocus fullWidth onClick={handleSend}>
-              {translate('SendConfirm.dialogSendConfirm')}
-            </Button>
-          </Box>
-          <Box maxWidth="60%" mb={2} mx="auto">
-            <Button fullWidth isOutline onClick={handleConfirmClose}>
-              {translate('SendConfirm.dialogSendCancel')}
-            </Button>
-          </Box>
-        </DialogContent>
-      </Dialog>
+      <SendConfirmDialog
+        amount={amount}
+        handleConfirmClose={handleConfirmClose}
+        handleSend={handleSend}
+        isConfirmationShown={isConfirmationShown}
+        isLoadingConfirmationShown={isLoadingConfirmationShown}
+        paymentNote={paymentNote}
+        sender={sender}
+      />
       <Header>
         <ButtonBack />
         <CenteredHeading>
