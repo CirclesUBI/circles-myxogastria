@@ -8,6 +8,7 @@ import DialogBurn from '~/components/DialogBurn';
 import HumbleAlert from '~/components/HumbleAlert';
 import View from '~/components/View';
 import translate from '~/services/locale';
+import { colors } from '~/styles/theme';
 
 const CriticalError = () => {
   const { app, wallet, safe, token } = useSelector((state) => state);
@@ -37,7 +38,11 @@ const CriticalError = () => {
         <AppNote messageVersion="error" />
         {app.errorMessage && (
           <Box my={2} style={{ wordBreak: 'break-word' }}>
-            <HumbleAlert>
+            <HumbleAlert
+              color={colors.fountainBlueLighter}
+              icon="IconTriangleWarning"
+              iconColor={colors.whiteAlmost}
+            >
               <Typography gutterBottom>{app.errorMessage}</Typography>
               {wallet.address && (
                 <Typography component="p" variant="caption">
