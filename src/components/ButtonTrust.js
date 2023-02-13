@@ -12,7 +12,7 @@ import {
 } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
-  trustButton: {
+  default: {
     background: 'transparent',
     color: theme.palette.common.whiteAlmost,
     padding: '0',
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  trustButtonIsMeTrusting: {
+  oneWayTrust: {
     '& stop:first-of-type': {
       stopColor: theme.custom.colors.violet,
     },
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  trustButtonMutuallyTrusted: {
+  mutualTrust: {
     '& stop:first-of-type': {
       stopColor: theme.custom.colors.fountainBlue,
     },
@@ -103,10 +103,10 @@ const ButtonTrust = ({
   return (
     <IconButton
       classes={{
-        root: clsx(classes.trustButton, {
-          [classes.trustButtonIsMeTrusting]: trustStatus.isMeTrusting,
-          [classes.trustButtonIsTrustingMe]: trustStatus.isTrustingMe,
-          [classes.trustButtonMutuallyTrusted]:
+        root: clsx(classes.default, {
+          [classes.oneWayTrust]:
+            trustStatus.isMeTrusting || trustStatus.isTrustingMe,
+          [classes.mutualTrust]:
             trustStatus.isMeTrusting && trustStatus.isTrustingMe,
         }),
         disabled: classes.trustButtonDisabled,
