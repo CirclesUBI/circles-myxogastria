@@ -89,6 +89,7 @@ const AppNote = ({ messageVersion }) => {
         color={colorSelector(color)}
         icon={icon}
         iconColor={iconColorSelector(iconColor)}
+        parseHtml
       >
         {message}
       </HumbleAlert>
