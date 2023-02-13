@@ -54,9 +54,17 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     zIndex: '10000',
   },
+  darkIcons: {
+    '& button, & a.MuiIconButton-root': {
+      color: theme.palette.icons.dark,
+    },
+  },
   whiteIcons: {
     '& button, & a.MuiIconButton-root': {
-      color: theme.custom.colors.white,
+      color: theme.palette.icons.light,
+      '&:hover': {
+        color: theme.palette.icons.lightHover,
+      },
     },
   },
 }));
@@ -88,6 +96,7 @@ const Header = ({
       <Toolbar
         className={clsx(classes.toolbar, {
           [classes.whiteIcons]: hasWhiteIcons,
+          [classes.darkIcons]: !hasWhiteIcons,
         })}
       >
         {children}
