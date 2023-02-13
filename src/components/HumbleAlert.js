@@ -25,6 +25,15 @@ const useStyles = makeStyles((theme) => {
         },
       },
     },
+    alertHtmlChildren: {
+      '& a': {
+        textDecoration: 'none',
+        color: theme.custom.colors.blueRibbon,
+        '&:hover': {
+          textDecoration: 'underline',
+        },
+      },
+    },
     alertIcon: {
       color: theme.palette.grey['800'],
       '& path': {
@@ -34,7 +43,13 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const HumbleAlert = ({ children, icon, color, iconColor }) => {
+const HumbleAlert = ({
+  children,
+  icon,
+  color,
+  iconColor,
+  parseHtml = false,
+}) => {
   const classes = useStyles({ color, iconColor });
   const IconElement = iconSelector(icon);
 
@@ -44,10 +59,13 @@ const HumbleAlert = ({ children, icon, color, iconColor }) => {
       icon={<IconElement className={classes.alertIcon} fontSize="inherit" />}
       severity="info"
     >
-      <div
-        className={classes.alertContent}
-        dangerouslySetInnerHTML={{ __html: children }}
-      />
+      {parseHtml && (
+        <div
+          className={classes.alertHtmlChildren}
+          dangerouslySetInnerHTML={{ __html: children }}
+        />
+      )}
+      {!parseHtml && children}
     </Alert>
   );
 };
@@ -57,6 +75,7 @@ HumbleAlert.propTypes = {
   color: PropTypes.string,
   icon: PropTypes.string,
   iconColor: PropTypes.string,
+  parseHtml: PropTypes.bool,
 };
 
 export default HumbleAlert;
