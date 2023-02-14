@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.5.1] - 2023-02-14
+
+### Fixed
+- Update of circles core version that allows Safes with version v1.1.1+Circles to deploy the token contract (core.token.deploy) [#605](https://github.com/CirclesUBI/circles-myxogastria/pull/605)
+- Adjustment of retry logic for the update transfers edges calls with fewer hops just like with transfer calls [#597](https://github.com/CirclesUBI/circles-myxogastria/pull/597)
+
+### Removed
+- Unintentional notification for safe upgrade [#596](https://github.com/CirclesUBI/circles-myxogastria/pull/596)
+
 ## [2.5.0] - 2023-02-07
 
 ### Fixed
