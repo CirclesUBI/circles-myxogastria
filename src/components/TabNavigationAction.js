@@ -6,10 +6,18 @@ import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   tab: {
-    padding: theme.spacing(1),
+    padding: '11px 8px 0',
     textTransform: 'none',
     fontWeight: theme.typography.fontWeightLight,
-    fontSize: 13,
+    fontSize: 12,
+
+    '&.MuiTab-labelIcon': {
+      minHeight: 'auto',
+
+      '& .MuiTab-wrapper > *:first-child': {
+        marginBottom: '0',
+      },
+    },
   },
 }));
 

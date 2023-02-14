@@ -46,7 +46,7 @@ import wobblyCircle from '%/images/wobblyCircle.svg';
 import world from '%/images/world.svg';
 
 export const IconActivity = (props) => {
-  return <SvgIcon component={activity} {...props} viewBox="0 0 20 20" />;
+  return <SvgIcon component={activity} {...props} viewBox="0 0 24 24" />;
 };
 
 export const IconAdd = (props) => {
@@ -102,7 +102,7 @@ export const IconEdit = (props) => {
 };
 
 export const IconFollow = (props) => {
-  return <SvgIcon component={follow} {...props} viewBox="0 0 26 20" />;
+  return <SvgIcon component={follow} {...props} viewBox="0 0 24 24" />;
 };
 
 export const IconFriends = (props) => {
@@ -214,7 +214,7 @@ export const IconWobblyCircle = (props) => {
 };
 
 export const IconWorld = (props) => {
-  return <SvgIcon component={world} {...props} viewBox="0 0 20 20" />;
+  return <SvgIcon component={world} {...props} viewBox="0 0 24 24" />;
 };
 
 export const iconSelector = (icon) => {

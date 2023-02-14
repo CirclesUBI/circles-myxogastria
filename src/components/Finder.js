@@ -6,6 +6,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import React, {
@@ -80,10 +81,20 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: `2px solid ${theme.palette.primary.main}`,
     },
   },
-  iconTrustActice: {
+  iconActive: {
     '& path': {
-      fill: 'inherit',
+      fill: theme.custom.colors.violet,
     },
+  },
+  badgeContainer: {
+    backgroundColor: theme.custom.colors.fountainBlue,
+    fontSize: '12px',
+    fontWeight: '700',
+    minWidth: 'auto',
+    padding: '0',
+    width: '17px',
+    height: '17px',
+    right: '-6px',
   },
 }));
 
@@ -351,10 +362,17 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
         icon={
           <Badge
             badgeContent={filterResults[FILTER_DIRECT].length}
+            classes={{
+              badge: classes.badgeContainer,
+            }}
             color="primary"
             overlap="rectangular"
           >
-            <IconTrustActive className={classes.iconTrustActice} />
+            <IconTrustActive
+              className={clsx({
+                [classes.iconActive]: selectedFilter === FILTER_DIRECT,
+              })}
+            />
           </Badge>
         }
         label={translate('Finder.bodyFilterDirect')}
@@ -364,10 +382,17 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
         icon={
           <Badge
             badgeContent={filterResults[FILTER_INDIRECT].length}
+            classes={{
+              badge: classes.badgeContainer,
+            }}
             color="primary"
             overlap="rectangular"
           >
-            <IconFollow />
+            <IconFollow
+              className={clsx({
+                [classes.iconActive]: selectedFilter === FILTER_INDIRECT,
+              })}
+            />
           </Badge>
         }
         label={translate('Finder.bodyFilterIndirect')}
@@ -377,10 +402,17 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
         icon={
           <Badge
             badgeContent={filterResults[FILTER_EXTERNAL].length}
+            classes={{
+              badge: classes.badgeContainer,
+            }}
             color="primary"
             overlap="rectangular"
           >
-            <IconWorld />
+            <IconWorld
+              className={clsx({
+                [classes.iconActive]: selectedFilter === FILTER_EXTERNAL,
+              })}
+            />
           </Badge>
         }
         label={translate('Finder.bodyFilterExternal')}
