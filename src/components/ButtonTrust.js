@@ -14,7 +14,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   trustButton: {
     background: 'transparent',
-    color: theme.palette.common.whiteAlmost,
+    color: theme.custom.colors.whiteAlmost,
     padding: '0',
   },
   trustButtonNoTrust: {
@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     },
     '&:hover': {
       '& stop:first-of-type': {
+        // change svg gradient
+        // has a stop element itself
+        // changes all stop properties
         stopColor: theme.custom.colors.cannonPink,
       },
       '& stop:last-of-type': {
