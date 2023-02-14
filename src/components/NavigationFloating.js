@@ -13,7 +13,7 @@ import {
 import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
-import { IconClose } from '~/styles/icons';
+import { IconClose, IconMore } from '~/styles/icons';
 import { FAQ_URL, MARKETPLACE_URL } from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => {
@@ -181,7 +181,7 @@ export default function NavigationFloating(props) {
         id="navigation-floating-menu-btn"
         onClick={handleClick}
       >
-        <span className={classes.dotsText}>...</span>
+        <IconMore />
       </Fab>
       <Menu
         anchorEl={anchorEl}
