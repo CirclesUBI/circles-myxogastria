@@ -43,8 +43,8 @@ import trustMutual from '%/images/trust-mutual.svg';
 import trust from '%/images/trust.svg';
 import trustedDirectly from '%/images/trusted-directly.svg';
 import twitter from '%/images/twitter.svg';
-import uploadPhoto from '%/images/uploadPhoto.svg';
-import wobblyCircle from '%/images/wobblyCircle.svg';
+import uploadPhoto from '%/images/upload-photo.svg';
+import wobblyCircle from '%/images/wobbly-circle.svg';
 import world from '%/images/world.svg';
 
 export const IconActivity = (props) => {
