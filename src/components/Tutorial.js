@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
     background: 'transparent',
   },
   tutorialMobileStepperDot: {
-    backgroundColor: theme.palette.common.white,
-    border: `1px solid ${theme.palette.common.white}`,
+    backgroundColor: theme.palette.icons.light,
+    border: `1px solid ${theme.palette.icons.light}`,
   },
   tutorialMobileStepperDots: {
     position: 'absolute',
@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translateX(-50%)',
   },
   tutorialMobileStepperDotActive: {
-    background: theme.custom.colors.purpleDark,
-    border: `2px solid ${theme.custom.colors.purpleDark}`,
+    background: theme.palette.icons.dark,
+    border: `2px solid ${theme.palette.icons.dark}`,
   },
   tutorialSkipButton: {
     fontWeight: theme.typography.fontWeightMedium,
