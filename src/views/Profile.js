@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,7 +42,7 @@ import {
   checkPendingActivities,
 } from '~/store/activity/actions';
 import { checkTrustState } from '~/store/trust/actions';
-import { IconActivity, IconFriends, IconShare } from '~/styles/icons';
+import { IconActivity, IconShare, IconTrustMutual } from '~/styles/icons';
 import NotFound from '~/views/NotFound';
 
 const PANEL_ACTIVITY = Symbol('panelActivity');
@@ -51,9 +52,24 @@ const DEFAULT_PANEL = PANEL_TRUST;
 
 const PAGE_SIZE = 10;
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   mutualUserCard: {
     cursor: 'pointer',
+  },
+  iconActive: {
+    '& path': {
+      fill: theme.custom.colors.violet,
+    },
+  },
+  badgeContainer: {
+    backgroundColor: theme.custom.colors.fountainBlue,
+    fontSize: '12px',
+    fontWeight: '700',
+    minWidth: 'auto',
+    padding: '0',
+    width: '17px',
+    height: '17px',
+    right: '-6px',
   },
 }));
 
@@ -178,6 +194,7 @@ const ProfileStatus = ({ address, deploymentStatus, trustStatus }) => {
 const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
   const [selectedPanel, setSelectedPanel] = useState(DEFAULT_PANEL);
   const [redirectPath, setRedirectPath] = useState(null);
+  const classes = useStyles();
 
   const handleProfileSelection = (selectedAddress) => {
     setRedirectPath(
@@ -206,6 +223,8 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
     return null;
   }
 
+  const mutualyTrusted = trustStatus.mutualConnections.length;
+
   return (
     <Fragment>
       <TabNavigation
@@ -221,8 +240,23 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
           value={PANEL_ACTIVITY}
         />
         <TabNavigationAction
-          icon={<IconFriends />}
-          label={translate('Profile.bodyTrustedBy')}
+          icon={
+            <Badge
+              badgeContent={mutualyTrusted}
+              classes={{
+                badge: classes.badgeContainer,
+              }}
+              color="primary"
+              overlap="rectangular"
+            >
+              <IconTrustMutual
+                className={clsx({
+                  [classes.iconActive]: selectedPanel === PANEL_TRUST,
+                })}
+              />
+            </Badge>
+          }
+          label={translate('Profile.bodyMutuallyTrusted')}
           value={PANEL_TRUST}
         />
       </TabNavigation>

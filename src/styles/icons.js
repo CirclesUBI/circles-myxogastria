@@ -40,6 +40,7 @@ import triangleWarning from '%/images/triangle-warning.svg';
 import trustActive from '%/images/trust-active.svg';
 import trustMutual from '%/images/trust-mutual.svg';
 import trust from '%/images/trust.svg';
+import trustedDirectly from '%/images/trusted-directly.svg';
 import twitter from '%/images/twitter.svg';
 import uploadPhoto from '%/images/uploadPhoto.svg';
 import wobblyCircle from '%/images/wobblyCircle.svg';
@@ -197,6 +198,10 @@ export const IconTrustActive = (props) => {
   return <SvgIcon component={trustActive} {...props} viewBox="0 0 32 38" />;
 };
 
+export const IconTrustedDirectly = (props) => {
+  return <SvgIcon component={trustedDirectly} {...props} viewBox="0 0 24 24" />;
+};
+
 export const IconTrustMutual = (props) => {
   return <SvgIcon component={trustMutual} {...props} viewBox="0 0 29 34" />;
 };
@@ -291,6 +296,8 @@ export const iconSelector = (icon) => {
       return IconTriangleWarning;
     case 'IconTrustActive':
       return IconTrustActive;
+    case 'IconTrustedDirectly':
+      return IconTrustedDirectly;
     case 'IconTrustMutual':
       return IconTrustMutual;
     case 'IconTwitter':

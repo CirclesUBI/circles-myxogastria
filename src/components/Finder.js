@@ -1,12 +1,11 @@
 import {
-  Badge,
+  // Badge,
   Box,
   CircularProgress,
   Grid,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import React, {
@@ -22,6 +21,7 @@ import { generatePath, useHistory } from 'react-router-dom';
 import { SEARCH_PATH } from '~/routes';
 
 import TourWebOfTrustSVG from '%/images/web-of-trust.svg';
+import BadgeCircle from '~/components/BadgeCircle';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import ProfileMini from '~/components/ProfileMini';
@@ -32,7 +32,7 @@ import { useQuery } from '~/hooks/url';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import { checkTrustState } from '~/store/trust/actions';
-import { IconFollow, IconTrustActive, IconWorld } from '~/styles/icons';
+import { IconFollow, IconTrustedDirectly, IconWorld } from '~/styles/icons';
 import debounce from '~/utils/debounce';
 
 const MAX_SEARCH_RESULTS = 10;
@@ -80,21 +80,6 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '0.9rem',
       borderBottom: `2px solid ${theme.palette.primary.main}`,
     },
-  },
-  iconActive: {
-    '& path': {
-      fill: theme.custom.colors.violet,
-    },
-  },
-  badgeContainer: {
-    backgroundColor: theme.custom.colors.fountainBlue,
-    fontSize: '12px',
-    fontWeight: '700',
-    minWidth: 'auto',
-    padding: '0',
-    width: '17px',
-    height: '17px',
-    right: '-6px',
   },
 }));
 
@@ -349,8 +334,6 @@ const FinderSearchBar = ({
 };
 
 const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
-  const classes = useStyles();
-
   return (
     <TabNavigation
       value={selectedFilter}
@@ -360,60 +343,33 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
     >
       <TabNavigationAction
         icon={
-          <Badge
+          <BadgeCircle
             badgeContent={filterResults[FILTER_DIRECT].length}
-            classes={{
-              badge: classes.badgeContainer,
-            }}
-            color="primary"
-            overlap="rectangular"
-          >
-            <IconTrustActive
-              className={clsx({
-                [classes.iconActive]: selectedFilter === FILTER_DIRECT,
-              })}
-            />
-          </Badge>
+            icon={IconTrustedDirectly}
+            isActive={selectedFilter === FILTER_DIRECT}
+          ></BadgeCircle>
         }
         label={translate('Finder.bodyFilterDirect')}
         value={FILTER_DIRECT}
       />
       <TabNavigationAction
         icon={
-          <Badge
+          <BadgeCircle
             badgeContent={filterResults[FILTER_INDIRECT].length}
-            classes={{
-              badge: classes.badgeContainer,
-            }}
-            color="primary"
-            overlap="rectangular"
-          >
-            <IconFollow
-              className={clsx({
-                [classes.iconActive]: selectedFilter === FILTER_INDIRECT,
-              })}
-            />
-          </Badge>
+            icon={IconFollow}
+            isActive={selectedFilter === FILTER_INDIRECT}
+          ></BadgeCircle>
         }
         label={translate('Finder.bodyFilterIndirect')}
         value={FILTER_INDIRECT}
       />
       <TabNavigationAction
         icon={
-          <Badge
+          <BadgeCircle
             badgeContent={filterResults[FILTER_EXTERNAL].length}
-            classes={{
-              badge: classes.badgeContainer,
-            }}
-            color="primary"
-            overlap="rectangular"
-          >
-            <IconWorld
-              className={clsx({
-                [classes.iconActive]: selectedFilter === FILTER_EXTERNAL,
-              })}
-            />
-          </Badge>
+            icon={IconWorld}
+            isActive={selectedFilter === FILTER_EXTERNAL}
+          ></BadgeCircle>
         }
         label={translate('Finder.bodyFilterExternal')}
         value={FILTER_EXTERNAL}
