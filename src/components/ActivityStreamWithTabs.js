@@ -9,6 +9,7 @@ import { generatePath, useHistory } from 'react-router-dom';
 import { ACTIVITIES_PATH } from '~/routes';
 
 import ActivityStream from '~/components/ActivityStream';
+import BadgeCircle from '~/components/BadgeCircle';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
 import core from '~/services/core';
@@ -129,34 +130,30 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
       >
         <TabNavigationAction
           icon={
-            <Badge
+            <BadgeCircle
               badgeContent={
                 selectedCategory != QUERY_FILTER_MAP.transfers
-                  ? newActivities[QUERY_FILTER_MAP.transfers]
-                  : null
+                ? newActivities[QUERY_FILTER_MAP.transfers]
+                : null
               }
-              color="primary"
-              overlap="rectangular"
-            >
-              <IconTransactions />
-            </Badge>
+              icon={IconTransactions}
+              isActive
+            />
           }
           label={translate('ActivityStreamWithTabs.bodyFilterTransactions')}
           value={ActivityFilterTypes.TRANSFERS}
         />
         <TabNavigationAction
           icon={
-            <Badge
+            <BadgeCircle
               badgeContent={
-                selectedCategory != QUERY_FILTER_MAP.connections
-                  ? newActivities[QUERY_FILTER_MAP.connections]
-                  : null
+              selectedCategory != QUERY_FILTER_MAP.connections
+                ? newActivities[QUERY_FILTER_MAP.connections]
+                : null
               }
-              color="primary"
-              overlap="rectangular"
-            >
-              <IconConnections />
-            </Badge>
+              icon={IconConnections}
+              isActive
+            />
           }
           label={translate('ActivityStreamWithTabs.bodyFilterConnections')}
           value={ActivityFilterTypes.CONNECTIONS}
