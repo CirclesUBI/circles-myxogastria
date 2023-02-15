@@ -359,7 +359,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
             badgeContent={filterResults[FILTER_DIRECT].length}
             icon={IconTrustedDirectly}
             isActive={selectedFilter === FILTER_DIRECT}
-          ></BadgeCircle>
+          />
         }
         label={translate('Finder.bodyFilterDirect')}
         value={FILTER_DIRECT}
@@ -370,7 +370,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
             badgeContent={filterResults[FILTER_INDIRECT].length}
             icon={IconFollow}
             isActive={selectedFilter === FILTER_INDIRECT}
-          ></BadgeCircle>
+          />
         }
         label={translate('Finder.bodyFilterIndirect')}
         value={FILTER_INDIRECT}
@@ -381,7 +381,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
             badgeContent={filterResults[FILTER_EXTERNAL].length}
             icon={IconWorld}
             isActive={selectedFilter === FILTER_EXTERNAL}
-          ></BadgeCircle>
+          />
         }
         label={translate('Finder.bodyFilterExternal')}
         value={FILTER_EXTERNAL}
