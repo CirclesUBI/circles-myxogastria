@@ -7,7 +7,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -185,7 +184,6 @@ const ProfileStatus = ({ address, deploymentStatus, trustStatus }) => {
 const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
   const [selectedPanel, setSelectedPanel] = useState(DEFAULT_PANEL);
   const [redirectPath, setRedirectPath] = useState(null);
-  const classes = useStyles();
 
   const handleProfileSelection = (selectedAddress) => {
     setRedirectPath(

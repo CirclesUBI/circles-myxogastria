@@ -1,4 +1,3 @@
-import { Badge } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import qs from 'qs';
@@ -133,8 +132,8 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
             <BadgeCircle
               badgeContent={
                 selectedCategory != QUERY_FILTER_MAP.transfers
-                ? newActivities[QUERY_FILTER_MAP.transfers]
-                : null
+                  ? newActivities[QUERY_FILTER_MAP.transfers]
+                  : null
               }
               icon={IconTransactions}
               isActive
@@ -147,9 +146,9 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
           icon={
             <BadgeCircle
               badgeContent={
-              selectedCategory != QUERY_FILTER_MAP.connections
-                ? newActivities[QUERY_FILTER_MAP.connections]
-                : null
+                selectedCategory != QUERY_FILTER_MAP.connections
+                  ? newActivities[QUERY_FILTER_MAP.connections]
+                  : null
               }
               icon={IconConnections}
               isActive
