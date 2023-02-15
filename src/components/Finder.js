@@ -32,7 +32,12 @@ import { useQuery } from '~/hooks/url';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import { checkTrustState } from '~/store/trust/actions';
-import { IconFollow, IconTrustedDirectly, IconWorld } from '~/styles/icons';
+import {
+  IconFollow,
+  IconNoSearchResult,
+  IconTrustedDirectly,
+  IconWorld,
+} from '~/styles/icons';
 import debounce from '~/utils/debounce';
 
 const MAX_SEARCH_RESULTS = 10;
@@ -79,6 +84,24 @@ const useStyles = makeStyles((theme) => ({
     '&.Mui-selected': {
       fontSize: '0.9rem',
       borderBottom: `2px solid ${theme.palette.primary.main}`,
+    },
+  },
+  tabNavigationMain: {
+    '& .MuiTabs-indicator': {
+      height: '1px',
+    },
+  },
+  noSearchResultContainer: {
+    marginTop: '80px',
+    '& p': {
+      color: theme.custom.colors.violet,
+    },
+  },
+  noSearchResultIconContainer: {
+    textAlign: 'center',
+    marginBottom: '30px',
+    '& svg': {
+      fontSize: '152px',
     },
   },
 }));
@@ -334,8 +357,11 @@ const FinderSearchBar = ({
 };
 
 const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
+  const classes = useStyles();
+
   return (
     <TabNavigation
+      className={classes.tabNavigationMain}
       value={selectedFilter}
       onChange={(event, newFilter) => {
         onChange(newFilter);
@@ -391,6 +417,7 @@ const FinderResults = ({
     [FILTER_EXTERNAL]: PAGE_SIZE,
     [FILTER_INDIRECT]: PAGE_SIZE,
   });
+  const classes = useStyles();
 
   const handleSelect = (user) => {
     onSelect(user.safeAddress);
@@ -406,7 +433,10 @@ const FinderResults = ({
   return (
     <Fragment>
       {filterResults[selectedFilter].length === 0 && !isLoading && (
-        <Box mt={3}>
+        <Box className={classes.noSearchResultContainer}>
+          <Box className={classes.noSearchResultIconContainer}>
+            <IconNoSearchResult />
+          </Box>
           <Typography align="center">
             {translate('Finder.bodyNoResultsGiven')}
           </Typography>

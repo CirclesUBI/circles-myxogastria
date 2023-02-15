@@ -10,7 +10,28 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     fontWeight: theme.typography.fontWeightLight,
     fontSize: 12,
-
+    color: theme.custom.colors.lily,
+    borderBottom: '1px solid transparent',
+    '&:hover': {
+      borderBottom: `1px solid ${theme.custom.colors.oldLavender}`,
+      '& .MuiTab-wrapper': {
+        color: theme.custom.colors.oldLavender,
+      },
+      '& g, & path': {
+        fill: theme.custom.colors.oldLavender,
+      },
+    },
+    '&.Mui-selected': {
+      color: theme.custom.colors.violet,
+      '&:hover': {
+        '& .MuiTab-wrapper': {
+          color: theme.custom.colors.violet,
+        },
+        '& g, & path': {
+          fill: theme.custom.colors.violet,
+        },
+      },
+    },
     '&.MuiTab-labelIcon': {
       minHeight: 'auto',
 

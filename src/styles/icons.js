@@ -21,6 +21,7 @@ import mail from '%/images/mail.svg';
 import members from '%/images/members.svg';
 import menu from '%/images/menu.svg';
 import more from '%/images/more.svg';
+import noSearchResult from '%/images/no-search-result.svg';
 import notification from '%/images/notification.svg';
 import offline from '%/images/offline.svg';
 import okTick from '%/images/ok-tick.svg';
@@ -124,6 +125,12 @@ export const IconMenu = (props) => {
 
 export const IconMore = (props) => {
   return <SvgIcon component={more} {...props} viewBox="0 0 25 25" />;
+};
+
+export const IconNoSearchResult = (props) => {
+  return (
+    <SvgIcon component={noSearchResult} {...props} viewBox="0 0 151 148" />
+  );
 };
 
 export const IconNotification = (props) => {
