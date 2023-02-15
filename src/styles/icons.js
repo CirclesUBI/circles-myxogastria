@@ -269,6 +269,8 @@ export const iconSelector = (icon) => {
       return IconMembers;
     case 'IconMenu':
       return IconMenu;
+    case 'IconNoSearchResult':
+      return IconNoSearchResult;
     case 'IconNotification':
       return IconNotification;
     case 'IconOffline':
