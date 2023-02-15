@@ -1,10 +1,4 @@
-import {
-  // Badge,
-  Box,
-  CircularProgress,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { Box, CircularProgress, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import qs from 'qs';
@@ -84,11 +78,6 @@ const useStyles = makeStyles((theme) => ({
     '&.Mui-selected': {
       fontSize: '0.9rem',
       borderBottom: `2px solid ${theme.palette.primary.main}`,
-    },
-  },
-  tabNavigationMain: {
-    '& .MuiTabs-indicator': {
-      height: '1px',
     },
   },
   noSearchResultContainer: {
@@ -357,11 +346,8 @@ const FinderSearchBar = ({
 };
 
 const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
-  const classes = useStyles();
-
   return (
     <TabNavigation
-      className={classes.tabNavigationMain}
       value={selectedFilter}
       onChange={(event, newFilter) => {
         onChange(newFilter);

@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
     '& .MuiTabs-indicator': {
       backgroundColor: theme.custom.colors.fountainBlue,
+      height: '1px',
     },
   },
 }));
