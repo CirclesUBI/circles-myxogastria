@@ -24,7 +24,7 @@
     "bodyExplainUntrustedBySomeone": "@{actor} untrusts you which means that they do not accept your token anymore.",
     "bodyNothingHereYet": "There are no recent activities to display yet",
     "bodyPaymentNote": "Note: {note}",
-    "buttonLoadMore": "Load more",
+    "buttonLoadMore": "Load More",
     "linkLearnMore": "Learn more."
   },
   "ActivityStreamWithTabs": {
@@ -57,8 +57,8 @@
   "CriticalError": {
     "bodyCriticalErrorDescription": "Oh no! Something went wrong. Please reload this page and try again.",
     "bodyCriticalErrorTryAgain": "Oh no! Something went wrong while loading your account. Please reload this page and try again.",
-    "buttonBurnWallet": "Reset account",
-    "buttonReload": "Refresh page",
+    "buttonBurnWallet": "Reset Account",
+    "buttonReload": "Refresh Page",
     "dialogAreYouSure": "Do you really want to reset this wallet? You will not be able to recover without a seed phrase.",
     "infoCopiedMessage": "Text copied to clipboard"
   },
@@ -108,13 +108,13 @@
     "bodyThird": "Your donation is crucial! Supports the creation of a basic income for all people, and make sustainable, local economies worldwide.",
     "bodyTitle": "Circles needs you!",
     "buttonClose": "Close",
-    "buttonDonate": "Donate now"
+    "buttonDonate": "Donate Now"
   },
   "EditProfile": {
     "bodyCancel": "If you click cancel all changes you made will be lost.",
     "buttonCancel": "Cancel",
     "buttonContinue": "Continue Editing",
-    "buttonSave": "Save changes",
+    "buttonSave": "Save Changes",
     "confirmationMessage": "Great! Your profile changes have been saved!",
     "errorNameTaken": "Sorry, this name is already taken!",
     "errorInvalidName": "Ups! Invalid name, try again.",
@@ -137,7 +137,7 @@
     "bodyFilterExternal": "External",
     "bodyFilterIndirect": "In your network",
     "bodyNoResultsGiven": "No search results found!",
-    "buttonLoadMore": "Show more",
+    "buttonLoadMore": "Show More",
     "formLabel": "Search",
     "formSearch": "Add or search contacts"
   },
@@ -150,7 +150,7 @@
     "bodyEnterYourSeedPhrase": "Enter your seed phrase below to restore your wallet:",
     "bodyLostYourSeedPhrase": "Lost your seed phrase?",
     "bodyNeedHelp": "Questions?",
-    "buttonCreateNewWallet": "Sign up here",
+    "buttonCreateNewWallet": "Sign Up Here",
     "buttonSubmit": "Submit",
     "errorRestoreFailedInvalidSeedphrase": "Your seed phrase is invalid.",
     "errorRestoreFailedUnknown": "Could not restore account due to an unknown error.",
@@ -170,7 +170,7 @@
     "buttonSettings": "Settings",
     "buttonExportSeedPhrase": "Export Seed Phrase",
     "buttonMyQR": "My QR",
-    "buttonDoublePeople": "Trust people",
+    "buttonDoublePeople": "Trust People",
     "buttonSendCircles": "Send Circles",
     "buttonOrganization": "Create Shared Wallet",
     "linkAbout": "About",
@@ -421,7 +421,7 @@
   },
   "ValidationStatus": {
     "bodyReadyForDeployment": "Your account is ready now, click the button below to create it:",
-    "buttonStartDeployment": "Create account"
+    "buttonStartDeployment": "Create Account"
   },
   "VerifiedEmailInput": {
     "formEmailInvalid": "Invalid email address"
@@ -432,14 +432,14 @@
     "formUsernameTaken": "Name is already taken"
   },
   "Welcome": {
-    "buttonLogin": "Log in",
-    "buttonSignUp": "Sign up",
+    "buttonLogin": "Log In",
+    "buttonSignUp": "Sign Up",
     "headingWelcomeToCircles": "Welcome to Circles",
     "linkAboutCircles": "About Circles",
     "linkContactUs": "Contact us",
     "linkFAQ": "FAQ",
     "linkPrivacyLegal": "Privacy + Legal",
-    "welcomeMessageTitle": "Welcome to circles!",
+    "welcomeMessageTitle": "Welcome to Circles!",
     "welcomeMessageBody": "You have successfully connected your wallet"
   }
 }
