@@ -1,4 +1,3 @@
-import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
@@ -32,16 +31,9 @@ const filterToQuery = (filterName) => {
   });
 };
 
-const useStyles = makeStyles(() => ({
-  tabNavigationContainer: {
-    marginBottom: '43px',
-  },
-}));
-
 const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const classes = useStyles();
 
   const [categorySetByUser, setCategorySetByUser] = useState(false);
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
@@ -122,11 +114,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
 
   return (
     <Fragment>
-      <TabNavigation
-        className={classes.tabNavigationContainer}
-        value={selectedCategory}
-        onChange={handleFilterSelection}
-      >
+      <TabNavigation value={selectedCategory} onChange={handleFilterSelection}>
         <TabNavigationAction
           icon={
             <BadgeCircle
