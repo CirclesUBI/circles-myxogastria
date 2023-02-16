@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
     padding: '0',
     width: '17px',
     height: '17px',
-    right: '-6px',
+    right: '-7px',
+    top: '1px',
   },
 }));
 
