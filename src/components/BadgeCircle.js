@@ -12,14 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   badgeContainer: {
     backgroundColor: theme.custom.colors.fountainBlue,
-    fontSize: '12px',
-    fontWeight: '700',
-    minWidth: 'auto',
-    padding: '0',
-    width: '17px',
-    height: '17px',
-    right: '-7px',
-    top: '1px',
+    right: '-9px',
   },
 }));
 
