@@ -23,8 +23,8 @@ const monochrome = {
   grayLight: '#e6e6e6',
   grayLighter: '#f2f2f2',
   grayLightest: '#fafafa',
+  grayLightHover: '#d9d9d9',
   whiteAlmost: '#fffcfe',
-  whiteAlmostTransparent: '#d9d9d9',
   white: '#fff',
 };
 
@@ -138,11 +138,12 @@ export default createTheme({
     icons: {
       dark: colors.violet,
       light: colors.whiteAlmost,
-      lightHover: colors.whiteAlmostTransparent,
+      lightHover: colors.grayLightHover,
     },
     primary: {
       main: colors.purple,
       dark: colors.purpleDark,
+      contrastText: colors.whiteAlmost,
     },
     secondary: {
       main: colors.turquoise,

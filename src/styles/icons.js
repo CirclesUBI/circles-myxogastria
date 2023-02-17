@@ -21,6 +21,7 @@ import mail from '%/images/mail.svg';
 import members from '%/images/members.svg';
 import menu from '%/images/menu.svg';
 import more from '%/images/more.svg';
+import noSearchResult from '%/images/no-search-result.svg';
 import notification from '%/images/notification.svg';
 import offline from '%/images/offline.svg';
 import okTick from '%/images/ok-tick.svg';
@@ -40,13 +41,14 @@ import triangleWarning from '%/images/triangle-warning.svg';
 import trustActive from '%/images/trust-active.svg';
 import trustMutual from '%/images/trust-mutual.svg';
 import trust from '%/images/trust.svg';
+import trustedDirectly from '%/images/trusted-directly.svg';
 import twitter from '%/images/twitter.svg';
 import uploadPhoto from '%/images/uploadPhoto.svg';
 import wobblyCircle from '%/images/wobblyCircle.svg';
 import world from '%/images/world.svg';
 
 export const IconActivity = (props) => {
-  return <SvgIcon component={activity} {...props} viewBox="0 0 20 20" />;
+  return <SvgIcon component={activity} {...props} viewBox="0 0 24 24" />;
 };
 
 export const IconAdd = (props) => {
@@ -90,7 +92,7 @@ export const IconCrossInCircle = (props) => {
 };
 
 export const IconConnections = (props) => {
-  return <SvgIcon component={connections} {...props} viewBox="0 0 21 20" />;
+  return <SvgIcon component={connections} {...props} viewBox="0 0 24 16" />;
 };
 
 export const IconFacebook = (props) => {
@@ -102,7 +104,7 @@ export const IconEdit = (props) => {
 };
 
 export const IconFollow = (props) => {
-  return <SvgIcon component={follow} {...props} viewBox="0 0 26 20" />;
+  return <SvgIcon component={follow} {...props} viewBox="0 0 24 24" />;
 };
 
 export const IconFriends = (props) => {
@@ -123,6 +125,12 @@ export const IconMenu = (props) => {
 
 export const IconMore = (props) => {
   return <SvgIcon component={more} {...props} viewBox="0 0 25 25" />;
+};
+
+export const IconNoSearchResult = (props) => {
+  return (
+    <SvgIcon component={noSearchResult} {...props} viewBox="0 0 151 148" />
+  );
 };
 
 export const IconNotification = (props) => {
@@ -182,7 +190,7 @@ export const IconTelegram = (props) => {
 };
 
 export const IconTransactions = (props) => {
-  return <SvgIcon component={transactions} {...props} viewBox="0 0 20 20" />;
+  return <SvgIcon component={transactions} {...props} viewBox="0 0 19 24" />;
 };
 
 export const IconTriangleWarning = (props) => {
@@ -195,6 +203,10 @@ export const IconTrust = (props) => {
 
 export const IconTrustActive = (props) => {
   return <SvgIcon component={trustActive} {...props} viewBox="0 0 32 38" />;
+};
+
+export const IconTrustedDirectly = (props) => {
+  return <SvgIcon component={trustedDirectly} {...props} viewBox="0 0 24 24" />;
 };
 
 export const IconTrustMutual = (props) => {
@@ -214,7 +226,7 @@ export const IconWobblyCircle = (props) => {
 };
 
 export const IconWorld = (props) => {
-  return <SvgIcon component={world} {...props} viewBox="0 0 20 20" />;
+  return <SvgIcon component={world} {...props} viewBox="0 0 24 24" />;
 };
 
 export const iconSelector = (icon) => {
@@ -257,6 +269,8 @@ export const iconSelector = (icon) => {
       return IconMembers;
     case 'IconMenu':
       return IconMenu;
+    case 'IconNoSearchResult':
+      return IconNoSearchResult;
     case 'IconNotification':
       return IconNotification;
     case 'IconOffline':
@@ -291,6 +305,8 @@ export const iconSelector = (icon) => {
       return IconTriangleWarning;
     case 'IconTrustActive':
       return IconTrustActive;
+    case 'IconTrustedDirectly':
+      return IconTrustedDirectly;
     case 'IconTrustMutual':
       return IconTrustMutual;
     case 'IconTwitter':
