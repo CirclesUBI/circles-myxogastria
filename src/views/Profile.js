@@ -15,7 +15,7 @@ import { Redirect, generatePath, useParams } from 'react-router-dom';
 import { DASHBOARD_PATH, PROFILE_PATH } from '~/routes';
 
 import Avatar from '~/components/Avatar';
-import BadgeCircle from '~/components/BadgeCircle';
+import BadgeTab from '~/components/BadgeTab';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonSend from '~/components/ButtonSend';
@@ -230,7 +230,7 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
         />
         <TabNavigationAction
           icon={
-            <BadgeCircle
+            <BadgeTab
               badgeContent={mutualyTrusted}
               icon={IconTrustMutual}
               isActive={selectedPanel === PANEL_TRUST}

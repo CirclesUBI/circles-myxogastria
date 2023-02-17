@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BadgeCircle = ({
+const BadgeTab = ({
   badgeContent,
   icon,
   color = 'primary',
@@ -45,7 +45,7 @@ const BadgeCircle = ({
   );
 };
 
-BadgeCircle.propTypes = {
+BadgeTab.propTypes = {
   badgeContent: PropTypes.number,
   color: PropTypes.string,
   icon: PropTypes.any,
@@ -53,4 +53,4 @@ BadgeCircle.propTypes = {
   overlap: PropTypes.string,
 };
 
-export default BadgeCircle;
+export default BadgeTab;

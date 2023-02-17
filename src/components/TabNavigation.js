@@ -11,9 +11,6 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.custom.colors.fountainBlue,
       height: '1px',
     },
-    '& .MuiTab-textColorInherit': {
-      opacity: '1',
-    },
   },
 }));
 
