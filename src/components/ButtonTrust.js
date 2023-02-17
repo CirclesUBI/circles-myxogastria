@@ -12,10 +12,12 @@ import {
 } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
-  default: {
+  trustButton: {
     background: 'transparent',
     color: theme.palette.common.whiteAlmost,
     padding: '0',
+  },
+  trustButtonNoTrust: {
     '& stop:first-of-type': {
       stopColor: theme.custom.colors.purpleDark,
     },
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  oneWayTrust: {
+  trustButtonOneWay: {
     '& stop:first-of-type': {
       stopColor: theme.custom.colors.violet,
     },
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  mutualTrust: {
+  trustButtonMutualTrust: {
     '& stop:first-of-type': {
       stopColor: theme.custom.colors.fountainBlue,
     },
@@ -64,7 +66,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   trustButtonDisabled: {
-    background: theme.custom.gradients.gray,
+    '& stop:first-of-type': {
+      stopColor: theme.custom.colors.grayDark,
+    },
+    '& stop:last-of-type': {
+      stopColor: theme.custom.colors.gray,
+    },
   },
   trustButtonContainer: {
     width: '55px',
@@ -103,27 +110,29 @@ const ButtonTrust = ({
   return (
     <IconButton
       classes={{
-        root: clsx(classes.default, {
-          [classes.oneWayTrust]:
+        root: clsx(classes.trustButton, {
+          [classes.trustButtonDisabled]: trustStatus.isPending || !isReady,
+          [classes.trustButtonNoTrust]:
+            !trustStatus.isMeTrusting && !trustStatus.isTrustingMe,
+          [classes.trustButtonOneWay]:
             trustStatus.isMeTrusting || trustStatus.isTrustingMe,
-          [classes.mutualTrust]:
+          [classes.trustButtonMutualTrust]:
             trustStatus.isMeTrusting && trustStatus.isTrustingMe,
         }),
-        disabled: classes.trustButtonDisabled,
       }}
       disabled={trustStatus.isPending || !isReady}
       onClick={
         trustStatus.isMeTrusting ? handleRevokeTrustOpen : handleTrustOpen
       }
     >
-      {trustStatus.isPending ? (
-        <CircularProgress size={24} />
-      ) : (
-        <Box className={classes.trustButtonContainer}>
-          <IconWobblyCircle className={classes.trustButtonIconBackground} />
+      <Box className={classes.trustButtonContainer}>
+        <IconWobblyCircle className={classes.trustButtonIconBackground} />
+        {trustStatus.isPending ? (
+          <CircularProgress size={24} />
+        ) : (
           <TrustIcon className={classes.trustButtonIcon} />
-        </Box>
-      )}
+        )}
+      </Box>
     </IconButton>
   );
 };
