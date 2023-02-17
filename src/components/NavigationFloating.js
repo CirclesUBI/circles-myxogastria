@@ -181,7 +181,7 @@ export default function NavigationFloating(props) {
         id="navigation-floating-menu-btn"
         onClick={handleClick}
       >
-        <IconMore />
+        <IconMore fontSize="large" />
       </Fab>
       <Menu
         anchorEl={anchorEl}

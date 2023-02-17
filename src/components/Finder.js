@@ -1,10 +1,4 @@
-import {
-  Badge,
-  Box,
-  CircularProgress,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { Box, CircularProgress, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import qs from 'qs';
@@ -21,6 +15,7 @@ import { generatePath, useHistory } from 'react-router-dom';
 import { SEARCH_PATH } from '~/routes';
 
 import TourWebOfTrustSVG from '%/images/web-of-trust.svg';
+import BadgeCircle from '~/components/BadgeCircle';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import ProfileMini from '~/components/ProfileMini';
@@ -31,7 +26,12 @@ import { useQuery } from '~/hooks/url';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import { checkTrustState } from '~/store/trust/actions';
-import { IconFollow, IconTrustActive, IconWorld } from '~/styles/icons';
+import {
+  IconFollow,
+  IconNoSearchResult,
+  IconTrustedDirectly,
+  IconWorld,
+} from '~/styles/icons';
 import debounce from '~/utils/debounce';
 
 const MAX_SEARCH_RESULTS = 10;
@@ -80,9 +80,17 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: `2px solid ${theme.palette.primary.main}`,
     },
   },
-  iconTrustActice: {
-    '& path': {
-      fill: 'inherit',
+  noSearchResultContainer: {
+    marginTop: '80px',
+    '& p': {
+      color: theme.custom.colors.violet,
+    },
+  },
+  noSearchResultIconContainer: {
+    textAlign: 'center',
+    marginBottom: '30px',
+    '& svg': {
+      fontSize: '152px',
     },
   },
 }));
@@ -338,8 +346,6 @@ const FinderSearchBar = ({
 };
 
 const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
-  const classes = useStyles();
-
   return (
     <TabNavigation
       value={selectedFilter}
@@ -349,39 +355,33 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
     >
       <TabNavigationAction
         icon={
-          <Badge
+          <BadgeCircle
             badgeContent={filterResults[FILTER_DIRECT].length}
-            color="primary"
-            overlap="rectangular"
-          >
-            <IconTrustActive className={classes.iconTrustActice} />
-          </Badge>
+            icon={IconTrustedDirectly}
+            isActive={selectedFilter === FILTER_DIRECT}
+          />
         }
         label={translate('Finder.bodyFilterDirect')}
         value={FILTER_DIRECT}
       />
       <TabNavigationAction
         icon={
-          <Badge
+          <BadgeCircle
             badgeContent={filterResults[FILTER_INDIRECT].length}
-            color="primary"
-            overlap="rectangular"
-          >
-            <IconFollow />
-          </Badge>
+            icon={IconFollow}
+            isActive={selectedFilter === FILTER_INDIRECT}
+          />
         }
         label={translate('Finder.bodyFilterIndirect')}
         value={FILTER_INDIRECT}
       />
       <TabNavigationAction
         icon={
-          <Badge
+          <BadgeCircle
             badgeContent={filterResults[FILTER_EXTERNAL].length}
-            color="primary"
-            overlap="rectangular"
-          >
-            <IconWorld />
-          </Badge>
+            icon={IconWorld}
+            isActive={selectedFilter === FILTER_EXTERNAL}
+          />
         }
         label={translate('Finder.bodyFilterExternal')}
         value={FILTER_EXTERNAL}
@@ -403,6 +403,7 @@ const FinderResults = ({
     [FILTER_EXTERNAL]: PAGE_SIZE,
     [FILTER_INDIRECT]: PAGE_SIZE,
   });
+  const classes = useStyles();
 
   const handleSelect = (user) => {
     onSelect(user.safeAddress);
@@ -418,7 +419,10 @@ const FinderResults = ({
   return (
     <Fragment>
       {filterResults[selectedFilter].length === 0 && !isLoading && (
-        <Box mt={3}>
+        <Box className={classes.noSearchResultContainer}>
+          <Box className={classes.noSearchResultIconContainer}>
+            <IconNoSearchResult />
+          </Box>
           <Typography align="center">
             {translate('Finder.bodyNoResultsGiven')}
           </Typography>

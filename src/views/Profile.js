@@ -15,6 +15,7 @@ import { Redirect, generatePath, useParams } from 'react-router-dom';
 import { DASHBOARD_PATH, PROFILE_PATH } from '~/routes';
 
 import Avatar from '~/components/Avatar';
+import BadgeCircle from '~/components/BadgeCircle';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonSend from '~/components/ButtonSend';
@@ -41,7 +42,7 @@ import {
   checkPendingActivities,
 } from '~/store/activity/actions';
 import { checkTrustState } from '~/store/trust/actions';
-import { IconActivity, IconFriends, IconShare } from '~/styles/icons';
+import { IconActivity, IconShare, IconTrustMutual } from '~/styles/icons';
 import NotFound from '~/views/NotFound';
 
 const PANEL_ACTIVITY = Symbol('panelActivity');
@@ -51,9 +52,14 @@ const DEFAULT_PANEL = PANEL_TRUST;
 
 const PAGE_SIZE = 10;
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   mutualUserCard: {
     cursor: 'pointer',
+  },
+  iconActive: {
+    '& path': {
+      fill: theme.custom.colors.violet,
+    },
   },
 }));
 
@@ -206,6 +212,8 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
     return null;
   }
 
+  const mutualyTrusted = trustStatus.mutualConnections.length;
+
   return (
     <Fragment>
       <TabNavigation
@@ -221,8 +229,14 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
           value={PANEL_ACTIVITY}
         />
         <TabNavigationAction
-          icon={<IconFriends />}
-          label={translate('Profile.bodyTrustedBy')}
+          icon={
+            <BadgeCircle
+              badgeContent={mutualyTrusted}
+              icon={IconTrustMutual}
+              isActive={selectedPanel === PANEL_TRUST}
+            />
+          }
+          label={translate('Profile.bodyMutuallyTrusted')}
           value={PANEL_TRUST}
         />
       </TabNavigation>
