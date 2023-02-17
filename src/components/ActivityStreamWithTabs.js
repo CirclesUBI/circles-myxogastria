@@ -7,7 +7,7 @@ import { generatePath, useHistory } from 'react-router-dom';
 import { ACTIVITIES_PATH } from '~/routes';
 
 import ActivityStream from '~/components/ActivityStream';
-import BadgeCircle from '~/components/BadgeCircle';
+import BadgeTab from '~/components/BadgeTab';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
 import core from '~/services/core';
@@ -117,12 +117,8 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
       <TabNavigation value={selectedCategory} onChange={handleFilterSelection}>
         <TabNavigationAction
           icon={
-            <BadgeCircle
-              badgeContent={
-                selectedCategory != QUERY_FILTER_MAP.transfers
-                  ? newActivities[QUERY_FILTER_MAP.transfers]
-                  : null
-              }
+            <BadgeTab
+              badgeContent={newActivities[QUERY_FILTER_MAP.transfers]}
               icon={IconTransactions}
               isActive
             />
@@ -132,12 +128,8 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
         />
         <TabNavigationAction
           icon={
-            <BadgeCircle
-              badgeContent={
-                selectedCategory != QUERY_FILTER_MAP.connections
-                  ? newActivities[QUERY_FILTER_MAP.connections]
-                  : null
-              }
+            <BadgeTab
+              badgeContent={newActivities[QUERY_FILTER_MAP.connections]}
               icon={IconConnections}
               isActive
             />

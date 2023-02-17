@@ -15,7 +15,7 @@ import { generatePath, useHistory } from 'react-router-dom';
 import { SEARCH_PATH } from '~/routes';
 
 import TourWebOfTrustSVG from '%/images/web-of-trust.svg';
-import BadgeCircle from '~/components/BadgeCircle';
+import BadgeTab from '~/components/BadgeTab';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
 import ProfileMini from '~/components/ProfileMini';
@@ -355,7 +355,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
     >
       <TabNavigationAction
         icon={
-          <BadgeCircle
+          <BadgeTab
             badgeContent={filterResults[FILTER_DIRECT].length}
             icon={IconTrustedDirectly}
             isActive={selectedFilter === FILTER_DIRECT}
@@ -366,7 +366,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
       />
       <TabNavigationAction
         icon={
-          <BadgeCircle
+          <BadgeTab
             badgeContent={filterResults[FILTER_INDIRECT].length}
             icon={IconFollow}
             isActive={selectedFilter === FILTER_INDIRECT}
@@ -377,7 +377,7 @@ const FinderFilter = ({ filterResults, selectedFilter, onChange }) => {
       />
       <TabNavigationAction
         icon={
-          <BadgeCircle
+          <BadgeTab
             badgeContent={filterResults[FILTER_EXTERNAL].length}
             icon={IconWorld}
             isActive={selectedFilter === FILTER_EXTERNAL}
