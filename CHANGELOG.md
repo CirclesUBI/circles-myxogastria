@@ -8,6 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.6.0] - 2023-02-22
+
+### Changed
+Design updates including:
+- Update send icon shape and color [#537](https://github.com/CirclesUBI/circles-myxogastria/pull/537)
+- New design for input components [#508](https://github.com/CirclesUBI/circles-myxogastria/pull/508)
+- Updating illustrations in onboarding [#561](https://github.com/CirclesUBI/circles-myxogastria/pull/561)
+- Redesign buttons [#559](https://github.com/CirclesUBI/circles-myxogastria/pull/559)
+- Mixed fixes for the design changes [#566](https://github.com/CirclesUBI/circles-myxogastria/pull/566)
+- Update the banner (app note) design [#582](https://github.com/CirclesUBI/circles-myxogastria/pull/582)
+- Update trust buttons [#562](https://github.com/CirclesUBI/circles-myxogastria/pull/562)
+- Create new notification types and update styling [#567](https://github.com/CirclesUBI/circles-myxogastria/pull/567)
+- Make trust button purple always for one way trust [#602](https://github.com/CirclesUBI/circles-myxogastria/pull/602)
+- Fix HumbleAlert color and html interpretation [#604](https://github.com/CirclesUBI/circles-myxogastria/pull/604)
+- Change header icons [#544](https://github.com/CirclesUBI/circles-myxogastria/pull/544)
+- Change tab menu icons [#600](https://github.com/CirclesUBI/circles-myxogastria/pull/600)
+- Fix disabled behavior of trust button and correct behavior between selected and unselected tabs [#560](https://github.com/CirclesUBI/circles-myxogastria/pull/560)
+
+
 # [2.5.1] - 2023-02-14
 
 ### Fixed
