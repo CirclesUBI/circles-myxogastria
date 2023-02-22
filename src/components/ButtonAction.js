@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { IconWobblyCircle } from '~/styles/icons';
+import { IconWobblyCircleSecond } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   buttonAction: {
@@ -13,15 +13,15 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     bottom: theme.spacing(2.25),
     right: theme.spacing(2.25),
-    background: 'transparent', //theme.custom.gradients.purple,
-  },
-  buttonDisabled: {
-    //background: theme.custom.gradients.gray,
-    '& stop:first-of-type': {
-      stopColor: theme.custom.gradients.gray,
-    },
-    '& stop:last-of-type': {
-      stopColor: theme.custom.gradients.gray,
+    background: 'transparent',
+
+    '&:hover': {
+      '& stop:first-of-type': {
+        stopColor: theme.custom.colors.cannonPink,
+      },
+      '& stop:last-of-type': {
+        stopColor: theme.custom.colors.cranberry,
+      },
     },
   },
   buttonContainer: {
@@ -33,52 +33,44 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     background: 'transparent',
   },
-  // buttonIcon: {
-  //   position: 'relative',
-  //   left: 1,
-  //   fontSize: '2.4rem',
-  // },
-  buttonActionAction: {
-    '&:hover': {
-      background: theme.custom.gradients.purpleOppositeHover,
-    },
-  },
   buttonIconBackground: {
     width: '72px',
     height: '72px',
     position: 'absolute',
   },
+  buttonDisabled: {
+    '& stop:first-of-type': {
+      stopColor: theme.custom.colors.grayDark,
+    },
+    '& stop:last-of-type': {
+      stopColor: theme.custom.colors.gray,
+    },
+  },
 }));
 
 // eslint-disable-next-line react/display-name
-const ButtonAction = React.forwardRef(({ className, children, ...props }) => {
-  const classes = useStyles();
+const ButtonAction = React.forwardRef(
+  ({ className, children, disabled, ...props }) => {
+    const classes = useStyles();
 
-  return (
-    <IconButton
-      className={className}
-      classes={{
-        root: clsx(classes.buttonAction),
-        disabled: classes.buttonDisabled,
-      }}
-      disabled
-      {...props}
-    >
-      <Box className={classes.buttonContainer}>
-        <IconWobblyCircle className={classes.buttonIconBackground} />
-        {children}
-      </Box>
-    </IconButton>
-    // <Fab
-    //   className={clsx(classes.fab, className)}
-    //   color="primary"
-    //   ref={ref}
-    //   {...props}
-    // >
-    //   {children}
-    // </Fab>
-  );
-});
+    return (
+      <IconButton
+        className={className}
+        classes={{
+          root: clsx(classes.buttonAction),
+          disabled: classes.buttonDisabled,
+        }}
+        disabled={disabled}
+        {...props}
+      >
+        <Box className={classes.buttonContainer}>
+          <IconWobblyCircleSecond className={classes.buttonIconBackground} />
+          {children}
+        </Box>
+      </IconButton>
+    );
+  },
+);
 
 ButtonAction.propTypes = {
   children: PropTypes.node.isRequired,

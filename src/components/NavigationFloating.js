@@ -13,6 +13,7 @@ import {
 import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
+import { IconWobblyCircleSecond } from '~/styles/icons';
 import { IconClose, IconMore } from '~/styles/icons';
 import { FAQ_URL, MARKETPLACE_URL } from '~/utils/constants';
 
@@ -42,32 +43,6 @@ const useStyles = makeStyles((theme) => {
     }
   };
 
-  const borderTheme = (props) => {
-    const borderFountainBlue = `1px solid ${theme.custom.colors.fountainBlue}`;
-    switch (props?.color) {
-      case 'turquoise':
-        return borderFountainBlue;
-      case 'violet':
-        return `1px solid ${theme.custom.colors.violet}`;
-      case 'white':
-        return borderFountainBlue;
-      default:
-        return borderFountainBlue;
-    }
-  };
-
-  const borderHoverTheme = (props) => {
-    const borderFountainBlueLighter = `1px solid ${theme.custom.colors.fountainBlueLighter}`;
-    switch (props?.color) {
-      case 'turquoise':
-      case 'white':
-        return borderFountainBlueLighter;
-      case 'violet':
-        return `1px solid ${theme.custom.colors.oldLavender}`;
-      default:
-        return borderFountainBlueLighter;
-    }
-  };
   return {
     menuNavigation: {
       '&#navigation-floating-menu': {
@@ -113,24 +88,27 @@ const useStyles = makeStyles((theme) => {
     },
 
     fabContainer: {
-      background: backgroundTheme,
-      border: borderTheme,
       bottom: '15px',
       color: theme.custom.colors.white,
       position: 'fixed',
       right: '15px',
       zIndex: theme.zIndex.layer2,
-      boxShadow: theme.custom.colors.navigationFloating,
       width: '52px',
       height: '52px',
+      background: 'transparent',
+      boxShadow: 'none',
+      border: 'none',
       '&:hover': {
-        background: backgroundHoverTheme,
-        border: borderHoverTheme,
+        border: 'none',
+        background: 'transparent',
         '& .MuiFab-label': {
           color: (props) =>
             props?.color === 'white'
               ? theme.custom.colors.fountainBlueLighter
               : theme.custom.colors.whiteAlmost,
+        },
+        '& stop': {
+          stopColor: backgroundHoverTheme,
         },
       },
       '& .MuiFab-label': {
@@ -139,6 +117,21 @@ const useStyles = makeStyles((theme) => {
             ? theme.custom.colors.fountainBlue
             : theme.custom.colors.whiteAlmost,
       },
+    },
+
+    buttonIconBackground: {
+      position: 'absolute',
+      width: '52px',
+      height: '52px',
+      zIndex: '-1',
+
+      '& stop': {
+        stopColor: backgroundTheme,
+      },
+    },
+
+    iconMore: {
+      zIndex: '1',
     },
 
     dotsText: {
@@ -181,7 +174,8 @@ export default function NavigationFloating(props) {
         id="navigation-floating-menu-btn"
         onClick={handleClick}
       >
-        <IconMore fontSize="large" />
+        <IconMore className={classes.iconMore} fontSize="large" />
+        <IconWobblyCircleSecond className={classes.buttonIconBackground} />
       </Fab>
       <Menu
         anchorEl={anchorEl}
