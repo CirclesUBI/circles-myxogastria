@@ -183,6 +183,7 @@ export default createTheme({
     qrCodeScannerSpinner: 11000,
     qrCodeScannerVideo: 12000,
     spinnerOverlay: 20000,
+    layer0: -10,
     layer1: 10,
     layer2: 20,
     backgroundCurvedWrapper: 0,
