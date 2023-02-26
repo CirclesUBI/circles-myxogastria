@@ -110,6 +110,7 @@ const SendConfirm = () => {
 
   const handleConfirmClose = () => {
     setIsLoadingConfirmationShown(false);
+    setIsConfirmationShown(false);
   };
 
   const handleSend = async () => {
@@ -196,6 +197,7 @@ const SendConfirm = () => {
         isConfirmationShown={isConfirmationShown}
         isLoadingConfirmationShown={isLoadingConfirmationShown}
         paymentNote={paymentNote}
+        receiver={receiver}
         sender={sender}
       />
       <Header>

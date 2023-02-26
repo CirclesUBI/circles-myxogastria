@@ -124,14 +124,14 @@ const SendConfirmDialog = ({
 };
 
 SendConfirmDialog.propTypes = {
-  amount: PropTypes.string,
-  handleConfirmClose: PropTypes.func,
-  handleSend: PropTypes.func,
+  amount: PropTypes.string.isRequired,
+  handleConfirmClose: PropTypes.func.isRequired,
+  handleSend: PropTypes.func.isRequired,
   isConfirmationShown: PropTypes.bool,
   isLoadingConfirmationShown: PropTypes.bool,
   paymentNote: PropTypes.string,
-  receiver: PropTypes.string,
-  sender: PropTypes.string,
+  receiver: PropTypes.string.isRequired,
+  sender: PropTypes.string.isRequired,
 };
 
 export default SendConfirmDialog;
