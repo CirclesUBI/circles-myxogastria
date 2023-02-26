@@ -15,9 +15,9 @@ import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
 import ButtonHome from '~/components/ButtonHome';
 import CenteredHeading from '~/components/CenteredHeading';
+import DialogSendConfirm from '~/components/DialogSendConfirm';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
-import SendConfirmDialog from '~/components/SendConfirmDialog';
 import TransferCirclesInput from '~/components/TransferCirclesInput';
 import TransferInfoBalanceCard from '~/components/TransferInfoBalanceCard';
 import TransferInfoCard from '~/components/TransferInfoCard';
@@ -189,7 +189,7 @@ const SendConfirm = () => {
 
   return (
     <Fragment>
-      <SendConfirmDialog
+      <DialogSendConfirm
         amount={amount}
         handleConfirmClose={handleConfirmClose}
         handleSend={handleSend}
