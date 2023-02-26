@@ -226,6 +226,7 @@ export const IconWobblyCircle = (props) => {
   return <SvgIcon component={wobblyCircle} {...props} viewBox="0 0 55 55" />;
 };
 
+// Hacky solution to be able to use this same icon twice in the same view with a different styling behavior
 export const IconWobblyCircleSecond = (props) => {
   return (
     <SvgIcon component={wobblyCircleSecond} {...props} viewBox="0 0 55 55" />
