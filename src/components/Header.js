@@ -12,9 +12,10 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '64px',
     left: 0,
-    zIndex: '1000',
+    zIndex: theme.zIndex.header,
   },
   appBar: {
+    pointerEvents: 'none',
     opacity: 0,
     '&.MuiPaper-root': {
       transition: 'all 0.15s',
@@ -52,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: theme.custom.components.appBarHeight,
     justifyContent: 'space-between',
     position: 'relative',
-    zIndex: '10000',
+    zIndex: theme.zIndex.toolbar,
   },
   darkIcons: {
     '& button, & a.MuiIconButton-root': {

@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => {
       opacity: 0,
       transition: 'opacity 0.1s',
       pointerEvents: 'none',
+      zIndex: theme.zIndex.layer3,
     },
     isPinkShadow: {
       opacity: '1',
