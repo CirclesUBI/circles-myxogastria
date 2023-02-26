@@ -10,11 +10,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { FAQ_URL } from '../utils/constants';
+
 import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
 import { IconSend } from '~/styles/icons';
-import { FAQ_URL } from '../utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   dialogPaymentNote: {
@@ -44,8 +45,6 @@ const SendConfirmDialog = ({
   handleSend,
 }) => {
   const classes = useStyles();
-  const transitiveTransactionsArticle =
-    'https://handbook.joincircles.net/docs/developers/transitive-transactions/transfer-limitations-in-practice/';
 
   return (
     <Dialog
@@ -108,10 +107,7 @@ const SendConfirmDialog = ({
               {translate('SendConfirm.transferringCirclesInfo')}
             </Typography>
             <Box mb={6} mt={1}>
-              <ExternalLink
-                href={FAQ_URL}
-                type="underline"
-              >
+              <ExternalLink href={FAQ_URL} type="underline">
                 <Typography align="center">
                   {translate('SendConfirm.readMoreLink')}
                 </Typography>
