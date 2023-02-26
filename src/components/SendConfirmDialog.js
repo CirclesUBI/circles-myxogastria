@@ -14,6 +14,7 @@ import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
 import { IconSend } from '~/styles/icons';
+import { FAQ_URL } from '../utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   dialogPaymentNote: {
@@ -108,7 +109,7 @@ const SendConfirmDialog = ({
             </Typography>
             <Box mb={6} mt={1}>
               <ExternalLink
-                href={transitiveTransactionsArticle}
+                href={FAQ_URL}
                 type="underline"
               >
                 <Typography align="center">
