@@ -109,7 +109,6 @@ const SendConfirm = () => {
   };
 
   const handleConfirmClose = () => {
-    setIsLoadingConfirmationShown(false);
     setIsConfirmationShown(false);
   };
 
