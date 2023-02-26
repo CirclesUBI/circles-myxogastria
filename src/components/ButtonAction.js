@@ -45,6 +45,14 @@ const useStyles = makeStyles((theme) => ({
     '& stop:last-of-type': {
       stopColor: theme.custom.colors.gray,
     },
+    '&:hover': {
+      '& stop:first-of-type': {
+        stopColor: theme.custom.colors.grayDark,
+      },
+      '& stop:last-of-type': {
+        stopColor: theme.custom.colors.gray,
+      },
+    },
   },
 }));
 
