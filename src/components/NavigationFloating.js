@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => {
       color: theme.custom.colors.white,
       position: 'fixed',
       right: '15px',
-      zIndex: theme.zIndex.layer2,
+      zIndex: theme.zIndex.toolbar,
       width: '52px',
       height: '52px',
       background: 'transparent',
