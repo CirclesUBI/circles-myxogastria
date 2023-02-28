@@ -43,8 +43,9 @@ import trustMutual from '%/images/trust-mutual.svg';
 import trust from '%/images/trust.svg';
 import trustedDirectly from '%/images/trusted-directly.svg';
 import twitter from '%/images/twitter.svg';
-import uploadPhoto from '%/images/uploadPhoto.svg';
-import wobblyCircle from '%/images/wobblyCircle.svg';
+import uploadPhoto from '%/images/upload-photo.svg';
+import wobblyCircleSecond from '%/images/wobbly-circle-second.svg';
+import wobblyCircle from '%/images/wobbly-circle.svg';
 import world from '%/images/world.svg';
 
 export const IconActivity = (props) => {
@@ -225,6 +226,13 @@ export const IconWobblyCircle = (props) => {
   return <SvgIcon component={wobblyCircle} {...props} viewBox="0 0 55 55" />;
 };
 
+// Hacky solution to be able to use this same icon twice in the same view with a different styling behavior
+export const IconWobblyCircleSecond = (props) => {
+  return (
+    <SvgIcon component={wobblyCircleSecond} {...props} viewBox="0 0 55 55" />
+  );
+};
+
 export const IconWorld = (props) => {
   return <SvgIcon component={world} {...props} viewBox="0 0 24 24" />;
 };
@@ -313,6 +321,10 @@ export const iconSelector = (icon) => {
       return IconTwitter;
     case 'IconUploadPhoto':
       return IconUploadPhoto;
+    case 'IconWobblyCircle':
+      return IconWobblyCircle;
+    case 'IconWobblyCircleSecond':
+      return IconWobblyCircleSecond;
     case 'IconWorld':
       return IconWorld;
     default:

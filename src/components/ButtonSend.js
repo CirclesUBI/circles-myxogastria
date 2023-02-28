@@ -1,4 +1,4 @@
-import { CircularProgress } from '@material-ui/core';
+import { Box, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -9,21 +9,11 @@ import ButtonAction from '~/components/ButtonAction';
 import { IconSend } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
-  fabSendIcon: {
+  buttonActionSendIcon: {
+    color: theme.custom.colors.whiteAlmost,
+    left: -2,
     position: 'relative',
     top: 1,
-    left: -2,
-  },
-  buttonAction: {
-    '&:hover': {
-      background: theme.custom.gradients.purpleOppositeHover,
-    },
-  },
-  fabSendDisabled: {
-    background: theme.custom.gradients.gray,
-    '&:hover': {
-      background: theme.custom.gradients.gray,
-    },
   },
 }));
 
@@ -33,24 +23,29 @@ const ButtonSend = React.forwardRef(
     const classes = useStyles();
 
     return (
-      <ButtonAction
-        aria-label="Send"
-        className={clsx(className, classes.buttonAction, {
-          [classes.fabSendDisabled]: disabled || isPending,
-        })}
-        component={disabled || isPending ? 'div' : Link}
-        disabled={disabled || isPending}
-        ref={ref}
-        style={disabled ? { pointerEvents: 'initial' } : {}}
-        to={disabled || isPending ? null : to}
-        {...props}
-      >
-        {isPending ? (
-          <CircularProgress color="inherit" size={45} />
-        ) : (
-          <IconSend className={classes.fabSendIcon} fontSize="large" />
-        )}
-      </ButtonAction>
+      <Box>
+        <ButtonAction
+          aria-label="Send"
+          className={clsx(className, classes.buttonAction, {
+            [classes.fabSendDisabled]: disabled || isPending,
+          })}
+          component={disabled || isPending ? 'div' : Link}
+          disabled={disabled || isPending}
+          ref={ref}
+          style={disabled ? { pointerEvents: 'initial' } : {}}
+          to={disabled || isPending ? null : to}
+          {...props}
+        >
+          {isPending ? (
+            <CircularProgress color="inherit" size={45} />
+          ) : (
+            <IconSend
+              className={classes.buttonActionSendIcon}
+              fontSize="large"
+            />
+          )}
+        </ButtonAction>
+      </Box>
     );
   },
 );
