@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     left: '-1px',
     top: '-1px',
     borderRadius: '50%',
-    zIndex: 10,
+    zIndex: theme.zIndex.layer1,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
