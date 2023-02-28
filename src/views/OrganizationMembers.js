@@ -64,6 +64,10 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(2.25),
     background: theme.custom.gradients.purple,
   },
+  buttonActionTrustIcon: {
+    color: theme.custom.colors.whiteAlmost,
+    position: 'relative',
+  },
   paragraph: {
     color: theme.custom.colors.grayLightest,
   },
@@ -79,6 +83,8 @@ function isMemberOfOrganization(members, currentAccounts) {
 }
 
 const OrganizationMembers = () => {
+  const classes = useStyles();
+
   const safe = useSelector((state) => state.safe);
   const dispatch = useDispatch();
 
@@ -195,7 +201,7 @@ const OrganizationMembers = () => {
         component={Link}
         to={ORGANIZATION_MEMBERS_ADD_PATH}
       >
-        <IconTrust fontSize="large" />
+        <IconTrust className={classes.buttonActionTrustIcon} fontSize="large" />
       </ButtonAction>
     </Fragment>
   );
