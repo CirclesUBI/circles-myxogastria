@@ -1,4 +1,4 @@
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -34,7 +34,7 @@ const ButtonShare = ({
 
   if (isIcon) {
     return (
-      <IconButton {...props} onClick={onShare}>
+      <IconButton {...props} size="large" onClick={onShare}>
         {children}
       </IconButton>
     );

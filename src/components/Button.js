@@ -1,5 +1,5 @@
-import { Button as MuiButton } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Button as MuiButton } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
       background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
       ${theme.custom.gradients.lightPinkToPurple} border-box`,
 
-      '& .MuiButton-label': {
+      // '& .MuiButton-label': {
+      '& .MuiTouchRipple-root': {
         background: theme.custom.gradients.lightPinkToPurple,
         '-webkit-background-clip': 'text',
         '-webkit-text-fill-color': 'transparent',
@@ -50,13 +51,15 @@ const useStyles = makeStyles((theme) => ({
       background: theme.custom.colors.whiteAlmost,
       borderColor: theme.custom.colors.lola,
 
-      '& .MuiButton-label': {
+      // '& .MuiButton-label': {
+      '& .MuiTouchRipple-root': {
         background: 'none',
         color: theme.custom.colors.lola,
         '-webkit-text-fill-color': theme.custom.colors.lola,
       },
     },
-    '& .MuiButton-label': {
+    // '& .MuiButton-label': {
+    '& .MuiTouchRipple-root': {
       background: theme.custom.gradients.pinkToPurple,
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
@@ -71,11 +74,13 @@ const useStyles = makeStyles((theme) => ({
     background: 'transparent',
     '&:hover': {
       background: theme.custom.colors.lightGrey,
-      '& .MuiButton-label': {
+      // '& .MuiButton-label': {
+      '& .MuiTouchRipple-root': {
         '-webkit-text-fill-color': theme.custom.colors.white,
       },
     },
-    '& .MuiButton-label': {
+    // '& .MuiButton-label': {
+    '& .MuiTouchRipple-root': {
       '-webkit-text-fill-color': theme.custom.colors.white,
     },
   },

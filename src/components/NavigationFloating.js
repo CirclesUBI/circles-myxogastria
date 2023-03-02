@@ -1,5 +1,5 @@
-import { Fab, Menu, MenuItem } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Fab, Menu, MenuItem } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -62,15 +62,9 @@ const useStyles = makeStyles((theme) => {
         paddingTop: '25px',
       },
 
-      '& .MuiListItem-root': {
-        justifyContent: 'center',
-        cursor: 'auto',
-        width: '100%',
-        marginBottom: '15px',
-      },
-
       '& .MuiMenuItem-root': {
         padding: '9px 35px',
+        marginBottom: '15px',
       },
 
       '& .MuiButton-root': {

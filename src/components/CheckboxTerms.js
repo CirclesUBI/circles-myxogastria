@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel } from '@material-ui/core';
+import { Checkbox, FormControlLabel } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 
@@ -10,7 +10,7 @@ const CheckboxTerms = (props) => {
   return (
     <FormControlLabel
       checked={props.checked}
-      control={<Checkbox />}
+      control={<Checkbox color="secondary" />}
       label={<CheckboxTermsLabel />}
       onChange={props.onChange}
     />
@@ -20,7 +20,7 @@ const CheckboxTerms = (props) => {
 const CheckboxTermsLabel = () => (
   <Fragment>
     {translate('CheckboxTerms.checkboxLabel')}{' '}
-    <ExternalLink href={TERMS_URL}>
+    <ExternalLink href={TERMS_URL} underline="hover">
       {translate('CheckboxTerms.checkboxLink')}
     </ExternalLink>
   </Fragment>

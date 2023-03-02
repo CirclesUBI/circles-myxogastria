@@ -12,8 +12,8 @@ import {
   Avatar as MuiAvatar,
   Typography,
   Zoom,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     paddingTop: 0,
-    paddingBottom: `${theme.spacing(1.5)}px !important`,
+    paddingBottom: `${theme.spacing(1.5)} !important`,
   },
   cardContentText: {
     fontSize: '0.8rem',
@@ -296,7 +296,7 @@ const ActivityStreamItem = (props) => {
             style={{ transitionDelay: isExpanded ? '250ms' : '0ms' }}
           >
             <Box display="flex" justifyContent="center">
-              <IconButton onClick={handleClick}>
+              <IconButton size="large" onClick={handleClick}>
                 <IconCloseOutline className={classes.cardContentCloseIcon} />
               </IconButton>
             </Box>
@@ -334,7 +334,7 @@ const ActivityStreamExplained = ({
         className={classes.cardContentText}
         color="textSecondary"
         component="p"
-        variant="body1"
+        variant="body2"
       >
         {text}
       </Typography>
@@ -342,10 +342,10 @@ const ActivityStreamExplained = ({
         className={classes.cardContentText}
         color="textSecondary"
         component="p"
-        variant="body1"
+        variant="body2"
       >
         {translate('ActivityStream.bodyExplainSecondary')}{' '}
-        <ExternalLink href={FAQ_URL}>
+        <ExternalLink href={FAQ_URL} underline="hover">
           {translate('ActivityStream.linkLearnMore')}
         </ExternalLink>
       </Typography>
@@ -365,7 +365,7 @@ const ActivityStreamPaymentNote = ({ txHash }) => {
           className={classes.cardContentPaymentNote}
           color="textSecondary"
           component="p"
-          variant="body1"
+          variant="body2"
         >
           {translate('ActivityStream.bodyPaymentNote', {
             note: paymentNote,

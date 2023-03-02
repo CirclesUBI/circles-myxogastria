@@ -1,4 +1,4 @@
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -20,7 +20,13 @@ const ButtonBack = (props) => {
   };
 
   return (
-    <IconButton {...props} aria-label="Return" edge="start" onClick={onClick}>
+    <IconButton
+      {...props}
+      aria-label="Return"
+      edge="start"
+      size="large"
+      onClick={onClick}
+    >
       <IconBack />
     </IconButton>
   );

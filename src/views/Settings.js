@@ -1,12 +1,5 @@
-import {
-  Box,
-  Chip,
-  Container,
-  Grid,
-  Paper,
-  Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, Chip, Container, Grid, Paper, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
@@ -123,7 +116,7 @@ const SettingsExplorableAddress = ({ address }) => {
   const url = process.env.EXPLORER_URL.replace(':address', address);
 
   return (
-    <ExternalLink href={url}>
+    <ExternalLink href={url} underline="hover">
       <Chip
         className={clsx(classes.chip, classes.chipClickable)}
         label={address}

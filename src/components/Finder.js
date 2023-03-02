@@ -1,5 +1,5 @@
-import { Box, CircularProgress, Grid, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, CircularProgress, Grid, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import React, {

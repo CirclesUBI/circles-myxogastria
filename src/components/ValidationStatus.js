@@ -1,11 +1,5 @@
-import {
-  Avatar,
-  Step,
-  StepConnector,
-  StepIcon,
-  Stepper,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, Step, StepConnector, StepIcon, Stepper } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
@@ -17,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   stepper: {
     maxWidth: theme.spacing(40),
     margin: '0 auto',
+    padding: '24px',
   },
   connectorLine: {
     borderColor: theme.palette.secondary.main,
@@ -70,7 +65,6 @@ const ValidationStatus = () => {
                   </Avatar>
                 }
               ></StepIcon>
-              ;
             </Step>
           );
         })}

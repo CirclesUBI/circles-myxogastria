@@ -7,9 +7,9 @@ import {
   Container,
   Grid,
   Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { AvatarGroup } from '@material-ui/lab';
+} from '@mui/material';
+import { AvatarGroup } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

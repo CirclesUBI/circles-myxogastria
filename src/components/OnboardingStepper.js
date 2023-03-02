@@ -1,5 +1,5 @@
-import { Box, Container, IconButton, MobileStepper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, Container, IconButton, MobileStepper } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
@@ -123,14 +123,14 @@ const OnboardingStepper = ({
             current === 0 ? (
               <ButtonBack edge="start" />
             ) : (
-              <IconButton edge="start" onClick={onPrevious}>
+              <IconButton edge="start" size="large" onClick={onPrevious}>
                 <IconBack />
               </IconButton>
             )
           }
           className={classes.onboardingMobileStepper}
           nextButton={
-            <IconButton edge="end" onClick={onExit}>
+            <IconButton edge="end" size="large" onClick={onExit}>
               <IconClose />
             </IconButton>
           }

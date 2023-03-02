@@ -1,5 +1,5 @@
-import { Avatar, Box, CircularProgress } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, Box, CircularProgress } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import mime from 'mime/lite';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useRef, useState } from 'react';

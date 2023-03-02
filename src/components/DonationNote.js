@@ -1,6 +1,6 @@
 // This component was used in the dashboard view in 2021 but was removed indefinitely
-import { Box, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { DateTime } from 'luxon';
 import React, { useState } from 'react';
 

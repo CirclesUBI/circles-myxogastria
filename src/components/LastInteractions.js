@@ -1,5 +1,5 @@
-import { Grid, Link as MuiLink, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Link as MuiLink, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
@@ -101,7 +101,12 @@ const LastInteractionsAccount = ({ address }) => {
 
   return (
     <Grid className={classes.itemContainer} item>
-      <MuiLink className={classes.link} component={Link} to={profilePath}>
+      <MuiLink
+        className={classes.link}
+        component={Link}
+        to={profilePath}
+        underline="hover"
+      >
         <Avatar address={address} size="smallXl" />
         <Typography className={classes.username} noWrap>
           <UsernameDisplay address={address} />

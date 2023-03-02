@@ -4,7 +4,7 @@ import {
   DialogContentText,
   DialogTitle,
   Dialog as MuiDialog,
-} from '@material-ui/core';
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 

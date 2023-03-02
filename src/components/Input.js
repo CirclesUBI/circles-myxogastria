@@ -5,8 +5,8 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -59,10 +59,10 @@ const useStyles = makeStyles((theme) => {
       color: theme.custom.colors.purple,
     },
 
-    inputLabelClasses: {
-      background: 'white',
-      padding: '0 10px',
-    },
+    // inputLabelClasses: {
+    //   background: 'white',
+    //   padding: '0 10px',
+    // },
 
     formHelperText: {
       position: 'absolute',
@@ -84,6 +84,7 @@ const useStyles = makeStyles((theme) => {
     outlinedInputRoot: {
       borderRadius: '25px',
       border: `3px solid transparent`,
+      padding: '0px',
 
       '& .MuiOutlinedInput-notchedOutline': {
         borderColor: textColor,
@@ -177,7 +178,7 @@ const Input = ({
 
   return (
     <>
-      <FormControl error={isError} fullWidth>
+      <FormControl error={isError} fullWidth variant="standard">
         {label && (
           <InputLabel
             classes={{
