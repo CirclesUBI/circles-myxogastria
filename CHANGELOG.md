@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.7.0] - 2023-03-06
+
+### Added
+- Add loading dialog with more context when sending Circles [#601](https://github.com/CirclesUBI/circles-myxogastria/pull/601)
+
+### Changed
+- Round action button design to a wobbly round shape in send button and add member button [#612](https://github.com/CirclesUBI/circles-myxogastria/pull/612)
+- Let pink shadow allow for clicking on components behind it [#615](https://github.com/CirclesUBI/circles-myxogastria/pull/615)
+- Some general fixes after QA related to the above mentioned changed changes [#619](https://github.com/CirclesUBI/circles-myxogastria/pull/619)
+
 # [2.6.0] - 2023-02-22
 
 ### Changed
@@ -25,7 +35,6 @@ Design updates including:
 - Change header icons [#544](https://github.com/CirclesUBI/circles-myxogastria/pull/544)
 - Change tab menu icons [#600](https://github.com/CirclesUBI/circles-myxogastria/pull/600)
 - Fix disabled behavior of trust button and correct behavior between selected and unselected tabs [#560](https://github.com/CirclesUBI/circles-myxogastria/pull/560)
-
 
 # [2.5.1] - 2023-02-14
 
