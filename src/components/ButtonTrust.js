@@ -67,10 +67,10 @@ const useStyles = makeStyles((theme) => ({
   },
   trustButtonDisabled: {
     '& stop:first-of-type': {
-      stopColor: theme.custom.colors.grayDark,
+      stopColor: theme.custom.colors.lola,
     },
     '& stop:last-of-type': {
-      stopColor: theme.custom.colors.gray,
+      stopColor: theme.custom.colors.lola,
     },
   },
   trustButtonContainer: {
