@@ -88,11 +88,11 @@ const useStyles = makeStyles((theme) => {
     },
 
     fabContainer: {
-      bottom: '15px',
+      bottom: '17px',
       color: theme.custom.colors.white,
       position: 'fixed',
-      right: '15px',
-      zIndex: theme.zIndex.layer2,
+      right: '17px',
+      zIndex: theme.zIndex.toolbar,
       width: '52px',
       height: '52px',
       background: 'transparent',
@@ -123,7 +123,7 @@ const useStyles = makeStyles((theme) => {
       position: 'absolute',
       width: '52px',
       height: '52px',
-      zIndex: '-1',
+      zIndex: theme.zIndex.floatingMenuButton,
 
       '& stop': {
         stopColor: backgroundTheme,
@@ -131,7 +131,7 @@ const useStyles = makeStyles((theme) => {
     },
 
     iconMore: {
-      zIndex: '1',
+      zIndex: theme.zIndex.floatingMenuIcon,
     },
 
     dotsText: {
