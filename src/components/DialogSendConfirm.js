@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { FAQ_URL } from '../utils/constants';
+import { FAQ_TRANSITIVE_TRANSFERS_URL } from '../utils/constants';
 
 import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
@@ -107,7 +107,10 @@ const SendConfirmDialog = ({
               {translate('SendConfirm.transferringCirclesInfo')}
             </Typography>
             <Box mb={6} mt={1}>
-              <ExternalLink href={FAQ_URL} type="underline">
+              <ExternalLink
+                href={FAQ_TRANSITIVE_TRANSFERS_URL}
+                type="underline"
+              >
                 <Typography align="center">
                   {translate('SendConfirm.readMoreLink')}
                 </Typography>
