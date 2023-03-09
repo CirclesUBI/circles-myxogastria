@@ -137,7 +137,7 @@ const SendConfirm = () => {
           paymentNote,
           PATHFINDER_HOPS_DEFAULT,
           PATHFINDER_HOPS_DEFAULT + 1,
-          additionalAction,
+          // additionalAction,
         ),
       );
 
