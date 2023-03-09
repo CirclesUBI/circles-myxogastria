@@ -318,6 +318,7 @@ async function loopTransfer(
  * @param {string} paymentNote Message for recipient
  * @param {number} hops Maximum number of trust hops away from them sending user inside the trust network for finding transaction steps
  * @param {number} attempts Maximum number of transfer attempts before accepting defeat
+ * @[aram {function} handleError Execute error function
  * @returns response
  */
 export function transfer(
@@ -326,7 +327,7 @@ export function transfer(
   paymentNote = '',
   hops = PATHFINDER_HOPS_DEFAULT,
   attempts = PATHFINDER_HOPS_DEFAULT + 1,
-  runFunction,
+  handleError,
 ) {
   return async (dispatch, getState) => {
     dispatch({
@@ -374,7 +375,7 @@ export function transfer(
       });
     } catch (error) {
       console.log('token actions error', error);
-      runFunction();
+      handleError();
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_ERROR,
       });
