@@ -119,8 +119,6 @@ const SendConfirm = () => {
 
     setIsLoadingConfirmationShown(true);
 
-    console.log('We are sending!');
-
     try {
       function additionalAction() {
         dispatch(
