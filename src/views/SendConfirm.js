@@ -121,11 +121,18 @@ const SendConfirm = () => {
     console.log('We are sending!');
 
     try {
-      function testtaki() {
-        console.log('testTaki');
+      function handleError() {
+        console.log('handleError');
+        dispatch(
+          notify({
+            text: translate('SendConfirm.errorMessageTransferUnknown'),
+            type: NotificationsTypes.ERROR,
+          }),
+        );
         setIsLoadingConfirmationShown(false);
       }
-      await dispatch(transfer(address, amount, paymentNote, 3, 3, testtaki));
+
+      await dispatch(transfer(address, amount, paymentNote, 3, 3, handleError));
 
       const text = (
         <span
