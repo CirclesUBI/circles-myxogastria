@@ -121,7 +121,11 @@ const SendConfirm = () => {
     console.log('We are sending!');
 
     try {
-      await dispatch(transfer(address, amount, paymentNote));
+      function testtaki() {
+        console.log('testTaki');
+        setIsLoadingConfirmationShown(false);
+      }
+      await dispatch(transfer(address, amount, paymentNote, 3, 3, testtaki));
 
       const text = (
         <span
