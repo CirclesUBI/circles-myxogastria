@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom';
 
 import { DASHBOARD_PATH, SEND_CONFIRM_PATH } from '~/routes';
+import { PATHFINDER_HOPS_DEFAULT } from '~/utils/constants';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
@@ -121,8 +122,7 @@ const SendConfirm = () => {
     console.log('We are sending!');
 
     try {
-      function handleError() {
-        console.log('handleError');
+      function additionalAction() {
         dispatch(
           notify({
             text: translate('SendConfirm.errorMessageTransferUnknown'),
@@ -132,7 +132,16 @@ const SendConfirm = () => {
         setIsLoadingConfirmationShown(false);
       }
 
-      await dispatch(transfer(address, amount, paymentNote, 3, 3, handleError));
+      await dispatch(
+        transfer(
+          address,
+          amount,
+          paymentNote,
+          PATHFINDER_HOPS_DEFAULT,
+          PATHFINDER_HOPS_DEFAULT + 1,
+          additionalAction,
+        ),
+      );
 
       const text = (
         <span
@@ -145,8 +154,6 @@ const SendConfirm = () => {
         />
       );
 
-      debugger;
-
       dispatch(
         notify({
           text,
@@ -158,9 +165,6 @@ const SendConfirm = () => {
     } catch (error) {
       logError(error);
       let text;
-
-      console.log('SendConfirm error', error);
-      debugger;
 
       if (error instanceof TransferError) {
         // Convert TransferError codes into human readable error messages

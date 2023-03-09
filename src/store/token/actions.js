@@ -215,16 +215,11 @@ async function loopTransfer(
   attemptsLeft,
   errorsMessages = '',
 ) {
-  console.log('loopTransfer hops', hops);
-  console.log('loopTransfer attemptsLeft', attemptsLeft);
-  console.log('loopTransfer errorsMessages', errorsMessages);
   if (attemptsLeft === 0 || hops === 0) {
     // ran out of attempts or hops, cannot attempt further transfers
     throw new TransferError(errorsMessages);
   }
   try {
-    console.log('loopTransfer try');
-
     return await core.token.transfer(from, to, value, paymentNote, hops);
   } catch (transferError) {
     // RETRY when path is not found or is too long
@@ -233,14 +228,11 @@ async function loopTransfer(
     // ---
     // no path or path too long
 
-    console.log('loopTransfer transferError', transferError);
-
     if (
-      // transferError.name === 'TransferError' &&
-      // (transferError.code === ErrorCodes.TOO_COMPLEX_TRANSFER || // too many steps in found path
-      //   transferError.code === ErrorCodes.UNKNOWN_ERROR || // includes timeout error from api
-      //   transferError.code === ErrorCodes.INVALID_TRANSFER) // other errors from find transitive transfer
-      false
+      transferError.name === 'TransferError' &&
+      (transferError.code === ErrorCodes.TOO_COMPLEX_TRANSFER || // too many steps in found path
+        transferError.code === ErrorCodes.UNKNOWN_ERROR || // includes timeout error from api
+        transferError.code === ErrorCodes.INVALID_TRANSFER) // other errors from find transitive transfer
     ) {
       // retry with fewer hops
       return await loopTransfer(
@@ -263,32 +255,23 @@ async function loopTransfer(
     ) {
       // update the edges db for trust-adjacent safes
       try {
-        console.log('loopTransfer updateTransferSteps');
         await core.token.updateTransferSteps(from, to, value, hops);
       } catch (updateError) {
-        console.log(
-          'loopTransfer updateTransferSteps updateError',
-          updateError,
+        return await loopTransfer(
+          from,
+          to,
+          value,
+          paymentNote,
+          hops - 1,
+          attemptsLeft - 1,
+          errorsMessages.concat(
+            ' ',
+            transferError.message,
+            updateError.message,
+          ),
         );
-
-        // return await loopTransfer(
-        //   from,
-        //   to,
-        //   value,
-        //   paymentNote,
-        //   hops - 1,
-        //   attemptsLeft - 1,
-        //   errorsMessages.concat(
-        //     ' ',
-        //     transferError.message,
-        //     updateError.message,
-        //   ),
-        // );
       }
       // try again after update with the same parameters
-      console.log(
-        'loopTransfer try again after update with the same parameters',
-      );
 
       return await loopTransfer(
         from,
@@ -302,10 +285,6 @@ async function loopTransfer(
     }
     // any other errors will result in propagating the error
     else {
-      console.log(
-        'loopTransfer any other errors will result in propagating the error',
-        transferError,
-      );
       throw transferError;
     }
   }
@@ -318,7 +297,7 @@ async function loopTransfer(
  * @param {string} paymentNote Message for recipient
  * @param {number} hops Maximum number of trust hops away from them sending user inside the trust network for finding transaction steps
  * @param {number} attempts Maximum number of transfer attempts before accepting defeat
- * @[aram {function} handleError Execute error function
+ * @param {function} additionalAction Execute additional action function if necessary
  * @returns response
  */
 export function transfer(
@@ -327,7 +306,7 @@ export function transfer(
   paymentNote = '',
   hops = PATHFINDER_HOPS_DEFAULT,
   attempts = PATHFINDER_HOPS_DEFAULT + 1,
-  handleError,
+  additionalAction,
 ) {
   return async (dispatch, getState) => {
     dispatch({
@@ -338,12 +317,9 @@ export function transfer(
     const from = safe.currentAccount;
 
     try {
-      console.log('transfer start');
-
       const value = new web3.utils.BN(
         core.utils.toFreckles(tcToCrc(Date.now(), Number(amount))),
       );
-      console.log('transfer value', value);
 
       const txHash = await loopTransfer(
         from,
@@ -353,8 +329,6 @@ export function transfer(
         hops,
         attempts,
       );
-
-      console.log('transfer txHash', txHash);
 
       dispatch(
         addPendingActivity({
@@ -368,14 +342,11 @@ export function transfer(
         }),
       );
 
-      debugger;
-
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_SUCCESS,
       });
     } catch (error) {
-      console.log('token actions error', error);
-      handleError();
+      additionalAction();
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_ERROR,
       });
