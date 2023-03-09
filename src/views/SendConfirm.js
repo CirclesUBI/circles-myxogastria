@@ -118,6 +118,8 @@ const SendConfirm = () => {
 
     setIsLoadingConfirmationShown(true);
 
+    console.log('We are sending!');
+
     try {
       await dispatch(transfer(address, amount, paymentNote));
 
@@ -145,6 +147,9 @@ const SendConfirm = () => {
     } catch (error) {
       logError(error);
       let text;
+
+      console.log('SendConfirm error', error);
+      debugger;
 
       if (error instanceof TransferError) {
         // Convert TransferError codes into human readable error messages
