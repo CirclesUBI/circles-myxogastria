@@ -306,7 +306,7 @@ export function transfer(
   paymentNote = '',
   hops = PATHFINDER_HOPS_DEFAULT,
   attempts = PATHFINDER_HOPS_DEFAULT + 1,
-  additionalAction,
+  additionalAction = () => {},
 ) {
   return async (dispatch, getState) => {
     dispatch({
