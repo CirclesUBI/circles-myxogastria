@@ -346,6 +346,8 @@ export function transfer(
         type: ActionTypes.TOKEN_TRANSFER_SUCCESS,
       });
     } catch (error) {
+      console.log('token actions error', error);
+
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_ERROR,
       });
