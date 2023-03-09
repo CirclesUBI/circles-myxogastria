@@ -324,6 +324,9 @@ export function transfer(
         attempts,
       );
 
+      console.log('value', value);
+      console.log('txHash', txHash);
+
       dispatch(
         addPendingActivity({
           txHash,
@@ -335,6 +338,8 @@ export function transfer(
           },
         }),
       );
+
+      debugger;
 
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_SUCCESS,

@@ -131,6 +131,8 @@ const SendConfirm = () => {
         />
       );
 
+      debugger;
+
       dispatch(
         notify({
           text,
