@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Container, Grid } from '@material-ui/core';
 import qs from 'qs';
 import React, { Fragment, useEffect, useState } from 'react';
@@ -11,7 +10,6 @@ import {
 } from 'react-router-dom';
 
 import { DASHBOARD_PATH, SEND_CONFIRM_PATH } from '~/routes';
-import { PATHFINDER_HOPS_DEFAULT } from '~/utils/constants';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
@@ -34,6 +32,7 @@ import { validateAmount, validatePaymentNote } from '~/services/token';
 import web3 from '~/services/web3';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { checkCurrentBalance, transfer } from '~/store/token/actions';
+import { PATHFINDER_HOPS_DEFAULT } from '~/utils/constants';
 import logError, { formatErrorMessage } from '~/utils/debug';
 import { findMaxFlow } from '~/utils/findPath';
 import { formatCirclesValue } from '~/utils/format';

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { tcToCrc } from '@circles/timecircles';
 import { DateTime } from 'luxon';
 
