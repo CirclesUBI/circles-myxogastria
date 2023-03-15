@@ -118,17 +118,17 @@ const SendConfirm = () => {
 
     setIsLoadingConfirmationShown(true);
 
-    try {
-      function additionalAction() {
-        dispatch(
-          notify({
-            text: translate('SendConfirm.errorMessageTransferUnknown'),
-            type: NotificationsTypes.ERROR,
-          }),
-        );
-        setIsLoadingConfirmationShown(false);
-      }
+    function additionalAction() {
+      dispatch(
+        notify({
+          text: translate('SendConfirm.errorMessageTransferUnknown'),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+      setIsLoadingConfirmationShown(false);
+    }
 
+    try {
       await dispatch(
         transfer(
           address,
