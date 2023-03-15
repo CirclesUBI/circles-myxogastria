@@ -150,6 +150,7 @@ export function checkFinishedActivities({
                 }
                 const valueInCircles = formatCirclesValue(
                   receivedTransferActivity.data?.value,
+                  receivedTransferActivityDate,
                   2,
                   false,
                 );

@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.7.1] - 2023-03-09
+
+### Fixed
+- Notifications of received Circles no longer shows too large value (bug). Also fixed formatting of text and Circles with capital C. [#621](https://github.com/CirclesUBI/circles-myxogastria/pull/621)
+
 # [2.7.0] - 2023-03-06
 
 ### Added

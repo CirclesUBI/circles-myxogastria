@@ -71,7 +71,7 @@
     "buttonSendCircles": "Send Circles"
   },
   "DialogAddMember": {
-    "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to send circles from your shared wallet.",
+    "dialogBody": "Trust is Power. When you add somebody it means that you are sharing the power to send Circles from your shared wallet.",
     "dialogBodyCannotAdd": "You cannot add another shared wallet as a member of a shared wallet.",
     "dialogCancel": "Cancel",
     "dialogConfirm": "Add member",
@@ -87,7 +87,7 @@
   "DialogTrust": {
     "dialogTrustCancel": "Cancel",
     "dialogTrustConfirm": "Trust",
-    "dialogTrustDescription": "Trust is Power. When you trust somebody it means that you are sharing the power to issue circles.",
+    "dialogTrustDescription": "Trust is Power. When you trust somebody it means that you are sharing the power to issue Circles.",
     "dialogTrustTitle": "Trust @{username}?",
     "errorTrust": "Something went wrong when you tried to trust @{username} ...",
     "externalLink": "Learn more",
@@ -348,11 +348,11 @@
     "formReceiver": "Sent to",
     "formSender": "Sent from",
     "headingSendCircles": "Send Circles",
-    "successMessage": "<strong>{amount}circles</strong> sent to @{username}!",
+    "successMessage": "<strong>{amount} Circles</strong> sent to @{username}!",
     "readMoreLink": "Read more about transitive transactions",
-    "receiveSuccessMessage": "You received <strong>{amount}circles</strong> from <br> @{username}.",
+    "receiveSuccessMessage": "You received <strong>{amount} Circles</strong> from <br> @{username}.",
     "tooltipMaxFlow": "This is the current maximum amount of Circles you can send in the trust network to @{username}",
-    "transferringCirclesInfo": "Transferring circles through the network. This may take a few minutes."
+    "transferringCirclesInfo": "Transferring Circles through the network. This may take a few minutes."
   },
   "Settings": {
     "bodyDeviceAddress": "Device address",
