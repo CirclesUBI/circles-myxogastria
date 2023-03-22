@@ -315,15 +315,19 @@ export function transfer(
       const value = new web3.utils.BN(
         core.utils.toFreckles(tcToCrc(Date.now(), Number(amount))),
       );
-      const txHash = await loopTransfer(
-        from,
-        to,
-        value,
-        paymentNote,
-        hops,
-        attempts,
-      );
-
+      let txHash;
+      if (process.env.PATHFINDER_TYPE === 'cli') {
+        txHash = await loopTransfer(
+          from,
+          to,
+          value,
+          paymentNote,
+          hops,
+          attempts,
+        );
+      } else {
+        txHash = await core.token.transfer(from, to, value, paymentNote);
+      }
       dispatch(
         addPendingActivity({
           txHash,

@@ -11,7 +11,7 @@ const LARGE_AMOUNT = new web3.utils.BN(
   web3.utils.toWei('1000000000000000', 'ether'),
 );
 
-// Recursive helper function for findMaxFlow
+// Recursive helper function for findMaxFlow recursively reducing number of hops
 async function loopFindMaxFlow(
   from,
   to,
@@ -60,14 +60,26 @@ async function loopFindMaxFlow(
  * @returns nothing. Updates MaxFlow state in Freckles.
  */
 export async function findMaxFlow(from, to, setMaxFlow) {
-  // First attempting via API
+  // First attempting via API.
+  // The API parameters depends on the Pathfinder Type in use:
+  // The 'cli' uses hops, but this option is not available in the 'server'.
+  // Therefore we set the attemptsLeft and the hops option will be ignored.
   try {
-    const response = await loopFindMaxFlow(
-      from,
-      to,
-      PATHFINDER_HOPS_DEFAULT,
-      PATHFINDER_HOPS_DEFAULT,
-    );
+    let response;
+    if (process.env.PATHFINDER_TYPE === 'cli'){
+      response = await loopFindMaxFlow(
+        from,
+        to,
+        PATHFINDER_HOPS_DEFAULT,
+        PATHFINDER_HOPS_DEFAULT,
+      );
+    } else {
+      response = await core.token.findTransitiveTransfer(
+        from,
+        to,
+        LARGE_AMOUNT,
+      );
+    }
 
     // Throw an error when no path was found, we should try again with
     // checking direct sends as the API might not be in sync yet
