@@ -1,4 +1,5 @@
 import fileDownload from 'js-file-download';
+import { DateTime } from 'luxon';
 
 const getBalance = (/*dateTime, safe*/) => {
   return 25; // Dummy balance
@@ -38,8 +39,8 @@ const generateCsvContent = (
 export function downloadCsvStatement(
   accountName,
   safeAddress,
-  startDate,
-  endDate,
+  startDate = DateTime.now(),
+  endDate = DateTime.now(),
 ) {
   /* TODO:
    * verify date order

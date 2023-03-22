@@ -11,6 +11,7 @@ import BadgeTab from '~/components/BadgeTab';
 import Button from '~/components/Button';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
+import { useIsOrganization, useUserdata } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
@@ -39,6 +40,9 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
 
   const [categorySetByUser, setCategorySetByUser] = useState(false);
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
+  const safeAddress = useSelector((state) => state.safe.currentAccount);
+  const { isOrganization } = useIsOrganization(safeAddress);
+  const { username } = useUserdata(safeAddress);
 
   // Get only new Activities and segregate them by category
   const newActivities = CATEGORIES.reduceRight((newActivities, category) => {
@@ -88,11 +92,6 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
     },
     [history, setSelectedCategory, basePath],
   );
-
-  const exportStatement = () => {
-    // TODO: include parameters
-    downloadCsvStatement();
-  };
 
   useEffect(() => {
     // Update last seen timestamp when we leave
@@ -145,8 +144,10 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
           value={ActivityFilterTypes.CONNECTIONS}
         />
       </TabNavigation>
-      {selectedCategory === ActivityFilterTypes.TRANSFERS && (
-        <Button onClick={exportStatement}>Export Statement</Button>
+      {selectedCategory === ActivityFilterTypes.TRANSFERS && isOrganization && (
+        <Button onClick={() => downloadCsvStatement(username, safeAddress)}>
+          Export Statement Download
+        </Button>
       )}
       {/* TODO: styling */}
       <ActivityStream
@@ -162,6 +163,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
 };
 
 ActivityStreamWithTabs.propTypes = {
+  address: PropTypes.string,
   basePath: PropTypes.string,
 };
 
