@@ -1,46 +1,47 @@
+import { crcToTc } from '@circles/timecircles';
 import fileDownload from 'js-file-download';
 import { DateTime } from 'luxon';
 
 import core from '~/services/core';
 import resolveTxHash from '~/services/transfer';
 import resolveUsernames from '~/services/username';
+import web3 from '~/services/web3';
 import { formatCirclesValue } from '~/utils/format';
+
+const NUMBER_OF_DECIMALS = 2;
 
 const { ActivityFilterTypes } = core.activity;
 
-const getBalance = (/*dateTime, safe*/) => {
-  return 25; // Dummy balance
-};
+const formatDate = (dateTime) => dateTime.toFormat(`dd.LL.yyyy`).toString();
 
-const formatDate = (/*dateTime*/) => {
-  return '01.01.2022'; // Dummy date
-};
-
-const getTransactions = async (safeAddress) => {
-  try {
-    const { activities /*, lastTimestamp*/ } = await core.activity.getLatest(
-      safeAddress,
-      ActivityFilterTypes.TRANSFERS,
-      40,
-    );
-    // console.log('CAT --- ', activities, lastTimestamp);
-    const transactions = activities.map((activity) => {
-      const { to, from, value } = activity.data;
-      return {
-        to: to,
-        from: from,
-        valueInFreckles: value,
-        txHash: activity.transactionHash,
-        date: DateTime.fromSeconds(activity.timestamp),
-        negative: from === safeAddress,
-      };
-    });
-    // console.log(transactions);
-    return transactions;
-  } catch (e) {
-    // TODO: HANDLE
-    // console.log(e);
-  }
+const generateCsvContent = (
+  accountName,
+  safeAddress,
+  startDate,
+  endDate,
+  startBalance,
+  endBalance,
+  demurrage,
+  sumOfTransactions,
+  csvTransactions,
+) => {
+  return [
+    'Circles Account Statement',
+    '',
+    `Account_name; ${accountName}`,
+    `Account_safe_address; ${safeAddress}`,
+    `Period_start_date; ${formatDate(startDate)}`,
+    `Period_end_date; ${formatDate(endDate)}`,
+    '',
+    `Balance_on_end_date; ${endBalance}`,
+    `Demurrage_during_selected_period; ${demurrage}`,
+    `Sum_of_transaction; ${sumOfTransactions}`,
+    `Balance_on_start_date; ${startBalance}`,
+    '',
+    'Transactions_within_period',
+    `date; to_or_from_username; to_or_from_safe_address; transfer_note; amount_in_circles`,
+    ...csvTransactions,
+  ].join('\n');
 };
 
 /**
@@ -59,11 +60,11 @@ const formatActivities = async (transactions, safeAddress) => {
       const valueInTimeCircles = formatCirclesValue(
         valueInFreckles,
         date,
-        2,
+        NUMBER_OF_DECIMALS,
         false, // important to not round normal, not down to get even numbers
       );
       return [
-        date.toFormat('dd.LL.yyyy').toString(),
+        formatDate(date),
         'placeholder name',
         otherSafeAddress,
         message || '-',
@@ -84,77 +85,136 @@ const formatActivities = async (transactions, safeAddress) => {
   });
 };
 
-const generateCsvContent = (
-  accountName,
-  safeAddress,
-  startDate,
-  endDate,
-  startBalance,
-  endBalance,
-  demurrage,
-  sumOfTransactions,
-  csvTransactions,
-) => {
-  return [
-    'Circles Account Statement',
-    '',
-    `Account_name; ${accountName}`,
-    `Account_safe_address; ${safeAddress}`,
-    `Period_start_date"; ${formatDate(startDate)}`,
-    `Period_end_date; ${formatDate(endDate)}`,
-    '',
-    `Balance_on_end_date; ${endBalance}`,
-    `Demurrage_during_selected_period; ${demurrage}`,
-    `Sum_of_transaction; ${sumOfTransactions}`,
-    `Balance_on_start_date; ${startBalance}`,
-    '',
-    'Transactions_within_period',
-    `date; to_or_from_username; to_or_from_safe_address; transfer_note; amount_in_circles`,
-    ...csvTransactions,
-  ].join('\n');
+/**
+ *
+ * @param {*} transactions
+ * @param {*} shouldBeInTc
+ * @returns
+ */
+const sumOfTransactions = (transactions, shouldBeInTc = false) => {
+  if (shouldBeInTc) {
+    return transactions.reduce(
+      (acc, tx) =>
+        tx.isNegative
+          ? acc - tx.valueInTimeCircles
+          : acc + tx.valueInTimeCircles,
+      0,
+    );
+  }
+  return transactions.reduce(
+    (acc, tx) =>
+      tx.isNegative
+        ? acc - parseFloat(tx.valueInCircles)
+        : acc + parseFloat(tx.valueInCircles),
+    0,
+  );
 };
 
 /**
- * Exports account statement as csv file
+ *
+ * @param {*} safeAddress
+ * @returns
+ */
+const getTransactions = async (safeAddress) => {
+  try {
+    const { activities /*, lastTimestamp*/ } = await core.activity.getLatest(
+      safeAddress,
+      ActivityFilterTypes.TRANSFERS,
+      40,
+    );
+    // console.log('CAT --- ', activities, lastTimestamp);
+    const transactions = activities.map((activity) => {
+      const { to, from, value } = activity.data;
+      const valueInCircles = web3.utils.fromWei(value);
+      const date = DateTime.fromSeconds(activity.timestamp);
+      return {
+        to: to,
+        from: from,
+        valueInFreckles: value,
+        valueInCircles: valueInCircles,
+        valueInTimeCircles: crcToTc(date, Number(valueInCircles)),
+        txHash: activity.transactionHash,
+        date: date,
+        isNegative: from === safeAddress,
+      };
+    });
+    //  console.log(transactions);
+    return transactions;
+  } catch (e) {
+    // TODO: HANDLE
+    // console.log(e);
+  }
+};
+
+/**
+ *
+ * @param {*} accountName
+ * @param {*} safeAddress
+ * @param {*} startDate
+ * @param {*} endDate
+ * @returns
  */
 export async function downloadCsvStatement(
   accountName,
   safeAddress,
-  startDate = DateTime.now(),
-  endDate = DateTime.now(),
+  startDate = DateTime.now(), // TODO
+  endDate = DateTime.now(), // TODO
 ) {
-  /* TODO:
-   * filter activity
-   * call calc balance
-   * call calc demurrage
-   * format transactions
-   * filename includes dates
-   * error handling
-   */
+  // Verify date order
+  if (startDate > endDate) {
+    throw new Error('Invalid date interval');
+    // TODO: improve and catch
+  }
 
-  // verify date order - later
-  // DateTime.fromISO(lastSeenAt) > DateTime.fromISO(createdAt);
-
-  // get activity
+  // Transactions - TODO: filter on date
   const transactions = await getTransactions(safeAddress);
+  const txsNowToEnd = [];
+  const txsStartToEnd = transactions;
+
+  // Transaction sums
+  const sumCrcEnd = sumOfTransactions(txsNowToEnd);
+  const sumTxCrcPeriod = sumOfTransactions(txsStartToEnd);
+  const sumTxTcPeriod = sumOfTransactions(txsStartToEnd, true);
+  //  console.log({ sumCrcEnd, sumTxCrcPeriod, sumTxTcPeriod });
+
+  // Balances
+  const balanceNowCrc = parseFloat(
+    web3.utils.fromWei(await core.token.getBalance(safeAddress)),
+  );
+  const endBalanceCrc = balanceNowCrc - sumCrcEnd;
+  const startBalanceCrc = endBalanceCrc - sumTxCrcPeriod;
+  //  console.log({ balanceNowCrc, endBalanceCrc, startBalanceCrc });
+  const endBalanceTc = crcToTc(endDate, endBalanceCrc.toString());
+  const startBalanceTc = crcToTc(startDate, startBalanceCrc.toString());
+  const balanceChangeTc = endBalanceTc - startBalanceTc;
+  //  console.log({ endBalanceTc, startBalanceTc });
+
+  // Demurrage
+  const demurrage = balanceChangeTc - sumTxTcPeriod;
+  //  console.log({ balanceChangeTc, demurrage });
+
+  // CSV formatting
   const csvTransactions = await formatActivities(transactions, safeAddress);
-  const balanceNow = await core.token.getBalance(safeAddress);
-  const endBalance = formatCirclesValue(balanceNow); //getBalance(endDate, safeAddress);
-  const startBalance = getBalance(startDate, safeAddress);
-  const demurrage = 2;
   const csvString = generateCsvContent(
     accountName,
     safeAddress,
     startDate,
     endDate,
-    startBalance,
-    endBalance,
-    demurrage,
-    0,
+    startBalanceTc.toFixed(NUMBER_OF_DECIMALS).toString(),
+    endBalanceTc.toFixed(NUMBER_OF_DECIMALS).toString(),
+    demurrage.toFixed(NUMBER_OF_DECIMALS).toString(),
+    sumTxTcPeriod.toFixed(NUMBER_OF_DECIMALS).toString(),
     csvTransactions,
   );
-  const filename = 'export.csv';
-  //console.log(csvString);
+  //  console.log(csvString);
+
+  // File naming
+  const dateString = [formatDate(startDate), formatDate(endDate)]
+    .join('_-_')
+    .replace('.', '-');
+  const filename = `Circles_Statement_${accountName}_${dateString}.csv`;
+
+  // Download
   fileDownload(csvString, filename);
   return;
 }
