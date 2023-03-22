@@ -16,7 +16,7 @@ const formatDate = (/*dateTime*/) => {
   return '01.01.2022'; // Dummy date
 };
 
-const getActivities = async (safeAddress) => {
+const getTransactions = async (safeAddress) => {
   try {
     const { activities /*, lastTimestamp*/ } = await core.activity.getLatest(
       safeAddress,
@@ -24,7 +24,19 @@ const getActivities = async (safeAddress) => {
       40,
     );
     // console.log('CAT --- ', activities, lastTimestamp);
-    return activities;
+    const transactions = activities.map((activity) => {
+      const { to, from, value } = activity.data;
+      return {
+        to: to,
+        from: from,
+        valueInFreckles: value,
+        txHash: activity.transactionHash,
+        date: DateTime.fromSeconds(activity.timestamp),
+        negative: from === safeAddress,
+      };
+    });
+    // console.log(transactions);
+    return transactions;
   } catch (e) {
     // TODO: HANDLE
     // console.log(e);
@@ -32,21 +44,24 @@ const getActivities = async (safeAddress) => {
 };
 
 /**
- * @param {*} activities
+ * @param {*} transactions
  * @param {*} safeAddress
  * @returns A csv string with line separated transactions in format
  * 'dd.mm.yyyy, Username, 0x00000000000000000000, Transaction message, -123.45'
  */
-const formatActivities = async (activities, safeAddress) => {
-  const activityData = await Promise.all(
-    activities.map(async (activity) => {
-      const { to, from, value } = activity.data;
-      const timestamp = activity.timestamp;
-      const message = await resolveTxHash(activity.transactionHash);
+const formatActivities = async (transactions, safeAddress) => {
+  const transactionData = await Promise.all(
+    transactions.map(async (transaction) => {
+      const { to, from, valueInFreckles, txHash, date } = transaction;
+      const message = await resolveTxHash(txHash);
       const otherSafeAddress = to === safeAddress ? from : to;
       const valueSign = from === safeAddress ? '-' : '+';
-      const date = DateTime.fromSeconds(timestamp);
-      const valueInTimeCircles = formatCirclesValue(value, date, 2, false);
+      const valueInTimeCircles = formatCirclesValue(
+        valueInFreckles,
+        date,
+        2,
+        false, // important to not round normal, not down to get even numbers
+      );
       return [
         date.toFormat('dd.LL.yyyy').toString(),
         'placeholder name',
@@ -58,11 +73,11 @@ const formatActivities = async (activities, safeAddress) => {
     }),
   );
   // set of unique safes in data
-  const otherSafes = [...new Set(activityData.map((data) => data[2]))];
+  const otherSafes = [...new Set(transactionData.map((data) => data[2]))];
   // corresponding names by safe
   const namesBySafe = await resolveUsernames(otherSafes);
   // replace placeholder name
-  return activityData.map((data) => {
+  return transactionData.map((data) => {
     const safe = data[2];
     data[1] = namesBySafe[safe].username;
     return data.join(';');
@@ -121,10 +136,10 @@ export async function downloadCsvStatement(
   // DateTime.fromISO(lastSeenAt) > DateTime.fromISO(createdAt);
 
   // get activity
-  const activities = await getActivities(safeAddress);
-  const csvTransactions = await formatActivities(activities, safeAddress);
-  // const balanceNow = core.user.getBalance(safeAddress);
-  const endBalance = getBalance(endDate, safeAddress);
+  const transactions = await getTransactions(safeAddress);
+  const csvTransactions = await formatActivities(transactions, safeAddress);
+  const balanceNow = await core.token.getBalance(safeAddress);
+  const endBalance = formatCirclesValue(balanceNow); //getBalance(endDate, safeAddress);
   const startBalance = getBalance(startDate, safeAddress);
   const demurrage = 2;
   const csvString = generateCsvContent(
