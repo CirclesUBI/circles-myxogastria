@@ -8,6 +8,7 @@ import { ACTIVITIES_PATH } from '~/routes';
 
 import ActivityStream from '~/components/ActivityStream';
 import BadgeTab from '~/components/BadgeTab';
+import Button from '~/components/Button';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
 import core from '~/services/core';
@@ -87,6 +88,11 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
     [history, setSelectedCategory, basePath],
   );
 
+  const exportStatement = () => {
+    // TODO call csv method
+    // console.log('-----------------CLICK-------------------');
+  };
+
   useEffect(() => {
     // Update last seen timestamp when we leave
     return () => {
@@ -138,6 +144,10 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
           value={ActivityFilterTypes.CONNECTIONS}
         />
       </TabNavigation>
+      {selectedCategory === ActivityFilterTypes.TRANSFERS && (
+        <Button onClick={exportStatement}>Export Statement</Button>
+      )}
+      {/* TODO: styling */}
       <ActivityStream
         activities={activity.activities}
         isLoading={isLoading}
