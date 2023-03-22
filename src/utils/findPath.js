@@ -66,7 +66,7 @@ export async function findMaxFlow(from, to, setMaxFlow) {
   // Therefore we set the attemptsLeft and the hops option will be ignored.
   try {
     let response;
-    if (process.env.PATHFINDER_TYPE === 'cli'){
+    if (process.env.PATHFINDER_TYPE === 'cli') {
       response = await loopFindMaxFlow(
         from,
         to,
