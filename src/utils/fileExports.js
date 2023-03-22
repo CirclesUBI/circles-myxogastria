@@ -21,7 +21,7 @@ const getActivities = async (safeAddress) => {
     const { activities /*, lastTimestamp*/ } = await core.activity.getLatest(
       safeAddress,
       ActivityFilterTypes.TRANSFERS,
-      20,
+      40,
     );
     // console.log('CAT --- ', activities, lastTimestamp);
     return activities;
@@ -77,19 +77,25 @@ const generateCsvContent = (
   startBalance,
   endBalance,
   demurrage,
+  sumOfTransactions,
   csvTransactions,
 ) => {
   return [
     'Circles Account Statement',
-    `account_name; ${accountName}`,
-    `account_safe_address; ${safeAddress}`,
-    `period_start_date"; ${formatDate(startDate)}`,
-    `period_end_date; ${formatDate(endDate)}`,
-    `balance_on_end_date; ${endBalance}`,
-    `demurrage_during_selected_period; ${demurrage}`,
-    `date; to_or_from_username; to_or_from_safe_address; tranfer_note; amount_in_circles`,
+    '',
+    `Account_name; ${accountName}`,
+    `Account_safe_address; ${safeAddress}`,
+    `Period_start_date"; ${formatDate(startDate)}`,
+    `Period_end_date; ${formatDate(endDate)}`,
+    '',
+    `Balance_on_end_date; ${endBalance}`,
+    `Demurrage_during_selected_period; ${demurrage}`,
+    `Sum_of_transaction; ${sumOfTransactions}`,
+    `Balance_on_start_date; ${startBalance}`,
+    '',
+    'Transactions_within_period',
+    `date; to_or_from_username; to_or_from_safe_address; transfer_note; amount_in_circles`,
     ...csvTransactions,
-    `balance_on_start_date; ${startBalance}`,
   ].join('\n');
 };
 
@@ -103,13 +109,12 @@ export async function downloadCsvStatement(
   endDate = DateTime.now(),
 ) {
   /* TODO:
-   * verify date order
-   * get activity
    * filter activity
    * call calc balance
    * call calc demurrage
    * format transactions
    * filename includes dates
+   * error handling
    */
 
   // verify date order - later
@@ -118,7 +123,7 @@ export async function downloadCsvStatement(
   // get activity
   const activities = await getActivities(safeAddress);
   const csvTransactions = await formatActivities(activities, safeAddress);
-  //const balanceNow = core.user.getBalance(safeAddress);
+  // const balanceNow = core.user.getBalance(safeAddress);
   const endBalance = getBalance(endDate, safeAddress);
   const startBalance = getBalance(startDate, safeAddress);
   const demurrage = 2;
@@ -130,6 +135,7 @@ export async function downloadCsvStatement(
     startBalance,
     endBalance,
     demurrage,
+    0,
     csvTransactions,
   );
   const filename = 'export.csv';
