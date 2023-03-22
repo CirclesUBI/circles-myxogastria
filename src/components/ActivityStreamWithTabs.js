@@ -16,6 +16,7 @@ import translate from '~/services/locale';
 import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
 import { CATEGORIES } from '~/store/activity/reducers';
 import { IconConnections, IconTransactions } from '~/styles/icons';
+import { downloadCsvStatement } from '~/utils/fileExports';
 
 const { ActivityFilterTypes } = core.activity;
 
@@ -89,8 +90,8 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   );
 
   const exportStatement = () => {
-    // TODO call csv method
-    // console.log('-----------------CLICK-------------------');
+    // TODO: include parameters
+    downloadCsvStatement();
   };
 
   useEffect(() => {
