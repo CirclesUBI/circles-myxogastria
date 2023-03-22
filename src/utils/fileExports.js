@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 
 import core from '~/services/core';
 import resolveTxHash from '~/services/transfer';
+import resolveUsernames from '~/services/username';
 import { formatCirclesValue } from '~/utils/format';
 
 const { ActivityFilterTypes } = core.activity;
@@ -30,8 +31,14 @@ const getActivities = async (safeAddress) => {
   }
 };
 
+/**
+ * @param {*} activities
+ * @param {*} safeAddress
+ * @returns A csv string with line separated transactions in format
+ * 'dd.mm.yyyy, Username, 0x00000000000000000000, Transaction message, -123.45'
+ */
 const formatActivities = async (activities, safeAddress) => {
-  return await Promise.all(
+  const activityData = await Promise.all(
     activities.map(async (activity) => {
       const { to, from, value } = activity.data;
       const timestamp = activity.timestamp;
@@ -41,14 +48,25 @@ const formatActivities = async (activities, safeAddress) => {
       const date = DateTime.fromSeconds(timestamp);
       const valueInTimeCircles = formatCirclesValue(value, date, 2, false);
       return [
-        date.toFormat('dd.LL.yyyy'),
-        'Placeholder Name',
+        date.toFormat('dd.LL.yyyy').toString(),
+        'placeholder name',
         otherSafeAddress,
         message || '-',
         valueSign.concat(valueInTimeCircles),
-      ].join(';');
+        '',
+      ];
     }),
   );
+  // set of unique safes in data
+  const otherSafes = [...new Set(activityData.map((data) => data[2]))];
+  // corresponding names by safe
+  const namesBySafe = await resolveUsernames(otherSafes);
+  // replace placeholder name
+  return activityData.map((data) => {
+    const safe = data[2];
+    data[1] = namesBySafe[safe].username;
+    return data.join(';');
+  });
 };
 
 const generateCsvContent = (
@@ -68,8 +86,8 @@ const generateCsvContent = (
     `period_start_date"; ${formatDate(startDate)}`,
     `period_end_date; ${formatDate(endDate)}`,
     `balance_on_end_date; ${endBalance}`,
-    `demurrage_during_selected_period, ${demurrage}`,
-    `date; to_or_from_username; to_or_from_safe_address; tranfer_note, amount_in_circles`,
+    `demurrage_during_selected_period; ${demurrage}`,
+    `date; to_or_from_username; to_or_from_safe_address; tranfer_note; amount_in_circles`,
     ...csvTransactions,
     `balance_on_start_date; ${startBalance}`,
   ].join('\n');
@@ -100,8 +118,7 @@ export async function downloadCsvStatement(
   // get activity
   const activities = await getActivities(safeAddress);
   const csvTransactions = await formatActivities(activities, safeAddress);
-  // console.log(csvTransactions);
-
+  //const balanceNow = core.user.getBalance(safeAddress);
   const endBalance = getBalance(endDate, safeAddress);
   const startBalance = getBalance(startDate, safeAddress);
   const demurrage = 2;
@@ -116,6 +133,7 @@ export async function downloadCsvStatement(
     csvTransactions,
   );
   const filename = 'export.csv';
+  //console.log(csvString);
   fileDownload(csvString, filename);
   return;
 }
