@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => {
     stepperButton: {
       '& .MuiSvgIcon-root.MuiStepIcon-root': {
         color: '#fff',
-        fontWeight: '600',
+        fontWeight: '500',
         fontSize: '1.3rem',
         borderRadius: '100%',
         border: `2px solid ${theme.custom.colors.grayDark}`,

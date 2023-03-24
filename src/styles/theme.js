@@ -145,14 +145,6 @@ export default createTheme({
   typography: {
     fontFamily: [fontFamily, 'sans-serif'].join(','),
     body1: {
-      fontSize: '0.875rem',
-      fontWeight: '400',
-      lineHeight: '1.43',
-      // fontSize: '1rem',
-      // fontWeight: '300',
-      // lineHeight: '1.5',
-    },
-    body2: {
       fontSize: '1rem',
       fontWeight: '300',
       lineHeight: '1.5',

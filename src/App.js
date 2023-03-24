@@ -16,16 +16,6 @@ import { initializeApp } from '~/store/app/actions';
 import logError from '~/utils/debug';
 
 const useStyles = makeStyles((theme) => {
-  // @NOTE: Hacky use of !important, see related issue:
-  // https://github.com/iamhosseindhv/notistack/issues/305
-  const notificationColumnFix = {
-    '& div': {
-      paddingLeft: '0px',
-    },
-    '& > div:first-child': {
-      width: 'calc(100% - 45px)',
-    },
-  };
   return {
     snackbarProvider: {
       display: 'flex',
@@ -38,51 +28,38 @@ const useStyles = makeStyles((theme) => {
       [theme.breakpoints.up('sm')]: {
         bottom: '25px',
       },
-    },
-    snackbarInfo: {
-      background: `${theme.custom.gradients.pinkToPurple} !important`,
-      boxShadow: `${theme.custom.shadows.lightGray} !important`,
-      color: `${theme.custom.colors.whiteAlmost} !important`,
-      ...notificationColumnFix,
-    },
-    // Warning is used for type special notification
-    snackbarWarning: {
-      display: 'flex',
-      flexDirection: 'row',
-      background: `${theme.custom.colors.whiteAlmost} !important`,
-      border: `2px solid ${theme.custom.colors.deepBlush} !important`,
-      borderRadius: '8px !important',
-      boxShadow: `${theme.custom.shadows.lightGray} !important`,
-      color: `${theme.custom.colors.purple} !important`,
-      textAlign: 'center !important',
-      '& span': {
-        background: theme.custom.gradients.lightPinkToPurple,
-        '-webkit-background-clip': 'text',
-        '-webkit-text-fill-color': 'transparent',
+
+      '&.notistack-MuiContent-success': {
+        background: theme.custom.colors.fountainBlueLighter,
+        boxShadow: theme.custom.shadows.grayBottomRight,
       },
-      '& div': {
-        paddingLeft: '0px',
-        background: theme.custom.gradients.lightPinkToPurple,
-        '-webkit-background-clip': 'text',
-        '-webkit-text-fill-color': 'transparent',
+      '&.notistack-MuiContent-error': {
+        background: theme.custom.colors.lividBrown,
+        boxShadow: theme.custom.shadows.lightGray,
       },
-      '& > div:first-child': {
-        width: 'calc(100% - 45px)',
+      '&.notistack-MuiContent-warning': {
+        background: theme.custom.colors.whiteAlmost,
+        border: `2px solid ${theme.custom.colors.deepBlush}`,
+        borderRadius: '8px',
+        boxShadow: theme.custom.shadows.lightGray,
+        color: theme.custom.colors.purple,
+        textAlign: 'center',
+        '& span': {
+          background: theme.custom.gradients.lightPinkToPurple,
+          '-webkit-background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+        },
+        '& div': {
+          paddingLeft: '0px',
+          background: theme.custom.gradients.lightPinkToPurple,
+          '-webkit-background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+        },
       },
-    },
-    snackbarSuccess: {
-      background: `${theme.custom.colors.fountainBlueLighter} !important`,
-      boxShadow: `${theme.custom.shadows.grayBottomRight} !important`,
-      color: `${theme.custom.colors.whiteAlmost} !important`,
-      ...notificationColumnFix,
-    },
-    snackbarError: {
-      display: 'flex',
-      flexDirection: 'row',
-      background: `${theme.custom.colors.lividBrown} !important`,
-      boxShadow: `${theme.custom.shadows.lightGray} !important`,
-      color: `${theme.custom.colors.whiteAlmost} !important`,
-      ...notificationColumnFix,
+      '&.notistack-MuiContent-info': {
+        background: theme.custom.gradients.pinkToPurple,
+        boxShadow: theme.custom.shadows.lightGray,
+      },
     },
   };
 });
@@ -106,16 +83,7 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <SnackbarProvider
-      className={classes.snackbarProvider}
-      classes={{
-        variantSuccess: classes.snackbarSuccess,
-        variantError: classes.snackbarError,
-        variantWarning: classes.snackbarWarning,
-        variantInfo: classes.snackbarInfo,
-      }}
-      hideIconVariant
-    >
+    <SnackbarProvider className={classes.snackbarProvider} hideIconVariant>
       <Router>
         <PinkShadow>
           <UBI />

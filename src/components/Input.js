@@ -156,6 +156,9 @@ const useStyles = makeStyles((theme) => {
         borderWidth: '2px',
       },
     },
+    inputAdornment: {
+      padding: '0 5px 0 8px',
+    },
   };
 });
 
@@ -196,7 +199,10 @@ const Input = ({
           }}
           endAdornment={
             isLoading ? (
-              <InputAdornment position="start">
+              <InputAdornment
+                classes={{ root: classes.inputAdornment }}
+                position="start"
+              >
                 <CircularProgress size={15} />
               </InputAdornment>
             ) : null

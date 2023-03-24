@@ -334,7 +334,7 @@ const ActivityStreamExplained = ({
         className={classes.cardContentText}
         color="textSecondary"
         component="p"
-        variant="body2"
+        variant="body1"
       >
         {text}
       </Typography>
@@ -342,7 +342,7 @@ const ActivityStreamExplained = ({
         className={classes.cardContentText}
         color="textSecondary"
         component="p"
-        variant="body2"
+        variant="body1"
       >
         {translate('ActivityStream.bodyExplainSecondary')}{' '}
         <ExternalLink href={FAQ_URL} underline="hover">
@@ -365,7 +365,7 @@ const ActivityStreamPaymentNote = ({ txHash }) => {
           className={classes.cardContentPaymentNote}
           color="textSecondary"
           component="p"
-          variant="body2"
+          variant="body1"
         >
           {translate('ActivityStream.bodyPaymentNote', {
             note: paymentNote,

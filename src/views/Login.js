@@ -113,7 +113,7 @@ const Login = () => {
             <Typography align="center" gutterBottom variant="h6">
               {translate('Login.headingLogin')}
             </Typography>
-            <Typography className={classes.textContainer} variant="body2">
+            <Typography className={classes.textContainer} variant="body1">
               {translate('Login.bodyEnterYourSeedPhrase')}
             </Typography>
             <Paper classes={{ root: classes.paperContainer }} p={2}>

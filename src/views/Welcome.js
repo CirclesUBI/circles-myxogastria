@@ -1,7 +1,7 @@
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { LOGIN_PATH, ONBOARDING_PATH } from '~/routes';
 
@@ -45,7 +45,7 @@ const Welcome = () => {
   const classes = useStyles();
 
   return (
-    <Fragment>
+    <>
       <Header>
         <Box display="flex" justifyContent="flex-end" width="100%">
           <LocaleSelector isInvertedColor />
@@ -101,7 +101,7 @@ const Welcome = () => {
           </Grid>
         </Box>
       </View>
-    </Fragment>
+    </>
   );
 };
 
