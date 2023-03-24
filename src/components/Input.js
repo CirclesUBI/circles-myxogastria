@@ -59,11 +59,6 @@ const useStyles = makeStyles((theme) => {
       color: theme.custom.colors.purple,
     },
 
-    // inputLabelClasses: {
-    //   background: 'white',
-    //   padding: '0 10px',
-    // },
-
     formHelperText: {
       position: 'absolute',
       padding: '2px 6px',
@@ -76,7 +71,7 @@ const useStyles = makeStyles((theme) => {
     },
 
     outlinedInput: {
-      padding: '13.5px 14px',
+      padding: '11.5px 14px',
       borderRadius: '25px',
       color: theme.custom.colors.violet,
     },
@@ -201,7 +196,7 @@ const Input = ({
           }}
           endAdornment={
             isLoading ? (
-              <InputAdornment position="end">
+              <InputAdornment position="start">
                 <CircularProgress size={15} />
               </InputAdornment>
             ) : null
