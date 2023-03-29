@@ -45,7 +45,7 @@ const PinkShadow = (props) => {
 
   const applyPinkShadow = () => {
     const { scrollHeight, clientHeight } = ref.current;
-    if (scrollHeight <= clientHeight + window.pageYOffset + 1) {
+    if (scrollHeight <= clientHeight + window.pageYOffset + 10) {
       setIsPinkShadow(false);
     } else {
       setIsPinkShadow(true);
@@ -68,6 +68,7 @@ const PinkShadow = (props) => {
 
   useEffect(() => {
     const { scrollHeight, clientHeight } = ref.current;
+
     if (
       scrollHeight > clientHeight &&
       !(scrollHeight <= clientHeight + window.pageYOffset + 1)

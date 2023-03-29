@@ -28,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline-flex',
     alignItems: 'center',
     fontSize,
-    '&>*': {
+    '& > *': {
       marginRight: theme.spacing(0.5),
     },
-    '&>span': {
+    '& > span': {
       color: theme.custom.colors.grayDarkest,
     },
   },
@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightMedium,
     fontSize: '18px',
     textAlign: 'left',
+  },
+  svg: {
+    color: theme.custom.colors.purple,
   },
 }));
 
@@ -68,7 +71,12 @@ const TransferInfoCard = ({
               <Typography className={classes.cardHeaderContent} component="div">
                 <CirclesLogoSVG height={fontSize} width={fontSize} />
                 <span>{text}</span>
-                {isLoading && <CircularProgress size={fontSize} />}
+                {isLoading && (
+                  <CircularProgress
+                    classes={{ svg: classes.svg }}
+                    size={fontSize}
+                  />
+                )}
               </Typography>
             </Tooltip>
           }

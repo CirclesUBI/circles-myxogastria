@@ -105,7 +105,8 @@ const Notifications = () => {
   useEffect(() => {
     function chooseIcon(icon, type) {
       if (icon) {
-        return iconSelector(icon);
+        const IconElement = iconSelector(icon);
+        return <IconElement />;
       } else {
         switch (type) {
           case NotificationsTypes.SUCCESS:

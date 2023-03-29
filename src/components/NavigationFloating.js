@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => {
       color: theme.custom.colors.white,
       position: 'fixed',
       right: '17px',
-      zIndex: theme.zIndex.toolbar,
+      zIndex: theme.zIndex.floatingMenuButton,
       width: '52px',
       height: '52px',
       background: 'transparent',
@@ -188,7 +188,7 @@ export default function NavigationFloating(props) {
         onClose={handleClose}
       >
         {props.isAddMembersLink && (
-          <MenuItem>
+          <MenuItem onClick={handleClose}>
             <Link to={ORGANIZATION_MEMBERS_PATH}>
               <Button isOutline>
                 {translate('NavigationFloating.linkAddMembers')}
@@ -196,14 +196,14 @@ export default function NavigationFloating(props) {
             </Link>
           </MenuItem>
         )}
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <Link to={EDIT_PROFILE_PATH}>
             <Button isOutline>
               {translate('NavigationFloating.linkEditProfile')}
             </Button>
           </Link>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <Link to={MY_PROFILE_PATH}>
             <Button isOutline>
               {translate('NavigationFloating.linkMyWallets')}
@@ -211,14 +211,14 @@ export default function NavigationFloating(props) {
           </Link>
         </MenuItem>
         <ExternalLink href={MARKETPLACE_URL}>
-          <MenuItem>
+          <MenuItem onClick={handleClose}>
             <Button isOutline>
               {translate('NavigationFloating.linkMarketplace')}
             </Button>
           </MenuItem>
         </ExternalLink>
         <ExternalLink href={FAQ_URL}>
-          <MenuItem>
+          <MenuItem onClick={handleClose}>
             <Button isOutline>
               {translate('NavigationFloating.linkSupport')}
             </Button>
