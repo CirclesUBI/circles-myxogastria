@@ -80,7 +80,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     paddingTop: 0,
-    paddingBottom: `${theme.spacing(1.5)} !important`,
+    ' &.MuiCardContent-root': {
+      paddingBottom: `${theme.spacing(1.5)}`,
+    },
   },
   cardContentText: {
     fontSize: '0.8rem',
@@ -282,7 +284,10 @@ const ActivityStreamItem = (props) => {
         onClick={handleClick}
       />
       <Collapse in={isExpanded}>
-        <CardContent className={classes.cardContent}>
+        <CardContent
+          // className={classes.cardContent}
+          classes={{ root: classes.cardContent }}
+        >
           <ActivityStreamExplained
             actor={actor}
             data={data}

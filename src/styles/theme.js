@@ -141,6 +141,9 @@ export default createTheme({
       main: colors.turquoise,
       dark: colors.turquoiseDark,
     },
+    background: {
+      default: colors.whiteAlmost,
+    },
   },
   typography: {
     fontFamily: [fontFamily, 'sans-serif'].join(','),

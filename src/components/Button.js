@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
       background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
       ${theme.custom.gradients.lightPinkToPurple} border-box`,
 
-      // '& .MuiButton-label': {
       '& .MuiTouchRipple-root': {
         background: theme.custom.gradients.lightPinkToPurple,
         '-webkit-background-clip': 'text',
@@ -51,14 +50,12 @@ const useStyles = makeStyles((theme) => ({
       background: theme.custom.colors.whiteAlmost,
       borderColor: theme.custom.colors.lola,
 
-      // '& .MuiButton-label': {
       '& .MuiTouchRipple-root': {
         background: 'none',
         color: theme.custom.colors.lola,
         '-webkit-text-fill-color': theme.custom.colors.lola,
       },
     },
-    // '& .MuiButton-label': {
     '& .MuiTouchRipple-root': {
       background: theme.custom.gradients.pinkToPurple,
       '-webkit-background-clip': 'text',
@@ -74,12 +71,10 @@ const useStyles = makeStyles((theme) => ({
     background: 'transparent',
     '&:hover': {
       background: theme.custom.colors.lightGrey,
-      // '& .MuiButton-label': {
       '& .MuiTouchRipple-root': {
         '-webkit-text-fill-color': theme.custom.colors.white,
       },
     },
-    // '& .MuiButton-label': {
     '& .MuiTouchRipple-root': {
       '-webkit-text-fill-color': theme.custom.colors.white,
     },

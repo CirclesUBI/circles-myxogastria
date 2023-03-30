@@ -197,7 +197,6 @@ export function finalizeNewAccount() {
       notify({
         text: <WelcomeMessage />,
         type: NotificationsTypes.SPECIAL,
-        lifetime: 259200, // 3 days
       }),
     );
   };

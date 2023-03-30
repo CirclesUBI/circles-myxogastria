@@ -80,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     color: theme.palette.primary.contrastText,
   },
-  navigationLinkLabel: {},
 }));
 
 const Navigation = ({ isExpanded, ...props }) => {
@@ -226,7 +225,6 @@ const NavigationLink = ({ children, to }) => {
     <Button
       classes={{
         root: classes.navigationLink,
-        label: classes.navigationLinkLabel,
       }}
       component={Link}
       to={to}

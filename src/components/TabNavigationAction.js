@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       borderBottom: `1px solid ${theme.custom.colors.oldLavender}`,
       color: theme.custom.colors.oldLavender,
-      // },
       '& g, & path': {
         fill: theme.custom.colors.oldLavender,
       },
