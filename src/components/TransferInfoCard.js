@@ -31,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       marginRight: theme.spacing(0.5),
     },
-    '& > span': {
-      color: theme.custom.colors.grayDarkest,
-    },
   },
   inputLabel: {
     marginBottom: theme.spacing(1),
@@ -42,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '18px',
     textAlign: 'left',
   },
-  svg: {
-    color: theme.custom.colors.purple,
+  text: {
+    color: theme.custom.colors.grayDarkest,
   },
 }));
 
@@ -70,7 +67,7 @@ const TransferInfoCard = ({
             <Tooltip arrow title={tooltip}>
               <Typography className={classes.cardHeaderContent} component="div">
                 <CirclesLogoSVG height={fontSize} width={fontSize} />
-                <span>{text}</span>
+                <span className={classes.text}>{text}</span>
                 {isLoading && (
                   <CircularProgress
                     classes={{ svg: classes.svg }}
