@@ -4,10 +4,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {
-  IconWobblyCircle,
-  iconSelector,
-} from '~/styles/icons';
+import { IconWobblyCircle, iconSelector } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   buttonWobbly: {
@@ -59,7 +56,6 @@ const ButtonWobbly = ({
   isReady,
   isPending,
   onClick,
-  to,
 }) => {
   const classes = useStyles();
   const IconElement = iconSelector(icon);
@@ -71,8 +67,8 @@ const ButtonWobbly = ({
         disabled: classes.buttonWobblyDisabled,
       }}
       disabled={isPending || !isReady}
-      onClick={onClick}
       to
+      onClick={onClick}
     >
       {isPending ? (
         <CircularProgress size={24} />
@@ -91,8 +87,8 @@ ButtonWobbly.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   icon: PropTypes.function,
-  isReady: PropTypes.bool,
   isPending: PropTypes.bool,
+  isReady: PropTypes.bool,
   onClick: PropTypes.function,
   to: PropTypes.string,
 };
