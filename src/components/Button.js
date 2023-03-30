@@ -63,8 +63,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   buttonDanger: {
-    background: theme.custom.colors.red,
-    color: theme.palette.common.white,
+    // danger styling design currently is the same as normal
   },
   buttonWhiteText: {
     color: theme.custom.colors.white,
