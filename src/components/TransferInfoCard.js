@@ -68,12 +68,7 @@ const TransferInfoCard = ({
               <Typography className={classes.cardHeaderContent} component="div">
                 <CirclesLogoSVG height={fontSize} width={fontSize} />
                 <span className={classes.text}>{text}</span>
-                {isLoading && (
-                  <CircularProgress
-                    classes={{ svg: classes.svg }}
-                    size={fontSize}
-                  />
-                )}
+                {isLoading && <CircularProgress size={fontSize} />}
               </Typography>
             </Tooltip>
           }
