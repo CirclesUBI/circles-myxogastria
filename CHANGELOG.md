@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.7.2] - 2023-03-31
+
+### Fixed
+- Synchronize UX styling of End-Session button in Settings with the rest of the app [#642](https://github.com/CirclesUBI/circles-myxogastria/pull/642)
+- Don't call getTransactionReceipt if txHash is not defined, in order to avoid "Invalid params" errors [#640](https://github.com/CirclesUBI/circles-myxogastria/pull/640)
+- Migrate to MaterialUI version 5 [#628](https://github.com/CirclesUBI/circles-myxogastria/pull/628)
+
 # [2.7.1] - 2023-03-09
 
 ### Fixed
