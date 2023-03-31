@@ -1,5 +1,5 @@
-import { Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
@@ -45,7 +45,7 @@ const PinkShadow = (props) => {
 
   const applyPinkShadow = () => {
     const { scrollHeight, clientHeight } = ref.current;
-    if (scrollHeight <= clientHeight + window.pageYOffset + 1) {
+    if (scrollHeight <= clientHeight + window.pageYOffset + 10) {
       setIsPinkShadow(false);
     } else {
       setIsPinkShadow(true);
@@ -68,6 +68,7 @@ const PinkShadow = (props) => {
 
   useEffect(() => {
     const { scrollHeight, clientHeight } = ref.current;
+
     if (
       scrollHeight > clientHeight &&
       !(scrollHeight <= clientHeight + window.pageYOffset + 1)

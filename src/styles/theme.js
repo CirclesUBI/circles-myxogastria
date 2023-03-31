@@ -1,4 +1,4 @@
-import { createTheme } from '@material-ui/core/styles';
+import { createTheme } from '@mui/material/styles';
 
 import {
   fontFamily as fontFamilyNotoSans,
@@ -68,6 +68,7 @@ export const colors = {
   lola: '#DED5DD',
   cornflowerBlue: '#efeaef',
   lily: '#BDACBB',
+  mineShaft: '#212121',
   oldLavender: '#7B5978',
   cannonPink: '#853F5C',
   cranberry: '#D64B85',
@@ -103,6 +104,8 @@ const shadows = {
   grayBottomRight: ' 1px 1px 4px rgba(204, 30, 102, 0.25)', //success notification
 };
 
+const fontFamily = `"${fontFamilyNotoSans}"`;
+
 const components = {
   appBarHeight: 64,
   appMaxWidth: 900,
@@ -111,8 +114,6 @@ const components = {
   avatarUploader: 85,
   navigationWidth: 300,
 };
-
-const fontFamily = `"${fontFamilyNotoSans}", sans-serif`;
 
 export default createTheme({
   breakpoints: {
@@ -125,16 +126,7 @@ export default createTheme({
       xlPlus1: 1921,
     },
   },
-  props: {
-    MuiDialog: {
-      maxWidth: 'lg',
-    },
-  },
   palette: {
-    background: {
-      default: colors.whiteAlmost,
-      paper: colors.white,
-    },
     icons: {
       dark: colors.violet,
       light: colors.whiteAlmost,
@@ -149,15 +141,16 @@ export default createTheme({
       main: colors.turquoise,
       dark: colors.turquoiseDark,
     },
+    background: {
+      default: colors.whiteAlmost,
+    },
   },
   typography: {
-    fontFamily,
-    fontWeightLight,
-    fontWeightRegular,
-    fontWeightMedium,
-    fontWeightBold,
+    fontFamily: [fontFamily, 'sans-serif'].join(','),
     body1: {
-      fontWeight: fontWeightLight,
+      fontSize: '1rem',
+      fontWeight: '300',
+      lineHeight: '1.5',
     },
     h1: {
       fontSize: '32px',
@@ -177,80 +170,86 @@ export default createTheme({
         marginBottom: '12px',
       },
     },
+    poster: {
+      fontSize: '4rem',
+      color: 'red',
+    },
+    components: {
+      MuiTypography: {
+        defaultProps: {
+          variantMapping: {
+            poster: 'h1',
+          },
+        },
+      },
+    },
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: ${fontFamily};
+          font-style: normal;
+          font-weight: ${fontWeightRegular};
+          src: ${notoSans.src};
+        }
+        @font-face {
+          font-family: ${fontFamily};
+          font-style: italic;
+          font-weight: ${fontWeightRegular};
+          src: ${notoSansItalic.src};
+        }
+        @font-face {
+          font-family: ${fontFamily};
+          font-style: normal;
+          font-weight: ${fontWeightLight};
+          src: ${notoSansLight.src};
+        }
+        @font-face {
+          font-family: ${fontFamily};
+          font-style: italic;
+          font-weight: ${fontWeightLight};
+          src: ${notoSansLightItalic.src};
+        }
+        @font-face {
+          font-family: ${fontFamily};
+          font-style: normal;
+          font-weight: ${fontWeightMedium};
+          src: ${notoSansMedium.src};
+        }
+        @font-face {
+          font-family: ${fontFamily};
+          font-style: normal;
+          font-weight: ${fontWeightBold};
+          src: ${notoSansBold.src};
+        }
+      `,
+    },
+
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          '&.lightGreyText': {
+            color: colors.grayDarker,
+          },
+        },
+      },
+    },
   },
   zIndex: {
     spinnerOverlay: 20000,
     qrCodeScannerVideo: 12000,
     qrCodeScannerSpinner: 11000,
     qrCodeScannerBackdrop: 10000,
+    toolbar: 2000,
     floatingMenu: 302,
     floatingMenuIcon: 301,
     floatingMenuButton: 300,
-    toolbar: 200,
     header: 100,
     scrollShadow: 30,
     layer2: 20,
     layer1: 10,
     backgroundCurvedWrapper: 0,
-  },
-  overrides: {
-    MuiCssBaseline: {
-      '@global': {
-        body: {
-          overflowX: 'hidden',
-          backgroundColor: colors.white,
-        },
-        '@font-face': [
-          notoSans,
-          notoSansBold,
-          notoSansItalic,
-          notoSansLight,
-          notoSansLightItalic,
-          notoSansMedium,
-        ],
-        fontFamily,
-      },
-    },
-    MuiDialog: {
-      paper: {
-        borderRadius: 0,
-        borderBottomRightRadius: 48,
-      },
-    },
-    MuiDialogActions: {
-      root: {
-        justifyContent: 'flex-start',
-        padding: 19,
-      },
-    },
-    MuiDivider: {
-      root: {
-        backgroundColor: colors.black,
-      },
-    },
-    MuiListItem: {
-      root: {
-        font: fontFamily,
-        fontWeight: fontWeightLight,
-      },
-    },
-    MuiTypography: {
-      root: {
-        '&.lightGreyText': {
-          color: colors.grayDarker,
-        },
-      },
-    },
-    // @NOTE: This is a workaround to fix an issue with Safari 14.1.1
-    // displaying the button color wrong after it changed to enabled state.
-    //
-    // See: https://github.com/mui-org/material-ui/issues/26251
-    MuiButton: {
-      root: {
-        transition: 'color .01s',
-        fontSize: 18,
-      },
-    },
   },
   custom: {
     colors,

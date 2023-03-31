@@ -1,5 +1,5 @@
-import { Box, Container, Grid, IconButton } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, Container, Grid, IconButton } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useRouteMatch } from 'react-router-dom';
@@ -117,7 +117,12 @@ const DashboardOrganization = () => {
           isOrganization={true}
           useSpecialWithColorOnScroll={true}
         >
-          <IconButton aria-label="Menu" edge="start" onClick={handleMenuToggle}>
+          <IconButton
+            aria-label="Menu"
+            edge="start"
+            size="large"
+            onClick={handleMenuToggle}
+          >
             <IconMenu />
           </IconButton>
           <ActivityIcon />

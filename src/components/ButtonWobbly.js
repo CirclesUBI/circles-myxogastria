@@ -1,13 +1,10 @@
-import { Box, CircularProgress, IconButton } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, CircularProgress, IconButton } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {
-  IconWobblyCircle,
-  iconSelector,
-} from '~/styles/icons';
+import { IconWobblyCircle, iconSelector } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   buttonWobbly: {
@@ -71,8 +68,8 @@ const ButtonWobbly = ({
         disabled: classes.buttonWobblyDisabled,
       }}
       disabled={isPending || !isReady}
+      to={to}
       onClick={onClick}
-      to
     >
       {isPending ? (
         <CircularProgress size={24} />
@@ -91,8 +88,8 @@ ButtonWobbly.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   icon: PropTypes.function,
-  isReady: PropTypes.bool,
   isPending: PropTypes.bool,
+  isReady: PropTypes.bool,
   onClick: PropTypes.function,
   to: PropTypes.string,
 };

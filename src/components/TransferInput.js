@@ -1,5 +1,5 @@
-import { FormHelperText, Input, InputLabel } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { FormHelperText, Input, InputLabel } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 
@@ -8,6 +8,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     height: 66,
     boxShadow: theme.custom.shadows.grayUp,
+
+    '& .MuiSvgIcon-root': {
+      fill: theme.custom.colors.mineShaft,
+    },
   },
   inputLabel: {
     marginBottom: theme.spacing(1),

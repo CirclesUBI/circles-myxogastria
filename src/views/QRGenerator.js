@@ -7,8 +7,8 @@ import {
   DialogContent,
   Grid,
   InputLabel,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { saveAs } from 'file-saver';
 import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';

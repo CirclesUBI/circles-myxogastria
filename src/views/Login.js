@@ -4,8 +4,8 @@ import {
   Link as MuiLink,
   Paper,
   Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -113,7 +113,7 @@ const Login = () => {
             <Typography align="center" gutterBottom variant="h6">
               {translate('Login.headingLogin')}
             </Typography>
-            <Typography className={classes.textContainer}>
+            <Typography className={classes.textContainer} variant="body1">
               {translate('Login.bodyEnterYourSeedPhrase')}
             </Typography>
             <Paper classes={{ root: classes.paperContainer }} p={2}>
@@ -131,13 +131,13 @@ const Login = () => {
           </Box>
           <Typography align="center">
             {translate('Login.bodyLostYourSeedPhrase')}{' '}
-            <MuiLink component={Link} to={ONBOARDING_PATH}>
+            <MuiLink component={Link} to={ONBOARDING_PATH} underline="hover">
               {translate('Login.buttonCreateNewWallet')}
             </MuiLink>
           </Typography>
           <Typography align="center">
             {translate('Login.bodyNeedHelp')}{' '}
-            <ExternalLink href={EMAIL_URL}>
+            <ExternalLink href={EMAIL_URL} underline="hover">
               {translate('Login.linkSupport')}
             </ExternalLink>
           </Typography>

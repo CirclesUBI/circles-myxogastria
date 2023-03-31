@@ -1,4 +1,4 @@
-import { Container } from '@material-ui/core';
+import { Container } from '@mui/material';
 import React, { Fragment, useState } from 'react';
 import { generatePath } from 'react-router';
 import { Redirect } from 'react-router-dom';

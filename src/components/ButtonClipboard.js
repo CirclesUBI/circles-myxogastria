@@ -1,4 +1,4 @@
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import Clipboard from 'clipboard';
 import PropTypes from 'prop-types';
 import React, { createRef, useEffect } from 'react';
@@ -36,7 +36,7 @@ const ButtonClipboard = ({ text, children, isIcon, ...props }) => {
 
   if (isIcon) {
     return (
-      <IconButton {...props} ref={ref}>
+      <IconButton {...props} ref={ref} size="large">
         {children ? children : translate('ButtonClipboard.buttonCopy')}
       </IconButton>
     );

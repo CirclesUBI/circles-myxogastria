@@ -1,4 +1,4 @@
-import { Container, Typography } from '@material-ui/core';
+import { Container, Typography } from '@mui/material';
 import React, { Fragment, useMemo } from 'react';
 
 import ButtonBack from '~/components/ButtonBack';

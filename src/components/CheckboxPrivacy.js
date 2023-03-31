@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel } from '@material-ui/core';
+import { Checkbox, FormControlLabel } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 
@@ -10,7 +10,7 @@ const CheckboxPrivacy = (props) => {
   return (
     <FormControlLabel
       checked={props.checked}
-      control={<Checkbox />}
+      control={<Checkbox color="secondary" />}
       label={<CheckboxPrivacyLabel />}
       onChange={props.onChange}
     />
@@ -20,7 +20,7 @@ const CheckboxPrivacy = (props) => {
 const CheckboxPrivacyLabel = () => (
   <Fragment>
     {translate('CheckboxPrivacy.checkboxLabel')}{' '}
-    <ExternalLink href={PRIVACY_LEGAL_URL}>
+    <ExternalLink href={PRIVACY_LEGAL_URL} underline="hover">
       {translate('CheckboxPrivacy.checkboxLink')}
     </ExternalLink>
   </Fragment>

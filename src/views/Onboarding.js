@@ -1,5 +1,5 @@
-import { Box, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -391,7 +391,7 @@ const OnboardingStepSecureWallet = ({ onDisabledChange }) => {
       <Box className={classes.userStepSecureWalletBodyTxt}>
         <Typography className="lightGreyText" paragraph>
           {translate('Onboarding.bodySecureWalletP1A')}
-          <ExternalLink href="#" onClick={handleOpen}>
+          <ExternalLink href="#" underline="hover" onClick={handleOpen}>
             {translate('Onboarding.bodySecureWalletP1Link')}
           </ExternalLink>
           {translate('Onboarding.bodySecureWalletP1B')}
@@ -474,6 +474,7 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
         <ExternalLink
           className={classes.userStepSeedPhraseLink}
           href="#"
+          underline="hover"
           onClick={handleOpen}
         >
           {translate('Onboarding.linkHelperSaveSeedPhrase')}

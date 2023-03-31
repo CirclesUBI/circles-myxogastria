@@ -1,5 +1,5 @@
-import { IconButton, MobileStepper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { IconButton, MobileStepper } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
@@ -122,7 +122,11 @@ const TutorialHeader = (props) => {
       <MobileStepper
         activeStep={props.current}
         backButton={
-          <IconButton edge="start" onClick={backbuttonClickHandler}>
+          <IconButton
+            edge="start"
+            size="large"
+            onClick={backbuttonClickHandler}
+          >
             <TutorialHeaderBackButton
               current={props.current}
               isPreviousBtn={props.isPreviousBtn}

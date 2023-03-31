@@ -1,6 +1,6 @@
-import { Box, Dialog, IconButton, Slide, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Box, Dialog, IconButton, Slide, Typography } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
@@ -137,11 +137,11 @@ const TutorialOrganization = ({ onFinishTutorial }) => {
           padding={1}
         >
           {!isFirstSlide && (
-            <IconButton onClick={handlePrevious}>
+            <IconButton size="large" onClick={handlePrevious}>
               <IconBack />
             </IconButton>
           )}
-          <IconButton onClick={handleFinish}>
+          <IconButton size="large" onClick={handleFinish}>
             <IconClose />
           </IconButton>
         </Box>
@@ -164,7 +164,7 @@ const TutorialOrganization = ({ onFinishTutorial }) => {
                   imageScale={slide.imageScale}
                 />
                 <Typography variant="h6">{slide.heading}</Typography>
-                <Typography className={classes.slideBody} variant="body2">
+                <Typography className={classes.slideBody} variant="body1">
                   {slide.body}
                   <br />{' '}
                   {slideIndex === slides.length - 1 && (

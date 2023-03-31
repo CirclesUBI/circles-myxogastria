@@ -5,8 +5,8 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -59,11 +59,6 @@ const useStyles = makeStyles((theme) => {
       color: theme.custom.colors.purple,
     },
 
-    inputLabelClasses: {
-      background: 'white',
-      padding: '0 10px',
-    },
-
     formHelperText: {
       position: 'absolute',
       padding: '2px 6px',
@@ -76,7 +71,7 @@ const useStyles = makeStyles((theme) => {
     },
 
     outlinedInput: {
-      padding: '13.5px 14px',
+      padding: '11.5px 14px',
       borderRadius: '25px',
       color: theme.custom.colors.violet,
     },
@@ -84,6 +79,7 @@ const useStyles = makeStyles((theme) => {
     outlinedInputRoot: {
       borderRadius: '25px',
       border: `3px solid transparent`,
+      padding: '0px',
 
       '& .MuiOutlinedInput-notchedOutline': {
         borderColor: textColor,
@@ -160,6 +156,9 @@ const useStyles = makeStyles((theme) => {
         borderWidth: '2px',
       },
     },
+    inputAdornment: {
+      padding: '0 5px 0 8px',
+    },
   };
 });
 
@@ -177,7 +176,7 @@ const Input = ({
 
   return (
     <>
-      <FormControl error={isError} fullWidth>
+      <FormControl error={isError} fullWidth variant="standard">
         {label && (
           <InputLabel
             classes={{
@@ -200,7 +199,10 @@ const Input = ({
           }}
           endAdornment={
             isLoading ? (
-              <InputAdornment position="end">
+              <InputAdornment
+                classes={{ root: classes.inputAdornment }}
+                position="start"
+              >
                 <CircularProgress size={15} />
               </InputAdornment>
             ) : null

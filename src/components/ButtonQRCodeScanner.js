@@ -1,4 +1,4 @@
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
@@ -32,7 +32,7 @@ const ButtonQRCodeScanner = ({ onSelect, ...props }) => {
       onError={handleScannerError}
       onSuccess={handleScan}
     >
-      <IconButton onClick={handleScannerOpen} {...props}>
+      <IconButton onClick={handleScannerOpen} {...props} size="large">
         <IconScan />
       </IconButton>
     </QRCodeScanner>

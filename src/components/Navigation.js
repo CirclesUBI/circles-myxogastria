@@ -1,5 +1,5 @@
-import { Box, Button, Drawer, Grid, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, Button, Drawer, Grid, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -67,6 +67,10 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
     justifyContent: 'flex-start',
+    textTransform: 'none',
+    fontSize: '18px',
+    color: theme.custom.colors.mineShaft,
+    fontWeight: theme.typography.fontWeightLight,
   },
   navigationProfileLink: {
     textDecoration: 'none',
@@ -75,10 +79,6 @@ const useStyles = makeStyles((theme) => ({
   navigationExternalLink: {
     display: 'block',
     color: theme.palette.primary.contrastText,
-  },
-  navigationLinkLabel: {
-    textTransform: 'initial',
-    fontWeight: theme.typography.fontWeightLight,
   },
 }));
 
@@ -225,7 +225,6 @@ const NavigationLink = ({ children, to }) => {
     <Button
       classes={{
         root: classes.navigationLink,
-        label: classes.navigationLinkLabel,
       }}
       component={Link}
       to={to}

@@ -1,8 +1,8 @@
-import { Box } from '@material-ui/core';
-import { Step } from '@material-ui/core';
-import { StepButton as StepperButton } from '@material-ui/core';
-import { Stepper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box } from '@mui/material';
+import { Step } from '@mui/material';
+import { StepButton as StepperButton } from '@mui/material';
+import { Stepper } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => {
       : theme.custom.colors.fountainBlue;
   return {
     stepper: {
+      padding: '24px',
       '& .MuiStepConnector-horizontal': {
         left: 'calc(-50% + 12px)',
         right: 'calc(50% + 12px)',
@@ -29,9 +30,19 @@ const useStyles = makeStyles((theme) => {
             borderTopWidth: '3px',
           },
         },
+      },
+      '& .Mui-completed': {
+        '& .MuiStepConnector-horizontal.MuiStepConnector-root': {
+          '& .MuiStepConnector-line': {
+            background: colorTheme,
+            border: '1.5px solid transparent',
+          },
+        },
+      },
 
-        '&.MuiStepConnector-active, &.MuiStepConnector-completed': {
-          '& .MuiStepConnector-lineHorizontal': {
+      '& .MuiStep-alternativeLabel': {
+        '& .Mui-active': {
+          '& .MuiStepConnector-line': {
             background: colorTheme,
             border: '1.5px solid transparent',
           },
@@ -41,7 +52,7 @@ const useStyles = makeStyles((theme) => {
     stepperButton: {
       '& .MuiSvgIcon-root.MuiStepIcon-root': {
         color: '#fff',
-        fontWeight: '600',
+        fontWeight: '500',
         fontSize: '1.3rem',
         borderRadius: '100%',
         border: `2px solid ${theme.custom.colors.grayDark}`,
@@ -53,7 +64,7 @@ const useStyles = makeStyles((theme) => {
           fill: theme.custom.colors.grayDark,
         },
 
-        '&.MuiStepIcon-active, &.MuiStepIcon-completed': {
+        '&.Mui-completed, &.Mui-active': {
           background: colorTheme,
           border: '2px solid transparent',
 
@@ -71,10 +82,10 @@ const useStyles = makeStyles((theme) => {
         [theme.breakpoints.up('md')]: {
           fontSize: '12px',
         },
+      },
 
-        '&.MuiStepLabel-completed, &.MuiStepLabel-active': {
-          color: colorTheme,
-        },
+      '& .Mui-completed.MuiStepLabel-label ,& .MuiStepLabel-label.Mui-active': {
+        color: colorTheme,
       },
     },
   };
