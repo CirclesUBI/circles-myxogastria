@@ -138,27 +138,24 @@ const getTransactions = async (safeAddress) => {
       ActivityFilterTypes.TRANSFERS,
       40,
     );
-    // console.log('CAT --- ', activities, lastTimestamp);
     const transactions = activities.map((activity) => {
       const { to, from, value } = activity.data;
       const valueInCircles = web3.utils.fromWei(value);
       const date = DateTime.fromSeconds(activity.timestamp);
       return {
-        to: to,
-        from: from,
+        to,
+        from,
         valueInFreckles: value,
         valueInCircles: valueInCircles,
         valueInTimeCircles: crcToTc(date, Number(valueInCircles)),
         txHash: activity.transactionHash,
-        date: date,
+        date,
         isNegative: from === safeAddress,
       };
     });
-    //  console.log(transactions);
     return transactions;
   } catch (e) {
     // TODO: HANDLE
-    // console.log(e);
   }
 };
 
@@ -193,7 +190,6 @@ export async function downloadCsvStatement(
   const sumCrcEnd = sumOfTransactions(txsNowToEnd);
   const sumTxCrcPeriod = sumOfTransactions(txsStartToEnd);
   const sumTxTcPeriod = sumOfTransactions(txsStartToEnd, true);
-  //  console.log({ sumCrcEnd, sumTxCrcPeriod, sumTxTcPeriod });
 
   // Balances
   const balanceNowCrc = parseFloat(
@@ -201,15 +197,12 @@ export async function downloadCsvStatement(
   );
   const endBalanceCrc = balanceNowCrc - sumCrcEnd;
   const startBalanceCrc = endBalanceCrc - sumTxCrcPeriod;
-  //  console.log({ balanceNowCrc, endBalanceCrc, startBalanceCrc });
   const endBalanceTc = crcToTc(endDate, endBalanceCrc.toString());
   const startBalanceTc = crcToTc(startDate, startBalanceCrc.toString());
   const balanceChangeTc = endBalanceTc - startBalanceTc;
-  //  console.log({ endBalanceTc, startBalanceTc });
 
   // Demurrage
   const demurrage = balanceChangeTc - sumTxTcPeriod;
-  //  console.log({ balanceChangeTc, demurrage });
 
   // CSV formatting
   const csvTransactions = await formatTransactions(transactions, safeAddress);
@@ -224,7 +217,6 @@ export async function downloadCsvStatement(
     sumTxTcPeriod.toFixed(NUMBER_OF_DECIMALS).toString(),
     csvTransactions,
   );
-  //  console.log(csvString);
 
   // File naming
   const dateString = [formatDate(startDate), formatDate(endDate)]
