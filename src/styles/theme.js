@@ -73,6 +73,7 @@ export const colors = {
   cannonPink: '#853F5C',
   cranberry: '#D64B85',
   lividBrown: '#482645',
+  mountbattenPink: '#9C8299',
 };
 
 const gradients = {
@@ -173,6 +174,26 @@ export default createTheme({
     poster: {
       fontSize: '4rem',
       color: 'red',
+    },
+    bodyTitle: {
+      display: 'block',
+      fontWeight: 500,
+      lineHeight: '160%',
+      color: colors.violet,
+      fontSize: '20px',
+      marginBottom: '11px',
+    },
+    bodyContent: {
+      fontWeight: 400,
+      fontSize: '16px',
+      lineHeight: '140%',
+      color: colors.violet,
+    },
+    bodySmall: {
+      fontWeight: '400',
+      fontSize: '12px',
+      lineHeight: '16px',
+      color: colors.mountbattenPink,
     },
     components: {
       MuiTypography: {

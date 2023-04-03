@@ -1,4 +1,6 @@
 import makeStyles from '@mui/styles/makeStyles';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { SnackbarProvider } from 'notistack';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -84,16 +86,19 @@ const App = () => {
 
   return (
     <SnackbarProvider className={classes.snackbarProvider} hideIconVariant>
-      <Router>
-        <PinkShadow>
-          <UBI />
-          <SafeVersion />
-          <Notifications />
-          <SpinnerOverlay isVisible={app.isLoading} />
-          <Routes />
-          <InternetConnection />
-        </PinkShadow>
-      </Router>
+      {/* Needed for MUI Date components */}
+      <LocalizationProvider dateAdapter={AdapterLuxon}>
+        <Router>
+          <PinkShadow>
+            <UBI />
+            <SafeVersion />
+            <Notifications />
+            <SpinnerOverlay isVisible={app.isLoading} />
+            <Routes />
+            <InternetConnection />
+          </PinkShadow>
+        </Router>
+      </LocalizationProvider>
     </SnackbarProvider>
   );
 };
