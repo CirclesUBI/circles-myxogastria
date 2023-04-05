@@ -38,6 +38,7 @@ const ValidationLock = () => {
               color={colors.fountainBlueLighter}
               icon="IconBrowser"
               iconColor={colors.whiteAlmost}
+              parseHtml
             >
               {translate('ValidationLock.bodyThisMayTakeMinutes')}
             </HumbleAlert>
