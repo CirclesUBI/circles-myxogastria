@@ -31,7 +31,9 @@ export default function logError(error) {
   } else if (error instanceof TransferError) {
     const data = {
       ...error.transfer,
-      value: error.transfer.value.toString(),
+      value: error.transfer.value
+        ? error.transfer.value.toString()
+        : 'undefined',
     };
     console.log(data);
     captureException(error, data);
