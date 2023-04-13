@@ -149,7 +149,7 @@ const Validation = () => {
       <Footer>
         <AppNote messageVersion="validation" />
         <HumbleAlert
-          color={colors.fountainBlueLighter}
+          color={colors.fountainBlue}
           icon="IconBrowser"
           iconColor={colors.whiteAlmost}
         >
