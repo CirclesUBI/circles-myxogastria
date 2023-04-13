@@ -258,7 +258,7 @@
     "buttonNextStep": "Continue",
     "buttonConfirmSave": "I saved it!",
     "buttonShareProfile": "Share Profile Link",
-    "buttonCreateAccount": "Create Account",
+    "buttonCreateAccount": "Create Wallet",
     "skipStep": "I'll do this later"
   },
   "OrganizationMembers": {
@@ -426,7 +426,7 @@
   },
   "ValidationStatus": {
     "bodyReadyForDeployment": "Your account is ready now, click the button below to create it:",
-    "buttonStartDeployment": "Create Account"
+    "buttonStartDeployment": "Create Wallet"
   },
   "VerifiedEmailInput": {
     "formEmailInvalid": "Invalid email address"
