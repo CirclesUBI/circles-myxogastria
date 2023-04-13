@@ -35,9 +35,10 @@ const ValidationLock = () => {
           <AppNote messageVersion="validation" />
           {!process.env.USER_NOTIFICATION_VALIDATION && (
             <HumbleAlert
-              color={colors.fountainBlueLighter}
+              color={colors.fountainBlue}
               icon="IconBrowser"
               iconColor={colors.whiteAlmost}
+              parseHtml
             >
               {translate('ValidationLock.bodyThisMayTakeMinutes')}
             </HumbleAlert>
