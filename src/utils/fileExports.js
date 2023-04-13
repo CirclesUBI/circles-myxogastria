@@ -1,5 +1,6 @@
 import { crcToTc } from '@circles/timecircles';
 import fileDownload from 'js-file-download';
+import _ from 'lodash';
 import { DateTime } from 'luxon';
 
 import core from '~/services/core';
@@ -16,7 +17,7 @@ const formatDate = (dateTime) => dateTime.toFormat(`dd.LL.yyyy`).toString();
 
 /**
  * Generates a csv string including line breaks based on input strings
- * @param {string} accountName The name of the exporting account
+ * @param {string} walletName The name of the exporting account
  * @param {string} safeAddress The corresponding safe address
  * @param {string} startDate Starting date of period to export
  * @param {string} endDate Ending date of period to export
@@ -28,7 +29,7 @@ const formatDate = (dateTime) => dateTime.toFormat(`dd.LL.yyyy`).toString();
  * @returns A string containing the complete csv content of an account statement
  */
 const generateCsvContent = (
-  accountName,
+  walletName,
   safeAddress,
   startDate,
   endDate,
@@ -39,10 +40,10 @@ const generateCsvContent = (
   csvTransactions,
 ) => {
   return [
-    'Circles Account Statement',
+    'Circles Wallet Statement',
     '',
-    `Account_name; ${accountName}`,
-    `Account_safe_address; ${safeAddress}`,
+    `Wallet_name; ${walletName}`,
+    `Wallet_safe_address; ${safeAddress}`,
     `Period_start_date; ${startDate}`,
     `Period_end_date; ${endDate}`,
     '',
@@ -146,7 +147,7 @@ const getTransactions = async (safeAddress) => {
         to,
         from,
         valueInFreckles: value,
-        valueInCircles: valueInCircles,
+        valueInCircles,
         valueInTimeCircles: crcToTc(date, Number(valueInCircles)),
         txHash: activity.transactionHash,
         date,
@@ -163,33 +164,48 @@ const getTransactions = async (safeAddress) => {
  * Downloads a csv file with transaction specifications, sum of transactions, demurrage,
  * start balance and end balance for specified account and period in time for a specific account.
  * Downloaded file is similar to a bank statement.
- * @param {string} accountName Name of the account in the export (only used for text)
+ * @param {string} walletName Name of the account in the export (only used for text)
  * @param {string} safeAddress Safe address of account in question (to fetch data)
  * @param {DateTime} startDate Start date of export period
  * @param {DateTime} endDate End date of export period
  * @returns nothing
  */
 export async function downloadCsvStatement(
-  accountName,
+  walletName,
   safeAddress,
-  startDate = DateTime.now(), // TODO
-  endDate = DateTime.now(), // TODO
+  startDate,
+  endDate,
 ) {
+  //console.log('----------------------------'); // TODO remove
+  //console.log({ walletName, safeAddress, startDate, endDate }); // TODO remove
   // Verify date order
   if (startDate > endDate) {
     throw new Error('Invalid date interval');
-    // TODO: improve and catch
+    // TODO: improve and catch and add message to en.json
   }
 
-  // Transactions - TODO: filter on date
+  // Transactions
   const transactions = await getTransactions(safeAddress);
-  const txsNowToEnd = [];
-  const txsStartToEnd = transactions;
+  const [txsBeforeEnd, txsAfterEnd] = _.partition(
+    transactions,
+    (tx) => tx.date < endDate,
+  );
+  const [txsBeforeStart, txsInPeriod] = _.partition(
+    // TODO use filter instead
+    txsBeforeEnd,
+    (tx) => tx.date < startDate,
+  );
+  // eslint-disable-next-line
+  console.log({ transactions, txsBeforeEnd, txsAfterEnd, txsBeforeStart, txsInPeriod }); // TODO remove
+  //const txsStartToEnd = transactions || txsBeforeEnd;
 
+  if (txsBeforeStart > 1000) {
+    throw new Error('Too many transactions'); // TODO
+  }
   // Transaction sums
-  const sumCrcEnd = sumOfTransactions(txsNowToEnd);
-  const sumTxCrcPeriod = sumOfTransactions(txsStartToEnd);
-  const sumTxTcPeriod = sumOfTransactions(txsStartToEnd, true);
+  const sumCrcEnd = sumOfTransactions(txsAfterEnd);
+  const sumTxCrcPeriod = sumOfTransactions(txsInPeriod);
+  const sumTxTcPeriod = sumOfTransactions(txsInPeriod, true);
 
   // Balances
   const balanceNowCrc = parseFloat(
@@ -205,9 +221,9 @@ export async function downloadCsvStatement(
   const demurrage = balanceChangeTc - sumTxTcPeriod;
 
   // CSV formatting
-  const csvTransactions = await formatTransactions(transactions, safeAddress);
+  const csvTransactions = await formatTransactions(txsInPeriod, safeAddress);
   const csvString = generateCsvContent(
-    accountName,
+    walletName,
     safeAddress,
     formatDate(startDate),
     formatDate(endDate),
@@ -222,7 +238,7 @@ export async function downloadCsvStatement(
   const dateString = [formatDate(startDate), formatDate(endDate)]
     .join('_-_')
     .replace('.', '-');
-  const filename = `Circles_Statement_${accountName}_${dateString}.csv`;
+  const filename = `Circles_Statement_${walletName}_${dateString}.csv`;
 
   // Download
   fileDownload(csvString, filename);
