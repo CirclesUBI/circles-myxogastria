@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
       stopColor: theme.custom.colors.purpleDark,
     },
     '& stop:last-of-type': {
-      stopColor: theme.custom.colors.purple,
+      stopColor: theme.custom.colors.pink100,
     },
     '&:hover': {
       '& stop:first-of-type': {

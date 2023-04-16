@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'inline',
     },
     '& a': {
-      color: theme.custom.colors.purple,
+      color: theme.custom.colors.pink100,
       textDecoration: 'none',
     },
   },

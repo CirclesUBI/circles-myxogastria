@@ -86,13 +86,9 @@ export const colors = {
   // ------------------------------------
   ...monochrome,
   ...rgba,
-  red: '#cc0000',
-  green: '#45e6af',
-  blue: '#3ce6e1',
-  orange: '#faad26',
-  orangeDark: '#f14d48',
-  purpleLight: '#f5dbda',
-  purple: '#cc1e66',
+  green: '#45e6af', // only in gradient - will be replaced by spring green later
+  purpleLight: '#f5dbda', // only in gradients - similar pink600
+  // replace identical purple: '#cc1e66', // pink100
   purpleDark: '#660f33',
   turquoise: '#47cccb',
   turquoiseDark: '#369998',
@@ -130,11 +126,11 @@ const gradients = {
   grayDark:
     'linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(284.04deg, rgba(0, 0, 0, 0.49) 0%, rgba(0, 0, 0, 0.12) 100%);',
   grayAlert: '1px 1px 4px rgba(204, 30, 102, 0.25)',
-  purple: `linear-gradient(280deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
-  purpleOpposite: `linear-gradient(104.04deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
+  purple: `linear-gradient(280deg, ${colors.purpleDark} 0%, ${colors.pink100} 100%)`,
+  purpleOpposite: `linear-gradient(104.04deg, ${colors.purpleDark} 0%, ${colors.pink100} 100%)`,
   purpleHover: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.pink200} 100%)`,
   purpleOppositeHover: `linear-gradient(104.04deg, ${colors.cannonPink} 0%, ${colors.pink200} 100%)`,
-  pinkToPurple: `linear-gradient(284.04deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
+  pinkToPurple: `linear-gradient(284.04deg, ${colors.purpleDark} 0%, ${colors.pink100} 100%)`,
   lightPinkToPurple: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.pink200} 100%)`,
   greenBlue: `linear-gradient(180deg, ${colors.blue100} 0%, ${colors.springGreen} 100%)`,
   greenBlueHeader: `linear-gradient(207.4deg, ${colors.blue100} 36.45%, ${colors.springGreen} 155.65%)`,
@@ -205,7 +201,7 @@ export default createTheme({
       lightHover: colors.grayLightHover,
     },
     primary: {
-      main: colors.purple,
+      main: colors.pink100,
       dark: colors.purpleDark,
       contrastText: colors.whiteAlmost,
     },
@@ -379,7 +375,7 @@ export default createTheme({
       '& a': {
         ...body5Styles,
         textDecoration: 'none',
-        color: colors.purple,
+        color: colors.pink100,
       },
     },
     components: {

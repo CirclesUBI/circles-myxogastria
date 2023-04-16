@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     '&:hover': {
       background: 'transparent',
-      color: theme.custom.colors.purple,
+      color: theme.custom.colors.pink100,
 
       '& path': {
-        fill: theme.custom.colors.purple,
+        fill: theme.custom.colors.pink100,
       },
     },
   },

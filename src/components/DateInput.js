@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
       },
 
       '&.Mui-error': {
-        color: theme.custom.colors.purple,
+        color: theme.custom.colors.pink100,
 
         '&:has(+ .MuiOutlinedInput-root:hover)': {
           background: theme.custom.colors.pink600,
@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .Mui-error': {
       '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.custom.colors.purple,
+        borderColor: theme.custom.colors.pink100,
         borderWidth: '2px',
       },
 
@@ -113,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
           border: `3px solid ${theme.custom.colors.pink600}`,
 
           '& fieldset.MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.custom.colors.purple,
+            borderColor: theme.custom.colors.pink100,
           },
 
           '& label.MuiFormLabel-root': {
@@ -130,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
         background: theme.custom.colors.white,
         lineHeight: '10px',
         borderRadius: '10px',
-        color: theme.custom.colors.purple,
+        color: theme.custom.colors.pink100,
       },
     },
 
