@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => {
         border: `2px solid ${theme.custom.colors.pink300}`,
         borderRadius: '8px',
         boxShadow: theme.custom.shadows.lightGray,
-        color: theme.custom.colors.purple,
+        color: theme.custom.colors.pink100,
         textAlign: 'center',
         '& span': {
           background: theme.custom.gradients.lightPinkToPurple,
