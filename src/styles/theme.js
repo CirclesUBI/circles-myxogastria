@@ -91,7 +91,7 @@ export const colors = {
   // unused ceriseRed: '#D12D5F',
   // replaced similar pink: '#D22E60', // similar to pink100
   blueRibbon: '#2B44FF', // very blue - used for hyper links - QA hyperlinks in banners and onboarding checkboxes
-  disco: '#99164C', // similar pink50
+  // replaced similar disco: '#99164C', // similar pink50
   // replaced identical violet: '#5A2F56', // purple100
   // replaced identical tapestry: '#A75183', // purpleLight
   // replaced identical deepBlush: '#E078A3', // pink300

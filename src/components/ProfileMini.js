@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '50%',
   },
   cardActionIcon: {
-    color: theme.custom.colors.disco,
+    color: theme.custom.colors.pink50,
     fontSize: 16,
 
     '& path': {
