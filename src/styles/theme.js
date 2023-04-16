@@ -42,9 +42,9 @@ export const colors = {
   blue200: '#6CC1C5',
   //blue300: '#8ED7DA',
   //blue400: '#B6E0E2',
-  //blue500: '#DAF0F1',
+  blue500: '#DAF0F1',
   blue600: '#EDF7F8',
-  //grey50: '#2F2B2E', //black,
+  grey50: '#2F2B2E', //black,
   //grey100: '#585558',
   //grey200: '#828082',
   //grey400: '#ACAAAC',
@@ -62,7 +62,7 @@ export const colors = {
   //purple300: '#9C8299',
   purple400: '#BDACBB',
   purple500: '#DED5DD',
-  //purple600: '#EFEAEF',
+  purple600: '#EFEAEF',
   white: '#FFFCFE',
   errorYellow: '#FFC834',
   successGreen: '#05BF93',
@@ -92,25 +92,25 @@ export const colors = {
   // replaced identical fountainBlue: '#48B2B7', // blue100
   // replaced identical fountainBlueLighter: '#6CC1C5', // blue200
   // moved springGreen: '#06FC9D', // bluegreen gradient - greenLight
-  pizazz: '#FF8E00',
-  ceriseRed: '#D12D5F',
-  pink: '#D22E60',
-  blueRibbon: '#2B44FF',
+  // unused pizazz: '#FF8E00',
+  // unused ceriseRed: '#D12D5F',
+  // replaced similar pink: '#D22E60', // similar to pink100
+  blueRibbon: '#2B44FF', // very blue - used for hyper links - QA hyperlinks in banners and onboarding checkboxes
   disco: '#99164C',
   // replaced identical violet: '#5A2F56', // purple100
   // replaced identical tapestry: '#A75183', // purpleLight
   // replaced identical deepBlush: '#E078A3', // pink300
   greyHover: 'rgba(222, 213, 221, 0.8)',
-  swansDown: '#DAF0F1',
+  // replaced identical swansDown: '#DAF0F1', // blue500
   // replaced identical blackSqueeze: '#EDF7F8', // blue600
   // replaced identical wepeep: '#F5D2E1', // pink500
   // replaced identical lola: '#DED5DD', // purple500
-  cornflowerBlue: '#efeaef',
+  // replaced identical cornflowerBlue: '#efeaef', // #EFEAEF purple600
   // replaced identical lily: '#BDACBB', // purple400
-  mineShaft: '#212121',
+  // replaced similar mineShaft: '#212121', // similar to grey50
   // replaced identical oldLavender: '#7B5978', // purple200
   cannonPink: '#853F5C', // pinkHoverLight - used for buttons too
-  cranberry: '#D64B85', // pink200 + hover pink grad
+  // replaced identical cranberry: '#D64B85', // pink200 + hover pink grad
   // replaced identical lividBrown: '#482645', // purple50
 };
 
@@ -122,13 +122,13 @@ const gradients = {
   grayAlert: '1px 1px 4px rgba(204, 30, 102, 0.25)',
   purple: `linear-gradient(280deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
   purpleOpposite: `linear-gradient(104.04deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
-  purpleHover: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.cranberry} 100%)`,
-  purpleOppositeHover: `linear-gradient(104.04deg, ${colors.cannonPink} 0%, ${colors.cranberry} 100%)`,
+  purpleHover: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.pink200} 100%)`,
+  purpleOppositeHover: `linear-gradient(104.04deg, ${colors.cannonPink} 0%, ${colors.pink200} 100%)`,
   pinkToPurple: `linear-gradient(284.04deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
-  lightPinkToPurple: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.cranberry} 100%)`,
+  lightPinkToPurple: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.pink200} 100%)`,
   greenBlue: `linear-gradient(180deg, ${colors.blue100} 0%, ${colors.springGreen} 100%)`,
   greenBlueHeader: `linear-gradient(207.4deg, ${colors.blue100} 36.45%, ${colors.springGreen} 155.65%)`,
-  pinkShade: `linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, ${colors.pink} 145%)`,
+  pinkShade: `linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, ${colors.pink100} 145%)`,
   violetCurved: `linear-gradient(180deg, ${colors.purpleLight} 0%, ${colors.purple100} 33.2%)`,
   violetHeader: `linear-gradient(207.4deg, ${colors.purpleLight} 36.45%, ${colors.purple100} 155.65%)`,
   violetTutorial: `linear-gradient(180deg, ${colors.purpleLight} 0%, ${colors.purple100} 100%)`,

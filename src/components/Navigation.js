@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-start',
     textTransform: 'none',
     fontSize: '18px',
-    color: theme.custom.colors.mineShaft,
+    color: theme.custom.colors.grey50,
     fontWeight: theme.typography.fontWeightLight,
   },
   navigationProfileLink: {

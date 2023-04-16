@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.custom.shadows.grayUp,
 
     '& .MuiSvgIcon-root': {
-      fill: theme.custom.colors.mineShaft,
+      fill: theme.custom.colors.grey50,
     },
   },
   inputLabel: {
