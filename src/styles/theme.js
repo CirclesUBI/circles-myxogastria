@@ -75,7 +75,7 @@ export const colors = {
   errorYellow: '#FFC834',
   successGreen: '#05BF93',
   // gradients basis
-  pinkDark: '#660F33',
+  pinkDark: '#660F33', // could be pink0 ?
   //pinkLight: pink100,
   //purpleDark: purple100,
   purpleLightGrad: '#A75183',
@@ -89,21 +89,22 @@ export const colors = {
   green: '#45e6af', // only in gradient - will be replaced by spring green later
   purpleLight: '#f5dbda', // only in gradients - similar pink600
   // replace identical purple: '#cc1e66', // pink100
-  purpleDark: '#660f33',
-  turquoise: '#47cccb',
-  turquoiseDark: '#369998',
+  // replaced identical purpleDark: '#660f33', // pinkDark
+  // replaced identical purple: '#cc1e66', // pink100
+  turquoise: '#47cccb', // only in validation status
+  // deleted turquoiseDark: '#369998', // similar blue50
   jaggedIce: '#C8E8EA',
-  //disco: '#A31852', // pink50 replaced //disco: '#99164C' old,
-  // replaced identical fountainBlue: '#48B2B7', // blue100 x
-  // replaced identical fountainBlueLighter: '#6CC1C5', // blue200 x
-  // moved springGreen: '#06FC9D', // bluegreen gradient - greenLight x
+  // disco: '#A31852', // pink50 replaced //disco: '#99164C' old,
+  // replaced identical fountainBlue: '#48B2B7', // blue100
+  // replaced identical fountainBlueLighter: '#6CC1C5', // blue200
+  // moved springGreen: '#06FC9D', // bluegreen gradient - greenLight
   // unused pizazz: '#FF8E00',
   // unused ceriseRed: '#D12D5F',
   // replaced similar pink: '#D22E60', // similar to pink100
   blueRibbon: '#2B44FF', // very blue - used for hyper links - QA hyperlinks in banners and onboarding checkboxes
-  // replaced identical violet: '#5A2F56', // purple100 x
-  // replaced identical tapestry: '#A75183', // purpleLight x
-  // replaced identical deepBlush: '#E078A3', // pink300 x
+  // replaced identical violet: '#5A2F56', // purple100
+  // replaced identical tapestry: '#A75183', // purpleLight
+  // replaced identical deepBlush: '#E078A3', // pink300
   greyHover: 'rgba(222, 213, 221, 0.8)',
   // replaced identical swansDown: '#DAF0F1', // blue500
   // replaced identical blackSqueeze: '#EDF7F8', // blue600 x
@@ -126,11 +127,11 @@ const gradients = {
   grayDark:
     'linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(284.04deg, rgba(0, 0, 0, 0.49) 0%, rgba(0, 0, 0, 0.12) 100%);',
   grayAlert: '1px 1px 4px rgba(204, 30, 102, 0.25)',
-  purple: `linear-gradient(280deg, ${colors.purpleDark} 0%, ${colors.pink100} 100%)`,
-  purpleOpposite: `linear-gradient(104.04deg, ${colors.purpleDark} 0%, ${colors.pink100} 100%)`,
+  purple: `linear-gradient(280deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
+  purpleOpposite: `linear-gradient(104.04deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
   purpleHover: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.pink200} 100%)`,
   purpleOppositeHover: `linear-gradient(104.04deg, ${colors.cannonPink} 0%, ${colors.pink200} 100%)`,
-  pinkToPurple: `linear-gradient(284.04deg, ${colors.purpleDark} 0%, ${colors.pink100} 100%)`,
+  pinkToPurple: `linear-gradient(284.04deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
   lightPinkToPurple: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.pink200} 100%)`,
   greenBlue: `linear-gradient(180deg, ${colors.blue100} 0%, ${colors.springGreen} 100%)`,
   greenBlueHeader: `linear-gradient(207.4deg, ${colors.blue100} 36.45%, ${colors.springGreen} 155.65%)`,
@@ -202,12 +203,12 @@ export default createTheme({
     },
     primary: {
       main: colors.pink100,
-      dark: colors.purpleDark,
+      dark: colors.pinkDark,
       contrastText: colors.whiteAlmost,
     },
     secondary: {
       main: colors.turquoise,
-      dark: colors.turquoiseDark,
+      // dark: colors.blue50,
     },
     background: {
       default: colors.whiteAlmost,

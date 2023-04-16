@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.whiteAlmost,
     padding: '0',
     '& stop:first-of-type': {
-      stopColor: theme.custom.colors.purpleDark,
+      stopColor: theme.custom.colors.pinkDark,
     },
     '& stop:last-of-type': {
       stopColor: theme.custom.colors.pink100,
