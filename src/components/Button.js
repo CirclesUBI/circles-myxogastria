@@ -19,13 +19,13 @@ const useStyles = makeStyles((theme) => ({
       background: theme.custom.gradients.purpleHover,
     },
     '&.Mui-disabled': {
-      background: theme.custom.colors.lola,
+      background: theme.custom.colors.purple500,
       borderRadius: '30px',
-      color: theme.custom.colors.lily,
+      color: theme.custom.colors.purple400,
       'pointer-events': 'visible',
 
       '&:hover': {
-        background: theme.custom.colors.lola,
+        background: theme.custom.colors.purple500,
       },
     },
   },
@@ -48,12 +48,12 @@ const useStyles = makeStyles((theme) => ({
     },
     '&.Mui-disabled': {
       background: theme.custom.colors.whiteAlmost,
-      borderColor: theme.custom.colors.lola,
+      borderColor: theme.custom.colors.purple500,
 
       '& .MuiTouchRipple-root': {
         background: 'none',
-        color: theme.custom.colors.lola,
-        '-webkit-text-fill-color': theme.custom.colors.lola,
+        color: theme.custom.colors.purple500,
+        '-webkit-text-fill-color': theme.custom.colors.purple500,
       },
     },
     '& .MuiTouchRipple-root': {
@@ -92,8 +92,8 @@ const useStyles = makeStyles((theme) => ({
     },
     '&.Mui-disabled': {
       background: 'transparent',
-      color: theme.custom.colors.lily,
-      '-webkit-text-fill-color': theme.custom.colors.lily,
+      color: theme.custom.colors.purple400,
+      '-webkit-text-fill-color': theme.custom.colors.purple400,
 
       '&:hover': {
         cursor: 'not-allowed',

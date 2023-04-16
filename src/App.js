@@ -30,16 +30,16 @@ const useStyles = makeStyles((theme) => {
       },
 
       '&.notistack-MuiContent-success': {
-        background: theme.custom.colors.fountainBlue,
+        background: theme.custom.colors.blue100,
         boxShadow: theme.custom.shadows.grayBottomRight,
       },
       '&.notistack-MuiContent-error': {
-        background: theme.custom.colors.lividBrown,
+        background: theme.custom.colors.purple50,
         boxShadow: theme.custom.shadows.lightGray,
       },
       '&.notistack-MuiContent-warning': {
         background: theme.custom.colors.whiteAlmost,
-        border: `2px solid ${theme.custom.colors.deepBlush}`,
+        border: `2px solid ${theme.custom.colors.pink300}`,
         borderRadius: '8px',
         boxShadow: theme.custom.shadows.lightGray,
         color: theme.custom.colors.purple,

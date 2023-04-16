@@ -9,8 +9,8 @@ import React from 'react';
 const useStyles = makeStyles((theme) => {
   const colorTheme = (isOrganization) =>
     isOrganization
-      ? theme.custom.colors.violet
-      : theme.custom.colors.fountainBlue;
+      ? theme.custom.colors.purple100
+      : theme.custom.colors.blue100;
   return {
     stepper: {
       padding: '24px',

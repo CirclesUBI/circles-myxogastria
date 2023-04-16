@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   noSearchResultContainer: {
     marginTop: '80px',
     '& p': {
-      color: theme.custom.colors.violet,
+      color: theme.custom.colors.purple100,
     },
   },
   noSearchResultIconContainer: {

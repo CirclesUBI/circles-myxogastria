@@ -13,14 +13,14 @@ import React from 'react';
 const useStyles = makeStyles((theme) => {
   const textColor = (isOrganization) => {
     return isOrganization
-      ? theme.custom.colors.violet
-      : theme.custom.colors.fountainBlue;
+      ? theme.custom.colors.purple100
+      : theme.custom.colors.blue100;
   };
 
   const backgroundColor = (isOrganization) => {
     return isOrganization
       ? theme.custom.colors.cornflowerBlue
-      : theme.custom.colors.blackSqueeze;
+      : theme.custom.colors.blue600;
   };
 
   return {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => {
       },
 
       '&:has(+ .MuiOutlinedInput-root.Mui-error:hover)': {
-        background: theme.custom.colors.wepeep,
+        background: theme.custom.colors.pink500,
       },
     },
 
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => {
     outlinedInput: {
       padding: '11.5px 14px',
       borderRadius: '25px',
-      color: theme.custom.colors.violet,
+      color: theme.custom.colors.purple100,
     },
 
     outlinedInputRoot: {
@@ -101,12 +101,12 @@ const useStyles = makeStyles((theme) => {
           },
 
           '& .MuiOutlinedInput-input': {
-            background: theme.custom.colors.wepeep,
+            background: theme.custom.colors.pink500,
           },
         },
 
         '& +.MuiFormHelperText-root.Mui-error': {
-          background: theme.custom.colors.wepeep,
+          background: theme.custom.colors.pink500,
         },
       },
 
@@ -122,18 +122,18 @@ const useStyles = makeStyles((theme) => {
     outlinedInputFocused: {
       border: (isOrganization) =>
         isOrganization
-          ? `3px solid ${theme.custom.colors.lola} `
+          ? `3px solid ${theme.custom.colors.purple500} `
           : `3px solid ${theme.custom.colors.swansDown}`,
       borderColor: (isOrganization) =>
         isOrganization
-          ? theme.custom.colors.lola
+          ? theme.custom.colors.purple500
           : theme.custom.colors.swansDown,
 
       '& .MuiOutlinedInput-notchedOutline': {
         borderColor: (isOrganization) =>
           isOrganization
-            ? `${theme.custom.colors.violet} !important`
-            : `${theme.custom.colors.fountainBlue} !important`, // should work without important but doesn't...
+            ? `${theme.custom.colors.purple100} !important`
+            : `${theme.custom.colors.blue100} !important`, // should work without important but doesn't...
         borderWidth: '2px',
       },
     },
@@ -142,8 +142,8 @@ const useStyles = makeStyles((theme) => {
       borderColor: 'transparent',
 
       '&.Mui-focused': {
-        border: `3px solid ${theme.custom.colors.wepeep}`,
-        borderColor: theme.custom.colors.wepeep,
+        border: `3px solid ${theme.custom.colors.pink500}`,
+        borderColor: theme.custom.colors.pink500,
 
         '& .MuiOutlinedInput-notchedOutline': {
           borderColor: `${theme.custom.colors.purple} !important`, // should work without important but doesn't...

@@ -40,17 +40,17 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonDisabled: {
     '& stop:first-of-type': {
-      stopColor: theme.custom.colors.lola,
+      stopColor: theme.custom.colors.purple500,
     },
     '& stop:last-of-type': {
-      stopColor: theme.custom.colors.lola,
+      stopColor: theme.custom.colors.purple500,
     },
     '&:hover': {
       '& stop:first-of-type': {
-        stopColor: theme.custom.colors.lola,
+        stopColor: theme.custom.colors.purple500,
       },
       '& stop:last-of-type': {
-        stopColor: theme.custom.colors.lola,
+        stopColor: theme.custom.colors.purple500,
       },
     },
   },

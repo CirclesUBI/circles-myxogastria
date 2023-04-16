@@ -10,29 +10,29 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     fontWeight: theme.typography.fontWeightLight,
     fontSize: 12,
-    color: theme.custom.colors.lily,
+    color: theme.custom.colors.purple400,
     borderBottom: '1px solid transparent',
     '& g, & path': {
-      fill: theme.custom.colors.lily,
+      fill: theme.custom.colors.purple400,
     },
     '&:hover': {
-      borderBottom: `1px solid ${theme.custom.colors.oldLavender}`,
-      color: theme.custom.colors.oldLavender,
+      borderBottom: `1px solid ${theme.custom.colors.purple200}`,
+      color: theme.custom.colors.purple200,
       '& g, & path': {
-        fill: theme.custom.colors.oldLavender,
+        fill: theme.custom.colors.purple200,
       },
     },
     '&.Mui-selected': {
-      color: theme.custom.colors.violet,
+      color: theme.custom.colors.purple100,
       '& g, & path': {
-        fill: theme.custom.colors.violet,
+        fill: theme.custom.colors.purple100,
       },
       '&:hover': {
         '& .MuiTab-wrapper': {
-          color: theme.custom.colors.violet,
+          color: theme.custom.colors.purple100,
         },
         '& g, & path': {
-          fill: theme.custom.colors.violet,
+          fill: theme.custom.colors.purple100,
         },
       },
     },

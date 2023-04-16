@@ -7,11 +7,11 @@ import React from 'react';
 const useStyles = makeStyles((theme) => ({
   iconActive: {
     '& path': {
-      fill: theme.custom.colors.violet,
+      fill: theme.custom.colors.purple100,
     },
   },
   badgeContainer: {
-    backgroundColor: theme.custom.colors.fountainBlue,
+    backgroundColor: theme.custom.colors.blue100,
     right: '-9px',
   },
 }));

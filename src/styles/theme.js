@@ -72,9 +72,10 @@ export const colors = {
   //purpleDark: purple100,
   purpleLightGrad: '#A75183',
   //blueDark: blue100,
-  greenLight: '#06FC9D', // bluegreen gradient
+  springGreen: '#06FC9D', // bluegreen gree gradient
   pinkHoverLight: '#853F5C', // hover pink grad
   //pinkHoverDark: pink200,
+  // ------------------------------------
   ...monochrome,
   ...rgba,
   red: '#cc0000',
@@ -88,33 +89,33 @@ export const colors = {
   turquoise: '#47cccb',
   turquoiseDark: '#369998',
   jaggedIce: '#C8E8EA',
-  fountainBlue: '#48B2B7', // blue100
-  fountainBlueLighter: '#6CC1C5', // blue200
-  springGreen: '#06FC9D', // bluegreen gradient - greenLight
+  // replaced identical fountainBlue: '#48B2B7', // blue100
+  // replaced identical fountainBlueLighter: '#6CC1C5', // blue200
+  // moved springGreen: '#06FC9D', // bluegreen gradient - greenLight
   pizazz: '#FF8E00',
   ceriseRed: '#D12D5F',
   pink: '#D22E60',
   blueRibbon: '#2B44FF',
   disco: '#99164C',
-  violet: '#5A2F56', // purple100
-  tapestry: '#A75183', // purpleLight
-  deepBlush: '#E078A3', // pink300
+  // replaced identical violet: '#5A2F56', // purple100
+  // replaced identical tapestry: '#A75183', // purpleLight
+  // replaced identical deepBlush: '#E078A3', // pink300
   greyHover: 'rgba(222, 213, 221, 0.8)',
   swansDown: '#DAF0F1',
-  blackSqueeze: '#EDF7F8', // blue600
-  wepeep: '#F5D2E1', // pink500
-  lola: '#DED5DD', // purple500
+  // replaced identical blackSqueeze: '#EDF7F8', // blue600
+  // replaced identical wepeep: '#F5D2E1', // pink500
+  // replaced identical lola: '#DED5DD', // purple500
   cornflowerBlue: '#efeaef',
-  lily: '#BDACBB', // purple400
+  // replaced identical lily: '#BDACBB', // purple400
   mineShaft: '#212121',
-  oldLavender: '#7B5978', // purple200
-  cannonPink: '#853F5C', // pinkHoverLight
+  // replaced identical oldLavender: '#7B5978', // purple200
+  cannonPink: '#853F5C', // pinkHoverLight - used for buttons too
   cranberry: '#D64B85', // pink200 + hover pink grad
-  lividBrown: '#482645', // purple50
+  // replaced identical lividBrown: '#482645', // purple50
 };
 
 const gradients = {
-  blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
+  blueGreen: `linear-gradient(${colors.blue100}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.blue100}, ${colors.springGreen}) border-box`,
   gray: `linear-gradient(280deg, ${colors.grayDark} 0%, ${colors.gray} 100%)`,
   grayDark:
     'linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(284.04deg, rgba(0, 0, 0, 0.49) 0%, rgba(0, 0, 0, 0.12) 100%);',
@@ -125,12 +126,12 @@ const gradients = {
   purpleOppositeHover: `linear-gradient(104.04deg, ${colors.cannonPink} 0%, ${colors.cranberry} 100%)`,
   pinkToPurple: `linear-gradient(284.04deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
   lightPinkToPurple: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.cranberry} 100%)`,
-  greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
-  greenBlueHeader: `linear-gradient(207.4deg, ${colors.fountainBlue} 36.45%, ${colors.springGreen} 155.65%)`,
+  greenBlue: `linear-gradient(180deg, ${colors.blue100} 0%, ${colors.springGreen} 100%)`,
+  greenBlueHeader: `linear-gradient(207.4deg, ${colors.blue100} 36.45%, ${colors.springGreen} 155.65%)`,
   pinkShade: `linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, ${colors.pink} 145%)`,
-  violetCurved: `linear-gradient(180deg, ${colors.tapestry} 0%, ${colors.violet} 33.2%)`,
-  violetHeader: `linear-gradient(207.4deg, ${colors.tapestry} 36.45%, ${colors.violet} 155.65%)`,
-  violetTutorial: `linear-gradient(180deg, ${colors.tapestry} 0%, ${colors.violet} 100%)`,
+  violetCurved: `linear-gradient(180deg, ${colors.purpleLight} 0%, ${colors.purple100} 33.2%)`,
+  violetHeader: `linear-gradient(207.4deg, ${colors.purpleLight} 36.45%, ${colors.purple100} 155.65%)`,
+  violetTutorial: `linear-gradient(180deg, ${colors.purpleLight} 0%, ${colors.purple100} 100%)`,
   turquoise: `linear-gradient(0deg, ${colors.green} 0%, ${colors.turquoise} 100%)`,
 };
 
@@ -166,7 +167,7 @@ export default createTheme({
   },
   palette: {
     icons: {
-      dark: colors.violet,
+      dark: colors.purple100,
       light: colors.whiteAlmost,
       lightHover: colors.grayLightHover,
     },
