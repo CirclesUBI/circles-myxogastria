@@ -45,35 +45,44 @@ const rgba = {
 };
 
 export const colors = {
-  blue50: '#3A8E92',
+  //blue50: '#3A8E92',
   blue100: '#48B2B7',
   blue200: '#6CC1C5',
-  blue300: '#8ED7DA',
-  blue400: '#B6E0E2',
-  blue500: '#DAF0F1',
+  //blue300: '#8ED7DA',
+  //blue400: '#B6E0E2',
+  //blue500: '#DAF0F1',
   blue600: '#EDF7F8',
-  grey50: '#2F2B2E', //black,
-  grey100: '#585558',
-  grey200: '#828082',
-  grey400: '#ACAAAC',
-  grey600: '#D9D9D9',
-  pink50: '#A31852',
-  pink100: '#CC1E66',
+  //grey50: '#2F2B2E', //black,
+  //grey100: '#585558',
+  //grey200: '#828082',
+  //grey400: '#ACAAAC',
+  //grey600: '#D9D9D9',
+  //pink50: '#A31852',
+  pink100: '#CC1E66', //grad
   pink200: '#D64B85',
   pink300: '#E078A3',
-  pink400: '#EBA5C2',
+  //pink400: '#EBA5C2',
   pink500: '#F5D2E1',
-  pink600: '#FAE9F0',
+  //pink600: '#FAE9F0',
   purple50: '#482645',
-  purple100: '#5A2F56',
+  purple100: '#5A2F56', // grad
   purple200: '#7B5978',
   purple300: '#9C8299',
   purple400: '#BDACBB',
   purple500: '#DED5DD',
-  purple600: '#EFEAEF',
+  //purple600: '#EFEAEF',
   white: '#FFFCFE',
   errorYellow: '#FFC834',
   successGreen: '#05BF93',
+  // gradients basis
+  pinkDark: '#660F33',
+  //pinkLight: pink100,
+  //purpleDark: purple100,
+  purpleLightGrad: '#A75183',
+  //blueDark: blue100,
+  greenLight: '#06FC9D', // bluegreen gradient
+  pinkHoverLight: '#853F5C', // hover pink grad
+  //pinkHoverDark: pink200,
   ...monochrome,
   ...rgba,
   red: '#cc0000',
@@ -85,32 +94,35 @@ export const colors = {
   purple: '#cc1e66',
   purpleDark: '#660f33',
   disco: '#A31852',
+  //disco: '#99164C',
   turquoise: '#47cccb',
   turquoiseDark: '#369998',
   jaggedIce: '#C8E8EA',
-  fountainBlue: '#48B2B7',
-  fountainBlueLighter: '#6CC1C5',
-  springGreen: '#06FC9D',
+  fountainBlue: '#48B2B7', // blue100
+  fountainBlueLighter: '#6CC1C5', // blue200
+  springGreen: '#06FC9D', // bluegreen gradient - greenLight
   pizazz: '#FF8E00',
   ceriseRed: '#D12D5F',
   pink: '#D22E60',
   blueRibbon: '#2B44FF',
-  violet: '#5A2F56',
-  tapestry: '#A75183',
-  deepBlush: '#E078A3',
+  violet: '#5A2F56', // purple100
+  tapestry: '#A75183', // purpleLight
+  deepBlush: '#E078A3', // pink300
   greyHover: 'rgba(222, 213, 221, 0.8)',
   swansDown: '#DAF0F1',
-  blackSqueeze: '#EDF7F8',
+  blackSqueeze: '#EDF7F8', // blue600
   wepeep: '#FAE9F0',
-  lola: '#DED5DD',
+  //wepeep: '#F5D2E1', // pink500
+  lola: '#DED5DD', // purple500
   cornflowerBlue: '#efeaef80',
-  lily: '#BDACBB',
+  //cornflowerBlue: '#efeaef',
+  lily: '#BDACBB', // purple400
   mineShaft: '#212121',
-  oldLavender: '#7B5978',
-  cannonPink: '#853F5C',
-  cranberry: '#D64B85',
-  lividBrown: '#482645',
-  mountbattenPink: '#9C8299',
+  oldLavender: '#7B5978', // purple200
+  mountbattenPink: '#9C8299', // purple300
+  cannonPink: '#853F5C', // pinkHoverLight
+  cranberry: '#D64B85', // pink200 + hover pink grad
+  lividBrown: '#482645', // purple50
 };
 
 const gradients = {
