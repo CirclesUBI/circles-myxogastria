@@ -67,7 +67,7 @@ export const colors = {
   errorYellow: '#FFC834',
   successGreen: '#05BF93',
   // gradients basis
-  pinkDark: '#660F33',
+  pinkDark: '#660F33', // could be pink0 ?
   //pinkLight: pink100,
   //purpleDark: purple100,
   purpleLightGrad: '#A75183',
@@ -80,11 +80,10 @@ export const colors = {
   ...rgba,
   green: '#45e6af', // only in gradient - will be replaced by spring green later
   purpleLight: '#f5dbda', // only in gradients - similar pink600
-  // replace identical purple: '#cc1e66', // pink100
-  purpleDark: '#660f33',
-  turquoise: '#47cccb',
-  turquoiseDark: '#369998',
-  jaggedIce: '#C8E8EA',
+  // replaced identical purple: '#cc1e66', // pink100
+  // replaced identical purpleDark: '#660f33', // pinkDark
+  turquoise: '#47cccb', // only in validation status
+  // deleted turquoiseDark: '#369998', // similar blue50
   // replaced identical fountainBlue: '#48B2B7', // blue100
   // replaced identical fountainBlueLighter: '#6CC1C5', // blue200
   // moved springGreen: '#06FC9D', // bluegreen gradient - greenLight
@@ -92,7 +91,7 @@ export const colors = {
   // unused ceriseRed: '#D12D5F',
   // replaced similar pink: '#D22E60', // similar to pink100
   blueRibbon: '#2B44FF', // very blue - used for hyper links - QA hyperlinks in banners and onboarding checkboxes
-  disco: '#99164C',
+  disco: '#99164C', // similar pink50
   // replaced identical violet: '#5A2F56', // purple100
   // replaced identical tapestry: '#A75183', // purpleLight
   // replaced identical deepBlush: '#E078A3', // pink300
@@ -174,7 +173,7 @@ export default createTheme({
     },
     secondary: {
       main: colors.turquoise,
-      dark: colors.turquoiseDark,
+      // dark: colors.turquoiseDark,
     },
     background: {
       default: colors.whiteAlmost,
