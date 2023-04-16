@@ -32,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
   cardContainer: {
     boxShadow: theme.custom.shadows.navigationFloating,
     '&:hover': {
-      background: theme.custom.colors.blackSqueeze,
+      background: theme.custom.colorsblue600,
 
       '& .MuiCardHeader-root': {
-        background: theme.custom.colors.blackSqueeze,
+        background: theme.custom.colorsblue600,
       },
     },
   },
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     padding: '15px 0 15px',
     margin: '5px 15px 0 15px',
-    borderTop: `1px solid ${theme.custom.colors.oldLavender}`,
+    borderTop: `1px solid ${theme.custom.colors.purple200}`,
     ' &.MuiCardContent-root': {
       paddingBottom: `${theme.spacing(1.5)}`,
     },

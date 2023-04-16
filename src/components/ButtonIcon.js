@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     fontWeight: fontWeightRegular,
     fontSize: fontSizeSmaller,
-    color: theme.custom.colors.violet,
+    color: theme.custom.colors.purple100,
     textTransform: 'none',
     '&:hover': {
       background: 'transparent',

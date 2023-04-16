@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
 
     '&:hover': {
-      background: theme.custom.colors.blackSqueeze,
+      background: theme.custom.colorsblue600,
     },
   },
   newsItemHeader: {
@@ -42,10 +42,10 @@ const useStyles = makeStyles((theme) => ({
   newsItemContentContainer: {
     paddingTop: '16px',
   },
-  divider: { backgroundColor: theme.custom.colors.oldLavender },
+  divider: { backgroundColor: theme.custom.colors.purple200 },
   content: {
     paddingTop: '16px',
-    color: theme.custom.colors.violet,
+    color: theme.custom.colors.purple100,
     '& p:last-of-type': {
       display: 'inline',
     },
@@ -68,19 +68,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   title: {
-    color: theme.custom.colors.violet,
+    color: theme.custom.colors.purple100,
     display: 'block',
     fontWeight: '500',
   },
   date: {
-    color: theme.custom.colors.oldLavender,
+    color: theme.custom.colors.purple200,
     fontSize: '12px',
   },
   cardContentCloseIcon: {
-    color: theme.custom.colors.oldLavender,
+    color: theme.custom.colors.purple200,
 
     '&:hover': {
-      color: theme.custom.colors.mountbattenPink,
+      color: theme.custom.colors.purple300,
       backgroundColor: 'transparent',
     },
   },

@@ -32,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
   cardContainer: {
     boxShadow: theme.custom.shadows.navigationFloating,
     '&:hover': {
-      background: theme.custom.colors.blackSqueeze,
+      background: theme.custom.colorsblue600,
 
       '& .MuiCardHeader-root': {
-        background: theme.custom.colors.blackSqueeze,
+        background: theme.custom.colorsblue600,
       },
     },
   },
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '50%',
   },
   cardActionIcon: {
-    color: theme.custom.colors.disco,
+    color: theme.custom.colors.pink50,
     fontSize: 16,
 
     '& path': {
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mutualFriendsIcon: {
     fontSize: '10px',
-    color: theme.custom.colors.mountbattenPink,
+    color: theme.custom.colors.purple300,
     position: 'relative',
     top: '1px',
   },

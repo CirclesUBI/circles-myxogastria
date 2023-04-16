@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   balanceUnderline: {
     '&:hover': {
       textDecoration: 'underline',
-      textDecorationColor: theme.custom.colors.violet,
+      textDecorationColor: theme.custom.colors.purple100,
     },
   },
 }));

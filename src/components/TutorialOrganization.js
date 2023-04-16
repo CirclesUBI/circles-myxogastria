@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btnContainer: {
     '& svg': {
-      color: theme.custom.colors.violet,
+      color: theme.custom.colors.purple100,
     },
   },
   slideContainer: {

@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         stopColor: theme.custom.colors.cannonPink,
       },
       '& stop:last-of-type': {
-        stopColor: theme.custom.colors.cranberry,
+        stopColor: theme.custom.colors.pink200,
       },
     },
   },

@@ -30,48 +30,48 @@ const useStyles = makeStyles((theme) => ({
         stopColor: theme.custom.colors.cannonPink,
       },
       '& stop:last-of-type': {
-        stopColor: theme.custom.colors.cranberry,
+        stopColor: theme.custom.colors.pink200,
       },
     },
   },
   trustButtonOneWay: {
     '& stop:first-of-type': {
-      stopColor: theme.custom.colors.violet,
+      stopColor: theme.custom.colors.purple100,
     },
     '& stop:last-of-type': {
-      stopColor: theme.custom.colors.violet,
+      stopColor: theme.custom.colors.purple100,
     },
     '&:hover': {
       '& stop:first-of-type': {
-        stopColor: theme.custom.colors.oldLavender,
+        stopColor: theme.custom.colors.purple200,
       },
       '& stop:last-of-type': {
-        stopColor: theme.custom.colors.oldLavender,
+        stopColor: theme.custom.colors.purple200,
       },
     },
   },
   trustButtonMutualTrust: {
     '& stop:first-of-type': {
-      stopColor: theme.custom.colors.fountainBlue,
+      stopColor: theme.custom.colors.blue100,
     },
     '& stop:last-of-type': {
-      stopColor: theme.custom.colors.fountainBlue,
+      stopColor: theme.custom.colors.blue100,
     },
     '&:hover': {
       '& stop:first-of-type': {
-        stopColor: theme.custom.colors.fountainBlueLighter,
+        stopColor: theme.custom.colors.blue200,
       },
       '& stop:last-of-type': {
-        stopColor: theme.custom.colors.fountainBlueLighter,
+        stopColor: theme.custom.colors.blue200,
       },
     },
   },
   trustButtonDisabled: {
     '& stop:first-of-type': {
-      stopColor: theme.custom.colors.lola,
+      stopColor: theme.custom.colors.purple500,
     },
     '& stop:last-of-type': {
-      stopColor: theme.custom.colors.lola,
+      stopColor: theme.custom.colors.purple500,
     },
   },
   trustButtonContainer: {

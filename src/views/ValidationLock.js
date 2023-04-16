@@ -34,7 +34,7 @@ const ValidationLock = () => {
         <Box className={classes.boxInfoContainer}>
           <AppNote messageVersion="validation" />
           <HumbleAlert
-            color={colors.fountainBlue}
+            color={colors.blue100}
             icon="IconBrowser"
             iconColor={colors.whiteAlmost}
             parseHtml

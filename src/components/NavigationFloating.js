@@ -21,25 +21,25 @@ const useStyles = makeStyles((theme) => {
   const backgroundTheme = (props) => {
     switch (props?.color) {
       case 'turquoise':
-        return theme.custom.colors.fountainBlue;
-      case 'violet':
-        return theme.custom.colors.violet;
+        return theme.custom.colors.blue100;
+      case 'purple100':
+        return theme.custom.colors.purple100;
       case 'white':
         return theme.custom.colors.whiteAlmost;
       default:
-        return theme.custom.colors.fountainBlue;
+        return theme.custom.colors.blue100;
     }
   };
   const backgroundHoverTheme = (props) => {
     switch (props?.color) {
       case 'turquoise':
-        return theme.custom.colors.fountainBlueLighter;
+        return theme.custom.colors.blue200;
       case 'violet':
-        return theme.custom.colors.oldLavender;
+        return theme.custom.colors.purple200;
       case 'white':
         return theme.custom.colors.whiteAlmost;
       default:
-        return theme.custom.colors.fountainBlue;
+        return theme.custom.colors.blue100;
     }
   };
 
@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => {
         '& .MuiFab-label': {
           color: (props) =>
             props?.color === 'white'
-              ? theme.custom.colors.fountainBlueLighter
+              ? theme.custom.colors.blue200
               : theme.custom.colors.whiteAlmost,
         },
         '& stop': {
@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => {
       '& .MuiFab-label': {
         color: (props) =>
           props?.color === 'white'
-            ? theme.custom.colors.fountainBlue
+            ? theme.custom.colors.blue100
             : theme.custom.colors.whiteAlmost,
       },
     },
