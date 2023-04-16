@@ -32,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
   cardContainer: {
     boxShadow: theme.custom.shadows.navigationFloating,
     '&:hover': {
-      background: theme.custom.colorsblue600,
+      background: theme.custom.colors.blue600,
 
       '& .MuiCardHeader-root': {
-        background: theme.custom.colorsblue600,
+        background: theme.custom.colors.blue600,
       },
     },
   },

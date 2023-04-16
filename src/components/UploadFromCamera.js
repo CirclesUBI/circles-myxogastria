@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
   },
   loadingMask: {
-    background: theme.custom.colors.cornflowerBlue,
+    background: theme.custom.colors.purple600,
     opacity: 0.5,
     position: 'relative',
   },

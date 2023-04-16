@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(3),
     justifyContent: 'flex-start',
     textTransform: 'none',
-    color: theme.custom.colors.mineShaft,
+    color: theme.custom.colors.grey50,
   },
   navigationProfileLink: {
     textDecoration: 'none',

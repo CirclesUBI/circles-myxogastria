@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => {
 
   const backgroundColor = (isOrganization) => {
     return isOrganization
-      ? theme.custom.colors.cornflowerBlue
+      ? theme.custom.colors.purple600
       : theme.custom.colors.blue600;
   };
 
@@ -138,11 +138,11 @@ const useStyles = makeStyles((theme) => {
       border: (isOrganization) =>
         isOrganization
           ? `3px solid ${theme.custom.colors.purple500} `
-          : `3px solid ${theme.custom.colors.swansDown}`,
+          : `3px solid ${theme.custom.colors.blue500}`,
       borderColor: (isOrganization) =>
         isOrganization
           ? theme.custom.colors.purple500
-          : theme.custom.colors.swansDown,
+          : theme.custom.colors.blue500,
 
       '& .MuiOutlinedInput-notchedOutline': {
         borderColor: (isOrganization) =>

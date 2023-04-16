@@ -32,14 +32,14 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '10px',
 
       '&:has(+ .MuiOutlinedInput-root:hover)': {
-        background: theme.custom.colors.cornflowerBlue,
+        background: theme.custom.purple600,
       },
 
       '&.Mui-error': {
         color: theme.custom.colors.purple,
 
         '&:has(+ .MuiOutlinedInput-root:hover)': {
-          background: theme.custom.colorspink600,
+          background: theme.custom.colors.pink600,
         },
 
         '&:hover': {
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
       '&:hover': {
         '& input.MuiInputBase-input': {
-          background: theme.custom.colors.cornflowerBlue,
+          background: theme.custom.purple600,
         },
       },
     },
@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
       right: '2px',
 
       '&:hover': {
-        background: theme.custom.colors.cornflowerBlue,
+        background: theme.custom.purple600,
       },
     },
     '& .Mui-error': {

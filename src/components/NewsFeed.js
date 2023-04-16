@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
 
     '&:hover': {
-      background: theme.custom.colorsblue600,
+      background: theme.custom.colors.blue600,
     },
   },
   newsItemHeader: {
