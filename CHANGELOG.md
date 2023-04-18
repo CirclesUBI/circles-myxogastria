@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.7.4] - 2023-04-18
+
+### Fixed
+- Updated core dependency containing a fix about retrying account creation. Fixes a problem with shared wallet account creation. [#657](https://github.com/CirclesUBI/circles-myxogastria/pull/657)
+
 # [2.7.3] - 2023-04-13
 
 ### Changed
