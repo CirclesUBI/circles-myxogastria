@@ -60,7 +60,7 @@
     "webpack-dev-server": "^3.11.3"
   },
   "dependencies": {
-    "@circles/core": "^4.1.0",
+    "@circles/core": "^4.3.1",
     "@circles/timecircles": "^1.0.6",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
