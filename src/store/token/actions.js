@@ -316,6 +316,7 @@ export function transfer(
         core.utils.toFreckles(tcToCrc(Date.now(), Number(amount))),
       );
       let txHash;
+
       if (process.env.PATHFINDER_TYPE === 'cli') {
         txHash = await loopTransfer(
           from,
@@ -328,21 +329,27 @@ export function transfer(
       } else {
         txHash = await core.token.transfer(from, to, value, paymentNote);
       }
-      dispatch(
-        addPendingActivity({
-          txHash,
-          type: ActivityTypes.HUB_TRANSFER,
-          data: {
-            from,
-            to,
-            value: value.toString(),
-          },
-        }),
-      );
 
-      dispatch({
-        type: ActionTypes.TOKEN_TRANSFER_SUCCESS,
-      });
+      if (txHash !== null) {
+        dispatch(
+          addPendingActivity({
+            txHash,
+            type: ActivityTypes.HUB_TRANSFER,
+            data: {
+              from,
+              to,
+              value: value.toString(),
+            },
+          }),
+        );
+
+        dispatch({
+          type: ActionTypes.TOKEN_TRANSFER_SUCCESS,
+        });
+      } else {
+        // "TransactionServiceException: execution reverted" as an example coming from  core.token.transfer
+        throw new TransferError();
+      }
     } catch (error) {
       dispatch({
         type: ActionTypes.TOKEN_TRANSFER_ERROR,
