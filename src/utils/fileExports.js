@@ -94,10 +94,12 @@ const formatTransactions = async (transactions, safeAddress) => {
   const otherSafes = [...new Set(transactionData.map((data) => data[2]))];
   // corresponding names by safe
   const namesBySafe = await resolveUsernames(otherSafes);
+  // eslint-disable-next-line
+  console.log({ transactionData, otherSafes, namesBySafe });
   // replace placeholder name
   return transactionData.map((data) => {
     const safe = data[2];
-    data[1] = namesBySafe[safe].username;
+    data[1] = namesBySafe[safe] ? namesBySafe[safe].username : '-';
     return data.join(';');
   });
 };
