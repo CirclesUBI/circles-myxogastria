@@ -14,6 +14,7 @@ import translate from '~/services/locale';
 import { downloadCsvStatement } from '~/utils/fileExports';
 
 const MAX_EXPORT_HISTORY = 365;
+const MAX_EXPORT_LENGTH = 92;
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
@@ -114,7 +115,10 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
           />
           <DatePicker
             label={translate('ExportStatement.exportTo')}
-            maxDate={now}
+            maxDate={DateTime.min(
+              now,
+              startDate.plus({ days: MAX_EXPORT_LENGTH }),
+            )}
             minDate={startDate}
             textField={(params) => <TextField {...params} />}
             value={endDate}
