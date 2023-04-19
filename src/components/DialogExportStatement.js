@@ -45,9 +45,11 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
   const classes = useStyles();
 
   const now = DateTime.now();
+  const defaultEnd = now.set({ day: 1 }).minus({ days: 1 });
+  const defaultStart = defaultEnd.set({ day: 1 });
 
-  const [startDate, setStartDate] = useState(now);
-  const [endDate, setEndDate] = useState(now);
+  const [startDate, setStartDate] = useState(defaultStart);
+  const [endDate, setEndDate] = useState(defaultEnd);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -101,7 +103,6 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
           <DatePicker
             label={translate('ExportStatement.exportFrom')}
             maxDate={now}
-            //minDate={convertToDateTime("23.11.2009 12:34:56", "dd.MM.yyyy HH:mm:ss")}
             sx={{ marginRight: '25px', marginBottom: '10px' }}
             textField={(params) => <TextField {...params} />}
             value={startDate}
