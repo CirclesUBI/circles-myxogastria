@@ -12,8 +12,8 @@ import {
   Avatar as MuiAvatar,
   Typography,
   Zoom,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
@@ -80,7 +80,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     paddingTop: 0,
-    paddingBottom: `${theme.spacing(1.5)}px !important`,
+    ' &.MuiCardContent-root': {
+      paddingBottom: `${theme.spacing(1.5)}`,
+    },
   },
   cardContentText: {
     fontSize: '0.8rem',
@@ -282,7 +284,10 @@ const ActivityStreamItem = (props) => {
         onClick={handleClick}
       />
       <Collapse in={isExpanded}>
-        <CardContent className={classes.cardContent}>
+        <CardContent
+          // className={classes.cardContent}
+          classes={{ root: classes.cardContent }}
+        >
           <ActivityStreamExplained
             actor={actor}
             data={data}
@@ -296,7 +301,7 @@ const ActivityStreamItem = (props) => {
             style={{ transitionDelay: isExpanded ? '250ms' : '0ms' }}
           >
             <Box display="flex" justifyContent="center">
-              <IconButton onClick={handleClick}>
+              <IconButton size="large" onClick={handleClick}>
                 <IconCloseOutline className={classes.cardContentCloseIcon} />
               </IconButton>
             </Box>
@@ -345,7 +350,7 @@ const ActivityStreamExplained = ({
         variant="body1"
       >
         {translate('ActivityStream.bodyExplainSecondary')}{' '}
-        <ExternalLink href={FAQ_URL}>
+        <ExternalLink href={FAQ_URL} underline="hover">
           {translate('ActivityStream.linkLearnMore')}
         </ExternalLink>
       </Typography>

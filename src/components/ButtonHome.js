@@ -1,4 +1,4 @@
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,7 @@ const ButtonHome = (props) => {
       {...props}
       aria-label="Back to home"
       component={Link}
+      size="large"
       to={props.to ? null : DASHBOARD_PATH}
     >
       <IconClose />

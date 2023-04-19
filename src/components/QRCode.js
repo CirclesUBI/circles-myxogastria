@@ -1,4 +1,4 @@
-import { Box, Paper } from '@material-ui/core';
+import { Box, Paper } from '@mui/material';
 import PropTypes from 'prop-types';
 import QRCodeGenerator from 'qrcode';
 import React, { createRef, useEffect } from 'react';

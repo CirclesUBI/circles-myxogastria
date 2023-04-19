@@ -68,7 +68,9 @@ export function checkPendingActivities() {
 
     for await (const category of CATEGORIES) {
       activity.categories[category].activities.forEach(async (activity) => {
-        if (!activity.isPending) {
+        // We only need check pending activities and activities without
+        // txHash are not ready to be checked.
+        if (!activity.isPending || !activity.txHash) {
           return;
         }
 

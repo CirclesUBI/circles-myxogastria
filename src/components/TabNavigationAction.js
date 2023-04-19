@@ -1,5 +1,5 @@
-import { Tab } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Tab } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -12,17 +12,21 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     color: theme.custom.colors.lily,
     borderBottom: '1px solid transparent',
+    '& g, & path': {
+      fill: theme.custom.colors.lily,
+    },
     '&:hover': {
       borderBottom: `1px solid ${theme.custom.colors.oldLavender}`,
-      '& .MuiTab-wrapper': {
-        color: theme.custom.colors.oldLavender,
-      },
+      color: theme.custom.colors.oldLavender,
       '& g, & path': {
         fill: theme.custom.colors.oldLavender,
       },
     },
     '&.Mui-selected': {
       color: theme.custom.colors.violet,
+      '& g, & path': {
+        fill: theme.custom.colors.violet,
+      },
       '&:hover': {
         '& .MuiTab-wrapper': {
           color: theme.custom.colors.violet,
@@ -34,10 +38,14 @@ const useStyles = makeStyles((theme) => ({
     },
     '&.MuiTab-labelIcon': {
       minHeight: 'auto',
+      paddingBottom: '3px',
 
       '& .MuiTab-wrapper > *:first-child': {
         marginBottom: '0',
       },
+    },
+    '& .MuiBadge-root': {
+      marginBottom: '3px',
     },
   },
 }));
@@ -49,6 +57,7 @@ const TabNavigationAction = ({ className, ...props }) => {
     <Tab
       classes={{
         root: clsx(className, classes.tab),
+        selected: classes.selected,
       }}
       {...props}
     />

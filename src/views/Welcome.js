@@ -1,7 +1,7 @@
-import { Box, Divider, Grid, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, Divider, Grid, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { LOGIN_PATH, ONBOARDING_PATH } from '~/routes';
 
@@ -28,9 +28,16 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(2),
   },
   welcomeExternalLink: {
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.main,
+    fontWeight: '400',
     zIndex: theme.zIndex.layer2,
     position: 'relative',
+  },
+  divider: {
+    marginLeft: '16px',
+    marginRight: '16px',
+    height: '40px',
+    backgroundColor: theme.custom.colors.black,
   },
 }));
 
@@ -38,7 +45,7 @@ const Welcome = () => {
   const classes = useStyles();
 
   return (
-    <Fragment>
+    <>
       <Header>
         <Box display="flex" justifyContent="flex-end" width="100%">
           <LocaleSelector isInvertedColor />
@@ -59,7 +66,12 @@ const Welcome = () => {
           >
             {translate('Welcome.buttonSignUp')}
           </Button>
-          <Divider flexItem orientation="vertical" variant="middle" />
+          <Divider
+            className={classes.divider}
+            flexItem
+            orientation="vertical"
+            variant="middle"
+          />
           <Button className={classes.welcomeButton} to={LOGIN_PATH}>
             {translate('Welcome.buttonLogin')}
           </Button>
@@ -89,7 +101,7 @@ const Welcome = () => {
           </Grid>
         </Box>
       </View>
-    </Fragment>
+    </>
   );
 };
 
@@ -97,7 +109,11 @@ const WelcomeExternalLink = ({ children, href }) => {
   const classes = useStyles();
 
   return (
-    <ExternalLink className={classes.welcomeExternalLink} href={href}>
+    <ExternalLink
+      className={classes.welcomeExternalLink}
+      href={href}
+      underline="hover"
+    >
       {children}
     </ExternalLink>
   );

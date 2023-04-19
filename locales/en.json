@@ -258,7 +258,7 @@
     "buttonNextStep": "Continue",
     "buttonConfirmSave": "I saved it!",
     "buttonShareProfile": "Share Profile Link",
-    "buttonCreateAccount": "Create Account",
+    "buttonCreateAccount": "Create Wallet",
     "skipStep": "I'll do this later"
   },
   "OrganizationMembers": {
@@ -416,7 +416,7 @@
     "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
   },
   "ValidationLock": {
-    "bodyThisMayTakeMinutes": "This may take a few minutes. Please do not refresh the screen, this may interrupt the process.",
+    "bodyThisMayTakeMinutes": "<b>Keep your wallet open!</b> Your wallet is now being creating on the blockchain. This process is delicate and might take some minutes. It is important that you <b>do not close or refresh your browser</b> until this finishes. Otherwise your wallet creation will crash, and you will have to start from scratch.",
     "bodyYourCirclesLoading": "Your Circles account is loading!"
   },
   "ValidationShare": {
@@ -426,7 +426,7 @@
   },
   "ValidationStatus": {
     "bodyReadyForDeployment": "Your account is ready now, click the button below to create it:",
-    "buttonStartDeployment": "Create Account"
+    "buttonStartDeployment": "Create Wallet"
   },
   "VerifiedEmailInput": {
     "formEmailInvalid": "Invalid email address"

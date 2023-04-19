@@ -1,5 +1,5 @@
-import { ButtonGroup } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { ButtonGroup } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         borderBottomRightRadius: 0,
       },
     },
-    '& a:nth-of-type(2)': {
+    '& a:nth-of-type(2).MuiButtonBase-root': {
       borderLeftStyle: 'none',
       marginLeft: '4px',
       padding: '6px 15px',

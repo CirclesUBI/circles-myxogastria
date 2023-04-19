@@ -1,5 +1,5 @@
-import { Tabs } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Tabs } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -22,7 +22,7 @@ const TabNavigation = ({ className, children, ...props }) => {
       centered
       className={clsx(className, classes.tabs)}
       indicatorColor="primary"
-      scrollButtons="off"
+      scrollButtons={false}
       variant="fullWidth"
       {...props}
     >

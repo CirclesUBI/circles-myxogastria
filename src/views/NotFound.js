@@ -1,4 +1,4 @@
-import { Container, Typography } from '@material-ui/core';
+import { Container, Typography } from '@mui/material';
 import React, { Fragment } from 'react';
 
 import ButtonHome from '~/components/ButtonHome';

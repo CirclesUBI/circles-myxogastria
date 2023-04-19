@@ -1,5 +1,5 @@
-import { Box, CircularProgress, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, CircularProgress, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React, { Fragment } from 'react';
 
 import AppNote from '~/components/AppNote';
@@ -33,15 +33,14 @@ const ValidationLock = () => {
         </Box>
         <Box className={classes.boxInfoContainer}>
           <AppNote messageVersion="validation" />
-          {!process.env.USER_NOTIFICATION_VALIDATION && (
-            <HumbleAlert
-              color={colors.fountainBlueLighter}
-              icon="IconBrowser"
-              iconColor={colors.whiteAlmost}
-            >
-              {translate('ValidationLock.bodyThisMayTakeMinutes')}
-            </HumbleAlert>
-          )}
+          <HumbleAlert
+            color={colors.fountainBlue}
+            icon="IconBrowser"
+            iconColor={colors.whiteAlmost}
+            parseHtml
+          >
+            {translate('ValidationLock.bodyThisMayTakeMinutes')}
+          </HumbleAlert>
         </Box>
       </View>
     </Fragment>

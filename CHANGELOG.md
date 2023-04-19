@@ -8,6 +8,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.7.4] - 2023-04-18
+
+### Fixed
+- Updated core dependency containing a fix about retrying account creation. Fixes a problem with shared wallet account creation. [#657](https://github.com/CirclesUBI/circles-myxogastria/pull/657)
+
+# [2.7.3] - 2023-04-13
+
+### Changed
+- The banner in wallet creation lock screen is updated to be more clear to the user [#652](https://github.com/CirclesUBI/circles-myxogastria/pull/652)
+- Make wallet creation lock message will now always show even if custom banner is there
+- Changed wording from "Create Account" to "Create Wallet"
+
+### Fixed
+- Updated dependencies [#647](https://github.com/CirclesUBI/circles-myxogastria/pull/647) [#653](https://github.com/CirclesUBI/circles-myxogastria/pull/653)
+- Updating github actions [#656](https://github.com/CirclesUBI/circles-myxogastria/pull/656)
+- Fixing missing parameter for an error. It was causing the transfer modal to never close for failing transactions. [#648](https://github.com/CirclesUBI/circles-myxogastria/pull/648)
+
+# [2.7.2] - 2023-03-31
+
+### Fixed
+- Synchronize UX styling of End-Session button in Settings with the rest of the app [#642](https://github.com/CirclesUBI/circles-myxogastria/pull/642)
+- Don't call getTransactionReceipt if txHash is not defined, in order to avoid "Invalid params" errors [#640](https://github.com/CirclesUBI/circles-myxogastria/pull/640)
+- Migrate to MaterialUI version 5 [#628](https://github.com/CirclesUBI/circles-myxogastria/pull/628)
+
 # [2.7.1] - 2023-03-09
 
 ### Fixed

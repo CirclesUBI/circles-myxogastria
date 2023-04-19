@@ -1,5 +1,5 @@
-import { Box, IconButton } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, IconButton } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';

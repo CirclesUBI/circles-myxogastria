@@ -5,8 +5,8 @@ import {
   InputLabel,
   Tooltip,
   Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 
@@ -28,11 +28,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline-flex',
     alignItems: 'center',
     fontSize,
-    '&>*': {
+    '& > *': {
       marginRight: theme.spacing(0.5),
-    },
-    '&>span': {
-      color: theme.custom.colors.grayDarkest,
     },
   },
   inputLabel: {
@@ -41,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightMedium,
     fontSize: '18px',
     textAlign: 'left',
+  },
+  text: {
+    color: theme.custom.colors.grayDarkest,
   },
 }));
 
@@ -67,7 +67,7 @@ const TransferInfoCard = ({
             <Tooltip arrow title={tooltip}>
               <Typography className={classes.cardHeaderContent} component="div">
                 <CirclesLogoSVG height={fontSize} width={fontSize} />
-                <span>{text}</span>
+                <span className={classes.text}>{text}</span>
                 {isLoading && <CircularProgress size={fontSize} />}
               </Typography>
             </Tooltip>

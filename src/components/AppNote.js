@@ -1,5 +1,5 @@
-import { Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -7,7 +7,7 @@ import theme, { colors } from '../styles/theme';
 
 import HumbleAlert from '~/components/HumbleAlert';
 
-const DEFAULT_ALERT_COLOR = theme.custom.colors.fountainBlueLighter;
+const DEFAULT_ALERT_COLOR = theme.custom.colors.fountainBlue;
 const DEFAULT_ICON_COLOR = colors.whiteAlmost;
 const DEFAULT_ICON = 'IconBrowser';
 

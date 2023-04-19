@@ -5,8 +5,8 @@ import {
   IconButton,
   Tooltip,
   Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -222,6 +222,7 @@ const ProfileMiniActions = ({
             <IconButton
               aria-label="Trust"
               className={classes.cardActionButton}
+              size="large"
               onClick={onTrust}
             >
               <IconTrust className={classes.cardActionIcon} />
@@ -232,6 +233,7 @@ const ProfileMiniActions = ({
         <IconButton
           aria-label="Send"
           className={classes.cardActionButton}
+          size="large"
           onClick={onSend}
         >
           <IconSend className={classes.cardActionIcon} />

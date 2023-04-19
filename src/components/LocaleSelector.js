@@ -1,5 +1,5 @@
-import { InputBase, MenuItem, Select } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { InputBase, MenuItem, Select } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import { LOCALES } from 'locales';
 import PropTypes from 'prop-types';
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     fill: theme.palette.text.primary,
   },
   selectInput: {
+    color: theme.custom.colors.whiteAlmost,
     padding: theme.spacing(1),
     backgroundColor: 'transparent',
     borderRadius: theme.shape.borderRadius,
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   selectInputInverted: {
     border: 0,
+    color: theme.palette.text.primary,
   },
 }));
 

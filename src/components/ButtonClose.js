@@ -1,4 +1,4 @@
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -6,7 +6,13 @@ import { IconClose } from '~/styles/icons';
 
 const ButtonClose = ({ onClick, props }) => {
   return (
-    <IconButton {...props} align="center" aria-label="Close" onClick={onClick}>
+    <IconButton
+      {...props}
+      align="center"
+      aria-label="Close"
+      size="large"
+      onClick={onClick}
+    >
       <IconClose />
     </IconButton>
   );
