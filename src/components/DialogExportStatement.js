@@ -44,8 +44,10 @@ const useStyles = makeStyles((theme) => ({
 const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
   const classes = useStyles();
 
-  const [startDate, setStartDate] = useState(DateTime.now());
-  const [endDate, setEndDate] = useState(DateTime.now());
+  const now = DateTime.now();
+
+  const [startDate, setStartDate] = useState(now);
+  const [endDate, setEndDate] = useState(now);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -59,8 +61,9 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
   };
 
   const handleExport = (username, safeAddress, startDate, endDate) => () => {
-    const endDateMidnight = endDate.set({ hour: 23, minute: 59, second: 59 });
-    downloadCsvStatement(username, safeAddress, startDate, endDateMidnight);
+    const startMidnight = startDate.set({ hour: 0, minute: 0, second: 0 });
+    const endMidnight = endDate.set({ hour: 23, minute: 59, second: 59 });
+    downloadCsvStatement(username, safeAddress, startMidnight, endMidnight);
   };
 
   const { safeAddress } = useSelector((state) => {
@@ -97,7 +100,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
         <Box>
           <DatePicker
             label={translate('ExportStatement.exportFrom')}
-            maxDate={DateTime.now()}
+            maxDate={now}
             //minDate={convertToDateTime("23.11.2009 12:34:56", "dd.MM.yyyy HH:mm:ss")}
             sx={{ marginRight: '25px', marginBottom: '10px' }}
             textField={(params) => <TextField {...params} />}
@@ -106,7 +109,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
           />
           <DatePicker
             label={translate('ExportStatement.exportTo')}
-            maxDate={DateTime.now()}
+            maxDate={now}
             minDate={startDate}
             textField={(params) => <TextField {...params} />}
             value={endDate}

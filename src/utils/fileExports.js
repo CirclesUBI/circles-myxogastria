@@ -132,12 +132,13 @@ const sumOfTransactions = (transactions, shouldBeInTc = false) => {
  * @returns an array of Objects representing transaction with attributes:
  * {to, from, valueInFreckles, valueInCircles, valueInTimeCircles, txHash, date, isNegative}
  */
-const getTransactions = async (safeAddress) => {
+const getTransactions = async (safeAddress, startDate) => {
   try {
     const { activities /*, lastTimestamp*/ } = await core.activity.getLatest(
       safeAddress,
       ActivityFilterTypes.TRANSFERS,
       40,
+      Math.floor(startDate.toSeconds()), // needs to be whole number, can have decimals if created as now()
     );
     const transactions = activities.map((activity) => {
       const { to, from, value } = activity.data;
@@ -178,6 +179,7 @@ export async function downloadCsvStatement(
 ) {
   //console.log('----------------------------'); // TODO remove
   //console.log({ walletName, safeAddress, startDate, endDate }); // TODO remove
+  //console.log({ start: formatDate(startDate), end: formatDate(endDate) });
   // Verify date order
   if (startDate > endDate) {
     throw new Error('Invalid date interval');
@@ -185,7 +187,7 @@ export async function downloadCsvStatement(
   }
 
   // Transactions
-  const transactions = await getTransactions(safeAddress);
+  const transactions = await getTransactions(safeAddress, startDate);
   const [txsBeforeEnd, txsAfterEnd] = _.partition(
     transactions,
     (tx) => tx.date < endDate,
