@@ -48,7 +48,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const [dialogOpen, setDialogOpen] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const [categorySetByUser, setCategorySetByUser] = useState(false);
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
