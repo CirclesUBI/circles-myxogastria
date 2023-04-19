@@ -13,6 +13,8 @@ import { useUserdata } from '~/hooks/username';
 import translate from '~/services/locale';
 import { downloadCsvStatement } from '~/utils/fileExports';
 
+const MAX_EXPORT_HISTORY = 365;
+
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     top: theme.custom.components.appBarHeight,
@@ -47,6 +49,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
   const now = DateTime.now();
   const defaultEnd = now.set({ day: 1 }).minus({ days: 1 });
   const defaultStart = defaultEnd.set({ day: 1 });
+  const earliestDate = now.minus({ days: MAX_EXPORT_HISTORY });
 
   const [startDate, setStartDate] = useState(defaultStart);
   const [endDate, setEndDate] = useState(defaultEnd);
@@ -103,6 +106,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
           <DatePicker
             label={translate('ExportStatement.exportFrom')}
             maxDate={now}
+            minDate={earliestDate}
             sx={{ marginRight: '25px', marginBottom: '10px' }}
             textField={(params) => <TextField {...params} />}
             value={startDate}
