@@ -10,6 +10,7 @@ import web3 from '~/services/web3';
 import { formatCirclesValue } from '~/utils/format';
 
 const NUMBER_OF_DECIMALS = 2;
+const MAX_NUMBER_OF_TRANSACTIONS = 1000;
 
 const { ActivityFilterTypes } = core.activity;
 
@@ -128,16 +129,18 @@ const sumOfTransactions = (transactions, shouldBeInTc = false) => {
 
 /**
  * Fetching and compiling a list transaction data objects
- * @param {string} safeAddress
+ * @param {string} safeAddress the safe that is sender or receiver of the fetched transactions
+ * @param {DateTime} startDate the date before which no transactions needs to be fetched
  * @returns an array of Objects representing transaction with attributes:
  * {to, from, valueInFreckles, valueInCircles, valueInTimeCircles, txHash, date, isNegative}
+ * capped at 1000 transactions
  */
 const getTransactions = async (safeAddress, startDate) => {
   try {
-    const { activities /*, lastTimestamp*/ } = await core.activity.getLatest(
+    const { activities } = await core.activity.getLatest(
       safeAddress,
       ActivityFilterTypes.TRANSFERS,
-      40,
+      MAX_NUMBER_OF_TRANSACTIONS,
       Math.floor(startDate.toSeconds()), // needs to be whole number, can have decimals if created as now()
     );
     const transactions = activities.map((activity) => {
