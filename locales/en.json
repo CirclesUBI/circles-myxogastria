@@ -135,6 +135,15 @@
   "ErrorCodes": {
     "CoreErrorInsufficientFunds": "Please send some Circles to this account if you want to perform any transaction"
   },
+  "ExportStatement": {
+    "exportBtnText": "Export Statement",
+    "exportFormat": "Format",
+    "exportFrom": "From",
+    "exportInfoText": "Your monthly wallet balance will be downloaded in CSV format.",
+    "exportTimeSpan": "Time-span",
+    "exportTo": "To",
+    "exportWallet": "Wallet"
+  },
   "Finder": {
     "bodyFilterDirect": "Directly trusted",
     "bodyFilterExternal": "External",
