@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     padding: '36px',
     borderTopLeftRadius: '36px',
     borderTopRightRadius: '36px',
+    maxWidth: '424px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   btnContainer: {
     marginTop: 'auto',
@@ -44,7 +47,9 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
-    setEndDate(date);
+    if (date > endDate || endDate === null) {
+      setEndDate(date);
+    }
   };
 
   const handleEndDateChange = (date) => {
