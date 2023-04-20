@@ -1,6 +1,6 @@
 import { crcToTc } from '@circles/timecircles';
 import fileDownload from 'js-file-download';
-import _ from 'lodash';
+import { partition } from 'lodash';
 import { DateTime } from 'luxon';
 
 import core from '~/services/core';
@@ -182,9 +182,6 @@ export async function downloadCsvStatement(
   startDate,
   endDate,
 ) {
-  //console.log('----------------------------'); // TODO remove
-  //console.log({ walletName, safeAddress, startDate, endDate }); // TODO remove
-  //console.log({ start: formatDate(startDate), end: formatDate(endDate) });
   // Verify date order
   if (startDate > endDate) {
     throw new Error('Invalid date interval');
@@ -193,22 +190,18 @@ export async function downloadCsvStatement(
 
   // Transactions
   const transactions = await getTransactions(safeAddress, startDate);
-  const [txsBeforeEnd, txsAfterEnd] = _.partition(
+  const [txsBeforeEnd, txsAfterEnd] = partition(
     transactions,
     (tx) => tx.date < endDate,
   );
-  const [txsBeforeStart, txsInPeriod] = _.partition(
+  const [txsBeforeStart, txsInPeriod] = partition( // TODO change to filter for txsInPeriod
     // TODO use filter instead
     txsBeforeEnd,
     (tx) => tx.date < startDate,
   );
   // eslint-disable-next-line
   console.log({ transactions, txsBeforeEnd, txsAfterEnd, txsBeforeStart, txsInPeriod }); // TODO remove
-  //const txsStartToEnd = transactions || txsBeforeEnd;
 
-  if (txsBeforeStart > 1000) {
-    throw new Error('Too many transactions'); // TODO
-  }
   // Transaction sums
   const sumCrcEnd = sumOfTransactions(txsAfterEnd);
   const sumTxCrcPeriod = sumOfTransactions(txsInPeriod);
