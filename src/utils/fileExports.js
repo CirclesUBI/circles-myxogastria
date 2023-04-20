@@ -2,6 +2,8 @@ import { crcToTc } from '@circles/timecircles';
 import fileDownload from 'js-file-download';
 import { partition } from 'lodash';
 import { DateTime } from 'luxon';
+import { defer, from } from 'rxjs';
+import { mergeMap, toArray } from 'rxjs/operators';
 
 import core from '~/services/core';
 import resolveTxHash from '~/services/transfer';
@@ -15,6 +17,22 @@ const MAX_NUMBER_OF_TRANSACTIONS = 1000;
 const { ActivityFilterTypes } = core.activity;
 
 const formatDate = (dateTime) => dateTime.toFormat(`dd.LL.yyyy`).toString();
+
+function onSubscribe(onSubscribe) {
+  return function inner(source) {
+    return defer(() => {
+      onSubscribe();
+      return source;
+    });
+  };
+}
+
+function loadPaymentNote(txHash) {
+  return from(resolveTxHash(txHash).then((note) => note || '-')).pipe(
+    // eslint-disable-next-line
+    onSubscribe(() => console.log(`Loading hash ${txHash}`)),
+  );
+}
 
 /**
  * Generates a csv string including line breaks based on input strings
@@ -67,29 +85,33 @@ const generateCsvContent = (
  * 'dd.mm.yyyy, Username, 0x00000000000000000000, Transaction message, -123.45'
  */
 const formatTransactions = async (transactions, safeAddress) => {
-  const transactionData = await Promise.all(
-    transactions.reverse().map(async (transaction) => {
-      const { to, from, valueInFreckles, txHash, date } = transaction;
-      const message = await resolveTxHash(txHash);
-      const otherSafeAddress = to === safeAddress ? from : to;
-      const valueSign = from === safeAddress ? '-' : '+';
-      const valueInTimeCircles = formatCirclesValue(
-        valueInFreckles,
-        date,
-        NUMBER_OF_DECIMALS,
-        false, // important to round normal, not down to get even numbers
-      );
+  const transactionData = transactions.reverse().map((transaction) => {
+    const { to, from, valueInFreckles, date } = transaction;
+    const otherSafeAddress = to === safeAddress ? from : to;
+    const valueSign = from === safeAddress ? '-' : '+';
+    const valueInTimeCircles = formatCirclesValue(
+      valueInFreckles,
+      date,
+      NUMBER_OF_DECIMALS,
+      false, // important to round normal, not down to get even numbers
+    );
 
-      return [
-        formatDate(date),
-        'placeholder name',
-        otherSafeAddress,
-        message || '-',
-        valueSign.concat(valueInTimeCircles),
-        '',
-      ];
-    }),
-  );
+    return [
+      // TODO object
+      formatDate(date),
+      'placeholder name',
+      otherSafeAddress,
+      '-',
+      valueSign.concat(valueInTimeCircles),
+      '',
+    ];
+  });
+
+  const notes = await getPaymentNotes(transactions);
+  // eslint-disable-next-line
+  console.log({ notes });
+  // eslint-disable-next-line
+  console.log(transactionData)
   // set of unique safes in data
   const otherSafes = [...new Set(transactionData.map((data) => data[2]))];
   // corresponding names by safe
@@ -97,11 +119,21 @@ const formatTransactions = async (transactions, safeAddress) => {
   // eslint-disable-next-line
   console.log({ transactionData, otherSafes, namesBySafe });
   // replace placeholder name
-  return transactionData.map((data) => {
+  return transactionData.map((data, index) => {
     const safe = data[2];
     data[1] = namesBySafe[safe] ? namesBySafe[safe].username : '-';
-    return data.join(';');
+    data[3] = notes[index];
+    return data.join(';'); // TODO .values of object instead
   });
+};
+
+const getPaymentNotes = (transactions) => {
+  return from(transactions)
+    .pipe(
+      mergeMap((tx) => loadPaymentNote(tx.txHash), 1),
+      toArray(),
+    )
+    .toPromise();
 };
 
 /**
