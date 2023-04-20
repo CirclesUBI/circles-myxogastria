@@ -194,8 +194,8 @@ export async function downloadCsvStatement(
     transactions,
     (tx) => tx.date < endDate,
   );
-  const [txsBeforeStart, txsInPeriod] = partition( // TODO change to filter for txsInPeriod
-    // TODO use filter instead
+  const [txsBeforeStart, txsInPeriod] = partition(
+    // TODO change to filter for txsInPeriod
     txsBeforeEnd,
     (tx) => tx.date < startDate,
   );
