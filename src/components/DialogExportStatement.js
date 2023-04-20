@@ -1,6 +1,7 @@
 import { Box, Drawer, TextField, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import React from 'react';
@@ -10,6 +11,10 @@ import Line from '%/images/line.svg';
 import Button from '~/components/Button';
 import { useUserdata } from '~/hooks/username';
 import translate from '~/services/locale';
+import { downloadCsvStatement } from '~/utils/fileExports';
+
+const MAX_EXPORT_HISTORY = 365;
+const MAX_EXPORT_LENGTH = 92;
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
@@ -42,8 +47,13 @@ const useStyles = makeStyles((theme) => ({
 const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
   const classes = useStyles();
 
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const now = DateTime.now();
+  const defaultEnd = now.set({ day: 1 }).minus({ days: 1 });
+  const defaultStart = defaultEnd.set({ day: 1 });
+  const earliestDate = now.minus({ days: MAX_EXPORT_HISTORY });
+
+  const [startDate, setStartDate] = useState(defaultStart);
+  const [endDate, setEndDate] = useState(defaultEnd);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -54,6 +64,12 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
 
   const handleEndDateChange = (date) => {
     setEndDate(date);
+  };
+
+  const handleExport = (username, safeAddress, startDate, endDate) => () => {
+    const startMidnight = startDate.set({ hour: 0, minute: 0, second: 0 });
+    const endMidnight = endDate.set({ hour: 23, minute: 59, second: 59 });
+    downloadCsvStatement(username, safeAddress, startMidnight, endMidnight);
   };
 
   const { safeAddress } = useSelector((state) => {
@@ -90,15 +106,21 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
         <Box>
           <DatePicker
             label={translate('ExportStatement.exportFrom')}
-            renderInput={(params) => <TextField {...params} />}
+            maxDate={now}
+            minDate={earliestDate}
             sx={{ marginRight: '25px', marginBottom: '10px' }}
+            textField={(params) => <TextField {...params} />}
             value={startDate}
             onChange={handleStartDateChange}
           />
           <DatePicker
             label={translate('ExportStatement.exportTo')}
+            maxDate={DateTime.min(
+              now,
+              startDate.plus({ days: MAX_EXPORT_LENGTH }),
+            )}
             minDate={startDate}
-            renderInput={(params) => <TextField {...params} />}
+            textField={(params) => <TextField {...params} />}
             value={endDate}
             onChange={handleEndDateChange}
           />
@@ -112,7 +134,10 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
         {translate('ExportStatement.exportInfoText')}
       </Typography>
       <Box className={classes.btnContainer}>
-        <Button classes={{ root: classes.btn }}>
+        <Button
+          classes={{ root: classes.btn }}
+          onClick={handleExport(username, safeAddress, startDate, endDate)}
+        >
           {translate('ExportStatement.exportBtnText')}
         </Button>
       </Box>
