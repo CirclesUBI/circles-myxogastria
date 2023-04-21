@@ -416,7 +416,7 @@
     "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
   },
   "ValidationLock": {
-    "bodyThisMayTakeMinutes": "<b>Keep your wallet open!</b> Your wallet is now being creating on the blockchain. This process is delicate and might take some minutes. It is important that you <b>do not close or refresh your browser</b> until this finishes. Otherwise your wallet creation will crash, and you will have to start from scratch.",
+    "bodyThisMayTakeMinutes": "<b>Keep your wallet open!</b> Your wallet is now being created on the blockchain. This process is delicate and might take some minutes. It is important that you <b>do not close or refresh your browser</b> until this finishes. Otherwise your wallet creation will crash, and you will have to start from scratch.",
     "bodyYourCirclesLoading": "Your Circles account is loading!"
   },
   "ValidationShare": {
