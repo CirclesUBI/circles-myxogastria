@@ -13,6 +13,11 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     '&:hover': {
       background: 'transparent',
+      color: theme.custom.colors.purple,
+
+      '& path': {
+        fill: theme.custom.colors.purple,
+      },
     },
   },
 }));
