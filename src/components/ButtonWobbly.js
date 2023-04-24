@@ -56,7 +56,6 @@ const ButtonWobbly = ({
   isReady,
   isPending,
   onClick,
-  to,
 }) => {
   const classes = useStyles();
   const IconElement = iconSelector(icon);

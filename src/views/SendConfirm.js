@@ -152,6 +152,8 @@ const SendConfirm = () => {
           messageId = 'Invalid';
         } else if (error.code === ErrorCodes.TRANSFER_NOT_FOUND) {
           messageId = 'NotFound';
+        } else if (error.code === ErrorCodes.UNKNOWN_ERROR) {
+          messageId = 'Unknown';
         }
         text = translate('SendConfirm.errorMessageTransfer' + messageId, {
           amount,
