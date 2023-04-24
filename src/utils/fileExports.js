@@ -2,7 +2,7 @@ import { crcToTc } from '@circles/timecircles';
 import fileDownload from 'js-file-download';
 import { partition } from 'lodash';
 import { DateTime } from 'luxon';
-import { defer, from } from 'rxjs';
+import { defer, from, lastValueFrom } from 'rxjs';
 import { mergeMap, toArray } from 'rxjs/operators';
 
 import core from '~/services/core';
@@ -128,12 +128,13 @@ const formatTransactions = async (transactions, safeAddress) => {
 };
 
 const getPaymentNotes = (transactions) => {
-  return from(transactions)
+  const paymentNotes$ = from(transactions)
     .pipe(
       mergeMap((tx) => loadPaymentNote(tx.txHash), 1),
       toArray(),
-    )
-    .toPromise();
+    );
+  return lastValueFrom(paymentNotes$);
+
 };
 
 /**
