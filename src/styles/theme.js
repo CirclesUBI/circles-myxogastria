@@ -189,6 +189,9 @@ export default createTheme({
       lineHeight: '140%',
       color: colors.violet,
     },
+    bodyText: {
+      color: colors.violet,
+    },
     bodySmall: {
       fontWeight: '400',
       fontSize: '12px',
