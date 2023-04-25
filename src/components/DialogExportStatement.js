@@ -4,7 +4,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import Line from '%/images/line.svg';
@@ -70,6 +70,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
 
   const [startDate, setStartDate] = useState(defaultStart);
   const [endDate, setEndDate] = useState(defaultEnd);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -94,6 +95,18 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
     };
   });
   let { username } = useUserdata(safeAddress);
+
+  useEffect(() => {
+    if (
+      startDate > endDate ||
+      startDate.invalid !== null ||
+      endDate.invalid !== null
+    ) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [startDate, endDate]);
 
   return (
     <Drawer
@@ -157,6 +170,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
       <Box className={classes.btnContainer}>
         <Button
           classes={{ root: classes.btn }}
+          disabled={isDisabled}
           onClick={handleExport(username, safeAddress, startDate, endDate)}
         >
           {translate('ExportStatement.exportBtnText')}
