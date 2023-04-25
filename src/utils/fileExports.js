@@ -2,7 +2,7 @@ import { crcToTc } from '@circles/timecircles';
 import fileDownload from 'js-file-download';
 import { partition } from 'lodash';
 import { DateTime } from 'luxon';
-import { defer, from, lastValueFrom } from 'rxjs';
+import { from, lastValueFrom } from 'rxjs';
 import { mergeMap, toArray } from 'rxjs/operators';
 
 import core from '~/services/core';
@@ -18,21 +18,9 @@ const { ActivityFilterTypes } = core.activity;
 
 const formatDate = (dateTime) => dateTime.toFormat(`dd.LL.yyyy`).toString();
 
-function onSubscribe(onSubscribe) {
-  return function inner(source) {
-    return defer(() => {
-      onSubscribe();
-      return source;
-    });
-  };
-}
-
-function loadPaymentNote(txHash) {
-  return from(resolveTxHash(txHash).then((note) => note || '-')).pipe(
-    // eslint-disable-next-line
-    onSubscribe(() => console.log(`Loading hash ${txHash}`)), //TODO remove
-  );
-}
+const loadPaymentNote = (txHash) => {
+  return from(resolveTxHash(txHash).then((note) => note || '-'));
+};
 
 const getPaymentNotes = (transactions) => {
   const paymentNotes$ = from(transactions).pipe(
@@ -119,9 +107,7 @@ const formatTransactions = async (transactions, safeAddress) => {
   ];
   // corresponding names by safe
   const namesBySafe = await resolveUsernames(otherSafes);
-  
-  // eslint-disable-next-line
-  console.log({ transactionData, otherSafes, namesBySafe });
+
   // construct csv transaction
   return transactionData.map((data, index) => {
     data.name = namesBySafe[data.otherSafe]
@@ -219,8 +205,7 @@ export async function downloadCsvStatement(
     transactions,
     (tx) => tx.date < endDate,
   );
-  // TODO change to filter for txsInPeriod
-  const [txsInPeriod] = partition(txsBeforeEnd, (tx) => tx.date < startDate);
+  const txsInPeriod = txsBeforeEnd.filter((tx) => tx.date > startDate);
 
   // Transaction sums
   const sumCrcEnd = sumOfTransactions(txsAfterEnd);
