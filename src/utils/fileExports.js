@@ -96,15 +96,23 @@ const formatTransactions = async (transactions, safeAddress) => {
       false, // important to round normal, not down to get even numbers
     );
 
-    return [
+    return {
       // TODO object
-      formatDate(date),
-      'placeholder name',
-      otherSafeAddress,
-      '-',
-      valueSign.concat(valueInTimeCircles),
-      '',
-    ];
+      date: formatDate(date),
+      //name: 'placeholder name',
+      otherSafe: otherSafeAddress,
+      //paymentNote: '-',
+      amount: valueSign.concat(valueInTimeCircles),
+    };
+    // [
+    //   // TODO object
+    //   formatDate(date),
+    //   'placeholder name',
+    //   otherSafeAddress,
+    //   '-',
+    //   valueSign.concat(valueInTimeCircles),
+    //   '',
+    // ];
   });
 
   const notes = await getPaymentNotes(transactions);
@@ -120,10 +128,12 @@ const formatTransactions = async (transactions, safeAddress) => {
   console.log({ transactionData, otherSafes, namesBySafe });
   // replace placeholder name
   return transactionData.map((data, index) => {
-    const safe = data[2];
-    data[1] = namesBySafe[safe] ? namesBySafe[safe].username : '-';
-    data[3] = notes[index];
-    return data.join(';'); // TODO .values of object instead
+    data.name = namesBySafe[data.otherSafe]
+      ? namesBySafe[data.otherSafe].username
+      : '-';
+    data.paymentNote = notes[index];
+
+    return `${data.date};${data.name};${data.otherSafe};${data.paymentNote};${data.amount}`;
   });
 };
 
