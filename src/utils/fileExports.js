@@ -111,20 +111,18 @@ const formatTransactions = async (transactions, safeAddress) => {
     };
   });
 
+  // resolve payment notes
   const notes = await getPaymentNotes(transactions);
-  // eslint-disable-next-line
-  console.log({ notes });
-  // eslint-disable-next-line
-  console.log(transactionData)
   // set of unique safes in data
   const otherSafes = [
     ...new Set(transactionData.map((data) => data.otherSafe)),
   ];
   // corresponding names by safe
   const namesBySafe = await resolveUsernames(otherSafes);
+  
   // eslint-disable-next-line
   console.log({ transactionData, otherSafes, namesBySafe });
-  // replace placeholder name
+  // construct csv transaction
   return transactionData.map((data, index) => {
     data.name = namesBySafe[data.otherSafe]
       ? namesBySafe[data.otherSafe].username
