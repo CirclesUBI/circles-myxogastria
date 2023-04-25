@@ -141,7 +141,7 @@
     "exportBtnText": "Export Statement",
     "exportFormat": "Format",
     "exportFrom": "From",
-    "exportInfoText": "Your monthly wallet balance will be downloaded in CSV format.",
+    "exportInfoText": "Your wallet statement will be downloaded in CSV format.",
     "exportStatement": "Account statement",
     "exportSuccessfull": "<strong>Account statement</strong> successfully downloaded!",
     "exportTimeSpan": "Time-span",
