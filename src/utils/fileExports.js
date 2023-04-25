@@ -128,13 +128,11 @@ const formatTransactions = async (transactions, safeAddress) => {
 };
 
 const getPaymentNotes = (transactions) => {
-  const paymentNotes$ = from(transactions)
-    .pipe(
-      mergeMap((tx) => loadPaymentNote(tx.txHash), 1),
-      toArray(),
-    );
+  const paymentNotes$ = from(transactions).pipe(
+    mergeMap((tx) => loadPaymentNote(tx.txHash), 1),
+    toArray(),
+  );
   return lastValueFrom(paymentNotes$);
-
 };
 
 /**
