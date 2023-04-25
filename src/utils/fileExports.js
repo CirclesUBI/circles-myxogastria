@@ -30,9 +30,17 @@ function onSubscribe(onSubscribe) {
 function loadPaymentNote(txHash) {
   return from(resolveTxHash(txHash).then((note) => note || '-')).pipe(
     // eslint-disable-next-line
-    onSubscribe(() => console.log(`Loading hash ${txHash}`)),
+    onSubscribe(() => console.log(`Loading hash ${txHash}`)), //TODO remove
   );
 }
+
+const getPaymentNotes = (transactions) => {
+  const paymentNotes$ = from(transactions).pipe(
+    mergeMap((tx) => loadPaymentNote(tx.txHash), 1),
+    toArray(),
+  );
+  return lastValueFrom(paymentNotes$);
+};
 
 /**
  * Generates a csv string including line breaks based on input strings
@@ -97,22 +105,10 @@ const formatTransactions = async (transactions, safeAddress) => {
     );
 
     return {
-      // TODO object
       date: formatDate(date),
-      //name: 'placeholder name',
       otherSafe: otherSafeAddress,
-      //paymentNote: '-',
       amount: valueSign.concat(valueInTimeCircles),
     };
-    // [
-    //   // TODO object
-    //   formatDate(date),
-    //   'placeholder name',
-    //   otherSafeAddress,
-    //   '-',
-    //   valueSign.concat(valueInTimeCircles),
-    //   '',
-    // ];
   });
 
   const notes = await getPaymentNotes(transactions);
@@ -121,7 +117,9 @@ const formatTransactions = async (transactions, safeAddress) => {
   // eslint-disable-next-line
   console.log(transactionData)
   // set of unique safes in data
-  const otherSafes = [...new Set(transactionData.map((data) => data[2]))];
+  const otherSafes = [
+    ...new Set(transactionData.map((data) => data.otherSafe)),
+  ];
   // corresponding names by safe
   const namesBySafe = await resolveUsernames(otherSafes);
   // eslint-disable-next-line
@@ -135,14 +133,6 @@ const formatTransactions = async (transactions, safeAddress) => {
 
     return `${data.date};${data.name};${data.otherSafe};${data.paymentNote};${data.amount}`;
   });
-};
-
-const getPaymentNotes = (transactions) => {
-  const paymentNotes$ = from(transactions).pipe(
-    mergeMap((tx) => loadPaymentNote(tx.txHash), 1),
-    toArray(),
-  );
-  return lastValueFrom(paymentNotes$);
 };
 
 /**
