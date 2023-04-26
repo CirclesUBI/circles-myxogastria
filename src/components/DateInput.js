@@ -4,11 +4,13 @@ import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   dateInput: {
-    '& fieldset.MuiOutlinedInput-notchedOutline': {
-      borderRadius: '25px',
-      borderColor: theme.custom.colors.violet,
-      '& legend span': {
-        display: 'none',
+    '& fieldset': {
+      '&.MuiOutlinedInput-notchedOutline': {
+        borderRadius: '25px',
+        borderColor: theme.custom.colors.violet,
+        '& legend span': {
+          display: 'none',
+        },
       },
     },
 
@@ -26,6 +28,20 @@ const useStyles = makeStyles((theme) => ({
       padding: '2px 6px',
       lineHeight: '16px',
       borderRadius: '10px',
+
+      '&:has(+ .MuiOutlinedInput-root:hover)': {
+        background: theme.custom.colors.cornflowerBlue,
+      },
+
+      '&.Mui-error': {
+        color: theme.custom.colors.persianRed,
+        '&:has(+ .MuiOutlinedInput-root:hover)': {
+          background: theme.custom.colors.wepeep,
+        },
+        '&:hover': {
+          background: theme.custom.colors.white,
+        },
+      },
     },
 
     '& .MuiInputBase-root': {
@@ -37,13 +53,6 @@ const useStyles = makeStyles((theme) => ({
         '& input.MuiInputBase-input': {
           background: theme.custom.colors.cornflowerBlue,
         },
-      },
-    },
-
-    '&:hover': {
-      '& fieldset.MuiOutlinedInput-notchedOutline': {},
-      '& label.MuiFormLabel-root': {
-        background: theme.custom.colors.cornflowerBlue,
       },
     },
 
@@ -68,6 +77,49 @@ const useStyles = makeStyles((theme) => ({
 
       '&:hover': {
         background: theme.custom.colors.cornflowerBlue,
+      },
+    },
+    '& .Mui-error': {
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.custom.colors.persianRed,
+        borderWidth: '2px',
+      },
+      '& button.MuiButtonBase-root.MuiIconButton-root': {
+        '&:hover': {
+          background: theme.custom.colors.wepeep,
+        },
+      },
+
+      '&.MuiInputBase-root': {
+        '&:hover': {
+          '& input.MuiInputBase-input': {
+            background: theme.custom.colors.wepeep,
+          },
+          '& +.MuiFormHelperText-root.Mui-error': {
+            background: theme.custom.colors.wepeep,
+          },
+        },
+        '&.MuiOutlinedInput-root.Mui-focused': {
+          border: `3px solid ${theme.custom.colors.wepeep}`,
+
+          '& fieldset.MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.custom.colors.purple,
+          },
+
+          '& label.MuiFormLabel-root': {
+            background: theme.custom.colors.wepeep,
+          },
+        },
+      },
+      '&.MuiFormHelperText-root': {
+        right: '0',
+        bottom: '-6px',
+        padding: '2px 6px',
+        position: 'absolute',
+        fontSize: '10px',
+        background: theme.custom.colors.white,
+        lineHeight: '10px',
+        borderRadius: '10px',
       },
     },
   },
