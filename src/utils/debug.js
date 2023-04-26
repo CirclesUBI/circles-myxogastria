@@ -55,10 +55,8 @@ export function translateErrorForUser(error) {
     }
 
     if (error.code == ErrorCodes.SAFE_NOT_FOUND) {
-      // throw new CoreError(
-      //   `Could not find Safe with address ${safeAddress}`,
-      // );
-      text = translate('ErrorCodes.CoreErrorSafeNotFound');
+      //  error: `Could not find Safe with address ${safeAddress}`,
+      text = error.message;
     }
   } else {
     text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;
