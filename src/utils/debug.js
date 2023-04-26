@@ -53,6 +53,15 @@ export function translateErrorForUser(error) {
     if (error.code == ErrorCodes.INSUFFICIENT_FUNDS) {
       text = translate('ErrorCodes.CoreErrorInsufficientFunds');
     }
+
+    if (error.code == ErrorCodes.SAFE_NOT_FOUND) {
+      // throw new CoreError(
+      //   `Could not find Safe with address ${safeAddress}`,
+      // );
+      text = translate('ErrorCodes.CoreErrorSafeNotFound');
+    }
+  } else {
+    text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;
   }
 
   return text;
