@@ -4,7 +4,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Line from '%/images/line.svg';
@@ -73,6 +73,8 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
 
   const [startDate, setStartDate] = useState(defaultStart);
   const [endDate, setEndDate] = useState(defaultEnd);
+  const [errorFromInput, setErrorFromInput] = useState(null);
+  const [errorToInput, setErrorToInput] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
 
   const handleStartDateChange = (date) => {
@@ -132,13 +134,45 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
     if (
       startDate > endDate ||
       startDate.invalid !== null ||
-      endDate.invalid !== null
+      endDate.invalid !== null ||
+      errorFromInput !== null ||
+      errorToInput !== null
     ) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
     }
-  }, [startDate, endDate]);
+  }, [startDate, endDate, errorFromInput, errorToInput]);
+
+  const errorMessageTo = useMemo(() => {
+    switch (errorToInput) {
+      case 'maxDate':
+      case 'minDate': {
+        return translate('ExportStatement.exportHintRange');
+      }
+      case 'invalidDate': {
+        return translate('ExportStatement.exportHintDate');
+      }
+      default: {
+        return '';
+      }
+    }
+  }, [errorToInput]);
+
+  const errorMessageFrom = useMemo(() => {
+    switch (errorFromInput) {
+      case 'maxDate':
+      case 'minDate': {
+        return translate('ExportStatement.exportHintRange');
+      }
+      case 'invalidDate': {
+        return translate('ExportStatement.exportHintDate');
+      }
+      default: {
+        return '';
+      }
+    }
+  }, [errorFromInput]);
 
   return (
     <Drawer
@@ -170,11 +204,15 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
               label={translate('ExportStatement.exportFrom')}
               maxDate={now}
               minDate={earliestDate}
+              slotProps={{
+                textField: { helperText: errorMessageFrom },
+              }}
               slots={{
                 textField: DateInput,
               }}
               value={startDate}
               onChange={handleStartDateChange}
+              onError={(newError) => setErrorFromInput(newError)}
             />
             <DatePicker
               label={translate('ExportStatement.exportTo')}
@@ -183,11 +221,15 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
                 startDate.plus({ days: MAX_EXPORT_LENGTH }),
               )}
               minDate={startDate}
+              slotProps={{
+                textField: { helperText: errorMessageTo },
+              }}
               slots={{
                 textField: DateInput,
               }}
               value={endDate}
               onChange={handleEndDateChange}
+              onError={(newError) => setErrorToInput(newError)}
             />
           </Box>
         </Box>

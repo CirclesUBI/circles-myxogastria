@@ -47,6 +47,7 @@ export const colors = {
   purpleLight: '#f5dbda',
   purple: '#cc1e66',
   purpleDark: '#660f33',
+  persianRed: '#D32F2F',
   turquoise: '#47cccb',
   turquoiseDark: '#369998',
   jaggedIce: '#C8E8EA',
