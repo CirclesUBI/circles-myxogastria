@@ -148,10 +148,10 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
     switch (errorToInput) {
       case 'maxDate':
       case 'minDate': {
-        return 'Select a correct date range';
+        return translate('ExportStatement.exportHintRange');
       }
       case 'invalidDate': {
-        return 'Your date is not valid';
+        return translate('ExportStatement.exportHintDate');
       }
       default: {
         return '';
@@ -163,10 +163,10 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
     switch (errorFromInput) {
       case 'maxDate':
       case 'minDate': {
-        return 'Select a correct date range';
+        return translate('ExportStatement.exportHintRange');
       }
       case 'invalidDate': {
-        return 'Your date is not valid';
+        return translate('ExportStatement.exportHintDate');
       }
       default: {
         return '';
