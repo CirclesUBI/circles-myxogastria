@@ -138,32 +138,29 @@ const sumOfTransactions = (transactions, shouldBeInTc = false) => {
  * capped at 1000 transactions
  */
 const getTransactions = async (safeAddress, startDate) => {
-  try {
-    const { activities } = await core.activity.getLatest(
-      safeAddress,
-      ActivityFilterTypes.TRANSFERS,
-      MAX_NUMBER_OF_TRANSACTIONS,
-      Math.floor(startDate.toSeconds()), // needs to be whole number, can have decimals if created as now()
-    );
-    const transactions = activities.map((activity) => {
-      const { to, from, value } = activity.data;
-      const valueInCircles = web3.utils.fromWei(value);
-      const date = DateTime.fromSeconds(activity.timestamp);
-      return {
-        to,
-        from,
-        valueInFreckles: value,
-        valueInCircles,
-        valueInTimeCircles: crcToTc(date, Number(valueInCircles)),
-        txHash: activity.transactionHash,
-        date,
-        isNegative: from === safeAddress,
-      };
-    });
-    return transactions;
-  } catch (e) {
-    // TODO: HANDLE
-  }
+  const { activities } = await core.activity.getLatest(
+    safeAddress,
+    ActivityFilterTypes.TRANSFERS,
+    MAX_NUMBER_OF_TRANSACTIONS,
+    Math.floor(startDate.toSeconds()), // needs to be whole number, can have decimals if created as now()
+  );
+  const transactions = activities.map((activity) => {
+    const { to, from, value } = activity.data;
+    const valueInCircles = web3.utils.fromWei(value);
+    const date = DateTime.fromSeconds(activity.timestamp);
+    return {
+      to,
+      from,
+      valueInFreckles: value,
+      valueInCircles,
+      valueInTimeCircles: crcToTc(date, Number(valueInCircles)),
+      txHash: activity.transactionHash,
+      date,
+      isNegative: from === safeAddress,
+    };
+  });
+  return transactions;
+  // }
 };
 
 /**
@@ -185,7 +182,6 @@ export async function downloadCsvStatement(
   // Verify date order
   if (startDate > endDate) {
     throw new Error('Invalid date interval');
-    // TODO: improve and catch and add message to en.json
   }
 
   // Transactions
@@ -194,13 +190,8 @@ export async function downloadCsvStatement(
     transactions,
     (tx) => tx.date < endDate,
   );
-  const [txsBeforeStart, txsInPeriod] = partition(
-    // TODO change to filter for txsInPeriod
-    txsBeforeEnd,
-    (tx) => tx.date < startDate,
-  );
-  // eslint-disable-next-line
-  console.log({ transactions, txsBeforeEnd, txsAfterEnd, txsBeforeStart, txsInPeriod }); // TODO remove
+  // TODO change to filter for txsInPeriod
+  const [txsInPeriod] = partition(txsBeforeEnd, (tx) => tx.date < startDate);
 
   // Transaction sums
   const sumCrcEnd = sumOfTransactions(txsAfterEnd);

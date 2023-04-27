@@ -5,13 +5,15 @@ import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Line from '%/images/line.svg';
 import Button from '~/components/Button';
 import DateInput from '~/components/DateInput';
 import { useUserdata } from '~/hooks/username';
 import translate from '~/services/locale';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import logError, { translateErrorForUser } from '~/utils/debug';
 import { downloadCsvStatement } from '~/utils/fileExports';
 
 const MAX_EXPORT_HISTORY = 365;
@@ -62,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const now = DateTime.now();
   const defaultEnd = now.set({ day: 1 }).minus({ days: 1 });
@@ -83,11 +86,40 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
     setEndDate(date);
   };
 
-  const handleExport = (username, safeAddress, startDate, endDate) => () => {
-    const startMidnight = startDate.set({ hour: 0, minute: 0, second: 0 });
-    const endMidnight = endDate.set({ hour: 23, minute: 59, second: 59 });
-    downloadCsvStatement(username, safeAddress, startMidnight, endMidnight);
-  };
+  const handleExport =
+    (username, safeAddress, startDate, endDate) => async () => {
+      const startMidnight = startDate.set({ hour: 0, minute: 0, second: 0 });
+      const endMidnight = endDate.set({ hour: 23, minute: 59, second: 59 });
+      try {
+        await downloadCsvStatement(
+          username,
+          safeAddress,
+          startMidnight,
+          endMidnight,
+        );
+
+        dispatch(
+          notify({
+            text: (
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: translate('ExportStatement.exportSuccessfull'),
+                }}
+              />
+            ),
+            type: NotificationsTypes.SUCCESS,
+          }),
+        );
+      } catch (error) {
+        logError(error);
+        dispatch(
+          notify({
+            text: translateErrorForUser(error),
+            type: NotificationsTypes.ERROR,
+          }),
+        );
+      }
+    };
 
   const { safeAddress } = useSelector((state) => {
     return {
