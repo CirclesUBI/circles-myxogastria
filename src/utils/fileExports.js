@@ -2,6 +2,8 @@ import { crcToTc } from '@circles/timecircles';
 import fileDownload from 'js-file-download';
 import { partition } from 'lodash';
 import { DateTime } from 'luxon';
+import { from, lastValueFrom } from 'rxjs';
+import { mergeMap, toArray } from 'rxjs/operators';
 
 import core from '~/services/core';
 import resolveTxHash from '~/services/transfer';
@@ -15,6 +17,18 @@ const MAX_NUMBER_OF_TRANSACTIONS = 1000;
 const { ActivityFilterTypes } = core.activity;
 
 const formatDate = (dateTime) => dateTime.toFormat(`dd.LL.yyyy`).toString();
+
+const loadPaymentNote = (txHash) => {
+  return from(resolveTxHash(txHash).then((note) => note || '-'));
+};
+
+const getPaymentNotes = (transactions) => {
+  const paymentNotes$ = from(transactions).pipe(
+    mergeMap((tx) => loadPaymentNote(tx.txHash), 1),
+    toArray(),
+  );
+  return lastValueFrom(paymentNotes$);
+};
 
 /**
  * Generates a csv string including line breaks based on input strings
@@ -67,40 +81,41 @@ const generateCsvContent = (
  * 'dd.mm.yyyy, Username, 0x00000000000000000000, Transaction message, -123.45'
  */
 const formatTransactions = async (transactions, safeAddress) => {
-  const transactionData = await Promise.all(
-    transactions.reverse().map(async (transaction) => {
-      const { to, from, valueInFreckles, txHash, date } = transaction;
-      const message = await resolveTxHash(txHash);
-      const otherSafeAddress = to === safeAddress ? from : to;
-      const valueSign = from === safeAddress ? '-' : '+';
-      const valueInTimeCircles = formatCirclesValue(
-        valueInFreckles,
-        date,
-        NUMBER_OF_DECIMALS,
-        false, // important to round normal, not down to get even numbers
-      );
+  const transactionData = transactions.reverse().map((transaction) => {
+    const { to, from, valueInFreckles, date } = transaction;
+    const otherSafeAddress = to === safeAddress ? from : to;
+    const valueSign = from === safeAddress ? '-' : '+';
+    const valueInTimeCircles = formatCirclesValue(
+      valueInFreckles,
+      date,
+      NUMBER_OF_DECIMALS,
+      false, // important to round normal, not down to get even numbers
+    );
 
-      return [
-        formatDate(date),
-        'placeholder name',
-        otherSafeAddress,
-        message || '-',
-        valueSign.concat(valueInTimeCircles),
-        '',
-      ];
-    }),
-  );
+    return {
+      date: formatDate(date),
+      otherSafe: otherSafeAddress,
+      amount: valueSign.concat(valueInTimeCircles),
+    };
+  });
+
+  // resolve payment notes
+  const notes = await getPaymentNotes(transactions);
   // set of unique safes in data
-  const otherSafes = [...new Set(transactionData.map((data) => data[2]))];
+  const otherSafes = [
+    ...new Set(transactionData.map((data) => data.otherSafe)),
+  ];
   // corresponding names by safe
   const namesBySafe = await resolveUsernames(otherSafes);
-  // eslint-disable-next-line
-  console.log({ transactionData, otherSafes, namesBySafe });
-  // replace placeholder name
-  return transactionData.map((data) => {
-    const safe = data[2];
-    data[1] = namesBySafe[safe] ? namesBySafe[safe].username : '-';
-    return data.join(';');
+
+  // construct csv transaction
+  return transactionData.map((data, index) => {
+    data.name = namesBySafe[data.otherSafe]
+      ? namesBySafe[data.otherSafe].username
+      : '-';
+    data.paymentNote = notes[index];
+
+    return `${data.date};${data.name};${data.otherSafe};${data.paymentNote};${data.amount}`;
   });
 };
 
@@ -190,8 +205,7 @@ export async function downloadCsvStatement(
     transactions,
     (tx) => tx.date < endDate,
   );
-  // TODO change to filter for txsInPeriod
-  const [txsInPeriod] = partition(txsBeforeEnd, (tx) => tx.date < startDate);
+  const txsInPeriod = txsBeforeEnd.filter((tx) => tx.date > startDate);
 
   // Transaction sums
   const sumCrcEnd = sumOfTransactions(txsAfterEnd);
