@@ -265,6 +265,12 @@ const token = {
       safeAddress,
     });
   },
+
+  listAllTokens: async (safeAddress) => {
+    return await requestCore('token', 'listAllTokens', {
+      safeAddress,
+    });
+  },
 };
 
 // Activity module

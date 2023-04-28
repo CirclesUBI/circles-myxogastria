@@ -134,14 +134,10 @@ export async function isOrganization(safeAddress) {
   );
 }
 
-export async function hasEnoughBalance(safeAddress, estimate) {
+export async function hasEnoughTokens(safeAddress, amount) {
   await loop(
-    () => {
-      return web3.eth.getBalance(safeAddress);
-    },
-    (balance) => {
-      return balance >= estimate;
-    },
+    () => core.token.listAllTokens(safeAddress),
+    (tokens) => tokens.length > 0 && tokens[0].amount.eq(amount),
   );
 }
 
