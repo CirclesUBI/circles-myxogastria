@@ -47,6 +47,10 @@ const useStyles = makeStyles((theme) => ({
   btnContainer: {
     marginTop: 'auto',
   },
+  loadingTextContainer: {
+    textAlign: 'center',
+    marginBottom: '10px',
+  },
   btn: {
     display: 'block',
     paddingLeft: '20px',
@@ -95,6 +99,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
     (username, safeAddress, startDate, endDate) => async () => {
       const startMidnight = startDate.set({ hour: 0, minute: 0, second: 0 });
       const endMidnight = endDate.set({ hour: 23, minute: 59, second: 59 });
+      setIsDisabled(true);
       try {
         await downloadCsvStatement(
           username,
@@ -115,6 +120,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
             type: NotificationsTypes.SUCCESS,
           }),
         );
+        setIsDisabled(false);
       } catch (error) {
         logError(error);
         dispatch(
@@ -123,6 +129,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
             type: NotificationsTypes.ERROR,
           }),
         );
+        setIsDisabled(false);
       }
     };
 
@@ -252,6 +259,13 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
         </Typography>
       </Box>
       <Box className={classes.btnContainer}>
+        {isDisabled && (
+          <Box className={classes.loadingTextContainer}>
+            <Typography variant="bodySmall">
+              {translate('ExportStatement.exportLoadingText')}
+            </Typography>
+          </Box>
+        )}
         <Button
           classes={{ root: classes.btn }}
           disabled={isDisabled}
