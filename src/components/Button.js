@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
       ${theme.custom.gradients.lightPinkToPurple} border-box`,
-
       '& .MuiTouchRipple-root': {
         background: theme.custom.gradients.lightPinkToPurple,
         '-webkit-background-clip': 'text',
@@ -49,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
     '&.Mui-disabled': {
       background: theme.custom.colors.whiteAlmost,
       borderColor: theme.custom.colors.lola,
-
       '& .MuiTouchRipple-root': {
         background: 'none',
         color: theme.custom.colors.lola,
@@ -127,20 +125,15 @@ const Button = React.forwardRef(
       [classes.buttonText]: isText,
     });
 
-    return React.createElement(
-      MuiButton,
-      {
-        className,
-        ref,
-        ...(to
-          ? {
-              to,
-              component: Link,
-            }
-          : {}),
-        ...props,
-      },
-      children,
+    return (
+      <MuiButton
+        className={className}
+        ref={ref}
+        {...(to ? { to, component: Link } : {})}
+        {...props}
+      >
+        {children}
+      </MuiButton>
     );
   },
 );

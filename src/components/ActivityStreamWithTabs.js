@@ -1,3 +1,5 @@
+import { Box } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
@@ -8,8 +10,11 @@ import { ACTIVITIES_PATH } from '~/routes';
 
 import ActivityStream from '~/components/ActivityStream';
 import BadgeTab from '~/components/BadgeTab';
+import ButtonIcon from '~/components/ButtonIcon';
+import DialogExportStatement from '~/components/DialogExportStatement';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
+import { useIsOrganization } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
@@ -19,6 +24,14 @@ import { IconConnections, IconTransactions } from '~/styles/icons';
 const { ActivityFilterTypes } = core.activity;
 
 const DEFAULT_CATEGORY = ActivityFilterTypes.CONNECTIONS;
+
+const useStyles = makeStyles(() => ({
+  exportContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    margin: '-15px 0 30px',
+  },
+}));
 
 const QUERY_FILTER_MAP = {
   transfers: ActivityFilterTypes.TRANSFERS,
@@ -32,11 +45,15 @@ const filterToQuery = (filterName) => {
 };
 
 const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const [categorySetByUser, setCategorySetByUser] = useState(false);
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
+  const safeAddress = useSelector((state) => state.safe.currentAccount);
+  const { isOrganization } = useIsOrganization(safeAddress);
 
   // Get only new Activities and segregate them by category
   const newActivities = CATEGORIES.reduceRight((newActivities, category) => {
@@ -72,6 +89,14 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
 
   const handleLoadMore = () => {
     dispatch(loadMoreActivities(selectedCategory));
+  };
+
+  const exportStatementBtnHandler = () => {
+    setDialogOpen(true);
+  };
+
+  const dialogCloseHandler = () => {
+    setDialogOpen(false);
   };
 
   const handleFilterSelection = useCallback(
@@ -138,6 +163,19 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
           value={ActivityFilterTypes.CONNECTIONS}
         />
       </TabNavigation>
+      {selectedCategory === ActivityFilterTypes.TRANSFERS && isOrganization && (
+        <>
+          <Box className={classes.exportContainer}>
+            <ButtonIcon icon="IconUnion" onClick={exportStatementBtnHandler}>
+              {translate('ExportStatement.exportBtnText')}
+            </ButtonIcon>
+          </Box>
+          <DialogExportStatement
+            dialogOpen={dialogOpen}
+            onCloseHandler={dialogCloseHandler}
+          />
+        </>
+      )}
       <ActivityStream
         activities={activity.activities}
         isLoading={isLoading}
@@ -151,6 +189,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
 };
 
 ActivityStreamWithTabs.propTypes = {
+  address: PropTypes.string,
   basePath: PropTypes.string,
 };
 

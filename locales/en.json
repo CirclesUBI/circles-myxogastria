@@ -133,7 +133,24 @@
     "titleCancel": "Do you want to save changes to your profile?"
   },
   "ErrorCodes": {
-    "CoreErrorInsufficientFunds": "Please send some Circles to this account if you want to perform any transaction"
+    "CoreErrorInsufficientFunds": "Please send some Circles to this account if you want to perform any transaction",
+    "CoreErrorSafeNotFound": "Could not find Safe with address ${safeAddress}. Please try again later",
+    "GeneralErrorMessage": "Please try with different values or refresh page or try again later"
+  },
+  "ExportStatement": {
+    "exportBtnText": "Export Statement",
+    "exportFormat": "Format",
+    "exportFrom": "From",
+    "exportInfoText": "Your wallet statement will be downloaded in CSV format.",
+    "exportLoadingText": "This can take some minutes",
+    "exportHelper": "You can only export periods up to one year ago",
+    "exportHintDate": "Invalid date",
+    "exportHintRange": "Invalid range",
+    "exportStatement": "Account statement",
+    "exportSuccessful": "<strong>Account statement</strong> successfully downloaded!",
+    "exportTimeSpan": "Time-span",
+    "exportTo": "To",
+    "exportWallet": "Wallet"
   },
   "Finder": {
     "bodyFilterDirect": "Directly trusted",
@@ -416,7 +433,7 @@
     "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
   },
   "ValidationLock": {
-    "bodyThisMayTakeMinutes": "<b>Keep your wallet open!</b> Your wallet is now being creating on the blockchain. This process is delicate and might take some minutes. It is important that you <b>do not close or refresh your browser</b> until this finishes. Otherwise your wallet creation will crash, and you will have to start from scratch.",
+    "bodyThisMayTakeMinutes": "<b>Keep your wallet open!</b> Your wallet is now being created on the blockchain. This process is delicate and might take some minutes. It is important that you <b>do not close or refresh your browser</b> until this finishes. Otherwise your wallet creation will crash, and you will have to start from scratch.",
     "bodyYourCirclesLoading": "Your Circles account is loading!"
   },
   "ValidationShare": {

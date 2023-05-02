@@ -67,6 +67,7 @@
     "@mui/lab": "^5.0.0-alpha.124",
     "@mui/material": "^5.11.15",
     "@mui/styles": "^5.11.13",
+    "@mui/x-date-pickers": "^6.0.4",
     "@sentry/browser": "^6.19.7",
     "@sentry/tracing": "^6.19.7",
     "@zxing/library": "^0.19.2",
@@ -78,7 +79,8 @@
     "immutability-helper": "^3.1.1",
     "isomorphic-fetch": "^3.0.0",
     "jazzicon": "^1.5.0",
-    "luxon": "^1.28.1",
+    "js-file-download": "^0.4.12",
+    "luxon": "^3.0.2",
     "mime": "^2.6.0",
     "notistack": "^3.0.1",
     "qrcode": "^1.5.1",
@@ -93,6 +95,7 @@
     "redux-create-action-types": "^2.1.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.2",
+    "rxjs": "^7.8.0",
     "web3": "^1.9.0"
   }
 }
