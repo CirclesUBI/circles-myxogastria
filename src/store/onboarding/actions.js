@@ -35,7 +35,7 @@ import {
   RESTORE_ACCOUNT_UNKNOWN_SAFE,
 } from '~/utils/errors';
 import {
-  hasEnoughBalance,
+  hasEnoughTokens,
   isDeployed,
   isOrganization,
   waitAndRetryOnFail,
@@ -132,7 +132,7 @@ export function createNewOrganization(
           );
         },
         async () => {
-          return await hasEnoughBalance(safeAddress, amount.toString());
+          return await hasEnoughTokens(safeAddress, amount);
         },
       );
 
