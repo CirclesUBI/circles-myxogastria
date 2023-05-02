@@ -34,10 +34,12 @@ const useStyles = makeStyles((theme) => ({
       },
 
       '&.Mui-error': {
-        color: theme.custom.colors.persianRed,
+        color: theme.custom.colors.purple,
+
         '&:has(+ .MuiOutlinedInput-root:hover)': {
           background: theme.custom.colors.wepeep,
         },
+
         '&:hover': {
           background: theme.custom.colors.white,
         },
@@ -45,6 +47,8 @@ const useStyles = makeStyles((theme) => ({
     },
 
     '& .MuiInputBase-root': {
+      paddingRight: 0,
+
       '& input.MuiInputBase-input': {
         borderRadius: '25px',
       },
@@ -72,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
         background: theme.custom.colors.lola,
       },
     },
+
     '& button.MuiButtonBase-root.MuiIconButton-root': {
       right: '2px',
 
@@ -81,9 +86,10 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .Mui-error': {
       '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.custom.colors.persianRed,
+        borderColor: theme.custom.colors.purple,
         borderWidth: '2px',
       },
+
       '& button.MuiButtonBase-root.MuiIconButton-root': {
         '&:hover': {
           background: theme.custom.colors.wepeep,
@@ -95,10 +101,12 @@ const useStyles = makeStyles((theme) => ({
           '& input.MuiInputBase-input': {
             background: theme.custom.colors.wepeep,
           },
+
           '& +.MuiFormHelperText-root.Mui-error': {
             background: theme.custom.colors.wepeep,
           },
         },
+
         '&.MuiOutlinedInput-root.Mui-focused': {
           border: `3px solid ${theme.custom.colors.wepeep}`,
 
@@ -113,13 +121,25 @@ const useStyles = makeStyles((theme) => ({
       },
       '&.MuiFormHelperText-root': {
         right: '0',
-        bottom: '-6px',
+        bottom: '-2px',
         padding: '2px 6px',
         position: 'absolute',
-        fontSize: '10px',
+        fontSize: '12px',
         background: theme.custom.colors.white,
         lineHeight: '10px',
         borderRadius: '10px',
+        color: theme.custom.colors.purple,
+      },
+    },
+
+    '& .MuiInputAdornment-root': {
+      position: 'absolute',
+      right: '14px',
+
+      '& .MuiButtonBase-root.MuiIconButton-root': {
+        '&:hover': {
+          background: 'none',
+        },
       },
     },
   },

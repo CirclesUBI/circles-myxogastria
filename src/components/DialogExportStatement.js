@@ -17,7 +17,7 @@ import logError, { translateErrorForUser } from '~/utils/debug';
 import { downloadCsvStatement } from '~/utils/fileExports';
 
 const MAX_EXPORT_HISTORY = 365;
-const MAX_EXPORT_LENGTH = 92;
+const MAX_EXPORT_LENGTH = 365;
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
@@ -47,6 +47,10 @@ const useStyles = makeStyles((theme) => ({
   btnContainer: {
     marginTop: 'auto',
   },
+  loadingTextContainer: {
+    textAlign: 'center',
+    marginBottom: '10px',
+  },
   btn: {
     display: 'block',
     paddingLeft: '20px',
@@ -59,6 +63,9 @@ const useStyles = makeStyles((theme) => ({
   lineLightGrey: {
     stroke: theme.custom.colors.lily,
     margin: '29px 0 42px',
+  },
+  helperDate: {
+    margin: '29px 0 0',
   },
 }));
 
@@ -92,6 +99,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
     (username, safeAddress, startDate, endDate) => async () => {
       const startMidnight = startDate.set({ hour: 0, minute: 0, second: 0 });
       const endMidnight = endDate.set({ hour: 23, minute: 59, second: 59 });
+      setIsDisabled(true);
       try {
         await downloadCsvStatement(
           username,
@@ -105,13 +113,14 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
             text: (
               <span
                 dangerouslySetInnerHTML={{
-                  __html: translate('ExportStatement.exportSuccessfull'),
+                  __html: translate('ExportStatement.exportSuccessful'),
                 }}
               />
             ),
             type: NotificationsTypes.SUCCESS,
           }),
         );
+        setIsDisabled(false);
       } catch (error) {
         logError(error);
         dispatch(
@@ -120,6 +129,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
             type: NotificationsTypes.ERROR,
           }),
         );
+        setIsDisabled(false);
       }
     };
 
@@ -201,6 +211,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
           </Typography>
           <Box className={classes.dateInputsContainer}>
             <DatePicker
+              format="dd/MM/yyyy"
               label={translate('ExportStatement.exportFrom')}
               maxDate={now}
               minDate={earliestDate}
@@ -215,6 +226,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
               onError={(newError) => setErrorFromInput(newError)}
             />
             <DatePicker
+              format="dd/MM/yyyy"
               label={translate('ExportStatement.exportTo')}
               maxDate={DateTime.min(
                 now,
@@ -233,6 +245,11 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
             />
           </Box>
         </Box>
+        <Box className={classes.helperDate}>
+          <Typography variant="bodyText">
+            {translate('ExportStatement.exportHelper')}
+          </Typography>
+        </Box>
         <Line className={classes.lineLightGrey} />
         <Typography variant="bodyTitle">
           {translate('ExportStatement.exportFormat')}
@@ -242,6 +259,13 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
         </Typography>
       </Box>
       <Box className={classes.btnContainer}>
+        {isDisabled && (
+          <Box className={classes.loadingTextContainer}>
+            <Typography variant="bodySmall">
+              {translate('ExportStatement.exportLoadingText')}
+            </Typography>
+          </Box>
+        )}
         <Button
           classes={{ root: classes.btn }}
           disabled={isDisabled}
