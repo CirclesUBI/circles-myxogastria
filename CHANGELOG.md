@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.8.0] - 2023-04-24
+
+### Changed
+- Changed to new pathfinder2 service (pathfinder-proxy api) for all pathfinding requests, i.e. for finding transitive transfer paths and maximum sendable amounts [#630](https://github.com/CirclesUBI/circles-myxogastria/pull/630)
+
 # [2.7.4] - 2023-04-18
 
 ### Fixed

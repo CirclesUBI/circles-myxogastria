@@ -357,7 +357,7 @@
     "errorMessage": "Something went wrong .. {errorMessage}",
     "errorMessageCannotBeCalculated": "Maximum amount cannot be calculated at this time.",
     "errorMessageTransferInvalid": "Could not transfer Circles as it is invalid.",
-    "errorMessageTransferNotFound": "Could not transfer Circles as there is currently no complete trust path between @{username} and you ..",
+    "errorMessageTransferNotFound": "The transaction to @{username} could not be completed due to the trust paths. Try smaller amounts.",
     "errorMessageTransferTooComplex": "Could not transfer Circles as there are too many hops required to send Circles to @{username}. Consider sending a smaller amount and ask @{username} to trust you directly to make this transfer easier.",
     "errorMessageTransferUnknown": "Could not transfer Circles. Something went wrong!",
     "formAmount": "Enter amount",
