@@ -1,4 +1,3 @@
-
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -8,24 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.9.0] - 2023-05-02
+
+### Added
+
+- Export balances new feature [#660](https://github.com/CirclesUBI/circles-myxogastria/pull/660)
+
+### Changed
+
+- User trust limit default value increased from 50% to 100% for new trust connections [#676](https://github.com/CirclesUBI/circles-myxogastria/pull/676)
+
+### Fixed
+
+- Use correct waiting condition for a new shared wallet to be funded [#674](https://github.com/CirclesUBI/circles-myxogastria/pull/674)
+
 # [2.8.0] - 2023-04-24
 
 ### Changed
+
 - Changed to new pathfinder2 service (pathfinder-proxy api) for all pathfinding requests, i.e. for finding transitive transfer paths and maximum sendable amounts [#630](https://github.com/CirclesUBI/circles-myxogastria/pull/630)
 
 # [2.7.4] - 2023-04-18
 
 ### Fixed
+
 - Updated core dependency containing a fix about retrying account creation. Fixes a problem with shared wallet account creation. [#657](https://github.com/CirclesUBI/circles-myxogastria/pull/657)
 
 # [2.7.3] - 2023-04-13
 
 ### Changed
+
 - The banner in wallet creation lock screen is updated to be more clear to the user [#652](https://github.com/CirclesUBI/circles-myxogastria/pull/652)
 - Make wallet creation lock message will now always show even if custom banner is there
 - Changed wording from "Create Account" to "Create Wallet"
 
 ### Fixed
+
 - Updated dependencies [#647](https://github.com/CirclesUBI/circles-myxogastria/pull/647) [#653](https://github.com/CirclesUBI/circles-myxogastria/pull/653)
 - Updating github actions [#656](https://github.com/CirclesUBI/circles-myxogastria/pull/656)
 - Fixing missing parameter for an error. It was causing the transfer modal to never close for failing transactions. [#648](https://github.com/CirclesUBI/circles-myxogastria/pull/648)
@@ -33,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 # [2.7.2] - 2023-03-31
 
 ### Fixed
+
 - Synchronize UX styling of End-Session button in Settings with the rest of the app [#642](https://github.com/CirclesUBI/circles-myxogastria/pull/642)
 - Don't call getTransactionReceipt if txHash is not defined, in order to avoid "Invalid params" errors [#640](https://github.com/CirclesUBI/circles-myxogastria/pull/640)
 - Migrate to MaterialUI version 5 [#628](https://github.com/CirclesUBI/circles-myxogastria/pull/628)
@@ -40,14 +58,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 # [2.7.1] - 2023-03-09
 
 ### Fixed
+
 - Notifications of received Circles no longer shows too large value (bug). Also fixed formatting of text and Circles with capital C. [#621](https://github.com/CirclesUBI/circles-myxogastria/pull/621)
 
 # [2.7.0] - 2023-03-06
 
 ### Added
+
 - Add loading dialog with more context when sending Circles [#601](https://github.com/CirclesUBI/circles-myxogastria/pull/601)
 
 ### Changed
+
 - Round action button design to a wobbly round shape in send button and add member button [#612](https://github.com/CirclesUBI/circles-myxogastria/pull/612)
 - Let pink shadow allow for clicking on components behind it [#615](https://github.com/CirclesUBI/circles-myxogastria/pull/615)
 - Some general fixes after QA related to the above mentioned changed changes [#619](https://github.com/CirclesUBI/circles-myxogastria/pull/619)
@@ -55,7 +76,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 # [2.6.0] - 2023-02-22
 
 ### Changed
+
 Design updates including:
+
 - Update send icon shape and color [#537](https://github.com/CirclesUBI/circles-myxogastria/pull/537)
 - New design for input components [#508](https://github.com/CirclesUBI/circles-myxogastria/pull/508)
 - Updating illustrations in onboarding [#561](https://github.com/CirclesUBI/circles-myxogastria/pull/561)
@@ -73,26 +96,31 @@ Design updates including:
 # [2.5.1] - 2023-02-14
 
 ### Fixed
+
 - Update of circles core version that allows Safes with version v1.1.1+Circles to deploy the token contract (core.token.deploy) [#605](https://github.com/CirclesUBI/circles-myxogastria/pull/605)
 - Adjustment of retry logic for the update transfers edges calls with fewer hops just like with transfer calls [#597](https://github.com/CirclesUBI/circles-myxogastria/pull/597)
 
 ### Removed
+
 - Unintentional notification for safe upgrade [#596](https://github.com/CirclesUBI/circles-myxogastria/pull/596)
 
 ## [2.5.0] - 2023-02-07
 
 ### Fixed
+
 - Updated the retry logic for transfers that time out in the api call and for calculating maximum transferable amount [#581](https://github.com/CirclesUBI/circles-myxogastria/pull/581)
 
 ## [2.4.3] - 2023-02-02
 
 ### Fixed
+
 - A typo in the app [#583](https://github.com/CirclesUBI/circles-myxogastria/pull/583)
 - Updated npm dependencies [#571](https://github.com/CirclesUBI/circles-myxogastria/pull/571), [#572](https://github.com/CirclesUBI/circles-myxogastria/pull/572), [#576](https://github.com/CirclesUBI/circles-myxogastria/pull/576), [#572](https://github.com/CirclesUBI/circles-myxogastria/pull/572), [#592](https://github.com/CirclesUBI/circles-myxogastria/pull/592)
 
 ## [2.4.2] - 2023-01-06
 
 ### Fixed
+
 - Downgrade core version to v3.1.3, in order to eliminate some errors related to gas fees [#564](https://github.com/CirclesUBI/circles-myxogastria/pull/564)
 - Update error handling for insufficient funds, i.e. no circles in wallet to pay for transactions [#549](https://github.com/CirclesUBI/circles-myxogastria/pull/549)
 - Handle when there is no email for user in database in Edit profile view [#557](https://github.com/CirclesUBI/circles-myxogastria/pull/557)
@@ -100,21 +128,26 @@ Design updates including:
 ## [2.4.1] - 2022-12-12
 
 ### Fixed
+
 - Merged the fix of an issue where naming a new shared wallet similar to an existing wallet you own, fails to create the new wallet [#555](https://github.com/CirclesUBI/circles-myxogastria/pull/555) and [#515](https://github.com/CirclesUBI/circles-myxogastria/pull/515)
 
 ### Updated
+
 - Circles core dependency update [#554](https://github.com/CirclesUBI/circles-myxogastria/pull/554)
 
 ## [2.4.0] - 2022-12-02
 
 ### Added
+
 - Documentation comment on how env. variable "user notification" can be used [#524](https://github.com/CirclesUBI/circles-myxogastria/pull/524)
 
 ### Changed
+
 - Compatibility with Safe version 1.3.0 and automatic upgrade for signed-in wallets to 1.3.0+L2 [#542](https://github.com/CirclesUBI/circles-myxogastria/pull/542)
 - Dependency updates [#539](https://github.com/CirclesUBI/circles-myxogastria/pull/539), [#552](https://github.com/CirclesUBI/circles-myxogastria/pull/552), [#553](https://github.com/CirclesUBI/circles-myxogastria/pull/553)
 
 ### Removed
+
 - Deleted unnecessary github actions [#538](https://github.com/CirclesUBI/circles-myxogastria/pull/538)
 
 ## [2.3.2] - 2022-10-20
