@@ -56,7 +56,9 @@ const useStyles = makeStyles((theme) => {
     },
 
     inputLabelError: {
-      color: theme.custom.colors.purple,
+      '&.Mui-error': {
+        color: theme.custom.colors.purple,
+      },
     },
 
     formHelperText: {
@@ -80,11 +82,6 @@ const useStyles = makeStyles((theme) => {
       borderRadius: '25px',
       border: `3px solid transparent`,
       padding: '0px',
-
-      '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: textColor,
-        borderWidth: '1px',
-      },
 
       '&:hover': {
         '& .MuiOutlinedInput-notchedOutline': {
@@ -110,12 +107,27 @@ const useStyles = makeStyles((theme) => {
         },
       },
 
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: textColor,
+        borderWidth: '1px',
+      },
+
+      '& +.MuiFormHelperText-root.Mui-error': {
+        color: theme.custom.colors.purple,
+      },
+
       '& .MuiSvgIcon-root': {
         marginLeft: '5px',
       },
 
       '&.MuiOutlinedInput-multiline': {
         padding: 0,
+      },
+
+      '&.Mui-error': {
+        '& fieldset.MuiOutlinedInput-notchedOutline': {
+          borderColor: theme.custom.colors.purple,
+        },
       },
     },
 

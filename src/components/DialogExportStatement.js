@@ -17,7 +17,7 @@ import logError, { translateErrorForUser } from '~/utils/debug';
 import { downloadCsvStatement } from '~/utils/fileExports';
 
 const MAX_EXPORT_HISTORY = 365;
-const MAX_EXPORT_LENGTH = 92;
+const MAX_EXPORT_LENGTH = 365;
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
@@ -59,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
   lineLightGrey: {
     stroke: theme.custom.colors.lily,
     margin: '29px 0 42px',
+  },
+  helperDate: {
+    margin: '29px 0 0',
   },
 }));
 
@@ -105,7 +108,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
             text: (
               <span
                 dangerouslySetInnerHTML={{
-                  __html: translate('ExportStatement.exportSuccessfull'),
+                  __html: translate('ExportStatement.exportSuccessful'),
                 }}
               />
             ),
@@ -201,6 +204,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
           </Typography>
           <Box className={classes.dateInputsContainer}>
             <DatePicker
+              format="dd/MM/yyyy"
               label={translate('ExportStatement.exportFrom')}
               maxDate={now}
               minDate={earliestDate}
@@ -215,6 +219,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
               onError={(newError) => setErrorFromInput(newError)}
             />
             <DatePicker
+              format="dd/MM/yyyy"
               label={translate('ExportStatement.exportTo')}
               maxDate={DateTime.min(
                 now,
@@ -232,6 +237,11 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
               onError={(newError) => setErrorToInput(newError)}
             />
           </Box>
+        </Box>
+        <Box className={classes.helperDate}>
+          <Typography variant="bodyText">
+            {translate('ExportStatement.exportHelper')}
+          </Typography>
         </Box>
         <Line className={classes.lineLightGrey} />
         <Typography variant="bodyTitle">

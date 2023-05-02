@@ -142,10 +142,11 @@
     "exportFormat": "Format",
     "exportFrom": "From",
     "exportInfoText": "Your wallet statement will be downloaded in CSV format.",
+    "exportHelper": "You can only export periods up to one year ago",
     "exportHintDate": "Invalid date",
     "exportHintRange": "Invalid range",
     "exportStatement": "Account statement",
-    "exportSuccessfull": "<strong>Account statement</strong> successfully downloaded!",
+    "exportSuccessful": "<strong>Account statement</strong> successfully downloaded!",
     "exportTimeSpan": "Time-span",
     "exportTo": "To",
     "exportWallet": "Wallet"
