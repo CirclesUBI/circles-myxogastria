@@ -43,6 +43,7 @@ import trustMutual from '%/images/trust-mutual.svg';
 import trust from '%/images/trust.svg';
 import trustedDirectly from '%/images/trusted-directly.svg';
 import twitter from '%/images/twitter.svg';
+import union from '%/images/union.svg';
 import uploadPhoto from '%/images/upload-photo.svg';
 import wobblyCircleSecond from '%/images/wobbly-circle-second.svg';
 import wobblyCircle from '%/images/wobbly-circle.svg';
@@ -222,6 +223,10 @@ export const IconUploadPhoto = (props) => {
   return <SvgIcon component={uploadPhoto} {...props} viewBox="0 0 64 34" />;
 };
 
+export const IconUnion = (props) => {
+  return <SvgIcon component={union} {...props} viewBox="0 0 15 13" />;
+};
+
 export const IconWobblyCircle = (props) => {
   return <SvgIcon component={wobblyCircle} {...props} viewBox="0 0 55 55" />;
 };
@@ -319,6 +324,8 @@ export const iconSelector = (icon) => {
       return IconTrustMutual;
     case 'IconTwitter':
       return IconTwitter;
+    case 'IconUnion':
+      return IconUnion;
     case 'IconUploadPhoto':
       return IconUploadPhoto;
     case 'IconWobblyCircle':
