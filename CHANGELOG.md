@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.9.1] - 2023-05-04
+
+### Changed
+
+- Update core version that fixes total balances amount [#679](https://github.com/CirclesUBI/circles-myxogastria/pull/679)
+
 # [2.9.0] - 2023-05-02
 
 ### Added
