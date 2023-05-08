@@ -113,7 +113,7 @@ const formatTransactions = async (transactions, safeAddress) => {
     data.name = namesBySafe[data.otherSafe]
       ? namesBySafe[data.otherSafe].username
       : '-';
-    data.paymentNote = `"${notes[index].replace('"', '""')}"`;
+    data.paymentNote = `"${notes[index].replaceAll('"', '""')}"`;
 
     return `${data.date};${data.name};${data.otherSafe};${data.paymentNote};${data.amount}`;
   });
