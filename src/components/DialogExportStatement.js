@@ -85,7 +85,6 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
   const [isInvalid, setIsInvalid] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
 
-
   const handleStartDateChange = (date) => {
     setStartDate(date);
     if (date > endDate || endDate === null) {
