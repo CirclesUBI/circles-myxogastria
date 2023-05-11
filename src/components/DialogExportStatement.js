@@ -141,17 +141,14 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
   let { username } = useUserdata(safeAddress);
 
   useEffect(() => {
-    if (
+    const isInvalidDate =
       startDate > endDate ||
       startDate.invalid !== null ||
       endDate.invalid !== null ||
       errorFromInput !== null ||
-      errorToInput !== null
-    ) {
-      setIsInvalid(true);
-    } else {
-      setIsInvalid(false);
-    }
+      errorToInput !== null;
+
+    setIsInvalid(isInvalidDate);
   }, [startDate, endDate, errorFromInput, errorToInput]);
 
   const errorMessageTo = useMemo(() => {
