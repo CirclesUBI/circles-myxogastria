@@ -82,7 +82,8 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
   const [endDate, setEndDate] = useState(defaultEnd);
   const [errorFromInput, setErrorFromInput] = useState(null);
   const [errorToInput, setErrorToInput] = useState(null);
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -99,7 +100,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
     (username, safeAddress, startDate, endDate) => async () => {
       const startMidnight = startDate.set({ hour: 0, minute: 0, second: 0 });
       const endMidnight = endDate.set({ hour: 23, minute: 59, second: 59 });
-      setIsDisabled(true);
+      setIsDownloading(true);
       try {
         await downloadCsvStatement(
           username,
@@ -120,7 +121,6 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
             type: NotificationsTypes.SUCCESS,
           }),
         );
-        setIsDisabled(false);
       } catch (error) {
         logError(error);
         dispatch(
@@ -129,8 +129,8 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
             type: NotificationsTypes.ERROR,
           }),
         );
-        setIsDisabled(false);
       }
+      setIsDownloading(false);
     };
 
   const { safeAddress } = useSelector((state) => {
@@ -141,17 +141,14 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
   let { username } = useUserdata(safeAddress);
 
   useEffect(() => {
-    if (
+    const isInvalidDate =
       startDate > endDate ||
       startDate.invalid !== null ||
       endDate.invalid !== null ||
       errorFromInput !== null ||
-      errorToInput !== null
-    ) {
-      setIsDisabled(true);
-    } else {
-      setIsDisabled(false);
-    }
+      errorToInput !== null;
+
+    setIsInvalid(isInvalidDate);
   }, [startDate, endDate, errorFromInput, errorToInput]);
 
   const errorMessageTo = useMemo(() => {
@@ -259,7 +256,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
         </Typography>
       </Box>
       <Box className={classes.btnContainer}>
-        {isDisabled && (
+        {isDownloading && (
           <Box className={classes.loadingTextContainer}>
             <Typography variant="bodySmall">
               {translate('ExportStatement.exportLoadingText')}
@@ -268,7 +265,7 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
         )}
         <Button
           classes={{ root: classes.btn }}
-          disabled={isDisabled}
+          disabled={isInvalid || isDownloading}
           onClick={handleExport(username, safeAddress, startDate, endDate)}
         >
           {translate('ExportStatement.exportBtnText')}
