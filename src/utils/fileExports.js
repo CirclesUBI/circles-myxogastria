@@ -68,7 +68,7 @@ const generateCsvContent = (
     `Balance_on_start_date; ${startBalance}`,
     '',
     'Transactions_within_period',
-    `date; To_or_from_username; To_or_from_safe_address; Payment_note; Amount_in_circles`,
+    `Date; To_or_from_username; To_or_from_safe_address; Payment_note; Amount_in_circles`,
     ...csvTransactions,
   ].join('\n');
 };
