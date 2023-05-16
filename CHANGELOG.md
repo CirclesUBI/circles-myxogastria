@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.9.2] - 2023-05-16
+
+### Fixed
+
+- Export statement: Fix parsing and handling of commas and quotation in payment notes for csv [#681](https://github.com/CirclesUBI/circles-myxogastria/pull/681)
+- Export statement: Change date range helper message [#682](https://github.com/CirclesUBI/circles-myxogastria/pull/682)
+- Export statement: For disabled state, don't show downloading message when dates are invalid [#684](https://github.com/CirclesUBI/circles-myxogastria/pull/684)
+
 # [2.9.1] - 2023-05-04
 
 ### Changed
