@@ -19,7 +19,10 @@ import {
 
 import AvatarWithQR from '~/components/AvatarWithQR';
 import ExternalLink from '~/components/ExternalLink';
-import LocaleSelector from '~/components/LocaleSelector';
+{
+  /* We temporary disable language switcher since languages are not there but should come soon */
+}
+// import LocaleSelector from '~/components/LocaleSelector';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import translate from '~/services/locale';
 import {
@@ -68,9 +71,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(3),
     justifyContent: 'flex-start',
     textTransform: 'none',
-    fontSize: '18px',
     color: theme.custom.colors.mineShaft,
-    fontWeight: theme.typography.fontWeightLight,
   },
   navigationProfileLink: {
     textDecoration: 'none',
@@ -115,7 +116,7 @@ const NavigationHeader = ({ onClick }) => {
       >
         <AvatarWithQR address={safe.currentAccount} />
         <Box mt={1.5}>
-          <Typography variant="h6">
+          <Typography variant="h2">
             <UsernameDisplay address={safe.currentAccount} />
           </Typography>
         </Box>
@@ -210,9 +211,10 @@ const NavigationFooter = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={6}>
+        {/* We temporary disable language switcher since languages are not there but should come soon */}
+        {/* <Grid item xs={6}>
           <LocaleSelector />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   );
@@ -229,7 +231,7 @@ const NavigationLink = ({ children, to }) => {
       component={Link}
       to={to}
     >
-      {children}
+      <Typography variant="h5">{children}</Typography>
     </Button>
   );
 };
@@ -239,7 +241,9 @@ const NavigationExternalLink = ({ children, href }) => {
 
   return (
     <ExternalLink className={classes.navigationExternalLink} href={href}>
-      {children}
+      <Typography classes={{ root: 'body1_white' }} variant={'body1'}>
+        {children}
+      </Typography>
     </ExternalLink>
   );
 };

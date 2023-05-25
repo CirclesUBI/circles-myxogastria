@@ -51,7 +51,7 @@ const Settings = () => {
             <Grid item xs={12}>
               <Paper>
                 <Box p={2} textAlign="center">
-                  <Typography align="center" gutterBottom variant="h6">
+                  <Typography align="center" gutterBottom variant="h2">
                     {translate('Settings.headingStatus')}
                   </Typography>
                   <Typography align="center" gutterBottom>
@@ -82,7 +82,7 @@ const Settings = () => {
             <Grid item xs={12}>
               <Paper>
                 <Box p={2}>
-                  <Typography align="center" variant="h6">
+                  <Typography align="center" variant="h2">
                     {translate('Settings.headingDangerZone')}
                   </Typography>
                   <Box my={2}>

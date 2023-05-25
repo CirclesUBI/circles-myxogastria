@@ -1,6 +1,6 @@
-import { Checkbox, FormControlLabel } from '@mui/material';
+import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
@@ -18,12 +18,16 @@ const CheckboxPrivacy = (props) => {
 };
 
 const CheckboxPrivacyLabel = () => (
-  <Fragment>
+  <Typography>
     {translate('CheckboxPrivacy.checkboxLabel')}{' '}
-    <ExternalLink href={PRIVACY_LEGAL_URL} underline="hover">
+    <ExternalLink
+      classes={{ root: 'body3_link_gradient' }}
+      href={PRIVACY_LEGAL_URL}
+      variant="body3"
+    >
       {translate('CheckboxPrivacy.checkboxLink')}
     </ExternalLink>
-  </Fragment>
+  </Typography>
 );
 
 CheckboxPrivacy.propTypes = {

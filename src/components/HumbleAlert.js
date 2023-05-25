@@ -1,4 +1,4 @@
-import { Alert } from '@mui/material';
+import { Alert, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -11,15 +11,10 @@ const useStyles = makeStyles((theme) => {
       backgroundColor: ({ color }) => color,
       boxShadow: theme.custom.gradients.grayAlert,
       borderRadius: '8px',
-      color: theme.custom.colors.whiteAlmost,
       display: 'flex',
       alignItems: 'center',
-      fontSize: '14px',
-      fontWeight: '400',
-
       '& .MuiAlert-icon': {
         marginRight: '20px',
-
         '& svg': {
           color: theme.custom.colors.whiteAlmost,
         },
@@ -60,9 +55,11 @@ const HumbleAlert = ({
       severity="info"
     >
       {parseHtml && (
-        <div
+        <Typography
           className={classes.alertHtmlChildren}
+          classes={{ root: 'body4_white' }}
           dangerouslySetInnerHTML={{ __html: children }}
+          variant="body4"
         />
       )}
       {!parseHtml && children}

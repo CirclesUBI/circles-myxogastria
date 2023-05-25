@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -75,18 +75,26 @@ const OrganizationMembersAdd = () => {
 
       dispatch(
         notify({
-          text: translate('OrganizationMembersAdd.successAddedMember', {
-            username,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('OrganizationMembersAdd.successAddedMember', {
+                username,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.INFO,
         }),
       );
     } catch {
       dispatch(
         notify({
-          text: translate('OrganizationMembersAdd.errorAddedMember', {
-            username,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('OrganizationMembersAdd.errorAddedMember', {
+                username,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
         }),
       );

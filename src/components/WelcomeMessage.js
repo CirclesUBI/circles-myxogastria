@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 
@@ -19,10 +20,12 @@ const WelcomeMessage = () => {
 
   return (
     <div className={classes.textSendConfirmationContainer}>
-      <span>
+      <Typography classes={{ root: 'body4_gradient_purple' }} variant="body4">
         <strong>{translate('Welcome.welcomeMessageTitle')}</strong>
-      </span>
-      <span>{translate('Welcome.welcomeMessageBody')}</span>
+      </Typography>
+      <Typography classes={{ root: 'body4_gradient_purple' }} variant="body4">
+        {translate('Welcome.welcomeMessageBody')}
+      </Typography>
     </div>
   );
 };

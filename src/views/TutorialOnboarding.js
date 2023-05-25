@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -55,10 +56,14 @@ const TutorialOnboarding = (props) => {
 const TutorialOnboardingSlideOne = () => {
   return (
     <>
-      {translate('TutorialOnboarding.bodyUnconditionalIncome')}{' '}
-      <ExternalLink href={FAQ_URL} underline="always">
-        {translate('TutorialOnboarding.bodyLearnMore')}
-      </ExternalLink>
+      <Typography variant="body1">
+        {translate('TutorialOnboarding.bodyUnconditionalIncome')}{' '}
+        <ExternalLink href={FAQ_URL}>
+          <Typography classes={{ root: 'body3_link_gradient' }} variant="body3">
+            {translate('TutorialOnboarding.bodyLearnMore')}
+          </Typography>
+        </ExternalLink>
+      </Typography>
     </>
   );
 };

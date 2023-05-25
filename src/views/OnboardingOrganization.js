@@ -84,7 +84,11 @@ const OnboardingOrganization = () => {
 
       dispatch(
         notify({
-          text: translate('OnboardingOrganization.successOnboardingComplete'),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('OnboardingOrganization.successOnboardingComplete')}
+            </Typography>
+          ),
           type: NotificationsTypes.SUCCESS,
         }),
       );
@@ -97,9 +101,13 @@ const OnboardingOrganization = () => {
 
       dispatch(
         notify({
-          text: translate('OnboardingOrganization.errorSignup', {
-            errorMessage,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('OnboardingOrganization.errorSignup', {
+                errorMessage,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -216,7 +224,7 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
 
   return (
     <Box className={classes.organizationEmailContainer}>
-      <Typography align="center" gutterBottom variant="h6">
+      <Typography align="center" gutterBottom variant="h2">
         {translate('Onboarding.headingEmail')}
       </Typography>
       <Box mt={3}>
@@ -228,7 +236,7 @@ const OrganizationStepEmail = ({ values, onDisabledChange, onChange }) => {
           onStatusChange={handleEmailStatus}
         />
         <Box mb={3} mt={6}>
-          <Typography className="lightGreyText">
+          <Typography variant="body4">
             {translate('Onboarding.bodyEmail')}
           </Typography>
         </Box>
@@ -274,12 +282,10 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
 
   return (
     <Box className={classes.organizationStepPrefundContainer}>
-      <Typography align="center" gutterBottom variant="h6">
+      <Typography align="center" gutterBottom variant="h2">
         {translate('OnboardingOrganization.headingPrefund')}
       </Typography>
-      <Typography className="lightGreyText">
-        {translate('OnboardingOrganization.bodyPrefund')}
-      </Typography>
+      <Typography>{translate('OnboardingOrganization.bodyPrefund')}</Typography>
       <Box mt={4}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -321,7 +327,7 @@ const OrganizationStepWalletName = ({ onDisabledChange, values, onChange }) => {
 
   return (
     <Box className={classes.organizationStepWalletNameContainer}>
-      <Typography align="center" gutterBottom variant="h6">
+      <Typography align="center" gutterBottom variant="h2">
         {translate('OnboardingOrganization.headingWalletName')}
       </Typography>
       <Box mb={6} mt={4}>
@@ -334,10 +340,10 @@ const OrganizationStepWalletName = ({ onDisabledChange, values, onChange }) => {
         />
       </Box>
       <Box mb={4}>
-        <Typography className="lightGreyText" paragraph>
+        <Typography paragraph variant="body1">
           {translate('OnboardingOrganization.bodyUsername')}
         </Typography>
-        <Typography className="lightGreyText" paragraph>
+        <Typography paragraph>
           {translate('Onboarding.bodyGuidelinesUsername')}
         </Typography>
       </Box>
@@ -362,7 +368,7 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
 
   return (
     <Box className={classes.organizationStepAvatarContainer}>
-      <Typography align="center" gutterBottom variant="h6">
+      <Typography align="center" gutterBottom variant="h2">
         {translate('OnboardingOrganization.headingAvatar')}
       </Typography>
       <Box mb={4} mt={4}>
@@ -400,7 +406,7 @@ const OrganizationStepAddMembers = ({ onDisabledChange }) => {
   return (
     <Box className={classes.organizationStepAddMembersContainer}>
       <Box mb={4}>
-        <Typography align="center" gutterBottom variant="h6">
+        <Typography align="center" gutterBottom variant="h2">
           {translate('OnboardingOrganization.headingAddMembers')}
         </Typography>
       </Box>

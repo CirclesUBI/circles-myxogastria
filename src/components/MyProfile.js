@@ -69,7 +69,7 @@ const MyProfile = () => {
               <AvatarWithQR address={safe.currentAccount} size="medium" />
             </Link>
             <Box mx={2}>
-              <Typography align="left">
+              <Typography align="left" variant="h3">
                 <UsernameDisplay address={safe.currentAccount} />
               </Typography>
             </Box>

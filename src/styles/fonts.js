@@ -16,7 +16,16 @@ export const fontFamily = 'Noto Sans';
 export const fontWeightLight = 300;
 export const fontWeightRegular = 400;
 export const fontWeightMedium = 500;
+export const fontWeightMediumBold = 600;
 export const fontWeightBold = 700;
+
+export const fontSizeSmallest = '10px';
+export const fontSizeSmaller = '12px';
+export const fontSizeSmall = '14px';
+export const fontSizeRegular = '16px';
+export const fontSizeLarge = '18px';
+export const fontSizeLarger = '20px';
+export const fontSizeLargest = '24px';
 
 export const notoSans = {
   fontWeight: fontWeightRegular,

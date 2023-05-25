@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -10,7 +10,7 @@ import { MY_PROFILE_PATH } from '~/routes';
 import Avatar from '~/components/Avatar';
 import UsernameDisplay from '~/components/UsernameDisplay';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   avatarContainer: {
     height: '80px',
     margin: '0 auto',
@@ -26,10 +26,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '8px',
 
     '& a': {
-      fontSize: '18px',
       textDecoration: 'none',
-      color: theme.custom.colors.black,
-      fontWeight: 'black',
     },
   },
 }));
@@ -73,7 +70,7 @@ const AvatarHeader = ({
       </Box>
       <Box className={classes.textContainer}>
         <Link className={classes.profileLink} to={MY_PROFILE_PATH}>
-          {displayedUsername}
+          <Typography variant="h3">{displayedUsername}</Typography>
         </Link>
       </Box>
     </Box>

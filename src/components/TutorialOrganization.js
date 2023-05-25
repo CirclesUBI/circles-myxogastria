@@ -163,7 +163,7 @@ const TutorialOrganization = ({ onFinishTutorial }) => {
                   image={slide.image}
                   imageScale={slide.imageScale}
                 />
-                <Typography variant="h6">{slide.heading}</Typography>
+                <Typography variant="h2">{slide.heading}</Typography>
                 <Typography className={classes.slideBody} variant="body1">
                   {slide.body}
                   <br />{' '}

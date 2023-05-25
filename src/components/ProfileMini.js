@@ -51,13 +51,11 @@ const useStyles = makeStyles((theme) => ({
       fill: 'inherit',
     },
   },
-  mutualFriends: {
-    fontSize: 12,
-    color: theme.palette.grey['800'],
-  },
   mutualFriendsIcon: {
-    fontSize: 9,
-    color: theme.palette.grey['800'],
+    fontSize: '10px',
+    color: theme.custom.colors.mountbattenPink,
+    position: 'relative',
+    top: '1px',
   },
 }));
 
@@ -107,18 +105,26 @@ const ProfileMini = ({
 
       dispatch(
         notify({
-          text: translate('OrganizationMembersAdd.successAddedMember', {
-            username,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('OrganizationMembersAdd.successAddedMember', {
+                username,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.INFO,
         }),
       );
     } catch {
       dispatch(
         notify({
-          text: translate('OrganizationMembersAdd.errorAddedMember', {
-            username,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('OrganizationMembersAdd.errorAddedMember', {
+                username,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -177,19 +183,23 @@ const ProfileMini = ({
               <Tooltip
                 arrow
                 placement="left"
-                title={translate('ProfileMini.bodyMutualFriends', {
-                  count: mutualFriendsCount,
-                  username,
-                })}
+                title={
+                  <Typography classes={{ root: 'body6_white' }} variant="body6">
+                    {translate('ProfileMini.bodyMutualFriends', {
+                      count: mutualFriendsCount,
+                      username,
+                    })}
+                  </Typography>
+                }
               >
-                <Typography className={classes.mutualFriends} component="span">
+                <Typography component="span" variant="body8">
                   <IconFriends className={classes.mutualFriendsIcon} />{' '}
                   {mutualFriendsCount}
                 </Typography>
               </Tooltip>
             )
           }
-          title={`@${username}`}
+          title={<Typography variant="h5">@{username}</Typography>}
         />
       </Card>
     </Fragment>

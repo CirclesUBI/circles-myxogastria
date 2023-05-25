@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 import qs from 'qs';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -133,7 +133,11 @@ const SendConfirm = () => {
 
       dispatch(
         notify({
-          text,
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {text}
+            </Typography>
+          ),
           type: NotificationsTypes.SUCCESS,
         }),
       );
@@ -167,7 +171,11 @@ const SendConfirm = () => {
 
       dispatch(
         notify({
-          text,
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {text}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
         }),
       );

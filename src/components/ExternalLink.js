@@ -2,7 +2,7 @@ import { Link } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const ExternalLink = ({ children, underline, ...props }) => {
+const ExternalLink = ({ children, underline = 'none', ...props }) => {
   return (
     <Link
       rel="noopener noreferrer"

@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import Clipboard from 'clipboard';
 import PropTypes from 'prop-types';
 import React, { createRef, useEffect } from 'react';
@@ -23,8 +23,12 @@ const ButtonClipboard = ({ text, children, isIcon, ...props }) => {
     clipboard.on('success', () => {
       dispatch(
         notify({
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('ButtonClipboard.infoCopiedMessage')}
+            </Typography>
+          ),
           type: NotificationsTypes.SUCCESS,
-          text: translate('ButtonClipboard.infoCopiedMessage'),
         }),
       );
     });

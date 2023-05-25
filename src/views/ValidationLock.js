@@ -25,7 +25,7 @@ const ValidationLock = () => {
         <Box mb={4} mt={10} mx="auto">
           <Logo />
         </Box>
-        <Typography align="center" gutterBottom variant="h6">
+        <Typography align="center" gutterBottom variant="h2">
           {translate('ValidationLock.bodyYourCirclesLoading')}
         </Typography>
         <Box align="center" mt={2}>

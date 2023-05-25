@@ -5,10 +5,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { fontSizeRegular } from '~/styles/fonts';
+
 const useStyles = makeStyles((theme) => ({
   button: {
     fontWeight: theme.typography.fontWeightMedium,
-    fontSize: '16px',
+    fontSize: fontSizeRegular,
     textTransform: 'none',
     borderRadius: 30,
     zIndex: theme.zIndex.layer2,
@@ -43,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
         background: theme.custom.gradients.lightPinkToPurple,
         '-webkit-background-clip': 'text',
         '-webkit-text-fill-color': 'transparent',
+        backgroundClip: 'text',
+        textFillColor: 'transparent',
       },
     },
     '&.Mui-disabled': {
@@ -52,12 +56,15 @@ const useStyles = makeStyles((theme) => ({
         background: 'none',
         color: theme.custom.colors.lola,
         '-webkit-text-fill-color': theme.custom.colors.lola,
+        textFillColor: 'transparent',
       },
     },
     '& .MuiTouchRipple-root': {
       background: theme.custom.gradients.pinkToPurple,
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
+      backgroundClip: 'text',
+      textFillColor: 'transparent',
     },
   },
   buttonDanger: {
@@ -70,28 +77,34 @@ const useStyles = makeStyles((theme) => ({
       background: theme.custom.colors.lightGrey,
       '& .MuiTouchRipple-root': {
         '-webkit-text-fill-color': theme.custom.colors.white,
+        textFillColor: theme.custom.colors.white,
       },
     },
     '& .MuiTouchRipple-root': {
       '-webkit-text-fill-color': theme.custom.colors.white,
+      textFillColor: theme.custom.colors.white,
     },
   },
   buttonText: {
     border: 0,
     background: theme.custom.gradients.purple,
-    backgroundClip: 'text',
     color: 'transparent',
     '-webkit-background-clip': 'text',
     '-webkit-text-fill-color': 'transparent',
+    backgroundClip: 'text',
+    textFillColor: 'transparent',
     '&:hover': {
       background: theme.custom.colors.lightPinkToPurple,
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
+      backgroundClip: 'text',
+      textFillColor: 'transparent',
     },
     '&.Mui-disabled': {
       background: 'transparent',
       color: theme.custom.colors.lily,
       '-webkit-text-fill-color': theme.custom.colors.lily,
+      textFillColor: theme.custom.colors.lily,
 
       '&:hover': {
         cursor: 'not-allowed',

@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import React from 'react';
 
@@ -170,7 +171,14 @@ export function checkFinishedActivities({
 
                 dispatch(
                   notify({
-                    text,
+                    text: (
+                      <Typography
+                        classes={{ root: 'body4_white' }}
+                        variant="body4"
+                      >
+                        {text}
+                      </Typography>
+                    ),
                     type: NotificationsTypes.SUCCESS,
                   }),
                 );

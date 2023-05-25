@@ -8,7 +8,10 @@ import { LOGIN_PATH, ONBOARDING_PATH } from '~/routes';
 import Button from '~/components/Button';
 import ExternalLink from '~/components/ExternalLink';
 import Header from '~/components/Header';
-import LocaleSelector from '~/components/LocaleSelector';
+{
+  /* We temporary disable language switcher since languages are not there but should come soon */
+}
+// import LocaleSelector from '~/components/LocaleSelector';
 import Logo from '~/components/Logo';
 import View from '~/components/View';
 import translate from '~/services/locale';
@@ -47,9 +50,10 @@ const Welcome = () => {
   return (
     <>
       <Header>
-        <Box display="flex" justifyContent="flex-end" width="100%">
+        {/* We temporary disable language switcher since languages are not there but should come soon */}
+        {/* <Box display="flex" justifyContent="flex-end" width="100%">
           <LocaleSelector isInvertedColor />
-        </Box>
+        </Box> */}
       </Header>
       <View>
         <Logo isWithGang />
@@ -111,8 +115,9 @@ const WelcomeExternalLink = ({ children, href }) => {
   return (
     <ExternalLink
       className={classes.welcomeExternalLink}
+      classes={{ root: 'body5_link' }}
       href={href}
-      underline="hover"
+      variant="body5"
     >
       {children}
     </ExternalLink>

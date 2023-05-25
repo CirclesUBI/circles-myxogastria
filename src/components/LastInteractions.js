@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(0.5),
     textAlign: 'center',
     textDecoration: 'none',
-    color: theme.palette.text.primary,
   },
   link: {
     position: 'relative',
@@ -108,7 +107,7 @@ const LastInteractionsAccount = ({ address }) => {
         underline="hover"
       >
         <Avatar address={address} size="smallXl" />
-        <Typography className={classes.username} noWrap>
+        <Typography className={classes.username} noWrap variant="body1">
           <UsernameDisplay address={address} />
         </Typography>
       </MuiLink>

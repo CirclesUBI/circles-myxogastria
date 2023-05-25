@@ -36,26 +36,44 @@ const CriticalError = () => {
             : translate('CriticalError.bodyCriticalErrorTryAgain')}
         </Typography>
         <AppNote messageVersion="error" />
-        {app.errorMessage && (
+        {!app.errorMessage && (
           <Box my={2} style={{ wordBreak: 'break-word' }}>
             <HumbleAlert
               color={colors.fountainBlue}
               icon="IconTriangleWarning"
               iconColor={colors.whiteAlmost}
             >
-              <Typography gutterBottom>{app.errorMessage}</Typography>
+              <Typography
+                classes={{ root: 'body1_white' }}
+                gutterBottom
+                variant="body1"
+              >
+                {app.errorMessage}
+              </Typography>
               {wallet.address && (
-                <Typography component="p" variant="caption">
+                <Typography
+                  classes={{ root: 'body4_white' }}
+                  component="p"
+                  variant="body4"
+                >
                   Device: {wallet.address}
                 </Typography>
               )}
               {safe.currentAccount && (
-                <Typography component="p" variant="caption">
+                <Typography
+                  classes={{ root: 'body4_white' }}
+                  component="p"
+                  variant="body4"
+                >
                   Safe: {safe.currentAccount}
                 </Typography>
               )}
               {token.address && (
-                <Typography component="p" variant="caption">
+                <Typography
+                  classes={{ root: 'body4_white' }}
+                  component="p"
+                  variant="body4"
+                >
                   Token: {token.address}
                 </Typography>
               )}
