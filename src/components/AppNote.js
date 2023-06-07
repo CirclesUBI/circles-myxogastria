@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -91,9 +91,7 @@ const AppNote = ({ messageVersion }) => {
         iconColor={iconColorSelector(iconColor)}
         parseHtml
       >
-        <Typography classes={{ root: 'body4_white' }} variant="body4">
-          {message}
-        </Typography>
+        {message}
       </HumbleAlert>
     </Box>
   ) : null;

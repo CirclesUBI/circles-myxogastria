@@ -46,9 +46,7 @@ const Mnemonic = ({ text }) => {
       {text.split(' ').map((word, index) => {
         return (
           <li className={classes.seedItem} data={index + 1} key={index}>
-            <Typography classes={{ root: 'body6_grey' }} variant="body6">
-              {word + ' '}
-            </Typography>
+            <Typography variant="body4">{word + ' '}</Typography>
           </li>
         );
       })}

@@ -56,14 +56,12 @@ const TutorialOnboarding = (props) => {
 const TutorialOnboardingSlideOne = () => {
   return (
     <>
-      <Typography variant="body1">
-        {translate('TutorialOnboarding.bodyUnconditionalIncome')}{' '}
-        <ExternalLink href={FAQ_URL}>
-          <Typography classes={{ root: 'body3_link_gradient' }} variant="body3">
-            {translate('TutorialOnboarding.bodyLearnMore')}
-          </Typography>
-        </ExternalLink>
-      </Typography>
+      {translate('TutorialOnboarding.bodyUnconditionalIncome')}{' '}
+      <ExternalLink href={FAQ_URL}>
+        <Typography classes={{ root: 'body3_link_gradient' }} variant="body3">
+          {translate('TutorialOnboarding.bodyLearnMore')}
+        </Typography>
+      </ExternalLink>
     </>
   );
 };

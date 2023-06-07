@@ -336,7 +336,6 @@ const ActivityStreamExplained = ({
       )}
       <Typography
         className={classes.cardContentText}
-        color="textSecondary"
         component="p"
         variant="body4"
       >
@@ -344,7 +343,6 @@ const ActivityStreamExplained = ({
       </Typography>
       <Typography
         className={classes.cardContentText}
-        color="textSecondary"
         component="p"
         variant="body4"
       >
@@ -367,7 +365,6 @@ const ActivityStreamPaymentNote = ({ txHash }) => {
         <Divider className={classes.divider} light />
         <Typography
           className={classes.cardContentPaymentNote}
-          color="textSecondary"
           component="p"
           variant="body1"
         >

@@ -31,7 +31,9 @@ const TutorialSlide = ({ image, heading, body }) => {
       <Typography align="center" gutterBottom variant="h2">
         {heading}
       </Typography>
-      <Box className={classes.textContainer}>{body}</Box>
+      <Box className={classes.textContainer}>
+        <Typography variant="body1">{body}</Typography>
+      </Box>
     </Box>
   );
 };
