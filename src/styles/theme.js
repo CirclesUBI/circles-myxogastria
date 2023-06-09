@@ -223,6 +223,9 @@ export default createTheme({
       color: colors.whiteAlmost,
       '&.body3_link': {
         textDecorationLine: 'underline',
+        '&:hover': {
+          color: colors.mountbattenPink,
+        },
       },
       '&.body3_link_violet': {
         color: colors.violet,
