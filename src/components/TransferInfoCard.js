@@ -15,8 +15,6 @@ import Avatar from '~/components/Avatar';
 import { useUserdata } from '~/hooks/username';
 import { fontSizeSmaller } from '~/styles/fonts';
 
-const fontSize = 12;
-
 const useStyles = makeStyles((theme) => ({
   cardContainer: {
     boxShadow: theme.custom.shadows.gray,
@@ -61,14 +59,17 @@ const TransferInfoCard = ({
           subheader={
             <Tooltip arrow title={tooltip}>
               <Typography className={classes.cardHeaderContent} component="div">
-                <CirclesLogoSVG height={fontSize} width={fontSize} />
+                <CirclesLogoSVG
+                  height={fontSizeSmaller}
+                  width={fontSizeSmaller}
+                />
                 <Typography
                   classes={{ root: 'body6_monochrome' }}
                   variant="body6"
                 >
                   {text}
                 </Typography>
-                {isLoading && <CircularProgress size={fontSize} />}
+                {isLoading && <CircularProgress size={fontSizeSmaller} />}
               </Typography>
             </Tooltip>
           }

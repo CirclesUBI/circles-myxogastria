@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { fontSizeLargest } from '~/styles/fonts';
 import { IconWobblyCircle, iconSelector } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -67,11 +68,10 @@ const ButtonWobbly = ({
         disabled: classes.buttonWobblyDisabled,
       }}
       disabled={isPending || !isReady}
-      to={to}
       onClick={onClick}
     >
       {isPending ? (
-        <CircularProgress size={24} />
+        <CircularProgress size={fontSizeLargest} />
       ) : (
         <Box className={classes.buttonContainer}>
           <IconWobblyCircle className={classes.buttonWobblyIconBackground} />
