@@ -23,6 +23,13 @@ const tokenReducer = (state = initialState, action) => {
         address: { $set: action.meta.address },
         lastPayoutAt: { $set: action.meta.lastPayoutAt },
       });
+    case ActionTypes.TOKEN_UPDATE_ERROR:
+      console.log('blablablalbalbl');
+      return null;
+    // return update(state, {
+    //   address: { $set: action.meta.address },
+    //   lastPayoutAt: { $set: action.meta.lastPayoutAt },
+    // });
     case ActionTypes.TOKEN_BALANCE_UPDATE:
       return update(state, {
         isLoading: { $set: true },

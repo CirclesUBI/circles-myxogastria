@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '11px 8px 0',
     textTransform: 'none',
     fontWeight: theme.typography.fontWeightRegular,
-    fontSize: fontSizeSmaller,
+    fontSize: `${fontSizeSmaller}px`,
     color: theme.custom.colors.lily,
     borderBottom: '1px solid transparent',
     '& g, & path': {

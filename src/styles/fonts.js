@@ -19,13 +19,13 @@ export const fontWeightMedium = 500;
 export const fontWeightMediumBold = 600;
 export const fontWeightBold = 700;
 
-export const fontSizeSmallest = '10px';
-export const fontSizeSmaller = '12px';
-export const fontSizeSmall = '14px';
-export const fontSizeRegular = '16px';
-export const fontSizeLarge = '18px';
-export const fontSizeLarger = '20px';
-export const fontSizeLargest = '24px';
+export const fontSizeSmallest = 10;
+export const fontSizeSmaller = 12;
+export const fontSizeSmall = 14;
+export const fontSizeRegular = 16;
+export const fontSizeLarge = 18;
+export const fontSizeLarger = 20;
+export const fontSizeLargest = 24;
 
 export const notoSans = {
   fontWeight: fontWeightRegular,

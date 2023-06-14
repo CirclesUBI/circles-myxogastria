@@ -159,7 +159,7 @@ export default createTheme({
     h1: {
       fontWeight: fontWeightMedium,
       lineHeight: '25px',
-      fontSize: fontSizeLargest,
+      fontSize: `${fontSizeLargest}px`,
       '&.h1_blue': {
         color: colors.fountainBlue,
         fontWeight: fontWeightRegular,
@@ -169,24 +169,24 @@ export default createTheme({
         fontWeight: fontWeightRegular,
       },
       '&.MuiTypography-gutterBottom': {
-        marginBottom: fontSizeSmaller,
+        marginBottom: `${fontSizeSmaller}px`,
       },
     },
     h2: {
       fontWeight: fontWeightMedium,
-      fontSize: fontSizeLarger,
+      fontSize: `${fontSizeLarger}px`,
       lineHeight: '160%',
       color: colors.violet,
     },
     h3: {
       fontWeight: fontWeightRegular,
-      fontSize: fontSizeLarger,
+      fontSize: `${fontSizeLarger}px`,
       lineHeight: '140%',
       color: colors.violet,
     },
     h4: {
       fontWeight: fontWeightMedium,
-      fontSize: fontSizeLarge,
+      fontSize: `${fontSizeLarge}px`,
       lineHeight: '22px',
       color: colors.violet,
       '&.h4_link_white': {
@@ -196,12 +196,12 @@ export default createTheme({
     },
     h5: {
       fontWeight: fontWeightMedium,
-      fontSize: fontSizeRegular,
+      fontSize: `${fontSizeRegular}px`,
       lineHeight: '22px',
       color: colors.violet,
     },
     body1: {
-      fontSize: fontSizeRegular,
+      fontSize: `${fontSizeRegular}px`,
       fontWeight: fontWeightRegular,
       lineHeight: '140%',
       color: colors.violet,
@@ -212,13 +212,13 @@ export default createTheme({
     },
     body2: {
       fontWeight: fontWeightBold,
-      fontSize: fontSizeRegular,
+      fontSize: `${fontSizeRegular}px`,
       lineHeight: '120%',
       color: colors.violet,
     },
     body3: {
       fontWeight: fontWeightMediumBold,
-      fontSize: fontSizeRegular,
+      fontSize: `${fontSizeRegular}px`,
       lineHeight: '22px',
       color: colors.whiteAlmost,
       '&.body3_link': {
@@ -245,7 +245,7 @@ export default createTheme({
     },
     body4: {
       fontWeight: fontWeightRegular,
-      fontSize: fontSizeSmall,
+      fontSize: `${fontSizeSmall}px`,
       lineHeight: '19px',
       color: colors.violet,
       '&.body4_white': {
@@ -259,7 +259,7 @@ export default createTheme({
     },
     body5: {
       fontWeight: fontWeightMediumBold,
-      fontSize: fontSizeSmall,
+      fontSize: `${fontSizeSmall}px`,
       lineHeight: '19px',
       color: colors.violet,
       '&.body5_link': {
@@ -275,8 +275,8 @@ export default createTheme({
     },
     body6: {
       fontWeight: fontWeightRegular,
-      fontSize: fontSizeSmaller,
-      lineHeight: fontSizeRegular,
+      fontSize: `${fontSizeSmaller}px`,
+      lineHeight: `${fontSizeRegular}px`,
       color: colors.violet,
       '&.body6_monochrome': {
         color: colors.violet,
@@ -295,14 +295,14 @@ export default createTheme({
     },
     body7: {
       fontWeight: fontWeightRegular,
-      fontSize: fontSizeSmaller,
+      fontSize: `${fontSizeSmaller}px`,
       lineHeight: '140%',
       color: colors.violet,
     },
     body8: {
       fontWeight: fontWeightRegular,
-      fontSize: fontSizeSmallest,
-      lineHeight: fontSizeSmall,
+      fontSize: `${fontSizeSmallest}px`,
+      lineHeight: `${fontSizeSmall}px`,
       color: colors.oldLavender,
     },
     balance1: {

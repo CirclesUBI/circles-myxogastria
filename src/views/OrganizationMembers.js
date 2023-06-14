@@ -51,11 +51,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 7,
     color: theme.palette.primary.main,
     textTransform: 'none',
-    fontSize: fontSizeSmaller,
+    fontSize: `${fontSizeSmaller}px`,
   },
   cardActionIcon: {
     color: theme.palette.primary.main,
-    fontSize: fontSizeSmall,
+    fontSize: `${fontSizeSmall}px`,
   },
   fab: {
     width: 72,

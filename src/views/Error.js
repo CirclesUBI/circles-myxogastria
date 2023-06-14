@@ -36,7 +36,7 @@ const CriticalError = () => {
             : translate('CriticalError.bodyCriticalErrorTryAgain')}
         </Typography>
         <AppNote messageVersion="error" />
-        {!app.errorMessage && (
+        {app.errorMessage && (
           <Box my={2} style={{ wordBreak: 'break-word' }}>
             <HumbleAlert
               color={colors.fountainBlue}

@@ -80,12 +80,12 @@ const useStyles = makeStyles((theme) => {
       },
 
       '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
-        fontSize: fontSizeSmallest,
+        fontSize: `${fontSizeSmallest}px`,
         fontWeight: fontWeightRegular,
         color: theme.custom.colors.grayDark,
         marginTop: '8px',
         [theme.breakpoints.up('md')]: {
-          fontSize: fontSizeSmaller,
+          fontSize: `${fontSizeSmaller}px`,
         },
       },
 
