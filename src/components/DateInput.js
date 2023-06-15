@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
     '& label.MuiFormLabel-root': {
       color: theme.custom.colors.violet,
-      fontSize: `${fontSizeSmaller}px`,
+      fontSize: fontSizeSmaller,
       transform: 'translate(28px, -6px)',
       background: theme.custom.colors.white,
       transition: 'none',
@@ -126,7 +126,7 @@ const useStyles = makeStyles((theme) => ({
         bottom: '-2px',
         padding: '2px 6px',
         position: 'absolute',
-        fontSize: `${fontSizeSmaller}px`,
+        fontSize: fontSizeSmaller,
         background: theme.custom.colors.white,
         lineHeight: '10px',
         borderRadius: '10px',

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   cardHeaderContent: {
     display: 'inline-flex',
     alignItems: 'center',
-    fontSize: `${fontSizeSmaller}px`,
+    fontSize: fontSizeSmaller,
     '& > *': {
       marginRight: theme.spacing(0.5),
     },

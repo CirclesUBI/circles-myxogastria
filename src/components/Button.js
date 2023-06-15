@@ -10,7 +10,7 @@ import { fontSizeRegular } from '~/styles/fonts';
 const useStyles = makeStyles((theme) => ({
   button: {
     fontWeight: theme.typography.fontWeightMedium,
-    fontSize: `${fontSizeRegular}px`,
+    fontSize: fontSizeRegular,
     textTransform: 'none',
     borderRadius: 30,
     zIndex: theme.zIndex.layer2,

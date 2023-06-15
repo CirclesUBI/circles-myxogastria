@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'transparent',
     borderRadius: theme.shape.borderRadius,
     border: `1px solid ${theme.palette.primary.contrastText}`,
-    fontSize: `${fontSizeRegular}px`,
+    fontSize: fontSizeRegular,
     '&:focus': {
       borderRadius: theme.shape.borderRadius,
     },

@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => {
     inputLabel: {
       transform: 'translate(28px, -6px)',
       background: theme.custom.colors.white,
-      fontSize: `${fontSizeSmaller}px`,
+      fontSize: fontSizeSmaller,
       padding: '2px 6px',
       transition: 'none',
       color: textColor,
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => {
       position: 'absolute',
       padding: '2px 6px',
       bottom: '-6px',
-      fontSize: `${fontSizeSmaller}px`,
+      fontSize: fontSizeSmaller,
       right: '30px',
       background: theme.custom.colors.white,
       borderRadius: '10px',

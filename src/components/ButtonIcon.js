@@ -10,7 +10,7 @@ import { fontSizeSmaller, fontWeightRegular } from '~/styles/fonts';
 const useStyles = makeStyles((theme) => ({
   button: {
     fontWeight: fontWeightRegular,
-    fontSize: `${fontSizeSmaller}px`,
+    fontSize: fontSizeSmaller,
     color: theme.custom.colors.violet,
     textTransform: 'none',
     '&:hover': {

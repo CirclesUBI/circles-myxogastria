@@ -8,7 +8,7 @@ import { IconCircles } from '~/styles/icons';
 
 const useStyles = makeStyles(() => ({
   input: {
-    fontSize: `${fontSizeLargest}px`,
+    fontSize: fontSizeLargest,
   },
   icon: {
     fontSize: '1.3rem',

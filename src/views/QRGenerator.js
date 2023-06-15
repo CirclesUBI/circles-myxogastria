@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     color: theme.palette.text.primary,
     fontWeight: theme.typography.fontWeightMedium,
-    fontSize: `${fontSizeSmaller}px`,
+    fontSize: fontSizeSmaller,
   },
 }));
 
