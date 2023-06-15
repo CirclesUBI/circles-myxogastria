@@ -2,9 +2,11 @@ import { tcToCrc } from '@circles/timecircles';
 import { DateTime } from 'luxon';
 
 import core from '~/services/core';
+import translate from '~/services/locale';
 import { getLastPayout, setLastPayout } from '~/services/token';
 import web3 from '~/services/web3';
 import { addPendingActivity } from '~/store/activity/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import ActionTypes from '~/store/token/types';
 import { PATHFINDER_HOPS_DEFAULT, ZERO_ADDRESS } from '~/utils/constants';
 import logError from '~/utils/debug';
@@ -107,6 +109,12 @@ export function checkTokenState() {
       const address = await core.token.getAddress(safe.currentAccount);
 
       if (address === ZERO_ADDRESS) {
+        dispatch(
+          notify({
+            text: translate('ErrorCodes.ErrorTokenNotDeployed'),
+            type: NotificationsTypes.ERROR,
+          }),
+        );
         throw new Error(`Invalid Token address for ${safe.currentAccount}`);
       }
 
