@@ -145,7 +145,11 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
       logError(error);
       dispatch(
         notify({
-          text: translate('AvatarUploader.errorAvatarUpload'),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('AvatarUploader.errorAvatarUpload')}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -157,7 +161,11 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
   const onImageCaptureErrorHandler = () => {
     dispatch(
       notify({
-        text: translate('EditProfile.errorImageCapture'),
+        text: (
+          <Typography classes={{ root: 'body4_white' }} variant="body4">
+            {translate('EditProfile.errorImageCapture')}
+          </Typography>
+        ),
         type: NotificationsTypes.ERROR,
       }),
     );
@@ -287,7 +295,11 @@ const EditProfile = () => {
         setUseCacheOnRedirect(false);
         dispatch(
           notify({
-            text: translate('EditProfile.confirmationMessage'),
+            text: (
+              <Typography classes={{ root: 'body4_white' }} variant="body4">
+                {translate('EditProfile.confirmationMessage')}
+              </Typography>
+            ),
             type: NotificationsTypes.SUCCESS,
           }),
         );
@@ -297,7 +309,11 @@ const EditProfile = () => {
       logError(error);
       dispatch(
         notify({
-          text: translate('EditProfile.errorSaveChanges'),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('EditProfile.errorSaveChanges')}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -383,9 +399,7 @@ const EditProfile = () => {
 
   const dialogContentClose = (
     <Box className={classes.dialogContentContainer}>
-      <Typography className="lightGreyText">
-        {translate('EditProfile.bodyCancel')}
-      </Typography>
+      <Typography>{translate('EditProfile.bodyCancel')}</Typography>
       <Button
         className={classes.continueButton}
         fullWidth
@@ -480,9 +494,7 @@ const EditProfile = () => {
             />
             <Box className={classes.informationContainer}>
               <Box className={classes.informationText}>
-                <Typography className="lightGreyText">
-                  {informationText}
-                </Typography>
+                <Typography>{informationText}</Typography>
               </Box>
               {isConsentInfo && (
                 <>

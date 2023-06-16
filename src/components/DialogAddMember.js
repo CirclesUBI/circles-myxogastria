@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -9,15 +8,6 @@ import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
 import { FAQ_URL } from '~/utils/constants';
 
-const useParagraphStyles = makeStyles((theme) => ({
-  paragraph: {
-    color: theme.custom.colors.grayLightest,
-  },
-  link: {
-    color: theme.custom.colors.grayLightest,
-  },
-}));
-
 const DialogAddMember = ({
   username,
   address,
@@ -26,7 +16,6 @@ const DialogAddMember = ({
   isOpen,
   isOrganization,
 }) => {
-  const classes = useParagraphStyles();
   const confirmLabel = isOrganization
     ? null
     : translate('DialogAddMember.dialogConfirm');
@@ -40,18 +29,32 @@ const DialogAddMember = ({
       cancelLabel={translate('DialogAddMember.dialogCancel')}
       confirmLabel={confirmLabel}
       open={isOpen}
-      title={translate('DialogAddMember.dialogTitle', { username })}
+      title={
+        <Typography classes={{ root: 'h4_link_white' }} variant="h4">
+          {translate('DialogAddMember.dialogTitle', { username })}
+        </Typography>
+      }
       onClose={handleClose}
       onConfirm={onConfirm}
     >
       <Box display="flex" justifyContent="center" mb={2}>
         <Avatar address={address} size="medium" />
       </Box>
-      <Typography className={classes.paragraph} paragraph>
+      <Typography
+        align="center"
+        classes={{ root: 'body1_white' }}
+        paragraph
+        variant="body1"
+      >
         {dialogBody}
       </Typography>
-      <ExternalLink className={classes.link} href={FAQ_URL} underline="always">
-        <Typography paragraph>
+      <ExternalLink href={FAQ_URL} underline="always">
+        <Typography
+          align="center"
+          classes={{ root: 'body3_link' }}
+          paragraph
+          variant="body3"
+        >
           {translate('DialogAddMember.linkLearnMore')}
         </Typography>
       </ExternalLink>

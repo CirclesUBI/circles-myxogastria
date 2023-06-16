@@ -3,6 +3,7 @@ import {
   DialogContent,
   DialogTitle,
   Dialog as MuiDialog,
+  Typography,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
@@ -48,8 +49,12 @@ const DialogInfo = ({
       open={isOpen}
       onClose={handleClose}
     >
-      <DialogTitle id={`dialog-${id}-title`}>{title}</DialogTitle>
-      <DialogContent>{dialogContent}</DialogContent>
+      <DialogTitle id={`dialog-${id}-title`} variant="h4">
+        {title}
+      </DialogTitle>
+      <DialogContent>
+        <Typography variant="body4">{dialogContent}</Typography>
+      </DialogContent>
       <DialogActions style={{ justifyContent: 'center' }}>
         {isBtnClose && <ButtonClose onClick={handleClose} />}
       </DialogActions>

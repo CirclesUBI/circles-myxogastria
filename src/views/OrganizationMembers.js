@@ -36,6 +36,7 @@ import {
 } from '~/store/app/actions';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { removeSafeOwner } from '~/store/safe/actions';
+import { fontSizeSmall, fontSizeSmaller } from '~/styles/fonts';
 import { IconClose, IconTrust } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -50,11 +51,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 7,
     color: theme.palette.primary.main,
     textTransform: 'none',
-    fontSize: 12,
+    fontSize: fontSizeSmaller,
   },
   cardActionIcon: {
     color: theme.palette.primary.main,
-    fontSize: 14,
+    fontSize: fontSizeSmall,
   },
   fab: {
     width: 72,
@@ -135,9 +136,13 @@ const OrganizationMembers = () => {
 
       dispatch(
         notify({
-          text: translate('OrganizationMembers.successRemovedMember', {
-            username,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('OrganizationMembers.successRemovedMember', {
+                username,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.INFO,
         }),
       );
@@ -148,9 +153,13 @@ const OrganizationMembers = () => {
     } catch {
       dispatch(
         notify({
-          text: translate('OrganizationMembers.errorRemovedMember', {
-            username,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('OrganizationMembers.errorRemovedMember', {
+                username,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -281,7 +290,7 @@ const OrganizationMembersItem = ({
         classes={{
           root: classes.cardHeader,
         }}
-        subheader={`@${username}`}
+        subheader={<Typography variant="h5">@{username}</Typography>}
       />
     </Card>
   );

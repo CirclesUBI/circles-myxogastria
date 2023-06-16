@@ -3,11 +3,15 @@ import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 
 import TransferInput from '~/components/TransferInput';
+import { fontSizeLargest } from '~/styles/fonts';
 import { IconCircles } from '~/styles/icons';
 
 const useStyles = makeStyles(() => ({
   input: {
-    fontSize: 27,
+    fontSize: fontSizeLargest,
+  },
+  icon: {
+    fontSize: '1.3rem',
   },
 }));
 
@@ -22,7 +26,7 @@ const TransferCirclesInput = (props) => {
       }}
       startAdornment={
         <InputAdornment position="start">
-          <IconCircles />
+          <IconCircles className={classes.icon} />
         </InputAdornment>
       }
       type="number"

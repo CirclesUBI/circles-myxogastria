@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,7 +58,14 @@ const UBI = () => {
       // Display pending UBI to the user
       dispatch(
         notify({
-          text,
+          text: (
+            <Typography
+              classes={{ root: 'body4_gradient_purple' }}
+              variant="body4"
+            >
+              {text}
+            </Typography>
+          ),
           type: NotificationsTypes.SPECIAL,
           timeout: 10000,
         }),

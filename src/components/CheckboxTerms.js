@@ -1,6 +1,6 @@
-import { Checkbox, FormControlLabel } from '@mui/material';
+import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
@@ -18,12 +18,16 @@ const CheckboxTerms = (props) => {
 };
 
 const CheckboxTermsLabel = () => (
-  <Fragment>
+  <Typography>
     {translate('CheckboxTerms.checkboxLabel')}{' '}
-    <ExternalLink href={TERMS_URL} underline="hover">
+    <ExternalLink
+      classes={{ root: 'body3_link_gradient' }}
+      href={TERMS_URL}
+      variant="body3"
+    >
       {translate('CheckboxTerms.checkboxLink')}
     </ExternalLink>
-  </Fragment>
+  </Typography>
 );
 
 CheckboxTerms.propTypes = {

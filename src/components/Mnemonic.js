@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -16,8 +17,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.custom.shadows.gray,
     display: 'inline-block',
     marginBottom: 6,
-    fontSize: '12px',
-    color: theme.custom.colors.grayDarker,
     marginLeft: 22,
     padding: '0 0 0 6px',
     position: 'relative',
@@ -47,7 +46,7 @@ const Mnemonic = ({ text }) => {
       {text.split(' ').map((word, index) => {
         return (
           <li className={classes.seedItem} data={index + 1} key={index}>
-            {word + ' '}
+            <Typography variant="body4">{word + ' '}</Typography>
           </li>
         );
       })}

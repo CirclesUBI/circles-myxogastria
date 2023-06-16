@@ -1,4 +1,4 @@
-import { FormHelperText, Input, InputLabel } from '@mui/material';
+import { FormHelperText, Input, InputLabel, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
@@ -8,16 +8,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     height: 66,
     boxShadow: theme.custom.shadows.grayUp,
+    color: theme.custom.colors.violet,
 
     '& .MuiSvgIcon-root': {
-      fill: theme.custom.colors.mineShaft,
+      fill: theme.custom.colors.violet,
     },
   },
   inputLabel: {
     marginBottom: theme.spacing(1),
-    color: theme.palette.text.primary,
-    fontWeight: theme.typography.fontWeightMedium,
-    fontSize: 18,
     textAlign: 'left',
   },
   inputError: {
@@ -43,7 +41,7 @@ const TransferInput = ({
   return (
     <>
       <InputLabel className={classes.inputLabel} htmlFor={id}>
-        {label}
+        <Typography variant="h4">{label}</Typography>
       </InputLabel>
       <Input
         classes={{
@@ -59,7 +57,9 @@ const TransferInput = ({
       />
       {isError && (
         <FormHelperText className={classes.inputError} error>
-          {errorMessage}
+          <Typography classes={{ root: 'body6_pink' }} variant="body6">
+            {errorMessage}
+          </Typography>
         </FormHelperText>
       )}
     </>

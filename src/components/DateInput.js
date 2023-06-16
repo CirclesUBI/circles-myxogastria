@@ -2,6 +2,8 @@ import { FormControl, TextField } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 
+import { fontSizeSmaller } from '~/styles/fonts';
+
 const useStyles = makeStyles((theme) => ({
   dateInput: {
     '& fieldset': {
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
     '& label.MuiFormLabel-root': {
       color: theme.custom.colors.violet,
-      fontSize: '12px',
+      fontSize: fontSizeSmaller,
       transform: 'translate(28px, -6px)',
       background: theme.custom.colors.white,
       transition: 'none',
@@ -124,7 +126,7 @@ const useStyles = makeStyles((theme) => ({
         bottom: '-2px',
         padding: '2px 6px',
         position: 'absolute',
-        fontSize: '12px',
+        fontSize: fontSizeSmaller,
         background: theme.custom.colors.white,
         lineHeight: '10px',
         borderRadius: '10px',

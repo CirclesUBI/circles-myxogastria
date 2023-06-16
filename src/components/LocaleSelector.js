@@ -6,19 +6,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import translate, { currentLocale, setLocale } from '~/services/locale';
+import { fontSizeRegular } from '~/styles/fonts';
 
 const useStyles = makeStyles((theme) => ({
   select: {
-    color: theme.palette.primary.contrastText,
+    color: theme.custom.colors.violet,
   },
   selectInverted: {
-    color: theme.palette.text.primary,
+    color: theme.custom.colors.violet,
   },
   selectIcon: {
     fill: theme.palette.primary.contrastText,
   },
   selectIconInverted: {
-    fill: theme.palette.text.primary,
+    fill: theme.custom.colors.violet,
   },
   selectInput: {
     color: theme.custom.colors.whiteAlmost,
@@ -26,14 +27,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'transparent',
     borderRadius: theme.shape.borderRadius,
     border: `1px solid ${theme.palette.primary.contrastText}`,
-    fontSize: 14,
+    fontSize: fontSizeRegular,
     '&:focus': {
       borderRadius: theme.shape.borderRadius,
     },
   },
   selectInputInverted: {
     border: 0,
-    color: theme.palette.text.primary,
+    color: theme.custom.colors.violet,
   },
 }));
 

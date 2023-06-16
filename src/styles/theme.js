@@ -2,9 +2,17 @@ import { createTheme } from '@mui/material/styles';
 
 import {
   fontFamily as fontFamilyNotoSans,
+  fontSizeLarge,
+  fontSizeLarger,
+  fontSizeLargest,
+  fontSizeRegular,
+  fontSizeSmall,
+  fontSizeSmaller,
+  fontSizeSmallest,
   fontWeightBold,
   fontWeightLight,
   fontWeightMedium,
+  fontWeightMediumBold,
   fontWeightRegular,
   notoSans,
   notoSansBold,
@@ -47,6 +55,7 @@ export const colors = {
   purpleLight: '#f5dbda',
   purple: '#cc1e66',
   purpleDark: '#660f33',
+  disco: '#A31852',
   turquoise: '#47cccb',
   turquoiseDark: '#369998',
   jaggedIce: '#C8E8EA',
@@ -57,7 +66,6 @@ export const colors = {
   ceriseRed: '#D12D5F',
   pink: '#D22E60',
   blueRibbon: '#2B44FF',
-  disco: '#99164C',
   violet: '#5A2F56',
   tapestry: '#A75183',
   deepBlush: '#E078A3',
@@ -148,55 +156,166 @@ export default createTheme({
   },
   typography: {
     fontFamily: [fontFamily, 'sans-serif'].join(','),
-    body1: {
-      fontSize: '1rem',
-      fontWeight: '300',
-      lineHeight: '1.5',
-    },
     h1: {
-      fontSize: '32px',
-      fontWeight: fontWeightMedium,
-      lineHeight: '44px',
-    },
-    h2: {
-      fontSize: '24px',
-      fontWeight: fontWeightMedium,
-      lineHeight: '33px',
-    },
-    h6: {
-      fontSize: '18px',
       fontWeight: fontWeightMedium,
       lineHeight: '25px',
-      '&.MuiTypography-gutterBottom': {
-        marginBottom: '12px',
+      fontSize: fontSizeLargest,
+      '&.h1_blue': {
+        color: colors.fountainBlue,
+        fontWeight: fontWeightRegular,
       },
+      '&.h1_violet': {
+        color: colors.violet,
+        fontWeight: fontWeightRegular,
+      },
+      '&.MuiTypography-gutterBottom': {
+        marginBottom: fontSizeSmaller,
+      },
+    },
+    h2: {
+      fontWeight: fontWeightMedium,
+      fontSize: fontSizeLarger,
+      lineHeight: '160%',
+      color: colors.violet,
+    },
+    h3: {
+      fontWeight: fontWeightRegular,
+      fontSize: fontSizeLarger,
+      lineHeight: '140%',
+      color: colors.violet,
+    },
+    h4: {
+      fontWeight: fontWeightMedium,
+      fontSize: fontSizeLarge,
+      lineHeight: '22px',
+      color: colors.violet,
+      '&.h4_link_white': {
+        lineHeight: '25px',
+        color: colors.whiteAlmost,
+      },
+    },
+    h5: {
+      fontWeight: fontWeightMedium,
+      fontSize: fontSizeRegular,
+      lineHeight: '22px',
+      color: colors.violet,
+    },
+    body1: {
+      fontSize: fontSizeRegular,
+      fontWeight: fontWeightRegular,
+      lineHeight: '140%',
+      color: colors.violet,
+      '&.body1_white': {
+        color: colors.whiteAlmost,
+        fontWeight: fontWeightMedium,
+      },
+    },
+    body2: {
+      fontWeight: fontWeightBold,
+      fontSize: fontSizeRegular,
+      lineHeight: '120%',
+      color: colors.violet,
+    },
+    body3: {
+      fontWeight: fontWeightMediumBold,
+      fontSize: fontSizeRegular,
+      lineHeight: '22px',
+      color: colors.whiteAlmost,
+      '&.body3_link': {
+        textDecorationLine: 'underline',
+        '&:hover': {
+          color: colors.mountbattenPink,
+        },
+      },
+      '&.body3_link_violet': {
+        color: colors.violet,
+      },
+      '&.body3_link_gradient': {
+        lineHeight: '120%',
+        background: gradients.pinkToPurple,
+        backgroundClip: 'text',
+        textFillColor: 'transparent',
+        textDecorationLine: 'none',
+        '&:hover': {
+          background: gradients.purpleOppositeHover,
+          backgroundClip: 'text',
+          textFillColor: 'transparent',
+        },
+      },
+    },
+    body4: {
+      fontWeight: fontWeightRegular,
+      fontSize: fontSizeSmall,
+      lineHeight: '19px',
+      color: colors.violet,
+      '&.body4_white': {
+        color: colors.whiteAlmost,
+      },
+      '&.body4_gradient_purple': {
+        background: gradients.lightPinkToPurple,
+        backgroundClip: 'text',
+        textFillColor: 'transparent',
+      },
+    },
+    body5: {
+      fontWeight: fontWeightMediumBold,
+      fontSize: fontSizeSmall,
+      lineHeight: '19px',
+      color: colors.violet,
+      '&.body5_link': {
+        background: gradients.pinkToPurple,
+        backgroundClip: 'text',
+        textFillColor: 'transparent',
+        '&:hover': {
+          background: gradients.purpleOppositeHover,
+          backgroundClip: 'text',
+          textFillColor: 'transparent',
+        },
+      },
+    },
+    body6: {
+      fontWeight: fontWeightRegular,
+      fontSize: fontSizeSmaller,
+      lineHeight: '16px',
+      color: colors.violet,
+      '&.body6_monochrome': {
+        color: colors.violet,
+        opacity: 0.6,
+      },
+      '&.body6_pink': {
+        color: colors.disco,
+      },
+      '&.body6_white': {
+        color: colors.whiteAlmost,
+        fontWeight: fontWeightMedium,
+      },
+      '&.body6_grey': {
+        color: colors.grayDarker,
+      },
+    },
+    body7: {
+      fontWeight: fontWeightRegular,
+      fontSize: fontSizeSmaller,
+      lineHeight: '140%',
+      color: colors.violet,
+    },
+    body8: {
+      fontWeight: fontWeightRegular,
+      fontSize: fontSizeSmallest,
+      lineHeight: '14px',
+      color: colors.oldLavender,
+    },
+    balance1: {
+      fontWeight: fontWeightRegular,
+      fontSize: '48px',
+      lineHeight: '65px',
+      background: gradients.violetCurved,
+      backgroundClip: 'text',
+      textFillColor: 'transparent',
     },
     poster: {
       fontSize: '4rem',
       color: 'red',
-    },
-    bodyTitle: {
-      display: 'block',
-      fontWeight: 500,
-      lineHeight: '160%',
-      color: colors.violet,
-      fontSize: '20px',
-      marginBottom: '11px',
-    },
-    bodyContent: {
-      fontWeight: 400,
-      fontSize: '16px',
-      lineHeight: '140%',
-      color: colors.violet,
-    },
-    bodyText: {
-      color: colors.violet,
-    },
-    bodySmall: {
-      fontWeight: '400',
-      fontSize: '12px',
-      lineHeight: '16px',
-      color: colors.mountbattenPink,
     },
     components: {
       MuiTypography: {
@@ -248,16 +367,6 @@ export default createTheme({
           src: ${notoSansBold.src};
         }
       `,
-    },
-
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          '&.lightGreyText': {
-            color: colors.grayDarker,
-          },
-        },
-      },
     },
   },
   zIndex: {

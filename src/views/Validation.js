@@ -134,7 +134,7 @@ const Validation = () => {
             isOrganization={isOrganization}
             steps={stepNames}
           />
-          <Typography align="center" gutterBottom variant="h6">
+          <Typography align="center" gutterBottom variant="h2">
             {translate('Validation.headingBuildYourWebOfTrust')}
           </Typography>
           <Typography>
@@ -153,7 +153,9 @@ const Validation = () => {
           icon="IconBrowser"
           iconColor={colors.whiteAlmost}
         >
-          {translate('Validation.bodyDoNotReset')}
+          <Typography classes={{ root: 'body4_white' }} variant="body4">
+            {translate('Validation.bodyDoNotReset')}
+          </Typography>
         </HumbleAlert>
         {!isDeploymentReady && (
           <Box mt={2}>

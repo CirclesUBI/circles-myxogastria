@@ -163,13 +163,18 @@ const TutorialOrganization = ({ onFinishTutorial }) => {
                   image={slide.image}
                   imageScale={slide.imageScale}
                 />
-                <Typography variant="h6">{slide.heading}</Typography>
+                <Typography variant="h2">{slide.heading}</Typography>
                 <Typography className={classes.slideBody} variant="body1">
                   {slide.body}
                   <br />{' '}
                   {slideIndex === slides.length - 1 && (
-                    <ExternalLink href={LEARN_MORE_URL} underline="hover">
-                      {translate('TutorialOrganization.slideBody3Link')}
+                    <ExternalLink href={LEARN_MORE_URL}>
+                      <Typography
+                        classes={{ root: 'body3_link_gradient' }}
+                        variant="body3"
+                      >
+                        {translate('TutorialOrganization.slideBody3Link')}
+                      </Typography>
                     </ExternalLink>
                   )}
                 </Typography>

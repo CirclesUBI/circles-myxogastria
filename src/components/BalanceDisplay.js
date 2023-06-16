@@ -20,10 +20,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     height: '6.5rem',
   },
-  balance: {
-    fontSize: '2.9rem',
-    fontWeight: theme.typography.fontWeightRegular,
-  },
   balanceIcon: {
     position: 'relative',
     top: 2,
@@ -59,7 +55,7 @@ const BalanceDisplay = () => {
         {isLoading ? (
           <CircularProgress />
         ) : (
-          <Typography className={classes.balance}>
+          <Typography variant="balance1">
             <IconCircles className={classes.balanceIcon} />
             {tokenBalance}
           </Typography>

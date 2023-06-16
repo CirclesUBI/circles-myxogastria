@@ -17,23 +17,22 @@ const { ActivityTypes } = core.activity;
 
 const MAX_PROFILES = 12;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   itemContainer: {
     width: '116px',
   },
   username: {
     maxWidth: '100px',
-    marginTop: theme.spacing(0.5),
+    marginTop: '10px',
     textAlign: 'center',
     textDecoration: 'none',
-    color: theme.palette.text.primary,
   },
   link: {
     position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-
+    marginBottom: '12px',
     '&:hover': {
       textDecoration: 'none',
     },
@@ -108,7 +107,7 @@ const LastInteractionsAccount = ({ address }) => {
         underline="hover"
       >
         <Avatar address={address} size="smallXl" />
-        <Typography className={classes.username} noWrap>
+        <Typography className={classes.username} noWrap variant="body1">
           <UsernameDisplay address={address} />
         </Typography>
       </MuiLink>

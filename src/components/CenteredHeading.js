@@ -7,7 +7,7 @@ import Centered from '~/components/Centered';
 const CenteredHeading = ({ children }) => {
   return (
     <Centered>
-      <Typography align="center" component="h1" noWrap variant="h6">
+      <Typography align="center" component="h1" noWrap variant="h2">
         {children}
       </Typography>
     </Centered>

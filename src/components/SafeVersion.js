@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { Typography } from '@mui/material';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import core from '~/services/core';
@@ -47,7 +48,11 @@ const SafeVersion = () => {
       } catch (error) {
         dispatch(
           notify({
-            text: translateErrorForUser(error),
+            text: (
+              <Typography classes={{ root: 'body4_white' }} variant="body4">
+                {translateErrorForUser(error)}
+              </Typography>
+            ),
             type: NotificationsTypes.ERROR,
             timeout: 10000,
           }),

@@ -6,6 +6,12 @@ import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {
+  fontSizeSmaller,
+  fontSizeSmallest,
+  fontWeightRegular,
+} from '~/styles/fonts';
+
 const useStyles = makeStyles((theme) => {
   const colorTheme = (isOrganization) =>
     isOrganization
@@ -59,7 +65,6 @@ const useStyles = makeStyles((theme) => {
         [theme.breakpoints.up('md')]: {
           fontSize: '1.8rem',
         },
-
         '& .MuiStepIcon-text': {
           fill: theme.custom.colors.grayDark,
         },
@@ -75,12 +80,12 @@ const useStyles = makeStyles((theme) => {
       },
 
       '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
-        fontSize: '10px',
-        fontWeight: '500',
+        fontSize: fontSizeSmallest,
+        fontWeight: fontWeightRegular,
         color: theme.custom.colors.grayDark,
         marginTop: '8px',
         [theme.breakpoints.up('md')]: {
-          fontSize: '12px',
+          fontSize: fontSizeSmaller,
         },
       },
 

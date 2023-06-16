@@ -7,6 +7,7 @@ import {
   DialogContent,
   Grid,
   InputLabel,
+  Typography,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { saveAs } from 'file-saver';
@@ -28,6 +29,7 @@ import { useSendLink } from '~/hooks/url';
 import { useUserdata } from '~/hooks/username';
 import translate from '~/services/locale';
 import { validateAmount, validatePaymentNote } from '~/services/token';
+import { fontSizeSmaller } from '~/styles/fonts';
 
 const QR_CODE_WIDTH = 1024;
 const QR_CODE_SCALE = 2;
@@ -40,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     color: theme.palette.text.primary,
     fontWeight: theme.typography.fontWeightMedium,
-    fontSize: 12,
+    fontSize: fontSizeSmaller,
   },
 }));
 
@@ -130,7 +132,9 @@ const QRGenerator = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <InputLabel className={classes.inputLabel} htmlFor="receiver">
-                {translate('QRGenerator.formReceiver')}
+                <Typography variant="h4">
+                  {translate('QRGenerator.formReceiver')}
+                </Typography>
               </InputLabel>
               <Card>
                 <CardHeader
@@ -138,7 +142,7 @@ const QRGenerator = () => {
                   classes={{
                     root: classes.cardHeader,
                   }}
-                  title={`@${username}`}
+                  title={<Typography variant="h5">@{username}</Typography>}
                 />
               </Card>
             </Grid>

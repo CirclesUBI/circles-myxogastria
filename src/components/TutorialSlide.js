@@ -6,8 +6,6 @@ import React from 'react';
 const useStyles = makeStyles(() => ({
   textContainer: {
     textAlign: 'center',
-    fontSize: '1rem',
-    fontWeight: '300',
   },
 }));
 
@@ -30,10 +28,12 @@ const TutorialSlide = ({ image, heading, body }) => {
   return (
     <Box padding={4} paddingTop={9}>
       <TutorialSlideImage image={image} />
-      <Typography align="center" gutterBottom variant="h6">
+      <Typography align="center" gutterBottom variant="h2">
         {heading}
       </Typography>
-      <Box className={classes.textContainer}>{body}</Box>
+      <Box className={classes.textContainer}>
+        <Typography variant="body1">{body}</Typography>
+      </Box>
     </Box>
   );
 };
