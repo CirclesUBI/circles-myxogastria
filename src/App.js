@@ -46,16 +46,8 @@ const useStyles = makeStyles((theme) => {
         boxShadow: theme.custom.shadows.lightGray,
         color: theme.custom.colors.purple,
         textAlign: 'center',
-        '& span': {
-          background: theme.custom.gradients.lightPinkToPurple,
-          '-webkit-background-clip': 'text',
-          '-webkit-text-fill-color': 'transparent',
-        },
         '& div': {
           paddingLeft: '0px',
-          background: theme.custom.gradients.lightPinkToPurple,
-          '-webkit-background-clip': 'text',
-          '-webkit-text-fill-color': 'transparent',
         },
       },
       '&.notistack-MuiContent-info': {

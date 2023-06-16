@@ -31,8 +31,6 @@ const moveUpFront = (theme) => ({
 });
 const useStyles = makeStyles((theme) => ({
   dotList: {
-    fontSize: '16px',
-    fontWeight: '300',
     paddingTop: '4px',
     paddingBottom: '4px',
     paddingLeft: '15px',
@@ -75,12 +73,6 @@ const useStyles = makeStyles((theme) => ({
   },
   userStepSeedPhraseTxtContainer: {
     padding: '0 45px',
-  },
-  userStepSeedPhraseLink: {
-    fontSize: '16px',
-    fontWeight: 300,
-    marginTop: '10px',
-    display: 'block',
   },
   buttonCopyToClipboard: {
     height: '43.5px',
@@ -164,7 +156,11 @@ const Onboarding = () => {
 
       dispatch(
         notify({
-          text: translate('Onboarding.successOnboardingComplete'),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('Onboarding.successOnboardingComplete')}
+            </Typography>
+          ),
           type: NotificationsTypes.SUCCESS,
         }),
       );
@@ -175,9 +171,13 @@ const Onboarding = () => {
 
       dispatch(
         notify({
-          text: translate('Onboarding.errorSignup', {
-            errorMessage,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('Onboarding.errorSignup', {
+                errorMessage,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -254,7 +254,7 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
 
   return (
     <Box className={classes.userStepEmailContainer}>
-      <Typography align="center" gutterBottom variant="h6">
+      <Typography align="center" gutterBottom variant="h2">
         {translate('Onboarding.headingEmail')}
       </Typography>
       <Box mt={3}>
@@ -265,7 +265,7 @@ const OnboardingStepEmail = ({ values, onDisabledChange, onChange }) => {
           onStatusChange={handleEmailStatus}
         />
         <Box mb={3} mt={6}>
-          <Typography className="lightGreyText">
+          <Typography variant="body4">
             {translate('Onboarding.bodyEmail')}
           </Typography>
         </Box>
@@ -292,7 +292,7 @@ const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
 
   return (
     <Box className={classes.userStepUsernameContainer}>
-      <Typography align="center" gutterBottom variant="h6">
+      <Typography align="center" gutterBottom variant="h2">
         {translate('Onboarding.headingUsername')}
       </Typography>
       <Box mt={3}>
@@ -304,10 +304,10 @@ const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
         />
       </Box>
       <Box mb={3} mt={6}>
-        <Typography className="lightGreyText" paragraph>
+        <Typography paragraph variant="body1">
           {translate('Onboarding.bodyUsername')}
         </Typography>
-        <Typography className="lightGreyText" paragraph>
+        <Typography paragraph>
           {translate('Onboarding.bodyGuidelinesUsername')}
         </Typography>
       </Box>
@@ -332,7 +332,7 @@ const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
 
   return (
     <Box className={classes.userStepAvatarContainer}>
-      <Typography align="center" gutterBottom variant="h6">
+      <Typography align="center" gutterBottom variant="h2">
         {translate('Onboarding.headingAvatar')}
       </Typography>
       <Box mt={4}>
@@ -360,13 +360,13 @@ const OnboardingStepSecureWallet = ({ onDisabledChange }) => {
 
   const dialogContent = (
     <Box className={classes.dialogContentContainer}>
-      <Typography paragraph>
+      <Typography paragraph variant="body4">
         {translate('Onboarding.bodyAboutSeedPhraseP1')}
       </Typography>
-      <Typography paragraph>
+      <Typography paragraph variant="body4">
         {translate('Onboarding.bodyAboutSeedPhraseP2')}
       </Typography>
-      <Typography paragraph>
+      <Typography paragraph variant="body4">
         {translate('Onboarding.bodyAboutSeedPhraseP3')}
       </Typography>
     </Box>
@@ -385,18 +385,23 @@ const OnboardingStepSecureWallet = ({ onDisabledChange }) => {
         isOpen={isOpen}
         title={translate('Onboarding.headingAboutSeedPhrase')}
       />
-      <Typography align="center" gutterBottom variant="h6">
+      <Typography align="center" gutterBottom variant="h2">
         {translate('Onboarding.headingSecureWallet')}
       </Typography>
       <Box className={classes.userStepSecureWalletBodyTxt}>
-        <Typography className="lightGreyText" paragraph>
+        <Typography paragraph>
           {translate('Onboarding.bodySecureWalletP1A')}
-          <ExternalLink href="#" underline="hover" onClick={handleOpen}>
+          <ExternalLink
+            classes={{ root: 'body3_link_gradient' }}
+            href="#"
+            variant="body3"
+            onClick={handleOpen}
+          >
             {translate('Onboarding.bodySecureWalletP1Link')}
           </ExternalLink>
           {translate('Onboarding.bodySecureWalletP1B')}
         </Typography>
-        <Typography className="lightGreyText" paragraph>
+        <Typography paragraph>
           {translate('Onboarding.bodySecureWalletP2')}
         </Typography>
       </Box>
@@ -429,20 +434,28 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
 
   const dialogContent = (
     <Box p={2}>
-      <Typography align="left" paragraph>
+      <Typography align="left" paragraph variant="body4">
         {translate('Onboarding.bodySaveSeedPhraseHelper')}
       </Typography>
       <li className={classes.dotList}>
-        {translate('Onboarding.listItemSaveSeedPhraseHelper1')}
+        <Typography variant="body4">
+          {translate('Onboarding.listItemSaveSeedPhraseHelper1')}
+        </Typography>
       </li>
       <li className={classes.dotList}>
-        {translate('Onboarding.listItemSaveSeedPhraseHelper2')}
+        <Typography variant="body4">
+          {translate('Onboarding.listItemSaveSeedPhraseHelper2')}
+        </Typography>
       </li>
       <li className={classes.dotList}>
-        {translate('Onboarding.listItemSaveSeedPhraseHelper3')}
+        <Typography variant="body4">
+          {translate('Onboarding.listItemSaveSeedPhraseHelper3')}
+        </Typography>
       </li>
       <li className={classes.dotList}>
-        {translate('Onboarding.listItemSaveSeedPhraseHelper4')}
+        <Typography variant="body4">
+          {translate('Onboarding.listItemSaveSeedPhraseHelper4')}
+        </Typography>
       </li>
     </Box>
   );
@@ -456,25 +469,21 @@ const OnboardingStepSeedPhrase = ({ onDisabledChange }) => {
         isOpen={isOpen}
         title={translate('Onboarding.headingSaveSeedPhraseHelper')}
       />
-      <Typography align="center" gutterBottom variant="h6">
+      <Typography align="center" gutterBottom variant="h2">
         {translate('Onboarding.headingSeedPhrase')}
       </Typography>
       <Box className={classes.userStepSeedPhraseTxtContainer}>
-        <Typography className="lightGreyText">
-          {translate('Onboarding.bodySeedPhrase')}
-        </Typography>
+        <Typography>{translate('Onboarding.bodySeedPhrase')}</Typography>
       </Box>
       <Box my={1}>
         <Mnemonic text={mnemonic} />
       </Box>
       <Box mb={1}>
-        <Typography className="lightGreyText">
-          {translate('Onboarding.footerSeedPhrase')}
-        </Typography>
+        <Typography>{translate('Onboarding.footerSeedPhrase')}</Typography>
         <ExternalLink
-          className={classes.userStepSeedPhraseLink}
+          classes={{ root: 'body3_link_gradient' }}
           href="#"
-          underline="hover"
+          variant="body3"
           onClick={handleOpen}
         >
           {translate('Onboarding.linkHelperSaveSeedPhrase')}
@@ -513,7 +522,7 @@ const OnboardingStepSeedChallenge = ({ onDisabledChange }) => {
 
   return (
     <Box className={classes.userStepSeedChallenge}>
-      <Typography align="center" gutterBottom variant="h6">
+      <Typography align="center" gutterBottom variant="h2">
         {translate('Onboarding.headingSeedPhraseChallenge')}
       </Typography>
       <Typography>

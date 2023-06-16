@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { fontSizeLargest } from '~/styles/fonts';
 import {
   IconTrust,
   IconTrustActive,
@@ -129,7 +130,7 @@ const ButtonTrust = ({
       <Box className={classes.trustButtonContainer}>
         <IconWobblyCircle className={classes.trustButtonIconBackground} />
         {trustStatus.isPending ? (
-          <CircularProgress size={24} />
+          <CircularProgress size={fontSizeLargest} />
         ) : (
           <TrustIcon className={classes.trustButtonIcon} />
         )}

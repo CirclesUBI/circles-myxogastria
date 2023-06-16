@@ -5,10 +5,13 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  Typography,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
+
+import { fontSizeSmaller } from '~/styles/fonts';
 
 const useStyles = makeStyles((theme) => {
   const textColor = (isOrganization) => {
@@ -27,7 +30,7 @@ const useStyles = makeStyles((theme) => {
     inputLabel: {
       transform: 'translate(28px, -6px)',
       background: theme.custom.colors.white,
-      fontSize: '12px',
+      fontSize: fontSizeSmaller,
       padding: '2px 6px',
       transition: 'none',
       color: textColor,
@@ -65,7 +68,7 @@ const useStyles = makeStyles((theme) => {
       position: 'absolute',
       padding: '2px 6px',
       bottom: '-6px',
-      fontSize: '12px',
+      fontSize: fontSizeSmaller,
       right: '30px',
       background: theme.custom.colors.white,
       borderRadius: '10px',
@@ -225,7 +228,9 @@ const Input = ({
         />
         {isError && errorMessage && (
           <FormHelperText className={classes.formHelperText}>
-            {errorMessage}
+            <Typography classes={{ root: 'body6_pink' }} variant="body6">
+              {errorMessage}
+            </Typography>
           </FormHelperText>
         )}
       </FormControl>

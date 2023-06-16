@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -13,13 +12,6 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { untrustUser } from '~/store/trust/actions';
 import logError from '~/utils/debug';
 
-const useStyles = makeStyles((theme) => ({
-  paragraph: {
-    color: theme.custom.colors.grayLightest,
-    fontWeight: 500,
-  },
-}));
-
 const DialogTrustRevoke = ({
   address,
   isOpen,
@@ -28,7 +20,6 @@ const DialogTrustRevoke = ({
   onConfirm,
   onError,
 }) => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const { username } = useUserdata(address);
 
@@ -45,9 +36,13 @@ const DialogTrustRevoke = ({
 
       dispatch(
         notify({
-          text: translate('DialogTrustRevoke.successRevokeTrust', {
-            username,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('DialogTrustRevoke.successRevokeTrust', {
+                username,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.INFO,
         }),
       );
@@ -58,9 +53,13 @@ const DialogTrustRevoke = ({
 
       dispatch(
         notify({
-          text: translate('DialogTrustRevoke.errorRevokeTrust', {
-            username,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('DialogTrustRevoke.errorRevokeTrust', {
+                username,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -77,16 +76,23 @@ const DialogTrustRevoke = ({
       confirmLabel={translate('DialogTrustRevoke.dialogRevokeTrustConfirm')}
       id="revoke-trust"
       open={isOpen}
-      title={translate('DialogTrustRevoke.dialogRevokeTrustTitle', {
-        username,
-      })}
+      title={
+        <Typography classes={{ root: 'h4_link_white' }} variant="h4">
+          {translate('DialogTrustRevoke.dialogRevokeTrustTitle', { username })}
+        </Typography>
+      }
       onClose={handleRevokeTrustClose}
       onConfirm={handleRevokeTrust}
     >
       <Box display="flex" justifyContent="center" mb={2}>
         <Avatar address={address} size="medium" />
       </Box>
-      <Typography className={classes.paragraph} paragraph>
+      <Typography
+        align="center"
+        classes={{ root: 'body1_white' }}
+        paragraph
+        variant="body1"
+      >
         {translate('DialogTrustRevoke.dialogRevokeTrustDescription', {
           username,
         })}

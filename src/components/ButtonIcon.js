@@ -5,10 +5,12 @@ import React from 'react';
 
 import { iconSelector } from '../styles/icons';
 
+import { fontSizeSmaller, fontWeightRegular } from '~/styles/fonts';
+
 const useStyles = makeStyles((theme) => ({
   button: {
-    fontWeight: '400',
-    fontSize: '12px',
+    fontWeight: fontWeightRegular,
+    fontSize: fontSizeSmaller,
     color: theme.custom.colors.violet,
     textTransform: 'none',
     '&:hover': {

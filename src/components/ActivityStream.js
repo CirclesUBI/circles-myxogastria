@@ -64,19 +64,10 @@ const useStyles = makeStyles((theme) => ({
       background: theme.custom.gradients.purple,
     },
   },
-  cardHeaderContent: {
-    fontWeight: theme.typography.fontWeight,
-  },
-  cardHeaderSubheader: {
-    fontWeight: theme.typography.fontWeightLight,
-    fontSize: '0.8rem',
-  },
   cardHeaderAction: {
     marginTop: 0,
     marginRight: theme.spacing(0.25),
     alignSelf: 'center',
-    fontSize: '2rem',
-    fontWeight: theme.typography.fontWeightLight,
   },
   cardContent: {
     paddingTop: 0,
@@ -85,13 +76,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cardContentText: {
-    fontSize: '0.8rem',
     paddingBottom: theme.spacing(1),
   },
   cardContentPaymentNote: {
     margin: 0,
     paddingBottom: 0,
-    fontSize: '0.8rem',
     wordWrap: 'break-word',
     fontWeight: theme.typography.fontWeightMedium,
   },
@@ -237,7 +226,16 @@ const ActivityStreamItem = (props) => {
       return;
     }
     const prefix = data.from === props.safeAddress ? '-' : '+';
-    return `${prefix}${data.value}`;
+    return (
+      <Typography
+        classes={{ root: prefix === '+' ? 'h1_blue' : 'h1_violet' }}
+        component="span"
+        variant="h1"
+      >
+        {prefix}
+        {data.value}
+      </Typography>
+    );
   }, [data, props.safeAddress]);
 
   const message = useMemo(() => {
@@ -279,15 +277,16 @@ const ActivityStreamItem = (props) => {
           content: classes.cardHeaderContent,
           subheader: classes.cardHeaderSubheader,
         }}
-        subheader={formattedDate}
-        title={message}
+        subheader={
+          <Typography classes={{ root: 'body6_monochrome' }} variant="body6">
+            {formattedDate}
+          </Typography>
+        }
+        title={<Typography variant="h5">{message}</Typography>}
         onClick={handleClick}
       />
       <Collapse in={isExpanded}>
-        <CardContent
-          // className={classes.cardContent}
-          classes={{ root: classes.cardContent }}
-        >
+        <CardContent classes={{ root: classes.cardContent }}>
           <ActivityStreamExplained
             actor={actor}
             data={data}
@@ -337,20 +336,18 @@ const ActivityStreamExplained = ({
       )}
       <Typography
         className={classes.cardContentText}
-        color="textSecondary"
         component="p"
-        variant="body1"
+        variant="body4"
       >
         {text}
       </Typography>
       <Typography
         className={classes.cardContentText}
-        color="textSecondary"
         component="p"
-        variant="body1"
+        variant="body4"
       >
         {translate('ActivityStream.bodyExplainSecondary')}{' '}
-        <ExternalLink href={FAQ_URL} underline="hover">
+        <ExternalLink classes="body5_link" href={FAQ_URL} variant="body5">
           {translate('ActivityStream.linkLearnMore')}
         </ExternalLink>
       </Typography>
@@ -368,7 +365,6 @@ const ActivityStreamPaymentNote = ({ txHash }) => {
         <Divider className={classes.divider} light />
         <Typography
           className={classes.cardContentPaymentNote}
-          color="textSecondary"
           component="p"
           variant="body1"
         >

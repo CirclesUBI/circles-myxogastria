@@ -13,8 +13,7 @@ import React, { Fragment } from 'react';
 import CirclesLogoSVG from '%/images/logo.svg';
 import Avatar from '~/components/Avatar';
 import { useUserdata } from '~/hooks/username';
-
-const fontSize = 12;
+import { fontSizeSmaller } from '~/styles/fonts';
 
 const useStyles = makeStyles((theme) => ({
   cardContainer: {
@@ -27,20 +26,14 @@ const useStyles = makeStyles((theme) => ({
   cardHeaderContent: {
     display: 'inline-flex',
     alignItems: 'center',
-    fontSize,
+    fontSize: fontSizeSmaller,
     '& > *': {
       marginRight: theme.spacing(0.5),
     },
   },
   inputLabel: {
     marginBottom: theme.spacing(1),
-    color: theme.palette.text.primary,
-    fontWeight: theme.typography.fontWeightMedium,
-    fontSize: '18px',
     textAlign: 'left',
-  },
-  text: {
-    color: theme.custom.colors.grayDarkest,
   },
 }));
 
@@ -57,7 +50,7 @@ const TransferInfoCard = ({
   return (
     <Fragment>
       <InputLabel className={classes.inputLabel} htmlFor="receiver">
-        {label}
+        <Typography variant="h4">{label}</Typography>
       </InputLabel>
       <Card className={classes.cardContainer}>
         <CardHeader
@@ -66,13 +59,21 @@ const TransferInfoCard = ({
           subheader={
             <Tooltip arrow title={tooltip}>
               <Typography className={classes.cardHeaderContent} component="div">
-                <CirclesLogoSVG height={fontSize} width={fontSize} />
-                <span className={classes.text}>{text}</span>
-                {isLoading && <CircularProgress size={fontSize} />}
+                <CirclesLogoSVG
+                  height={fontSizeSmaller}
+                  width={fontSizeSmaller}
+                />
+                <Typography
+                  classes={{ root: 'body6_monochrome' }}
+                  variant="body6"
+                >
+                  {text}
+                </Typography>
+                {isLoading && <CircularProgress size={fontSizeSmaller} />}
               </Typography>
             </Tooltip>
           }
-          title={`@${username}`}
+          title={<Typography variant="h5">{`@${username}`}</Typography>}
         />
       </Card>
     </Fragment>

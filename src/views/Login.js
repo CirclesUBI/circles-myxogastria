@@ -72,7 +72,11 @@ const Login = () => {
 
       dispatch(
         notify({
-          text: translate('Login.successWelcome'),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('Login.successWelcome')}
+            </Typography>
+          ),
           type: NotificationsTypes.SUCCESS,
         }),
       );
@@ -86,7 +90,11 @@ const Login = () => {
 
       dispatch(
         notify({
-          text: translate(translationId),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate(translationId)}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
           lifetime: 10000,
         }),
@@ -110,7 +118,7 @@ const Login = () => {
             <LoginIconSVG></LoginIconSVG>
           </Box>
           <Box mb={7} mt={14}>
-            <Typography align="center" gutterBottom variant="h6">
+            <Typography align="center" gutterBottom variant="h2">
               {translate('Login.headingLogin')}
             </Typography>
             <Typography className={classes.textContainer} variant="body1">
@@ -129,15 +137,24 @@ const Login = () => {
               />
             </Paper>
           </Box>
-          <Typography align="center">
+          <Typography align="center" variant="body1">
             {translate('Login.bodyLostYourSeedPhrase')}{' '}
-            <MuiLink component={Link} to={ONBOARDING_PATH} underline="hover">
+            <MuiLink
+              classes={{ root: 'body3_link_gradient' }}
+              component={Link}
+              to={ONBOARDING_PATH}
+              variant="body3"
+            >
               {translate('Login.buttonCreateNewWallet')}
             </MuiLink>
           </Typography>
-          <Typography align="center">
+          <Typography align="center" variant="body1">
             {translate('Login.bodyNeedHelp')}{' '}
-            <ExternalLink href={EMAIL_URL} underline="hover">
+            <ExternalLink
+              classes={{ root: 'body3_link_gradient' }}
+              href={EMAIL_URL}
+              variant="body3"
+            >
               {translate('Login.linkSupport')}
             </ExternalLink>
           </Typography>

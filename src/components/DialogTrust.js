@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -15,20 +14,6 @@ import { trustUser } from '~/store/trust/actions';
 import { FAQ_URL } from '~/utils/constants';
 import logError from '~/utils/debug';
 
-const useStyles = makeStyles((theme) => ({
-  paragraph: {
-    color: theme.custom.colors.grayLightest,
-    fontWeight: 500,
-  },
-  link: {
-    color: theme.custom.colors.grayLightest,
-
-    '& p': {
-      fontWeight: 500,
-    },
-  },
-}));
-
 const DialogTrust = ({
   address,
   isOpen,
@@ -37,7 +22,6 @@ const DialogTrust = ({
   onConfirm,
   onError,
 }) => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const { username } = useUserdata(address);
 
@@ -54,9 +38,13 @@ const DialogTrust = ({
 
       dispatch(
         notify({
-          text: translate('DialogTrust.successTrust', {
-            username,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('DialogTrust.successTrust', {
+                username,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.INFO,
         }),
       );
@@ -67,9 +55,13 @@ const DialogTrust = ({
 
       dispatch(
         notify({
-          text: translate('DialogTrust.errorTrust', {
-            username,
-          }),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('DialogTrust.errorTrust', {
+                username,
+              })}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
         }),
       );
@@ -86,18 +78,32 @@ const DialogTrust = ({
       confirmLabel={translate('DialogTrust.dialogTrustConfirm')}
       id="trust"
       open={isOpen}
-      title={translate('DialogTrust.dialogTrustTitle', { username })}
+      title={
+        <Typography classes={{ root: 'h4_link_white' }} variant="h4">
+          {translate('DialogTrust.dialogTrustTitle', { username })}
+        </Typography>
+      }
       onClose={handleTrustClose}
       onConfirm={handleTrust}
     >
       <Box display="flex" justifyContent="center" mb={2}>
         <Avatar address={address} size="medium" />
       </Box>
-      <Typography className={classes.paragraph} paragraph>
+      <Typography
+        align="center"
+        classes={{ root: 'body1_white' }}
+        paragraph
+        variant="body1"
+      >
         {translate('DialogTrust.dialogTrustDescription', { username })}
       </Typography>
-      <ExternalLink className={classes.link} href={FAQ_URL}>
-        <Typography paragraph sx={{ textDecoration: 'underline' }}>
+      <ExternalLink href={FAQ_URL}>
+        <Typography
+          align="center"
+          classes={{ root: 'body3_link' }}
+          paragraph
+          variant="body3"
+        >
           {translate('DialogAddMember.linkLearnMore')}
         </Typography>
       </ExternalLink>

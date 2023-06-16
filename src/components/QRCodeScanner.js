@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import { Backdrop, Box, CircularProgress } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
@@ -101,9 +102,13 @@ const QRCodeScannerInner = ({ onSuccess, onError }) => {
       } catch (error) {
         dispatch(
           notify({
-            text: translate('QRCodeScanner.notificationError', {
-              error: error.message || 'Undefined error',
-            }),
+            text: (
+              <Typography classes={{ root: 'body4_white' }} variant="body4">
+                {translate('QRCodeScanner.notificationError', {
+                  error: error.message || 'Undefined error',
+                })}
+              </Typography>
+            ),
             type: NotificationsTypes.ERROR,
           }),
         );

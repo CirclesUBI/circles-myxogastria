@@ -112,10 +112,12 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
         dispatch(
           notify({
             text: (
-              <span
+              <Typography
+                classes={{ root: 'body4_white' }}
                 dangerouslySetInnerHTML={{
                   __html: translate('ExportStatement.exportSuccessful'),
                 }}
+                variant="body4"
               />
             ),
             type: NotificationsTypes.SUCCESS,
@@ -125,7 +127,11 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
         logError(error);
         dispatch(
           notify({
-            text: translateErrorForUser(error),
+            text: (
+              <Typography classes={{ root: 'body4_white' }} variant="body4">
+                {translateErrorForUser(error)}
+              </Typography>
+            ),
             type: NotificationsTypes.ERROR,
           }),
         );
@@ -191,19 +197,16 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
       onClose={onCloseHandler}
     >
       <Box className={classes.drawerContentContainer}>
-        <Typography variant="bodyTitle">
+        <Typography variant="h2">
           {translate('ExportStatement.exportWallet')}
         </Typography>
-        <Typography
-          sx={{ lineHeight: '140%', fontWeight: '400' }}
-          variant="bodyTitle"
-        >
-          @{username}
+        <Typography variant="h3">@{username}</Typography>
+        <Typography classes={{ root: 'body6_monochrome' }} variant="body6">
+          {safeAddress}
         </Typography>
-        <Typography variant="bodySmall">{safeAddress}</Typography>
         <Line className={classes.lineGrey} />
         <Box className={classes.dateContainer}>
-          <Typography variant="bodyTitle">
+          <Typography sx={{ mb: '11px' }} variant="h2">
             {translate('ExportStatement.exportTimeSpan')}
           </Typography>
           <Box className={classes.dateInputsContainer}>
@@ -243,22 +246,18 @@ const DialogExportStatement = ({ dialogOpen, onCloseHandler }) => {
           </Box>
         </Box>
         <Box className={classes.helperDate}>
-          <Typography variant="bodyText">
-            {translate('ExportStatement.exportHelper')}
-          </Typography>
+          <Typography>{translate('ExportStatement.exportHelper')}</Typography>
         </Box>
         <Line className={classes.lineLightGrey} />
-        <Typography variant="bodyTitle">
+        <Typography variant="h2">
           {translate('ExportStatement.exportFormat')}
         </Typography>
-        <Typography variant="bodyText">
-          {translate('ExportStatement.exportInfoText')}
-        </Typography>
+        <Typography>{translate('ExportStatement.exportInfoText')}</Typography>
       </Box>
       <Box className={classes.btnContainer}>
         {isDownloading && (
           <Box className={classes.loadingTextContainer}>
-            <Typography variant="bodySmall">
+            <Typography classes={{ root: 'body6_monochrome' }} variant="body6">
               {translate('ExportStatement.exportLoadingText')}
             </Typography>
           </Box>

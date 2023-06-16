@@ -1,4 +1,4 @@
-import { Avatar, Box, CircularProgress } from '@mui/material';
+import { Avatar, Box, CircularProgress, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import mime from 'mime/lite';
 import PropTypes from 'prop-types';
@@ -83,7 +83,11 @@ const AvatarUploader = ({
     } catch (error) {
       dispatch(
         notify({
-          text: translate('AvatarUploader.errorAvatarUpload'),
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translate('AvatarUploader.errorAvatarUpload')}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
         }),
       );

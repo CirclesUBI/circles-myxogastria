@@ -19,8 +19,6 @@ import { IconSend } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   dialogPaymentNote: {
-    fontWeight: theme.typography.fontWeightRegular,
-    color: theme.palette.grey['900'],
     wordWrap: 'break-word',
   },
   sendIcon: {
@@ -56,7 +54,7 @@ const SendConfirmDialog = ({
       onClose={handleConfirmClose}
     >
       <DialogContent>
-        <Typography align="center" variant="h6">
+        <Typography align="center" variant="h2">
           @{sender}
         </Typography>
         {isConfirmationShown && (
@@ -106,12 +104,12 @@ const SendConfirmDialog = ({
             <Typography align="center" mb={6}>
               {translate('SendConfirm.transferringCirclesInfo')}
             </Typography>
-            <Box mb={6} mt={1}>
-              <ExternalLink
-                href={FAQ_TRANSITIVE_TRANSFERS_URL}
-                type="underline"
-              >
-                <Typography align="center">
+            <Box align="center" mb={6} mt={1}>
+              <ExternalLink href={FAQ_TRANSITIVE_TRANSFERS_URL}>
+                <Typography
+                  classes={{ root: 'body3_link_violet' }}
+                  variant="body3"
+                >
                   {translate('SendConfirm.readMoreLink')}
                 </Typography>
               </ExternalLink>

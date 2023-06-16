@@ -4,12 +4,14 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { fontSizeSmaller } from '~/styles/fonts';
+
 const useStyles = makeStyles((theme) => ({
   tab: {
     padding: '11px 8px 0',
     textTransform: 'none',
-    fontWeight: theme.typography.fontWeightLight,
-    fontSize: 12,
+    fontWeight: theme.typography.fontWeightRegular,
+    fontSize: fontSizeSmaller,
     color: theme.custom.colors.lily,
     borderBottom: '1px solid transparent',
     '& g, & path': {

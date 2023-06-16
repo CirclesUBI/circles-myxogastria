@@ -4,6 +4,7 @@ import {
   DialogContentText,
   DialogTitle,
   Dialog as MuiDialog,
+  Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -27,10 +28,12 @@ const Dialog = ({
       open={open}
       onClose={onClose}
     >
-      <DialogTitle id={`dialog-${id}-title`}>{title}</DialogTitle>
+      <DialogTitle id={`dialog-${id}-title`}>
+        <Typography variant="h4">{title}</Typography>
+      </DialogTitle>
       <DialogContent>
         <DialogContentText id={`dialog-${id}-description`}>
-          {text}
+          <Typography variant="body4">{text}</Typography>
         </DialogContentText>
       </DialogContent>
       <DialogActions>

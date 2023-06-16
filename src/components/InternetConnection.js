@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,7 +26,11 @@ const InternetConnection = () => {
       dispatch(
         notify({
           action: false,
-          text,
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {text}
+            </Typography>
+          ),
           type: NotificationsTypes.ERROR,
           lifetime: 259200, // 3 days
           icon: 'IconOffline',

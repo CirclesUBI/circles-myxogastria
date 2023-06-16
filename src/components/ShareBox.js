@@ -32,7 +32,7 @@ const ShareBox = ({ address }) => {
         <Box mb={2}>
           <Avatar address={address} size="medium" />
         </Box>
-        <Typography align="center" component="span" variant="h6">
+        <Typography align="center" component="span" variant="h2">
           <UsernameDisplay address={address} />
         </Typography>
       </QRCode>
