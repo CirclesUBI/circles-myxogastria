@@ -67,7 +67,7 @@ const ImageCapture = ({ onCapture, onError, width, userMediaConfig }) => {
         if (onError) onError(error);
       });
     /* eslint-disable react-hooks/exhaustive-deps */
-  }, [onError, userMediaConfig]);
+  }, [userMediaConfig]);
   /* eslint-enable react-hooks/exhaustive-deps */
 
   useEffect(() => {
