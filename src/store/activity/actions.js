@@ -139,13 +139,19 @@ export function checkFinishedActivities({
           const lastReceivedTransactionDate = DateTime.fromISO(
             getLastReceivedTransaction(),
           );
+
           for await (const receivedTransferActivity of activities) {
             if (receivedTransferActivity.type === ActivityTypes.HUB_TRANSFER) {
               const receivedTransferActivityDate = DateTime.fromSeconds(
                 receivedTransferActivity.timestamp,
               );
-              if (receivedTransferActivityDate > lastReceivedTransactionDate) {
-                const sender = receivedTransferActivity?.data?.from;
+
+              const sender = receivedTransferActivity?.data?.from;
+
+              if (
+                receivedTransferActivityDate > lastReceivedTransactionDate &&
+                sender !== safe.currentAccount
+              ) {
                 let senderName = '';
                 const senderData = await resolveUsernames([sender], true);
                 if (sender in senderData) {
