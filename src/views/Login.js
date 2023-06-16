@@ -109,7 +109,11 @@ const Login = () => {
 
   return (
     <BackgroundCurved gradient="turquoise">
-      <Header>
+      <Header
+        hasWhiteIcons
+        isOrganization={false}
+        useSpecialWithColorOnScroll={true}
+      >
         <ButtonBack />
       </Header>
       <View>
