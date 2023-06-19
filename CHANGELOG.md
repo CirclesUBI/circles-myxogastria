@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.10.0] - 2023-06-19
+
+### Changed
+- New typography. Complete refactoring of text styles throughout the app. [#687](https://github.com/CirclesUBI/circles-myxogastria/pull/687)
+
+### Fixed
+- Removal of incorrectly duplicated transaction notifications. Notification that was intended for the receiver previously showed up for the sender by mistake. [#686](https://github.com/CirclesUBI/circles-myxogastria/pull/686)
+- Header styling and color in login view fixed. [#689](https://github.com/CirclesUBI/circles-myxogastria/pull/689)
+- Removed repeated notifications when camera access breaks for edit profile. Notification is now only shown once. [#690](https://github.com/CirclesUBI/circles-myxogastria/pull/690)
+
 # [2.9.2] - 2023-05-16
 
 ### Fixed
