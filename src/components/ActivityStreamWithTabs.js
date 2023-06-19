@@ -211,21 +211,13 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
           />
         </>
       )}
-      <ActivityStream
-        activities={activity.activities}
-        isLoading={isLoading}
-        isMoreAvailable={activity.isMoreAvailable}
-        lastSeenAt={lastSeenAt}
-        lastUpdatedAt={activity.lastUpdatedAt}
-        onLoadMore={handleLoadMore}
-      />
       {activity && (
         <ActivityStream
-          activities={activity?.activities}
+          activities={activity.activities}
           isLoading={isLoading}
-          isMoreAvailable={activity?.isMoreAvailable}
+          isMoreAvailable={activity.isMoreAvailable}
           lastSeenAt={lastSeenAt}
-          lastUpdatedAt={activity?.lastUpdatedAt}
+          lastUpdatedAt={activity.lastUpdatedAt}
           onLoadMore={handleLoadMore}
         />
       )}
