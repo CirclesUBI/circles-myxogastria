@@ -7,6 +7,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, useHistory } from 'react-router-dom';
 
+import { IconMegaphone } from '../styles/icons';
 import { ACTIVITIES_PATH } from '~/routes';
 
 import ActivityStream from '~/components/ActivityStream';
@@ -16,6 +17,7 @@ import DialogExportStatement from '~/components/DialogExportStatement';
 import Popover from '~/components/Popover';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
+import { useQuery } from '~/hooks/url';
 import { useIsOrganization } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
@@ -29,6 +31,7 @@ import {
 } from '~/utils/constants';
 
 const { ActivityFilterTypes } = core.activity;
+const { activities: newsActivities } = core.news;
 
 const DEFAULT_CATEGORY = ActivityFilterTypes.CONNECTIONS;
 
@@ -65,11 +68,15 @@ const useStyles = makeStyles(() => ({
   filterItemActive: {
     fontWeight: 700,
   },
+  tabNavigationContainer: {
+    marginBottom: '43px',
+  },
 }));
 
 const QUERY_FILTER_MAP = {
   transfers: ActivityFilterTypes.TRANSFERS,
   connections: ActivityFilterTypes.CONNECTIONS,
+  news: 'News',
 };
 
 const filterToQuery = (filterName) => {
@@ -83,6 +90,12 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const { category } = useQuery();
+  const preselectedCategory =
+    category in QUERY_FILTER_MAP
+      ? QUERY_FILTER_MAP[category]
+      : DEFAULT_CATEGORY;
 
   const [categorySetByUser, setCategorySetByUser] = useState(false);
   const [filterTransactionsIndex, setFilterTransactionIndex] = useState(0);
@@ -139,7 +152,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   );
 
   const activity = categories[selectedCategory];
-  const isLoading = activity.isLoadingMore || activity.lastUpdated === 0;
+  const isLoading = activity?.isLoadingMore || activity?.lastUpdated === 0;
 
   const handleLoadMore = () => {
     dispatch(loadMoreActivities(selectedCategory));
@@ -190,6 +203,13 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
       handleFilterSelection(null, category);
     }
   }, [handleFilterSelection]);
+  const handleLoadMoreNews = () => {};
+  const isLoadingMoreNews = false;
+  const isMoreAvailableNews = false;
+
+  const newNewsActivities = newsActivities.reduceRight((acc, activity) => {
+    return activity.createdAt > lastSeenAt ? acc + 1 : acc;
+  }, 0);
 
   const filterBtnHandler = (event) => {
     setAnchorEl(event.currentTarget);
@@ -208,8 +228,12 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   };
 
   return (
-    <Fragment>
-      <TabNavigation value={selectedCategory} onChange={handleFilterSelection}>
+    <>
+      <TabNavigation
+        className={classes.tabNavigationContainer}
+        value={selectedCategory}
+        onChange={handleFilterSelection}
+      >
         <TabNavigationAction
           icon={
             <BadgeTab
@@ -231,6 +255,16 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
           }
           label={translate('ActivityStreamWithTabs.bodyFilterConnections')}
           value={ActivityFilterTypes.CONNECTIONS}
+        />
+        <TabNavigationAction
+          icon={<IconMegaphone />}
+          itemsCounter={
+            preselectedCategory !== 'News' && newNewsActivities
+              ? newNewsActivities
+              : null
+          }
+          label={translate('ActivityStreamWithTabs.bodyFilterNews')}
+          value={'News'}
         />
       </TabNavigation>
       <Box className={classes.actionsContainer}>
@@ -296,7 +330,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
         lastUpdatedAt={activity.lastUpdatedAt}
         onLoadMore={handleLoadMore}
       />
-    </Fragment>
+    </>
   );
 };
 

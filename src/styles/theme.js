@@ -74,7 +74,7 @@ export const colors = {
   blackSqueeze: '#EDF7F8',
   wepeep: '#FAE9F0',
   lola: '#DED5DD',
-  cornflowerBlue: '#efeaef',
+  cornflowerBlue: '#efeaef80',
   lily: '#BDACBB',
   mineShaft: '#212121',
   oldLavender: '#7B5978',
@@ -111,6 +111,7 @@ const shadows = {
   navigationFloating: '0px 0px 4px rgba(45, 24, 43, 0.25)',
   lightGray: '0px 0px 4px rgba(204, 30, 102, 0.1)', //special, warning, error, notifications
   grayBottomRight: ' 1px 1px 4px rgba(204, 30, 102, 0.25)', //success notification
+  grayAround: '0px 0px 4px rgba(45, 24, 43, 0.25)',
 };
 
 const fontFamily = `"${fontFamilyNotoSans}"`;
