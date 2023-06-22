@@ -32,7 +32,8 @@
   },
   "ActivityStreamWithTabs": {
     "bodyFilterConnections": "Connections",
-    "bodyFilterTransactions": "Transactions"
+    "bodyFilterTransactions": "Transactions",
+    "bodyFilterNews": "News"
   },
   "App": {
     "errorUpdate": "Something went wrong, are you connected to the internet? {errorMessage}",
