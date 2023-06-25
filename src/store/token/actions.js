@@ -105,17 +105,12 @@ export function checkTokenState() {
       type: ActionTypes.TOKEN_UPDATE,
     });
 
+    const errorZeroAddress = `Invalid Token address for ${safe.currentAccount}`;
     try {
       const address = await core.token.getAddress(safe.currentAccount);
 
       if (address === ZERO_ADDRESS) {
-        dispatch(
-          notify({
-            text: translate('ErrorCodes.ErrorTokenNotDeployed'),
-            type: NotificationsTypes.ERROR,
-          }),
-        );
-        throw new Error(`Invalid Token address for ${safe.currentAccount}`);
+        throw new Error(errorZeroAddress);
       }
 
       dispatch({
@@ -126,9 +121,16 @@ export function checkTokenState() {
         },
       });
     } catch (error) {
-      dispatch({
-        type: ActionTypes.TOKEN_UPDATE_ERROR,
-      });
+      const action = error.message?.includes(errorZeroAddress)
+        ? notify({
+            text: translate('ErrorCodes.ErrorTokenNotDeployed'),
+            type: NotificationsTypes.ERROR,
+          })
+        : {
+            type: ActionTypes.TOKEN_UPDATE_ERROR,
+          };
+      dispatch(action);
+      logError(error);
 
       throw error;
     }
