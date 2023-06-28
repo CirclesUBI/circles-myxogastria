@@ -22,6 +22,11 @@ import translate from '~/services/locale';
 import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
 import { CATEGORIES } from '~/store/activity/reducers';
 import { IconConnections, IconTransactions } from '~/styles/icons';
+import {
+  FILTER_TRANSACTION_ALL,
+  FILTER_TRANSACTION_RECEIVED,
+  FILTER_TRANSACTION_SENT,
+} from '~/utils/constants';
 
 const { ActivityFilterTypes } = core.activity;
 
@@ -84,6 +89,9 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
 
   const [categorySetByUser, setCategorySetByUser] = useState(false);
   const [filterTransactionsIndex, setFilterTransactionIndex] = useState(0);
+  const [filterTransactionsType, setFilterTransactionType] = useState(
+    FILTER_TRANSACTION_ALL,
+  );
   const [anchorEl, setAnchorEl] = useState(null);
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
   const safeAddress = useSelector((state) => state.safe.currentAccount);
@@ -180,14 +188,25 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
     setAnchorEl(null);
   };
 
-  const filterItemClickHandler = (index) => {
+  const filterItemClickHandler = (index, type) => {
     setFilterTransactionIndex(index);
+    setFilterTransactionType(type);
+    setAnchorEl(null);
   };
 
   const filterItems = [
-    translate('Activities.filterAllTitle'),
-    translate('Activities.filterSentTitle'),
-    translate('Activities.filterReceivedTitle'),
+    {
+      title: translate('Activities.filterAllTitle'),
+      type: FILTER_TRANSACTION_ALL,
+    },
+    {
+      title: translate('Activities.filterSentTitle'),
+      type: FILTER_TRANSACTION_SENT,
+    },
+    {
+      title: translate('Activities.filterReceivedTitle'),
+      type: FILTER_TRANSACTION_RECEIVED,
+    },
   ];
 
   return (
@@ -241,9 +260,9 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
                 <Typography
                   className={className}
                   key={index}
-                  onClick={() => filterItemClickHandler(index)}
+                  onClick={() => filterItemClickHandler(index, item.type)}
                 >
-                  {item}
+                  {item.title}
                 </Typography>
               );
             })}
@@ -269,6 +288,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
       </Box>
       <ActivityStream
         activities={activity.activities}
+        filterType={filterTransactionsType}
         isLoading={isLoading}
         isMoreAvailable={activity.isMoreAvailable}
         lastSeenAt={lastSeenAt}

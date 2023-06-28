@@ -37,7 +37,13 @@ import {
   checkPendingActivities,
 } from '~/store/activity/actions';
 import { IconCloseOutline } from '~/styles/icons';
-import { FAQ_URL, ISSUANCE_RATE_MONTH, ZERO_ADDRESS } from '~/utils/constants';
+import {
+  FAQ_URL,
+  FILTER_TRANSACTION_RECEIVED,
+  FILTER_TRANSACTION_SENT,
+  ISSUANCE_RATE_MONTH,
+  ZERO_ADDRESS,
+} from '~/utils/constants';
 
 const { ActivityTypes } = core.activity;
 
@@ -94,6 +100,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ActivityStream = ({
   activities,
+  filterType,
   isLoading,
   isMoreAvailable,
   lastSeenAt,
@@ -116,6 +123,7 @@ const ActivityStream = ({
     <Fragment>
       <ActivityStreamList
         activities={activities}
+        filterType={filterType}
         lastSeenAt={lastSeenAt}
         lastUpdatedAt={lastUpdatedAt}
       />
@@ -135,7 +143,12 @@ const ActivityStream = ({
   );
 };
 
-const ActivityStreamList = ({ activities, lastSeenAt, lastUpdatedAt }) => {
+const ActivityStreamList = ({
+  activities,
+  filterType,
+  lastSeenAt,
+  lastUpdatedAt,
+}) => {
   const { safeAddress, walletAddress } = useSelector((state) => {
     return {
       safeAddress: state.safe.currentAccount,
@@ -167,6 +180,22 @@ const ActivityStreamList = ({ activities, lastSeenAt, lastUpdatedAt }) => {
             return acc;
           }
 
+          const info =
+            data.from === safeAddress
+              ? { prefix: '-', type: 'SENT' }
+              : { prefix: '+', type: 'RECEIVED' };
+
+          if (
+            filterType === FILTER_TRANSACTION_RECEIVED &&
+            info.type !== 'RECEIVED'
+          ) {
+            return acc;
+          }
+
+          if (filterType === FILTER_TRANSACTION_SENT && info.type !== 'SENT') {
+            return acc;
+          }
+
           const isSeen =
             DateTime.fromISO(lastSeenAt) > DateTime.fromISO(createdAt);
 
@@ -177,6 +206,7 @@ const ActivityStreamList = ({ activities, lastSeenAt, lastUpdatedAt }) => {
                 data={data}
                 isPending={isPending}
                 isSeen={isSeen}
+                prefix={info.prefix}
                 safeAddress={safeAddress}
                 txHash={txHash}
                 type={type}
@@ -225,18 +255,18 @@ const ActivityStreamItem = (props) => {
     if (!data.value) {
       return;
     }
-    const prefix = data.from === props.safeAddress ? '-' : '+';
+
     return (
       <Typography
-        classes={{ root: prefix === '+' ? 'h1_blue' : 'h1_violet' }}
+        classes={{ root: props.prefix === '+' ? 'h1_blue' : 'h1_violet' }}
         component="span"
         variant="h1"
       >
-        {prefix}
+        {props.prefix}
         {data.value}
       </Typography>
     );
-  }, [data, props.safeAddress]);
+  }, [data, props.prefix]);
 
   const message = useMemo(() => {
     return translate(`ActivityStream.bodyActivity${messageId}`, {
@@ -395,6 +425,7 @@ const ActivityStreamAvatars = ({ addressOrigin, addressTarget }) => {
 
 ActivityStream.propTypes = {
   activities: PropTypes.array.isRequired,
+  filterType: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
   isMoreAvailable: PropTypes.bool.isRequired,
   lastSeenAt: PropTypes.string,
@@ -404,6 +435,7 @@ ActivityStream.propTypes = {
 
 ActivityStreamList.propTypes = {
   activities: PropTypes.array.isRequired,
+  filterType: PropTypes.string,
   lastSeenAt: PropTypes.string,
   lastUpdatedAt: PropTypes.string,
 };
@@ -413,6 +445,7 @@ ActivityStreamItem.propTypes = {
   data: PropTypes.object.isRequired,
   isPending: PropTypes.bool.isRequired,
   isSeen: PropTypes.bool.isRequired,
+  prefix: PropTypes.string,
   safeAddress: PropTypes.string.isRequired,
   txHash: PropTypes.string.isRequired,
   type: PropTypes.symbol.isRequired,
