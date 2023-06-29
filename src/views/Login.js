@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 import { ONBOARDING_PATH } from '~/routes';
 
-import LoginIconSVG from '%/images/login.svg';
+import CirclesLogoYellowSVG from '%/images/circles-yellow.svg';
 import AppNote from '~/components/AppNote';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import Button from '~/components/Button';
@@ -46,7 +46,16 @@ const useStyles = makeStyles((theme) => ({
 
   loginImg: {
     textAlign: 'center',
-    marginTop: '-41px',
+    marginTop: '8px',
+    [theme.breakpoints.up('sm')]: {
+      marginTop: '-22px',
+    },
+    [theme.breakpoints.up('md')]: {
+      marginTop: '-16px',
+    },
+    [theme.breakpoints.up('lg')]: {
+      marginTop: '-12px',
+    },
   },
 
   paperContainer: {
@@ -119,7 +128,7 @@ const Login = () => {
       <View>
         <Container className={classes.container} maxWidth="sm">
           <Box className={classes.loginImg}>
-            <LoginIconSVG></LoginIconSVG>
+            <CirclesLogoYellowSVG></CirclesLogoYellowSVG>
           </Box>
           <Box mb={7} mt={14}>
             <Typography align="center" gutterBottom variant="h2">

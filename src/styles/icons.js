@@ -8,6 +8,7 @@ import arrow from '%/images/arrow.svg';
 import bellRing from '%/images/bell-ring.svg';
 import browser from '%/images/browser.svg';
 import check from '%/images/check.svg';
+import circlesYellow from '%/images/circles-yellow.svg';
 import circles from '%/images/circles.svg';
 import closeOutline from '%/images/close-outline.svg';
 import close from '%/images/close.svg';
@@ -79,6 +80,10 @@ export const IconCheck = (props) => {
 
 export const IconCircles = (props) => {
   return <SvgIcon component={circles} viewBox="0 0 24 34" {...props} />;
+};
+
+export const IconCirclesYellow = (props) => {
+  return <SvgIcon component={circlesYellow} viewBox="0 0 69 69" {...props} />;
 };
 
 export const IconClose = (props) => {
@@ -260,6 +265,8 @@ export const iconSelector = (icon) => {
       return IconCheck;
     case 'IconCircles':
       return IconCircles;
+    case 'IconCirclesYellow':
+      return IconCirclesYellow;
     case 'IconClose':
       return IconClose;
     case 'IconCloseOutline':
