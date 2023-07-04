@@ -186,13 +186,10 @@ const ActivityStreamList = ({
               : { prefix: '+', type: 'RECEIVED' };
 
           if (
-            filterType === FILTER_TRANSACTION_RECEIVED &&
-            info.type !== 'RECEIVED'
+            (filterType === FILTER_TRANSACTION_RECEIVED &&
+              info.type !== 'RECEIVED') ||
+            (filterType === FILTER_TRANSACTION_SENT && info.type !== 'SENT')
           ) {
-            return acc;
-          }
-
-          if (filterType === FILTER_TRANSACTION_SENT && info.type !== 'SENT') {
             return acc;
           }
 
