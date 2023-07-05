@@ -92,6 +92,21 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const [filterTransactionsType, setFilterTransactionType] = useState(
     FILTER_TRANSACTION_ALL,
   );
+  const filterItems = [
+    {
+      title: translate('Activities.filterAllTitle'),
+      type: FILTER_TRANSACTION_ALL,
+    },
+    {
+      title: translate('Activities.filterSentTitle'),
+      type: FILTER_TRANSACTION_SENT,
+    },
+    {
+      title: translate('Activities.filterReceivedTitle'),
+      type: FILTER_TRANSACTION_RECEIVED,
+    },
+  ];
+  const [filterTitle, setFilterTitle] = useState(filterItems[0].title);
   const [anchorEl, setAnchorEl] = useState(null);
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
   const safeAddress = useSelector((state) => state.safe.currentAccount);
@@ -188,26 +203,12 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
     setAnchorEl(null);
   };
 
-  const filterItemClickHandler = (index, type) => {
+  const filterItemClickHandler = (index, type, title) => {
     setFilterTransactionIndex(index);
     setFilterTransactionType(type);
+    setFilterTitle(title);
     setAnchorEl(null);
   };
-
-  const filterItems = [
-    {
-      title: translate('Activities.filterAllTitle'),
-      type: FILTER_TRANSACTION_ALL,
-    },
-    {
-      title: translate('Activities.filterSentTitle'),
-      type: FILTER_TRANSACTION_SENT,
-    },
-    {
-      title: translate('Activities.filterReceivedTitle'),
-      type: FILTER_TRANSACTION_RECEIVED,
-    },
-  ];
 
   return (
     <Fragment>
@@ -242,7 +243,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
             icon="IconArrowDown"
             onClick={filterBtnHandler}
           >
-            {translate('Activities.filterAllTitle')}
+            {filterTitle}
           </ButtonIcon>
           <Popover
             anchorEl={anchorEl}
@@ -260,7 +261,9 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
                 <Typography
                   className={className}
                   key={index}
-                  onClick={() => filterItemClickHandler(index, item.type)}
+                  onClick={() =>
+                    filterItemClickHandler(index, item.type, item.title)
+                  }
                 >
                   {item.title}
                 </Typography>
