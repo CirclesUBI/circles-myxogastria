@@ -1,5 +1,4 @@
 import { Box, Dialog, IconButton, Slide, Typography } from '@mui/material';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -48,10 +47,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
   imageContainer: {
-    height: 230,
-    [theme.breakpoints.up('sm')]: {
-      height: 320,
-    },
+    height: 280,
   },
   slideBody: {
     maxWidth: 480,
@@ -69,13 +65,11 @@ const slides = [
     heading: translate('TutorialOrganization.slideHeading1'),
     body: translate('TutorialOrganization.slideBody1'),
     image: OrgTutorialStep1SVG,
-    imageScale: 0.9,
   },
   {
     heading: translate('TutorialOrganization.slideHeading2'),
     body: translate('TutorialOrganization.slideBody2'),
     image: OrgTutorialStep2SVG,
-    imageScale: 1.2,
   },
   {
     heading: translate('TutorialOrganization.slideHeading3'),
@@ -159,10 +153,7 @@ const TutorialOrganization = ({ onFinishTutorial }) => {
                 key={slide.heading}
                 p={1}
               >
-                <TutorialOrganizationImage
-                  image={slide.image}
-                  imageScale={slide.imageScale}
-                />
+                <TutorialOrganizationImage image={slide.image} />
                 <Typography variant="h2">{slide.heading}</Typography>
                 <Typography className={classes.slideBody} variant="body1">
                   {slide.body}
@@ -194,19 +185,14 @@ const TutorialOrganization = ({ onFinishTutorial }) => {
   );
 };
 
-const TutorialOrganizationImage = ({ image, imageScale }) => {
+const TutorialOrganizationImage = ({ image }) => {
   const classes = useStyles();
-  const matches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
 
   const ImageComponent = image;
-  const imageHeight = 180 * (imageScale || 1);
-  const imageHeightLarger = 250 * (imageScale || 1);
 
   return (
     <Box alignItems="center" className={classes.imageContainer} display="flex">
-      <ImageComponent
-        height={matches ? `${imageHeightLarger}px` : `${imageHeight}px`}
-      />
+      <ImageComponent />
     </Box>
   );
 };
@@ -217,7 +203,6 @@ TutorialOrganization.propTypes = {
 
 TutorialOrganizationImage.propTypes = {
   image: PropTypes.func.isRequired,
-  imageScale: PropTypes.number,
 };
 
 export default TutorialOrganization;
