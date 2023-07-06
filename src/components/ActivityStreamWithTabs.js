@@ -55,18 +55,15 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '189px',
   },
   filterItem: {
-    lineHeight: '140%',
-    fontWeight: 400,
-    color: theme.custom.colors.violet,
     cursor: 'pointer',
     margin: '0 0 12px',
+    display: 'block',
     '&:last-child': {
       marginBottom: '0',
     },
   },
   filterItemActive: {
     fontWeight: 700,
-    textDecoration: 'underline',
   },
 }));
 
@@ -261,6 +258,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
                 <Typography
                   className={className}
                   key={index}
+                  variant="body7"
                   onClick={() =>
                     filterItemClickHandler(index, item.type, item.title)
                   }
