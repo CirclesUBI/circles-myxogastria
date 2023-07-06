@@ -56,7 +56,7 @@ const Welcome = () => {
         </Box> */}
       </Header>
       <View>
-        <Logo size="large" type="yellow" />
+        <Logo size="large" />
         <Box mb={1} mt={3}>
           <Typography align="center" variant="h1">
             {translate('Welcome.headingWelcomeToCircles')}
