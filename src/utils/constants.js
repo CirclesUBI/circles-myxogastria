@@ -5,6 +5,8 @@ export const PATHFINDER_HOPS_DEFAULT = 3;
 export const NEEDED_TRUST_CONNECTIONS = 3;
 
 export const ABOUT_URL = 'https://joincircles.net';
+export const BUG_REPORTING_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSdczjck3RFE5VN5oSuge6aQWVAY7WA5RyIRYyFusj1kCSz0SQ/viewform';
 export const EMAIL_URL = 'mailto:hello@joincircles.net';
 export const FACEBOOK_URL = 'https://facebook.com/CirclesUBI';
 export const FAQ_URL = 'https://joincircles.net/faq';
