@@ -43,15 +43,21 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  btnContainer: {
+    '& svg': {
+      color: theme.custom.colors.violet,
+    },
+  },
   slideContainer: {
     height: '100%',
   },
   imageContainer: {
-    height: 280,
+    height: 235,
   },
   slideBody: {
-    maxWidth: 480,
+    maxWidth: 410,
     padding: 24,
+    textAlign: 'center',
   },
   footer: {
     margin: '0 auto',
@@ -126,6 +132,7 @@ const TutorialOrganization = ({ onFinishTutorial }) => {
         justifyContent="space-between"
       >
         <Box
+          className={classes.btnContainer}
           display="flex"
           justifyContent={isFirstSlide ? 'flex-end' : 'space-between'}
           padding={1}
