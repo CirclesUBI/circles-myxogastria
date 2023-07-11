@@ -32,7 +32,7 @@ const { ActivityFilterTypes } = core.activity;
 
 const DEFAULT_CATEGORY = ActivityFilterTypes.CONNECTIONS;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   exportContainer: {
     display: 'flex',
     justifyContent: 'flex-start',
