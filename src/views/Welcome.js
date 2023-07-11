@@ -99,7 +99,7 @@ const Welcome = () => {
           {translate('Welcome.linkFAQ')}
         </WelcomeExternalLink>
         <WelcomeExternalLink href={BUG_REPORTING_URL}>
-          {translate('Welcome.linkBugReporting')}
+          {translate('Navigation.linkBugReporting')}
         </WelcomeExternalLink>
         <WelcomeExternalLink href={EMAIL_URL}>
           {translate('Welcome.linkContactUs')}

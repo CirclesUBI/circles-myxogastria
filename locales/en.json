@@ -202,7 +202,6 @@
   },
   "NavigationFloating": {
     "linkAddMembers": "Add Members",
-    "linkBugReporting": "Bug Reporting",
     "linkEditProfile": "Edit Profile",
     "linkMyWallets": "My Wallets",
     "linkMarketplace": "Marketplace",
@@ -460,7 +459,6 @@
     "buttonSignUp": "Sign Up",
     "headingWelcomeToCircles": "Welcome to Circles",
     "linkAboutCircles": "About Circles",
-    "linkBugReporting": "Bug Reporting",
     "linkContactUs": "Contact us",
     "linkFAQ": "FAQ",
     "linkPrivacyLegal": "Privacy + Legal",

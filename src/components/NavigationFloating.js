@@ -227,7 +227,7 @@ export default function NavigationFloating(props) {
         <ExternalLink href={BUG_REPORTING_URL}>
           <MenuItem onClick={handleClose}>
             <Button isOutline>
-              {translate('NavigationFloating.linkBugReporting')}
+              {translate('Navigation.linkBugReporting')}
             </Button>
           </MenuItem>
         </ExternalLink>
