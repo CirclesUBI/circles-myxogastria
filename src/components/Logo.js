@@ -25,7 +25,6 @@ const Logo = ({ size = 'default' }) => {
 
 Logo.propTypes = {
   size: PropTypes.string,
-  type: PropTypes.string,
 };
 
 export default Logo;
