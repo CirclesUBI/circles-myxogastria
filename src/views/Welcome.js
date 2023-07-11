@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: '20px',
+    marginBottom: '30px',
     marginTop: 'auto',
   },
 }));
