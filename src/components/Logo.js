@@ -4,14 +4,14 @@ import React from 'react';
 
 import CirclesLogoSVG from '%/images/logo.svg';
 
-const Logo = ({ size = 'default' }) => {
-  const sizes = {
-    tiny: 50,
-    small: 79,
-    default: 150,
-    large: 200,
-  };
+const sizes = {
+  tiny: 50,
+  small: 79,
+  default: 150,
+  large: 200,
+};
 
+const Logo = ({ size = 'default' }) => {
   return (
     <Box textAlign="center">
       <CirclesLogoSVG
