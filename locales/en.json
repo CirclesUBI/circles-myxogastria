@@ -136,7 +136,7 @@
     "CoreErrorInsufficientFunds": "Please send some Circles to this account if you want to perform any transaction",
     "CoreErrorSafeNotFound": "Could not find Safe with address ${safeAddress}. Please try again later",
     "GeneralErrorMessage": "Please try with different values or refresh page or try again later",
-    "ErrorTokenNotDeployed": "Something went wrong! We could not create your wallet. Please reset account"
+    "ErrorTokenNotDeployed": "Something went wrong! We could not create your wallet. Please reset your account."
   },
   "ExportStatement": {
     "exportBtnText": "Export Statement",
