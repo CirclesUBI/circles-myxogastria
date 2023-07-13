@@ -1,6 +1,9 @@
 {
   "Activities": {
-    "headingActivityLog": "Activity Log"
+    "headingActivityLog": "Activity Log",
+    "filterAllTitle": "All transactions",
+    "filterSentTitle": "Sent",
+    "filterReceivedTitle": "Received"
   },
   "ActivityStream": {
     "bodyActivityAddedToSafe": "was added to this account",

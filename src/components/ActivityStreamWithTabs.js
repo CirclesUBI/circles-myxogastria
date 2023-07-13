@@ -1,5 +1,6 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
@@ -12,6 +13,7 @@ import ActivityStream from '~/components/ActivityStream';
 import BadgeTab from '~/components/BadgeTab';
 import ButtonIcon from '~/components/ButtonIcon';
 import DialogExportStatement from '~/components/DialogExportStatement';
+import Popover from '~/components/Popover';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
 import { useIsOrganization } from '~/hooks/username';
@@ -20,6 +22,11 @@ import translate from '~/services/locale';
 import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
 import { CATEGORIES } from '~/store/activity/reducers';
 import { IconConnections, IconTransactions } from '~/styles/icons';
+import {
+  FILTER_TRANSACTION_ALL,
+  FILTER_TRANSACTION_RECEIVED,
+  FILTER_TRANSACTION_SENT,
+} from '~/utils/constants';
 
 const { ActivityFilterTypes } = core.activity;
 
@@ -28,8 +35,35 @@ const DEFAULT_CATEGORY = ActivityFilterTypes.CONNECTIONS;
 const useStyles = makeStyles(() => ({
   exportContainer: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    margin: '-15px 0 30px',
+    justifyContent: 'flex-start',
+    margin: '-15px 0 0',
+  },
+  filterContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
+  actionsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    '& span svg.MuiSvgIcon-root': {
+      fontSize: '13px',
+    },
+  },
+  popoverContent: {
+    minWidth: '189px',
+  },
+  filterItem: {
+    cursor: 'pointer',
+    margin: '0 0 12px',
+    display: 'block',
+    '&:last-child': {
+      marginBottom: '0',
+    },
+  },
+  filterItemActive: {
+    fontWeight: 700,
   },
 }));
 
@@ -51,6 +85,26 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const [categorySetByUser, setCategorySetByUser] = useState(false);
+  const [filterTransactionsIndex, setFilterTransactionIndex] = useState(0);
+  const [filterTransactionsType, setFilterTransactionType] = useState(
+    FILTER_TRANSACTION_ALL,
+  );
+  const filterItems = [
+    {
+      title: translate('Activities.filterAllTitle'),
+      type: FILTER_TRANSACTION_ALL,
+    },
+    {
+      title: translate('Activities.filterSentTitle'),
+      type: FILTER_TRANSACTION_SENT,
+    },
+    {
+      title: translate('Activities.filterReceivedTitle'),
+      type: FILTER_TRANSACTION_RECEIVED,
+    },
+  ];
+  const [filterTitle, setFilterTitle] = useState(filterItems[0].title);
+  const [anchorEl, setAnchorEl] = useState(null);
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
   const safeAddress = useSelector((state) => state.safe.currentAccount);
   const { isOrganization } = useIsOrganization(safeAddress);
@@ -137,6 +191,22 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
     }
   }, [handleFilterSelection]);
 
+  const filterBtnHandler = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const filterPopoverOpenHandler = Boolean(anchorEl);
+  const filterPopoverCloseHandler = () => {
+    setAnchorEl(null);
+  };
+
+  const filterItemClickHandler = (index, type, title) => {
+    setFilterTransactionIndex(index);
+    setFilterTransactionType(type);
+    setFilterTitle(title);
+    setAnchorEl(null);
+  };
+
   return (
     <Fragment>
       <TabNavigation value={selectedCategory} onChange={handleFilterSelection}>
@@ -163,21 +233,63 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
           value={ActivityFilterTypes.CONNECTIONS}
         />
       </TabNavigation>
-      {selectedCategory === ActivityFilterTypes.TRANSFERS && isOrganization && (
-        <>
-          <Box className={classes.exportContainer}>
-            <ButtonIcon icon="IconUnion" onClick={exportStatementBtnHandler}>
-              {translate('ExportStatement.exportBtnText')}
-            </ButtonIcon>
-          </Box>
-          <DialogExportStatement
-            dialogOpen={dialogOpen}
-            onCloseHandler={dialogCloseHandler}
-          />
-        </>
-      )}
+      <Box className={classes.actionsContainer}>
+        <Box className={classes.filterContainer}>
+          <ButtonIcon
+            ariaDescribedby={'filterTransactionPopover'}
+            icon="IconArrowDown"
+            onClick={filterBtnHandler}
+          >
+            {filterTitle}
+          </ButtonIcon>
+          <Popover
+            anchorEl={anchorEl}
+            className={classes.popoverContent}
+            id={'filterTransactionPopover'}
+            open={filterPopoverOpenHandler}
+            onClose={filterPopoverCloseHandler}
+          >
+            {filterItems.map((item, index) => {
+              const className =
+                filterTransactionsIndex === index
+                  ? clsx(classes.filterItemActive, classes.filterItem)
+                  : classes.filterItem;
+              return (
+                <Typography
+                  className={className}
+                  key={index}
+                  variant="body7"
+                  onClick={() =>
+                    filterItemClickHandler(index, item.type, item.title)
+                  }
+                >
+                  {item.title}
+                </Typography>
+              );
+            })}
+          </Popover>
+        </Box>
+        {selectedCategory === ActivityFilterTypes.TRANSFERS &&
+          isOrganization && (
+            <>
+              <Box className={classes.exportContainer}>
+                <ButtonIcon
+                  icon="IconUnion"
+                  onClick={exportStatementBtnHandler}
+                >
+                  {translate('ExportStatement.exportBtnText')}
+                </ButtonIcon>
+              </Box>
+              <DialogExportStatement
+                dialogOpen={dialogOpen}
+                onCloseHandler={dialogCloseHandler}
+              />
+            </>
+          )}
+      </Box>
       <ActivityStream
         activities={activity.activities}
+        filterType={filterTransactionsType}
         isLoading={isLoading}
         isMoreAvailable={activity.isMoreAvailable}
         lastSeenAt={lastSeenAt}
