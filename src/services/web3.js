@@ -1,9 +1,14 @@
 import Web3 from 'web3';
+import HttpProvider from 'web3-providers-http';
 
-const provider = new Web3.providers.WebsocketProvider(
-  process.env.ETHEREUM_NODE_WS,
+var options = {
+  timeout: 30000, // ms
+  keepAlive: true,
+};
+
+const web3 = new Web3(
+  new HttpProvider(process.env.ETHEREUM_NODE_HTTP, options),
+  // new Web3.providers.HttpProvider(process.env.ETHEREUM_NODE_HTTP, options),
 );
-
-const web3 = new Web3(provider);
 
 export default web3;
