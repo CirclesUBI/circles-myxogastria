@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.11.0] - 2023-07-13
+### Added
+- Added the possibility to filter transactions in activity log to show only log of sent or received transactions[#701](https://github.com/CirclesUBI/circles-myxogastria/pull/701)
+- Added an error notification if user token is not deployed or failed to deploy [#692](https://github.com/CirclesUBI/circles-myxogastria/pull/692)
+
+### Changed
+- Replaced social media links with new bug reporting link [#706](https://github.com/CirclesUBI/circles-myxogastria/pull/706)
+- Updated logo on Welcome and Login page [#704](https://github.com/CirclesUBI/circles-myxogastria/pull/704)
+- Replaced the illustrations in the info slides before shared wallet creation [#707](https://github.com/CirclesUBI/circles-myxogastria/pull/707)
+- Upgraded node to version 16 [#696](https://github.com/CirclesUBI/circles-myxogastria/pull/696)
+
 # [2.10.0] - 2023-06-19
 
 ### Changed
