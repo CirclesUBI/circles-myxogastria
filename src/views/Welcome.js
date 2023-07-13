@@ -16,7 +16,7 @@ import Logo from '~/components/Logo';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import {
-  ABOUT_URL,
+  BUG_REPORTING_URL,
   EMAIL_URL,
   FAQ_URL,
   PRIVACY_LEGAL_URL,
@@ -31,16 +31,26 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(2),
   },
   welcomeExternalLink: {
-    color: theme.palette.primary.main,
-    fontWeight: '400',
     zIndex: theme.zIndex.layer2,
     position: 'relative',
+    margin: '0 9px',
+
+    [theme.breakpoints.up('sm')]: {
+      margin: '0 10px',
+    },
   },
   divider: {
     marginLeft: '16px',
     marginRight: '16px',
     height: '40px',
     backgroundColor: theme.custom.colors.black,
+  },
+  linkContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: '30px',
+    marginTop: 'auto',
   },
 }));
 
@@ -80,31 +90,21 @@ const Welcome = () => {
             {translate('Welcome.buttonLogin')}
           </Button>
         </Grid>
-        <Box mt={8} textAlign="center">
-          <Grid container spacing={1}>
-            <Grid item xs={12}>
-              <WelcomeExternalLink href={ABOUT_URL}>
-                {translate('Welcome.linkAboutCircles')}
-              </WelcomeExternalLink>
-            </Grid>
-            <Grid item xs={12}>
-              <WelcomeExternalLink href={FAQ_URL}>
-                {translate('Welcome.linkFAQ')}
-              </WelcomeExternalLink>
-            </Grid>
-            <Grid item xs={12}>
-              <WelcomeExternalLink href={EMAIL_URL}>
-                {translate('Welcome.linkContactUs')}
-              </WelcomeExternalLink>
-            </Grid>
-            <Grid item xs={12}>
-              <WelcomeExternalLink href={PRIVACY_LEGAL_URL}>
-                {translate('Welcome.linkPrivacyLegal')}
-              </WelcomeExternalLink>
-            </Grid>
-          </Grid>
-        </Box>
       </View>
+      <Box className={classes.linkContainer} container spacing={1}>
+        <WelcomeExternalLink href={FAQ_URL}>
+          {translate('Welcome.linkFAQ')}
+        </WelcomeExternalLink>
+        <WelcomeExternalLink href={BUG_REPORTING_URL}>
+          {translate('Navigation.linkBugReporting')}
+        </WelcomeExternalLink>
+        <WelcomeExternalLink href={EMAIL_URL}>
+          {translate('Welcome.linkContactUs')}
+        </WelcomeExternalLink>
+        <WelcomeExternalLink href={PRIVACY_LEGAL_URL}>
+          {translate('Welcome.linkPrivacyLegal')}
+        </WelcomeExternalLink>
+      </Box>
     </>
   );
 };

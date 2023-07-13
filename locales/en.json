@@ -198,6 +198,7 @@
     "buttonSendCircles": "Send Circles",
     "buttonOrganization": "Create Shared Wallet",
     "linkAbout": "About",
+    "linkBugReporting": "Report Bugs",
     "linkFAQ": "FAQ",
     "linkMarketplace": "Marketplace",
     "linkPrivacyLegal": "Privacy / Legal",
@@ -207,8 +208,7 @@
     "linkAddMembers": "Add Members",
     "linkEditProfile": "Edit Profile",
     "linkMyWallets": "My Wallets",
-    "linkMarketplace": "Marketplace",
-    "linkSupport": "Support"
+    "linkMarketplace": "Marketplace"
   },
   "NotFound": {
     "bodyNotFound": "Ouch. We could not find the requested page. Are you sure it's the right address?",
