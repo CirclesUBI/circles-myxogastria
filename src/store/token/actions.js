@@ -2,9 +2,11 @@ import { tcToCrc } from '@circles/timecircles';
 import { DateTime } from 'luxon';
 
 import core from '~/services/core';
+import translate from '~/services/locale';
 import { getLastPayout, setLastPayout } from '~/services/token';
 import web3 from '~/services/web3';
 import { addPendingActivity } from '~/store/activity/actions';
+import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import ActionTypes from '~/store/token/types';
 import { PATHFINDER_HOPS_DEFAULT, ZERO_ADDRESS } from '~/utils/constants';
 import logError from '~/utils/debug';
@@ -103,11 +105,12 @@ export function checkTokenState() {
       type: ActionTypes.TOKEN_UPDATE,
     });
 
+    const errorZeroAddress = `Invalid Token address for ${safe.currentAccount}`;
     try {
       const address = await core.token.getAddress(safe.currentAccount);
 
       if (address === ZERO_ADDRESS) {
-        throw new Error(`Invalid Token address for ${safe.currentAccount}`);
+        throw new Error(errorZeroAddress);
       }
 
       dispatch({
@@ -118,9 +121,16 @@ export function checkTokenState() {
         },
       });
     } catch (error) {
-      dispatch({
-        type: ActionTypes.TOKEN_UPDATE_ERROR,
-      });
+      const action = error.message?.includes(errorZeroAddress)
+        ? notify({
+            text: translate('ErrorCodes.ErrorTokenNotDeployed'),
+            type: NotificationsTypes.ERROR,
+          })
+        : {
+            type: ActionTypes.TOKEN_UPDATE_ERROR,
+          };
+      dispatch(action);
+      logError(error);
 
       throw error;
     }
