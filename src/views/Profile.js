@@ -25,6 +25,7 @@ import CenteredHeading from '~/components/CenteredHeading';
 import DialogTrust from '~/components/DialogTrust';
 import DialogTrustRevoke from '~/components/DialogTrustRevoke';
 import Header from '~/components/Header';
+import ProfileContentActivity from '~/components/ProfileContentActivity';
 import ProfileMini from '~/components/ProfileMini';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
@@ -223,7 +224,7 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
         }}
       >
         <TabNavigationAction
-          disabled
+          // disabled
           icon={<IconActivity />}
           label={translate('Profile.bodyActivity')}
           value={PANEL_ACTIVITY}
@@ -252,10 +253,10 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
   );
 };
 
-const ProfileContentActivity = () => {
-  // @TODO
-  return null;
-};
+// const ProfileContentActivity = () => {
+//   // @TODO
+//   return null;
+// };
 
 const ProfileContentTrustedBy = ({ trustStatus, onSelect }) => {
   const classes = useStyles();
