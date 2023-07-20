@@ -1,8 +1,8 @@
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { DateTime } from 'luxon';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ActivityStream from '~/components/ActivityStream';
@@ -12,6 +12,7 @@ import {
   checkFinishedActivities,
   checkPendingActivities,
 } from '~/store/activity/actions';
+import { loadMoreAllActivities } from '~/store/activity/actions';
 
 const useStyles = makeStyles(() => {
   return {
@@ -25,6 +26,10 @@ const ProfileContentActivity = ({ address }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.activity);
+  const categorySymbols = Object.getOwnPropertySymbols(categories);
+  const isMoreAvailable = categorySymbols.some(
+    (symbol) => categories[symbol].isMoreAvailable,
+  );
 
   useUpdateLoop(
     async () => {
@@ -39,12 +44,14 @@ const ProfileContentActivity = ({ address }) => {
   function filterActivities(categories, address) {
     const filteredActivities = [];
     const lastUpdatedAt = [];
+    let offset;
     const normalizedAddress = address.toLowerCase();
     const categorySymbols = Object.getOwnPropertySymbols(categories);
 
     for (const symbol of categorySymbols) {
       const category = categories[symbol];
       lastUpdatedAt.push(category.lastUpdatedAt);
+      offset = category.offset;
 
       for (const activity of category.activities) {
         if (
@@ -61,20 +68,23 @@ const ProfileContentActivity = ({ address }) => {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
 
-    return [filteredActivities, lastUpdatedAt];
+    return [filteredActivities, lastUpdatedAt, offset];
   }
 
-  let [filteredActivities, lastUpdatedAt] = filterActivities(
-    categories,
-    address,
-  );
-  console.table(filteredActivities);
+  const [filteredActivities, setFilteredActivities] = useState([]);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState([]);
+
+  useEffect(() => {
+    const [activities, updatedAt] = filterActivities(categories, address);
+    setFilteredActivities(activities);
+    setLastUpdatedAt(updatedAt);
+  }, [categories, address, dispatch]);
 
   const currentTime = DateTime.now().toISO();
 
-  const handleLoadMore = () => {};
-
-  lastUpdatedAt = [0, 0];
+  const handleLoadMore = () => {
+    dispatch(loadMoreAllActivities());
+  };
 
   if (lastUpdatedAt.every((value) => value === 0)) {
     return null;
@@ -94,9 +104,8 @@ const ProfileContentActivity = ({ address }) => {
         <ActivityStream
           activities={filteredActivities}
           isLoading={false}
-          isMoreAvailable={false}
+          isMoreAvailable={isMoreAvailable}
           lastSeenAt={currentTime}
-          lastUpdatedAt={lastUpdatedAt}
           onLoadMore={handleLoadMore}
         />
       </Box>
