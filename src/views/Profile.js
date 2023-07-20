@@ -224,7 +224,6 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
         }}
       >
         <TabNavigationAction
-          // disabled
           icon={<IconActivity />}
           label={translate('Profile.bodyActivity')}
           value={PANEL_ACTIVITY}
@@ -252,11 +251,6 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
     </Fragment>
   );
 };
-
-// const ProfileContentActivity = () => {
-//   // @TODO
-//   return null;
-// };
 
 const ProfileContentTrustedBy = ({ trustStatus, onSelect }) => {
   const classes = useStyles();
