@@ -7,8 +7,7 @@ var options = {
 };
 
 const web3 = new Web3(
-  new HttpProvider(process.env.ETHEREUM_NODE_HTTP, options),
-  // new Web3.providers.HttpProvider(process.env.ETHEREUM_NODE_HTTP, options),
+  new HttpProvider(process.env.ETHEREUM_NODE_ENDPOINT, options),
 );
 
 export default web3;
