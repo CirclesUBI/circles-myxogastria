@@ -1,6 +1,9 @@
 {
   "Activities": {
-    "headingActivityLog": "Activity Log"
+    "headingActivityLog": "Activity Log",
+    "filterAllTitle": "All transactions",
+    "filterSentTitle": "Sent",
+    "filterReceivedTitle": "Received"
   },
   "ActivityStream": {
     "bodyActivityAddedToSafe": "was added to this account",
@@ -135,7 +138,8 @@
   "ErrorCodes": {
     "CoreErrorInsufficientFunds": "Please send some Circles to this account if you want to perform any transaction",
     "CoreErrorSafeNotFound": "Could not find Safe with address ${safeAddress}. Please try again later",
-    "GeneralErrorMessage": "Please try with different values or refresh page or try again later"
+    "GeneralErrorMessage": "Please try with different values or refresh page or try again later",
+    "ErrorTokenNotDeployed": "Something went wrong! We could not create your wallet. Please reset your account."
   },
   "ExportStatement": {
     "exportBtnText": "Export Statement",
@@ -194,6 +198,7 @@
     "buttonSendCircles": "Send Circles",
     "buttonOrganization": "Create Shared Wallet",
     "linkAbout": "About",
+    "linkBugReporting": "Report Bugs",
     "linkFAQ": "FAQ",
     "linkMarketplace": "Marketplace",
     "linkPrivacyLegal": "Privacy / Legal",
@@ -203,8 +208,7 @@
     "linkAddMembers": "Add Members",
     "linkEditProfile": "Edit Profile",
     "linkMyWallets": "My Wallets",
-    "linkMarketplace": "Marketplace",
-    "linkSupport": "Support"
+    "linkMarketplace": "Marketplace"
   },
   "NotFound": {
     "bodyNotFound": "Ouch. We could not find the requested page. Are you sure it's the right address?",

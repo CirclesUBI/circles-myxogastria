@@ -26,20 +26,11 @@ import ExternalLink from '~/components/ExternalLink';
 import UsernameDisplay from '~/components/UsernameDisplay';
 import translate from '~/services/locale';
 import {
-  IconFacebook,
-  IconMail,
-  IconTelegram,
-  IconTwitter,
-} from '~/styles/icons';
-import {
   ABOUT_URL,
-  EMAIL_URL,
-  FACEBOOK_URL,
+  BUG_REPORTING_URL,
   FAQ_URL,
   MARKETPLACE_URL,
   PRIVACY_LEGAL_URL,
-  TELEGRAM_URL,
-  TWITTER_URL,
 } from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -80,6 +71,9 @@ const useStyles = makeStyles((theme) => ({
   navigationExternalLink: {
     display: 'block',
     color: theme.palette.primary.contrastText,
+  },
+  navFooterLinksContainer: {
+    flexDirection: 'column',
   },
 }));
 
@@ -163,7 +157,12 @@ const NavigationFooter = () => {
 
   return (
     <Box className={classes.navigationFooter} component="footer">
-      <Grid container spacing={2}>
+      <Grid className={classes.navFooterLinksContainer} container spacing={2}>
+        <Grid item xs={6}>
+          <NavigationExternalLink href={BUG_REPORTING_URL}>
+            {translate('Navigation.linkBugReporting')}
+          </NavigationExternalLink>
+        </Grid>
         <Grid item xs={6}>
           <NavigationExternalLink href={MARKETPLACE_URL}>
             {translate('Navigation.linkMarketplace')}
@@ -175,46 +174,15 @@ const NavigationFooter = () => {
           </NavigationExternalLink>
         </Grid>
         <Grid item xs={6}>
-          <NavigationExternalLink href={PRIVACY_LEGAL_URL}>
-            {translate('Navigation.linkPrivacyLegal')}
-          </NavigationExternalLink>
-        </Grid>
-        <Grid item xs={6}>
           <NavigationExternalLink href={FAQ_URL}>
             {translate('Navigation.linkFAQ')}
           </NavigationExternalLink>
         </Grid>
-      </Grid>
-      <Box mt={2} />
-      <Grid alignItems="center" container spacing={2}>
         <Grid item xs={6}>
-          <Grid container spacing={0}>
-            <Grid item xs={3}>
-              <NavigationExternalLink href={TELEGRAM_URL}>
-                <IconTelegram fontSize="small" />
-              </NavigationExternalLink>
-            </Grid>
-            <Grid item xs={3}>
-              <NavigationExternalLink href={FACEBOOK_URL}>
-                <IconFacebook fontSize="small" />
-              </NavigationExternalLink>
-            </Grid>
-            <Grid item xs={3}>
-              <NavigationExternalLink href={TWITTER_URL}>
-                <IconTwitter fontSize="small" />
-              </NavigationExternalLink>
-            </Grid>
-            <Grid item xs={3}>
-              <NavigationExternalLink href={EMAIL_URL}>
-                <IconMail fontSize="small" />
-              </NavigationExternalLink>
-            </Grid>
-          </Grid>
+          <NavigationExternalLink href={PRIVACY_LEGAL_URL}>
+            {translate('Navigation.linkPrivacyLegal')}
+          </NavigationExternalLink>
         </Grid>
-        {/* We temporary disable language switcher since languages are not there but should come soon */}
-        {/* <Grid item xs={6}>
-          <LocaleSelector />
-        </Grid> */}
       </Grid>
     </Box>
   );

@@ -4,6 +4,7 @@ import React from 'react';
 import activity from '%/images/activity.svg';
 import add from '%/images/add.svg';
 import alert from '%/images/alert.svg';
+import arrowDown from '%/images/arrow-down.svg';
 import arrow from '%/images/arrow.svg';
 import bellRing from '%/images/bell-ring.svg';
 import browser from '%/images/browser.svg';
@@ -59,6 +60,10 @@ export const IconAdd = (props) => {
 
 export const IconAlert = (props) => {
   return <SvgIcon component={alert} {...props} viewBox="0 0 18 21" />;
+};
+
+export const IconArrowDown = (props) => {
+  return <SvgIcon component={arrowDown} {...props} viewBox="0 0 14 14" />;
 };
 
 export const IconBack = (props) => {
@@ -250,6 +255,8 @@ export const iconSelector = (icon) => {
       return IconAdd;
     case 'IconAlert':
       return IconAlert;
+    case 'IconArrowDown':
+      return IconArrowDown;
     case 'IconBack':
       return IconBack;
     case 'IconBrowser':

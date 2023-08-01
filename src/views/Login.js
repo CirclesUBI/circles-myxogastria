@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 
 import { ONBOARDING_PATH } from '~/routes';
 
-import LoginIconSVG from '%/images/login.svg';
 import AppNote from '~/components/AppNote';
 import BackgroundCurved from '~/components/BackgroundCurved';
 import Button from '~/components/Button';
@@ -21,6 +20,7 @@ import ExternalLink from '~/components/ExternalLink';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import Input from '~/components/Input';
+import Logo from '~/components/Logo';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
@@ -46,7 +46,16 @@ const useStyles = makeStyles((theme) => ({
 
   loginImg: {
     textAlign: 'center',
-    marginTop: '-41px',
+    marginTop: '-4px',
+    [theme.breakpoints.up('sm')]: {
+      marginTop: '-33px',
+    },
+    [theme.breakpoints.up('md')]: {
+      marginTop: '-29px',
+    },
+    [theme.breakpoints.up('lg')]: {
+      marginTop: '-25px',
+    },
   },
 
   paperContainer: {
@@ -119,7 +128,7 @@ const Login = () => {
       <View>
         <Container className={classes.container} maxWidth="sm">
           <Box className={classes.loginImg}>
-            <LoginIconSVG></LoginIconSVG>
+            <Logo size="small" />
           </Box>
           <Box mb={7} mt={14}>
             <Typography align="center" gutterBottom variant="h2">
