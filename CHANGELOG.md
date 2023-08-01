@@ -7,12 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.11.1] - 2023-08-01
+
+### Changed
+
+- Use http instead of web sockets for the ethereum node [#719](https://github.com/CirclesUBI/circles-myxogastria/pull/719)
+- Update core version [#717](https://github.com/CirclesUBI/circles-myxogastria/pull/717)
+
 # [2.11.0] - 2023-07-13
+
 ### Added
+
 - Added the possibility to filter transactions in activity log to show only log of sent or received transactions[#701](https://github.com/CirclesUBI/circles-myxogastria/pull/701)
 - Added an error notification if user token is not deployed or failed to deploy [#692](https://github.com/CirclesUBI/circles-myxogastria/pull/692)
 
 ### Changed
+
 - Replaced social media links with new bug reporting link [#706](https://github.com/CirclesUBI/circles-myxogastria/pull/706)
 - Updated logo on Welcome and Login page [#704](https://github.com/CirclesUBI/circles-myxogastria/pull/704)
 - Replaced the illustrations in the info slides before shared wallet creation [#707](https://github.com/CirclesUBI/circles-myxogastria/pull/707)
@@ -21,9 +31,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 # [2.10.0] - 2023-06-19
 
 ### Changed
+
 - New typography. Complete refactoring of text styles throughout the app. [#687](https://github.com/CirclesUBI/circles-myxogastria/pull/687)
 
 ### Fixed
+
 - Removal of incorrectly duplicated transaction notifications. Notification that was intended for the receiver previously showed up for the sender by mistake. [#686](https://github.com/CirclesUBI/circles-myxogastria/pull/686)
 - Header styling and color in login view fixed. [#689](https://github.com/CirclesUBI/circles-myxogastria/pull/689)
 - Removed repeated notifications when camera access breaks for edit profile. Notification is now only shown once. [#690](https://github.com/CirclesUBI/circles-myxogastria/pull/690)
