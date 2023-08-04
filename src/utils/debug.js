@@ -52,11 +52,13 @@ export function translateErrorForUser(error) {
   if (error instanceof CoreError) {
     if (error.code == ErrorCodes.INSUFFICIENT_FUNDS) {
       text = translate('ErrorCodes.CoreErrorInsufficientFunds');
-    }
-
-    if (error.code == ErrorCodes.SAFE_NOT_FOUND) {
+    } else if (error.code == ErrorCodes.SAFE_NOT_FOUND) {
       //  error: `Could not find Safe with address ${safeAddress}`,
       text = error.message;
+    } else {
+      text = `2222${error.message}. ${translate(
+        'ErrorCodes.GeneralErrorMessage',
+      )}`;
     }
   } else {
     text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;

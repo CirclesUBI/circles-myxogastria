@@ -276,3 +276,48 @@ export function resetActivities({ isClearingStorage = true } = {}) {
     type: ActionTypes.ACTIVITIES_RESET,
   };
 }
+
+export function loadMoreActivitiesMutual(category) {
+  return async (dispatch, getState) => {
+    const { safe, activity } = getState();
+
+    if (!safe.currentAccount) {
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.ACTIVITIES_LOAD_MORE,
+      meta: {
+        category,
+      },
+    });
+
+    const offset = activity.categories[category].offset + PAGE_SIZE;
+
+    try {
+      const { activities } = await core.activity.getLatest(
+        safe.currentAccount,
+        category,
+        PAGE_SIZE,
+        0,
+        offset,
+      );
+
+      dispatch({
+        type: ActionTypes.ACTIVITIES_LOAD_MORE_SUCCESS,
+        meta: {
+          activities,
+          category,
+          offset,
+        },
+      });
+    } catch {
+      dispatch({
+        type: ActionTypes.ACTIVITIES_LOAD_MORE_ERROR,
+        meta: {
+          category,
+        },
+      });
+    }
+  };
+}
