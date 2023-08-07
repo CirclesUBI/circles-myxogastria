@@ -39,12 +39,24 @@ const initialStateActivity = {
   type: null,
 };
 
+const initialStateActivityMutual = {
+  activities: [],
+  isError: false,
+  isLoadingMore: true,
+  isMoreAvailable: true,
+  lastTimestamp: 0,
+  lastUpdatedAt: null,
+  offset: 0,
+  mutualAddress: null,
+};
+
 const initialState = {
   categories: CATEGORIES.reduce((acc, category) => {
     acc[category] = initialStateCategory;
     return acc;
   }, {}),
   lastSeenAt: null,
+  mutualActivities: { ...initialStateActivityMutual },
 };
 
 // Merge current and new activities together, avoid duplicates and sort them
@@ -176,6 +188,48 @@ const activityReducer = (state = initialState, action) => {
           },
         },
       });
+    case ActionTypes.ACTIVITIES_MUTUAL_LOAD_MORE:
+      return update(state, {
+        mutualActivities: {
+          isError: { $set: false },
+          isLoadingMore: { $set: true },
+        },
+      });
+    case ActionTypes.ACTIVITIES_MUTUAL_LOAD_MORE_SUCCESS: {
+      // Nothing more to add ..
+      if (action.meta.activities.length === 0) {
+        return update(state, {
+          mutualActivities: {
+            isLoadingMore: { $set: false },
+            isMoreAvailable: { $set: false },
+          },
+        });
+      }
+
+      // Add new activities
+      const newActivities = mergeActivities(
+        state.mutualActivities.activities,
+        action.meta.activities,
+      );
+
+      // Update offset and add new objects
+      return update(state, {
+        mutualActivities: {
+          activities: { $set: newActivities },
+          isLoadingMore: { $set: false },
+          offset: { $set: action.meta.offset },
+          lastUpdatedAt: { $set: DateTime.local().toISO() },
+          lastTimestamp: { $set: action.meta.lastTimestamp },
+        },
+      });
+    }
+    case ActionTypes.ACTIVITIES_MUTUAL_LOAD_MORE_ERROR:
+      return update(state, {
+        mutualActivities: {
+          isLoadingMore: { $set: false },
+          isError: { $set: true },
+        },
+      });
     case ActionTypes.ACTIVITIES_UPDATE:
       return update(state, {
         categories: {
@@ -227,6 +281,16 @@ const activityReducer = (state = initialState, action) => {
       });
     case ActionTypes.ACTIVITIES_RESET:
       return update(state, { $set: initialState });
+    case ActionTypes.ACTIVITIES_MUTUAL_RESET:
+      return update(state, {
+        mutualActivities: { $set: initialStateActivityMutual },
+      });
+    case ActionTypes.ACTIVITIES_MUTUAL_ADDRESS_UPDATE:
+      return update(state, {
+        mutualActivities: {
+          mutualAddress: { $set: action.meta.mutualAddress },
+        },
+      });
     case ActionTypes.ACTIVITIES_SET_STATUS: {
       const index = state.categories[action.meta.category].activities.findIndex(
         (item) => {

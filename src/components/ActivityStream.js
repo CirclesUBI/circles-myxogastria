@@ -121,18 +121,20 @@ const ActivityStream = ({
 
   return (
     <Fragment>
-      <ActivityStreamList
-        activities={activities}
-        filterType={filterType}
-        lastSeenAt={lastSeenAt}
-        lastUpdatedAt={lastUpdatedAt}
-      />
+      {!isLoading && (
+        <ActivityStreamList
+          activities={activities}
+          filterType={filterType}
+          lastSeenAt={lastSeenAt}
+          lastUpdatedAt={lastUpdatedAt}
+        />
+      )}
       {isLoading && (
         <Box mx="auto" my={2} textAlign="center">
           <CircularProgress />
         </Box>
       )}
-      {isMoreAvailable && onLoadMore && (
+      {!isLoading && isMoreAvailable && onLoadMore && (
         <Box my={2}>
           <Button disabled={isLoading} fullWidth isOutline onClick={onLoadMore}>
             {translate('ActivityStream.buttonLoadMore')}
