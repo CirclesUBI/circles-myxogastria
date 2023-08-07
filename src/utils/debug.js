@@ -56,9 +56,7 @@ export function translateErrorForUser(error) {
       //  error: `Could not find Safe with address ${safeAddress}`,
       text = error.message;
     } else {
-      text = `2222${error.message}. ${translate(
-        'ErrorCodes.GeneralErrorMessage',
-      )}`;
+      text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;
     }
   } else {
     text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;
