@@ -212,13 +212,12 @@ const ActivityStreamList = ({
               ? DateTime.fromISO(lastSeenAt) > DateTime.fromISO(createdAt)
               : true;
 
-          const key = hash ? hash : transactionHash;
+          const key = hash || transactionHash;
 
-          const createdAtDate = createdAt
-            ? createdAt
-            : DateTime.fromSeconds(timestamp).toISO();
+          const createdAtDate =
+            createdAt || DateTime.fromSeconds(timestamp).toISO();
 
-          const txHashUpdtated = txHash ? txHash : transactionHash;
+          const txHashUpdtated = txHash || transactionHash;
 
           const item = (
             <Grid item key={key} xs={12}>

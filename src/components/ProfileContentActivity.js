@@ -49,7 +49,7 @@ const ProfileContentActivity = ({ address }) => {
         dispatch(loadMoreActivitiesMutual(address, { fromOffsetZero: true })),
       ]);
     }
-  }, [address, mutualAddress, dispatch]);
+  }, [address, mutualAddress]); //eslint-disable-line react-hooks/exhaustive-deps
 
   const currentTime = DateTime.now().toISO();
 
@@ -58,17 +58,15 @@ const ProfileContentActivity = ({ address }) => {
   };
 
   return (
-    <>
-      <Box className={classes.activityContainer}>
-        <ActivityStream
-          activities={mutualActivities}
-          isLoading={isLoadingMore}
-          isMoreAvailable={isMoreAvailable}
-          lastSeenAt={currentTime}
-          onLoadMore={handleLoadMore}
-        />
-      </Box>
-    </>
+    <Box className={classes.activityContainer}>
+      <ActivityStream
+        activities={mutualActivities}
+        isLoading={isLoadingMore}
+        isMoreAvailable={isMoreAvailable}
+        lastSeenAt={currentTime}
+        onLoadMore={handleLoadMore}
+      />
+    </Box>
   );
 };
 
