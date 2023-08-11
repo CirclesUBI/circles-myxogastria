@@ -217,7 +217,7 @@ const ActivityStreamList = ({
           const createdAtDate =
             createdAt || DateTime.fromSeconds(timestamp).toISO();
 
-          const txHashUpdtated = txHash || transactionHash;
+          const txHashUpdated = txHash || transactionHash;
 
           const item = (
             <Grid item key={key} xs={12}>
@@ -228,7 +228,7 @@ const ActivityStreamList = ({
                 isSeen={isSeen}
                 prefix={info.prefix}
                 safeAddress={safeAddress}
-                txHash={txHashUpdtated}
+                txHash={txHashUpdated}
                 type={type}
                 walletAddress={walletAddress}
               />
