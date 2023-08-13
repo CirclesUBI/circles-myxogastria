@@ -22,7 +22,7 @@ import { formatCirclesValue } from '~/utils/format';
 
 const { ActivityTypes, ActivityFilterTypes } = core.activity;
 
-export const PAGE_SIZE = 10;
+export const PAGE_SIZE = 2;
 
 export function initializeActivities() {
   const lastSeenAt = getLastSeen();
@@ -194,6 +194,19 @@ export function checkFinishedActivities({
             }
           }
           setLastReceivedTransaction(DateTime.now().toISO());
+
+          if (
+            `/profile/${mutualActivities.mutualAddress}` ===
+            window.location.pathname
+          ) {
+            dispatch(
+              loadMoreActivitiesMutual(mutualActivities.mutualAddress, {
+                fromOffsetZero: true,
+                withLoader: false,
+                liveRefresh: true,
+              }),
+            );
+          }
         }
 
         dispatch({
@@ -204,19 +217,6 @@ export function checkFinishedActivities({
             lastTimestamp,
           },
         });
-
-        if (
-          `/profile/${mutualActivities.mutualAddress}` ===
-          window.location.pathname
-        ) {
-          dispatch(
-            loadMoreActivitiesMutual(mutualActivities.mutualAddress, {
-              fromOffsetZero: true,
-              withLoader: false,
-              liveRefresh: true,
-            }),
-          );
-        }
       } catch {
         dispatch({
           type: ActionTypes.ACTIVITIES_UPDATE_ERROR,
@@ -348,11 +348,5 @@ export function resetActivities({ isClearingStorage = true } = {}) {
 
   return {
     type: ActionTypes.ACTIVITIES_RESET,
-  };
-}
-
-export function resetMutualActivities() {
-  return {
-    type: ActionTypes.ACTIVITIES_MUTUAL_RESET,
   };
 }

@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 
 import core from '~/services/core';
 import web3 from '~/services/web3';
+import { PAGE_SIZE } from '~/store/activity/actions';
 import ActionTypes from '~/store/activity/types';
 
 // Every item in the activities list has an unique hash identifier
@@ -21,8 +22,7 @@ export const CATEGORIES = [
 const initialStateCategory = {
   activities: [],
   isError: false,
-  isLoading: false,
-  isLoadingMore: false,
+  isLoadingMore: true,
   isMoreAvailable: true,
   lastTimestamp: 0,
   lastUpdatedAt: null,
@@ -151,31 +151,23 @@ const activityReducer = (state = initialState, action) => {
         },
       });
     case ActionTypes.ACTIVITIES_LOAD_MORE_SUCCESS: {
-      // Nothing more to add ..
-      if (action.meta.activities.length === 0) {
-        return update(state, {
-          categories: {
-            [action.meta.category]: {
-              isLoadingMore: { $set: false },
-              isMoreAvailable: { $set: false },
-            },
-          },
-        });
-      }
-
       // Add new activities
       const newActivities = mergeActivities(
         state.categories[action.meta.category].activities,
         action.meta.activities,
       );
 
-      // Update offset and add new objects
       return update(state, {
         categories: {
           [action.meta.category]: {
-            activities: { $set: newActivities },
             isLoadingMore: { $set: false },
-            offset: { $set: action.meta.offset },
+            ...(action.meta.activities.length < PAGE_SIZE
+              ? { isMoreAvailable: { $set: false } }
+              : {}),
+            activities: { $set: newActivities },
+            ...(action.meta.activities.length >= PAGE_SIZE
+              ? { offset: { $set: action.meta.offset } }
+              : {}),
           },
         },
       });
@@ -196,28 +188,20 @@ const activityReducer = (state = initialState, action) => {
         },
       });
     case ActionTypes.ACTIVITIES_MUTUAL_LOAD_MORE_SUCCESS: {
-      // Nothing more to add ..
-      if (action.meta.activities.length === 0) {
-        return update(state, {
-          mutualActivities: {
-            isLoadingMore: { $set: false },
-            isMoreAvailable: { $set: false },
-          },
-        });
-      }
-
       // Add new activities
       const newActivities = mergeActivities(
         state.mutualActivities.activities,
         action.meta.activities,
       );
 
-      // Update offset and add new objects
       return update(state, {
         mutualActivities: {
           activities: { $set: newActivities },
           isLoadingMore: { $set: false },
           offset: { $set: action.meta.offset },
+          ...(action.meta.activities.length < PAGE_SIZE
+            ? { isMoreAvailable: { $set: false } }
+            : {}),
           lastUpdatedAt: { $set: DateTime.local().toISO() },
           lastTimestamp: { $set: action.meta.lastTimestamp },
         },
@@ -234,36 +218,25 @@ const activityReducer = (state = initialState, action) => {
       return update(state, {
         categories: {
           [action.meta.category]: {
-            isLoading: { $set: true },
             isError: { $set: false },
           },
         },
       });
     case ActionTypes.ACTIVITIES_UPDATE_SUCCESS: {
-      // Nothing to add .. array is empty
-      if (action.meta.activities.length === 0) {
-        return update(state, {
-          categories: {
-            [action.meta.category]: {
-              isLoading: { $set: false },
-              lastUpdatedAt: { $set: DateTime.local().toISO() },
-            },
-          },
-        });
-      }
-
       // Add new activities
       const newActivities = mergeActivities(
         state.categories[action.meta.category].activities,
         action.meta.activities,
       );
 
-      // Update timestamps and add new objects
       return update(state, {
         categories: {
           [action.meta.category]: {
             activities: { $set: newActivities },
-            isLoading: { $set: false },
+            ...(action.meta.activities.length < PAGE_SIZE
+              ? { isMoreAvailable: { $set: false } }
+              : {}),
+            isLoadingMore: { $set: false },
             lastTimestamp: { $set: action.meta.lastTimestamp },
             lastUpdatedAt: { $set: DateTime.local().toISO() },
           },
@@ -274,7 +247,7 @@ const activityReducer = (state = initialState, action) => {
       return update(state, {
         categories: {
           [action.meta.category]: {
-            isLoading: { $set: false },
+            isLoadingMore: { $set: false },
             isError: { $set: true },
           },
         },
