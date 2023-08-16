@@ -22,7 +22,7 @@ import { formatCirclesValue } from '~/utils/format';
 
 const { ActivityTypes, ActivityFilterTypes } = core.activity;
 
-export const PAGE_SIZE = 2;
+export const PAGE_SIZE = 10;
 
 export function initializeActivities() {
   const lastSeenAt = getLastSeen();
