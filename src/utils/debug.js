@@ -48,7 +48,7 @@ export default function logError(error) {
 }
 
 export function translateErrorForUser(error) {
-  let text;
+  let text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;
   if (error instanceof CoreError) {
     if (error.code == ErrorCodes.INSUFFICIENT_FUNDS) {
       text = translate('ErrorCodes.CoreErrorInsufficientFunds');
@@ -57,11 +57,7 @@ export function translateErrorForUser(error) {
       text = error.message;
     } else if (error.code == ErrorCodes.INVALID_OPTIONS) {
       text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;
-    } else {
-      text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;
     }
-  } else {
-    text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;
   }
 
   return text;

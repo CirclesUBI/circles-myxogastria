@@ -185,6 +185,7 @@ const ProfileStatus = ({ address, deploymentStatus, trustStatus }) => {
 const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
   const [selectedPanel, setSelectedPanel] = useState(DEFAULT_PANEL);
   const [redirectPath, setRedirectPath] = useState(null);
+  const { isOrganization } = useIsOrganization(address);
 
   const handleProfileSelection = (selectedAddress) => {
     setRedirectPath(
@@ -209,7 +210,10 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
     return <Redirect push to={redirectPath} />;
   }
 
-  if (!deploymentStatus.isReady || !deploymentStatus.isDeployed) {
+  if (
+    !isOrganization &&
+    (!deploymentStatus.isReady || !deploymentStatus.isDeployed)
+  ) {
     return null;
   }
 
