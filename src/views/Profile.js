@@ -25,6 +25,7 @@ import CenteredHeading from '~/components/CenteredHeading';
 import DialogTrust from '~/components/DialogTrust';
 import DialogTrustRevoke from '~/components/DialogTrustRevoke';
 import Header from '~/components/Header';
+import ProfileContentActivity from '~/components/ProfileContentActivity';
 import ProfileMini from '~/components/ProfileMini';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
@@ -184,6 +185,7 @@ const ProfileStatus = ({ address, deploymentStatus, trustStatus }) => {
 const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
   const [selectedPanel, setSelectedPanel] = useState(DEFAULT_PANEL);
   const [redirectPath, setRedirectPath] = useState(null);
+  const { isOrganization } = useIsOrganization(address);
 
   const handleProfileSelection = (selectedAddress) => {
     setRedirectPath(
@@ -208,7 +210,10 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
     return <Redirect push to={redirectPath} />;
   }
 
-  if (!deploymentStatus.isReady || !deploymentStatus.isDeployed) {
+  if (
+    !isOrganization &&
+    (!deploymentStatus.isReady || !deploymentStatus.isDeployed)
+  ) {
     return null;
   }
 
@@ -223,7 +228,6 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
         }}
       >
         <TabNavigationAction
-          disabled
           icon={<IconActivity />}
           label={translate('Profile.bodyActivity')}
           value={PANEL_ACTIVITY}
@@ -250,11 +254,6 @@ const ProfileContent = ({ address, deploymentStatus, trustStatus }) => {
       )}
     </Fragment>
   );
-};
-
-const ProfileContentActivity = () => {
-  // @TODO
-  return null;
 };
 
 const ProfileContentTrustedBy = ({ trustStatus, onSelect }) => {

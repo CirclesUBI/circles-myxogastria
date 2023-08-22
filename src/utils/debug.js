@@ -48,18 +48,16 @@ export default function logError(error) {
 }
 
 export function translateErrorForUser(error) {
-  let text;
+  let text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;
   if (error instanceof CoreError) {
     if (error.code == ErrorCodes.INSUFFICIENT_FUNDS) {
       text = translate('ErrorCodes.CoreErrorInsufficientFunds');
-    }
-
-    if (error.code == ErrorCodes.SAFE_NOT_FOUND) {
+    } else if (error.code == ErrorCodes.SAFE_NOT_FOUND) {
       //  error: `Could not find Safe with address ${safeAddress}`,
       text = error.message;
+    } else if (error.code == ErrorCodes.INVALID_OPTIONS) {
+      text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;
     }
-  } else {
-    text = `${error.message}. ${translate('ErrorCodes.GeneralErrorMessage')}`;
   }
 
   return text;

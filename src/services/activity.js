@@ -124,6 +124,14 @@ export function formatMessage({
     } else if (data.to === process.env.SAFE_FUNDER_ADDRESS) {
       // I've paid Gas fees for a transaction
       messageId = 'PaidGasCosts';
+    } else if (data.to === safeAddress) {
+      // I've received Circles from someone
+      messageId = 'ReceivedCircles';
+      addressActor = data.from;
+    } else {
+      // I've sent Circles to someone
+      messageId = 'SentCircles';
+      addressActor = data.to;
     }
   } else if (type === ActivityTypes.HUB_TRANSFER) {
     addressOrigin = data.from;

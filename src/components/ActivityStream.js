@@ -121,18 +121,20 @@ const ActivityStream = ({
 
   return (
     <Fragment>
-      <ActivityStreamList
-        activities={activities}
-        filterType={filterType}
-        lastSeenAt={lastSeenAt}
-        lastUpdatedAt={lastUpdatedAt}
-      />
+      {!isLoading && (
+        <ActivityStreamList
+          activities={activities}
+          filterType={filterType}
+          lastSeenAt={lastSeenAt}
+          lastUpdatedAt={lastUpdatedAt}
+        />
+      )}
       {isLoading && (
         <Box mx="auto" my={2} textAlign="center">
           <CircularProgress />
         </Box>
       )}
-      {isMoreAvailable && onLoadMore && (
+      {!isLoading && isMoreAvailable && onLoadMore && (
         <Box my={2}>
           <Button disabled={isLoading} fullWidth isOutline onClick={onLoadMore}>
             {translate('ActivityStream.buttonLoadMore')}
@@ -171,7 +173,19 @@ const ActivityStreamList = ({
   return (
     <Grid container spacing={2}>
       {activities.reduce(
-        (acc, { data, hash, createdAt, type, isPending, txHash }) => {
+        (
+          acc,
+          {
+            data,
+            hash,
+            createdAt,
+            type,
+            isPending,
+            txHash,
+            transactionHash,
+            timestamp,
+          },
+        ) => {
           // Always filter gas transfers
           if (
             type === ActivityTypes.TRANSFER &&
@@ -194,18 +208,27 @@ const ActivityStreamList = ({
           }
 
           const isSeen =
-            DateTime.fromISO(lastSeenAt) > DateTime.fromISO(createdAt);
+            lastSeenAt && createdAt
+              ? DateTime.fromISO(lastSeenAt) > DateTime.fromISO(createdAt)
+              : true;
+
+          const key = hash || transactionHash;
+
+          const createdAtDate =
+            createdAt || DateTime.fromSeconds(timestamp).toISO();
+
+          const txHashUpdated = txHash || transactionHash;
 
           const item = (
-            <Grid item key={hash} xs={12}>
+            <Grid item key={key} xs={12}>
               <ActivityStreamItem
-                createdAt={createdAt}
+                createdAt={createdAtDate}
                 data={data}
                 isPending={isPending}
                 isSeen={isSeen}
                 prefix={info.prefix}
                 safeAddress={safeAddress}
-                txHash={txHash}
+                txHash={txHashUpdated}
                 type={type}
                 walletAddress={walletAddress}
               />
@@ -438,11 +461,11 @@ ActivityStreamList.propTypes = {
 };
 
 ActivityStreamItem.propTypes = {
-  createdAt: PropTypes.string.isRequired,
+  createdAt: PropTypes.string,
   data: PropTypes.object.isRequired,
-  isPending: PropTypes.bool.isRequired,
+  isPending: PropTypes.bool,
   isSeen: PropTypes.bool.isRequired,
-  prefix: PropTypes.string,
+  prefix: PropTypes.string.isRequired,
   safeAddress: PropTypes.string.isRequired,
   txHash: PropTypes.string.isRequired,
   type: PropTypes.symbol.isRequired,

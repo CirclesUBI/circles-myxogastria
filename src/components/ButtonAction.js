@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(2.25),
     right: theme.spacing(2.25),
     background: 'transparent',
+    zIndex: theme.zIndex.layer2,
 
     '&:hover': {
       '& stop:first-of-type': {

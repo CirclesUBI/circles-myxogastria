@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 
 import core from '~/services/core';
 import web3 from '~/services/web3';
+import { PAGE_SIZE } from '~/store/activity/actions';
 import ActionTypes from '~/store/activity/types';
 
 // Every item in the activities list has an unique hash identifier
@@ -21,8 +22,7 @@ export const CATEGORIES = [
 const initialStateCategory = {
   activities: [],
   isError: false,
-  isLoading: false,
-  isLoadingMore: false,
+  isLoadingMore: true,
   isMoreAvailable: true,
   lastTimestamp: 0,
   lastUpdatedAt: null,
@@ -39,12 +39,24 @@ const initialStateActivity = {
   type: null,
 };
 
+const initialStateActivityMutual = {
+  activities: [],
+  isError: false,
+  isLoadingMore: true,
+  isMoreAvailable: true,
+  lastTimestamp: 0,
+  lastUpdatedAt: null,
+  offset: 0,
+  mutualAddress: null,
+};
+
 const initialState = {
   categories: CATEGORIES.reduce((acc, category) => {
     acc[category] = initialStateCategory;
     return acc;
   }, {}),
   lastSeenAt: null,
+  mutualActivities: { ...initialStateActivityMutual },
 };
 
 // Merge current and new activities together, avoid duplicates and sort them
@@ -139,31 +151,23 @@ const activityReducer = (state = initialState, action) => {
         },
       });
     case ActionTypes.ACTIVITIES_LOAD_MORE_SUCCESS: {
-      // Nothing more to add ..
-      if (action.meta.activities.length === 0) {
-        return update(state, {
-          categories: {
-            [action.meta.category]: {
-              isLoadingMore: { $set: false },
-              isMoreAvailable: { $set: false },
-            },
-          },
-        });
-      }
-
       // Add new activities
       const newActivities = mergeActivities(
         state.categories[action.meta.category].activities,
         action.meta.activities,
       );
 
-      // Update offset and add new objects
       return update(state, {
         categories: {
           [action.meta.category]: {
-            activities: { $set: newActivities },
             isLoadingMore: { $set: false },
-            offset: { $set: action.meta.offset },
+            ...(action.meta.activities.length < PAGE_SIZE
+              ? { isMoreAvailable: { $set: false } }
+              : {}),
+            activities: { $set: newActivities },
+            ...(action.meta.activities.length >= PAGE_SIZE
+              ? { offset: { $set: action.meta.offset } }
+              : {}),
           },
         },
       });
@@ -176,40 +180,63 @@ const activityReducer = (state = initialState, action) => {
           },
         },
       });
+    case ActionTypes.ACTIVITIES_MUTUAL_LOAD_MORE:
+      return update(state, {
+        mutualActivities: {
+          isError: { $set: false },
+          isLoadingMore: { $set: true },
+        },
+      });
+    case ActionTypes.ACTIVITIES_MUTUAL_LOAD_MORE_SUCCESS: {
+      // Add new activities
+      const newActivities = mergeActivities(
+        state.mutualActivities.activities,
+        action.meta.activities,
+      );
+
+      return update(state, {
+        mutualActivities: {
+          activities: { $set: newActivities },
+          isLoadingMore: { $set: false },
+          offset: { $set: action.meta.offset },
+          ...(action.meta.activities.length < PAGE_SIZE
+            ? { isMoreAvailable: { $set: false } }
+            : {}),
+          lastUpdatedAt: { $set: DateTime.local().toISO() },
+          lastTimestamp: { $set: action.meta.lastTimestamp },
+        },
+      });
+    }
+    case ActionTypes.ACTIVITIES_MUTUAL_LOAD_MORE_ERROR:
+      return update(state, {
+        mutualActivities: {
+          isLoadingMore: { $set: false },
+          isError: { $set: true },
+        },
+      });
     case ActionTypes.ACTIVITIES_UPDATE:
       return update(state, {
         categories: {
           [action.meta.category]: {
-            isLoading: { $set: true },
             isError: { $set: false },
           },
         },
       });
     case ActionTypes.ACTIVITIES_UPDATE_SUCCESS: {
-      // Nothing to add .. array is empty
-      if (action.meta.activities.length === 0) {
-        return update(state, {
-          categories: {
-            [action.meta.category]: {
-              isLoading: { $set: false },
-              lastUpdatedAt: { $set: DateTime.local().toISO() },
-            },
-          },
-        });
-      }
-
       // Add new activities
       const newActivities = mergeActivities(
         state.categories[action.meta.category].activities,
         action.meta.activities,
       );
 
-      // Update timestamps and add new objects
       return update(state, {
         categories: {
           [action.meta.category]: {
             activities: { $set: newActivities },
-            isLoading: { $set: false },
+            ...(action.meta.activities.length < PAGE_SIZE
+              ? { isMoreAvailable: { $set: false } }
+              : {}),
+            isLoadingMore: { $set: false },
             lastTimestamp: { $set: action.meta.lastTimestamp },
             lastUpdatedAt: { $set: DateTime.local().toISO() },
           },
@@ -220,13 +247,23 @@ const activityReducer = (state = initialState, action) => {
       return update(state, {
         categories: {
           [action.meta.category]: {
-            isLoading: { $set: false },
+            isLoadingMore: { $set: false },
             isError: { $set: true },
           },
         },
       });
     case ActionTypes.ACTIVITIES_RESET:
       return update(state, { $set: initialState });
+    case ActionTypes.ACTIVITIES_MUTUAL_RESET:
+      return update(state, {
+        mutualActivities: { $set: initialStateActivityMutual },
+      });
+    case ActionTypes.ACTIVITIES_MUTUAL_ADDRESS_UPDATE:
+      return update(state, {
+        mutualActivities: {
+          mutualAddress: { $set: action.meta.mutualAddress },
+        },
+      });
     case ActionTypes.ACTIVITIES_SET_STATUS: {
       const index = state.categories[action.meta.category].activities.findIndex(
         (item) => {

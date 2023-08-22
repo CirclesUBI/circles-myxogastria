@@ -17,11 +17,12 @@ import web3 from '~/services/web3';
 import { CATEGORIES } from '~/store/activity/reducers';
 import ActionTypes from '~/store/activity/types';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import logError, { translateErrorForUser } from '~/utils/debug';
 import { formatCirclesValue } from '~/utils/format';
 
-const { ActivityTypes } = core.activity;
+const { ActivityTypes, ActivityFilterTypes } = core.activity;
 
-const PAGE_SIZE = 10;
+export const PAGE_SIZE = 10;
 
 export function initializeActivities() {
   const lastSeenAt = getLastSeen();
@@ -102,6 +103,7 @@ export function checkFinishedActivities({
 } = {}) {
   return async (dispatch, getState) => {
     const { safe, activity } = getState();
+    const { mutualActivities } = activity;
 
     if (!safe.currentAccount) {
       return;
@@ -192,6 +194,19 @@ export function checkFinishedActivities({
             }
           }
           setLastReceivedTransaction(DateTime.now().toISO());
+
+          if (
+            `/profile/${mutualActivities.mutualAddress}` ===
+            window.location.pathname
+          ) {
+            dispatch(
+              loadMoreActivitiesMutual(mutualActivities.mutualAddress, {
+                fromOffsetZero: true,
+                withLoader: false,
+                liveRefresh: true,
+              }),
+            );
+          }
         }
 
         dispatch({
@@ -262,6 +277,65 @@ export function loadMoreActivities(category) {
         meta: {
           category,
         },
+      });
+    }
+  };
+}
+
+export function loadMoreActivitiesMutual(otherSafeAddress, options = {}) {
+  const {
+    fromOffsetZero = false,
+    withLoader = true,
+    liveRefresh = false,
+  } = options;
+  return async (dispatch, getState) => {
+    const { safe, activity } = getState();
+    const currentOffset = activity.mutualActivities.offset;
+
+    if (!safe.currentAccount) {
+      return;
+    }
+
+    if (withLoader) {
+      dispatch({
+        type: ActionTypes.ACTIVITIES_MUTUAL_LOAD_MORE,
+      });
+    }
+
+    const offset = fromOffsetZero ? 0 : activity.mutualActivities.offset;
+
+    try {
+      const { activities, lastTimestamp } = await core.activity.getLatest(
+        safe.currentAccount,
+        ActivityFilterTypes.DISABLED,
+        PAGE_SIZE,
+        activity.lastTimestamp,
+        offset,
+        otherSafeAddress,
+      );
+
+      dispatch({
+        type: ActionTypes.ACTIVITIES_MUTUAL_LOAD_MORE_SUCCESS,
+        meta: {
+          activities,
+          offset: liveRefresh ? currentOffset : currentOffset + PAGE_SIZE,
+          lastTimestamp,
+        },
+      });
+    } catch (error) {
+      logError(error);
+      dispatch(
+        notify({
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translateErrorForUser(error)}
+            </Typography>
+          ),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+      dispatch({
+        type: ActionTypes.ACTIVITIES_MUTUAL_LOAD_MORE_ERROR,
       });
     }
   };
