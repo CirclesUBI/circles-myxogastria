@@ -7,7 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-# [2.11.1] - 2023-08-01
+# [2.12.0] - 2023-08-22
+
+### Added
+
+- Add user Activity on profile view [#713](https://github.com/CirclesUBI/circles-myxogastria/pull/713)
+- Add user related activities functionality on Profile page [#713](https://github.com/CirclesUBI/circles-myxogastria/pull/713)
+- Add mutual activities for organisation accounts [#713](https://github.com/CirclesUBI/circles-myxogastria/pull/713)
+
+### Changed
+
+- Correct load more button functionality on Activities page [#713](https://github.com/CirclesUBI/circles-myxogastria/pull/713)
+- Correct loading state for Activities [#713](https://github.com/CirclesUBI/circles-myxogastria/pull/713)
+
+# [2.12.1] - 2023-08-01
 
 ### Changed
 
