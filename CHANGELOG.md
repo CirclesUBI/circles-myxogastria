@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.12.1] - 2023-08-24
+
+### Changed
+
+- Fix mutual activities [#725] (https://github.com/CirclesUBI/circles-myxogastria/pull/725)
+- Update dependencies - core library [#725] (https://github.com/CirclesUBI/circles-myxogastria/pull/725)
+
 # [2.12.0] - 2023-08-22
 
 ### Added
