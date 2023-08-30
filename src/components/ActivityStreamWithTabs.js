@@ -19,9 +19,17 @@ import TabNavigationAction from '~/components/TabNavigationAction';
 import { useIsOrganization } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
-import { loadMoreActivities, updateLastSeen } from '~/store/activity/actions';
+import {
+  loadMoreActivities,
+  loadMoreActivitiesNews,
+  updateLastSeen,
+} from '~/store/activity/actions';
 import { CATEGORIES } from '~/store/activity/reducers';
-import { IconConnections, IconTransactions } from '~/styles/icons';
+import {
+  IconConnections,
+  IconMegaphone,
+  IconTransactions,
+} from '~/styles/icons';
 import {
   FILTER_TRANSACTION_ALL,
   FILTER_TRANSACTION_RECEIVED,
@@ -41,6 +49,9 @@ const useStyles = makeStyles(() => ({
   filterContainer: {
     display: 'flex',
     justifyContent: 'flex-start',
+  },
+  isHidden: {
+    visibility: 'hidden',
   },
   actionsContainer: {
     display: 'flex',
@@ -70,6 +81,7 @@ const useStyles = makeStyles(() => ({
 const QUERY_FILTER_MAP = {
   transfers: ActivityFilterTypes.TRANSFERS,
   connections: ActivityFilterTypes.CONNECTIONS,
+  news: Symbol('NEWS'),
 };
 
 const filterToQuery = (filterName) => {
@@ -107,10 +119,11 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
   const safeAddress = useSelector((state) => state.safe.currentAccount);
+  const news = useSelector((state) => state.activity.news);
   const { isOrganization } = useIsOrganization(safeAddress);
 
   // Get only new Activities and segregate them by category
-  const newActivities = CATEGORIES.reduceRight((newActivities, category) => {
+  let newActivities = CATEGORIES.reduceRight((newActivities, category) => {
     const newActivitiesInCategoryCounter = categories[
       category
     ].activities.reduce((itemAcc, activity) => {
@@ -121,6 +134,11 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
 
     return newActivities;
   }, {});
+
+  const newNews = news.activities.reduce((itemAcc, activity) => {
+    return activity.createdAt > lastSeenAt ? itemAcc + 1 : itemAcc;
+  }, 0);
+  newActivities = { ...newActivities, [QUERY_FILTER_MAP.news]: newNews };
 
   // Get the highest activity tab from all new activities
   const symbols = Object.getOwnPropertySymbols(newActivities);
@@ -138,11 +156,18 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
     Object.getOwnPropertySymbols(newActivitiesHighestItem)[0],
   );
 
-  const activity = categories[selectedCategory];
-  const isLoading = activity.isLoadingMore || activity.lastUpdated === 0;
+  const activity =
+    selectedCategory !== QUERY_FILTER_MAP.news
+      ? categories[selectedCategory]
+      : news;
+  const isLoading = activity?.isLoadingMore || activity?.lastUpdated === 0;
 
   const handleLoadMore = () => {
-    dispatch(loadMoreActivities(selectedCategory));
+    if (selectedCategory === QUERY_FILTER_MAP.news) {
+      dispatch(loadMoreActivitiesNews());
+    } else {
+      dispatch(loadMoreActivities(selectedCategory));
+    }
   };
 
   const exportStatementBtnHandler = () => {
@@ -195,11 +220,6 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const filterPopoverOpenHandler = Boolean(anchorEl);
-  const filterPopoverCloseHandler = () => {
-    setAnchorEl(null);
-  };
-
   const filterItemClickHandler = (index, type, title) => {
     setFilterTransactionIndex(index);
     setFilterTransactionType(type);
@@ -207,9 +227,18 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
     setAnchorEl(null);
   };
 
+  const filterPopoverOpenHandler = Boolean(anchorEl);
+  const filterPopoverCloseHandler = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <Fragment>
-      <TabNavigation value={selectedCategory} onChange={handleFilterSelection}>
+    <>
+      <TabNavigation
+        className={classes.tabNavigationContainer}
+        value={selectedCategory}
+        onChange={handleFilterSelection}
+      >
         <TabNavigationAction
           icon={
             <BadgeTab
@@ -232,9 +261,25 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
           label={translate('ActivityStreamWithTabs.bodyFilterConnections')}
           value={ActivityFilterTypes.CONNECTIONS}
         />
+        <TabNavigationAction
+          icon={
+            <BadgeTab
+              badgeContent={newActivities[QUERY_FILTER_MAP.news]}
+              icon={IconMegaphone}
+              isActive
+            />
+          }
+          label={translate('ActivityStreamWithTabs.bodyFilterNews')}
+          value={QUERY_FILTER_MAP.news}
+        />
       </TabNavigation>
       <Box className={classes.actionsContainer}>
-        <Box className={classes.filterContainer}>
+        <Box
+          className={clsx(classes.filterContainer, {
+            [classes.isHidden]:
+              selectedCategory !== ActivityFilterTypes.TRANSFERS,
+          })}
+        >
           <ButtonIcon
             ariaDescribedby={'filterTransactionPopover'}
             icon="IconArrowDown"
@@ -287,16 +332,18 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
             </>
           )}
       </Box>
-      <ActivityStream
-        activities={activity.activities}
-        filterType={filterTransactionsType}
-        isLoading={isLoading}
-        isMoreAvailable={activity.isMoreAvailable}
-        lastSeenAt={lastSeenAt}
-        lastUpdatedAt={activity.lastUpdatedAt}
-        onLoadMore={handleLoadMore}
-      />
-    </Fragment>
+      {activity && (
+        <ActivityStream
+          activities={activity.activities}
+          filterType={filterTransactionsType}
+          isLoading={isLoading}
+          isMoreAvailable={activity.isMoreAvailable}
+          lastSeenAt={lastSeenAt}
+          lastUpdatedAt={activity.lastUpdatedAt}
+          onLoadMore={handleLoadMore}
+        />
+      )}
+    </>
   );
 };
 
