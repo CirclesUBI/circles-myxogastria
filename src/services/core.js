@@ -298,6 +298,17 @@ const activity = {
   },
 };
 
+// News module
+const news = {
+  getLatestNews: async (afterDate, isActive, limit, offset) => {
+    return await requestCore('news', 'getLatestNews', {
+      afterDate,
+      isActive,
+      limit,
+      offset,
+    });
+  },
+};
 // Organization module
 
 const organization = {
@@ -359,6 +370,7 @@ const errors = {
 export default {
   activity,
   errors,
+  news,
   organization,
   safe,
   token,
