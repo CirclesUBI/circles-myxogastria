@@ -9,7 +9,7 @@ import { IconNotification } from '~/styles/icons';
 const newsItems = core.news;
 
 const DashboardActivityIcon = () => {
-  const { categories, lastSeenAt } = useSelector((state) => {
+  const { categories, lastSeenAt, news } = useSelector((state) => {
     return state.activity;
   });
 
@@ -35,6 +35,10 @@ const DashboardActivityIcon = () => {
     );
   }, 0);
 
+  const countNews = news.activities.reduce((itemAcc, activity) => {
+    return activity.createdAt > lastSeenAt ? itemAcc + 1 : itemAcc;
+  }, 0);
+
   return (
     <IconButton
       aria-label="Activities"
@@ -47,7 +51,7 @@ const DashboardActivityIcon = () => {
         <CircularProgress size={28} />
       ) : (
         <Badge
-          badgeContent={count}
+          badgeContent={count + countNews}
           color="primary"
           max={99}
           overlap="rectangular"
