@@ -300,12 +300,12 @@ const activity = {
 
 // News module
 const news = {
-  getLatestNews: async (afterDate, isActive, limit, offset) => {
-    return await requestCore('news', 'getLatestNews', {
-      afterDate,
-      isActive,
-      limit,
+  getLatestNews: async (offset, limit, isActive, afterDate) => {
+    return await core.news.getLatestNews({
       offset,
+      limit,
+      isActive,
+      afterDate,
     });
   },
 };
