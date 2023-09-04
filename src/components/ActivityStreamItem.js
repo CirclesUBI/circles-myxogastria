@@ -30,6 +30,7 @@ const { ActivityTypes } = core.activity;
 
 const useStyles = makeStyles((theme) => ({
   cardContainer: {
+    boxShadow: theme.custom.shadows.navigationFloating,
     '&:hover': {
       background: theme.custom.colors.blackSqueeze,
 
