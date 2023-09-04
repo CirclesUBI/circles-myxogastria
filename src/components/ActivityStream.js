@@ -93,7 +93,7 @@ const ActivityStreamList = ({
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} style={{ paddingBottom: '32px' }}>
       {activities.reduce(
         (
           acc,

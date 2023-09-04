@@ -347,6 +347,14 @@ export default createTheme({
     },
   },
   components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          paddingLeft: '32px',
+          paddingRight: '32px',
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: `
         @font-face {
