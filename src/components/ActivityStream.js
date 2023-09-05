@@ -99,6 +99,7 @@ const ActivityStreamList = ({
           acc,
           {
             data,
+            id,
             hash,
             createdAt,
             type,
@@ -134,7 +135,7 @@ const ActivityStreamList = ({
               ? DateTime.fromISO(lastSeenAt) > DateTime.fromISO(createdAt)
               : true;
 
-          const key = hash || transactionHash;
+          const key = hash || transactionHash || id;
 
           const createdAtDate =
             createdAt || DateTime.fromSeconds(timestamp).toISO();

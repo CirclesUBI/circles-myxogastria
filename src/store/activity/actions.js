@@ -374,7 +374,7 @@ export function loadMoreActivitiesNews(options = {}) {
 
     function checkForDuplicates(item) {
       for (const newsItem of currentNews) {
-        if (newsItem.data.date === item.date) {
+        if (newsItem.id === item.id) {
           return false;
         }
       }
@@ -386,7 +386,6 @@ export function loadMoreActivitiesNews(options = {}) {
       let filteredNewsData = [];
       let filterDuplicateNewsData = [];
       let noMoreRecords = false;
-      let loopCounter = 0;
 
       do {
         let data = await core.news.getLatestNews(offset, PAGE_SIZE);
@@ -409,7 +408,6 @@ export function loadMoreActivitiesNews(options = {}) {
         }
 
         // we have values till present which are not duplicates - we add them to newsData which we want to display
-        // newsData.push(...filteredNewsData);
         newsData.push(...filterDuplicateNewsData);
         offset += PAGE_SIZE;
       } while (!noMoreRecords && newsData.length < PAGE_SIZE);
