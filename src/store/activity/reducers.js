@@ -114,9 +114,7 @@ function mergeNews(currentActivities, newActivities) {
     .reduce((acc, activity) => {
       // Reformat object
       const newActivity = Object.assign({}, initialStateActivity, {
-        createdAt: activity.createdAt
-          ? DateTime.fromSeconds(activity.time).toISO()
-          : activity.date,
+        createdAt: activity.createdAt ? activity.createdAt : activity.date,
         data: {
           date: activity.date,
           iconId: activity.iconId,
