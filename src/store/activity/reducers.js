@@ -78,7 +78,6 @@ function mergeActivities(currentActivities, newActivities) {
       const newActivity = Object.assign({}, initialStateActivity, {
         createdAt: DateTime.fromSeconds(activity.timestamp).toISO(),
         data: activity.data,
-        txHash: activity.transactionHash,
         type: activity.type,
       });
 
@@ -116,22 +115,20 @@ function mergeNews(currentActivities, newActivities) {
     .reduce((acc, activity) => {
       // Reformat object
       const newActivity = Object.assign({}, initialStateActivity, {
-        createdAt: activity.createdAt
-          ? DateTime.fromSeconds(activity.time).toISO()
-          : activity.date,
+        createdAt: activity.createdAt ? activity.createdAt : activity.date,
         data: {
           date: activity.date,
           iconId: activity.iconId,
           isActive: activity.isActive,
           message: activity.message,
+          title: activity.title,
         },
         type: 'NEWS',
+        id: activity.id,
       });
 
-      newActivity.hash = generateHash(newActivity);
-
       const duplicateItem = currentActivities.find(
-        (item) => item.hash === newActivity.hash,
+        (item) => item.id === newActivity.id,
       );
       if (!duplicateItem) {
         acc.push(newActivity);
@@ -141,8 +138,8 @@ function mergeNews(currentActivities, newActivities) {
     }, [])
     .concat(currentActivities)
     .sort((itemA, itemB) => {
-      return DateTime.fromISO(itemB.createdAt) <
-        DateTime.fromISO(itemA.createdAt)
+      return DateTime.fromISO(itemB.data.date) <
+        DateTime.fromISO(itemA.data.date)
         ? -1
         : 1;
     });

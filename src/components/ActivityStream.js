@@ -105,6 +105,7 @@ const ActivityStreamList = ({
           acc,
           {
             data,
+            id,
             hash,
             createdAt,
             type,
@@ -140,7 +141,7 @@ const ActivityStreamList = ({
               ? DateTime.fromISO(lastSeenAt) > DateTime.fromISO(createdAt)
               : true;
 
-          const key = hash || transactionHash;
+          const key = hash || transactionHash || id;
 
           const createdAtDate =
             createdAt || DateTime.fromSeconds(timestamp).toISO();
@@ -176,8 +177,8 @@ const ActivityStreamList = ({
 ActivityStream.propTypes = {
   activities: PropTypes.array.isRequired,
   filterType: PropTypes.string,
-  isLoadingInitial: PropTypes.bool.isRequired,
-  isLoadingMore: PropTypes.bool.isRequired,
+  isLoadingInitial: PropTypes.bool,
+  isLoadingMore: PropTypes.bool,
   isMoreAvailable: PropTypes.bool.isRequired,
   lastSeenAt: PropTypes.string,
   lastUpdatedAt: PropTypes.string,

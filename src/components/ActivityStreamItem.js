@@ -106,7 +106,6 @@ const ActivityStreamItem = (props) => {
   } = props.type !== 'NEWS' ? formatMessage(props) : props;
 
   if (!formattedDate) {
-    //   // TODO which one? data.createdAt || data.date
     formattedDate = DateTime.fromISO(
       props.data.createdAt || props.data.date,
     ).toFormat('dd.LL.yyyy');
@@ -143,8 +142,7 @@ const ActivityStreamItem = (props) => {
           ...data,
           actor,
         })
-      : // TODO remove || 'This is test title'
-        data.title?.en || 'This is test title';
+      : data.title?.en;
   }, [actor, data, messageId]);
 
   return (
