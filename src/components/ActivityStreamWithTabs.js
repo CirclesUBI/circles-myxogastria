@@ -160,7 +160,9 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
     selectedCategory !== QUERY_FILTER_MAP.news
       ? categories[selectedCategory]
       : news;
-  const isLoading = activity?.isLoadingMore || activity?.lastUpdated === 0;
+  const isLoadingInitial =
+    activity?.isLoadingInitial || activity?.lastUpdated === 0;
+  const isLoadingMore = activity?.isLoadingMore || activity?.lastUpdated === 0;
 
   const handleLoadMore = () => {
     if (selectedCategory === QUERY_FILTER_MAP.news) {
@@ -336,7 +338,8 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
         <ActivityStream
           activities={activity.activities}
           filterType={filterTransactionsType}
-          isLoading={isLoading}
+          isLoadingInitial={isLoadingInitial}
+          isLoadingMore={isLoadingMore}
           isMoreAvailable={activity.isMoreAvailable}
           lastSeenAt={lastSeenAt}
           lastUpdatedAt={activity.lastUpdatedAt}

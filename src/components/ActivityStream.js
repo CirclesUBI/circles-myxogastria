@@ -23,7 +23,8 @@ const { ActivityTypes } = core.activity;
 const ActivityStream = ({
   activities,
   filterType,
-  isLoading,
+  isLoadingInitial,
+  isLoadingMore,
   isMoreAvailable,
   lastSeenAt,
   lastUpdatedAt,
@@ -43,7 +44,7 @@ const ActivityStream = ({
 
   return (
     <Fragment>
-      {!isLoading && (
+      {!isLoadingInitial && (
         <ActivityStreamList
           activities={activities}
           filterType={filterType}
@@ -51,16 +52,21 @@ const ActivityStream = ({
           lastUpdatedAt={lastUpdatedAt}
         />
       )}
-      {isLoading && (
-        <Box mx="auto" my={2} textAlign="center">
-          <CircularProgress />
-        </Box>
-      )}
-      {!isLoading && isMoreAvailable && onLoadMore && (
+      {!isLoadingInitial && isMoreAvailable && onLoadMore && !isLoadingMore && (
         <Box my={2}>
-          <Button disabled={isLoading} fullWidth isOutline onClick={onLoadMore}>
+          <Button
+            disabled={isLoadingInitial}
+            fullWidth
+            isOutline
+            onClick={onLoadMore}
+          >
             {translate('ActivityStream.buttonLoadMore')}
           </Button>
+        </Box>
+      )}
+      {(isLoadingInitial || isLoadingMore) && (
+        <Box mx="auto" my={2} textAlign="center">
+          <CircularProgress />
         </Box>
       )}
     </Fragment>
@@ -171,7 +177,8 @@ const ActivityStreamList = ({
 ActivityStream.propTypes = {
   activities: PropTypes.array.isRequired,
   filterType: PropTypes.string,
-  isLoading: PropTypes.bool.isRequired,
+  isLoadingInitial: PropTypes.bool.isRequired,
+  isLoadingMore: PropTypes.bool.isRequired,
   isMoreAvailable: PropTypes.bool.isRequired,
   lastSeenAt: PropTypes.string,
   lastUpdatedAt: PropTypes.string,
