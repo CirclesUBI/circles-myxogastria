@@ -23,7 +23,8 @@ export const CATEGORIES = [
 const initialStateItem = {
   activities: [],
   isError: false,
-  isLoadingMore: true,
+  isLoadingInitial: true,
+  isLoadingMore: false,
   isMoreAvailable: true,
   lastTimestamp: 0,
   lastUpdatedAt: null,
@@ -239,6 +240,7 @@ const activityReducer = (state = initialState, action) => {
       return update(state, {
         mutualActivities: {
           activities: { $set: newActivities },
+          isLoadingInitial: { $set: false },
           isLoadingMore: { $set: false },
           offset: { $set: action.meta.offset },
           ...(action.meta.activities.length < PAGE_SIZE
@@ -274,6 +276,7 @@ const activityReducer = (state = initialState, action) => {
       return update(state, {
         news: {
           activities: { $set: newActivities },
+          isLoadingInitial: { $set: false },
           isLoadingMore: { $set: false },
           offset: { $set: action.meta.offset },
           ...(action.meta.activities.length < PAGE_SIZE
@@ -313,6 +316,7 @@ const activityReducer = (state = initialState, action) => {
             ...(action.meta.activities.length < PAGE_SIZE
               ? { isMoreAvailable: { $set: false } }
               : {}),
+            isLoadingInitial: { $set: false },
             isLoadingMore: { $set: false },
             lastTimestamp: { $set: action.meta.lastTimestamp },
             lastUpdatedAt: { $set: DateTime.local().toISO() },
