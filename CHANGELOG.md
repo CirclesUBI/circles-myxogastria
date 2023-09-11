@@ -1,3 +1,4 @@
+# DEPRECATED - please from version 2.12.2 check github realase notes
 # Changelog
 
 All notable changes to this project will be documented in this file.
