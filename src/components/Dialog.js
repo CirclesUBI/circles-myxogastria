@@ -37,7 +37,7 @@ const Dialog = ({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus isPrimary onClick={onConfirm}>
+        <Button autoFocus onClick={onConfirm}>
           {confirmLabel}
         </Button>
         <Button isOutline onClick={onClose}>

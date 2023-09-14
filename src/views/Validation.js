@@ -101,7 +101,7 @@ const Validation = () => {
 
   const dialogContentFooter = () => {
     return (
-      <ButtonShare fullWidth isPrimary text={shareText} url={shareLink}>
+      <ButtonShare fullWidth text={shareText} url={shareLink}>
         {translate('Validation.buttonShareProfileLink')}
       </ButtonShare>
     );
