@@ -7,8 +7,9 @@ import { PAGE_SIZE } from '~/store/activity/actions';
 import ActionTypes from '~/store/activity/types';
 
 // Every item in the activities list has an unique hash identifier
-function generateHash(activity) {
-  const value = `${activity.txHash}${activity.type.toString()}`;
+export function generateHash(activity) {
+  const hash = activity?.txHash || activity?.createdAt || activity?.date;
+  const value = `${hash}${activity.type?.toString()}`;
   return web3.utils.sha3(value);
 }
 
@@ -19,14 +20,19 @@ export const CATEGORIES = [
   ActivityFilterTypes.TRANSFERS,
 ];
 
-const initialStateCategory = {
+const initialStateItem = {
   activities: [],
   isError: false,
-  isLoadingMore: true,
+  isLoadingInitial: true,
+  isLoadingMore: false,
   isMoreAvailable: true,
   lastTimestamp: 0,
   lastUpdatedAt: null,
   offset: 0,
+};
+
+const initialStateCategory = {
+  ...initialStateItem,
 };
 
 const initialStateActivity = {
@@ -40,14 +46,12 @@ const initialStateActivity = {
 };
 
 const initialStateActivityMutual = {
-  activities: [],
-  isError: false,
-  isLoadingMore: true,
-  isMoreAvailable: true,
-  lastTimestamp: 0,
-  lastUpdatedAt: null,
-  offset: 0,
+  ...initialStateItem,
   mutualAddress: null,
+};
+
+const initialStateActivityNews = {
+  ...initialStateItem,
 };
 
 const initialState = {
@@ -57,6 +61,7 @@ const initialState = {
   }, {}),
   lastSeenAt: null,
   mutualActivities: { ...initialStateActivityMutual },
+  news: { ...initialStateActivityNews },
 };
 
 // Merge current and new activities together, avoid duplicates and sort them
@@ -73,7 +78,6 @@ function mergeActivities(currentActivities, newActivities) {
       const newActivity = Object.assign({}, initialStateActivity, {
         createdAt: DateTime.fromSeconds(activity.timestamp).toISO(),
         data: activity.data,
-        txHash: activity.transactionHash,
         type: activity.type,
       });
 
@@ -101,6 +105,41 @@ function mergeActivities(currentActivities, newActivities) {
     .sort((itemA, itemB) => {
       return DateTime.fromISO(itemB.createdAt) <
         DateTime.fromISO(itemA.createdAt)
+        ? -1
+        : 1;
+    });
+}
+
+function mergeNews(currentActivities, newActivities) {
+  return newActivities
+    .reduce((acc, activity) => {
+      // Reformat object
+      const newActivity = Object.assign({}, initialStateActivity, {
+        createdAt: activity.createdAt ? activity.createdAt : activity.date,
+        data: {
+          date: activity.date,
+          iconId: activity.iconId,
+          isActive: activity.isActive,
+          message: activity.message,
+          title: activity.title,
+        },
+        type: 'NEWS',
+        id: activity.id,
+      });
+
+      const duplicateItem = currentActivities.find(
+        (item) => item.id === newActivity.id,
+      );
+      if (!duplicateItem) {
+        acc.push(newActivity);
+      }
+
+      return acc;
+    }, [])
+    .concat(currentActivities)
+    .sort((itemA, itemB) => {
+      return DateTime.fromISO(itemB.data.date) <
+        DateTime.fromISO(itemA.data.date)
         ? -1
         : 1;
     });
@@ -141,7 +180,7 @@ const activityReducer = (state = initialState, action) => {
         },
       });
     }
-    case ActionTypes.ACTIVITIES_LOAD_MORE:
+    case ActionTypes.ACTIVITIES_LOAD_MORE: {
       return update(state, {
         categories: {
           [action.meta.category]: {
@@ -150,6 +189,7 @@ const activityReducer = (state = initialState, action) => {
           },
         },
       });
+    }
     case ActionTypes.ACTIVITIES_LOAD_MORE_SUCCESS: {
       // Add new activities
       const newActivities = mergeActivities(
@@ -197,6 +237,7 @@ const activityReducer = (state = initialState, action) => {
       return update(state, {
         mutualActivities: {
           activities: { $set: newActivities },
+          isLoadingInitial: { $set: false },
           isLoadingMore: { $set: false },
           offset: { $set: action.meta.offset },
           ...(action.meta.activities.length < PAGE_SIZE
@@ -214,6 +255,42 @@ const activityReducer = (state = initialState, action) => {
           isError: { $set: true },
         },
       });
+
+    case ActionTypes.ACTIVITIES_NEWS_LOAD_MORE:
+      return update(state, {
+        news: {
+          isError: { $set: false },
+          isLoadingMore: { $set: true },
+        },
+      });
+    case ActionTypes.ACTIVITIES_NEWS_LOAD_MORE_SUCCESS: {
+      // Add new activities
+      const newActivities = mergeNews(
+        state.news.activities,
+        action.meta.activities,
+      );
+
+      return update(state, {
+        news: {
+          activities: { $set: newActivities },
+          isLoadingInitial: { $set: false },
+          isLoadingMore: { $set: false },
+          offset: { $set: action.meta.offset },
+          ...(action.meta.activities.length < PAGE_SIZE
+            ? { isMoreAvailable: { $set: false } }
+            : {}),
+          lastUpdatedAt: { $set: DateTime.local().toISO() },
+        },
+      });
+    }
+    case ActionTypes.ACTIVITIES_NEWS_LOAD_MORE_ERROR:
+      return update(state, {
+        news: {
+          isLoadingMore: { $set: false },
+          isError: { $set: true },
+        },
+      });
+
     case ActionTypes.ACTIVITIES_UPDATE:
       return update(state, {
         categories: {
@@ -236,6 +313,7 @@ const activityReducer = (state = initialState, action) => {
             ...(action.meta.activities.length < PAGE_SIZE
               ? { isMoreAvailable: { $set: false } }
               : {}),
+            isLoadingInitial: { $set: false },
             isLoadingMore: { $set: false },
             lastTimestamp: { $set: action.meta.lastTimestamp },
             lastUpdatedAt: { $set: DateTime.local().toISO() },

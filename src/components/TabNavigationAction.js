@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     '&.MuiTab-labelIcon': {
-      minHeight: 'auto',
       paddingBottom: '3px',
 
       '& .MuiTab-wrapper > *:first-child': {
@@ -53,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
   },
   tabContainer: {
     position: 'relative',
+    width: '33.33%',
+    display: 'flex',
   },
   itemsCounterContainer: {
     position: 'absolute',

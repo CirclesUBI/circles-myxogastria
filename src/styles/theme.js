@@ -125,6 +125,28 @@ const components = {
   navigationWidth: 300,
 };
 
+const body4Styles = {
+  fontWeight: fontWeightRegular,
+  fontSize: fontSizeSmall,
+  lineHeight: '19px',
+  color: colors.violet,
+  '&.body4_white': {
+    color: colors.whiteAlmost,
+  },
+  '&.body4_gradient_purple': {
+    background: gradients.lightPinkToPurple,
+    backgroundClip: 'text',
+    textFillColor: 'transparent',
+  },
+};
+
+const body5Styles = {
+  fontWeight: fontWeightMediumBold,
+  fontSize: fontSizeSmall,
+  lineHeight: '19px',
+  color: colors.violet,
+};
+
 export default createTheme({
   breakpoints: {
     values: {
@@ -245,24 +267,10 @@ export default createTheme({
       },
     },
     body4: {
-      fontWeight: fontWeightRegular,
-      fontSize: fontSizeSmall,
-      lineHeight: '19px',
-      color: colors.violet,
-      '&.body4_white': {
-        color: colors.whiteAlmost,
-      },
-      '&.body4_gradient_purple': {
-        background: gradients.lightPinkToPurple,
-        backgroundClip: 'text',
-        textFillColor: 'transparent',
-      },
+      ...body4Styles,
     },
     body5: {
-      fontWeight: fontWeightMediumBold,
-      fontSize: fontSizeSmall,
-      lineHeight: '19px',
-      color: colors.violet,
+      ...body5Styles,
       '&.body5_link': {
         background: gradients.pinkToPurple,
         backgroundClip: 'text',
@@ -318,6 +326,16 @@ export default createTheme({
       fontSize: '4rem',
       color: 'red',
     },
+    wysiwyg: {
+      '& p': {
+        ...body4Styles,
+      },
+      '& a': {
+        ...body5Styles,
+        textDecoration: 'none',
+        color: colors.purple,
+      },
+    },
     components: {
       MuiTypography: {
         defaultProps: {
@@ -329,6 +347,14 @@ export default createTheme({
     },
   },
   components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          paddingLeft: '32px',
+          paddingRight: '32px',
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: `
         @font-face {

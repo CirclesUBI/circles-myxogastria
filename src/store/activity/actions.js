@@ -109,6 +109,27 @@ export function checkFinishedActivities({
       return;
     }
 
+    dispatch(
+      loadMoreActivitiesNews({
+        fromOffsetZero: true,
+        withLoader: false,
+        liveRefresh: true,
+      }),
+    );
+
+    // Check for mutual activities with other user address
+    if (
+      `/profile/${mutualActivities.mutualAddress}` === window.location.pathname
+    ) {
+      dispatch(
+        loadMoreActivitiesMutual(mutualActivities.mutualAddress, {
+          fromOffsetZero: true,
+          withLoader: false,
+          liveRefresh: true,
+        }),
+      );
+    }
+
     for await (const category of CATEGORIES) {
       dispatch({
         type: ActionTypes.ACTIVITIES_UPDATE,
@@ -137,7 +158,7 @@ export function checkFinishedActivities({
         );
 
         // Check received transactions from different users and notify user about them if necessary
-        if (category === CATEGORIES[1]) {
+        if (category === ActivityFilterTypes.TRANSFERS) {
           const lastReceivedTransactionDate = DateTime.fromISO(
             getLastReceivedTransaction(),
           );
@@ -194,19 +215,6 @@ export function checkFinishedActivities({
             }
           }
           setLastReceivedTransaction(DateTime.now().toISO());
-
-          if (
-            `/profile/${mutualActivities.mutualAddress}` ===
-            window.location.pathname
-          ) {
-            dispatch(
-              loadMoreActivitiesMutual(mutualActivities.mutualAddress, {
-                fromOffsetZero: true,
-                withLoader: false,
-                liveRefresh: true,
-              }),
-            );
-          }
         }
 
         dispatch({
@@ -217,7 +225,7 @@ export function checkFinishedActivities({
             lastTimestamp,
           },
         });
-      } catch {
+      } catch (error) {
         dispatch({
           type: ActionTypes.ACTIVITIES_UPDATE_ERROR,
           meta: {
@@ -336,6 +344,95 @@ export function loadMoreActivitiesMutual(otherSafeAddress, options = {}) {
       );
       dispatch({
         type: ActionTypes.ACTIVITIES_MUTUAL_LOAD_MORE_ERROR,
+      });
+    }
+  };
+}
+
+export function loadMoreActivitiesNews(options = {}) {
+  const {
+    fromOffsetZero = false,
+    withLoader = true,
+    liveRefresh = false,
+  } = options;
+  return async (dispatch, getState) => {
+    const { activity } = getState();
+    const currentOffset = activity.news.offset;
+    const currentNews = activity.news.activities;
+
+    if (withLoader) {
+      dispatch({
+        type: ActionTypes.ACTIVITIES_NEWS_LOAD_MORE,
+      });
+    }
+
+    let offset = fromOffsetZero ? 0 : currentOffset;
+
+    function tillNow(item) {
+      return item.date ? DateTime.fromISO(item.date) <= DateTime.now() : [];
+    }
+
+    function checkForDuplicates(item) {
+      for (const newsItem of currentNews) {
+        if (newsItem.id === item.id) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    try {
+      let newsData = [];
+      let filteredNewsData = [];
+      let filterDuplicateNewsData = [];
+      let noMoreRecords = false;
+
+      do {
+        let data = await core.news.getLatestNews(offset, PAGE_SIZE);
+
+        if (data.length === 0) {
+          noMoreRecords = true;
+          break;
+        }
+
+        // we want only values till present time not future
+        filteredNewsData = data?.filter(tillNow);
+
+        // we have some values in table as well and we do not want duplicates so we filter
+        // we don't filter when liveRefresh as than we may endup with no results
+        // depends on amount of news to display in future in database
+        if (!liveRefresh) {
+          filterDuplicateNewsData = filteredNewsData.filter(checkForDuplicates);
+        } else {
+          filterDuplicateNewsData = filteredNewsData;
+        }
+
+        // we have values till present which are not duplicates - we add them to newsData which we want to display
+        newsData.push(...filterDuplicateNewsData);
+        offset += PAGE_SIZE;
+      } while (!noMoreRecords && newsData.length < PAGE_SIZE);
+
+      dispatch({
+        type: ActionTypes.ACTIVITIES_NEWS_LOAD_MORE_SUCCESS,
+        meta: {
+          activities: newsData,
+          offset: liveRefresh ? currentOffset : offset,
+        },
+      });
+    } catch (error) {
+      logError(error);
+      dispatch(
+        notify({
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translateErrorForUser(error)}
+            </Typography>
+          ),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+      dispatch({
+        type: ActionTypes.ACTIVITIES_NEWS_LOAD_MORE_ERROR,
       });
     }
   };
