@@ -3,6 +3,9 @@ import { Box, Tooltip, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { TOKENS_PATH } from '~/routes';
 
 import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
@@ -56,8 +59,10 @@ const BalanceDisplay = () => {
           <CircularProgress />
         ) : (
           <Typography variant="balance1">
-            <IconCircles className={classes.balanceIcon} />
-            {tokenBalance}
+            <Link to={TOKENS_PATH}>
+              <IconCircles className={classes.balanceIcon} />
+              {tokenBalance}
+            </Link>
           </Typography>
         )}
       </Box>

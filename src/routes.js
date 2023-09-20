@@ -23,6 +23,7 @@ import Send from '~/views/Send';
 import SendConfirm from '~/views/SendConfirm';
 import Settings from '~/views/Settings';
 import Share from '~/views/Share';
+import Tokens from '~/views/Tokens';
 import TutorialOnboarding from '~/views/TutorialOnboarding';
 import Validation from '~/views/Validation';
 import ValidationLock from '~/views/ValidationLock';
@@ -43,6 +44,7 @@ export const ORGANIZATION_PATH = '/organization';
 export const PROFILE_PATH = '/profile/:address';
 export const QR_GENERATOR_PATH = '/sharedwallet/qr';
 export const SEARCH_PATH = '/search';
+export const TOKENS_PATH = '/tokens';
 export const SEED_PHRASE_PATH = '/seedphrase';
 export const SEND_CONFIRM_PATH = '/send/:address(0x[0-9a-fA-f]{40})';
 export const SEND_PATH = '/send';
@@ -265,6 +267,7 @@ const Routes = () => {
       <TrustedRoute component={EditProfile} exact path={EDIT_PROFILE_PATH} />
       <TrustedRoute component={QRGenerator} exact path={QR_GENERATOR_PATH} />
       <TrustedRoute component={Search} exact path={SEARCH_PATH} />
+      <TrustedRoute component={Tokens} exact path={TOKENS_PATH} />
       <OrganizationRoute
         component={OrganizationMembersAdd}
         exact
