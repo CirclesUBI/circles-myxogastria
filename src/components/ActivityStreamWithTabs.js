@@ -16,7 +16,6 @@ import DialogExportStatement from '~/components/DialogExportStatement';
 import Popover from '~/components/Popover';
 import TabNavigation from '~/components/TabNavigation';
 import TabNavigationAction from '~/components/TabNavigationAction';
-import { useIsOrganization } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import {
@@ -118,9 +117,7 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
   const [filterTitle, setFilterTitle] = useState(filterItems[0].title);
   const [anchorEl, setAnchorEl] = useState(null);
   const { categories, lastSeenAt } = useSelector((state) => state.activity);
-  const safeAddress = useSelector((state) => state.safe.currentAccount);
   const news = useSelector((state) => state.activity.news);
-  const { isOrganization } = useIsOrganization(safeAddress);
 
   // Get only new Activities and segregate them by category
   let newActivities = CATEGORIES.reduceRight((newActivities, category) => {
@@ -316,23 +313,19 @@ const ActivityStreamWithTabs = ({ basePath = ACTIVITIES_PATH }) => {
             })}
           </Popover>
         </Box>
-        {selectedCategory === ActivityFilterTypes.TRANSFERS &&
-          isOrganization && (
-            <>
-              <Box className={classes.exportContainer}>
-                <ButtonIcon
-                  icon="IconUnion"
-                  onClick={exportStatementBtnHandler}
-                >
-                  {translate('ExportStatement.exportBtnText')}
-                </ButtonIcon>
-              </Box>
-              <DialogExportStatement
-                dialogOpen={dialogOpen}
-                onCloseHandler={dialogCloseHandler}
-              />
-            </>
-          )}
+        {selectedCategory === ActivityFilterTypes.TRANSFERS && (
+          <>
+            <Box className={classes.exportContainer}>
+              <ButtonIcon icon="IconUnion" onClick={exportStatementBtnHandler}>
+                {translate('ExportStatement.exportBtnText')}
+              </ButtonIcon>
+            </Box>
+            <DialogExportStatement
+              dialogOpen={dialogOpen}
+              onCloseHandler={dialogCloseHandler}
+            />
+          </>
+        )}
       </Box>
       {activity && (
         <ActivityStream
