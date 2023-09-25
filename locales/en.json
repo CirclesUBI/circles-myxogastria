@@ -148,7 +148,7 @@
     "exportFrom": "From",
     "exportInfoText": "Your wallet statement will be downloaded in CSV format.",
     "exportLoadingText": "This can take some minutes",
-    "exportHelper": "You can only export periods up to one year ago",
+    "exportHelper": "You can only export periods up to one year ago.",
     "exportHintDate": "Invalid date",
     "exportHintRange": "Invalid date",
     "exportStatement": "Account statement",
