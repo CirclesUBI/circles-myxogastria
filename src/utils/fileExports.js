@@ -9,6 +9,7 @@ import core from '~/services/core';
 import resolveTxHash from '~/services/transfer';
 import resolveUsernames from '~/services/username';
 import web3 from '~/services/web3';
+import { ZERO_ADDRESS } from '~/utils/constants';
 import { formatCirclesValue } from '~/utils/format';
 
 const NUMBER_OF_DECIMALS = 2;
@@ -110,10 +111,16 @@ const formatTransactions = async (transactions, safeAddress) => {
 
   // construct csv transaction
   return transactionData.map((data, index) => {
-    data.name = namesBySafe[data.otherSafe]
-      ? namesBySafe[data.otherSafe].username
-      : '-';
-    data.paymentNote = `"${notes[index].replaceAll('"', '""')}"`;
+    if (data.otherSafe === ZERO_ADDRESS) {
+      // UBI transaction
+      data.name = 'CirclesUBI';
+      data.paymentNote = 'UBI payout';
+    } else {
+      data.name = namesBySafe[data.otherSafe]
+        ? namesBySafe[data.otherSafe].username
+        : '-';
+      data.paymentNote = `"${notes[index].replaceAll('"', '""')}"`;
+    }
 
     return `${data.date};${data.name};${data.otherSafe};${data.paymentNote};${data.amount}`;
   });
