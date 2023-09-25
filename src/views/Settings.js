@@ -11,6 +11,7 @@ import CenteredHeading from '~/components/CenteredHeading';
 import DialogBurn from '~/components/DialogBurn';
 import ExternalLink from '~/components/ExternalLink';
 import Header from '~/components/Header';
+import RemoveYourData from '~/components/RemoveYourData';
 import View from '~/components/View';
 import translate from '~/services/locale';
 
@@ -76,6 +77,13 @@ const Settings = () => {
                       <SettingsExplorableAddress address={token.address} />
                     </Box>
                   )}
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper>
+                <Box p={2}>
+                  <RemoveYourData />
                 </Box>
               </Paper>
             </Grid>

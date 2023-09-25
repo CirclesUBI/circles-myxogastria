@@ -17,6 +17,7 @@ import CheckboxTerms from '~/components/CheckboxTerms';
 import DialogInfo from '~/components/DialogInfo';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
+import RemoveYourData from '~/components/RemoveYourData';
 import UploadFromCamera from '~/components/UploadFromCamera';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
@@ -510,6 +511,7 @@ const EditProfile = () => {
                 </>
               )}
             </Box>
+            <RemoveYourData />
           </Box>
         </Container>
       </View>
