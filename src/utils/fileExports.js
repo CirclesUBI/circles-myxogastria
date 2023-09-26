@@ -204,7 +204,7 @@ export async function downloadCsvStatement(
 ) {
   // Verify date order
   if (startDate > endDate) {
-    throw new Error(translate('ExportStatement.exportDataName'));
+    throw new Error(translate('ExportStatement.exportInvalidDateInterval'));
   }
 
   // Transactions
