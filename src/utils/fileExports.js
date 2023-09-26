@@ -6,6 +6,7 @@ import { from, lastValueFrom } from 'rxjs';
 import { mergeMap, toArray } from 'rxjs/operators';
 
 import core from '~/services/core';
+import translate from '~/services/locale';
 import resolveTxHash from '~/services/transfer';
 import resolveUsernames from '~/services/username';
 import web3 from '~/services/web3';
@@ -113,8 +114,8 @@ const formatTransactions = async (transactions, safeAddress) => {
   return transactionData.map((data, index) => {
     if (data.otherSafe === ZERO_ADDRESS) {
       // UBI transaction
-      data.name = 'CirclesUBI';
-      data.paymentNote = 'UBI payout';
+      data.name = translate('ExportStatement.exportDataName');
+      data.paymentNote = translate('ExportStatement.exportPaymentNote');
     } else {
       data.name = namesBySafe[data.otherSafe]
         ? namesBySafe[data.otherSafe].username
@@ -203,7 +204,7 @@ export async function downloadCsvStatement(
 ) {
   // Verify date order
   if (startDate > endDate) {
-    throw new Error('Invalid date interval');
+    throw new Error(translate('ExportStatement.exportDataName'));
   }
 
   // Transactions

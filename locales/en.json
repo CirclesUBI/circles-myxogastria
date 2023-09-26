@@ -144,9 +144,12 @@
   },
   "ExportStatement": {
     "exportBtnText": "Export Statement",
+    "exportDataName": "CirclesUBI",
+    "exportPaymentNote": "UBI payout",
     "exportFormat": "Format",
     "exportFrom": "From",
     "exportInfoText": "Your wallet statement will be downloaded in CSV format.",
+    "exportInvalidDateInterval": "Invalid date interval",
     "exportLoadingText": "This can take some minutes",
     "exportHelper": "You can only export periods up to one year ago.",
     "exportHintDate": "Invalid date",
