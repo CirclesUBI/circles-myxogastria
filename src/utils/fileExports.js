@@ -70,11 +70,11 @@ const generateCsvContent = (
     `${translate('ExportStatement.fileBalanceOnStartDate')}; ${startBalance}`,
     '',
     `${translate('ExportStatement.fileTransactionsTitle')}`,
-    `${translate('ExportStatement.fileTxDate')}; ${translate(
+    `${translate('ExportStatement.fileTxDate')};${translate(
       'ExportStatement.fileTxUsername',
-    )}; ${translate('ExportStatement.fileTxSafeAddress')}; ${translate(
+    )};${translate('ExportStatement.fileTxSafeAddress')};${translate(
       'ExportStatement.fileTxPaymentNote',
-    )}; ${translate('ExportStatement.fileTxAmount')}`,
+    )};${translate('ExportStatement.fileTxAmount')}`,
     ...csvTransactions,
   ].join('\n');
 };
