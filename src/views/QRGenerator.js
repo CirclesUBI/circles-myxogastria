@@ -115,7 +115,7 @@ const QRGenerator = () => {
             </ButtonShare>
           </Box>
           <Box mb={1} mt={2}>
-            <Button autoFocus fullWidth isPrimary onClick={handleHideQR}>
+            <Button autoFocus fullWidth onClick={handleHideQR}>
               {translate('QRGenerator.dialogClose')}
             </Button>
           </Box>
