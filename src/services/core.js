@@ -298,6 +298,17 @@ const activity = {
   },
 };
 
+// News module
+const news = {
+  getLatestNews: async (offset, limit, isActive, afterDate) => {
+    return await core.news.getLatestNews({
+      offset,
+      limit,
+      isActive,
+      afterDate,
+    });
+  },
+};
 // Organization module
 
 const organization = {
@@ -359,6 +370,7 @@ const errors = {
 export default {
   activity,
   errors,
+  news,
   organization,
   safe,
   token,
