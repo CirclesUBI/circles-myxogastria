@@ -11,13 +11,13 @@ import { DASHBOARD_PATH } from '~/routes';
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
+import ButtonDeleteProfile from '~/components/ButtonDeleteProfile';
 import CenteredHeading from '~/components/CenteredHeading';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
 import DialogInfo from '~/components/DialogInfo';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
-import RemoveYourData from '~/components/RemoveYourData';
 import UploadFromCamera from '~/components/UploadFromCamera';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     zIndex: theme.zIndex.layer1,
   },
-  removeYourData: {
+  ButtonDeleteProfile: {
     position: 'relative',
     marginTop: '5px',
   },
@@ -527,7 +527,7 @@ const EditProfile = () => {
         >
           {translate('EditProfile.buttonSave')}
         </Button>
-        <RemoveYourData className={classes.removeYourData} />
+        <ButtonDeleteProfile className={classes.ButtonDeleteProfile} />
       </Footer>
     </>
   );

@@ -9,7 +9,7 @@ import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { FAQ_URL } from '~/utils/constants';
-import logError, { translateErrorForUser } from '~/utils/debug';
+import logError from '~/utils/debug';
 
 const useStyles = makeStyles(() => ({
   textContainer: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const RemoveYourData = () => {
+const ButtonDeleteProfile = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ const RemoveYourData = () => {
         notify({
           text: (
             <Typography classes={{ root: 'body4_white' }} variant="body4">
-              {translate('RemoveYourData.notificationSuccess')}
+              {translate('ButtonDeleteProfile.notificationSuccess')}
             </Typography>
           ),
           type: NotificationsTypes.SUCCESS,
@@ -46,7 +46,7 @@ const RemoveYourData = () => {
         notify({
           text: (
             <Typography classes={{ root: 'body4_white' }} variant="body4">
-              {translate('RemoveYourData.notification.Error')}
+              {translate('ButtonDeleteProfile.notification.Error')}
             </Typography>
           ),
           type: NotificationsTypes.ERROR,
@@ -62,16 +62,16 @@ const RemoveYourData = () => {
   const dialogContentClose = (
     <Box className={classes.dialogContentContainer}>
       <Typography align="center" mb={2}>
-        {translate('RemoveYourData.bodyText')}
+        {translate('ButtonDeleteProfile.bodyText')}
       </Typography>
       <Typography align="center" mb={2}>
-        {translate('RemoveYourData.bodyText2')}
+        {translate('ButtonDeleteProfile.bodyText2')}
       </Typography>
       <Typography align="center" mb={2}>
-        {translate('RemoveYourData.bodyText3')}
+        {translate('ButtonDeleteProfile.bodyText3')}
       </Typography>
       <Typography align="center" mb={2}>
-        {translate('RemoveYourData.bodyText4')}
+        {translate('ButtonDeleteProfile.bodyText4')}
       </Typography>
       <ExternalLink href={FAQ_URL}>
         <Typography
@@ -80,7 +80,7 @@ const RemoveYourData = () => {
           paragraph
           variant="body3"
         >
-          {translate('RemoveYourData.readMore')}
+          {translate('ButtonDeleteProfile.readMore')}
         </Typography>
       </ExternalLink>
       <Box pt={3}>
@@ -90,12 +90,12 @@ const RemoveYourData = () => {
             fullWidth
             onClick={dialogCloseInfoHandler}
           >
-            {translate('RemoveYourData.confirmationDelete')}
+            {translate('ButtonDeleteProfile.confirmationDelete')}
           </Button>
         </Box>
         <Box display="flex" flexDirection="column">
           <Button isText m={2} onClick={() => setIsOpenDialogCloseInfo(false)}>
-            {translate('RemoveYourData.confirmationCancel')}
+            {translate('ButtonDeleteProfile.confirmationCancel')}
           </Button>
         </Box>
       </Box>
@@ -111,17 +111,13 @@ const RemoveYourData = () => {
         isBtnClose={false}
         isOpen={isOpenDialogCloseInfo}
         maxWidth={'xs'}
-        title={translate('RemoveYourData.titleText')}
+        title={translate('ButtonDeleteProfile.titleText')}
       />
-      <Button 
-        isOutline
-        fullWidth
-        onClick={dialogOpenInfoHandler}
-      >
-        {translate('RemoveYourData.btnText')}
+      <Button fullWidth isOutline onClick={dialogOpenInfoHandler}>
+        {translate('ButtonDeleteProfile.btnText')}
       </Button>
     </Box>
   );
 };
 
-export default RemoveYourData;
+export default ButtonDeleteProfile;

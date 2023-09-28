@@ -343,7 +343,7 @@
     },
     "bodyUndeployedToken": "Account not verified"
   },
-  "RemoveYourData": {
+  "ButtonDeleteProfile": {
     "titleText": "Are you sure you want to delete your profile data?",
     "bodyText": "This action will delete your profile picture, username and email from our databases.",
     "bodyText2": "However, this action will not delete historical transaction data or trust interactions.",
