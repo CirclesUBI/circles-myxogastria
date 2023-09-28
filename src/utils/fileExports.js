@@ -6,9 +6,11 @@ import { from, lastValueFrom } from 'rxjs';
 import { mergeMap, toArray } from 'rxjs/operators';
 
 import core from '~/services/core';
+import translate from '~/services/locale';
 import resolveTxHash from '~/services/transfer';
 import resolveUsernames from '~/services/username';
 import web3 from '~/services/web3';
+import { ZERO_ADDRESS } from '~/utils/constants';
 import { formatCirclesValue } from '~/utils/format';
 
 const NUMBER_OF_DECIMALS = 2;
@@ -55,20 +57,24 @@ const generateCsvContent = (
   csvTransactions,
 ) => {
   return [
-    'Circles Wallet Statement',
+    `${translate('ExportStatement.fileTitle')}`,
     '',
-    `Wallet_name; ${walletName}`,
-    `Wallet_safe_address; ${safeAddress}`,
-    `Period_start_date; ${startDate}`,
-    `Period_end_date; ${endDate}`,
+    `${translate('ExportStatement.fileWalletName')}; ${walletName}`,
+    `${translate('ExportStatement.fileWalletSafeAddress')}; ${safeAddress}`,
+    `${translate('ExportStatement.filePeriodStartDate')}; ${startDate}`,
+    `${translate('ExportStatement.filePeriodEndDate')}; ${endDate}`,
     '',
-    `Balance_on_end_date; ${endBalance}`,
-    `Demurrage_during_selected_period; ${demurrage}`,
-    `Sum_of_transaction; ${sumOfTransactions}`,
-    `Balance_on_start_date; ${startBalance}`,
+    `${translate('ExportStatement.fileBalanceOnEndDate')}; ${endBalance}`,
+    `${translate('ExportStatement.fileDemurrage')}; ${demurrage}`,
+    `${translate('ExportStatement.fileSumTransactions')}; ${sumOfTransactions}`,
+    `${translate('ExportStatement.fileBalanceOnStartDate')}; ${startBalance}`,
     '',
-    'Transactions_within_period',
-    `Date; To_or_from_username; To_or_from_safe_address; Payment_note; Amount_in_circles`,
+    `${translate('ExportStatement.fileTransactionsTitle')}`,
+    `${translate('ExportStatement.fileTxDate')};${translate(
+      'ExportStatement.fileTxUsername',
+    )};${translate('ExportStatement.fileTxSafeAddress')};${translate(
+      'ExportStatement.fileTxPaymentNote',
+    )};${translate('ExportStatement.fileTxAmount')}`,
     ...csvTransactions,
   ].join('\n');
 };
@@ -110,10 +116,16 @@ const formatTransactions = async (transactions, safeAddress) => {
 
   // construct csv transaction
   return transactionData.map((data, index) => {
-    data.name = namesBySafe[data.otherSafe]
-      ? namesBySafe[data.otherSafe].username
-      : '-';
-    data.paymentNote = `"${notes[index].replaceAll('"', '""')}"`;
+    if (data.otherSafe === ZERO_ADDRESS) {
+      // UBI transaction
+      data.name = translate('ExportStatement.fileUBIName');
+      data.paymentNote = translate('ExportStatement.fileUBIPaymentNote');
+    } else {
+      data.name = namesBySafe[data.otherSafe]
+        ? namesBySafe[data.otherSafe].username
+        : '-';
+      data.paymentNote = `"${notes[index].replaceAll('"', '""')}"`;
+    }
 
     return `${data.date};${data.name};${data.otherSafe};${data.paymentNote};${data.amount}`;
   });
@@ -196,7 +208,7 @@ export async function downloadCsvStatement(
 ) {
   // Verify date order
   if (startDate > endDate) {
-    throw new Error('Invalid date interval');
+    throw new Error(translate('ExportStatement.exportInvalidDateInterval'));
   }
 
   // Transactions
@@ -243,7 +255,9 @@ export async function downloadCsvStatement(
   const dateString = [formatDate(startDate), formatDate(endDate)]
     .join('_-_')
     .replace('.', '-');
-  const filename = `Circles_Statement_${walletName}_${dateString}.csv`;
+  const filename = `${translate(
+    'ExportStatement.fileNamePrefix',
+  )}_${walletName}_${dateString}.csv`;
 
   // Download
   fileDownload(csvString, filename);
