@@ -2,6 +2,9 @@ import { Box, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
+import { DASHBOARD_PATH } from '~/routes';
 
 import Button from '~/components/Button';
 import DialogInfo from '~/components/DialogInfo';
@@ -24,6 +27,7 @@ const ButtonDeleteProfile = () => {
   const dispatch = useDispatch();
 
   const [isOpenDialogCloseInfo, setIsOpenDialogCloseInfo] = useState(false);
+  const [isProfileDeleted, setIsProfileDeleted] = useState(false);
 
   const dialogCloseInfoHandler = () => {
     setIsOpenDialogCloseInfo(false);
@@ -40,6 +44,8 @@ const ButtonDeleteProfile = () => {
           type: NotificationsTypes.SUCCESS,
         }),
       );
+
+      setIsProfileDeleted(true);
     } catch (error) {
       logError(error);
       dispatch(
@@ -101,6 +107,10 @@ const ButtonDeleteProfile = () => {
       </Box>
     </Box>
   );
+
+  if (isProfileDeleted) {
+    return <Redirect to={DASHBOARD_PATH} />;
+  }
 
   return (
     <Box>
