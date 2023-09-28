@@ -78,7 +78,7 @@ const Tokens = () => {
       <View>
         <Container className={classes.tokenContainer} maxWidth="sm">
           <Box className={classes.balanceContainer}>
-            <BalanceDisplay />
+            <BalanceDisplay underlineAtHover={false} />
           </Box>
           <Typography>{translate('Tokens.descriptionTokens')}</Typography>
           <TokensList

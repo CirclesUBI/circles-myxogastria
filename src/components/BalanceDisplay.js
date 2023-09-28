@@ -1,6 +1,7 @@
 import { CircularProgress } from '@mui/material';
 import { Box, Tooltip, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -13,6 +14,7 @@ import { checkCurrentBalance, checkTokenState } from '~/store/token/actions';
 import { IconCircles } from '~/styles/icons';
 import { ISSUANCE_RATE_MONTH } from '~/utils/constants';
 import { formatCirclesValue } from '~/utils/format';
+import theme from '~/styles/theme';
 
 const useStyles = makeStyles((theme) => ({
   box: {
@@ -29,9 +31,15 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(0.5),
     fontSize: '2.3rem',
   },
+  balanceUnderline: {
+    '&:hover': {
+      textDecoration: 'underline',
+      textDecorationColor: theme.custom.colors.violet,
+    },
+  },
 }));
 
-const BalanceDisplay = () => {
+const BalanceDisplay = ({ underlineAtHover = true }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { token, safe } = useSelector((state) => state);
@@ -58,7 +66,10 @@ const BalanceDisplay = () => {
         {isLoading ? (
           <CircularProgress />
         ) : (
-          <Typography variant="balance1">
+          <Typography
+            className={underlineAtHover && classes.balanceUnderline}
+            variant="balance1"
+          >
             <Link to={TOKENS_PATH}>
               <IconCircles className={classes.balanceIcon} />
               {tokenBalance}
@@ -68,6 +79,10 @@ const BalanceDisplay = () => {
       </Box>
     </Tooltip>
   );
+};
+
+BalanceDisplay.propTypes = {
+  underlineAtHover: PropTypes.bool,
 };
 
 export default BalanceDisplay;

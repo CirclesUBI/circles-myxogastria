@@ -327,10 +327,6 @@ export default createTheme({
       '& a': {
         textDecoration: 'none',
       },
-      '&:hover': {
-        textDecoration: 'underline',
-        textDecorationColor: colors.violet,
-      },
     },
     poster: {
       fontSize: '4rem',
