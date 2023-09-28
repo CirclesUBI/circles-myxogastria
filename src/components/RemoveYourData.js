@@ -34,7 +34,7 @@ const RemoveYourData = () => {
         notify({
           text: (
             <Typography classes={{ root: 'body4_white' }} variant="body4">
-              {translate('RemoveYourData.confirmationText')}
+              {translate('RemoveYourData.notificationSuccess')}
             </Typography>
           ),
           type: NotificationsTypes.SUCCESS,
@@ -46,7 +46,7 @@ const RemoveYourData = () => {
         notify({
           text: (
             <Typography classes={{ root: 'body4_white' }} variant="body4">
-              {translateErrorForUser(error)}
+              {translate('RemoveYourData.notification.Error')}
             </Typography>
           ),
           type: NotificationsTypes.ERROR,

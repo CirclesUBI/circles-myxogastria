@@ -350,7 +350,6 @@
     "bodyText3": "After deletion you can chose to end session through Settings. You may still recover your account in the future by using your magic words. If you do not log in within 90 days, your UBI payouts will be stopped forever.",
     "bodyText4": "Please note that data deletion will not happen across wallets. You will have to do profile data deletion your personal wallet and any shared wallets separately before ending session.",
     "btnText": "Delete Profile Data",
-    "confirmationText": "You have successfully deleted your profile data",
     "confirmationDelete": "Delete",
     "confirmationCancel": "Cancel",
     "notificationError": "Oops, something went wrong. <b>Try again!</b>",
