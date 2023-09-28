@@ -49,7 +49,7 @@ const BalanceDisplay = () => {
   const tooltipText = safe.isOrganization
     ? translate('BalanceDisplay.tooltipSharedWalletBalance')
     : translate('BalanceDisplay.tooltipYourBalance', {
-        rate: ISSUANCE_RATE_MONTH,
+        rate: ISSUANCE_RATE_MONTH / 30,
       });
 
   return (

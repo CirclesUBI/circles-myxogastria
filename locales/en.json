@@ -20,7 +20,7 @@
     "bodyExplainMeTrustedSomeone": "You trusted @{actor} which means that @{actor} can send you their tokens.",
     "bodyExplainMeUntrustedSomeone": "You untrusted @{actor} which means that you do not accept any tokens from them anymore.",
     "bodyExplainReceivedCircles": "You received {value} {denominator} from @{actor} transitively.",
-    "bodyExplainReceivedUBI": "This is your Universal Basic Income, issued as your own personal currency. You receive circa {rate} per month.",
+    "bodyExplainReceivedUBI": "This is your Universal Basic Income, issued as your own personal currency. You receive {rate} per day.",
     "bodyExplainSecondary": "All activities carry a small transaction fee used to maintain the Circles network.",
     "bodyExplainSentCircles": "You sent {value} {denominator} to @{actor} transitively.",
     "bodyExplainTrustedBySomeone": "@{actor} trusts you. You can send your token to them now.",
@@ -44,7 +44,7 @@
   },
   "BalanceDisplay": {
     "tooltipSharedWalletBalance": "This is the shared wallet balance. Shared wallets do not receive basic income.",
-    "tooltipYourBalance": "Your basic income is issued continuously at the rate of {rate} Circles a month."
+    "tooltipYourBalance": "Your basic income is issued continuously at the rate of {rate} circles per day."
   },
   "ButtonClipboard": {
     "buttonCopy": "Copy to clipboard",
