@@ -5,22 +5,17 @@ import { useDispatch } from 'react-redux';
 
 import Button from '~/components/Button';
 import DialogInfo from '~/components/DialogInfo';
+import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
+import { FAQ_URL } from '~/utils/constants';
 import logError, { translateErrorForUser } from '~/utils/debug';
 
 const useStyles = makeStyles(() => ({
   textContainer: {
     maxWidth: '250px',
     margin: '0 auto',
-    marginBottom: '20px',
-  },
-  btnContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginTop: '32px',
+    marginBottom: '40px',
   },
 }));
 
@@ -78,21 +73,31 @@ const RemoveYourData = () => {
       <Typography align="center" mb={2}>
         {translate('RemoveYourData.bodyText4')}
       </Typography>
-      <Box className={classes.btnContainer}>
-        <Button
-          className={classes.continueButton}
-          fullWidth
-          onClick={dialogCloseInfoHandler}
+      <ExternalLink href={FAQ_URL}>
+        <Typography
+          align="center"
+          classes={{ root: 'body3_link_gradient' }}
+          paragraph
+          variant="body3"
         >
-          {translate('RemoveYourData.confirmationDelete')}
-        </Button>
-        <Button
-          fullWidth
-          isText
-          onClick={() => setIsOpenDialogCloseInfo(false)}
-        >
-          {translate('RemoveYourData.confirmationCancel')}
-        </Button>
+          {translate('RemoveYourData.readMore')}
+        </Typography>
+      </ExternalLink>
+      <Box pt={3}>
+        <Box display="flex" flexDirection="column" pb={1}>
+          <Button
+            className={classes.continueButton}
+            fullWidth
+            onClick={dialogCloseInfoHandler}
+          >
+            {translate('RemoveYourData.confirmationDelete')}
+          </Button>
+        </Box>
+        <Box display="flex" flexDirection="column">
+          <Button isText m={2} onClick={() => setIsOpenDialogCloseInfo(false)}>
+            {translate('RemoveYourData.confirmationCancel')}
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

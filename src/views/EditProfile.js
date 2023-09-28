@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
   },
   saveButton: {
-    marginBottom: '20px',
+    marginBottom: '8px',
   },
   informationContainer: {
     maxWidth: '350px',
@@ -81,6 +81,10 @@ const useStyles = makeStyles((theme) => ({
   emailInputContainer: {
     position: 'relative',
     zIndex: theme.zIndex.layer1,
+  },
+  removeYourData: {
+    position: 'relative',
+    marginTop: '5px',
   },
 }));
 
@@ -321,9 +325,9 @@ const EditProfile = () => {
     }
   }
 
-  const dialogOpenInfoHandler = () => {
-    setIsOpenDialogCloseInfo(true);
-  };
+  // const dialogOpenInfoHandler = () => {
+  //   setIsOpenDialogCloseInfo(true);
+  // };
 
   const dialogCloseInfoHandler = () => {
     setIsClose(true);
@@ -511,7 +515,6 @@ const EditProfile = () => {
                 </>
               )}
             </Box>
-            <RemoveYourData />
           </Box>
         </Container>
       </View>
@@ -524,9 +527,7 @@ const EditProfile = () => {
         >
           {translate('EditProfile.buttonSave')}
         </Button>
-        <Button fullWidth isText onClick={dialogOpenInfoHandler}>
-          {translate('EditProfile.buttonCancel')}
-        </Button>
+        <RemoveYourData className={classes.removeYourData} />
       </Footer>
     </>
   );

@@ -344,12 +344,13 @@
     "bodyUndeployedToken": "Account not verified"
   },
   "RemoveYourData": {
-    "titleText": "Do you want to delete your personal profile data?",
-    "bodyText": "This action will delete your personal avatar, username and email from our databases.",
-    "bodyText2": "This action will not delete any transaction data or trust interactions. Such data is stored on Gnosis Chain blockchain and cannot be deleted by anyone. However, your blockchain transactions will no longer be traceable or linked to your username or avatar.",
-    "bodyText3": "Upon deletion you can chose to log out. You may still recover your account in the future by using your magic words and edit your profile with a new profile data. If you do not log in within 90 days, your UBI payouts will be stopped forever. It is also possible to continue to use circles.garden without an alias, avatar or email.",
-    "bodyText4": "Please note that data deletion will not happen across wallets. You will have to do profile data deletion for your personal wallet and any shared wallets separately before logging out.",
-    "btnText": "I would like to proceed with my account data deletion",
+    "titleText": "Are you sure you want to delete your profile data?",
+    "bodyText": "This action will delete your profile picture, username and email from our databases.",
+    "bodyText2": "However, this action will not delete historical transaction data or trust interactions.",
+    "bodyText3": "After deletion you can chose to end session. You may still recover your account in the future by using your magic words. If you do not log in within 90 days, your UBI payouts will be stopped forever.",
+    "bodyText4": "Please note that data deletion will not happen across wallets. You will have to do profile data deletion your personal wallet and any shared wallets separately before ending session.",
+    "readMore": "Read more",
+    "btnText": "Delete Profile Data",
     "confirmationText": "You have successfully deleted your profile data",
     "confirmationDelete": "Delete",
     "confirmationCancel": "Cancel"
