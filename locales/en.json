@@ -211,6 +211,7 @@
   },
   "Navigation": {
     "buttonActivityLog": "Activity Log",
+    "buttonBalanceTokens": "Balance Breakdown",
     "buttonSettings": "Settings",
     "buttonExportSeedPhrase": "Export Magic Words",
     "buttonMyQR": "My QR",
