@@ -352,7 +352,7 @@
     "btnText": "Delete Profile Data",
     "confirmationDelete": "Delete",
     "confirmationCancel": "Cancel",
-    "notificationError": "Oops, something went wrong. <b>Try again!</b>",
+    "notificationError": "Oops, something went wrong. Try again!",
     "notificationSuccess": "The profile data of this wallet has successfully been deleted. You can end session in Settings.",
     "readMore": "Read more"
   },

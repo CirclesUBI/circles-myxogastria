@@ -52,7 +52,7 @@ const ButtonDeleteProfile = () => {
         notify({
           text: (
             <Typography classes={{ root: 'body4_white' }} variant="body4">
-              {translate('ButtonDeleteProfile.notification.Error')}
+              {translate('ButtonDeleteProfile.notificationError')}
             </Typography>
           ),
           type: NotificationsTypes.ERROR,
