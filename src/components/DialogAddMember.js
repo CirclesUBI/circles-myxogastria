@@ -29,11 +29,7 @@ const DialogAddMember = ({
       cancelLabel={translate('DialogAddMember.dialogCancel')}
       confirmLabel={confirmLabel}
       open={isOpen}
-      title={
-        <Typography classes={{ root: 'h4_link_white' }} variant="h4">
-          {translate('DialogAddMember.dialogTitle', { username })}
-        </Typography>
-      }
+      title={translate('DialogAddMember.dialogTitle', { username })}
       onClose={handleClose}
       onConfirm={onConfirm}
     >

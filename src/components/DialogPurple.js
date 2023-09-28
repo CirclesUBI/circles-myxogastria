@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogTitle } from '@mui/material';
+import { Box, Dialog, DialogTitle, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -41,7 +41,13 @@ const DialogPurple = ({
   return (
     <Dialog classes={classes} onClose={onClose} {...otherProps} maxWidth="lg">
       <DialogTitle align="center" classes={titleClasses}>
-        {title}
+        <Typography
+          classes={{ root: 'h4_link_white' }}
+          component="span"
+          variant="h4"
+        >
+          {title}
+        </Typography>
       </DialogTitle>
       {children}
       <Box pb={2} pt={2}>

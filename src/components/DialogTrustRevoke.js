@@ -76,11 +76,9 @@ const DialogTrustRevoke = ({
       confirmLabel={translate('DialogTrustRevoke.dialogRevokeTrustConfirm')}
       id="revoke-trust"
       open={isOpen}
-      title={
-        <Typography classes={{ root: 'h4_link_white' }} variant="h4">
-          {translate('DialogTrustRevoke.dialogRevokeTrustTitle', { username })}
-        </Typography>
-      }
+      title={translate('DialogTrustRevoke.dialogRevokeTrustTitle', {
+        username,
+      })}
       onClose={handleRevokeTrustClose}
       onConfirm={handleRevokeTrust}
     >

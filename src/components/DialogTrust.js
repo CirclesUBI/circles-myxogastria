@@ -78,11 +78,7 @@ const DialogTrust = ({
       confirmLabel={translate('DialogTrust.dialogTrustConfirm')}
       id="trust"
       open={isOpen}
-      title={
-        <Typography classes={{ root: 'h4_link_white' }} variant="h4">
-          {translate('DialogTrust.dialogTrustTitle', { username })}
-        </Typography>
-      }
+      title={translate('DialogTrust.dialogTrustTitle', { username })}
       onClose={handleTrustClose}
       onConfirm={handleTrust}
     >

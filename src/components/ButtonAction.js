@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 // eslint-disable-next-line react/display-name
 const ButtonAction = React.forwardRef(
-  ({ className, children, disabled, ...props }) => {
+  ({ className, children, disabled, ...props }, ref) => {
     const classes = useStyles();
 
     return (
@@ -70,6 +70,7 @@ const ButtonAction = React.forwardRef(
           disabled: classes.buttonDisabled,
         }}
         disabled={disabled}
+        ref={ref}
         {...props}
       >
         <Box className={classes.buttonContainer}>
