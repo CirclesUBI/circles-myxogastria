@@ -14,7 +14,6 @@ import { checkCurrentBalance, checkTokenState } from '~/store/token/actions';
 import { IconCircles } from '~/styles/icons';
 import { ISSUANCE_RATE_MONTH } from '~/utils/constants';
 import { formatCirclesValue } from '~/utils/format';
-import theme from '~/styles/theme';
 
 const useStyles = makeStyles((theme) => ({
   box: {
