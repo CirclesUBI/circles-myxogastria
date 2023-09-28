@@ -83,19 +83,15 @@ const Settings = () => {
             <Grid item xs={12}>
               <Paper>
                 <Box p={2}>
-                  <RemoveYourData />
-                </Box>
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper>
-                <Box p={2}>
                   <Typography align="center" variant="h2">
                     {translate('Settings.headingDangerZone')}
                   </Typography>
                   <Box my={2}>
+                    <RemoveYourData />
+                  </Box>
+                  <Box my={2}>
                     <Button fullWidth isDanger onClick={handleConfirmOpen}>
-                      {translate('Settings.buttonBurnWallet')}
+                        {translate('Settings.buttonBurnWallet')}
                     </Button>
                   </Box>
                 </Box>

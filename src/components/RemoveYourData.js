@@ -113,7 +113,11 @@ const RemoveYourData = () => {
         maxWidth={'xs'}
         title={translate('RemoveYourData.titleText')}
       />
-      <Button fullWidth isText onClick={dialogOpenInfoHandler}>
+      <Button 
+        isOutline
+        fullWidth
+        onClick={dialogOpenInfoHandler}
+      >
         {translate('RemoveYourData.btnText')}
       </Button>
     </Box>
