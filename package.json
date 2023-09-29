@@ -83,7 +83,7 @@
     "isomorphic-fetch": "^3.0.0",
     "jazzicon": "^1.5.0",
     "js-file-download": "^0.4.12",
-    "luxon": "^3.3.0",
+    "luxon": "^3.4.3",
     "mime": "^2.6.0",
     "notistack": "^3.0.1",
     "qrcode": "^1.5.3",
