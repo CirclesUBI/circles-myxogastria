@@ -69,7 +69,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/lab": "^5.0.0-alpha.134",
     "@mui/material": "^5.14.11",
-    "@mui/styles": "^5.13.2",
+    "@mui/styles": "^5.14.11",
     "@mui/x-date-pickers": "^6.8.0",
     "@sentry/browser": "^6.19.7",
     "@sentry/tracing": "^6.19.7",
