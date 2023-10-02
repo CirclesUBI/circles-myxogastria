@@ -16,7 +16,7 @@
     "url": "git://github.com/CirclesUBI/circles-myxogastria.git"
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "scripts": {
     "build": "npm run clear && cross-env NODE_ENV=production webpack",
