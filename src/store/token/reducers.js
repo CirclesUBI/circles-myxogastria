@@ -10,6 +10,11 @@ const initialState = {
   isLoading: false,
   lastPayoutAt: null,
   lastUpdateAt: null,
+  otherTokens: {
+    isLoading: true,
+    isError: false,
+    otherTokens: [],
+  },
 };
 
 const tokenReducer = (state = initialState, action) => {
@@ -22,6 +27,24 @@ const tokenReducer = (state = initialState, action) => {
       return update(state, {
         address: { $set: action.meta.address },
         lastPayoutAt: { $set: action.meta.lastPayoutAt },
+      });
+    case ActionTypes.TOKEN_UPDATE_OTHER_TOKENS:
+      return update(state, {
+        otherTokens: {
+          otherTokens: { $set: action.meta.otherTokens },
+        },
+      });
+    case ActionTypes.TOKEN_UPDATE_OTHER_TOKENS_LOADING:
+      return update(state, {
+        otherTokens: {
+          isLoading: { $set: action.meta.isLoading },
+        },
+      });
+    case ActionTypes.TOKEN_UPDATE_OTHER_TOKENS_ERROR:
+      return update(state, {
+        otherTokens: {
+          isError: { $set: action.meta.isError },
+        },
       });
     case ActionTypes.TOKEN_BALANCE_UPDATE:
       return update(state, {

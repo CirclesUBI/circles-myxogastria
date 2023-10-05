@@ -1,5 +1,7 @@
 import { tcToCrc } from '@circles/timecircles';
+import { Typography } from '@mui/material';
 import { DateTime } from 'luxon';
+import React from 'react';
 
 import core from '~/services/core';
 import translate from '~/services/locale';
@@ -9,7 +11,8 @@ import { addPendingActivity } from '~/store/activity/actions';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import ActionTypes from '~/store/token/types';
 import { PATHFINDER_HOPS_DEFAULT, ZERO_ADDRESS } from '~/utils/constants';
-import logError from '~/utils/debug';
+import logError, { translateErrorForUser } from '~/utils/debug';
+import { formatCirclesValue } from '~/utils/format';
 import { isTokenDeployed, waitAndRetryOnFail } from '~/utils/stateChecks';
 
 const { ActivityTypes } = core.activity;
@@ -139,7 +142,7 @@ export function checkTokenState() {
 
 export function checkCurrentBalance() {
   return async (dispatch, getState) => {
-    const { safe, token } = getState();
+    const { token, safe } = getState();
 
     // No token address given yet
     if (!token.address && !safe.isOrganization) {
@@ -164,6 +167,67 @@ export function checkCurrentBalance() {
         type: ActionTypes.TOKEN_BALANCE_UPDATE_ERROR,
       });
     }
+  };
+}
+
+export function checkOtherTokens() {
+  return async (dispatch, getState) => {
+    const { safe } = getState();
+
+    try {
+      const otherTokens = await core.token.listAllTokens(safe.currentAccount);
+
+      const filterOrderedOtherTokens = otherTokens
+        .filter(
+          (item) =>
+            formatCirclesValue(item.amount, Date.now(), 2, false) > 0.005,
+        )
+        .reverse();
+      dispatch({
+        type: ActionTypes.TOKEN_UPDATE_OTHER_TOKENS,
+        meta: {
+          otherTokens: filterOrderedOtherTokens,
+        },
+      });
+      dispatch({
+        type: ActionTypes.TOKEN_UPDATE_OTHER_TOKENS_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: ActionTypes.TOKEN_UPDATE_OTHER_TOKENS_LOADING,
+        meta: {
+          isLoading: false,
+        },
+      });
+      dispatch({
+        type: ActionTypes.TOKEN_UPDATE_OTHER_TOKENS_ERROR,
+        meta: {
+          isError: true,
+        },
+      });
+      logError(error);
+      dispatch(
+        notify({
+          text: (
+            <Typography classes={{ root: 'body4_white' }} variant="body4">
+              {translateErrorForUser(error)}
+            </Typography>
+          ),
+          type: NotificationsTypes.ERROR,
+        }),
+      );
+    }
+  };
+}
+
+export function checkOtherTokensLoading(isLoading) {
+  return async (dispatch) => {
+    dispatch({
+      type: ActionTypes.TOKEN_UPDATE_OTHER_TOKENS_LOADING,
+      meta: {
+        isLoading,
+      },
+    });
   };
 }
 

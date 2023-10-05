@@ -217,7 +217,7 @@ const ActivityStreamExplained = ({
     return translate(`ActivityStream.bodyExplain${messageId}`, {
       ...data,
       actor,
-      rate: ISSUANCE_RATE_MONTH,
+      rate: ISSUANCE_RATE_MONTH / 30,
     });
   }, [actor, data, messageId]);
 

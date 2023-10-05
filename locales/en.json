@@ -20,7 +20,7 @@
     "bodyExplainMeTrustedSomeone": "You trusted @{actor} which means that @{actor} can send you their tokens.",
     "bodyExplainMeUntrustedSomeone": "You untrusted @{actor} which means that you do not accept any tokens from them anymore.",
     "bodyExplainReceivedCircles": "You received {value} {denominator} from @{actor} transitively.",
-    "bodyExplainReceivedUBI": "This is your Universal Basic Income, issued as your own personal currency. You receive circa {rate} per month.",
+    "bodyExplainReceivedUBI": "This is your Universal Basic Income, issued as your own personal currency. You receive {rate} per day.",
     "bodyExplainSecondary": "All activities carry a small transaction fee used to maintain the Circles network.",
     "bodyExplainSentCircles": "You sent {value} {denominator} to @{actor} transitively.",
     "bodyExplainTrustedBySomeone": "@{actor} trusts you. You can send your token to them now.",
@@ -44,7 +44,7 @@
   },
   "BalanceDisplay": {
     "tooltipSharedWalletBalance": "This is the shared wallet balance. Shared wallets do not receive basic income.",
-    "tooltipYourBalance": "Your basic income is issued continuously at the rate of {rate} Circles a month."
+    "tooltipYourBalance": "Your basic income is issued continuously at the rate of {rate} circles per day."
   },
   "ButtonClipboard": {
     "buttonCopy": "Copy to clipboard",
@@ -63,7 +63,7 @@
     "bodyCriticalErrorTryAgain": "Oh no! Something went wrong while loading your account. Please reload this page and try again.",
     "buttonBurnWallet": "Reset Account",
     "buttonReload": "Refresh Page",
-    "dialogAreYouSure": "Do you really want to reset this wallet? You will not be able to recover without a seed phrase.",
+    "dialogAreYouSure": "Do you really want to reset this wallet? You will not be able to recover without your magic words.",
     "infoCopiedMessage": "Text copied to clipboard"
   },
   "Dashboard": {
@@ -85,7 +85,7 @@
   "DialogBurn": {
     "dialogBurnCancel": "Cancel",
     "dialogBurnConfirm": "End Session",
-    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have your Seed Phrase!",
+    "dialogBurnDescription": "Are you sure you want to end this session? You will not be able to restore your account unless you have your Magic Words!",
     "dialogBurnTitle": "Warning!"
   },
   "DialogTrust": {
@@ -191,12 +191,12 @@
     "es": "ES"
   },
   "Login": {
-    "bodyEnterYourSeedPhrase": "Enter your seed phrase below to restore your wallet:",
-    "bodyLostYourSeedPhrase": "Lost your seed phrase?",
+    "bodyEnterYourSeedPhrase": "Enter your magic words below to restore your wallet:",
+    "bodyLostYourSeedPhrase": "Lost your magic words?",
     "bodyNeedHelp": "Questions?",
     "buttonCreateNewWallet": "Sign Up Here",
     "buttonSubmit": "Submit",
-    "errorRestoreFailedInvalidSeedphrase": "Your seed phrase is invalid.",
+    "errorRestoreFailedInvalidSeedPhrase": "Your magic words are invalid.",
     "errorRestoreFailedUnknown": "Could not restore account due to an unknown error.",
     "errorRestoreFailedUnknownSafe": "The account you tried to restore is not registered.",
     "headingLogin": "Login",
@@ -211,8 +211,9 @@
   },
   "Navigation": {
     "buttonActivityLog": "Activity Log",
+    "buttonBalanceTokens": "Balance Breakdown",
     "buttonSettings": "Settings",
-    "buttonExportSeedPhrase": "Export Seed Phrase",
+    "buttonExportSeedPhrase": "Export Magic Words",
     "buttonMyQR": "My QR",
     "buttonDoublePeople": "Trust People",
     "buttonSendCircles": "Send Circles",
@@ -247,7 +248,7 @@
     "bodySecureWalletP1B": " in a place you trust.",
     "bodySecureWalletP2": "This is the only way to recover your wallet if you get locked out of the app, or get a new device.",
     "bodySeedPhrase": "This is your account password. You can use this to login into your account on other devices.",
-    "bodySeedPhraseChallenge": "Please enter word {wordIndex} in your seed phrase:",
+    "bodySeedPhraseChallenge": "Please enter word {wordIndex} in your magic words:",
     "bodyUsername": "Your username is how your friends can search for you on the Circles App.",
     "bodyGuidelinesUsername": "Only basic characters and numbers (A-Z, 0-9) are allowed, no symbols or whitespace, 3-24 characters.",
     "buttonCopyToClipboard": "Copy to clipboard",
@@ -362,7 +363,7 @@
   "SeedPhrase": {
     "bodyDescription": "Print this and store it safely:",
     "buttonCopyToClipboard": "Copy to clipboard",
-    "headingExportSeedPhrase": "Export Seed Phrase"
+    "headingExportSeedPhrase": "Export Magic Words"
   },
   "Send": {
     "headingSendCircles": "Send Circles"
@@ -416,6 +417,10 @@
   "TextVerification": {
     "noteInvalid": "You cannot write special symbols like {}<br>^ or more than 100 characters."
   },
+  "Tokens": {
+    "headingTokens": "Balance Breakdown",
+    "descriptionTokens": "All circles you hold were originally issued as someone's basic income. These users are the original issuers of the circles you hold. Each of these circles can be sent directly to other wallets that trust these users."
+  },
   "TransferInfoBalanceCard": {
     "bodyTotalBalance": "Your total balance: {balance}",
     "tooltipTotalBalance": "This is the current balance of all Circles you have on your account"
@@ -449,7 +454,7 @@
     "infoUbiPayoutReceived": "You just received your UBI of <br><strong>{payout}circles</strong> for the month!"
   },
   "Validation": {
-    "bodyDoNotReset": "Do not reset your browser local storage or you will need to recover your data with your seed phrase.",
+    "bodyDoNotReset": "Do not reset your browser local storage or you will need to recover your data with your magic words.",
     "bodyTrustDescription": "To receive your basic income,",
     "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
     "buttonShareProfileLink": "Share Profile Link",

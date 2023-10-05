@@ -91,7 +91,7 @@ const Welcome = () => {
           </Button>
         </Grid>
       </View>
-      <Box className={classes.linkContainer} container spacing={1}>
+      <Box className={classes.linkContainer} spacing={1}>
         <WelcomeExternalLink href={FAQ_URL}>
           {translate('Welcome.linkFAQ')}
         </WelcomeExternalLink>

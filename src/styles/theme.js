@@ -321,6 +321,12 @@ export default createTheme({
       background: gradients.violetCurved,
       backgroundClip: 'text',
       textFillColor: 'transparent',
+      '& svg': {
+        fill: colors.violet,
+      },
+      '& a': {
+        textDecoration: 'none',
+      },
     },
     poster: {
       fontSize: '4rem',

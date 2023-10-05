@@ -92,7 +92,7 @@ const Login = () => {
     } catch (error) {
       let translationId = 'Login.errorRestoreFailedUnknown';
       if (error.message === RESTORE_ACCOUNT_INVALID_SEED_PHRASE) {
-        translationId = 'Login.errorRestoreFailedInvalidSeedphrase';
+        translationId = 'Login.errorRestoreFailedInvalidSeedPhrase';
       } else if (error.message === RESTORE_ACCOUNT_UNKNOWN_SAFE) {
         translationId = 'Login.errorRestoreFailedUnknownSafe';
       }
