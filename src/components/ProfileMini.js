@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -28,6 +29,16 @@ import { addSafeOwner } from '~/store/safe/actions';
 import { IconFriends, IconSend, IconTrust } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
+  cardContainer: {
+    boxShadow: theme.custom.shadows.navigationFloating,
+    '&:hover': {
+      background: theme.custom.colors.blackSqueeze,
+
+      '& .MuiCardHeader-root': {
+        background: theme.custom.colors.blackSqueeze,
+      },
+    },
+  },
   cardHeader: {
     padding: theme.spacing(1),
   },
@@ -64,6 +75,7 @@ const ProfileMini = ({
   className,
   hasActions = false,
   isSharedWalletCreation,
+  value,
   ...props
 }) => {
   const classes = useStyles();
@@ -160,10 +172,10 @@ const ProfileMini = ({
           onConfirm={handleClose}
         />
       )}
-      <Card {...props} className={className}>
+      <Card {...props} className={clsx(className, classes.cardContainer)}>
         <CardHeader
           action={
-            hasActions && (
+            (hasActions && (
               <ProfileMiniActions
                 address={address}
                 connection={connection}
@@ -171,7 +183,16 @@ const ProfileMini = ({
                 onSend={handleSend}
                 onTrust={handleTrust}
               />
-            )
+            )) ||
+            (value && (
+              <Typography
+                classes={{ root: 'h1_blue' }}
+                component="span"
+                variant="h1"
+              >
+                {value}
+              </Typography>
+            ))
           }
           avatar={<Avatar address={address} />}
           classes={{
@@ -258,6 +279,7 @@ ProfileMini.propTypes = {
   className: PropTypes.string,
   hasActions: PropTypes.bool,
   isSharedWalletCreation: PropTypes.bool,
+  value: PropTypes.string,
 };
 
 ProfileMiniActions.propTypes = {

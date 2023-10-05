@@ -62,7 +62,6 @@ function filterToQuery(filterName) {
 const useStyles = makeStyles((theme) => ({
   searchItem: {
     cursor: 'pointer',
-    boxShadow: theme.custom.shadows.gray,
   },
   noSearchResultContainer: {
     marginTop: '80px',

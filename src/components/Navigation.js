@@ -15,6 +15,7 @@ import {
   SEND_PATH,
   SETTINGS_PATH,
   SHARE_PATH,
+  TOKENS_PATH,
 } from '~/routes';
 
 import AvatarWithQR from '~/components/AvatarWithQR';
@@ -133,6 +134,9 @@ const NavigationMain = ({ onClick }) => {
       </NavigationLink>
       <NavigationLink to={ACTIVITIES_PATH} onClick={onClick}>
         {translate('Navigation.buttonActivityLog')}
+      </NavigationLink>
+      <NavigationLink to={TOKENS_PATH} onClick={onClick}>
+        {translate('Navigation.buttonBalanceTokens')}
       </NavigationLink>
       {!safe.isOrganization && (
         <NavigationLink to={ORGANIZATION_PATH} onClick={onClick}>
