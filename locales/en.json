@@ -418,8 +418,8 @@
     "noteInvalid": "You cannot write special symbols like {}<br>^ or more than 100 characters."
   },
   "Tokens": {
-    "headingTokens": "Your Circles",
-    "descriptionTokens": "All circles you hold was originally issued as someone's basic income. These users are the original issuers of the circles you hold. Each of these circles can be sent directly to other wallets that trust these users."
+    "headingTokens": "Balance Breakdown",
+    "descriptionTokens": "All circles you hold were originally issued as someone's basic income. These users are the original issuers of the circles you hold. Each of these circles can be sent directly to other wallets that trust these users."
   },
   "TransferInfoBalanceCard": {
     "bodyTotalBalance": "Your total balance: {balance}",
