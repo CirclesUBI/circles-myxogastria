@@ -58,13 +58,13 @@ const Tokens = () => {
 
   useUpdateLoop(
     async () => {
+      await dispatch(checkTrustState());
       if (otherTokens.length === 0) {
         await dispatch(checkOtherTokensLoading(false));
       } else {
         await dispatch(checkOtherTokensLoading(true));
       }
       await dispatch(checkOtherTokens());
-      await dispatch(checkTrustState());
     },
     {
       frequency: 1000 * 10,
