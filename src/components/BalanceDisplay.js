@@ -67,7 +67,7 @@ const BalanceDisplay = ({ underlineAtHover = true }) => {
           <CircularProgress />
         ) : (
           <Typography
-            className={underlineAtHover && classes.balanceHover}
+            className={underlineAtHover ? classes.balanceHover : ''}
             variant="balance1"
           >
             <Link to={TOKENS_PATH}>
