@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '16px',
     marginRight: '16px',
     height: '40px',
-    backgroundColor: theme.custom.colors.black,
+    backgroundColor: theme.custom.colors.grey50,
   },
   linkContainer: {
     display: 'flex',

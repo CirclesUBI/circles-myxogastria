@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   paragraph: {
-    color: theme.custom.colors.grayLightest,
+    color: theme.custom.colors.greyLightest,
   },
 }));
 

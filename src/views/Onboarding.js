@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
       height: '4px',
       borderRadius: '50%',
       left: 0,
-      background: theme.custom.colors.black,
+      background: theme.custom.colors.grey50,
     },
     '&::marker': {
       display: 'none',

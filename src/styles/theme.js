@@ -23,20 +23,14 @@ import {
 } from '~/styles/fonts';
 
 const monochrome = {
-  black: '#000',
-  gray: '#ccc',
   grayDark: '#999',
   grayDarker: '#666',
-  grayDarkest: '#333',
-  grayLight: '#e6e6e6',
-  grayLighter: '#f2f2f2',
-  grayLightest: '#fafafa',
-  grayLightHover: '#d9d9d9',
-  whiteAlmost: '#fffcfe',
+  greyLightest: '#fafafa',
+  greyLightHover: '#d9d9d9',
 };
 
 const rgba = {
-  doveGray: 'rgb(107, 101, 101,0.5)',
+  doveGray: 'rgba(107, 101, 101, 0.5)',
   dialogGray: 'rgba(0, 0, 0, 0.25)',
   greyHover: 'rgba(222, 213, 221, 0.8)',
   lightGrey: 'rgba(0, 0, 0, 0.04)',
@@ -167,7 +161,7 @@ export default createTheme({
     icons: {
       dark: colors.purple100,
       light: colors.white,
-      lightHover: colors.grayLightHover,
+      lightHover: colors.greyLightHover,
     },
     primary: {
       main: colors.pink100,

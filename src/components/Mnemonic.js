@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 0 0 10px',
   },
   seedItem: {
-    background: theme.custom.colors.grayLightest,
+    background: theme.custom.colors.greyLightest,
     borderRadius: 4,
     border: '1px solid rgba(0, 0, 0, 0.1)',
     boxShadow: theme.custom.shadows.gray,

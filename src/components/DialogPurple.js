@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 const useTitleStyles = makeStyles((theme) => ({
   root: {
-    color: theme.custom.colors.grayLightest,
+    color: theme.custom.colors.greyLightest,
   },
 }));
 
