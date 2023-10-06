@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => {
     alertHtmlChildren: {
       '& a': {
         textDecoration: 'none',
-        color: theme.custom.colors.blueRibbon,
+        color: theme.custom.colors.whiteAlmost,
         '&:hover': {
           textDecoration: 'underline',
         },

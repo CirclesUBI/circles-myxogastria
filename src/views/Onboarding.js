@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
   CheckboxesContainer: {
     '& a': {
-      color: theme.custom.colors.blueRibbon,
+      color: theme.custom.colors.purple100,
     },
   },
   dialogContentContainer: {

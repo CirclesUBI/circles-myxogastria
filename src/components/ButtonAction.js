@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
     '&:hover': {
       '& stop:first-of-type': {
-        stopColor: theme.custom.colors.cannonPink,
+        stopColor: theme.custom.colors.pinkHoverLight,
       },
       '& stop:last-of-type': {
         stopColor: theme.custom.colors.pink200,
