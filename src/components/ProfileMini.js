@@ -89,7 +89,7 @@ const ProfileMini = ({
 
   const [isRedirect, setIsRedirect] = useState(false);
 
-  const mutualFriendsCount = connection.mutualConnections.length || 0;
+  const mutualFriendsCount = connection.mutualConnections.length;
 
   const handleSend = (event) => {
     event.stopPropagation();
@@ -200,25 +200,23 @@ const ProfileMini = ({
             action: classes.cardHeaderAction,
           }}
           subheader={
-            connection.isReady && (
-              <Tooltip
-                arrow
-                placement="left"
-                title={
-                  <Typography classes={{ root: 'body6_white' }} variant="body6">
-                    {translate('ProfileMini.bodyMutualFriends', {
-                      count: mutualFriendsCount,
-                      username,
-                    })}
-                  </Typography>
-                }
-              >
-                <Typography component="span" variant="body8">
-                  <IconFriends className={classes.mutualFriendsIcon} />{' '}
-                  {mutualFriendsCount}
+            <Tooltip
+              arrow
+              placement="left"
+              title={
+                <Typography classes={{ root: 'body6_white' }} variant="body6">
+                  {translate('ProfileMini.bodyMutualFriends', {
+                    count: mutualFriendsCount,
+                    username,
+                  })}
                 </Typography>
-              </Tooltip>
-            )
+              }
+            >
+              <Typography component="span" variant="body8">
+                <IconFriends className={classes.mutualFriendsIcon} />{' '}
+                {mutualFriendsCount}
+              </Typography>
+            </Tooltip>
           }
           title={<Typography variant="h5">@{username}</Typography>}
         />
