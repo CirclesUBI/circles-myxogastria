@@ -89,7 +89,7 @@ const ProfileMini = ({
 
   const [isRedirect, setIsRedirect] = useState(false);
 
-  const mutualFriendsCount = connection.mutualConnections.length;
+  const mutualFriendsCount = connection.mutualConnections.length || 0;
 
   const handleSend = (event) => {
     event.stopPropagation();
