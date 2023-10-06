@@ -24,6 +24,7 @@ import {
   checkOtherTokens,
   checkOtherTokensLoading,
 } from '~/store/token/actions';
+import { checkTrustState } from '~/store/trust/actions';
 import { formatCirclesValue } from '~/utils/format';
 
 const useStyles = makeStyles(() => ({
@@ -63,6 +64,7 @@ const Tokens = () => {
         await dispatch(checkOtherTokensLoading(true));
       }
       await dispatch(checkOtherTokens());
+      await dispatch(checkTrustState());
     },
     {
       frequency: 1000 * 10,
