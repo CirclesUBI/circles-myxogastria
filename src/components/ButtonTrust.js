@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   trustButtonNoTrust: {
     '& stop:first-of-type': {
-      stopColor: theme.custom.colors.pinkDark,
+      stopColor: theme.custom.gradients.pinkToPurple,
     },
     '& stop:last-of-type': {
       stopColor: theme.custom.colors.pink100,
