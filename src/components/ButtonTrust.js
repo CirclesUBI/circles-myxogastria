@@ -15,7 +15,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   trustButton: {
     background: 'transparent',
-    color: theme.custom.colors.whiteAlmost,
+    color: theme.custom.colors.white,
     padding: '0',
   },
   trustButtonNoTrust: {

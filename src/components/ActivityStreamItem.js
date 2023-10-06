@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardHeader: {
     cursor: 'pointer',
-    background: theme.custom.colors.whiteAlmost,
+    background: theme.custom.colors.white,
   },
   cardHeaderUnseen: {
     position: 'relative',
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '50%',
       width: '13px',
       height: '13px',
-      background: theme.custom.gradients.purple,
+      background: theme.custom.gradients.pinkToPurple,
     },
   },
   cardHeaderAction: {

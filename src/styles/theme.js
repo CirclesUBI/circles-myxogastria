@@ -33,7 +33,6 @@ const monochrome = {
   grayLightest: '#fafafa',
   grayLightHover: '#d9d9d9',
   whiteAlmost: '#fffcfe',
-  white: '#fff',
 };
 
 const rgba = {
@@ -44,7 +43,7 @@ const rgba = {
   lightWhite: 'rgba(255, 255, 255, 0.05)',
 };
 
-export const colors = {
+const foundation = {
   //blue50: '#3A8E92',
   blue100: '#48B2B7',
   blue200: '#6CC1C5',
@@ -52,7 +51,7 @@ export const colors = {
   //blue400: '#B6E0E2',
   blue500: '#DAF0F1',
   blue600: '#EDF7F8',
-  grey50: '#2F2B2E', //black,
+  grey50: '#2F2B2E', // blackish,
   //grey100: '#585558',
   //grey200: '#828082',
   //grey400: '#ACAAAC',
@@ -74,68 +73,39 @@ export const colors = {
   white: '#FFFCFE',
   errorYellow: '#FFC834',
   successGreen: '#05BF93',
-  // gradients basis
-  pinkDark: '#660F33', // could be pink0 ?
-  //pinkLight: pink100,
-  //purpleDark: purple100,
+};
+
+const gradientBase = {
+  pinkDark: '#660F33',
+  pinkHoverLight: '#853F5C',
   purpleLightGrad: '#A75183',
-  //blueDark: blue100,
-  springGreen: '#06FC9D', // bluegreen gree gradient
-  pinkHoverLight: '#853F5C', // hover pink grad
-  //pinkHoverDark: pink200,
-  // ------------------------------------
+  springGreen: '#06FC9D',
+  green: '#45e6af',
+};
+
+export const colors = {
+  ...foundation,
+  ...gradientBase,
   ...monochrome,
   ...rgba,
-  green: '#45e6af', // only in gradient - will be replaced by spring green later
-  purpleLight: '#f5dbda', // only in gradients - similar pink600
   turquoise: '#47cccb', // only in validation status
-  // replace identical purple: '#cc1e66', // pink100
-  // replaced identical purpleDark: '#660f33', // pinkDark
-  // replaced identical purple: '#cc1e66', // pink100
-  // deleted turquoiseDark: '#369998', // similar blue50
-  // disco: '#A31852', // pink50 replaced //disco: '#99164C' old,
-  // replaced identical fountainBlue: '#48B2B7', // blue100
-  // replaced identical fountainBlueLighter: '#6CC1C5', // blue200
-  // moved springGreen: '#06FC9D', // bluegreen gradient - greenLight
-  // unused pizazz: '#FF8E00',
-  // unused ceriseRed: '#D12D5F',
-  // replaced similar pink: '#D22E60', // similar to pink100
-  // blueRibbon: '#2B44FF', // very blue - used for hyper links - QA hyperlinks in banners and onboarding checkboxes
-  // replaced identical violet: '#5A2F56', // purple100
-  // replaced identical tapestry: '#A75183', // purpleLight
-  // replaced identical deepBlush: '#E078A3', // pink300
-  // replaced identical swansDown: '#DAF0F1', // blue500
-  // replaced identical blackSqueeze: '#EDF7F8', // blue600 x
-  // NEW wepeep: '#FAE9F0',
-  // replaced identical wepeep: '#F5D2E1', // pink500 and pink600
-  // replaced identical lola: '#DED5DD', // purple500
-  // replaced identical cornflowerBlue: '#efeaef' and '#efeaef80', // #EFEAEF purple600
-  // replaced identical lily: '#BDACBB', // purple400
-  // replaced mountbattenPink: '#9C8299', // purple300
-  // replaced similar mineShaft: '#212121', // similar to grey50
-  // replaced identical oldLavender: '#7B5978', // purple200
-  // cannonPink: '#853F5C', // pinkHoverLight - used for buttons too
-  // replaced identical cranberry: '#D64B85', // pink200 + hover pink grad
-  // replaced identical lividBrown: '#482645', // purple50
 };
 
 const gradients = {
-  blueGreen: `linear-gradient(${colors.blue100}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.blue100}, ${colors.springGreen}) border-box`,
-  gray: `linear-gradient(280deg, ${colors.grayDark} 0%, ${colors.gray} 100%)`,
-  grayDark:
-    'linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(284.04deg, rgba(0, 0, 0, 0.49) 0%, rgba(0, 0, 0, 0.12) 100%);',
-  grayAlert: '1px 1px 4px rgba(204, 30, 102, 0.25)',
-  purple: `linear-gradient(280deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
-  purpleOpposite: `linear-gradient(104.04deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
-  purpleHover: `linear-gradient(284.04deg, ${colors.pinkHoverLight} 0%, ${colors.pink200} 100%)`,
-  purpleOppositeHover: `linear-gradient(104.04deg, ${colors.pinkHoverLight} 0%, ${colors.pink200} 100%)`,
+  // Grey
+  grey: `linear-gradient(280deg, ${colors.grayDark} 0%, ${colors.gray} 100%)`,
+  greyAlert: '1px 1px 4px rgba(204, 30, 102, 0.25)',
+  // Button gradients
   pinkToPurple: `linear-gradient(284.04deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
+  purpleToPink: `linear-gradient(104.04deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
+  purpleToLightPink: `linear-gradient(104.04deg, ${colors.pinkHoverLight} 0%, ${colors.pink200} 100%)`,
   lightPinkToPurple: `linear-gradient(284.04deg, ${colors.pinkHoverLight} 0%, ${colors.pink200} 100%)`,
+  // Headers
   greenBlueCurved: `linear-gradient(180deg, ${colors.blue100} 0%, ${colors.springGreen} 50%)`,
   greenBlueHeader: `linear-gradient(180deg, ${colors.blue100} 20%, ${colors.springGreen} 150%)`,
   violetCurved: `linear-gradient(180deg, ${colors.purple100} 0%, ${colors.purpleLightGrad} 33.2%)`,
   violetHeader: `linear-gradient(180deg, ${colors.purple100} 20%, ${colors.purpleLightGrad} 100%)`,
-  //violetTutorial: `linear-gradient(180deg, ${colors.purpleLightGrad} 0%, ${colors.purple100} 100%)`,
+  // Other
   pinkShade: `linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, ${colors.pink100} 145%)`,
   turquoise: `linear-gradient(0deg, ${colors.green} 0%, ${colors.turquoise} 100%)`,
 };
@@ -166,7 +136,7 @@ const body4Styles = {
   lineHeight: '19px',
   color: colors.purple100,
   '&.body4_white': {
-    color: colors.whiteAlmost,
+    color: colors.white,
   },
   '&.body4_gradient_purple': {
     background: gradients.lightPinkToPurple,
@@ -196,20 +166,20 @@ export default createTheme({
   palette: {
     icons: {
       dark: colors.purple100,
-      light: colors.whiteAlmost,
+      light: colors.white,
       lightHover: colors.grayLightHover,
     },
     primary: {
       main: colors.pink100,
       dark: colors.pinkDark,
-      contrastText: colors.whiteAlmost,
+      contrastText: colors.white,
     },
     secondary: {
       main: colors.turquoise,
       // dark: colors.blue50,
     },
     background: {
-      default: colors.whiteAlmost,
+      default: colors.white,
     },
   },
   typography: {
@@ -249,7 +219,7 @@ export default createTheme({
       color: colors.purple100,
       '&.h4_link_white': {
         lineHeight: '25px',
-        color: colors.whiteAlmost,
+        color: colors.white,
       },
     },
     h5: {
@@ -264,7 +234,7 @@ export default createTheme({
       lineHeight: '140%',
       color: colors.purple100,
       '&.body1_white': {
-        color: colors.whiteAlmost,
+        color: colors.white,
         fontWeight: fontWeightMedium,
       },
     },
@@ -278,7 +248,7 @@ export default createTheme({
       fontWeight: fontWeightMediumBold,
       fontSize: fontSizeRegular,
       lineHeight: '22px',
-      color: colors.whiteAlmost,
+      color: colors.white,
       '&.body3_link': {
         textDecorationLine: 'underline',
         '&:hover': {
@@ -295,7 +265,7 @@ export default createTheme({
         textFillColor: 'transparent',
         textDecorationLine: 'none',
         '&:hover': {
-          background: gradients.purpleOppositeHover,
+          background: gradients.purpleToLightPink,
           backgroundClip: 'text',
           textFillColor: 'transparent',
         },
@@ -311,7 +281,7 @@ export default createTheme({
         backgroundClip: 'text',
         textFillColor: 'transparent',
         '&:hover': {
-          background: gradients.purpleOppositeHover,
+          background: gradients.purpleToLightPink,
           backgroundClip: 'text',
           textFillColor: 'transparent',
         },
@@ -330,7 +300,7 @@ export default createTheme({
         color: colors.pink50,
       },
       '&.body6_white': {
-        color: colors.whiteAlmost,
+        color: colors.white,
         fontWeight: fontWeightMedium,
       },
       '&.body6_grey': {

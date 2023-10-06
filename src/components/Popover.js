@@ -7,7 +7,7 @@ import React from 'react';
 const useStyles = makeStyles((theme) => ({
   popOverContainer: {
     padding: '32px 32px 30px',
-    background: theme.custom.colors.whiteAlmost,
+    background: theme.custom.colors.white,
     borderRadius: '20px',
     boxShadow: theme.custom.shadows.navigationFloating,
   },

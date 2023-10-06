@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     '&:hover': {
-      background: theme.custom.colors.whiteAlmost,
+      background: theme.custom.colors.white,
       '& .MuiSvgIcon-root': {
         '& path': {
           fill: theme.custom.colors.purple200,

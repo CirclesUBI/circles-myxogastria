@@ -41,7 +41,7 @@ const CriticalError = () => {
             <HumbleAlert
               color={colors.blue100}
               icon="IconTriangleWarning"
-              iconColor={colors.whiteAlmost}
+              iconColor={colors.white}
             >
               <Typography
                 classes={{ root: 'body1_white' }}

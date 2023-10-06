@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => {
         boxShadow: theme.custom.shadows.lightGray,
       },
       '&.notistack-MuiContent-warning': {
-        background: theme.custom.colors.whiteAlmost,
+        background: theme.custom.colors.white,
         border: `2px solid ${theme.custom.colors.pink300}`,
         borderRadius: '8px',
         boxShadow: theme.custom.shadows.lightGray,

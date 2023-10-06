@@ -14,11 +14,11 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     borderRadius: 30,
     zIndex: theme.zIndex.layer2,
-    background: theme.custom.gradients.purple,
-    color: theme.palette.common.white,
+    background: theme.custom.gradients.pinkToPurple,
+    color: theme.colors.white,
     height: '40px',
     '&:hover': {
-      background: theme.custom.gradients.purpleHover,
+      background: theme.custom.gradients.lightPinkToPurple,
     },
     '&.Mui-disabled': {
       background: theme.custom.colors.purple500,
@@ -33,13 +33,13 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonOutline: {
     color: theme.palette.primary.main,
-    background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
+    background: `linear-gradient(${theme.custom.colors.white}, ${theme.custom.colors.white}) padding-box,
     ${theme.custom.gradients.pinkToPurple} border-box`,
     position: 'relative',
     border: '1px solid transparent',
     borderRadius: '30px',
     '&:hover': {
-      background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
+      background: `linear-gradient(${theme.custom.colors.white}, ${theme.custom.colors.white}) padding-box,
       ${theme.custom.gradients.lightPinkToPurple} border-box`,
       '& .MuiTouchRipple-root': {
         background: theme.custom.gradients.lightPinkToPurple,
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     '&.Mui-disabled': {
-      background: theme.custom.colors.whiteAlmost,
+      background: theme.custom.colors.white,
       borderColor: theme.custom.colors.purple500,
       '& .MuiTouchRipple-root': {
         background: 'none',
@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonText: {
     border: 0,
-    background: theme.custom.gradients.purple,
+    background: theme.custom.gradients.pinkToPurple,
     color: 'transparent',
     '-webkit-background-clip': 'text',
     '-webkit-text-fill-color': 'transparent',

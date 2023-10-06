@@ -10,7 +10,7 @@ import { IconSend } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   buttonActionSendIcon: {
-    color: theme.custom.colors.whiteAlmost,
+    color: theme.custom.colors.white,
     left: -2,
     position: 'relative',
     top: 1,

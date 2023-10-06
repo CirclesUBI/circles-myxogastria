@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   newsItemContainer: {
     boxShadow: theme.custom.shadows.grayAround,
     borderRadius: '5px',
-    background: theme.custom.colors.whiteAlmost,
+    background: theme.custom.colors.white,
     padding: '16px',
     gap: '18px',
     marginBottom: '12px',

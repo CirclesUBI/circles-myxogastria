@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   itemsCounterContainer: {
     position: 'absolute',
     background: theme.custom.colors.blue200,
-    color: theme.custom.colors.whiteAlmost,
+    color: theme.custom.colors.white,
     top: '3px',
     left: '48px',
     borderRadius: '50%',

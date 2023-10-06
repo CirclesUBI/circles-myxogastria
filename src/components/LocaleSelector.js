@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     fill: theme.custom.colors.purple100,
   },
   selectInput: {
-    color: theme.custom.colors.whiteAlmost,
+    color: theme.custom.colors.white,
     padding: theme.spacing(1),
     backgroundColor: 'transparent',
     borderRadius: theme.shape.borderRadius,

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => {
       case 'purple100':
         return theme.custom.colors.purple100;
       case 'white':
-        return theme.custom.colors.whiteAlmost;
+        return theme.custom.colors.white;
       default:
         return theme.custom.colors.blue100;
     }
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => {
       case 'violet':
         return theme.custom.colors.purple200;
       case 'white':
-        return theme.custom.colors.whiteAlmost;
+        return theme.custom.colors.white;
       default:
         return theme.custom.colors.blue100;
     }
@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => {
           color: (props) =>
             props?.color === 'white'
               ? theme.custom.colors.blue200
-              : theme.custom.colors.whiteAlmost,
+              : theme.custom.colors.white,
         },
         '& stop': {
           stopColor: backgroundHoverTheme,
@@ -109,7 +109,7 @@ const useStyles = makeStyles((theme) => {
         color: (props) =>
           props?.color === 'white'
             ? theme.custom.colors.blue100
-            : theme.custom.colors.whiteAlmost,
+            : theme.custom.colors.white,
       },
     },
 

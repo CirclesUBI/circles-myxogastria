@@ -151,7 +151,7 @@ const Validation = () => {
         <HumbleAlert
           color={colors.blue100}
           icon="IconBrowser"
-          iconColor={colors.whiteAlmost}
+          iconColor={colors.white}
         >
           <Typography classes={{ root: 'body4_white' }} variant="body4">
             {translate('Validation.bodyDoNotReset')}

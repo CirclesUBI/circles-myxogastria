@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   navigationFooter: {
     padding: theme.spacing(3),
-    background: theme.custom.gradients.purple,
+    background: theme.custom.gradients.pinkToPurple,
   },
   navigationLink: {
     width: '100%',
