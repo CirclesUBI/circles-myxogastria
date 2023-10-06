@@ -338,9 +338,9 @@
   },
   "ProfileMini": {
     "bodyMutualFriends": {
-      "one": "You have one mutual trust relation in common with @{username}",
-      "other": "You have {count} mutual trust relations in common with @{username}",
-      "zero": "You have no mutual trust relations in common with @{username}"
+      "one": "You share one mutually trusted connection with @{username}",
+      "other": "You share {count} mutually trusted connections with @{username}",
+      "zero": "You and @{username} don't have any overlap in the people you trust"
     },
     "bodyUndeployedToken": "Account not verified"
   },

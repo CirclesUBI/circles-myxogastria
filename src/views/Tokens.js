@@ -24,6 +24,7 @@ import {
   checkOtherTokens,
   checkOtherTokensLoading,
 } from '~/store/token/actions';
+import { checkTrustState } from '~/store/trust/actions';
 import { formatCirclesValue } from '~/utils/format';
 
 const useStyles = makeStyles(() => ({
@@ -57,6 +58,7 @@ const Tokens = () => {
 
   useUpdateLoop(
     async () => {
+      await dispatch(checkTrustState());
       if (otherTokens.length === 0) {
         await dispatch(checkOtherTokensLoading(false));
       } else {
