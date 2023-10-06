@@ -22,21 +22,6 @@ import {
   notoSansMedium,
 } from '~/styles/fonts';
 
-const monochrome = {
-  grayDark: '#999',
-  grayDarker: '#666',
-  greyLightest: '#fafafa',
-  greyLightHover: '#d9d9d9',
-};
-
-const rgba = {
-  doveGray: 'rgba(107, 101, 101, 0.5)',
-  dialogGray: 'rgba(0, 0, 0, 0.25)',
-  greyHover: 'rgba(222, 213, 221, 0.8)',
-  lightGrey: 'rgba(0, 0, 0, 0.04)',
-  lightWhite: 'rgba(255, 255, 255, 0.05)',
-};
-
 const foundation = {
   //blue50: '#3A8E92',
   blue100: '#48B2B7',
@@ -46,10 +31,10 @@ const foundation = {
   blue500: '#DAF0F1',
   blue600: '#EDF7F8',
   grey50: '#2F2B2E', // blackish,
-  //grey100: '#585558',
+  grey100: '#585558',
   //grey200: '#828082',
-  //grey400: '#ACAAAC',
-  //grey600: '#D9D9D9',
+  grey400: '#ACAAAC',
+  grey600: '#D9D9D9',
   pink50: '#A31852',
   pink100: '#CC1E66', //grad
   pink200: '#D64B85',
@@ -75,19 +60,27 @@ const gradientBase = {
   purpleLightGrad: '#A75183',
   springGreen: '#06FC9D',
   green: '#45e6af',
+  turquoise: '#47cccb',
+};
+
+// should be cleaned up and use the grey palette
+const rgba = {
+  doveGray: 'rgba(107, 101, 101, 0.5)',
+  dialogGray: 'rgba(0, 0, 0, 0.25)',
+  greyHover: 'rgba(222, 213, 221, 0.8)',
+  lightGrey: 'rgba(0, 0, 0, 0.04)',
+  lightWhite: 'rgba(255, 255, 255, 0.05)',
 };
 
 export const colors = {
   ...foundation,
   ...gradientBase,
-  ...monochrome,
   ...rgba,
-  turquoise: '#47cccb', // only in validation status
 };
 
 const gradients = {
   // Grey
-  grey: `linear-gradient(280deg, ${colors.grayDark} 0%, ${colors.gray} 100%)`,
+  grey: `linear-gradient(280deg, ${colors.grey400} 0%, ${colors.grey600} 100%)`,
   greyAlert: '1px 1px 4px rgba(204, 30, 102, 0.25)',
   // Button gradients
   pinkToPurple: `linear-gradient(284.04deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
@@ -105,12 +98,12 @@ const gradients = {
 };
 
 const shadows = {
-  gray: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-  grayUp: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
+  grey: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  greyUp: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
   navigationFloating: '0px 0px 4px rgba(45, 24, 43, 0.25)',
   lightGray: '0px 0px 4px rgba(204, 30, 102, 0.1)', //special, warning, error, notifications
-  grayBottomRight: ' 1px 1px 4px rgba(204, 30, 102, 0.25)', //success notification
-  grayAround: '0px 0px 4px rgba(45, 24, 43, 0.25)',
+  greyBottomRight: ' 1px 1px 4px rgba(204, 30, 102, 0.25)', //success notification
+  greyAround: '0px 0px 4px rgba(45, 24, 43, 0.25)',
 };
 
 const fontFamily = `"${fontFamilyNotoSans}"`;
@@ -161,7 +154,7 @@ export default createTheme({
     icons: {
       dark: colors.purple100,
       light: colors.white,
-      lightHover: colors.greyLightHover,
+      lightHover: colors.grey600,
     },
     primary: {
       main: colors.pink100,
@@ -298,7 +291,7 @@ export default createTheme({
         fontWeight: fontWeightMedium,
       },
       '&.body6_grey': {
-        color: colors.grayDarker,
+        color: colors.grey100,
       },
     },
     body7: {

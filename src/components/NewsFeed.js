@@ -22,7 +22,7 @@ import { IconCloseOutline } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   newsItemContainer: {
-    boxShadow: theme.custom.shadows.grayAround,
+    boxShadow: theme.custom.shadows.greyAround,
     borderRadius: '5px',
     background: theme.custom.colors.white,
     padding: '16px',

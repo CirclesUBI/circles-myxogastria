@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => {
 
       '&.notistack-MuiContent-success': {
         background: theme.custom.colors.blue100,
-        boxShadow: theme.custom.shadows.grayBottomRight,
+        boxShadow: theme.custom.shadows.greyBottomRight,
       },
       '&.notistack-MuiContent-error': {
         background: theme.custom.colors.purple50,

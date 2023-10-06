@@ -17,7 +17,7 @@ import { fontSizeSmaller } from '~/styles/fonts';
 
 const useStyles = makeStyles((theme) => ({
   cardContainer: {
-    boxShadow: theme.custom.shadows.gray,
+    boxShadow: theme.custom.shadows.grey,
   },
   cardHeader: {
     padding: theme.spacing(1),

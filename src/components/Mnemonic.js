@@ -11,10 +11,10 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 0 0 10px',
   },
   seedItem: {
-    background: theme.custom.colors.greyLightest,
+    background: theme.custom.colors.white,
     borderRadius: 4,
     border: '1px solid rgba(0, 0, 0, 0.1)',
-    boxShadow: theme.custom.shadows.gray,
+    boxShadow: theme.custom.shadows.grey,
     display: 'inline-block',
     marginBottom: 6,
     marginLeft: 22,

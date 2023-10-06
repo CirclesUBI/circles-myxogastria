@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     padding: theme.spacing(2),
     height: 66,
-    boxShadow: theme.custom.shadows.grayUp,
+    boxShadow: theme.custom.shadows.greyUp,
     color: theme.custom.colors.purple100,
 
     '& .MuiSvgIcon-root': {

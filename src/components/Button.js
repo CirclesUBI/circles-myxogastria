@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 30,
     zIndex: theme.zIndex.layer2,
     background: theme.custom.gradients.pinkToPurple,
-    color: theme.colors.white,
+    color: theme.custom.colors.white,
     height: '40px',
     '&:hover': {
       background: theme.custom.gradients.lightPinkToPurple,
