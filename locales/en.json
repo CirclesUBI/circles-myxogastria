@@ -319,7 +319,7 @@
     "successAddedMember": "You've successfully added @{username} to this shared wallet."
   },
   "Profile": {
-    "bodyActivity": "Activity",
+    "bodyActivity": "Shared Activity",
     "bodyNoActivities": "No activities yet.",
     "bodyNoMutualFriends": "No mutual trusted peers found.",
     "bodyStatusCommonFriends": {
