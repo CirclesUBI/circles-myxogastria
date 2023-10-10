@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     wordWrap: 'break-word',
   },
   sendIcon: {
-    color: theme.custom.colors.disco,
+    color: theme.custom.colors.pink50,
     fontSize: 'inherit',
   },
   iconContainer: {

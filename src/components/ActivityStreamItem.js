@@ -32,16 +32,16 @@ const useStyles = makeStyles((theme) => ({
   cardContainer: {
     boxShadow: theme.custom.shadows.navigationFloating,
     '&:hover': {
-      background: theme.custom.colors.blackSqueeze,
+      background: theme.custom.colors.blue600,
 
       '& .MuiCardHeader-root': {
-        background: theme.custom.colors.blackSqueeze,
+        background: theme.custom.colors.blue600,
       },
     },
   },
   cardHeader: {
     cursor: 'pointer',
-    background: theme.custom.colors.whiteAlmost,
+    background: theme.custom.colors.white,
   },
   cardHeaderUnseen: {
     position: 'relative',
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '50%',
       width: '13px',
       height: '13px',
-      background: theme.custom.gradients.purple,
+      background: theme.custom.gradients.pinkToPurple,
     },
   },
   cardHeaderAction: {
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     padding: '15px 0 15px',
     margin: '5px 15px 0 15px',
-    borderTop: `1px solid ${theme.custom.colors.oldLavender}`,
+    borderTop: `1px solid ${theme.custom.colors.purple200}`,
     ' &.MuiCardContent-root': {
       paddingBottom: `${theme.spacing(1.5)}`,
     },

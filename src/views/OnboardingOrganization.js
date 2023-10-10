@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   organizationStepPrefundContainer: moveUpFront(theme),
   CheckboxesContainer: {
     '& a': {
-      color: theme.custom.colors.blueRibbon,
+      color: theme.custom.colors.purple100,
     },
   },
 }));

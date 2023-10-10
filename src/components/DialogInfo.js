@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   dialogContainer: {
     '& .MuiDialog-paper': {
       borderRadius: '10px',
-      boxShadow: theme.custom.shadows.gray,
+      boxShadow: theme.custom.shadows.grey,
       textAlign: 'center',
     },
     '& .MuiBackdrop-root': {

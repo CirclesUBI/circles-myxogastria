@@ -15,8 +15,8 @@ import {
 const useStyles = makeStyles((theme) => {
   const colorTheme = (isOrganization) =>
     isOrganization
-      ? theme.custom.colors.violet
-      : theme.custom.colors.fountainBlue;
+      ? theme.custom.colors.purple100
+      : theme.custom.colors.blue100;
   return {
     stepper: {
       padding: '24px',
@@ -61,12 +61,12 @@ const useStyles = makeStyles((theme) => {
         fontWeight: '500',
         fontSize: '1.3rem',
         borderRadius: '100%',
-        border: `2px solid ${theme.custom.colors.grayDark}`,
+        border: `2px solid ${theme.custom.colors.grey400}`,
         [theme.breakpoints.up('md')]: {
           fontSize: '1.8rem',
         },
         '& .MuiStepIcon-text': {
-          fill: theme.custom.colors.grayDark,
+          fill: theme.custom.colors.grey400,
         },
 
         '&.Mui-completed, &.Mui-active': {
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => {
       '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
         fontSize: fontSizeSmallest,
         fontWeight: fontWeightRegular,
-        color: theme.custom.colors.grayDark,
+        color: theme.custom.colors.grey400,
         marginTop: '8px',
         [theme.breakpoints.up('md')]: {
           fontSize: fontSizeSmaller,

@@ -39,9 +39,9 @@ const CriticalError = () => {
         {app.errorMessage && (
           <Box my={2} style={{ wordBreak: 'break-word' }}>
             <HumbleAlert
-              color={colors.fountainBlue}
+              color={colors.blue100}
               icon="IconTriangleWarning"
-              iconColor={colors.whiteAlmost}
+              iconColor={colors.white}
             >
               <Typography
                 classes={{ root: 'body1_white' }}

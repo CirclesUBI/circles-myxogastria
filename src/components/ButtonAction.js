@@ -18,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
 
     '&:hover': {
       '& stop:first-of-type': {
-        stopColor: theme.custom.colors.cannonPink,
+        stopColor: theme.custom.colors.pinkHoverLight,
       },
       '& stop:last-of-type': {
-        stopColor: theme.custom.colors.cranberry,
+        stopColor: theme.custom.colors.pink200,
       },
     },
   },
@@ -41,17 +41,17 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonDisabled: {
     '& stop:first-of-type': {
-      stopColor: theme.custom.colors.lola,
+      stopColor: theme.custom.colors.purple500,
     },
     '& stop:last-of-type': {
-      stopColor: theme.custom.colors.lola,
+      stopColor: theme.custom.colors.purple500,
     },
     '&:hover': {
       '& stop:first-of-type': {
-        stopColor: theme.custom.colors.lola,
+        stopColor: theme.custom.colors.purple500,
       },
       '& stop:last-of-type': {
-        stopColor: theme.custom.colors.lola,
+        stopColor: theme.custom.colors.purple500,
       },
     },
   },

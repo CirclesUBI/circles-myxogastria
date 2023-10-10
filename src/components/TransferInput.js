@@ -7,11 +7,11 @@ const useStyles = makeStyles((theme) => ({
   input: {
     padding: theme.spacing(2),
     height: 66,
-    boxShadow: theme.custom.shadows.grayUp,
-    color: theme.custom.colors.violet,
+    boxShadow: theme.custom.shadows.greyUp,
+    color: theme.custom.colors.purple100,
 
     '& .MuiSvgIcon-root': {
-      fill: theme.custom.colors.violet,
+      fill: theme.custom.colors.purple100,
     },
   },
   inputLabel: {
@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
   inputError: {
     '&.Mui-error': {
-      color: theme.custom.colors.disco,
+      color: theme.custom.colors.pink50,
     },
   },
   inputAmountError: {
-    color: theme.custom.colors.disco,
+    color: theme.custom.colors.pink50,
   },
 }));
 

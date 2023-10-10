@@ -14,32 +14,32 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     borderRadius: 30,
     zIndex: theme.zIndex.layer2,
-    background: theme.custom.gradients.purple,
-    color: theme.palette.common.white,
+    background: theme.custom.gradients.pinkToPurple,
+    color: theme.custom.colors.white,
     height: '40px',
     '&:hover': {
-      background: theme.custom.gradients.purpleHover,
+      background: theme.custom.gradients.lightPinkToPurple,
     },
     '&.Mui-disabled': {
-      background: theme.custom.colors.lola,
+      background: theme.custom.colors.purple500,
       borderRadius: '30px',
-      color: theme.custom.colors.lily,
+      color: theme.custom.colors.purple400,
       'pointer-events': 'visible',
 
       '&:hover': {
-        background: theme.custom.colors.lola,
+        background: theme.custom.colors.purple500,
       },
     },
   },
   buttonOutline: {
     color: theme.palette.primary.main,
-    background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
+    background: `linear-gradient(${theme.custom.colors.white}, ${theme.custom.colors.white}) padding-box,
     ${theme.custom.gradients.pinkToPurple} border-box`,
     position: 'relative',
     border: '1px solid transparent',
     borderRadius: '30px',
     '&:hover': {
-      background: `linear-gradient(${theme.custom.colors.whiteAlmost}, ${theme.custom.colors.whiteAlmost}) padding-box,
+      background: `linear-gradient(${theme.custom.colors.white}, ${theme.custom.colors.white}) padding-box,
       ${theme.custom.gradients.lightPinkToPurple} border-box`,
       '& .MuiTouchRipple-root': {
         background: theme.custom.gradients.lightPinkToPurple,
@@ -50,12 +50,12 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     '&.Mui-disabled': {
-      background: theme.custom.colors.whiteAlmost,
-      borderColor: theme.custom.colors.lola,
+      background: theme.custom.colors.white,
+      borderColor: theme.custom.colors.purple500,
       '& .MuiTouchRipple-root': {
         background: 'none',
-        color: theme.custom.colors.lola,
-        '-webkit-text-fill-color': theme.custom.colors.lola,
+        color: theme.custom.colors.purple500,
+        '-webkit-text-fill-color': theme.custom.colors.purple500,
         textFillColor: 'transparent',
       },
     },
@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonText: {
     border: 0,
-    background: theme.custom.gradients.purple,
+    background: theme.custom.gradients.pinkToPurple,
     color: 'transparent',
     '-webkit-background-clip': 'text',
     '-webkit-text-fill-color': 'transparent',
@@ -102,10 +102,9 @@ const useStyles = makeStyles((theme) => ({
     },
     '&.Mui-disabled': {
       background: 'transparent',
-      color: theme.custom.colors.lily,
-      '-webkit-text-fill-color': theme.custom.colors.lily,
-      textFillColor: theme.custom.colors.lily,
-
+      color: theme.custom.colors.purple400,
+      '-webkit-text-fill-color': theme.custom.colors.purple400,
+      textFillColor: theme.custom.colors.purple400,
       '&:hover': {
         cursor: 'not-allowed',
         'pointer-events': 'visible',

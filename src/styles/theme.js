@@ -22,22 +22,50 @@ import {
   notoSansMedium,
 } from '~/styles/fonts';
 
-const monochrome = {
-  black: '#000',
-  gray: '#ccc',
-  grayDark: '#999',
-  grayDarker: '#666',
-  grayDarkest: '#333',
-  grayLight: '#e6e6e6',
-  grayLighter: '#f2f2f2',
-  grayLightest: '#fafafa',
-  grayLightHover: '#d9d9d9',
-  whiteAlmost: '#fffcfe',
-  white: '#fff',
+const foundation = {
+  //blue50: '#3A8E92',
+  blue100: '#48B2B7',
+  blue200: '#6CC1C5',
+  //blue300: '#8ED7DA',
+  //blue400: '#B6E0E2',
+  blue500: '#DAF0F1',
+  blue600: '#EDF7F8',
+  grey50: '#2F2B2E', // blackish,
+  grey100: '#585558',
+  //grey200: '#828082',
+  grey400: '#ACAAAC',
+  grey600: '#D9D9D9',
+  pink50: '#A31852',
+  pink100: '#CC1E66', //grad
+  pink200: '#D64B85',
+  pink300: '#E078A3',
+  //pink400: '#EBA5C2',
+  pink500: '#F5D2E1',
+  pink600: '#FAE9F0',
+  purple50: '#482645',
+  purple100: '#5A2F56', // grad
+  purple200: '#7B5978',
+  purple300: '#9C8299',
+  purple400: '#BDACBB',
+  purple500: '#DED5DD',
+  purple600: '#EFEAEF',
+  white: '#FFFCFE',
+  errorYellow: '#FFC834',
+  successGreen: '#05BF93',
 };
 
+const gradientBase = {
+  pinkDark: '#660F33',
+  pinkHoverLight: '#853F5C',
+  purpleLightGrad: '#A75183',
+  springGreen: '#06FC9D',
+  green: '#45e6af',
+  turquoise: '#47cccb',
+};
+
+// should be cleaned up and use the grey palette
 const rgba = {
-  doveGray: 'rgb(107, 101, 101,0.5)',
+  doveGray: 'rgba(107, 101, 101, 0.5)',
   dialogGray: 'rgba(0, 0, 0, 0.25)',
   greyHover: 'rgba(222, 213, 221, 0.8)',
   lightGrey: 'rgba(0, 0, 0, 0.04)',
@@ -45,73 +73,37 @@ const rgba = {
 };
 
 export const colors = {
-  ...monochrome,
+  ...foundation,
+  ...gradientBase,
   ...rgba,
-  red: '#cc0000',
-  green: '#45e6af',
-  blue: '#3ce6e1',
-  orange: '#faad26',
-  orangeDark: '#f14d48',
-  purpleLight: '#f5dbda',
-  purple: '#cc1e66',
-  purpleDark: '#660f33',
-  disco: '#A31852',
-  turquoise: '#47cccb',
-  turquoiseDark: '#369998',
-  jaggedIce: '#C8E8EA',
-  fountainBlue: '#48B2B7',
-  fountainBlueLighter: '#6CC1C5',
-  springGreen: '#06FC9D',
-  pizazz: '#FF8E00',
-  ceriseRed: '#D12D5F',
-  pink: '#D22E60',
-  blueRibbon: '#2B44FF',
-  violet: '#5A2F56',
-  tapestry: '#A75183',
-  deepBlush: '#E078A3',
-  greyHover: 'rgba(222, 213, 221, 0.8)',
-  swansDown: '#DAF0F1',
-  blackSqueeze: '#EDF7F8',
-  wepeep: '#FAE9F0',
-  lola: '#DED5DD',
-  cornflowerBlue: '#efeaef80',
-  lily: '#BDACBB',
-  mineShaft: '#212121',
-  oldLavender: '#7B5978',
-  cannonPink: '#853F5C',
-  cranberry: '#D64B85',
-  lividBrown: '#482645',
-  mountbattenPink: '#9C8299',
 };
 
 const gradients = {
-  blueGreen: `linear-gradient(${colors.fountainBlue}, ${colors.springGreen}) padding-box, linear-gradient(to bottom, ${colors.fountainBlue}, ${colors.springGreen}) border-box`,
-  gray: `linear-gradient(280deg, ${colors.grayDark} 0%, ${colors.gray} 100%)`,
-  grayDark:
-    'linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(284.04deg, rgba(0, 0, 0, 0.49) 0%, rgba(0, 0, 0, 0.12) 100%);',
-  grayAlert: '1px 1px 4px rgba(204, 30, 102, 0.25)',
-  purple: `linear-gradient(280deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
-  purpleOpposite: `linear-gradient(104.04deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
-  purpleHover: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.cranberry} 100%)`,
-  purpleOppositeHover: `linear-gradient(104.04deg, ${colors.cannonPink} 0%, ${colors.cranberry} 100%)`,
-  pinkToPurple: `linear-gradient(284.04deg, ${colors.purpleDark} 0%, ${colors.purple} 100%)`,
-  lightPinkToPurple: `linear-gradient(284.04deg, ${colors.cannonPink} 0%, ${colors.cranberry} 100%)`,
-  greenBlue: `linear-gradient(180deg, ${colors.fountainBlue} 0%, ${colors.springGreen} 100%)`,
-  greenBlueHeader: `linear-gradient(207.4deg, ${colors.fountainBlue} 36.45%, ${colors.springGreen} 155.65%)`,
-  pinkShade: `linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, ${colors.pink} 145%)`,
-  violetCurved: `linear-gradient(180deg, ${colors.tapestry} 0%, ${colors.violet} 33.2%)`,
-  violetHeader: `linear-gradient(207.4deg, ${colors.tapestry} 36.45%, ${colors.violet} 155.65%)`,
-  violetTutorial: `linear-gradient(180deg, ${colors.tapestry} 0%, ${colors.violet} 100%)`,
+  // Grey
+  grey: `linear-gradient(280deg, ${colors.grey400} 0%, ${colors.grey600} 100%)`,
+  greyAlert: '1px 1px 4px rgba(204, 30, 102, 0.25)',
+  // Button gradients
+  pinkToPurple: `linear-gradient(284.04deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
+  purpleToPink: `linear-gradient(104.04deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
+  purpleToLightPink: `linear-gradient(104.04deg, ${colors.pinkHoverLight} 0%, ${colors.pink200} 100%)`,
+  lightPinkToPurple: `linear-gradient(284.04deg, ${colors.pinkHoverLight} 0%, ${colors.pink200} 100%)`,
+  // Headers
+  greenBlueCurved: `linear-gradient(180deg, ${colors.blue100} 0%, ${colors.springGreen} 50%)`,
+  greenBlueHeader: `linear-gradient(180deg, ${colors.blue100} 20%, ${colors.springGreen} 150%)`,
+  violetCurved: `linear-gradient(180deg, ${colors.purple100} 0%, ${colors.purpleLightGrad} 33.2%)`,
+  violetHeader: `linear-gradient(180deg, ${colors.purple100} 20%, ${colors.purpleLightGrad} 100%)`,
+  // Other
+  pinkShade: `linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, ${colors.pink100} 145%)`,
   turquoise: `linear-gradient(0deg, ${colors.green} 0%, ${colors.turquoise} 100%)`,
 };
 
 const shadows = {
-  gray: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-  grayUp: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
+  grey: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  greyUp: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
   navigationFloating: '0px 0px 4px rgba(45, 24, 43, 0.25)',
   lightGray: '0px 0px 4px rgba(204, 30, 102, 0.1)', //special, warning, error, notifications
-  grayBottomRight: ' 1px 1px 4px rgba(204, 30, 102, 0.25)', //success notification
-  grayAround: '0px 0px 4px rgba(45, 24, 43, 0.25)',
+  greyBottomRight: ' 1px 1px 4px rgba(204, 30, 102, 0.25)', //success notification
+  greyAround: '0px 0px 4px rgba(45, 24, 43, 0.25)',
 };
 
 const fontFamily = `"${fontFamilyNotoSans}"`;
@@ -129,9 +121,9 @@ const body4Styles = {
   fontWeight: fontWeightRegular,
   fontSize: fontSizeSmall,
   lineHeight: '19px',
-  color: colors.violet,
+  color: colors.purple100,
   '&.body4_white': {
-    color: colors.whiteAlmost,
+    color: colors.white,
   },
   '&.body4_gradient_purple': {
     background: gradients.lightPinkToPurple,
@@ -144,7 +136,7 @@ const body5Styles = {
   fontWeight: fontWeightMediumBold,
   fontSize: fontSizeSmall,
   lineHeight: '19px',
-  color: colors.violet,
+  color: colors.purple100,
 };
 
 export default createTheme({
@@ -160,21 +152,21 @@ export default createTheme({
   },
   palette: {
     icons: {
-      dark: colors.violet,
-      light: colors.whiteAlmost,
-      lightHover: colors.grayLightHover,
+      dark: colors.purple100,
+      light: colors.white,
+      lightHover: colors.grey600,
     },
     primary: {
-      main: colors.purple,
-      dark: colors.purpleDark,
-      contrastText: colors.whiteAlmost,
+      main: colors.pink100,
+      dark: colors.pinkDark,
+      contrastText: colors.white,
     },
     secondary: {
       main: colors.turquoise,
-      dark: colors.turquoiseDark,
+      // dark: colors.blue50,
     },
     background: {
-      default: colors.whiteAlmost,
+      default: colors.white,
     },
   },
   typography: {
@@ -184,11 +176,11 @@ export default createTheme({
       lineHeight: '25px',
       fontSize: fontSizeLargest,
       '&.h1_blue': {
-        color: colors.fountainBlue,
+        color: colors.blue200,
         fontWeight: fontWeightRegular,
       },
       '&.h1_violet': {
-        color: colors.violet,
+        color: colors.purple100,
         fontWeight: fontWeightRegular,
       },
       '&.MuiTypography-gutterBottom': {
@@ -199,37 +191,37 @@ export default createTheme({
       fontWeight: fontWeightMedium,
       fontSize: fontSizeLarger,
       lineHeight: '160%',
-      color: colors.violet,
+      color: colors.purple100,
     },
     h3: {
       fontWeight: fontWeightRegular,
       fontSize: fontSizeLarger,
       lineHeight: '140%',
-      color: colors.violet,
+      color: colors.purple100,
     },
     h4: {
       fontWeight: fontWeightMedium,
       fontSize: fontSizeLarge,
       lineHeight: '22px',
-      color: colors.violet,
+      color: colors.purple100,
       '&.h4_link_white': {
         lineHeight: '25px',
-        color: colors.whiteAlmost,
+        color: colors.white,
       },
     },
     h5: {
       fontWeight: fontWeightMedium,
       fontSize: fontSizeRegular,
       lineHeight: '22px',
-      color: colors.violet,
+      color: colors.purple100,
     },
     body1: {
       fontSize: fontSizeRegular,
       fontWeight: fontWeightRegular,
       lineHeight: '140%',
-      color: colors.violet,
+      color: colors.purple100,
       '&.body1_white': {
-        color: colors.whiteAlmost,
+        color: colors.white,
         fontWeight: fontWeightMedium,
       },
     },
@@ -237,21 +229,21 @@ export default createTheme({
       fontWeight: fontWeightBold,
       fontSize: fontSizeRegular,
       lineHeight: '120%',
-      color: colors.violet,
+      color: colors.purple100,
     },
     body3: {
       fontWeight: fontWeightMediumBold,
       fontSize: fontSizeRegular,
       lineHeight: '22px',
-      color: colors.whiteAlmost,
+      color: colors.white,
       '&.body3_link': {
         textDecorationLine: 'underline',
         '&:hover': {
-          color: colors.mountbattenPink,
+          color: colors.purple300,
         },
       },
       '&.body3_link_violet': {
-        color: colors.violet,
+        color: colors.purple100,
       },
       '&.body3_link_gradient': {
         lineHeight: '120%',
@@ -260,7 +252,7 @@ export default createTheme({
         textFillColor: 'transparent',
         textDecorationLine: 'none',
         '&:hover': {
-          background: gradients.purpleOppositeHover,
+          background: gradients.purpleToLightPink,
           backgroundClip: 'text',
           textFillColor: 'transparent',
         },
@@ -276,7 +268,7 @@ export default createTheme({
         backgroundClip: 'text',
         textFillColor: 'transparent',
         '&:hover': {
-          background: gradients.purpleOppositeHover,
+          background: gradients.purpleToLightPink,
           backgroundClip: 'text',
           textFillColor: 'transparent',
         },
@@ -286,33 +278,33 @@ export default createTheme({
       fontWeight: fontWeightRegular,
       fontSize: fontSizeSmaller,
       lineHeight: '16px',
-      color: colors.violet,
+      color: colors.purple100,
       '&.body6_monochrome': {
-        color: colors.violet,
+        color: colors.purple100,
         opacity: 0.6,
       },
       '&.body6_pink': {
-        color: colors.disco,
+        color: colors.pink50,
       },
       '&.body6_white': {
-        color: colors.whiteAlmost,
+        color: colors.white,
         fontWeight: fontWeightMedium,
       },
       '&.body6_grey': {
-        color: colors.grayDarker,
+        color: colors.grey100,
       },
     },
     body7: {
       fontWeight: fontWeightRegular,
       fontSize: fontSizeSmaller,
       lineHeight: '140%',
-      color: colors.violet,
+      color: colors.purple100,
     },
     body8: {
       fontWeight: fontWeightRegular,
       fontSize: fontSizeSmallest,
       lineHeight: '14px',
-      color: colors.oldLavender,
+      color: colors.purple200,
     },
     balance1: {
       fontWeight: fontWeightRegular,
@@ -320,9 +312,9 @@ export default createTheme({
       lineHeight: '65px',
       background: gradients.violetCurved,
       backgroundClip: 'text',
-      textFillColor: 'transparent',
+      textFillColor: colors.purple100,
       '& svg': {
-        fill: colors.violet,
+        fill: colors.purple100,
       },
       '& a': {
         textDecoration: 'none',
@@ -339,7 +331,7 @@ export default createTheme({
       '& a': {
         ...body5Styles,
         textDecoration: 'none',
-        color: colors.purple,
+        color: colors.pink100,
       },
     },
     components: {

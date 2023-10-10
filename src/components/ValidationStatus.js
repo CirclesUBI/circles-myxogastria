@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   stepAvatarChecked: {
     background: theme.custom.gradients.turquoise,
     border: 0,
-    color: theme.palette.common.white,
+    color: theme.custom.colors.white,
   },
 }));
 

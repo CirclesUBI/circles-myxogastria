@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   tabs: {
     marginBottom: '43px',
     '& .MuiTabs-indicator': {
-      backgroundColor: theme.custom.colors.fountainBlue,
+      backgroundColor: theme.custom.colors.blue100,
       height: '1px',
     },
   },

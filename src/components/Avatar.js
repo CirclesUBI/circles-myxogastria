@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   circleGrey: {
     background: theme.custom.colors.greyHover,
-    border: `2px solid ${theme.custom.colors.fountainBlue}`,
+    border: `2px solid ${theme.custom.colors.blue100}`,
     position: 'absolute',
     left: '-1px',
     top: '-1px',

@@ -11,14 +11,14 @@ const useStyles = makeStyles((theme) => ({
   button: {
     fontWeight: fontWeightRegular,
     fontSize: fontSizeSmaller,
-    color: theme.custom.colors.violet,
+    color: theme.custom.colors.purple100,
     textTransform: 'none',
     '&:hover': {
       background: 'transparent',
-      color: theme.custom.colors.purple,
+      color: theme.custom.colors.pink100,
 
       '& path': {
-        fill: theme.custom.colors.purple,
+        fill: theme.custom.colors.pink100,
       },
     },
   },

@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   navigationFooter: {
     padding: theme.spacing(3),
-    background: theme.custom.gradients.purple,
+    background: theme.custom.gradients.pinkToPurple,
   },
   navigationLink: {
     width: '100%',
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(3),
     justifyContent: 'flex-start',
     textTransform: 'none',
-    color: theme.custom.colors.mineShaft,
+    color: theme.custom.colors.grey50,
   },
   navigationProfileLink: {
     textDecoration: 'none',

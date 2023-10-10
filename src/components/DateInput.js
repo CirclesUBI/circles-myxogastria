@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     '& fieldset': {
       '&.MuiOutlinedInput-notchedOutline': {
         borderRadius: '25px',
-        borderColor: theme.custom.colors.violet,
+        borderColor: theme.custom.colors.purple100,
         '& legend span': {
           display: 'none',
         },
@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
 
     '& input.MuiInputBase-input': {
       padding: '11.5px 14px',
-      color: theme.custom.colors.violet,
+      color: theme.custom.colors.purple100,
     },
 
     '& label.MuiFormLabel-root': {
-      color: theme.custom.colors.violet,
+      color: theme.custom.colors.purple100,
       fontSize: fontSizeSmaller,
       transform: 'translate(28px, -6px)',
       background: theme.custom.colors.white,
@@ -32,14 +32,14 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '10px',
 
       '&:has(+ .MuiOutlinedInput-root:hover)': {
-        background: theme.custom.colors.cornflowerBlue,
+        background: theme.custom.purple600,
       },
 
       '&.Mui-error': {
-        color: theme.custom.colors.purple,
+        color: theme.custom.colors.pink100,
 
         '&:has(+ .MuiOutlinedInput-root:hover)': {
-          background: theme.custom.colors.wepeep,
+          background: theme.custom.colors.pink600,
         },
 
         '&:hover': {
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
       '&:hover': {
         '& input.MuiInputBase-input': {
-          background: theme.custom.colors.cornflowerBlue,
+          background: theme.custom.purple600,
         },
       },
     },
@@ -68,14 +68,14 @@ const useStyles = makeStyles((theme) => ({
     },
 
     '& .MuiInputBase-root.MuiOutlinedInput-root.Mui-focused': {
-      border: `3px solid ${theme.custom.colors.lola}`,
+      border: `3px solid ${theme.custom.colors.purple500}`,
 
       '& fieldset.MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.custom.colors.violet,
+        borderColor: theme.custom.colors.purple100,
       },
 
       '& label.MuiFormLabel-root': {
-        background: theme.custom.colors.lola,
+        background: theme.custom.colors.purple500,
       },
     },
 
@@ -83,41 +83,41 @@ const useStyles = makeStyles((theme) => ({
       right: '2px',
 
       '&:hover': {
-        background: theme.custom.colors.cornflowerBlue,
+        background: theme.custom.purple600,
       },
     },
     '& .Mui-error': {
       '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.custom.colors.purple,
+        borderColor: theme.custom.colors.pink100,
         borderWidth: '2px',
       },
 
       '& button.MuiButtonBase-root.MuiIconButton-root': {
         '&:hover': {
-          background: theme.custom.colors.wepeep,
+          background: theme.custom.colors.pink600,
         },
       },
 
       '&.MuiInputBase-root': {
         '&:hover': {
           '& input.MuiInputBase-input': {
-            background: theme.custom.colors.wepeep,
+            background: theme.custom.colors.pink600,
           },
 
           '& +.MuiFormHelperText-root.Mui-error': {
-            background: theme.custom.colors.wepeep,
+            background: theme.custom.colors.pink600,
           },
         },
 
         '&.MuiOutlinedInput-root.Mui-focused': {
-          border: `3px solid ${theme.custom.colors.wepeep}`,
+          border: `3px solid ${theme.custom.colors.pink600}`,
 
           '& fieldset.MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.custom.colors.purple,
+            borderColor: theme.custom.colors.pink100,
           },
 
           '& label.MuiFormLabel-root': {
-            background: theme.custom.colors.wepeep,
+            background: theme.custom.colors.pink600,
           },
         },
       },
@@ -130,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
         background: theme.custom.colors.white,
         lineHeight: '10px',
         borderRadius: '10px',
-        color: theme.custom.colors.purple,
+        color: theme.custom.colors.pink100,
       },
     },
 

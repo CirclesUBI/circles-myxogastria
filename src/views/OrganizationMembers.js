@@ -63,14 +63,14 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     bottom: theme.spacing(2.25),
     right: theme.spacing(2.25),
-    background: theme.custom.gradients.purple,
+    background: theme.custom.gradients.pinkToPurple,
   },
   buttonActionTrustIcon: {
-    color: theme.custom.colors.whiteAlmost,
+    color: theme.custom.colors.white,
     position: 'relative',
   },
   paragraph: {
-    color: theme.custom.colors.grayLightest,
+    color: theme.custom.colors.white,
   },
 }));
 

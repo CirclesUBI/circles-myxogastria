@@ -23,14 +23,14 @@ const useStyles = makeStyles((theme) => {
         ) {
           switch (props.gradient) {
             case 'turquoise':
-              return theme.custom.gradients.greenBlue;
+              return theme.custom.gradients.greenBlueCurved;
             case 'violet':
               return theme.custom.gradients.violetCurved;
           }
         } else {
           switch (props.gradient) {
             case 'turquoise':
-              return theme.custom.gradients.greenBlue;
+              return theme.custom.gradients.greenBlueCurved;
             case 'violet':
               return theme.custom.gradients.violetCurved;
           }

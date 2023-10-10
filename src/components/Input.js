@@ -16,14 +16,14 @@ import { fontSizeSmaller } from '~/styles/fonts';
 const useStyles = makeStyles((theme) => {
   const textColor = (isOrganization) => {
     return isOrganization
-      ? theme.custom.colors.violet
-      : theme.custom.colors.fountainBlue;
+      ? theme.custom.colors.purple100
+      : theme.custom.colors.blue100;
   };
 
   const backgroundColor = (isOrganization) => {
     return isOrganization
-      ? theme.custom.colors.cornflowerBlue
-      : theme.custom.colors.blackSqueeze;
+      ? theme.custom.colors.purple600
+      : theme.custom.colors.blue600;
   };
 
   return {
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => {
       },
 
       '&.Mui-focused.Mui-error': {
-        color: theme.custom.colors.purple,
+        color: theme.custom.colors.pink100,
       },
 
       '&:has(+ .MuiOutlinedInput-root:hover)': {
@@ -54,13 +54,13 @@ const useStyles = makeStyles((theme) => {
       },
 
       '&:has(+ .MuiOutlinedInput-root.Mui-error:hover)': {
-        background: theme.custom.colors.wepeep,
+        background: theme.custom.colors.pink500,
       },
     },
 
     inputLabelError: {
       '&.Mui-error': {
-        color: theme.custom.colors.purple,
+        color: theme.custom.colors.pink100,
       },
     },
 
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => {
     outlinedInput: {
       padding: '11.5px 14px',
       borderRadius: '25px',
-      color: theme.custom.colors.violet,
+      color: theme.custom.colors.purple100,
     },
 
     outlinedInputRoot: {
@@ -97,16 +97,16 @@ const useStyles = makeStyles((theme) => {
 
         '&.Mui-error': {
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.custom.colors.purple,
+            borderColor: theme.custom.colors.pink100,
           },
 
           '& .MuiOutlinedInput-input': {
-            background: theme.custom.colors.wepeep,
+            background: theme.custom.colors.pink500,
           },
         },
 
         '& +.MuiFormHelperText-root.Mui-error': {
-          background: theme.custom.colors.wepeep,
+          background: theme.custom.colors.pink500,
         },
       },
 
@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => {
       },
 
       '& +.MuiFormHelperText-root.Mui-error': {
-        color: theme.custom.colors.purple,
+        color: theme.custom.colors.pink100,
       },
 
       '& .MuiSvgIcon-root': {
@@ -129,7 +129,7 @@ const useStyles = makeStyles((theme) => {
 
       '&.Mui-error': {
         '& fieldset.MuiOutlinedInput-notchedOutline': {
-          borderColor: theme.custom.colors.purple,
+          borderColor: theme.custom.colors.pink100,
         },
       },
     },
@@ -137,18 +137,18 @@ const useStyles = makeStyles((theme) => {
     outlinedInputFocused: {
       border: (isOrganization) =>
         isOrganization
-          ? `3px solid ${theme.custom.colors.lola} `
-          : `3px solid ${theme.custom.colors.swansDown}`,
+          ? `3px solid ${theme.custom.colors.purple500} `
+          : `3px solid ${theme.custom.colors.blue500}`,
       borderColor: (isOrganization) =>
         isOrganization
-          ? theme.custom.colors.lola
-          : theme.custom.colors.swansDown,
+          ? theme.custom.colors.purple500
+          : theme.custom.colors.blue500,
 
       '& .MuiOutlinedInput-notchedOutline': {
         borderColor: (isOrganization) =>
           isOrganization
-            ? `${theme.custom.colors.violet} !important`
-            : `${theme.custom.colors.fountainBlue} !important`, // should work without important but doesn't...
+            ? `${theme.custom.colors.purple100} !important`
+            : `${theme.custom.colors.blue100} !important`, // should work without important but doesn't...
         borderWidth: '2px',
       },
     },
@@ -157,17 +157,17 @@ const useStyles = makeStyles((theme) => {
       borderColor: 'transparent',
 
       '&.Mui-focused': {
-        border: `3px solid ${theme.custom.colors.wepeep}`,
-        borderColor: theme.custom.colors.wepeep,
+        border: `3px solid ${theme.custom.colors.pink500}`,
+        borderColor: theme.custom.colors.pink500,
 
         '& .MuiOutlinedInput-notchedOutline': {
-          borderColor: `${theme.custom.colors.purple} !important`, // should work without important but doesn't...
+          borderColor: `${theme.custom.colors.pink100} !important`, // should work without important but doesn't...
           borderWidth: '2px',
         },
       },
 
       '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.custom.colors.purple,
+        borderColor: theme.custom.colors.pink100,
         borderWidth: '2px',
       },
     },

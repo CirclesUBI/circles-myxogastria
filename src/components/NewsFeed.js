@@ -22,16 +22,16 @@ import { IconCloseOutline } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   newsItemContainer: {
-    boxShadow: theme.custom.shadows.grayAround,
+    boxShadow: theme.custom.shadows.greyAround,
     borderRadius: '5px',
-    background: theme.custom.colors.whiteAlmost,
+    background: theme.custom.colors.white,
     padding: '16px',
     gap: '18px',
     marginBottom: '12px',
     cursor: 'pointer',
 
     '&:hover': {
-      background: theme.custom.colors.blackSqueeze,
+      background: theme.custom.colors.blue600,
     },
   },
   newsItemHeader: {
@@ -42,15 +42,15 @@ const useStyles = makeStyles((theme) => ({
   newsItemContentContainer: {
     paddingTop: '16px',
   },
-  divider: { backgroundColor: theme.custom.colors.oldLavender },
+  divider: { backgroundColor: theme.custom.colors.purple200 },
   content: {
     paddingTop: '16px',
-    color: theme.custom.colors.violet,
+    color: theme.custom.colors.purple100,
     '& p:last-of-type': {
       display: 'inline',
     },
     '& a': {
-      color: theme.custom.colors.purple,
+      color: theme.custom.colors.pink100,
       textDecoration: 'none',
     },
   },
@@ -68,19 +68,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   title: {
-    color: theme.custom.colors.violet,
+    color: theme.custom.colors.purple100,
     display: 'block',
     fontWeight: '500',
   },
   date: {
-    color: theme.custom.colors.oldLavender,
+    color: theme.custom.colors.purple200,
     fontSize: '12px',
   },
   cardContentCloseIcon: {
-    color: theme.custom.colors.oldLavender,
+    color: theme.custom.colors.purple200,
 
     '&:hover': {
-      color: theme.custom.colors.mountbattenPink,
+      color: theme.custom.colors.purple300,
       backgroundColor: 'transparent',
     },
   },

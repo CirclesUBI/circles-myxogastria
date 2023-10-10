@@ -14,7 +14,7 @@ import { IconBack, IconClose } from '~/styles/icons';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    background: theme.custom.gradients.violetTutorial,
+    background: theme.custom.gradients.violetCurved,
   },
   background: {
     position: 'absolute',
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btnContainer: {
     '& svg': {
-      color: theme.custom.colors.violet,
+      color: theme.custom.colors.purple100,
     },
   },
   slideContainer: {

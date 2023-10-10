@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '16px 0 42px',
   },
   lineLightGrey: {
-    stroke: theme.custom.colors.lily,
+    stroke: theme.custom.colors.purple400,
     margin: '29px 0 42px',
   },
   helperDate: {

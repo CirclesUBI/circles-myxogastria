@@ -10,19 +10,19 @@ import { fontSizeRegular } from '~/styles/fonts';
 
 const useStyles = makeStyles((theme) => ({
   select: {
-    color: theme.custom.colors.violet,
+    color: theme.custom.colors.purple100,
   },
   selectInverted: {
-    color: theme.custom.colors.violet,
+    color: theme.custom.colors.purple100,
   },
   selectIcon: {
     fill: theme.palette.primary.contrastText,
   },
   selectIconInverted: {
-    fill: theme.custom.colors.violet,
+    fill: theme.custom.colors.purple100,
   },
   selectInput: {
-    color: theme.custom.colors.whiteAlmost,
+    color: theme.custom.colors.white,
     padding: theme.spacing(1),
     backgroundColor: 'transparent',
     borderRadius: theme.shape.borderRadius,
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   selectInputInverted: {
     border: 0,
-    color: theme.custom.colors.violet,
+    color: theme.custom.colors.purple100,
   },
 }));
 

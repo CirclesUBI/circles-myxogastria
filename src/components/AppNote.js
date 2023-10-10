@@ -7,8 +7,8 @@ import theme, { colors } from '../styles/theme';
 
 import HumbleAlert from '~/components/HumbleAlert';
 
-const DEFAULT_ALERT_COLOR = theme.custom.colors.fountainBlue;
-const DEFAULT_ICON_COLOR = colors.whiteAlmost;
+const DEFAULT_ALERT_COLOR = theme.custom.colors.blue100;
+const DEFAULT_ICON_COLOR = colors.white;
 const DEFAULT_ICON = 'IconBrowser';
 
 const useStyles = makeStyles(() => ({

@@ -9,21 +9,21 @@ const useStyles = makeStyles((theme) => {
   return {
     alert: {
       backgroundColor: ({ color }) => color,
-      boxShadow: theme.custom.gradients.grayAlert,
+      boxShadow: theme.custom.gradients.greyAlert,
       borderRadius: '8px',
       display: 'flex',
       alignItems: 'center',
       '& .MuiAlert-icon': {
         marginRight: '20px',
         '& svg': {
-          color: theme.custom.colors.whiteAlmost,
+          color: theme.custom.colors.white,
         },
       },
     },
     alertHtmlChildren: {
       '& a': {
         textDecoration: 'none',
-        color: theme.custom.colors.blueRibbon,
+        color: theme.custom.colors.white,
         '&:hover': {
           textDecoration: 'underline',
         },

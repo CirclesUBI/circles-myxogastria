@@ -55,14 +55,14 @@ const useStyles = makeStyles((theme) => ({
   isSpecial: {
     '& .MuiSvgIcon-root': {
       '& path': {
-        fill: theme.custom.colors.violet,
+        fill: theme.custom.colors.purple100,
       },
     },
     '&:hover': {
-      background: theme.custom.colors.whiteAlmost,
+      background: theme.custom.colors.white,
       '& .MuiSvgIcon-root': {
         '& path': {
-          fill: theme.custom.colors.oldLavender,
+          fill: theme.custom.colors.purple200,
         },
       },
     },

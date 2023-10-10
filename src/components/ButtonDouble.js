@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme) => ({
   },
 
   buttonGradientOpposite: {
-    background: theme.custom.gradients.purpleOpposite,
+    background: theme.custom.gradients.purpleToPink,
     '&:hover': {
-      background: theme.custom.gradients.purpleOppositeHover,
+      background: theme.custom.gradients.purpleToLightPink,
     },
   },
 }));

@@ -10,25 +10,25 @@ import { IconWobblyCircle, iconSelector } from '~/styles/icons';
 const useStyles = makeStyles((theme) => ({
   buttonWobbly: {
     background: 'transparent',
-    color: theme.palette.common.whiteAlmost,
+    color: theme.palette.common.white,
     padding: '0',
     '& stop:first-of-type': {
-      stopColor: theme.custom.colors.purpleDark,
+      stopColor: theme.custom.gradients.pinkToPurple,
     },
     '& stop:last-of-type': {
-      stopColor: theme.custom.colors.purple,
+      stopColor: theme.custom.colors.pink100,
     },
     '&:hover': {
       '& stop:first-of-type': {
-        stopColor: theme.custom.colors.cannonPink,
+        stopColor: theme.custom.colors.pinkHoverLight,
       },
       '& stop:last-of-type': {
-        stopColor: theme.custom.colors.cranberry,
+        stopColor: theme.custom.colors.pink200,
       },
     },
   },
   buttonWobblyDisabled: {
-    background: theme.custom.gradients.gray,
+    background: theme.custom.gradients.grey,
   },
   buttonWobblyContainer: {
     width: '55px',
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     left: 1,
     fontSize: '2.4rem',
-    color: theme.custom.colors.whiteAlmost,
+    color: theme.custom.colors.white,
   },
   buttonWobblyIconBackground: {
     width: '55px',

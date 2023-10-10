@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   iconActive: {
     '& path': {
-      fill: theme.custom.colors.violet,
+      fill: theme.custom.colors.purple100,
     },
   },
 }));
