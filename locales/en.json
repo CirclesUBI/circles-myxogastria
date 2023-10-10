@@ -332,7 +332,6 @@
     "bodyStatusNotDeployedYet": "This account has not yet been verified",
     "bodyStatusTrustingMe": "@{username} trusts you",
     "bodyMutuallyTrusted": "Mutually Trusted",
-    "shareText": "Check out my Circles UBI profile!",
     "tooltipSafeIsYou": "This is your own profile",
     "tooltipSafeNotDeployed": "This account has not yet been verified"
   },
