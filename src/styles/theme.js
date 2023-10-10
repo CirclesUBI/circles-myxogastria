@@ -92,6 +92,7 @@ const gradients = {
   greenBlueHeader: `linear-gradient(180deg, ${colors.blue100} 20%, ${colors.springGreen} 150%)`,
   violetCurved: `linear-gradient(180deg, ${colors.purple100} 0%, ${colors.purpleLightGrad} 33.2%)`,
   violetHeader: `linear-gradient(180deg, ${colors.purple100} 20%, ${colors.purpleLightGrad} 100%)`,
+  violetTutorial: `linear-gradient(180deg, ${colors.purpleLightGrad} 20%, ${colors.purple100} 100%)`,
   // Other
   pinkShade: `linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, ${colors.pink100} 145%)`,
   turquoise: `linear-gradient(0deg, ${colors.green} 0%, ${colors.turquoise} 100%)`,
