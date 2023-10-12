@@ -12,6 +12,7 @@ import ButtonDeleteProfile from '~/components/ButtonDeleteProfile';
 import CenteredHeading from '~/components/CenteredHeading';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
+import Dialog from '~/components/Dialog';
 import DialogAvatarUpload from '~/components/DialogAvatarUpload';
 import DialogInfo from '~/components/DialogInfo';
 import Footer from '~/components/Footer';
@@ -76,7 +77,7 @@ const EditProfile = () => {
   const classes = useStyles();
   const [isClose, setIsClose] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [isOpenDialogCloseInfo, setIsOpenDialogCloseInfo] = useState(false);
+  const [isOpenDialogCancelInfo, setIsOpenDialogCancelInfo] = useState(false);
   const [isOpenDialogUploadInfo, setIsOpenDialogUploadInfo] = useState(false);
   const [usernameInput, setUsernameInput] = useState(username);
   const [usernameValid, setUsernameValid] = useState();
@@ -159,10 +160,6 @@ const EditProfile = () => {
     }
   }
 
-  const dialogCloseInfoHandler = () => {
-    setIsClose(true);
-  };
-
   useEffect(() => {
     setUsernameInput(username);
   }, [username]);
@@ -224,20 +221,16 @@ const EditProfile = () => {
     })();
   }, [safe.currentAccount]);
 
-  const dialogContentClose = (
-    <Box className={classes.dialogContentContainer}>
-      <Typography>{translate('EditProfile.bodyCancel')}</Typography>
-      <Button
-        className={classes.continueButton}
-        fullWidth
-        onClick={() => setIsOpenDialogCloseInfo(false)}
-      >
-        {translate('EditProfile.buttonContinue')}
-      </Button>
-      <Button fullWidth isText onClick={dialogCloseInfoHandler}>
-        {translate('EditProfile.buttonCancel')}
-      </Button>
-    </Box>
+  const dialogContentCancel = (
+    <Dialog
+      cancelLabel={translate('EditProfile.buttonCancel')}
+      confirmLabel={translate('EditProfile.buttonContinue')}
+      open={isOpenDialogCancelInfo}
+      text={translate('EditProfile.bodyCancel')}
+      title={translate('EditProfile.titleCancel')}
+      onClose={() => setIsClose(true)}
+      onConfirm={() => setIsOpenDialogCancelInfo(false)}
+    />
   );
 
   if (isClose) {
@@ -259,11 +252,11 @@ const EditProfile = () => {
       <View>
         <Container maxWidth="sm">
           <DialogInfo
-            dialogContent={dialogContentClose}
+            dialogContent={dialogContentCancel}
             fullWidth
-            handleClose={() => setIsOpenDialogCloseInfo(false)}
+            handleClose={() => setIsOpenDialogCancelInfo(false)}
             isBtnClose={false}
-            isOpen={isOpenDialogCloseInfo}
+            isOpen={isOpenDialogCancelInfo}
             maxWidth={'xs'}
             title={translate('EditProfile.titleCancel')}
           />
@@ -343,7 +336,7 @@ const EditProfile = () => {
         <Button
           fullWidth
           isOutline
-          onClick={() => setIsOpenDialogCloseInfo(true)}
+          onClick={() => setIsOpenDialogCancelInfo(true)}
         >
           {translate('EditProfile.buttonCancel')}
         </Button>
