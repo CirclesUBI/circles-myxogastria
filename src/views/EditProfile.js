@@ -13,7 +13,7 @@ import ButtonDeleteProfile from '~/components/ButtonDeleteProfile';
 import CenteredHeading from '~/components/CenteredHeading';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
-import DialogContentUpload from '~/components/DialogContentUpload';
+import DialogAvatarUpload from '~/components/DialogAvatarUpload';
 import DialogInfo from '~/components/DialogInfo';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
@@ -164,14 +164,6 @@ const EditProfile = () => {
     setIsClose(true);
   };
 
-  const onFileUploadHandler = (updatedValue) => {
-    setProfilePicUrl(updatedValue);
-  };
-
-  const uploadImgSrcHandler = (updatedValue) => {
-    setProfilePicUrl(updatedValue);
-  };
-
   useEffect(() => {
     setUsernameInput(username);
   }, [username]);
@@ -277,19 +269,10 @@ const EditProfile = () => {
             maxWidth={'xs'}
             title={translate('EditProfile.titleCancel')}
           />
-          <DialogInfo
-            className={classes.dialogUploadContainer}
-            dialogContent={
-              <DialogContentUpload
-                handleClose={() => setIsOpenDialogUploadInfo(false)}
-                uploadImgSrc={uploadImgSrcHandler}
-                onFileUpload={onFileUploadHandler}
-              />
-            }
-            fullWidth
+          <DialogAvatarUpload
             handleClose={() => setIsOpenDialogUploadInfo(false)}
             isOpen={isOpenDialogUploadInfo}
-            maxWidth={'xs'}
+            setProfilePicUrl={setProfilePicUrl}
           />
           <Box align="center" mb={2} mt={4}>
             <Box
