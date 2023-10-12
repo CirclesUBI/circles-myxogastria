@@ -82,7 +82,7 @@ const EditProfile = () => {
   const [emailInput, setEmailInput] = useState();
   const [currentUserEmail, setCurrentUserEmail] = useState();
   const [isConsentInfo, setIsConsentInfo] = useState(false);
-  const [profilePicUrl, setProfilePicUrl] = useState('');
+  const [avatarUploadUrl, setAvatarUploadUrl] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [privacy, setPrivacy] = useState(true);
   const [terms, setTerms] = useState(true);
@@ -124,7 +124,7 @@ const EditProfile = () => {
         safe.currentAccount,
         usernameInput,
         emailInput,
-        profilePicUrl,
+        avatarUploadUrl,
       );
 
       if (result) {
@@ -268,7 +268,7 @@ const EditProfile = () => {
           <DialogAvatarUpload
             handleClose={() => setIsOpenDialogUploadInfo(false)}
             isOpen={isOpenDialogUploadInfo}
-            setProfilePicUrl={setProfilePicUrl}
+            setAvatarUploadUrl={setAvatarUploadUrl}
           />
           <Box align="center" mb={2} mt={4}>
             <Box
@@ -278,7 +278,7 @@ const EditProfile = () => {
               <Avatar
                 address={safe.currentAccount || safe.pendingAddress}
                 size="large"
-                url={profilePicUrl}
+                url={avatarUploadUrl}
                 withClickEffect={isOpenDialogUploadInfo}
                 withHoverEffect
               />

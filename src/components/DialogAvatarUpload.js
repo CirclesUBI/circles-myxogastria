@@ -13,15 +13,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DialogAvatarUpload = ({ isOpen, handleClose, setProfilePicUrl }) => {
+const DialogAvatarUpload = ({ isOpen, handleClose, setAvatarUploadUrl }) => {
   const classes = useStyles();
 
   const onFileUploadHandler = (updatedValue) => {
-    setProfilePicUrl(updatedValue);
+    setAvatarUploadUrl(updatedValue);
   };
 
   const uploadImgSrcHandler = (updatedValue) => {
-    setProfilePicUrl(updatedValue);
+    setAvatarUploadUrl(updatedValue);
   };
 
   return (
@@ -45,7 +45,7 @@ const DialogAvatarUpload = ({ isOpen, handleClose, setProfilePicUrl }) => {
 DialogAvatarUpload.propTypes = {
   handleClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool,
-  setProfilePicUrl: PropTypes.func.isRequired,
+  setAvatarUploadUrl: PropTypes.func.isRequired,
 };
 
 export default DialogAvatarUpload;

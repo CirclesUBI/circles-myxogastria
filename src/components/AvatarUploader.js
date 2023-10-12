@@ -29,7 +29,7 @@ const AvatarUploader = ({ onLoadingChange, shouldHaveIndicator }) => {
   const classes = useStyles();
 
   const [isOpenDialogUploadInfo, setIsOpenDialogUploadInfo] = useState(false);
-  const [profilePicUrl, setProfilePicUrl] = useState('');
+  const [avatarUploadUrl, setAvatarUploadUrl] = useState('');
   const isLoading = useSelector((state) => state.isLoading);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const AvatarUploader = ({ onLoadingChange, shouldHaveIndicator }) => {
       <DialogAvatarUpload
         handleClose={() => setIsOpenDialogUploadInfo(false)}
         isOpen={isOpenDialogUploadInfo}
-        setProfilePicUrl={setProfilePicUrl}
+        setAvatarUploadUrl={setAvatarUploadUrl}
       />
       <Box
         className={classes.avatarUploaderContainer}
@@ -52,7 +52,7 @@ const AvatarUploader = ({ onLoadingChange, shouldHaveIndicator }) => {
           isOrganization={shouldHaveIndicator}
           showIndicatorRing
           size="medium"
-          url={profilePicUrl}
+          url={avatarUploadUrl}
           withClickEffect={isOpenDialogUploadInfo}
           withHoverEffect
         >
