@@ -81,6 +81,7 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
         data.append('files', optimiseFiles);
       }
 
+      // EDIT CORE CALL DELETE PREVIOUS IF AVAILABLE
       const result = await core.utils.requestAPI({
         path: ['uploads', 'avatar'],
         method: 'POST',

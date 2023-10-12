@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Avatar = ({
   address,
+  children,
   size = 'small',
   url,
   useCache,
@@ -77,6 +78,16 @@ const Avatar = ({
     theme.custom.components.avatarSize * SIZE_MULTIPLIERS[size];
   const sizePixelRing = sizePixelAvatar * ORGANIZATION_RING_MULTIPLIER;
   const initials = username.slice(0, 2) === '0x' ? null : username.slice(0, 2);
+
+  const backupImage = () => {
+    if (avatarUrl && initials) {
+      return initials.toUpperCase();
+    }
+    if (address) {
+      return <Jazzicon address={address} size={sizePixelAvatar} />;
+    }
+    return children;
+  };
 
   return (
     <Box
@@ -118,9 +129,7 @@ const Avatar = ({
         }}
         {...props}
       >
-        {avatarUrl && initials
-          ? initials.toUpperCase()
-          : address && <Jazzicon address={address} size={sizePixelAvatar} />}
+        {backupImage()}
       </MuiAvatar>
     </Box>
   );
@@ -128,6 +137,7 @@ const Avatar = ({
 
 Avatar.propTypes = {
   address: PropTypes.string,
+  children: PropTypes.node,
   hidePlusIcon: PropTypes.bool,
   size: PropTypes.string,
   url: PropTypes.string,

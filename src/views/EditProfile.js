@@ -156,10 +156,6 @@ const EditProfile = () => {
     }
   }
 
-  // const dialogOpenInfoHandler = () => {
-  //   setIsOpenDialogCloseInfo(true);
-  // };
-
   const dialogCloseInfoHandler = () => {
     setIsClose(true);
   };
