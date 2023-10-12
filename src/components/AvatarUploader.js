@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import GroupWalletCircleSVG from '%/images/organization-indicator.svg';
 import Avatar from '~/components/Avatar';
 import DialogAvatarUpload from '~/components/DialogAvatarUpload';
 import { IconPlus } from '~/styles/icons';
@@ -13,11 +12,6 @@ const useStyles = makeStyles((theme) => ({
   avatarUpload: {
     backgroundColor: theme.custom.colors.white,
     border: `1px solid ${theme.palette.secondary.main}`,
-  },
-  indicatorContainer: {
-    position: 'absolute',
-    top: '-2px',
-    left: 0,
   },
   avatarUploaderContainer: {
     display: 'inline-flex',
@@ -53,13 +47,10 @@ const AvatarUploader = ({ onLoadingChange, shouldHaveIndicator }) => {
         className={classes.avatarUploaderContainer}
         onClick={() => setIsOpenDialogUploadInfo(true)}
       >
-        {shouldHaveIndicator && (
-          <Box className={classes.indicatorContainer}>
-            <GroupWalletCircleSVG width={94} />
-          </Box>
-        )}
         <Avatar
           className={classes.avatarUpload}
+          isOrganization={shouldHaveIndicator}
+          showIndicatorRing
           size="medium"
           url={profilePicUrl}
           withClickEffect={isOpenDialogUploadInfo}

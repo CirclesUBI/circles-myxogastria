@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const Avatar = ({
   address,
   children,
+  showIndicatorRing,
   size = 'small',
   url,
   useCache,
@@ -95,7 +96,7 @@ const Avatar = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {isOrganization && (
+      {(isOrganization || showIndicatorRing) && (
         <Box className={classes.organizationIndicator}>
           <GroupWalletCircleSVG width={sizePixelRing} />
         </Box>
@@ -139,6 +140,7 @@ Avatar.propTypes = {
   address: PropTypes.string,
   children: PropTypes.node,
   hidePlusIcon: PropTypes.bool,
+  showIndicatorRing: PropTypes.bool,
   size: PropTypes.string,
   url: PropTypes.string,
   useCache: PropTypes.bool,
