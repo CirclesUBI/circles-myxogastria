@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -22,7 +23,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ButtonDeleteProfile = () => {
+const ButtonDeleteProfile = ({ isOutline, isText }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -123,11 +124,21 @@ const ButtonDeleteProfile = () => {
         maxWidth={'xs'}
         title={translate('ButtonDeleteProfile.titleText')}
       />
-      <Button fullWidth isOutline onClick={dialogOpenInfoHandler}>
+      <Button
+        fullWidth
+        isOutline={isOutline}
+        isText={isText}
+        onClick={dialogOpenInfoHandler}
+      >
         {translate('ButtonDeleteProfile.btnText')}
       </Button>
     </Box>
   );
+};
+
+ButtonDeleteProfile.propTypes = {
+  isOutline: PropTypes.bool,
+  isText: PropTypes.bool,
 };
 
 export default ButtonDeleteProfile;

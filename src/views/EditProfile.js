@@ -8,7 +8,6 @@ import { DASHBOARD_PATH } from '~/routes';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
-import ButtonBack from '~/components/ButtonBack';
 import ButtonDeleteProfile from '~/components/ButtonDeleteProfile';
 import CenteredHeading from '~/components/CenteredHeading';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
@@ -47,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: SPACING,
     marginTop: '50px',
   },
-  saveButton: {
+  buttonsEdit: {
+    marginTop: '8px',
     marginBottom: '8px',
   },
   informationContainer: {
@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
   },
   ButtonDeleteProfile: {
     position: 'relative',
+    marginBottom: '8px',
     marginTop: '5px',
   },
 }));
@@ -253,7 +254,6 @@ const EditProfile = () => {
   return (
     <>
       <Header>
-        <ButtonBack />
         <CenteredHeading>{translate('EditProfile.heading')}</CenteredHeading>
       </Header>
       <View>
@@ -331,15 +331,22 @@ const EditProfile = () => {
         </Container>
       </View>
       <Footer>
+        <ButtonDeleteProfile className={classes.ButtonDeleteProfile} isText />
         <Button
-          className={classes.saveButton}
+          className={classes.buttonsEdit}
           disabled={isDisabled}
           fullWidth
           onClick={saveChangesHandler}
         >
           {translate('EditProfile.buttonSave')}
         </Button>
-        <ButtonDeleteProfile className={classes.ButtonDeleteProfile} />
+        <Button
+          fullWidth
+          isOutline
+          onClick={() => setIsOpenDialogCloseInfo(true)}
+        >
+          {translate('EditProfile.buttonCancel')}
+        </Button>
       </Footer>
     </>
   );
