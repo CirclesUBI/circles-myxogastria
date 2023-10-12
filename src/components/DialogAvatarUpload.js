@@ -16,11 +16,7 @@ const useStyles = makeStyles(() => ({
 const DialogAvatarUpload = ({ isOpen, handleClose, setAvatarUploadUrl }) => {
   const classes = useStyles();
 
-  const onFileUploadHandler = (updatedValue) => {
-    setAvatarUploadUrl(updatedValue);
-  };
-
-  const uploadImgSrcHandler = (updatedValue) => {
+  const setNewAvatarUrl = (updatedValue) => {
     setAvatarUploadUrl(updatedValue);
   };
 
@@ -30,8 +26,7 @@ const DialogAvatarUpload = ({ isOpen, handleClose, setAvatarUploadUrl }) => {
       dialogContent={
         <DialogContentUpload
           handleClose={handleClose}
-          uploadImgSrc={uploadImgSrcHandler}
-          onFileUpload={onFileUploadHandler}
+          setNewAvatarUrl={setNewAvatarUrl}
         />
       }
       fullWidth

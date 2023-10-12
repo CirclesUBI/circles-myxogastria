@@ -120,6 +120,7 @@ const EditProfile = () => {
 
   async function editUserData() {
     try {
+      // TODO AVATAR save old avatar url
       const result = await core.user.update(
         safe.currentAccount,
         usernameInput,
@@ -139,6 +140,7 @@ const EditProfile = () => {
             type: NotificationsTypes.SUCCESS,
           }),
         );
+        // TODO AVATAR delete old avatar from aws
         setIsClose(true);
       }
     } catch (error) {

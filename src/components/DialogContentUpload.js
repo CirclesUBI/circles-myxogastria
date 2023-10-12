@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
+const DialogContentUpload = ({ handleClose, setNewAvatarUrl }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -81,14 +81,17 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
         data.append('files', optimiseFiles);
       }
 
+      // TODO AVATAR
       // EDIT CORE CALL DELETE PREVIOUS IF AVAILABLE
+      // get old avatar upload url
+      // const avatarUploadUrl = useSelector((state) => state.avatarUploadUrl);
       const result = await core.utils.requestAPI({
         path: ['uploads', 'avatar'],
         method: 'POST',
         data,
       });
-
-      onFileUpload(result.data.url);
+      // before setting new URL - delete old one (replacing Upload)
+      setNewAvatarUrl(result.data.url);
       handleClose();
     } catch (error) {
       logError(error);
@@ -156,7 +159,7 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
         <UploadFromCamera
           imageCaptureError={onImageCaptureErrorHandler}
           isUploading={isLoading}
-          uploadImgSrc={uploadImgSrc}
+          uploadImgSrc={setNewAvatarUrl}
           uploadPhoto={uploadPhoto}
         />
       )}
@@ -186,8 +189,7 @@ const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
 
 DialogContentUpload.propTypes = {
   handleClose: PropTypes.func,
-  onFileUpload: PropTypes.func.isRequired,
-  uploadImgSrc: PropTypes.func,
+  setNewAvatarUrl: PropTypes.func.isRequired,
 };
 
 export default DialogContentUpload;
