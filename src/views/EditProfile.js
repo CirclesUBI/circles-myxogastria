@@ -98,6 +98,11 @@ const EditProfile = () => {
   const isOrganization = safe?.isOrganization;
   const { username } = useUserdata(safe.currentAccount);
 
+  const handleCancel = () => {
+    // TODO AVATAR Remove avatarUploadUrl and set state to null
+    setIsClose(true);
+  };
+
   const onChangeUsernameHandler = (username) => {
     setUsernameInput(username);
   };
@@ -245,7 +250,7 @@ const EditProfile = () => {
             open={isOpenDialogCancelInfo}
             text={translate('EditProfile.bodyCancel')}
             title={translate('EditProfile.titleCancel')}
-            onClose={() => setIsClose(true)}
+            onClose={handleCancel}
             onConfirm={() => setIsOpenDialogCancelInfo(false)}
           />
           <DialogAvatarUpload
