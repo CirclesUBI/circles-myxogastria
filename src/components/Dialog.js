@@ -46,11 +46,13 @@ const Dialog = ({
       open={open}
       onClose={onClose}
     >
-      <DialogTitle id={`dialog-${id}-title`}>
-        <Typography variant="h4">{title}</Typography>
+      <DialogTitle align="center" id={`dialog-${id}-title`}>
+        <Typography component="span" variant="h4">
+          {title}
+        </Typography>
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id={`dialog-${id}-description`}>
+        <DialogContentText align="center" id={`dialog-${id}-description`}>
           <Typography variant="body4">{text}</Typography>
         </DialogContentText>
       </DialogContent>

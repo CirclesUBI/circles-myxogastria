@@ -14,7 +14,6 @@ import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
 import Dialog from '~/components/Dialog';
 import DialogAvatarUpload from '~/components/DialogAvatarUpload';
-import DialogInfo from '~/components/DialogInfo';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
@@ -221,18 +220,6 @@ const EditProfile = () => {
     })();
   }, [safe.currentAccount]);
 
-  const dialogContentCancel = (
-    <Dialog
-      cancelLabel={translate('EditProfile.buttonCancel')}
-      confirmLabel={translate('EditProfile.buttonContinue')}
-      open={isOpenDialogCancelInfo}
-      text={translate('EditProfile.bodyCancel')}
-      title={translate('EditProfile.titleCancel')}
-      onClose={() => setIsClose(true)}
-      onConfirm={() => setIsOpenDialogCancelInfo(false)}
-    />
-  );
-
   if (isClose) {
     return (
       <Redirect
@@ -251,14 +238,15 @@ const EditProfile = () => {
       </Header>
       <View>
         <Container maxWidth="sm">
-          <DialogInfo
-            dialogContent={dialogContentCancel}
-            fullWidth
-            handleClose={() => setIsOpenDialogCancelInfo(false)}
-            isBtnClose={false}
-            isOpen={isOpenDialogCancelInfo}
-            maxWidth={'xs'}
+          <Dialog
+            cancelLabel={translate('EditProfile.buttonCancel')}
+            confirmLabel={translate('EditProfile.buttonContinue')}
+            id={'cancelEditProfile'}
+            open={isOpenDialogCancelInfo}
+            text={translate('EditProfile.bodyCancel')}
             title={translate('EditProfile.titleCancel')}
+            onClose={() => setIsClose(true)}
+            onConfirm={() => setIsOpenDialogCancelInfo(false)}
           />
           <DialogAvatarUpload
             handleClose={() => setIsOpenDialogUploadInfo(false)}
