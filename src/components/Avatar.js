@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
   circleGrey: {
     background: theme.custom.colors.greyHover,
-    border: `2px solid ${theme.custom.colors.blue100}`,
     position: 'absolute',
     left: '-1px',
     top: '-1px',
@@ -44,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     opacity: 0,
     transition: 'opacity 0.1s ease-in-out',
+  },
+  circleBorder: {
+    border: `2px solid ${theme.custom.colors.blue100}`,
   },
   isHovered: {
     opacity: 1,
@@ -106,6 +108,8 @@ const Avatar = ({
           <Box
             className={clsx(classes.circleGrey, {
               [classes.isHovered]: isHovered || withClickEffect,
+              [classes.circleBorder]:
+                (isHovered || withClickEffect) && !hidePlusIcon,
             })}
             style={{
               width: sizePixelAvatar + 2,
