@@ -9,7 +9,8 @@ import ActionTypes from '~/store/activity/types';
 // Every item in the activities list has an unique hash identifier
 export function generateHash(activity) {
   const hash = activity?.txHash || activity?.createdAt || activity?.date;
-  return ethers.utils.namehash(`${hash}${activity.type?.toString()}`);
+
+  return ethers.utils.id(`${hash}${activity.type?.toString()}`);
 }
 
 const { ActivityFilterTypes } = core.activity;
