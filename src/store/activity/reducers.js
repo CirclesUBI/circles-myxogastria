@@ -1,16 +1,15 @@
+import { ethers } from 'ethers';
 import update from 'immutability-helper';
 import { DateTime } from 'luxon';
 
 import core from '~/services/core';
-import web3 from '~/services/web3';
 import { PAGE_SIZE } from '~/store/activity/actions';
 import ActionTypes from '~/store/activity/types';
 
 // Every item in the activities list has an unique hash identifier
 export function generateHash(activity) {
   const hash = activity?.txHash || activity?.createdAt || activity?.date;
-  const value = `${hash}${activity.type?.toString()}`;
-  return web3.utils.sha3(value);
+  return ethers.utils.namehash(`${hash}${activity.type?.toString()}`);
 }
 
 const { ActivityFilterTypes } = core.activity;
@@ -70,7 +69,7 @@ function mergeActivities(currentActivities, newActivities) {
   return newActivities
     .reduce((acc, activity) => {
       // Do not store BN instances in redux
-      if (activity.data.value && web3.utils.BN.isBN(activity.data.value)) {
+      if (activity.data.value && ethers.BigNumber.from(activity.data.value)) {
         activity.data.value = activity.data.value.toString();
       }
 

@@ -1,16 +1,16 @@
 import { tcToCrc } from '@circles/timecircles';
+import { ethers } from 'ethers';
 import { DateTime } from 'luxon';
 
 import core from '~/services/core';
 import translate from '~/services/locale';
 import { getLastPayout, setLastPayout } from '~/services/token';
-import web3 from '~/services/web3';
 import { addPendingActivity } from '~/store/activity/actions';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import ActionTypes from '~/store/token/types';
 import { PATHFINDER_HOPS_DEFAULT, ZERO_ADDRESS } from '~/utils/constants';
 import logError from '~/utils/debug';
-import { isTokenDeployed, waitAndRetryOnFail } from '~/utils/stateChecks';
+import { isTokenDeployed } from '~/utils/stateChecks';
 
 const { ActivityTypes } = core.activity;
 const { ErrorCodes, TransferError } = core.errors;
@@ -34,13 +34,9 @@ export function deployToken() {
     });
 
     try {
-      await waitAndRetryOnFail(
-        async () => {
-          return await core.token.deploy(safe.pendingAddress);
-        },
-        async () => {
-          return await isTokenDeployed(safe.pendingAddress);
-        },
+      await core.utils.loop(
+        () => core.token.deploy(safe.pendingAddress),
+        () => isTokenDeployed(safe.pendingAddress),
       );
 
       dispatch({
@@ -322,7 +318,7 @@ export function transfer(
     const from = safe.currentAccount;
 
     try {
-      const value = new web3.utils.BN(
+      const value = ethers.BigNumber.from(
         core.utils.toFreckles(tcToCrc(Date.now(), Number(amount))),
       );
       let txHash;

@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
+import { ethers } from 'ethers';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,7 +38,6 @@ import { useUpdateLoop } from '~/hooks/update';
 import { useProfileLink, useRelativeSendLink } from '~/hooks/url';
 import { useIsOrganization, useUserdata } from '~/hooks/username';
 import translate from '~/services/locale';
-import web3 from '~/services/web3';
 import {
   checkFinishedActivities,
   checkPendingActivities,
@@ -81,7 +81,7 @@ const Profile = () => {
   const trustStatus = useTrustConnection(address);
   const deploymentStatus = useDeploymentStatus(address);
 
-  if (!web3.utils.checkAddressChecksum(address)) {
+  if (!ethers.utils.isAddress(address)) {
     return <NotFound />;
   }
 

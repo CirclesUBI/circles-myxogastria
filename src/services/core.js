@@ -1,10 +1,10 @@
 import CirclesCore from '@circles/core';
 
+import ethProvider from '~/services/ethProvider';
 import { getAccount } from '~/services/wallet';
-import web3 from '~/services/web3';
 import { PATHFINDER_HOPS_DEFAULT } from '~/utils/constants';
 
-const core = new CirclesCore(web3, {
+const core = new CirclesCore(ethProvider, {
   apiServiceEndpoint: process.env.API_SERVICE_EXTERNAL,
   fallbackHandlerAddress: process.env.SAFE_DEFAULT_CALLBACK_HANDLER,
   graphNodeEndpoint: process.env.GRAPH_NODE_EXTERNAL,
@@ -15,6 +15,8 @@ const core = new CirclesCore(web3, {
   relayServiceEndpoint: process.env.RELAY_SERVICE_EXTERNAL,
   safeMasterAddress: process.env.SAFE_ADDRESS,
   subgraphName: process.env.SUBGRAPH_NAME,
+  multiSendAddress: process.env.MULTI_SEND_ADDRESS,
+  multiSendCallOnlyAddress: process.env.MULTI_SEND_CALL_ONLY_ADDRESS,
 });
 
 async function requestCore(moduleName, method, options) {
@@ -36,21 +38,9 @@ const safe = {
     });
   },
 
-  prepareDeploy: async (nonce) => {
-    return await requestCore('safe', 'prepareDeploy', {
+  deploy: async (nonce) => {
+    return await requestCore('safe', 'deploySafe', {
       nonce,
-    });
-  },
-
-  isFunded: async (safeAddress) => {
-    return await requestCore('safe', 'isFunded', {
-      safeAddress,
-    });
-  },
-
-  deploy: async (safeAddress) => {
-    return await requestCore('safe', 'deploy', {
-      safeAddress,
     });
   },
 
@@ -97,6 +87,11 @@ const safe = {
       safeAddress,
     });
   },
+
+  isDeployed: (safeAddress) =>
+    requestCore('safe', 'isDeployed', {
+      safeAddress,
+    }),
 };
 
 // User module
@@ -177,12 +172,6 @@ const token = {
     return await requestCore('token', 'checkSendLimit', {
       from,
       to,
-    });
-  },
-
-  isFunded: async (safeAddress) => {
-    return await requestCore('token', 'isFunded', {
-      safeAddress,
     });
   },
 
@@ -345,20 +334,8 @@ const organization = {
   },
 };
 
-// Utils module
-
-const { fromFreckles, toFreckles, requestAPI, matchAddress } = core.utils;
-
-const utils = {
-  fromFreckles,
-  matchAddress,
-  requestAPI,
-  toFreckles,
-};
-
-// Errors
-
-const { ErrorCodes, CoreError, TransferError, RequestError } = core;
+// No wrapped functionality
+const { ErrorCodes, CoreError, TransferError, RequestError, utils } = core;
 
 const errors = {
   ErrorCodes,

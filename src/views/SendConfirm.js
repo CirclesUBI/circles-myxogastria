@@ -1,4 +1,5 @@
 import { Container, Grid, Typography } from '@mui/material';
+import { ethers } from 'ethers';
 import qs from 'qs';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +30,6 @@ import { useUserdata } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import { validateAmount, validatePaymentNote } from '~/services/token';
-import web3 from '~/services/web3';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { checkCurrentBalance, transfer } from '~/store/token/actions';
 import logError, { formatErrorMessage } from '~/utils/debug';
@@ -68,10 +68,11 @@ const SendConfirm = () => {
   const { username: sender } = useUserdata(safe.currentAccount);
   const { username: receiver } = useUserdata(address);
 
-  const maxAmount = web3.utils.BN.min(
-    web3.utils.toBN(token.balance ? token.balance : '0'),
-    web3.utils.toBN(maxFlow ? maxFlow : '0'),
+  const tokenBalanceBN = ethers.BigNumber.from(
+    token.balance ? token.balance : '0',
   );
+  const maxFlowBN = ethers.BigNumber.from(maxFlow ? maxFlow : '0');
+  const maxAmount = tokenBalanceBN.lt(maxFlowBN) ? tokenBalanceBN : maxFlowBN;
 
   const isAmountTooHigh = amount
     ? Number(formatCirclesValue(maxAmount)) < Number(amount)

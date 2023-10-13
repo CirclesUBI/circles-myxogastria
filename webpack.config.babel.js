@@ -2,6 +2,7 @@ import path from 'path';
 
 import dotenv from 'dotenv';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
@@ -24,6 +25,8 @@ const CONFIG_KEYS = [
   'SAFE_DEFAULT_CALLBACK_HANDLER',
   'SAFE_FUNDER_ADDRESS',
   'SUBGRAPH_NAME',
+  'MULTI_SEND_ADDRESS',
+  'MULTI_SEND_CALL_ONLY_ADDRESS',
 ];
 
 const CONFIG_KEYS_OPTIONAL = [
@@ -94,7 +97,6 @@ envData.CORE_RELEASE_VERSION = `"${corePkg.version}"`;
 export default () => {
   const isDevelopment = process.env.NODE_ENV === 'development';
   const filename = isDevelopment ? '[name]' : '[name]-[contenthash:4]';
-  const exclude = new RegExp(NODE_MODULES);
 
   return {
     mode: isDevelopment ? 'development' : 'production',
@@ -119,20 +121,22 @@ export default () => {
       rules: [
         {
           test: /\.js$/,
-          exclude,
+          include: [/src/],
           use: ['babel-loader', 'eslint-loader'],
         },
         {
           test: /\.css$/,
+          include: [/src/],
           use: ['style-loader', 'css-loader'],
         },
         {
           test: /\.svg$/,
+          include: [/assets/],
           use: ['@svgr/webpack'],
         },
         {
           test: /\.(png|jp(e?)g|gif|woff(2?)|ttf|eot)$/,
-          exclude,
+          include: [/assets/],
           use: [
             {
               loader: 'file-loader',
@@ -146,8 +150,8 @@ export default () => {
     },
     devtool: 'source-map',
     devServer: {
-      clientLogLevel: 'silent',
-      contentBase: getPath(PATH_DIST),
+      client: { logging: 'none' },
+      static: getPath(PATH_DIST),
       historyApiFallback: true,
       liveReload: false,
     },
@@ -183,6 +187,9 @@ export default () => {
       }),
       new webpack.DefinePlugin({
         'process.env': envData,
+      }),
+      new NodePolyfillPlugin({
+        includeAliases: ['assert', 'http', 'https', 'stream', 'url', 'zlib'],
       }),
     ],
   };

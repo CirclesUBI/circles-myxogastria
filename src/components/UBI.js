@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material';
+import { ethers } from 'ethers';
 import { DateTime } from 'luxon';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import core from '~/services/core';
 import translate from '~/services/locale';
-import web3 from '~/services/web3';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { requestUBIPayout } from '~/store/token/actions';
 import { formatCirclesValue } from '~/utils/format';
@@ -37,7 +37,7 @@ const UBI = () => {
       const payout = await core.token.checkUBIPayout(safe.currentAccount);
 
       if (
-        payout.lt(web3.utils.toBN(web3.utils.toWei(MIN_UBI_PAYOUT, 'ether')))
+        payout.lt(ethers.BigNumber.from(core.utils.toFreckles(MIN_UBI_PAYOUT)))
       ) {
         return;
       }

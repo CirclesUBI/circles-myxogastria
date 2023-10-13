@@ -11,9 +11,9 @@ import {
   typeToCategory,
 } from '~/services/activity';
 import core from '~/services/core';
+import ethProvider from '~/services/ethProvider';
 import translate from '~/services/locale';
 import resolveUsernames from '~/services/username';
-import web3 from '~/services/web3';
 import { CATEGORIES } from '~/store/activity/reducers';
 import ActionTypes from '~/store/activity/types';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -79,7 +79,9 @@ export function checkPendingActivities() {
         let isError;
 
         // Check transaction mining state
-        const receipt = await web3.eth.getTransactionReceipt(activity.txHash);
+        const receipt = await ethProvider.getTransactionReceipt(
+          activity.txHash,
+        );
         isError = receipt !== null && !receipt.status;
 
         if (activity.isError !== isError) {

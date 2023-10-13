@@ -1,5 +1,7 @@
 import { entropyToMnemonic, mnemonicToEntropy } from 'bip39';
+import { ethers } from 'ethers';
 
+import ethProvider from '~/services/ethProvider';
 import {
   getItem,
   hasItem,
@@ -7,12 +9,11 @@ import {
   removeItem,
   setItem,
 } from '~/services/storage';
-import web3 from '~/services/web3';
 
 const PRIVATE_KEY_NAME = 'privateKey';
 
 export function generatePrivateKey() {
-  const { privateKey } = web3.eth.accounts.create();
+  const { privateKey } = ethers.Wallet.createRandom().connect(ethProvider);
   return privateKey;
 }
 
@@ -39,15 +40,7 @@ export function removePrivateKey() {
 }
 
 export function getPublicAddress() {
-  const privateKey = getPrivateKey();
-
-  if (privateKey && !web3.utils.isHexStrict(privateKey)) {
-    throw new Error('Invalid private key');
-  }
-
-  const { address } = web3.eth.accounts.privateKeyToAccount(privateKey);
-
-  return address;
+  return getAccount().address;
 }
 
 export function fromSeedPhrase(seedPhrase) {
@@ -66,5 +59,9 @@ export function toSeedPhrase(privateKey) {
 export function getAccount() {
   const privateKey = getPrivateKey();
 
-  return web3.eth.accounts.privateKeyToAccount(privateKey);
+  if (privateKey && !ethers.utils.isHexString(privateKey)) {
+    throw new Error('Invalid private key');
+  }
+
+  return new ethers.Wallet(privateKey).connect(ethProvider);
 }

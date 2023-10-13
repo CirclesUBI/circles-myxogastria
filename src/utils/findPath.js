@@ -1,5 +1,6 @@
+import { ethers } from 'ethers';
+
 import core from '~/services/core';
-import web3 from '~/services/web3';
 import { PATHFINDER_HOPS_DEFAULT } from '~/utils/constants';
 
 const { ErrorCodes } = core.errors;
@@ -7,8 +8,8 @@ const { ErrorCodes } = core.errors;
 // is specified as amount. If the amount is lower than the maximum possible
 // transfers it will not return the maximum.
 // We use 10^15 CRC as this is much higher than any realistic transfer.
-const LARGE_AMOUNT = new web3.utils.BN(
-  web3.utils.toWei('1000000000000000', 'ether'),
+const LARGE_AMOUNT = ethers.BigNumber.from(
+  core.utils.toFreckles('1000000000000000'),
 );
 
 // Recursive helper function for findMaxFlow recursively reducing number of hops

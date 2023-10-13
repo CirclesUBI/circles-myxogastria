@@ -1,4 +1,5 @@
 import { tcToCrc } from '@circles/timecircles';
+import { ethers } from 'ethers';
 import React from 'react';
 
 import WelcomeMessage from '~/components/WelcomeMessage';
@@ -7,7 +8,6 @@ import {
   generateDeterministicNonce,
   generateDeterministicNonceFromName,
 } from '~/services/safe';
-import web3 from '~/services/web3';
 import { checkAppState } from '~/store/app/actions';
 import {
   hideSpinnerOverlay,
@@ -120,7 +120,7 @@ export function createNewOrganization(
       );
 
       // Prefund the organization with Tokens from the user (transfer)
-      const amount = new web3.utils.BN(
+      const amount = ethers.BigNumber.from(
         core.utils.toFreckles(tcToCrc(Date.now(), Number(prefundValue))),
       );
       await waitAndRetryOnFail(

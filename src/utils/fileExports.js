@@ -9,7 +9,6 @@ import core from '~/services/core';
 import translate from '~/services/locale';
 import resolveTxHash from '~/services/transfer';
 import resolveUsernames from '~/services/username';
-import web3 from '~/services/web3';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import { formatCirclesValue } from '~/utils/format';
 
@@ -173,7 +172,7 @@ const getTransactions = async (safeAddress, startDate) => {
   );
   const transactions = activities.map((activity) => {
     const { to, from, value } = activity.data;
-    const valueInCircles = web3.utils.fromWei(value);
+    const valueInCircles = core.utils.fromFreckles(value);
     const date = DateTime.fromSeconds(activity.timestamp);
     return {
       to,
@@ -225,8 +224,8 @@ export async function downloadCsvStatement(
   const sumTxTcPeriod = sumOfTransactions(txsInPeriod, true);
 
   // Balances
-  const balanceNowCrc = parseFloat(
-    web3.utils.fromWei(await core.token.getBalance(safeAddress)),
+  const balanceNowCrc = core.utils.fromFreckles(
+    await core.token.getBalance(safeAddress),
   );
   const endBalanceCrc = balanceNowCrc - sumCrcEnd;
   const startBalanceCrc = endBalanceCrc - sumTxCrcPeriod;

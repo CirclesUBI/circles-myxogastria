@@ -1,5 +1,5 @@
 import core from '~/services/core';
-import web3 from '~/services/web3';
+import ethProvider from '~/services/ethProvider';
 import { ZERO_ADDRESS } from '~/utils/constants';
 
 // Wait ms before checking condition again
@@ -117,7 +117,7 @@ export async function waitAndRetryOnFail(
 export async function isDeployed(address) {
   await loop(
     () => {
-      return web3.eth.getCode(address);
+      return ethProvider.getCode(address);
     },
     (code) => {
       return code !== '0x';

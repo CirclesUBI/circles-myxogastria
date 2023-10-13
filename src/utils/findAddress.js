@@ -1,4 +1,4 @@
-import web3 from '~/services/web3';
+import { ethers } from 'ethers';
 
 const regex = new RegExp('0[xX][0-9a-f]{40}', 'i');
 
@@ -7,13 +7,13 @@ export default function findAddress(str) {
     throw new Error('Empty string given');
   }
 
-  if (web3.utils.isAddress(str)) {
+  if (ethers.utils.isAddress(str)) {
     return str;
   }
 
   const result = str.match(regex);
 
-  if (!result || !web3.utils.isAddress(result[0])) {
+  if (!result || !ethers.utils.isAddress(result[0])) {
     throw new Error('Could not find any valid address');
   }
 

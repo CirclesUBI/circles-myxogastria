@@ -1,6 +1,6 @@
 import { crcToTc } from '@circles/timecircles';
 
-import web3 from '~/services/web3';
+import core from '~/services/core';
 
 const roundDownToString = (amount, nbrOfDecimals) => {
   const [wholeNumber, decimals] = amount.toString().split('.');
@@ -26,7 +26,7 @@ export function formatCirclesValue(
   nbrOfDecimals = 2,
   roundDown = true,
 ) {
-  const valueInCircles = web3.utils.fromWei(valueInFreckles);
+  const valueInCircles = core.utils.fromFreckles(valueInFreckles);
   const valueInTimeCircles = crcToTc(timestamp, Number(valueInCircles));
 
   return roundDown

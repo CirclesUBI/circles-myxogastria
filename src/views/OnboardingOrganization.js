@@ -1,5 +1,6 @@
 import { Box, Grid, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
+import { ethers } from 'ethers';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +23,6 @@ import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
 import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
 import { validateAmount } from '~/services/token';
-import web3 from '~/services/web3';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { createNewOrganization } from '~/store/onboarding/actions';
 import { checkCurrentBalance } from '~/store/token/actions';
@@ -258,7 +258,7 @@ const OrganizationStepPrefund = ({ onDisabledChange, values, onChange }) => {
   const [isError, setIsError] = useState(false);
   const { safe, token } = useSelector((state) => state);
   const maxAmount = parseFloat(
-    formatCirclesValue(web3.utils.toBN(token.balance)),
+    formatCirclesValue(ethers.BigNumber.from(token.balance)),
   );
 
   const handleChange = (event) => {

@@ -1,3 +1,5 @@
+import { ethers } from 'ethers';
+
 import { hasItem } from '~/services/storage';
 import {
   fromSeedPhrase,
@@ -7,7 +9,6 @@ import {
   setPrivateKey,
   toSeedPhrase,
 } from '~/services/wallet';
-import web3 from '~/services/web3';
 
 describe('Wallet service', () => {
   let privateKey;
@@ -19,7 +20,7 @@ describe('Wallet service', () => {
 
   describe('when generating a private key', () => {
     it('should be valid', () => {
-      expect(web3.utils.isHexStrict(privateKey)).toBe(true);
+      expect(ethers.utils.isHexString(privateKey)).toBe(true);
     });
   });
 

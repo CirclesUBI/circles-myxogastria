@@ -1,4 +1,5 @@
 import core from '~/services/core';
+import ethProvider from '~/services/ethProvider';
 import {
   generateDeterministicNonce,
   getCurrentAccount,
@@ -18,7 +19,6 @@ import {
   setSafeAddress,
   setSafeVersion,
 } from '~/services/safe';
-import web3 from '~/services/web3';
 import ActionTypes from '~/store/safe/types';
 import { isDeployed, waitAndRetryOnFail } from '~/utils/stateChecks';
 
@@ -154,7 +154,7 @@ export function createSafeWithNonce(pendingNonce) {
       });
 
       // Predict Safe address
-      const pendingAddress = await core.safe.prepareDeploy(pendingNonce);
+      const pendingAddress = await core.safe.predictAddress(pendingNonce);
 
       // Store address when successful
       setSafeAddress(pendingAddress);
@@ -246,13 +246,9 @@ export function deploySafe() {
     });
 
     try {
-      await waitAndRetryOnFail(
-        async () => {
-          return await core.safe.deploy(safe.pendingAddress);
-        },
-        async () => {
-          return await isDeployed(safe.pendingAddress);
-        },
+      await core.utils.loop(
+        () => core.safe.deploy(safe.pendingNonce),
+        () => core.safe.isDeployed(safe.pendingAddress),
       );
 
       dispatch({
@@ -367,7 +363,7 @@ export function addSafeOwner(address) {
 
     try {
       // Check if address is a wallet
-      if ((await web3.eth.getCode(address)) !== '0x') {
+      if ((await ethProvider.getCode(address)) !== '0x') {
         throw new Error('Address is not an EOA');
       }
 
