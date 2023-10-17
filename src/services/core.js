@@ -133,6 +133,12 @@ const user = {
     });
   },
 
+  delete: async (safeAddress) => {
+    return await requestCore('user', 'delete', {
+      safeAddress,
+    });
+  },
+
   getEmail: async (safeAddress) => {
     return await requestCore('user', 'getEmail', {
       safeAddress,

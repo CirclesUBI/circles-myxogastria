@@ -28,26 +28,30 @@ const ButtonDeleteProfile = ({ isOutline, isText }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const [useCacheOnRedirect, setUseCacheOnRedirect] = useState(true);
   const [isOpenDialogCloseInfo, setIsOpenDialogCloseInfo] = useState(false);
   const [isProfileDeleted, setIsProfileDeleted] = useState(false);
 
   const safe = useSelector((state) => state.safe);
 
-  const dialogCloseInfoHandler = () => {
+  async function deleteUserProfile() {
     setIsOpenDialogCloseInfo(false);
     try {
-      core.user.delete(safe.currentAccount);
+      const result = await core.user.delete(safe.currentAccount);
 
-      dispatch(
-        notify({
-          text: (
-            <Typography classes={{ root: 'body4_white' }} variant="body4">
-              {translate('ButtonDeleteProfile.notificationSuccess')}
-            </Typography>
-          ),
-          type: NotificationsTypes.SUCCESS,
-        }),
-      );
+      if (result) {
+        setUseCacheOnRedirect(false);
+        dispatch(
+          notify({
+            text: (
+              <Typography classes={{ root: 'body4_white' }} variant="body4">
+                {translate('ButtonDeleteProfile.notificationSuccess')}
+              </Typography>
+            ),
+            type: NotificationsTypes.SUCCESS,
+          }),
+        );
+      }
 
       setIsProfileDeleted(true);
     } catch (error) {
@@ -63,7 +67,7 @@ const ButtonDeleteProfile = ({ isOutline, isText }) => {
         }),
       );
     }
-  };
+  }
 
   const dialogOpenInfoHandler = () => {
     setIsOpenDialogCloseInfo(true);
@@ -98,7 +102,7 @@ const ButtonDeleteProfile = ({ isOutline, isText }) => {
           <Button
             className={classes.continueButton}
             fullWidth
-            onClick={dialogCloseInfoHandler}
+            onClick={deleteUserProfile}
           >
             {translate('ButtonDeleteProfile.confirmationDelete')}
           </Button>
@@ -113,7 +117,14 @@ const ButtonDeleteProfile = ({ isOutline, isText }) => {
   );
 
   if (isProfileDeleted) {
-    return <Redirect to={DASHBOARD_PATH} />;
+    return (
+      <Redirect
+        to={{
+          pathname: DASHBOARD_PATH,
+          state: { useCache: useCacheOnRedirect },
+        }}
+      />
+    );
   }
 
   return (
