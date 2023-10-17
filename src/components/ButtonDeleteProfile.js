@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { DASHBOARD_PATH } from '~/routes';
@@ -10,6 +10,7 @@ import { DASHBOARD_PATH } from '~/routes';
 import Button from '~/components/Button';
 import DialogInfo from '~/components/DialogInfo';
 import ExternalLink from '~/components/ExternalLink';
+import core from '~/services/core';
 import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { FAQ_URL } from '~/utils/constants';
@@ -30,10 +31,12 @@ const ButtonDeleteProfile = ({ isOutline, isText }) => {
   const [isOpenDialogCloseInfo, setIsOpenDialogCloseInfo] = useState(false);
   const [isProfileDeleted, setIsProfileDeleted] = useState(false);
 
+  const safe = useSelector((state) => state.safe);
+
   const dialogCloseInfoHandler = () => {
     setIsOpenDialogCloseInfo(false);
     try {
-      // TODO add delete logic
+      core.user.delete(safe.currentAccount);
 
       dispatch(
         notify({
