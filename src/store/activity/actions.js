@@ -70,31 +70,26 @@ export function checkPendingActivities() {
 
     for await (const category of CATEGORIES) {
       activity.categories[category].activities.forEach(async (activity) => {
-        // We only need check pending activities and activities without
-        // txHash are not ready to be checked.
+        // We only need to check pending activities
         if (!activity.isPending || !activity.txHash) {
           return;
         }
-
-        let isError;
 
         // Check transaction mining state
         const receipt = await ethProvider.getTransactionReceipt(
           activity.txHash,
         );
-        isError = receipt !== null && !receipt.status;
+        const isError = receipt?.status === 0;
 
-        if (activity.isError !== isError) {
-          dispatch({
-            type: ActionTypes.ACTIVITIES_SET_STATUS,
-            meta: {
-              category: typeToCategory(activity.type),
-              hash: activity.hash,
-              isError,
-              isPending: true,
-            },
-          });
-        }
+        dispatch({
+          type: ActionTypes.ACTIVITIES_SET_STATUS,
+          meta: {
+            category: typeToCategory(activity.type),
+            hash: activity.hash,
+            isError,
+            isPending: !isError && receipt?.confirmations < 3,
+          },
+        });
       });
     }
   };

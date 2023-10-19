@@ -20,7 +20,6 @@ import {
   setSafeVersion,
 } from '~/services/safe';
 import ActionTypes from '~/store/safe/types';
-import { isDeployed, waitAndRetryOnFail } from '~/utils/stateChecks';
 
 export function initializeSafe() {
   return async (dispatch) => {
@@ -95,27 +94,12 @@ export function recreateUndeployedSafe() {
 
       const { wallet } = getState();
 
-      // Try to predict safe address via deterministic nonce. This action does
-      // NOT create a Safe!
+      // Try to predict safe address via deterministic nonce. This action does NOT create a Safe!
       const pendingNonce = generateDeterministicNonce(wallet.address);
       const pendingAddress = await core.safe.predictAddress(pendingNonce);
 
-      // Check if precicted address exists in our system (it should be created,
-      // but not deployed yet).
-      const status = await core.safe.getSafeStatus(pendingAddress);
-      if (!status.isCreated) {
-        // This Safe is not know to the relayer (something must have went wrong
-        // there), register it!
-        await core.safe.prepareDeploy(pendingNonce);
-      }
-
-      dispatch({
-        type: ActionTypes.SAFE_CREATE,
-      });
-
       // Store address when successful
       setSafeAddress(pendingAddress);
-
       // Store nonce when restoring undeployed Safe
       setNonce(pendingNonce);
 
@@ -148,10 +132,6 @@ export function createSafeWithNonce(pendingNonce) {
 
         throw new Error('Invalid state to prepare Safe deployment');
       }
-
-      dispatch({
-        type: ActionTypes.SAFE_CREATE,
-      });
 
       // Predict Safe address
       const pendingAddress = await core.safe.predictAddress(pendingNonce);
@@ -233,22 +213,16 @@ export function checkSharedSafeState() {
   };
 }
 
-export function deploySafe() {
-  return async (dispatch, getState) => {
-    const { safe } = getState();
-
-    if (safe.pendingIsLocked) {
-      return;
-    }
-
+export function deploySafe({ nonce, safeAddress, ownerAddress }) {
+  return async (dispatch) => {
     dispatch({
       type: ActionTypes.SAFE_DEPLOY,
     });
 
     try {
       await core.utils.loop(
-        () => core.safe.deploy(safe.pendingNonce),
-        () => core.safe.isDeployed(safe.pendingAddress),
+        () => core.safe.deploy(nonce, ownerAddress),
+        () => core.safe.isDeployed(safeAddress),
       );
 
       dispatch({
@@ -259,40 +233,6 @@ export function deploySafe() {
         type: ActionTypes.SAFE_DEPLOY_ERROR,
       });
 
-      throw error;
-    }
-  };
-}
-
-export function deploySafeForOrganization(safeAddress) {
-  return async (dispatch, getState) => {
-    const { safe } = getState();
-
-    if (safe.pendingIsLocked) {
-      return;
-    }
-
-    dispatch({
-      type: ActionTypes.SAFE_DEPLOY,
-    });
-
-    try {
-      await waitAndRetryOnFail(
-        async () => {
-          return await core.safe.deployForOrganization(safeAddress);
-        },
-        async () => {
-          return await isDeployed(safeAddress);
-        },
-      );
-
-      dispatch({
-        type: ActionTypes.SAFE_DEPLOY_SUCCESS,
-      });
-    } catch (error) {
-      dispatch({
-        type: ActionTypes.SAFE_DEPLOY_ERROR,
-      });
       throw error;
     }
   };

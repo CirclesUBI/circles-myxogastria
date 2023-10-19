@@ -10,7 +10,6 @@ import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import ActionTypes from '~/store/token/types';
 import { PATHFINDER_HOPS_DEFAULT, ZERO_ADDRESS } from '~/utils/constants';
 import logError from '~/utils/debug';
-import { isTokenDeployed } from '~/utils/stateChecks';
 
 const { ActivityTypes } = core.activity;
 const { ErrorCodes, TransferError } = core.errors;
@@ -36,7 +35,10 @@ export function deployToken() {
     try {
       await core.utils.loop(
         () => core.token.deploy(safe.pendingAddress),
-        () => isTokenDeployed(safe.pendingAddress),
+        () =>
+          core.token
+            .getAddress(safe.pendingAddress)
+            .then((address) => address !== ZERO_ADDRESS),
       );
 
       dispatch({

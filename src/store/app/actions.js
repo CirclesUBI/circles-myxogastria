@@ -7,7 +7,6 @@ import {
   resetActivities,
 } from '~/store/activity/actions';
 import ActionTypes from '~/store/app/types';
-import { checkOnboardingState } from '~/store/onboarding/actions';
 import {
   checkSharedSafeState,
   initializeSafe,
@@ -44,10 +43,6 @@ export function initializeApp() {
       await dispatch(initializeActivities());
       initializeLastReceivedTransaction();
       await dispatch(checkAuthState());
-
-      // Check only once in the beginning if Safe is funded (since this is an
-      // edge-case and we don't want to waste requests)
-      await dispatch(checkOnboardingState());
 
       // Check for additional states ...
       await dispatch(checkAppState());

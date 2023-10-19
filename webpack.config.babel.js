@@ -189,7 +189,15 @@ export default () => {
         'process.env': envData,
       }),
       new NodePolyfillPlugin({
-        includeAliases: ['assert', 'http', 'https', 'stream', 'url', 'zlib'],
+        includeAliases: [
+          'assert',
+          'Buffer',
+          'http',
+          'https',
+          'stream',
+          'url',
+          'zlib',
+        ],
       }),
     ],
   };

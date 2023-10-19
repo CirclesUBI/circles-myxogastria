@@ -19,27 +19,19 @@ import {
   checkSharedSafeState,
   createSafeWithNonce,
   deploySafe,
-  deploySafeForOrganization,
   finalizeSafeDeployment,
   recreateUndeployedSafe,
   resetSafe,
   switchCurrentAccount,
   unlockSafeDeployment,
-  updateSafeFundedState,
 } from '~/store/safe/actions';
-import { deployToken, updateTokenFundedState } from '~/store/token/actions';
+import { deployToken } from '~/store/token/actions';
 import { restoreWallet } from '~/store/wallet/actions';
 import { ZERO_ADDRESS } from '~/utils/constants';
 import {
   RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
   RESTORE_ACCOUNT_UNKNOWN_SAFE,
 } from '~/utils/errors';
-import {
-  hasEnoughTokens,
-  isDeployed,
-  isOrganization,
-  waitAndRetryOnFail,
-} from '~/utils/stateChecks';
 
 // Create a new account which means that we get into a pending deployment
 // state. The user has to get incoming trust connections now or fund its own
@@ -82,59 +74,44 @@ export function createNewOrganization(
 ) {
   return async (dispatch, getState) => {
     try {
-      const { safe } = getState();
-      const creatorSafeAddress = safe.currentAccount;
+      const {
+        safe: { currentAccount },
+      } = getState();
 
       dispatch(showSpinnerOverlay());
 
-      // Create an undeployed Safe for organizations (so far this is the same
-      // flow as regular user accounts)
       const nonce = generateDeterministicNonceFromName(name);
-      const safeAddress = await core.safe.prepareDeploy(nonce);
+      const safeAddress = await core.safe.predictAddress(nonce);
 
       // Register organization in off-chain database
       await core.user.register(nonce, safeAddress, name, email, avatarUrl);
 
-      dispatch(hideSpinnerOverlay());
-
-      // Deploy the safe directly as we don't have to wait for any trust limit
-      // etc. validation (the user is already trusted, therefore we also trust
-      // its organization)
-      await waitAndRetryOnFail(
-        async () => {
-          return await dispatch(deploySafeForOrganization(safeAddress));
-        },
-        async () => {
-          return await isDeployed(safeAddress);
-        },
+      // Create an undeployed Safe for organizations (so far this is the same
+      // flow as regular user accounts)
+      await dispatch(
+        deploySafe({ nonce, safeAddress, ownerAddress: currentAccount }),
       );
 
       // Create the organization account in the Hub
-      await waitAndRetryOnFail(
-        async () => {
-          return await core.organization.deploy(safeAddress);
-        },
-        async () => {
-          return await isOrganization(safeAddress);
-        },
+      await core.utils.loop(
+        () => core.organization.deploy(safeAddress),
+        () => core.organization.isOrganization(safeAddress),
       );
 
       // Prefund the organization with Tokens from the user (transfer)
       const amount = ethers.BigNumber.from(
         core.utils.toFreckles(tcToCrc(Date.now(), Number(prefundValue))),
       );
-      await waitAndRetryOnFail(
-        async () => {
-          return await core.organization.prefund(
-            creatorSafeAddress,
-            safeAddress,
-            amount,
-          );
-        },
-        async () => {
-          return await hasEnoughTokens(safeAddress, amount);
-        },
+
+      await core.utils.loop(
+        () => core.organization.prefund(currentAccount, safeAddress, amount),
+        () =>
+          core.token
+            .listAllTokens(safeAddress)
+            .then((tokens) => tokens.length > 0 && tokens[0].amount.eq(amount)),
       );
+
+      dispatch(hideSpinnerOverlay());
 
       // Switch to newly created organization acccount
       await dispatch(checkSharedSafeState());
@@ -153,52 +130,35 @@ export function createNewOrganization(
   };
 }
 
-// We want to find out if the Safe and Token can be deployed ..
-export function checkOnboardingState() {
-  return async (dispatch, getState) => {
-    const { safe } = getState();
-
-    if (!safe.pendingAddress || !safe.pendingNonce) {
-      return;
-    }
-
-    // Check if we have enough funds for Token / Safe deployment
-    const [isSafeFunded, isTokenFunded] = await Promise.all([
-      core.safe.isFunded(safe.pendingAddress),
-      core.token.isFunded(safe.pendingAddress),
-    ]);
-
-    // ... and update the status accordingly
-    dispatch(updateSafeFundedState(isSafeFunded));
-    dispatch(updateTokenFundedState(isTokenFunded));
-  };
-}
-
 // Finally deploy the Safe and Token for this user!
 export function finalizeNewAccount() {
   return async (dispatch, getState) => {
-    const { safe } = getState();
+    const {
+      safe: {
+        pendingIsLocked,
+        pendingAddress: safeAddress,
+        pendingNonce: nonce,
+      },
+    } = getState();
 
-    if (safe.pendingIsLocked) {
-      return;
+    if (!pendingIsLocked) {
+      // Deploy Safe and Token
+      await dispatch(deploySafe({ nonce, safeAddress }));
+      await dispatch(deployToken());
+
+      // Change all states to final
+      await dispatch(finalizeSafeDeployment());
+      await dispatch(switchAccount(safeAddress));
+
+      // Finally unlock the Safe (enable UI again)
+      await dispatch(unlockSafeDeployment());
+      await dispatch(
+        notify({
+          text: <WelcomeMessage />,
+          type: NotificationsTypes.SPECIAL,
+        }),
+      );
     }
-
-    // Deploy Safe and Token
-    await dispatch(deploySafe());
-    await dispatch(deployToken());
-
-    // Change all states to final
-    await dispatch(finalizeSafeDeployment());
-    await dispatch(switchAccount(safe.pendingAddress));
-
-    // Finally unlock the Safe (enable UI again)
-    await dispatch(unlockSafeDeployment());
-    await dispatch(
-      notify({
-        text: <WelcomeMessage />,
-        type: NotificationsTypes.SPECIAL,
-      }),
-    );
   };
 }
 
@@ -206,7 +166,6 @@ export function restoreUndeployedAccount() {
   return async (dispatch) => {
     try {
       await dispatch(recreateUndeployedSafe());
-      await dispatch(checkOnboardingState());
     } catch {
       throw new Error(RESTORE_ACCOUNT_UNKNOWN_SAFE);
     }

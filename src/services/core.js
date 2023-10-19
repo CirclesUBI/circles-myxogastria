@@ -38,9 +38,10 @@ const safe = {
     });
   },
 
-  deploy: async (nonce) => {
+  deploy: async (nonce, ownerAddress) => {
     return await requestCore('safe', 'deploySafe', {
       nonce,
+      ownerAddress,
     });
   },
 
