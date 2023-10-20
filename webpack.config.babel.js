@@ -104,8 +104,8 @@ export default () => {
       app: getPath(`${PATH_SRC}/index.js`),
     },
     output: {
-      filename: `${filename}.js`,
-      sourceMapFilename: `${filename}.js.map`,
+      filename: `${filename}.[contenthash].js`,
+      sourceMapFilename: `${filename}.[contenthash].js.map`,
       path: getPath(PATH_DIST),
       publicPath: '/',
     },
