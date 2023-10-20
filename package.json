@@ -65,7 +65,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "@circles/core": "5.2.0-beta-not-use",
+    "@circles/core": "5.2.2-beta-not-use",
     "@circles/timecircles": "^1.0.6",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",

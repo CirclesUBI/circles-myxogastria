@@ -99,9 +99,7 @@ export function trustUser(safeAddress) {
 
     const user = safeAddress;
     const canSendTo = safe.currentAccount;
-    const {
-      receipt: { transactionHash },
-    } = await core.trust.addConnection(user, canSendTo);
+    const { transactionHash } = await core.trust.addConnection(user, canSendTo);
 
     dispatch(
       addPendingActivity({
@@ -126,9 +124,10 @@ export function untrustUser(safeAddress) {
 
     const user = safeAddress;
     const canSendTo = safe.currentAccount;
-    const {
-      receipt: { transactionHash },
-    } = await core.trust.removeConnection(user, canSendTo);
+    const { transactionHash } = await core.trust.removeConnection(
+      user,
+      canSendTo,
+    );
 
     dispatch(
       addPendingActivity({
