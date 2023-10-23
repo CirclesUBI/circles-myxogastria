@@ -343,7 +343,7 @@ export function transfer(
       if (txHash !== null) {
         dispatch(
           addPendingActivity({
-            txHash,
+            txHash: txHash.transactionHash,
             type: ActivityTypes.HUB_TRANSFER,
             data: {
               from,
