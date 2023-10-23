@@ -104,10 +104,10 @@ export default () => {
       app: getPath(`${PATH_SRC}/index.js`),
     },
     output: {
-      filename: `${filename}.js`,
-      sourceMapFilename: `${filename}.js.map`,
-      path: getPath(PATH_DIST),
       publicPath: '/',
+      path: getPath(PATH_DIST),
+      filename: '[name].[fullhash].js',
+      chunkFilename: '[id].[fullhash].js',
     },
     resolve: {
       modules: [NODE_MODULES],
