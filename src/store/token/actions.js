@@ -179,14 +179,16 @@ export function requestUBIPayout(payout) {
     });
 
     try {
-      const txHash = await core.token.requestUBIPayout(safe.currentAccount);
+      const { transactionHash } = await core.token.requestUBIPayout(
+        safe.currentAccount,
+      );
 
       const lastPayoutAt = DateTime.local().toISO();
       setLastPayout(lastPayoutAt);
 
       dispatch(
         addPendingActivity({
-          txHash,
+          txHash: transactionHash,
           type: ActivityTypes.TRANSFER,
           data: {
             from: ZERO_ADDRESS,
