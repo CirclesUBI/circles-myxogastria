@@ -79,15 +79,14 @@ export function checkPendingActivities() {
         const receipt = await ethProvider.getTransactionReceipt(
           activity.txHash,
         );
-        const isError = receipt?.status === 0;
 
         dispatch({
           type: ActionTypes.ACTIVITIES_SET_STATUS,
           meta: {
             category: typeToCategory(activity.type),
             hash: activity.hash,
-            isError,
-            isPending: !isError && receipt?.confirmations < 3,
+            isError: receipt?.status === 0,
+            isPending: false,
           },
         });
       });
