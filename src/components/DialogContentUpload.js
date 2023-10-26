@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import mime from 'mime/lite';
 import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useSelector } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Button from '~/components/Button';
@@ -80,16 +80,21 @@ const DialogContentUpload = ({ handleClose, setNewAvatarUrl }) => {
         data = new FormData();
         data.append('files', optimiseFiles);
       }
-
       // TODO AVATAR
       // EDIT CORE CALL DELETE PREVIOUS IF AVAILABLE
       // get old avatar upload url
       // const avatarUploadUrl = useSelector((state) => state.avatarUploadUrl);
-      const result = await core.utils.requestAPI({
-        path: ['uploads', 'avatar'],
-        method: 'POST',
-        data,
-      });
+      const avatarUploadUrl = useSelector((state) => state.avatarUploadUrl);
+
+      if (avatarUploadUrl) {
+        core.avatar.delete({ url: avatarUploadUrl });
+      }
+      const result = await core.avatar.upload({ data });
+      // const result = await core.utils.requestAPI({
+      //   path: ['uploads', 'avatar'],
+      //   method: 'POST',
+      //   data,
+      // });
       // before setting new URL - delete old one (replacing Upload)
       setNewAvatarUrl(result.data.url);
       handleClose();
