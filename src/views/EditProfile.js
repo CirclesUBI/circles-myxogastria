@@ -125,16 +125,18 @@ const EditProfile = () => {
   };
 
   async function editUserData() {
+    const userResult = await core.user.resolve([safe.currentAccount]);
+    const oldAvatarUrl = userResult[0].avatarUrl;
+
     try {
-      // TODO AVATAR save old avatar url
-      const result = await core.user.update(
+      const updateResult = await core.user.update(
         safe.currentAccount,
         usernameInput,
         emailInput,
         avatarUploadUrl,
       );
 
-      if (result) {
+      if (updateResult) {
         setUseCacheOnRedirect(false);
         dispatch(
           notify({
@@ -146,7 +148,6 @@ const EditProfile = () => {
             type: NotificationsTypes.SUCCESS,
           }),
         );
-        // TODO AVATAR delete old avatar from aws
         setIsClose(true);
       }
     } catch (error) {
@@ -161,6 +162,15 @@ const EditProfile = () => {
           type: NotificationsTypes.ERROR,
         }),
       );
+    }
+    // After replacing an avatar the old avatar has to be deleted from AWS
+    if (avatarUploadUrl !== oldAvatarUrl) {
+      try {
+        await core.avatar.delete({ url: oldAvatarUrl });
+      } catch (error) {
+        // No need to notify user
+        logError(error);
+      }
     }
   }
 
