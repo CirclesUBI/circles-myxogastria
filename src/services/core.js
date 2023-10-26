@@ -148,14 +148,12 @@ const user = {
 
 const avatar = {
   upload: async (imageData) => {
-    console.log('upload image aws core');
     return await requestCore('avatar', 'upload', {
       data: imageData,
     });
   },
 
   delete: async (avatarUrl) => {
-    console.log('delete image aws core');
     return await requestCore('avatar', 'delete', {
       url: avatarUrl,
     });
