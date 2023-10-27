@@ -148,9 +148,7 @@ const user = {
 
 const avatar = {
   upload: async (imageData) => {
-    return await requestCore('avatar', 'upload', {
-      data: imageData,
-    });
+    return await requestCore('avatar', 'upload', imageData);
   },
 
   delete: async (avatarUrl) => {

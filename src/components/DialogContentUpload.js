@@ -84,39 +84,12 @@ const DialogContentUpload = ({
         data = new FormData();
         data.append('files', optimiseFiles);
       }
-      // scenarios
-      // 1. no previous avatar
-      // - only upload and new state
-      // 2. current avatar url saved
-      // - upload new, replace state
-      // 3. current avatar upload is unsaved
-      // - save url, upload new, delete old avatar url, replace state
-      //
-      // TODO AVATAR
-      // EDIT CORE CALL DELETE PREVIOUS IF AVAILABLE
-      // get old avatar upload url - remove state when exiting
-
-      /* eslint-disable no-console */
-      console.log({ avatarUploadUrl });
-      /* eslint-enable no-console */
-
-      // const isAvatarTemporary = ;
-      if (avatarUploadUrl) {
-        core.avatar.delete({ url: avatarUploadUrl });
-        //setNewAvatarUrl(null);
-      }
-      // const result = await core.avatar.upload({ data });
-      const result = await core.utils.requestAPI({
-        path: ['uploads', 'avatar'],
-        method: 'POST',
-        data,
-      });
       // before setting new URL - delete old one (replacing Upload)
+      if (avatarUploadUrl) {
+        const deleted = await core.avatar.delete(avatarUploadUrl);
+      }
+      const result = await core.avatar.upload(data);
       setNewAvatarUrl(result.data.url);
-      /* eslint-disable no-console */
-      console.log({ avatarUploadUrl });
-      /* eslint-enable no-console */
-
       handleClose();
     } catch (error) {
       logError(error);

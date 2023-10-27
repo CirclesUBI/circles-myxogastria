@@ -136,7 +136,7 @@ const EditProfile = () => {
     /* eslint-disable no-console */
     console.log('Edit profile cancel', { userResult });
     /* eslint-enable no-console */
-    const oldAvatarUrl = userResult.data[0].avatarUrl;
+    const oldAvatarUrl = userResult.data.length && userResult.data[0].avatarUrl;
 
     try {
       const updateResult = await core.user.update(
@@ -158,6 +158,16 @@ const EditProfile = () => {
             type: NotificationsTypes.SUCCESS,
           }),
         );
+        /* eslint-disable no-console */
+        console.log(
+          '###################### same?',
+          oldAvatarUrl,
+          '/n',
+          avatarUploadUrl,
+          '/n',
+          oldAvatarUrl && avatarUploadUrl !== oldAvatarUrl,
+        );
+        /* eslint-enable no-console */
         setIsClose(true);
       }
     } catch (error) {
@@ -175,15 +185,8 @@ const EditProfile = () => {
     }
     // After replacing an avatar the old avatar has to be deleted from AWS
     if (oldAvatarUrl && avatarUploadUrl !== oldAvatarUrl) {
-      /* eslint-disable no-console */
-      console.log(
-        'Edit profile old avatar',
-        { oldAvatarUrl },
-        typeof avatarUploadUrl,
-      );
-      /* eslint-enable no-console */
       try {
-        await core.avatar.delete({ url: oldAvatarUrl });
+        await core.avatar.delete(oldAvatarUrl);
       } catch (error) {
         // No need to notify user
         logError(error);
