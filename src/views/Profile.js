@@ -76,7 +76,7 @@ const Profile = () => {
 
   const safe = useSelector((state) => state.safe);
   const shareLink = useProfileLink(address);
-  const shareText = translate('Profile.shareText', { shareLink });
+  const shareText = shareLink;
 
   const trustStatus = useTrustConnection(address);
   const deploymentStatus = useDeploymentStatus(address);
