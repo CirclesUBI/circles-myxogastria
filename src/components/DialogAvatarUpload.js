@@ -17,6 +17,7 @@ const DialogAvatarUpload = ({
   avatarUploadUrl,
   isOpen,
   handleClose,
+  handleUpload,
   setAvatarUploadUrl,
 }) => {
   const classes = useStyles();
@@ -28,6 +29,7 @@ const DialogAvatarUpload = ({
         <DialogContentUpload
           avatarUploadUrl={avatarUploadUrl}
           handleClose={handleClose}
+          handleUpload={handleUpload}
           setNewAvatarUrl={setAvatarUploadUrl}
         />
       }
@@ -42,6 +44,7 @@ const DialogAvatarUpload = ({
 DialogAvatarUpload.propTypes = {
   avatarUploadUrl: PropTypes.string,
   handleClose: PropTypes.func.isRequired,
+  handleUpload: PropTypes.func,
   isOpen: PropTypes.bool,
   setAvatarUploadUrl: PropTypes.func.isRequired,
 };

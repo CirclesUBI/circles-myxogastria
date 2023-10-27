@@ -315,7 +315,7 @@ const OnboardingStepUsername = ({ onDisabledChange, values, onChange }) => {
   );
 };
 
-const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
+const OnboardingStepAvatar = ({ onDisabledChange, onChange, values }) => {
   const classes = useStyles();
   const [photoUploaded, setPhotoUploaded] = useState(false);
 
@@ -337,9 +337,9 @@ const OnboardingStepAvatar = ({ values, onDisabledChange, onChange }) => {
       </Typography>
       <Box mt={4}>
         <AvatarUploader
+          handleUpload={handleUpload}
           value={values.avatarUrl}
           onLoadingChange={onDisabledChange}
-          onUpload={handleUpload}
         />
       </Box>
     </Box>

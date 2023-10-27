@@ -34,6 +34,7 @@ const useStyles = makeStyles(() => ({
 const DialogContentUpload = ({
   avatarUploadUrl,
   handleClose,
+  handleUpload,
   setNewAvatarUrl,
 }) => {
   const classes = useStyles();
@@ -85,11 +86,12 @@ const DialogContentUpload = ({
         data.append('files', optimiseFiles);
       }
       // before setting new URL - delete old one (replacing Upload)
-      if (avatarUploadUrl) {
-        const deleted = await core.avatar.delete(avatarUploadUrl);
-      }
       const result = await core.avatar.upload(data);
+      if (avatarUploadUrl && result) {
+        await core.avatar.delete(avatarUploadUrl);
+      }
       setNewAvatarUrl(result.data.url);
+      handleUpload();
       handleClose();
     } catch (error) {
       logError(error);
@@ -188,6 +190,7 @@ const DialogContentUpload = ({
 DialogContentUpload.propTypes = {
   avatarUploadUrl: PropTypes.string,
   handleClose: PropTypes.func,
+  handleUpload: PropTypes.func,
   setNewAvatarUrl: PropTypes.func.isRequired,
 };
 

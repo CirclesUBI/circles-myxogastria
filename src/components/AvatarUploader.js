@@ -25,7 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AvatarUploader = ({ onLoadingChange, showIndicatorRing }) => {
+const AvatarUploader = ({
+  handleUpload,
+  onLoadingChange,
+  showIndicatorRing,
+}) => {
   const classes = useStyles();
 
   const [isOpenDialogUploadInfo, setIsOpenDialogUploadInfo] = useState(false);
@@ -41,6 +45,7 @@ const AvatarUploader = ({ onLoadingChange, showIndicatorRing }) => {
       <DialogAvatarUpload
         avatarUploadUrl={avatarUploadUrl}
         handleClose={() => setIsOpenDialogUploadInfo(false)}
+        handleUpload={handleUpload}
         isOpen={isOpenDialogUploadInfo}
         setAvatarUploadUrl={setAvatarUploadUrl}
       />
@@ -68,6 +73,7 @@ const AvatarUploader = ({ onLoadingChange, showIndicatorRing }) => {
 };
 
 AvatarUploader.propTypes = {
+  handleUpload: PropTypes.func,
   onLoadingChange: PropTypes.func.isRequired,
   showIndicatorRing: PropTypes.bool,
 };

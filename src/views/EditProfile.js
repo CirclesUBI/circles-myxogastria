@@ -99,11 +99,7 @@ const EditProfile = () => {
   const { username } = useUserdata(safe.currentAccount);
 
   const handleCancel = async () => {
-    // TODO AVATAR Remove avatarUploadUrl and set state to null
     setIsClose(true);
-    /* eslint-disable no-console */
-    console.log('Edit profile cancel', { avatarUploadUrl });
-    /* eslint-enable no-console */
     if (avatarUploadUrl !== '') {
       await core.avatar.delete(avatarUploadUrl);
       setAvatarUploadUrl('');
@@ -133,9 +129,6 @@ const EditProfile = () => {
 
   async function editUserData() {
     const userResult = await core.user.resolve([safe.currentAccount]);
-    /* eslint-disable no-console */
-    console.log('Edit profile cancel', { userResult });
-    /* eslint-enable no-console */
     const oldAvatarUrl = userResult.data.length && userResult.data[0].avatarUrl;
 
     try {
@@ -159,15 +152,6 @@ const EditProfile = () => {
           }),
         );
         /* eslint-disable no-console */
-        console.log(
-          '###################### same?',
-          oldAvatarUrl,
-          '/n',
-          avatarUploadUrl,
-          '/n',
-          oldAvatarUrl && avatarUploadUrl !== oldAvatarUrl,
-        );
-        /* eslint-enable no-console */
         setIsClose(true);
       }
     } catch (error) {
@@ -184,7 +168,7 @@ const EditProfile = () => {
       );
     }
     // After replacing an avatar the old avatar has to be deleted from AWS
-    if (oldAvatarUrl && avatarUploadUrl !== oldAvatarUrl) {
+    if (oldAvatarUrl && avatarUploadUrl && avatarUploadUrl !== oldAvatarUrl) {
       try {
         await core.avatar.delete(oldAvatarUrl);
       } catch (error) {
