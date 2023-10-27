@@ -109,8 +109,8 @@ const Onboarding = () => {
   const dispatch = useDispatch();
 
   const steps = [
-    //OnboardingStepEmail,
-    //OnboardingStepUsername,
+    OnboardingStepEmail,
+    OnboardingStepUsername,
     OnboardingStepAvatar,
     OnboardingStepSecureWallet,
     OnboardingStepSeedPhrase,

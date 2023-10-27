@@ -3,7 +3,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import mime from 'mime/lite';
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Button from '~/components/Button';
 import UploadFromCamera from '~/components/UploadFromCamera';
@@ -31,12 +31,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DialogContentUpload = ({ handleClose, setNewAvatarUrl }) => {
+const DialogContentUpload = ({
+  avatarUploadUrl,
+  handleClose,
+  setNewAvatarUrl,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadFromCamera, setIsUploadFromCamera] = useState(false);
-  const avatarUploadUrl = useSelector((state) => state.avatarUploadUrl);
   const fileInputElem = useRef();
   const fileInputElemMob = useRef();
   const deviceDetect = getDeviceDetect();
@@ -110,6 +113,10 @@ const DialogContentUpload = ({ handleClose, setNewAvatarUrl }) => {
       });
       // before setting new URL - delete old one (replacing Upload)
       setNewAvatarUrl(result.data.url);
+      /* eslint-disable no-console */
+      console.log({ avatarUploadUrl });
+      /* eslint-enable no-console */
+
       handleClose();
     } catch (error) {
       logError(error);
@@ -206,6 +213,7 @@ const DialogContentUpload = ({ handleClose, setNewAvatarUrl }) => {
 };
 
 DialogContentUpload.propTypes = {
+  avatarUploadUrl: PropTypes.string,
   handleClose: PropTypes.func,
   setNewAvatarUrl: PropTypes.func.isRequired,
 };

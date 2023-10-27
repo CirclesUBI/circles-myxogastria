@@ -98,9 +98,16 @@ const EditProfile = () => {
   const isOrganization = safe?.isOrganization;
   const { username } = useUserdata(safe.currentAccount);
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
     // TODO AVATAR Remove avatarUploadUrl and set state to null
     setIsClose(true);
+    /* eslint-disable no-console */
+    console.log('Edit profile cancel', { avatarUploadUrl });
+    /* eslint-enable no-console */
+    if (avatarUploadUrl !== '') {
+      await core.avatar.delete(avatarUploadUrl);
+      setAvatarUploadUrl('');
+    }
   };
 
   const onChangeUsernameHandler = (username) => {
@@ -126,7 +133,10 @@ const EditProfile = () => {
 
   async function editUserData() {
     const userResult = await core.user.resolve([safe.currentAccount]);
-    const oldAvatarUrl = userResult[0].avatarUrl;
+    /* eslint-disable no-console */
+    console.log('Edit profile cancel', { userResult });
+    /* eslint-enable no-console */
+    const oldAvatarUrl = userResult.data[0].avatarUrl;
 
     try {
       const updateResult = await core.user.update(
@@ -164,7 +174,14 @@ const EditProfile = () => {
       );
     }
     // After replacing an avatar the old avatar has to be deleted from AWS
-    if (avatarUploadUrl !== oldAvatarUrl) {
+    if (oldAvatarUrl && avatarUploadUrl !== oldAvatarUrl) {
+      /* eslint-disable no-console */
+      console.log(
+        'Edit profile old avatar',
+        { oldAvatarUrl },
+        typeof avatarUploadUrl,
+      );
+      /* eslint-enable no-console */
       try {
         await core.avatar.delete({ url: oldAvatarUrl });
       } catch (error) {
@@ -264,6 +281,7 @@ const EditProfile = () => {
             onConfirm={() => setIsOpenDialogCancelInfo(false)}
           />
           <DialogAvatarUpload
+            avatarUploadUrl={avatarUploadUrl}
             handleClose={() => setIsOpenDialogUploadInfo(false)}
             isOpen={isOpenDialogUploadInfo}
             setAvatarUploadUrl={setAvatarUploadUrl}

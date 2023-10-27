@@ -13,20 +13,22 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DialogAvatarUpload = ({ isOpen, handleClose, setAvatarUploadUrl }) => {
+const DialogAvatarUpload = ({
+  avatarUploadUrl,
+  isOpen,
+  handleClose,
+  setAvatarUploadUrl,
+}) => {
   const classes = useStyles();
-
-  const setNewAvatarUrl = (updatedValue) => {
-    setAvatarUploadUrl(updatedValue);
-  };
 
   return (
     <DialogInfo
       className={classes.dialogUploadContainer}
       dialogContent={
         <DialogContentUpload
+          avatarUploadUrl={avatarUploadUrl}
           handleClose={handleClose}
-          setNewAvatarUrl={setNewAvatarUrl}
+          setNewAvatarUrl={setAvatarUploadUrl}
         />
       }
       fullWidth
@@ -38,6 +40,7 @@ const DialogAvatarUpload = ({ isOpen, handleClose, setAvatarUploadUrl }) => {
 };
 
 DialogAvatarUpload.propTypes = {
+  avatarUploadUrl: PropTypes.string,
   handleClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool,
   setAvatarUploadUrl: PropTypes.func.isRequired,

@@ -39,6 +39,7 @@ const AvatarUploader = ({ onLoadingChange, showIndicatorRing }) => {
   return (
     <Fragment>
       <DialogAvatarUpload
+        avatarUploadUrl={avatarUploadUrl}
         handleClose={() => setIsOpenDialogUploadInfo(false)}
         isOpen={isOpenDialogUploadInfo}
         setAvatarUploadUrl={setAvatarUploadUrl}
