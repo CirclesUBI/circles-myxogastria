@@ -13,7 +13,7 @@ import ExternalLink from '~/components/ExternalLink';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import { FAQ_URL } from '~/utils/constants';
+import { FAQ_URL_DELETION } from '~/utils/constants';
 import logError from '~/utils/debug';
 
 const useStyles = makeStyles(() => ({
@@ -87,7 +87,7 @@ const ButtonDeleteProfile = ({ isOutline, isText }) => {
       <Typography align="center" mb={2}>
         {translate('ButtonDeleteProfile.bodyText4')}
       </Typography>
-      <ExternalLink href={FAQ_URL}>
+      <ExternalLink href={FAQ_URL_DELETION}>
         <Typography
           align="center"
           classes={{ root: 'body3_link_gradient' }}
