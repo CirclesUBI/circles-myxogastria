@@ -376,7 +376,7 @@ const OrganizationStepAvatar = ({ values, onDisabledChange, onChange }) => {
           showIndicatorRing
           value={values.avatarUrl}
           onLoadingChange={onDisabledChange}
-          onUpload={handleUpload}
+          handleUpload={handleUpload}
         />
       </Box>
     </Box>
