@@ -321,7 +321,7 @@ const OnboardingStepAvatar = ({ onDisabledChange, onChange, values }) => {
 
   const handleUpload = (avatarUrl) => {
     onChange({
-      avatarUrl,
+      avatarUrl: avatarUrl,
     });
     setPhotoUploaded(true);
   };

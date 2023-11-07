@@ -108,7 +108,7 @@ const OnboardingStepper = ({
 
   const stepNames = stepperConfiguration.map((step) => step.stepName);
   const CopyToClipboardBtn = stepsButtons[current].additionalBtn;
-  const withHeaderAvatar = current >= stepsScreens.ADD_PHOTO;
+  const withHeaderAvatar = current > stepsScreens.ADD_PHOTO;
 
   return (
     <Fragment>
@@ -141,7 +141,7 @@ const OnboardingStepper = ({
       </Header>
       {withHeaderAvatar && (
         <AvatarHeader
-          hideImage={current === stepsScreens.ADD_PHOTO}
+          url={values.avatarUrl}
           username={username}
         />
       )}

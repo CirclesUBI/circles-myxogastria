@@ -91,7 +91,7 @@ const DialogContentUpload = ({
         await core.avatar.delete(avatarUploadUrl);
       }
       setNewAvatarUrl(result.data.url);
-      handleUpload();
+      handleUpload(result.data.url);
       handleClose();
     } catch (error) {
       logError(error);
