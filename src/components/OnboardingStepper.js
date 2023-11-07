@@ -140,10 +140,7 @@ const OnboardingStepper = ({
         />
       </Header>
       {withHeaderAvatar && (
-        <AvatarHeader
-          url={values.avatarUrl}
-          username={username}
-        />
+        <AvatarHeader url={values.avatarUrl} username={username} />
       )}
       <View mt={withHeaderAvatar ? 0 : '84px'}>
         <Box

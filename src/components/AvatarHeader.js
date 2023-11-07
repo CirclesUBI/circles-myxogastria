@@ -82,9 +82,9 @@ const AvatarHeader = ({
 AvatarHeader.propTypes = {
   hideImage: PropTypes.bool,
   hidePlusIcon: PropTypes.bool,
+  url: PropTypes.string,
   useCache: PropTypes.bool,
   username: PropTypes.string,
-  url: PropTypes.string,
   withClickEffect: PropTypes.bool,
   withHoverEffect: PropTypes.bool,
 };
