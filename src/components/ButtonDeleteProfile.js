@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { DASHBOARD_PATH } from '~/routes';
+import { DASHBOARD_PATH, EDIT_PROFILE_PATH } from '~/routes';
 
 import Button from '~/components/Button';
 import DialogInfo from '~/components/DialogInfo';
@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ButtonDeleteProfile = ({ isOutline, isText }) => {
+const ButtonDeleteProfile = ({ displayEditOption, isOutline, isText }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -98,7 +98,14 @@ const ButtonDeleteProfile = ({ isOutline, isText }) => {
         </Typography>
       </ExternalLink>
       <Box pt={3}>
-        <Box display="flex" flexDirection="column" pb={1}>
+        {displayEditOption && (
+          <Box display="flex" flexDirection="column" pb={1}>
+            <Button fullWidth isOutline to={EDIT_PROFILE_PATH}>
+              {translate('ButtonDeleteProfile.linkEditProfile')}
+            </Button>
+          </Box>
+        )}
+        <Box display="flex" flexDirection="column">
           <Button
             className={classes.continueButton}
             fullWidth
@@ -151,6 +158,7 @@ const ButtonDeleteProfile = ({ isOutline, isText }) => {
 };
 
 ButtonDeleteProfile.propTypes = {
+  displayEditOption: PropTypes.bool,
   isOutline: PropTypes.bool,
   isText: PropTypes.bool,
 };

@@ -87,7 +87,7 @@ const Settings = () => {
                     {translate('Settings.headingDangerZone')}
                   </Typography>
                   <Box my={2}>
-                    <ButtonDeleteProfile isOutline />
+                    <ButtonDeleteProfile displayEditOption isOutline />
                   </Box>
                   <Box my={2}>
                     <Button fullWidth isDanger onClick={handleConfirmOpen}>
