@@ -29,11 +29,12 @@ const AvatarUploader = ({
   handleUpload,
   onLoadingChange,
   showIndicatorRing,
+  presetUrl,
 }) => {
   const classes = useStyles();
 
   const [isOpenDialogUploadInfo, setIsOpenDialogUploadInfo] = useState(false);
-  const [avatarUploadUrl, setAvatarUploadUrl] = useState('');
+  const [avatarUploadUrl, setAvatarUploadUrl] = useState(presetUrl);
   const isLoading = useSelector((state) => state.isLoading);
 
   useEffect(() => {
@@ -75,6 +76,7 @@ const AvatarUploader = ({
 AvatarUploader.propTypes = {
   handleUpload: PropTypes.func,
   onLoadingChange: PropTypes.func.isRequired,
+  presetUrl: PropTypes.string,
   showIndicatorRing: PropTypes.bool,
 };
 
