@@ -338,8 +338,8 @@ const OnboardingStepAvatar = ({ onDisabledChange, onChange, values }) => {
       <Box mt={4}>
         <AvatarUploader
           handleUpload={handleUpload}
-          onLoadingChange={onDisabledChange}
           presetUrl={values.avatarUrl}
+          onLoadingChange={onDisabledChange}
         />
       </Box>
     </Box>

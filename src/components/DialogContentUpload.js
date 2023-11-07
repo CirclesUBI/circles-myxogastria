@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import mime from 'mime/lite';
 import PropTypes from 'prop-types';
@@ -15,7 +15,7 @@ import logError from '~/utils/debug';
 import { getDeviceDetect } from '~/utils/deviceDetect';
 
 const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
-const SPACING = '30px';
+const SPACING = '25px';
 
 const useStyles = makeStyles(() => ({
   dialogContentContainer: {
@@ -133,6 +133,7 @@ const DialogContentUpload = ({
         <>
           <Button
             className={classes.continueButton}
+            disabled={isLoading}
             fullWidth
             isOutline
             onClick={galleryBtnMobileHandler}
@@ -150,7 +151,12 @@ const DialogContentUpload = ({
       )}
       {!isUploadFromCamera && isDesktop && (
         <Box className={classes.actionButtonsContainer}>
-          <Button fullWidth isOutline onClick={cameraBtnHandler}>
+          <Button
+            disabled={isLoading}
+            fullWidth
+            isOutline
+            onClick={cameraBtnHandler}
+          >
             {translate('EditProfile.optionCamera')}
           </Button>
         </Box>
@@ -183,6 +189,15 @@ const DialogContentUpload = ({
           />
         </>
       )}
+      <Box
+        alignItems="center"
+        display="flex"
+        height={SPACING}
+        justifyContent="center"
+        mt={3}
+      >
+        {isLoading && <CircularProgress />}
+      </Box>
     </Box>
   );
 };
