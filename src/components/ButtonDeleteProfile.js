@@ -10,6 +10,7 @@ import { DASHBOARD_PATH, EDIT_PROFILE_PATH } from '~/routes';
 import Button from '~/components/Button';
 import DialogInfo from '~/components/DialogInfo';
 import ExternalLink from '~/components/ExternalLink';
+import { useUserdata } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
@@ -33,11 +34,13 @@ const ButtonDeleteProfile = ({ displayEditOption, isOutline, isText }) => {
   const [isProfileDeleted, setIsProfileDeleted] = useState(false);
 
   const safe = useSelector((state) => state.safe);
+  const { avatarUrl } = useUserdata(safe.currentAccount);
 
   async function deleteUserProfile() {
     setIsOpenDialogCloseInfo(false);
     try {
       const result = await core.user.delete(safe.currentAccount);
+      await core.avatar.delete(avatarUrl);
 
       if (result) {
         setUseCacheOnRedirect(false);
