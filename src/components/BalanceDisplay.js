@@ -32,10 +32,14 @@ const useStyles = makeStyles((theme) => ({
   },
   balanceHover: {
     '&:hover': {
-      textDecoration: 'underline',
+      borderBottom: '2.5px solid currentColor',
       textDecorationColor: theme.custom.colors.purple100,
       textShadow: theme.custom.shadows.grey,
     },
+    color: theme.custom.colors.purple100,
+  },
+  balanceStatic: {
+    color: theme.custom.colors.purple100,
   },
 }));
 
@@ -66,11 +70,13 @@ const BalanceDisplay = ({ underlineAtHover = true }) => {
         {isLoading ? (
           <CircularProgress />
         ) : (
-          <Typography
-            className={underlineAtHover ? classes.balanceHover : ''}
-            variant="balance1"
-          >
-            <Link to={TOKENS_PATH}>
+          <Typography variant="balance1">
+            <Link
+              className={
+                underlineAtHover ? classes.balanceHover : classes.balanceStatic
+              }
+              to={TOKENS_PATH}
+            >
               <IconCircles className={classes.balanceIcon} />
               {tokenBalance}
             </Link>
