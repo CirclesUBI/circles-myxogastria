@@ -134,7 +134,7 @@
     "optionCamera": "Camera",
     "optionUpload": "Upload",
     "optionFile": "Gallery",
-    "titleCancel": "Do you want to save changes to your profile?"
+    "titleCancel": "Do you want to save your changes to your profile?"
   },
   "ErrorCodes": {
     "CoreErrorInsufficientFunds": "Please send some Circles to this account if you want to perform any transaction",
@@ -342,6 +342,20 @@
       "zero": "You and @{username} don't have any overlap in the people you trust"
     },
     "bodyUndeployedToken": "Account not verified"
+  },
+  "ButtonDeleteProfile": {
+    "titleText": "Are you sure you want to delete your profile data?",
+    "bodyText": "This action will delete your profile picture, username and email from our databases.",
+    "bodyText2": "However, this action will not delete historical transaction data or trust interactions.",
+    "bodyText3": "After deletion you can chose to end session through Settings. If you do not log in within 90 days, your UBI payouts will be stopped forever.",
+    "bodyText4": "Please note that data deletion will not happen across wallets. You will have to do profile data deletion your personal wallet and any shared wallets separately before ending session.",
+    "btnText": "Delete Profile Data",
+    "confirmationDelete": "Delete",
+    "confirmationCancel": "Cancel",
+    "linkEditProfile": "Edit Profile Instead",
+    "notificationError": "Oops, something went wrong. Try again!",
+    "notificationSuccess": "The profile data of this wallet has successfully been deleted. You can end session in Settings.",
+    "readMore": "Read more"
   },
   "QRCodeScanner": {
     "notificationError": "Could not open QR code scanner: {error}."

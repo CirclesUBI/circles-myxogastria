@@ -20,12 +20,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useTitleStyles = makeStyles((theme) => ({
-  root: {
-    color: theme.custom.colors.white,
-  },
-}));
-
 const DialogPurple = ({
   children,
   cancelLabel,
@@ -36,11 +30,10 @@ const DialogPurple = ({
   ...otherProps
 }) => {
   const classes = useStyles();
-  const titleClasses = useTitleStyles();
 
   return (
     <Dialog classes={classes} onClose={onClose} {...otherProps} maxWidth="lg">
-      <DialogTitle align="center" classes={titleClasses}>
+      <DialogTitle align="center">
         <Typography
           classes={{ root: 'h4_link_white' }}
           component="span"

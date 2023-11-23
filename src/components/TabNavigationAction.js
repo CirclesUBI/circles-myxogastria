@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   },
   number: {
     display: 'inline-block',
-    fontSize: fontSizeSmaller, // TODO: check correctness from rebase, was '12px',
+    fontSize: fontSizeSmaller,
     fontWeight: fontWeightMedium,
     marginBottom: '-3px',
   },

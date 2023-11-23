@@ -34,6 +34,7 @@ const useStyles = makeStyles(() => ({
 const AvatarHeader = ({
   hideImage,
   hidePlusIcon,
+  url,
   username,
   useCache = true,
   withClickEffect,
@@ -61,6 +62,7 @@ const AvatarHeader = ({
               className={classes.avatarContainer}
               hidePlusIcon={hidePlusIcon}
               size={'smallXl'}
+              url={url}
               useCache={useCache}
               withClickEffect={withClickEffect}
               withHoverEffect={withHoverEffect}
@@ -80,6 +82,7 @@ const AvatarHeader = ({
 AvatarHeader.propTypes = {
   hideImage: PropTypes.bool,
   hidePlusIcon: PropTypes.bool,
+  url: PropTypes.string,
   useCache: PropTypes.bool,
   username: PropTypes.string,
   withClickEffect: PropTypes.bool,

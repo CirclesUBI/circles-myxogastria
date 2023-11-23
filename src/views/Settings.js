@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 import Button from '~/components/Button';
 import ButtonBack from '~/components/ButtonBack';
+import ButtonDeleteProfile from '~/components/ButtonDeleteProfile';
 import CenteredHeading from '~/components/CenteredHeading';
 import DialogBurn from '~/components/DialogBurn';
 import ExternalLink from '~/components/ExternalLink';
@@ -85,6 +86,9 @@ const Settings = () => {
                   <Typography align="center" variant="h2">
                     {translate('Settings.headingDangerZone')}
                   </Typography>
+                  <Box my={2}>
+                    <ButtonDeleteProfile displayEditOption isOutline />
+                  </Box>
                   <Box my={2}>
                     <Button fullWidth isDanger onClick={handleConfirmOpen}>
                       {translate('Settings.buttonBurnWallet')}

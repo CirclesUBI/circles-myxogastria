@@ -133,9 +133,27 @@ const user = {
     });
   },
 
+  delete: async (safeAddress) => {
+    return await requestCore('user', 'delete', {
+      safeAddress,
+    });
+  },
+
   getEmail: async (safeAddress) => {
     return await requestCore('user', 'getEmail', {
       safeAddress,
+    });
+  },
+};
+
+const avatar = {
+  upload: async (imageData) => {
+    return await requestCore('avatar', 'upload', imageData);
+  },
+
+  delete: async (avatarUrl) => {
+    return await requestCore('avatar', 'delete', {
+      url: avatarUrl,
     });
   },
 };
@@ -369,6 +387,7 @@ const errors = {
 
 export default {
   activity,
+  avatar,
   errors,
   news,
   organization,

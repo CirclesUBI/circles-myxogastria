@@ -10,6 +10,8 @@ export const BUG_REPORTING_URL =
 export const EMAIL_URL = 'mailto:hello@joincircles.net';
 export const FACEBOOK_URL = 'https://facebook.com/CirclesUBI';
 export const FAQ_URL = 'https://joincircles.net/faq';
+export const FAQ_URL_DELETION =
+  'https://joincircles.net/faq/profile-data-deletion/';
 export const FAQ_TRANSITIVE_TRANSFERS_URL =
   'https://joincircles.net/faq/who-can-accept-circles-tokens-crc-as-a-payment/';
 export const MARKETPLACE_URL = 'http://market.joincircles.net';

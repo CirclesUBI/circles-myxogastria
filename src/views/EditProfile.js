@@ -1,8 +1,6 @@
 import { Box, Container, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import mime from 'mime/lite';
-import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -10,14 +8,14 @@ import { DASHBOARD_PATH } from '~/routes';
 
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
-import ButtonBack from '~/components/ButtonBack';
+import ButtonDeleteProfile from '~/components/ButtonDeleteProfile';
 import CenteredHeading from '~/components/CenteredHeading';
 import CheckboxPrivacy from '~/components/CheckboxPrivacy';
 import CheckboxTerms from '~/components/CheckboxTerms';
-import DialogInfo from '~/components/DialogInfo';
+import Dialog from '~/components/Dialog';
+import DialogAvatarUpload from '~/components/DialogAvatarUpload';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
-import UploadFromCamera from '~/components/UploadFromCamera';
 import VerifiedEmailInput from '~/components/VerifiedEmailInput';
 import VerifiedUsernameInput from '~/components/VerifiedUsernameInput';
 import View from '~/components/View';
@@ -25,12 +23,9 @@ import { useUserdata } from '~/hooks/username';
 import core from '~/services/core';
 import translate from '~/services/locale';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
-import compressImage from '~/utils/compressImage';
 import logError from '~/utils/debug';
-import { getDeviceDetect } from '~/utils/deviceDetect';
 
 const SPACING = '30px';
-const IMAGE_FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const useStyles = makeStyles((theme) => ({
   avatarHl: {
@@ -38,12 +33,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     flexShrink: 0,
     verticalAlign: 'middle',
-  },
-  textContainer: {
-    textAlign: 'center',
-    '& >p': {
-      marginBottom: '8px',
-    },
   },
   dialogContentContainer: {
     '& >p': {
@@ -53,18 +42,13 @@ const useStyles = makeStyles((theme) => ({
   continueButton: {
     marginBottom: SPACING,
   },
-  actionButtonsContainer: {
-    marginBottom: SPACING,
-  },
   usernameInputContainer: {
     marginBottom: SPACING,
     marginTop: '50px',
   },
-  openCameraInput: {
-    display: 'none',
-  },
-  saveButton: {
-    marginBottom: '20px',
+  buttonsEdit: {
+    marginTop: '8px',
+    marginBottom: '8px',
   },
   informationContainer: {
     maxWidth: '350px',
@@ -81,172 +65,25 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     zIndex: theme.zIndex.layer1,
   },
+  ButtonDeleteProfile: {
+    position: 'relative',
+    marginBottom: '8px',
+    marginTop: '5px',
+  },
 }));
-
-const DialogContentUpload = ({ onFileUpload, handleClose, uploadImgSrc }) => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isUploadFromCamera, setIsUploadFromCamera] = useState(false);
-  const fileInputElem = useRef();
-  const fileInputElemMob = useRef();
-  const deviceDetect = getDeviceDetect();
-  const isDesktop = deviceDetect.isDesktop();
-
-  const galleryBtnMobileHandler = () => {
-    fileInputElemMob.current.click();
-  };
-
-  const galleryBtnHandler = (event) => {
-    event.preventDefault();
-    fileInputElem.current.click();
-    setIsUploadFromCamera(false);
-  };
-
-  const cameraBtnHandler = () => {
-    setIsUploadFromCamera(true);
-  };
-
-  const uploadFile = async (event) => {
-    const { files } = event.target;
-    if (files.length === 0) {
-      return;
-    }
-
-    uploadPhoto([...files]);
-  };
-
-  async function uploadPhoto(files) {
-    setIsLoading(true);
-
-    try {
-      let data;
-      let optimiseFiles = await compressImage(files);
-
-      if (optimiseFiles.length) {
-        data = [...optimiseFiles].reduce((acc, file) => {
-          acc.append('files', file, file.name);
-          return acc;
-        }, new FormData());
-      } else {
-        data = new FormData();
-        data.append('files', optimiseFiles);
-      }
-
-      const result = await core.utils.requestAPI({
-        path: ['uploads', 'avatar'],
-        method: 'POST',
-        data,
-      });
-
-      onFileUpload(result.data.url);
-      handleClose();
-    } catch (error) {
-      logError(error);
-      dispatch(
-        notify({
-          text: (
-            <Typography classes={{ root: 'body4_white' }} variant="body4">
-              {translate('AvatarUploader.errorAvatarUpload')}
-            </Typography>
-          ),
-          type: NotificationsTypes.ERROR,
-        }),
-      );
-    }
-
-    setIsLoading(false);
-  }
-
-  const onImageCaptureErrorHandler = () => {
-    dispatch(
-      notify({
-        text: (
-          <Typography classes={{ root: 'body4_white' }} variant="body4">
-            {translate('EditProfile.errorImageCapture')}
-          </Typography>
-        ),
-        type: NotificationsTypes.ERROR,
-      }),
-    );
-  };
-
-  const fileTypesStr = IMAGE_FILE_TYPES.map((ext) => {
-    return mime.getType(ext);
-  }).join(',');
-
-  return (
-    <Box className={classes.dialogContentContainer}>
-      {!isUploadFromCamera && (
-        <>
-          <Button
-            className={classes.continueButton}
-            fullWidth
-            isOutline
-            onClick={galleryBtnMobileHandler}
-          >
-            {translate('EditProfile.optionFile')}
-          </Button>
-          <input
-            accept={fileTypesStr}
-            ref={fileInputElemMob}
-            style={{ display: 'none' }}
-            type="file"
-            onChange={uploadFile}
-          />
-        </>
-      )}
-      {!isUploadFromCamera && isDesktop && (
-        <Box className={classes.actionButtonsContainer}>
-          <Button fullWidth isOutline onClick={cameraBtnHandler}>
-            {translate('EditProfile.optionCamera')}
-          </Button>
-        </Box>
-      )}
-      {isUploadFromCamera && isDesktop && (
-        <UploadFromCamera
-          imageCaptureError={onImageCaptureErrorHandler}
-          isUploading={isLoading}
-          uploadImgSrc={uploadImgSrc}
-          uploadPhoto={uploadPhoto}
-        />
-      )}
-      {!isDesktop && (
-        <>
-          <Button
-            className={classes.continueButton}
-            fullWidth
-            isOutline
-            onClick={galleryBtnHandler}
-          >
-            {translate('EditProfile.optionCamera')}
-          </Button>
-          <input
-            accept="image/*"
-            capture="environment"
-            ref={fileInputElem}
-            style={{ display: 'none' }}
-            type="file"
-            onChange={uploadFile}
-          />
-        </>
-      )}
-    </Box>
-  );
-};
 
 const EditProfile = () => {
   const classes = useStyles();
   const [isClose, setIsClose] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [isOpenDialogCloseInfo, setIsOpenDialogCloseInfo] = useState(false);
+  const [isOpenDialogCancelInfo, setIsOpenDialogCancelInfo] = useState(false);
   const [isOpenDialogUploadInfo, setIsOpenDialogUploadInfo] = useState(false);
   const [usernameInput, setUsernameInput] = useState(username);
   const [usernameValid, setUsernameValid] = useState();
   const [emailInput, setEmailInput] = useState();
   const [currentUserEmail, setCurrentUserEmail] = useState();
   const [isConsentInfo, setIsConsentInfo] = useState(false);
-  const [profilePicUrl, setProfilePicUrl] = useState('');
+  const [avatarUploadUrl, setAvatarUploadUrl] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [privacy, setPrivacy] = useState(true);
   const [terms, setTerms] = useState(true);
@@ -260,6 +97,14 @@ const EditProfile = () => {
   const safe = useSelector((state) => state.safe);
   const isOrganization = safe?.isOrganization;
   const { username } = useUserdata(safe.currentAccount);
+
+  const handleCancel = async () => {
+    setIsClose(true);
+    if (avatarUploadUrl !== '') {
+      await core.avatar.delete(avatarUploadUrl);
+      setAvatarUploadUrl('');
+    }
+  };
 
   const onChangeUsernameHandler = (username) => {
     setUsernameInput(username);
@@ -283,15 +128,18 @@ const EditProfile = () => {
   };
 
   async function editUserData() {
+    const userResult = await core.user.resolve([safe.currentAccount]);
+    const oldAvatarUrl = userResult.data.length && userResult.data[0].avatarUrl;
+
     try {
-      const result = await core.user.update(
+      const updateResult = await core.user.update(
         safe.currentAccount,
         usernameInput,
         emailInput,
-        profilePicUrl,
+        avatarUploadUrl,
       );
 
-      if (result) {
+      if (updateResult) {
         setUseCacheOnRedirect(false);
         dispatch(
           notify({
@@ -303,6 +151,7 @@ const EditProfile = () => {
             type: NotificationsTypes.SUCCESS,
           }),
         );
+        /* eslint-disable no-console */
         setIsClose(true);
       }
     } catch (error) {
@@ -318,23 +167,16 @@ const EditProfile = () => {
         }),
       );
     }
+    // After replacing an avatar the old avatar has to be deleted from AWS
+    if (oldAvatarUrl && avatarUploadUrl && avatarUploadUrl !== oldAvatarUrl) {
+      try {
+        await core.avatar.delete(oldAvatarUrl);
+      } catch (error) {
+        // No need to notify user
+        logError(error);
+      }
+    }
   }
-
-  const dialogOpenInfoHandler = () => {
-    setIsOpenDialogCloseInfo(true);
-  };
-
-  const dialogCloseInfoHandler = () => {
-    setIsClose(true);
-  };
-
-  const onFileUploadHandler = (updatedValue) => {
-    setProfilePicUrl(updatedValue);
-  };
-
-  const uploadImgSrcHandler = (updatedValue) => {
-    setProfilePicUrl(updatedValue);
-  };
 
   useEffect(() => {
     setUsernameInput(username);
@@ -397,22 +239,6 @@ const EditProfile = () => {
     })();
   }, [safe.currentAccount]);
 
-  const dialogContentClose = (
-    <Box className={classes.dialogContentContainer}>
-      <Typography>{translate('EditProfile.bodyCancel')}</Typography>
-      <Button
-        className={classes.continueButton}
-        fullWidth
-        onClick={() => setIsOpenDialogCloseInfo(false)}
-      >
-        {translate('EditProfile.buttonContinue')}
-      </Button>
-      <Button fullWidth isText onClick={dialogCloseInfoHandler}>
-        {translate('EditProfile.buttonCancel')}
-      </Button>
-    </Box>
-  );
-
   if (isClose) {
     return (
       <Redirect
@@ -427,33 +253,25 @@ const EditProfile = () => {
   return (
     <>
       <Header>
-        <ButtonBack />
         <CenteredHeading>{translate('EditProfile.heading')}</CenteredHeading>
       </Header>
       <View>
         <Container maxWidth="sm">
-          <DialogInfo
-            dialogContent={dialogContentClose}
-            fullWidth
-            handleClose={() => setIsOpenDialogCloseInfo(false)}
-            isBtnClose={false}
-            isOpen={isOpenDialogCloseInfo}
-            maxWidth={'xs'}
+          <Dialog
+            cancelLabel={translate('EditProfile.buttonCancel')}
+            confirmLabel={translate('EditProfile.buttonContinue')}
+            id={'cancelEditProfile'}
+            open={isOpenDialogCancelInfo}
+            text={translate('EditProfile.bodyCancel')}
             title={translate('EditProfile.titleCancel')}
+            onClose={handleCancel}
+            onConfirm={() => setIsOpenDialogCancelInfo(false)}
           />
-          <DialogInfo
-            className={classes.dialogUploadContainer}
-            dialogContent={
-              <DialogContentUpload
-                handleClose={() => setIsOpenDialogUploadInfo(false)}
-                uploadImgSrc={uploadImgSrcHandler}
-                onFileUpload={onFileUploadHandler}
-              />
-            }
-            fullWidth
+          <DialogAvatarUpload
+            avatarUploadUrl={avatarUploadUrl}
             handleClose={() => setIsOpenDialogUploadInfo(false)}
             isOpen={isOpenDialogUploadInfo}
-            maxWidth={'xs'}
+            setAvatarUploadUrl={setAvatarUploadUrl}
           />
           <Box align="center" mb={2} mt={4}>
             <Box
@@ -463,7 +281,7 @@ const EditProfile = () => {
               <Avatar
                 address={safe.currentAccount || safe.pendingAddress}
                 size="large"
-                url={profilePicUrl}
+                url={avatarUploadUrl}
                 withClickEffect={isOpenDialogUploadInfo}
                 withHoverEffect
               />
@@ -514,26 +332,25 @@ const EditProfile = () => {
         </Container>
       </View>
       <Footer>
+        <ButtonDeleteProfile className={classes.ButtonDeleteProfile} isText />
         <Button
-          className={classes.saveButton}
+          className={classes.buttonsEdit}
           disabled={isDisabled}
           fullWidth
           onClick={saveChangesHandler}
         >
           {translate('EditProfile.buttonSave')}
         </Button>
-        <Button fullWidth isText onClick={dialogOpenInfoHandler}>
+        <Button
+          fullWidth
+          isOutline
+          onClick={() => setIsOpenDialogCancelInfo(true)}
+        >
           {translate('EditProfile.buttonCancel')}
         </Button>
       </Footer>
     </>
   );
-};
-
-DialogContentUpload.propTypes = {
-  handleClose: PropTypes.func,
-  onFileUpload: PropTypes.func.isRequired,
-  uploadImgSrc: PropTypes.func,
 };
 
 export default EditProfile;

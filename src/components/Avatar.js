@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
   circleGrey: {
     background: theme.custom.colors.greyHover,
-    border: `2px solid ${theme.custom.colors.blue100}`,
     position: 'absolute',
     left: '-1px',
     top: '-1px',
@@ -45,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0,
     transition: 'opacity 0.1s ease-in-out',
   },
+  circleBorder: {
+    border: `2px solid ${theme.custom.colors.blue100}`,
+  },
   isHovered: {
     opacity: 1,
   },
@@ -55,6 +57,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Avatar = ({
   address,
+  children,
+  showIndicatorRing,
   size = 'small',
   url,
   useCache,
@@ -78,13 +82,23 @@ const Avatar = ({
   const sizePixelRing = sizePixelAvatar * ORGANIZATION_RING_MULTIPLIER;
   const initials = username.slice(0, 2) === '0x' ? null : username.slice(0, 2);
 
+  const backupImage = () => {
+    if (avatarUrl && initials) {
+      return initials.toUpperCase();
+    }
+    if (address) {
+      return <Jazzicon address={address} size={sizePixelAvatar} />;
+    }
+    return children;
+  };
+
   return (
     <Box
       className={classes.avatarContainer}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {isOrganization && (
+      {(isOrganization || showIndicatorRing) && (
         <Box className={classes.organizationIndicator}>
           <GroupWalletCircleSVG width={sizePixelRing} />
         </Box>
@@ -94,6 +108,8 @@ const Avatar = ({
           <Box
             className={clsx(classes.circleGrey, {
               [classes.isHovered]: isHovered || withClickEffect,
+              [classes.circleBorder]:
+                (isHovered || withClickEffect) && !hidePlusIcon,
             })}
             style={{
               width: sizePixelAvatar + 2,
@@ -118,9 +134,7 @@ const Avatar = ({
         }}
         {...props}
       >
-        {avatarUrl && initials
-          ? initials.toUpperCase()
-          : address && <Jazzicon address={address} size={sizePixelAvatar} />}
+        {backupImage()}
       </MuiAvatar>
     </Box>
   );
@@ -128,7 +142,9 @@ const Avatar = ({
 
 Avatar.propTypes = {
   address: PropTypes.string,
+  children: PropTypes.node,
   hidePlusIcon: PropTypes.bool,
+  showIndicatorRing: PropTypes.bool,
   size: PropTypes.string,
   url: PropTypes.string,
   useCache: PropTypes.bool,
