@@ -146,7 +146,7 @@ const ActivityStreamList = ({
           const createdAtDate =
             createdAt || DateTime.fromSeconds(timestamp).toISO();
 
-          const txHashUpdated = txHash || transactionHash || hash;
+          const txHashUpdated = txHash || transactionHash;
 
           const item = (
             <Grid item key={key} xs={12}>
