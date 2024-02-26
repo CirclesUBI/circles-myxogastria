@@ -79,6 +79,7 @@ function mergeActivities(currentActivities, newActivities) {
         createdAt: DateTime.fromSeconds(activity.timestamp).toISO(),
         data: activity.data,
         type: activity.type,
+        txHash: activity.transactionHash,
       });
 
       // Generate a hash so we can compare it
