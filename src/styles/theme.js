@@ -23,44 +23,44 @@ import {
 } from '~/styles/fonts';
 
 const foundation = {
-  //blue50: '#3A8E92',
-  blue100: '#48B2B7',
-  blue200: '#6CC1C5',
-  //blue300: '#8ED7DA',
-  //blue400: '#B6E0E2',
-  blue500: '#DAF0F1',
-  blue600: '#EDF7F8',
+  //blue50: '#AF4D3E',
+  blue100: '#DF6552',
+  blue200: '#FF9786',
+  //blue300: '#FFBEA6',
+  blue400: '#FFDABE',
+  blue500: '#F8E6D9',
+  blue600: '#F6F1ED',
   grey50: '#2F2B2E', // blackish,
   grey100: '#585558',
   //grey200: '#828082',
   grey400: '#ACAAAC',
   grey600: '#D9D9D9',
-  pink50: '#A31852',
-  pink100: '#CC1E66', //grad
-  pink200: '#D64B85',
-  pink300: '#E078A3',
-  //pink400: '#EBA5C2',
-  pink500: '#F5D2E1',
-  pink600: '#FAE9F0',
-  purple50: '#482645',
-  purple100: '#5A2F56', // grad
-  purple200: '#7B5978',
-  purple300: '#9C8299',
-  purple400: '#BDACBB',
-  purple500: '#DED5DD',
-  purple600: '#EFEAEF',
+  pink50: '#26183E',
+  pink100: '#38318B', //grad
+  pink200: '#4F48A7',
+  pink300: '#7B75CD',
+  //pink400: '#9893D9',
+  pink500: '#C8C6E9',
+  pink600: '#E5E4F2',
+  purple50: '#26183E',
+  purple100: '#38318B', // grad
+  purple200: '#4F48A7',
+  purple300: '#7B75CD',
+  purple400: '#9893D9',
+  purple500: '#C8C6E9',
+  purple600: '#E5E4F2',
   white: '#FFFCFE',
   errorYellow: '#FFC834',
   successGreen: '#05BF93',
 };
 
 const gradientBase = {
-  pinkDark: '#660F33',
-  pinkHoverLight: '#853F5C',
+  pinkDark: '#38318B',
+  pinkHoverLight: '#4F48A7',
   purpleLightGrad: '#A75183',
   springGreen: '#06FC9D',
   green: '#45e6af',
-  turquoise: '#47cccb',
+  turquoise: '#DF6552',
 };
 
 // should be cleaned up and use the grey palette
@@ -80,22 +80,22 @@ export const colors = {
 
 const gradients = {
   // Grey
-  grey: `linear-gradient(280deg, ${colors.grey400} 0%, ${colors.grey600} 100%)`,
+  grey: `linear-gradient(280deg, ${colors.grey400} 0%, ${colors.grey400} 100%)`,
   greyAlert: '1px 1px 4px rgba(204, 30, 102, 0.25)',
   // Button gradients
-  pinkToPurple: `linear-gradient(284.04deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
-  purpleToPink: `linear-gradient(104.04deg, ${colors.pinkDark} 0%, ${colors.pink100} 100%)`,
-  purpleToLightPink: `linear-gradient(104.04deg, ${colors.pinkHoverLight} 0%, ${colors.pink200} 100%)`,
-  lightPinkToPurple: `linear-gradient(284.04deg, ${colors.pinkHoverLight} 0%, ${colors.pink200} 100%)`,
+  pinkToPurple: `linear-gradient(284.04deg, ${colors.pinkDark} 0%, ${colors.pinkDark} 100%)`,
+  purpleToPink: `linear-gradient(104.04deg, ${colors.pinkDark} 0%, ${colors.pinkDark} 100%)`,
+  purpleToLightPink: `linear-gradient(104.04deg, ${colors.pinkHoverLight} 0%, ${colors.pinkHoverLight} 100%)`,
+  lightPinkToPurple: `linear-gradient(284.04deg, ${colors.pinkHoverLight} 0%, ${colors.pinkHoverLight} 100%)`,
   // Headers
-  greenBlueCurved: `linear-gradient(180deg, ${colors.blue100} 0%, ${colors.springGreen} 50%)`,
-  greenBlueHeader: `linear-gradient(180deg, ${colors.blue100} 20%, ${colors.springGreen} 150%)`,
-  violetCurved: `linear-gradient(180deg, ${colors.purple100} 0%, ${colors.purpleLightGrad} 33.2%)`,
-  violetHeader: `linear-gradient(180deg, ${colors.purple100} 20%, ${colors.purpleLightGrad} 100%)`,
+  greenBlueCurved: `linear-gradient(180deg, ${colors.blue400} 0%, ${colors.blue400} 50%)`,
+  greenBlueHeader: `linear-gradient(180deg, ${colors.blue100} 20%, ${colors.blue100} 150%)`,
+  violetCurved: `linear-gradient(180deg, ${colors.purple100} 0%, ${colors.purple100} 33.2%)`,
+  violetHeader: `linear-gradient(180deg, ${colors.purple100} 20%, ${colors.purple100} 100%)`,
   violetTutorial: `linear-gradient(180deg, ${colors.purpleLightGrad} 20%, ${colors.purple100} 100%)`,
   // Other
   pinkShade: `linear-gradient(180deg, rgba(255, 255, 255, 0) 75%, ${colors.pink100} 145%)`,
-  turquoise: `linear-gradient(0deg, ${colors.green} 0%, ${colors.turquoise} 100%)`,
+  turquoise: `linear-gradient(0deg, ${colors.green} 0%, ${colors.green} 100%)`,
 };
 
 const shadows = {
