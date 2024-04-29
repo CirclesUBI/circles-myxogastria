@@ -88,7 +88,7 @@ const gradients = {
   purpleToLightPink: `linear-gradient(104.04deg, ${colors.pinkHoverLight} 0%, ${colors.pinkHoverLight} 100%)`,
   lightPinkToPurple: `linear-gradient(284.04deg, ${colors.pinkHoverLight} 0%, ${colors.pinkHoverLight} 100%)`,
   // Headers
-  greenBlueCurved: `linear-gradient(180deg, ${colors.blue400} 0%, ${colors.blue400} 50%)`,
+  greenBlueCurved: `linear-gradient(180deg, ${colors.blue100} 0%, ${colors.blue100} 100%)`,
   greenBlueHeader: `linear-gradient(180deg, ${colors.blue100} 20%, ${colors.blue100} 150%)`,
   violetCurved: `linear-gradient(180deg, ${colors.purple100} 0%, ${colors.purple100} 33.2%)`,
   violetHeader: `linear-gradient(180deg, ${colors.purple100} 20%, ${colors.purple100} 100%)`,
