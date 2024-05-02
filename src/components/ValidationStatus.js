@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   step: {
     padding: 0,
+    margin: '0 auto',
   },
   stepAvatar: {
     background: 'transparent',
@@ -51,8 +52,7 @@ const ValidationStatus = () => {
         connector={<StepConnector classes={{ line: classes.connectorLine }} />}
       >
         {new Array(NEEDED_TRUST_CONNECTIONS).fill({}).map((item, index) => {
-          // const isChecked = index <= trust.connections - 1;
-          const isChecked = index === trust.connections;
+          const isChecked = index <= trust.connections - 1;
           return (
             <Step className={classes.step} key={index}>
               <StepIcon
