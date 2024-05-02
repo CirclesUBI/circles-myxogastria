@@ -51,7 +51,8 @@ const ValidationStatus = () => {
         connector={<StepConnector classes={{ line: classes.connectorLine }} />}
       >
         {new Array(NEEDED_TRUST_CONNECTIONS).fill({}).map((item, index) => {
-          const isChecked = index <= trust.connections - 1;
+          // const isChecked = index <= trust.connections - 1;
+          const isChecked = index === trust.connections;
           return (
             <Step className={classes.step} key={index}>
               <StepIcon
