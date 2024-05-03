@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => {
         top: 476,
         left: '50%',
         content: '""',
-        backgroundColor: 'white',
+        backgroundColor: theme.custom.colors.white,
         borderRadius: '50%',
         transform: 'translate3d(-50%, -50%, 0)',
         [theme.breakpoints.up('sm')]: {
