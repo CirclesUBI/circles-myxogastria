@@ -17,17 +17,29 @@ const TutorialOnboarding = (props) => {
 
   const slides = [
     {
-      image: <img src={TourUnconditionalIncome} />,
+      image: (
+        <img
+          src={TourUnconditionalIncome}
+          style={{ width: '145px', height: '145px' }}
+        />
+      ),
       heading: translate('TutorialOnboarding.headingUnconditionalIncome'),
       body: <TutorialOnboardingSlideOne />,
     },
     {
-      image: <img src={TourWebOfTrust} />,
+      image: (
+        <img src={TourWebOfTrust} style={{ width: '145px', height: '145px' }} />
+      ),
       heading: translate('TutorialOnboarding.headingWebOfTrust'),
       body: translate('TutorialOnboarding.bodyWebOfTrust'),
     },
     {
-      image: <img src={TourBuildYourOwnEconomy} />,
+      image: (
+        <img
+          src={TourBuildYourOwnEconomy}
+          style={{ width: '145px', height: '145px' }}
+        />
+      ),
       heading: translate('TutorialOnboarding.headingBuildYourOwnEconomy'),
       body: translate('TutorialOnboarding.bodyBuildYourOwnEconomy'),
     },

@@ -16,7 +16,7 @@ const Logo = ({ size = 'default' }) => {
     <Box textAlign="center">
       <CirclesLogoSVG
         height={sizes[size]}
-        viewport="0 0 172 172"
+        viewBox={'0 0 236 236'}
         width={sizes[size]}
       />
     </Box>
