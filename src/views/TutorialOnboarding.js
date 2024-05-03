@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import TourBuildYourOwnEconomySVG from '%/images/build-your-own-economy.svg';
-import TourUnconditionalIncomeSVG from '%/images/unconditional-income.svg';
-import TourWebOfTrustSVG from '%/images/web-of-trust.svg';
+import TourBuildYourOwnEconomy from '%/images/illustration-own-economy.png';
+import TourUnconditionalIncome from '%/images/illustration-unconditional-income.png';
+import TourWebOfTrust from '%/images/illustration-web-of-trust.png';
 import ExternalLink from '~/components/ExternalLink';
 import Tutorial from '~/components/Tutorial';
 import translate from '~/services/locale';
@@ -17,17 +17,17 @@ const TutorialOnboarding = (props) => {
 
   const slides = [
     {
-      image: <TourUnconditionalIncomeSVG />,
+      image: <img src={TourUnconditionalIncome} />,
       heading: translate('TutorialOnboarding.headingUnconditionalIncome'),
       body: <TutorialOnboardingSlideOne />,
     },
     {
-      image: <TourWebOfTrustSVG />,
+      image: <img src={TourWebOfTrust} />,
       heading: translate('TutorialOnboarding.headingWebOfTrust'),
       body: translate('TutorialOnboarding.bodyWebOfTrust'),
     },
     {
-      image: <TourBuildYourOwnEconomySVG />,
+      image: <img src={TourBuildYourOwnEconomy} />,
       heading: translate('TutorialOnboarding.headingBuildYourOwnEconomy'),
       body: translate('TutorialOnboarding.bodyBuildYourOwnEconomy'),
     },
