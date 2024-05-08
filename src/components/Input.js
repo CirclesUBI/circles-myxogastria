@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => {
 
   const backgroundColor = (isOrganization) => {
     return isOrganization
-      ? theme.custom.colors.purple600
-      : theme.custom.colors.blue600;
+      ? theme.custom.colors.purple100
+      : theme.custom.colors.blue100;
   };
 
   return {
@@ -50,8 +50,7 @@ const useStyles = makeStyles((theme) => {
       },
 
       '&:has(+ .MuiOutlinedInput-root:hover)': {
-        // background: backgroundColor,
-        background: theme.custom.colors.white,
+        background: backgroundColor,
       },
 
       '&:has(+ .MuiOutlinedInput-root.Mui-error:hover)': {
@@ -93,8 +92,7 @@ const useStyles = makeStyles((theme) => {
         },
 
         '& .MuiOutlinedInput-input': {
-          // background: backgroundColor,
-          background: theme.custom.colors.white,
+          background: backgroundColor,
         },
 
         '&.Mui-error': {
