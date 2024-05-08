@@ -50,7 +50,8 @@ const useStyles = makeStyles((theme) => {
       },
 
       '&:has(+ .MuiOutlinedInput-root:hover)': {
-        background: backgroundColor,
+        // background: backgroundColor,
+        background: theme.custom.colors.white,
       },
 
       '&:has(+ .MuiOutlinedInput-root.Mui-error:hover)': {
@@ -92,7 +93,8 @@ const useStyles = makeStyles((theme) => {
         },
 
         '& .MuiOutlinedInput-input': {
-          background: backgroundColor,
+          // background: backgroundColor,
+          background: theme.custom.colors.white,
         },
 
         '&.Mui-error': {
