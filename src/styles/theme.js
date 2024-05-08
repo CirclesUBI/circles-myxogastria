@@ -29,7 +29,8 @@ const foundation = {
   //blue300: '#FFBEA6',
   blue400: '#FFDABE',
   blue500: '#F8E6D9',
-  blue600: '#F6F1ED',
+  // blue600: '#F6F1ED', // off-white
+  blue600: '#38318B', // new royal blue
   grey50: '#2F2B2E', // blackish,
   grey100: '#585558',
   //grey200: '#828082',
