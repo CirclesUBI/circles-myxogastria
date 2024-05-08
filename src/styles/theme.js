@@ -49,7 +49,7 @@ const foundation = {
   purple400: '#9893D9',
   purple500: '#C8C6E9',
   purple600: '#E5E4F2',
-  white: '#FFFCFE',
+  white: '#F6F1ED',
   errorYellow: '#FFC834',
   successGreen: '#05BF93',
 };

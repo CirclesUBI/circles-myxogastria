@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => {
       zIndex: theme.zIndex.backgroundCurvedWrapper,
       top: 0,
       margin: '0 auto',
-      opacity: 1,
-      transition: 'opacity 0.15s',
+      opacity: 0, // temporarily hiding the header background curve for all views
+      // transition: 'opacity 0.15s',
       background: (props) => {
         if (
           typeof window != 'undefined' &&
@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => {
       '&::after': {
         width: 750,
         height: 750,
+        opacity: 0,
         position: 'absolute',
         display: 'block',
         top: 476,
