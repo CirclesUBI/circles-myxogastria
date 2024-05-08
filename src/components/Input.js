@@ -17,12 +17,12 @@ const useStyles = makeStyles((theme) => {
   const textColor = (isOrganization) => {
     return isOrganization
       ? theme.custom.colors.purple100
-      : theme.custom.colors.blue600;
+      : theme.custom.colors.purple100;
   };
 
   const backgroundColor = (isOrganization) => {
     return isOrganization
-      ? theme.custom.colors.purple100
+      ? theme.custom.colors.blue600
       : theme.custom.colors.blue600;
   };
 
