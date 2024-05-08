@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme) => {
   const textColor = (isOrganization) => {
     return isOrganization
       ? theme.custom.colors.purple100
-      : theme.custom.colors.blue100;
+      : theme.custom.colors.blue600;
   };
 
   const backgroundColor = (isOrganization) => {
     return isOrganization
       ? theme.custom.colors.purple100
-      : theme.custom.colors.blue100;
+      : theme.custom.colors.blue600;
   };
 
   return {
