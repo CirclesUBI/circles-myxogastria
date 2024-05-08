@@ -28,9 +28,10 @@ export function checkTrustState() {
       let trustConnections = trust.trustConnections;
 
       if (!trust.isTrusted) {
-        const result = await core.trust.isTrusted(safeAddress, {
-          limit: NEEDED_TRUST_CONNECTIONS,
-        });
+        const result = await core.trust.isTrusted(
+          safeAddress,
+          NEEDED_TRUST_CONNECTIONS,
+        );
         isTrusted = result.isTrusted;
         trustConnections = result.trustConnections;
       }
