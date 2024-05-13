@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
 import {
-  fontFamily as fontFamilyNotoSans,
+  fontFamily as fontFamilyDmSans,
   fontSizeLarge,
   fontSizeLarger,
   fontSizeLargest,
@@ -14,12 +14,12 @@ import {
   fontWeightMedium,
   fontWeightMediumBold,
   fontWeightRegular,
-  notoSans,
-  notoSansBold,
-  notoSansItalic,
-  notoSansLight,
-  notoSansLightItalic,
-  notoSansMedium,
+  dmSans,
+  dmSansBold,
+  dmSansItalic,
+  dmSansLight,
+  dmSansLightItalic,
+  dmSansMedium,
 } from '~/styles/fonts';
 
 const foundation = {
@@ -108,7 +108,7 @@ const shadows = {
   greyAround: '0px 0px 4px rgba(45, 24, 43, 0.25)',
 };
 
-const fontFamily = `"${fontFamilyNotoSans}"`;
+const fontFamily = `"${fontFamilyDmSans}"`;
 
 const components = {
   appBarHeight: 64,
@@ -361,37 +361,37 @@ export default createTheme({
           font-family: ${fontFamily};
           font-style: normal;
           font-weight: ${fontWeightRegular};
-          src: ${notoSans.src};
+          src: ${dmSans.src};
         }
         @font-face {
           font-family: ${fontFamily};
           font-style: italic;
           font-weight: ${fontWeightRegular};
-          src: ${notoSansItalic.src};
+          src: ${dmSansItalic.src};
         }
         @font-face {
           font-family: ${fontFamily};
           font-style: normal;
           font-weight: ${fontWeightLight};
-          src: ${notoSansLight.src};
+          src: ${dmSansLight.src};
         }
         @font-face {
           font-family: ${fontFamily};
           font-style: italic;
           font-weight: ${fontWeightLight};
-          src: ${notoSansLightItalic.src};
+          src: ${dmSansLightItalic.src};
         }
         @font-face {
           font-family: ${fontFamily};
           font-style: normal;
           font-weight: ${fontWeightMedium};
-          src: ${notoSansMedium.src};
+          src: ${dmSansMedium.src};
         }
         @font-face {
           font-family: ${fontFamily};
           font-style: normal;
           font-weight: ${fontWeightBold};
-          src: ${notoSansBold.src};
+          src: ${dmSansBold.src};
         }
       `,
     },
