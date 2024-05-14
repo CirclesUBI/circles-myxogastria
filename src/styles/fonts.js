@@ -1,16 +1,3 @@
-// import notoSansBoldWoff from '%/fonts/notosans-bold-webfont.woff2';
-// import notoSansBoldWoff2 from '%/fonts/notosans-bold-webfont.woff2';
-// import notoSansItalicWoff from '%/fonts/notosans-italic-webfont.ttf';
-// import notoSansItalicWoff2 from '%/fonts/notosans-italic-webfont.woff2';
-// import notoSansLightWoff from '%/fonts/notosans-light-webfont.ttf';
-// import notoSansLightWoff2 from '%/fonts/notosans-light-webfont.woff2';
-// import notoSansLightItalicWoff from '%/fonts/notosans-lightitalic-webfont.ttf';
-// import notoSansLightItalicWoff2 from '%/fonts/notosans-lightitalic-webfont.woff2';
-// import notoSansWoff from '%/fonts/notosans-regular-webfont.ttf';
-// import notoSansWoff2 from '%/fonts/notosans-regular-webfont.woff2';
-// import notoSansSemiBoldWoff from '%/fonts/notosans-semibold-webfont.ttf';
-// import notoSansSemiBoldWoff2 from '%/fonts/notosans-semibold-webfont.woff2';
-
 import dmSansBoldTtf from '%/fonts/DMSans-Bold.ttf';
 import dmSansItalicTtf from '%/fonts/DMSans-Italic.ttf';
 import dmSansLightTtf from '%/fonts/DMSans-Light.ttf';
@@ -18,15 +5,12 @@ import dmSansLightItalicTtf from '%/fonts/DMSans-LightItalic.ttf';
 import dmSansTtf from '%/fonts/DMSans-Regular.ttf';
 import dmSansSemiBoldTtf from '%/fonts/DMSans-SemiBold.ttf';
 
-// export const fontFamily = 'Noto Sans';
 export const fontFamily = 'DM Sans';
-
 export const fontWeightLight = 300;
 export const fontWeightRegular = 400;
 export const fontWeightMedium = 500;
 export const fontWeightMediumBold = 600;
 export const fontWeightBold = 700;
-
 export const fontSizeSmallest = 10;
 export const fontSizeSmaller = 12;
 export const fontSizeSmall = 14;
@@ -40,7 +24,7 @@ export const dmSans = {
   fontStyle: 'normal',
   fontFamily,
   src: `
-    url(${dmSansTtf}) format('ttf');
+    url(${dmSansTtf}) format('truetype');
   `,
 };
 
@@ -48,7 +32,7 @@ export const dmSansMedium = {
   ...dmSans,
   fontWeight: fontWeightMedium,
   src: `
-    url(${dmSansSemiBoldTtf}) format('ttf');
+    url(${dmSansSemiBoldTtf}) format('truetype');
   `,
 };
 
@@ -56,7 +40,7 @@ export const dmSansBold = {
   ...dmSans,
   fontWeight: fontWeightBold,
   src: `
-    url(${dmSansBoldTtf}) format('ttf');
+    url(${dmSansBoldTtf}) format('truetype');
   `,
 };
 
@@ -64,7 +48,7 @@ export const dmSansItalic = {
   ...dmSans,
   fontStyle: 'italic',
   src: `
-    url(${dmSansItalicTtf}) format('ttf');
+    url(${dmSansItalicTtf}) format('truetype');
   `,
 };
 
@@ -72,7 +56,7 @@ export const dmSansLight = {
   ...dmSans,
   fontWeight: fontWeightLight,
   src: `
-    url(${dmSansLightTtf}) format('ttf');
+    url(${dmSansLightTtf}) format('truetype');
   `,
 };
 
@@ -81,6 +65,6 @@ export const dmSansLightItalic = {
   fontWeight: fontWeightLight,
   fontStyle: 'italic',
   src: `
-    url(${dmSansLightItalicTtf}) format('ttf');
+    url(${dmSansLightItalicTtf}) format('truetype');
   `,
 };
