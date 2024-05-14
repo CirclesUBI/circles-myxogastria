@@ -1,6 +1,12 @@
 import { createTheme } from '@mui/material/styles';
 
 import {
+  dmSans,
+  dmSansBold,
+  dmSansItalic,
+  dmSansLight,
+  dmSansLightItalic,
+  dmSansMedium,
   fontFamily as fontFamilyDmSans,
   fontSizeLarge,
   fontSizeLarger,
@@ -14,12 +20,6 @@ import {
   fontWeightMedium,
   fontWeightMediumBold,
   fontWeightRegular,
-  dmSans,
-  dmSansBold,
-  dmSansItalic,
-  dmSansLight,
-  dmSansLightItalic,
-  dmSansMedium,
 } from '~/styles/fonts';
 
 const foundation = {

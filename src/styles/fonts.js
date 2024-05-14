@@ -6,11 +6,12 @@ import dmSansTtf from '%/fonts/DMSans-Regular.ttf';
 import dmSansSemiBoldTtf from '%/fonts/DMSans-SemiBold.ttf';
 
 export const fontFamily = 'DM Sans';
+export const fontWeightBold = 700;
 export const fontWeightLight = 300;
-export const fontWeightRegular = 400;
 export const fontWeightMedium = 500;
 export const fontWeightMediumBold = 600;
-export const fontWeightBold = 700;
+export const fontWeightRegular = 400;
+
 export const fontSizeSmallest = 10;
 export const fontSizeSmaller = 12;
 export const fontSizeSmall = 14;

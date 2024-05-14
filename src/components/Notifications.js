@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   iconButtonClose: {
     borderRadius: '8px',
     '&:hover': {
-      background: theme.custom.colors.lightWhite,
+      background: theme.custom.colors.blue600,
     },
     '& .MuiSvgIcon-root': {
       fontSize: '1.3rem',
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     '&:hover': {
-      background: theme.custom.colors.white,
+      background: theme.custom.colors.blue600,
       '& .MuiSvgIcon-root': {
         '& path': {
           fill: theme.custom.colors.purple200,

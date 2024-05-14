@@ -65,9 +65,9 @@ const useStyles = makeStyles((theme) => ({
   },
   whiteIcons: {
     '& button, & a.MuiIconButton-root': {
-      color: theme.palette.icons.light,
+      color: theme.palette.icons.purple100,
       '&:hover': {
-        color: theme.palette.icons.lightHover,
+        color: theme.palette.icons.purple200,
         background: 'transparent',
       },
     },
