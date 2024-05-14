@@ -101,12 +101,12 @@ const gradients = {
 };
 
 const shadows = {
-  grey: '0px 1px 1px rgba(0, 0, 0, 0.05)',
+  grey: '0px 1px 1px rgba(0, 0, 0, 0.1)',
   greyUp: 'inset 0px 1px 1px rgba(0, 0, 0, 0.2)',
-  navigationFloating: '0px 0px 1px rgba(45, 24, 43, 0.1)',
-  lightGray: '0px 0px 1px rgba(204, 30, 102, 0.1)', //special, warning, error, notifications
+  navigationFloating: '0px 1px 1px rgba(45, 24, 43, 0.1)',
+  lightGray: '0px 1px 1px rgba(204, 30, 102, 0.1)', //special, warning, error, notifications
   greyBottomRight: ' 0px 1px 1px rgba(204, 30, 102, 0.1)', //success notification
-  greyAround: '0px 0px 1px rgba(45, 24, 43, 0.1)',
+  greyAround: '0px 1px 1px rgba(45, 24, 43, 0.1)',
 };
 
 const fontFamily = `"${fontFamilyDmSans}"`;
@@ -180,11 +180,11 @@ export default createTheme({
       fontSize: fontSizeLargest,
       '&.h1_blue': {
         color: colors.blue200,
-        fontWeight: fontWeightRegular,
+        fontWeight: fontWeightMedium,
       },
       '&.h1_violet': {
         color: colors.purple100,
-        fontWeight: fontWeightRegular,
+        fontWeight: fontWeightMedium,
       },
       '&.MuiTypography-gutterBottom': {
         marginBottom: fontSizeSmaller,
@@ -197,7 +197,7 @@ export default createTheme({
       color: colors.purple100,
     },
     h3: {
-      fontWeight: fontWeightRegular,
+      fontWeight: fontWeightMedium,
       fontSize: fontSizeLarger,
       lineHeight: '140%',
       color: colors.purple100,
