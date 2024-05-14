@@ -79,13 +79,14 @@ const useStyles = makeStyles((theme) => {
       padding: '11.5px 14px',
       borderRadius: '25px',
       color: theme.custom.colors.purple100,
+      background: theme.custom.colors.realwhite,
     },
 
     outlinedInputRoot: {
       borderRadius: '25px',
       border: `3px solid transparent`,
       padding: '0px',
-      background: theme.custom.colors.white,
+      background: theme.custom.colors.realwhite,
 
       '&:hover': {
         '& .MuiOutlinedInput-notchedOutline': {
@@ -93,7 +94,7 @@ const useStyles = makeStyles((theme) => {
         },
 
         '& .MuiOutlinedInput-input': {
-          background: theme.custom.colors.white,
+          background: theme.custom.colors.realwhite,
         },
 
         '&.Mui-error': {
