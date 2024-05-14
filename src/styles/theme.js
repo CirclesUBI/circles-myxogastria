@@ -309,7 +309,7 @@ export default createTheme({
       color: colors.purple200,
     },
     balance1: {
-      fontWeight: fontWeightRegular,
+      fontWeight: fontWeightMedium,
       fontSize: '48px',
       lineHeight: '65px',
       background: gradients.violetCurved,
