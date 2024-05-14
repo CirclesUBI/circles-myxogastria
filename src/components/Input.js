@@ -85,6 +85,7 @@ const useStyles = makeStyles((theme) => {
       borderRadius: '25px',
       border: `3px solid transparent`,
       padding: '0px',
+      background: theme.custom.colors.white,
 
       '&:hover': {
         '& .MuiOutlinedInput-notchedOutline': {
@@ -92,7 +93,7 @@ const useStyles = makeStyles((theme) => {
         },
 
         '& .MuiOutlinedInput-input': {
-          background: backgroundColor,
+          background: theme.custom.colors.white,
         },
 
         '&.Mui-error': {

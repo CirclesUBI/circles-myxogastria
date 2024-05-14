@@ -100,12 +100,12 @@ const gradients = {
 };
 
 const shadows = {
-  grey: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-  greyUp: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)',
-  navigationFloating: '0px 0px 4px rgba(45, 24, 43, 0.25)',
-  lightGray: '0px 0px 4px rgba(204, 30, 102, 0.1)', //special, warning, error, notifications
-  greyBottomRight: ' 1px 1px 4px rgba(204, 30, 102, 0.25)', //success notification
-  greyAround: '0px 0px 4px rgba(45, 24, 43, 0.25)',
+  grey: '0px 1px 1px rgba(0, 0, 0, 0.05)',
+  greyUp: 'inset 0px 1px 1px rgba(0, 0, 0, 0.2)',
+  navigationFloating: '0px 0px 1px rgba(45, 24, 43, 0.1)',
+  lightGray: '0px 0px 1px rgba(204, 30, 102, 0.1)', //special, warning, error, notifications
+  greyBottomRight: ' 0px 1px 1px rgba(204, 30, 102, 0.1)', //success notification
+  greyAround: '0px 0px 1px rgba(45, 24, 43, 0.1)',
 };
 
 const fontFamily = `"${fontFamilyDmSans}"`;
