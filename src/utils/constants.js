@@ -14,7 +14,6 @@ export const FAQ_URL_DELETION =
   'https://joincircles.net/faq/profile-data-deletion/';
 export const FAQ_TRANSITIVE_TRANSFERS_URL =
   'https://joincircles.net/faq/who-can-accept-circles-tokens-crc-as-a-payment/';
-export const MARKETPLACE_URL = 'http://market.joincircles.net';
 export const PRIVACY_LEGAL_URL = 'https://joincircles.net/privacy-policy';
 export const TELEGRAM_URL = 'https://t.me/CirclesUBI';
 export const TERMS_URL = 'https://joincircles.net/terms';
