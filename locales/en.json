@@ -445,7 +445,7 @@
   },
   "TutorialOnboarding": {
     "bodyBuildYourOwnEconomy": "Circles has no central leadership, so it’s yours to create with. You can invite friends and local businesses to Circles to support an alternative economy.",
-    "bodyUnconditionalIncome": "Circles is designed similar to a basic income. Because it is people-powered, it is based on trust. To receive your basic income, three people already trusted in the Circles system must trust your profile. This way you are unconditionally issued Circles tokens on a regular basis.",
+    "bodyUnconditionalIncome": "Circles is designed similar to a basic income. Because it is people-powered, it is based on trust. To receive your basic income, one person already trusted in the Circles system must trust your profile. This way you are unconditionally issued Circles tokens on a regular basis.",
     "bodyWebOfTrust": "You can spend Circles with people who you trust. The more connected your community is, the more valuable your Circles become.",
     "bodyLearnMore": "Learn more",
     "headingBuildYourOwnEconomy": "Build Your Own Economy",
@@ -469,10 +469,10 @@
   "Validation": {
     "bodyDoNotReset": "Do not reset your browser local storage or you will need to recover your data with your magic words.",
     "bodyTrustDescription": "To receive your basic income,",
-    "bodyTrustDescriptionEmphasize": "three people must trust your profile.",
+    "bodyTrustDescriptionEmphasize": "one person must trust your profile.",
     "buttonShareProfileLink": "Share Profile Link",
     "headingBuildYourWebOfTrust": "Verify your account",
-    "tooltipLeftTrustConnections": "You need {connections} more trust connections before you can create your account"
+    "tooltipLeftTrustConnections": ""
   },
   "ValidationLock": {
     "bodyThisMayTakeMinutes": "<b>Keep your wallet open!</b> Your wallet is now being created on the blockchain. This process is delicate and might take some minutes. It is important that you <b>do not close or refresh your browser</b> until this finishes. Otherwise your wallet creation will crash, and you will have to start from scratch.",

@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   step: {
     padding: 0,
+    margin: '0 auto',
   },
   stepAvatar: {
     background: 'transparent',

@@ -161,9 +161,10 @@ const avatar = {
 // Trust module
 
 const trust = {
-  isTrusted: async (safeAddress) => {
+  isTrusted: async (safeAddress, limit) => {
     return await requestCore('trust', 'isTrusted', {
       safeAddress,
+      limit,
     });
   },
 
