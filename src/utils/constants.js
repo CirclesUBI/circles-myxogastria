@@ -4,20 +4,20 @@ export const ISSUANCE_RATE_MONTH = process.env.ISSUANCE_RATE_MONTH || 720; // Ti
 export const PATHFINDER_HOPS_DEFAULT = 3;
 export const NEEDED_TRUST_CONNECTIONS = 1;
 
-export const ABOUT_URL = 'https://joincircles.net';
+export const ABOUT_URL = 'https://www.aboutcircles.com';
 export const BUG_REPORTING_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLSdczjck3RFE5VN5oSuge6aQWVAY7WA5RyIRYyFusj1kCSz0SQ/viewform';
-export const EMAIL_URL = 'mailto:hello@joincircles.net';
+  'mailto:support@aboutcircles.com';
+export const EMAIL_URL = 'mailto:hello@aboutcircles.com';
 export const FACEBOOK_URL = 'https://facebook.com/CirclesUBI';
-export const FAQ_URL = 'https://joincircles.net/faq';
+export const FAQ_URL = 'https://www.aboutcircles.com/faq';
 export const FAQ_URL_DELETION =
   'https://joincircles.net/faq/profile-data-deletion/';
 export const FAQ_TRANSITIVE_TRANSFERS_URL =
-  'https://joincircles.net/faq/who-can-accept-circles-tokens-crc-as-a-payment/';
+  'https://github.com/CirclesUBI/whitepaper?tab=readme-ov-file#transitive-exchange';
 export const PRIVACY_LEGAL_URL = 'https://joincircles.net/privacy-policy';
-export const TELEGRAM_URL = 'https://t.me/CirclesUBI';
+export const TELEGRAM_URL = 'https://t.me/about_circles';
 export const TERMS_URL = 'https://joincircles.net/terms';
-export const TWITTER_URL = 'https://twitter.com/CirclesUBI';
+export const TWITTER_URL = 'https://twitter.com/aboutcircles';
 
 export const SAFE_LAST_VERSION = '1.3.0';
 export const SAFE_CRC_VERSION = '1.1.1';
