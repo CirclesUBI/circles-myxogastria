@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => {
     },
     pinkShadow: {
       width: '100%',
-      height: '303px',
+      height: '0px',
       position: 'fixed',
       bottom: '0',
       background: theme.custom.gradients.pinkShade,

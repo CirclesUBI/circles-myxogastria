@@ -15,7 +15,7 @@ import ExternalLink from '~/components/ExternalLink';
 import translate from '~/services/locale';
 import { IconWobblyCircleSecond } from '~/styles/icons';
 import { IconClose, IconMore } from '~/styles/icons';
-import { BUG_REPORTING_URL, MARKETPLACE_URL } from '~/utils/constants';
+import { BUG_REPORTING_URL } from '~/utils/constants';
 
 const useStyles = makeStyles((theme) => {
   const backgroundTheme = (props) => {
@@ -210,13 +210,6 @@ export default function NavigationFloating(props) {
             </Button>
           </Link>
         </MenuItem>
-        <ExternalLink href={MARKETPLACE_URL}>
-          <MenuItem onClick={handleClose}>
-            <Button isOutline>
-              {translate('NavigationFloating.linkMarketplace')}
-            </Button>
-          </MenuItem>
-        </ExternalLink>
         <ExternalLink href={BUG_REPORTING_URL}>
           <MenuItem onClick={handleClose}>
             <Button isOutline>

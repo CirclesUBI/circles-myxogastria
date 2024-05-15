@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         }
         return theme.palette.background.default;
       },
-      boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.25)',
+      // boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.25)',
     },
     color: 'transparent',
     height: '64px',
@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
         }
         return theme.palette.background.default;
       },
-      boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-      opacity: 1,
+      // boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+      opacity: 0,
       transition: 'opacity 0.15s',
     },
   },
@@ -57,17 +57,18 @@ const useStyles = makeStyles((theme) => ({
   },
   darkIcons: {
     '& button, & a.MuiIconButton-root': {
-      color: theme.palette.icons.dark,
+      color: theme.custom.colors.purple100,
       '&:hover': {
+        color: theme.custom.colors.purple200,
         background: 'transparent',
       },
     },
   },
   whiteIcons: {
     '& button, & a.MuiIconButton-root': {
-      color: theme.palette.icons.light,
+      color: theme.custom.colors.purple100,
       '&:hover': {
-        color: theme.palette.icons.lightHover,
+        color: theme.custom.colors.purple200,
         background: 'transparent',
       },
     },

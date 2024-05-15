@@ -32,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
   },
   balanceHover: {
     '&:hover': {
-      borderBottom: '2.5px solid currentColor',
+      // borderBottom: '2.5px solid currentColor',
       textDecorationColor: theme.custom.colors.purple100,
-      textShadow: theme.custom.shadows.grey,
+      // textShadow: theme.custom.shadows.grey,
     },
     color: theme.custom.colors.purple100,
   },

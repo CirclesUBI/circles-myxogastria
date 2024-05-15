@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     height: 66,
     boxShadow: theme.custom.shadows.greyUp,
     color: theme.custom.colors.purple100,
+    background: theme.custom.colors.realwhite,
 
     '& .MuiSvgIcon-root': {
       fill: theme.custom.colors.purple100,

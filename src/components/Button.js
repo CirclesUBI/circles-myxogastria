@@ -21,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
       background: theme.custom.gradients.lightPinkToPurple,
     },
     '&.Mui-disabled': {
-      background: theme.custom.colors.purple500,
+      background: theme.custom.colors.lightGrey,
       borderRadius: '30px',
-      color: theme.custom.colors.purple400,
+      color: theme.custom.colors.grey400,
       'pointer-events': 'visible',
 
       '&:hover': {
