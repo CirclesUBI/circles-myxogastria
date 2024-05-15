@@ -9,7 +9,8 @@ export const BUG_REPORTING_URL = 'mailto:support@aboutcircles.com';
 export const EMAIL_URL = 'mailto:hello@aboutcircles.com';
 export const FACEBOOK_URL = 'https://facebook.com/CirclesUBI';
 export const FAQ_URL = 'https://www.aboutcircles.com/faq';
-export const FAQ_URL_DELETION = 'https://joincircles.net/faq/profile-data-deletion/';
+export const FAQ_URL_DELETION =
+  'https://joincircles.net/faq/profile-data-deletion/';
 export const FAQ_TRANSITIVE_TRANSFERS_URL =
   'https://github.com/CirclesUBI/whitepaper?tab=readme-ov-file#transitive-exchange';
 export const PRIVACY_LEGAL_URL = 'https://joincircles.net/privacy-policy';
