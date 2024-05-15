@@ -2,7 +2,7 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 export const ISSUANCE_RATE_MONTH = process.env.ISSUANCE_RATE_MONTH || 720; // Time circles
 export const PATHFINDER_HOPS_DEFAULT = 3;
-export const NEEDED_TRUST_CONNECTIONS = 3;
+export const NEEDED_TRUST_CONNECTIONS = 1;
 
 export const ABOUT_URL = 'https://joincircles.net';
 export const BUG_REPORTING_URL =
