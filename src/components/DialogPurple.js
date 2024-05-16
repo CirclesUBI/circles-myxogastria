@@ -7,7 +7,7 @@ import Button from '~/components/Button';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    background: 'linear-gradient(284.04deg, #660F33 0%, #CC1E66 100%)',
+    background: '#38318B',
     borderRadius: 0,
     borderBottomRightRadius: 48,
     maxWidth: 720,
