@@ -40,8 +40,9 @@ const ButtonDeleteProfile = ({ displayEditOption, isOutline, isText }) => {
     setIsOpenDialogCloseInfo(false);
     try {
       const result = await core.user.delete(safe.currentAccount);
-      await core.avatar.delete(avatarUrl);
-
+      if (avatarUrl) {
+        await core.avatar.delete(avatarUrl);
+      }
       if (result) {
         setUseCacheOnRedirect(false);
         dispatch(
