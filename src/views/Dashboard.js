@@ -1,4 +1,4 @@
-import { Box, Container, Grid, IconButton } from '@mui/material';
+import { Box, Container, Grid, IconButton, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import React, { Fragment, useEffect, useState } from 'react';
@@ -15,6 +15,7 @@ import BackgroundCurved from '~/components/BackgroundCurved';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import ButtonDouble from '~/components/ButtonDouble';
 import Drawer from '~/components/Drawer';
+import ExternalLink from '~/components/ExternalLink';
 import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
@@ -27,6 +28,7 @@ import {
   checkPendingActivities,
 } from '~/store/activity/actions';
 import { IconMenu } from '~/styles/icons';
+import { MIGRATION_INFO_URL } from '~/utils/constants';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {
@@ -76,6 +78,13 @@ const useStyles = makeStyles((theme) => ({
   userDataContainer: {
     position: 'relative',
     top: '45px',
+  },
+
+  migrationContainer: {
+    marginTop: '10px',
+    '& p': {
+      marginBottom: '10px',
+    },
   },
 }));
 
@@ -147,6 +156,22 @@ const Dashboard = () => {
         <Container maxWidth="sm">
           <Box className={classes.balanceContainer}>
             <BalanceDisplay />
+          </Box>
+          <Box className={classes.migrationContainer}>
+            <Typography align="center" variant="body1">
+              {translate('Login.migrationText1')}
+              <br></br>
+              <ExternalLink
+                classes={{ root: 'body3_link_gradient' }}
+                href={MIGRATION_INFO_URL}
+                variant="body3"
+              >
+                {MIGRATION_INFO_URL}
+              </ExternalLink>
+            </Typography>
+            <Typography align="center" variant="body1">
+              {translate('Login.migrationText3')}
+            </Typography>
           </Box>
           <AppNote messageVersion="dashboard" />
           <Grid item xs={12}>

@@ -17,6 +17,7 @@ export const PRIVACY_LEGAL_URL = 'https://joincircles.net/privacy-policy';
 export const TELEGRAM_URL = 'https://t.me/about_circles';
 export const TERMS_URL = 'https://joincircles.net/terms';
 export const TWITTER_URL = 'https://twitter.com/aboutcircles';
+export const MIGRATION_INFO_URL = 'https://bit.ly/3W1il2M';
 
 export const SAFE_LAST_VERSION = '1.3.0';
 export const SAFE_CRC_VERSION = '1.1.1';
