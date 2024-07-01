@@ -20,7 +20,7 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import View from '~/components/View';
 import translate from '~/services/locale';
-import { updateUserMigration } from '~/store/user/actions';
+import { initializeUser, updateUserMigration } from '~/store/user/actions';
 
 const useStyles = makeStyles(() => ({
   migrationContainer: {
@@ -36,6 +36,9 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  loaderContainer: {
+    marginTop: '15px',
+  },
 }));
 
 const MigrateYourProfile = () => {
@@ -47,10 +50,12 @@ const MigrateYourProfile = () => {
   const user = useSelector((state) => state.user);
   const isMigrationAccepted = user?.isMigrationAccepted;
 
-  useEffect(() => {
-    if (isMigrationAccepted !== undefined) {
+  useEffect(async () => {
+    if (isMigrationAccepted !== undefined && isMigrationAccepted !== null) {
       setIsMigrateData(isMigrationAccepted);
       setIsLoading(false);
+    } else {
+      dispatch(initializeUser());
     }
   }, [isMigrationAccepted]);
 
@@ -93,7 +98,9 @@ const MigrateYourProfile = () => {
               </FormLabel>
               <Box>
                 {isLoading ? (
-                  <CircularProgress />
+                  <Box className={classes.loaderContainer}>
+                    <CircularProgress />
+                  </Box>
                 ) : (
                   <RadioGroup
                     aria-labelledby="migration-radio-buttons-group"

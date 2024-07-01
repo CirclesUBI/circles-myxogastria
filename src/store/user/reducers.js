@@ -3,7 +3,7 @@ import update from 'immutability-helper';
 import ActionTypes from '~/store/user/types';
 
 const initialState = {
-  isMigrationAccepted: false,
+  isMigrationAccepted: null,
 };
 
 const userReducer = (state = initialState, action) => {

@@ -37,6 +37,9 @@ export function initializeApp() {
 
     dispatch(showSpinnerOverlay());
 
+    // Check for migration status
+    dispatch(initializeUser());
+
     // Initialize and gather important app states (auth etc.)
     try {
       await dispatch(initializeTutorials());
@@ -52,9 +55,6 @@ export function initializeApp() {
 
       // Check for additional states ...
       await dispatch(checkAppState());
-
-      // Check for migration status
-      await dispatch(initializeUser());
 
       dispatch({
         type: ActionTypes.APP_INITIALIZE_SUCCESS,
