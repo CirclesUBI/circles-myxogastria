@@ -20,6 +20,7 @@ import {
   initializeTutorials,
   resetAllTutorials,
 } from '~/store/tutorial/actions';
+import { initializeUser } from '~/store/user/actions';
 import { burnWallet, initializeWallet } from '~/store/wallet/actions';
 import { formatErrorMessage } from '~/utils/debug';
 
@@ -51,6 +52,9 @@ export function initializeApp() {
 
       // Check for additional states ...
       await dispatch(checkAppState());
+
+      // Check for migration status
+      await dispatch(initializeUser());
 
       dispatch({
         type: ActionTypes.APP_INITIALIZE_SUCCESS,
