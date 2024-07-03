@@ -26,7 +26,7 @@ import translate from '~/services/locale';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { restoreAccount } from '~/store/onboarding/actions';
-import { EMAIL_URL } from '~/utils/constants';
+import { EMAIL_URL, MIGRATION_INFO_URL } from '~/utils/constants';
 import {
   RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
   RESTORE_ACCOUNT_UNKNOWN_SAFE,
@@ -55,6 +55,13 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up('lg')]: {
       marginTop: '-25px',
+    },
+  },
+
+  migrationContainer: {
+    marginTop: '10px',
+    '& p': {
+      marginBottom: '10px',
     },
   },
 
@@ -130,7 +137,7 @@ const Login = () => {
           <Box className={classes.loginImg}>
             <Logo size="small" />
           </Box>
-          <Box mb={7} mt={14}>
+          <Box mb={2} mt={2}>
             <Typography align="center" gutterBottom variant="h2">
               {translate('Login.headingLogin')}
             </Typography>
@@ -171,6 +178,22 @@ const Login = () => {
               {translate('Login.linkSupport')}
             </ExternalLink>
           </Typography>
+          <Box className={classes.migrationContainer}>
+            <Typography align="center" variant="body1">
+              {translate('Login.migrationText1')}
+              <br></br>
+              <ExternalLink
+                classes={{ root: 'body3_link_gradient' }}
+                href={MIGRATION_INFO_URL}
+                variant="body3"
+              >
+                {MIGRATION_INFO_URL}
+              </ExternalLink>
+            </Typography>
+            <Typography align="center" variant="body1">
+              {translate('Login.migrationText2')}
+            </Typography>
+          </Box>
         </Container>
       </View>
       <Footer>
