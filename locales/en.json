@@ -204,8 +204,8 @@
     "linkSupport": "Send an email",
     "successWelcome": "Successfully connected to account. Welcome!",
     "migrationText1": "Circles Garden profile data is being migrated. You can read about this here:",
-    "migrationText2": "Please login and visit the 'profile-migrate' page to confirm your preference",
-    "migrationText3": "Please visit the 'profile-migrate' page to confirm your preference"
+    "migrationText2": "Please login and visit the Migrate Your Profile page to confirm your preference",
+    "migrationText3": "Please visit the Migrate Your Profile page to confirm your preference"
   },
   "MigrateYourProfile": {
     "title": "Migrate Your Profile",
