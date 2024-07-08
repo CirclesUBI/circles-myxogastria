@@ -227,6 +227,21 @@ export default createTheme({
         color: colors.white,
         fontWeight: fontWeightMedium,
       },
+      '&.body3_link_gradient': {
+        '& a': {
+          lineHeight: '120%',
+          background: gradients.pinkToPurple,
+          backgroundClip: 'text',
+          textFillColor: 'transparent',
+          textDecorationLine: 'none',
+          fontWeight: 600,
+          '&:hover': {
+            background: gradients.purpleToLightPink,
+            backgroundClip: 'text',
+            textFillColor: 'transparent',
+          },
+        },
+      },
     },
     body2: {
       fontWeight: fontWeightBold,
