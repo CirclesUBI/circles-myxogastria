@@ -205,7 +205,7 @@
     "linkMigrationText": "Migrate Your Profile",
     "successWelcome": "Successfully connected to account. Welcome!",
     "migrationText1": "Circles Garden profile data is being migrated. You can read about this here:",
-    "migrationText2": "Please login and visit the <a href='{env}/profile-migrate' rel='noopener noreferrer'>Migrate Your Profile</a> page to confirm your preference",
+    "migrationText2": "Please login and visit the Migrate Your Profile page to confirm your preference",
     "migrationText3": "Please visit the <a href='{env}/profile-migrate' rel='noopener noreferrer'>Migrate Your Profile</a> page to confirm your preference"
   },
   "MigrateYourProfile": {
