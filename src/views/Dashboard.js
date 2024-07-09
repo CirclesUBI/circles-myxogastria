@@ -119,6 +119,17 @@ const Dashboard = () => {
     setIsMenuExpanded(false);
   };
 
+  const env = process.env.BASE_PATH;
+  const htmlMigrationContent = (
+    <span
+      dangerouslySetInnerHTML={{
+        __html: translate('Login.migrationText3', {
+          env,
+        }),
+      }}
+    />
+  );
+
   return (
     <Fragment>
       <BackgroundCurved gradient="turquoise">
@@ -169,8 +180,12 @@ const Dashboard = () => {
                 {MIGRATION_INFO_URL}
               </ExternalLink>
             </Typography>
-            <Typography align="center" variant="body1">
-              {translate('Login.migrationText3')}
+            <Typography
+              align="center"
+              classes={{ root: 'body3_link_gradient' }}
+              variant="body1"
+            >
+              {htmlMigrationContent}
             </Typography>
           </Box>
           <AppNote messageVersion="dashboard" />

@@ -50,14 +50,14 @@ const MigrateYourProfile = () => {
   const user = useSelector((state) => state.user);
   const isMigrationAccepted = user?.isMigrationAccepted;
 
-  useEffect(async () => {
+  useEffect(() => {
     if (isMigrationAccepted !== undefined && isMigrationAccepted !== null) {
       setIsMigrateData(isMigrationAccepted);
       setIsLoading(false);
     } else {
       dispatch(initializeUser());
     }
-  }, [isMigrationAccepted]);
+  }, [isMigrationAccepted]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleOnChangeRadio = (event) => {
     setIsMigrateData(event.target.value === 'true');
