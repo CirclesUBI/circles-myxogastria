@@ -119,8 +119,24 @@ export default () => {
       rules: [
         {
           test: /\.js$/,
-          exclude,
-          use: ['babel-loader', 'eslint-loader'],
+          exclude: /node_modules\/(?!(@ethereumjs|@noble|micro-ftch)\/).*/,
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env', '@babel/react'],
+                plugins: [
+                  '@babel/plugin-transform-runtime',
+                  '@babel/proposal-class-properties',
+                  '@babel/proposal-object-rest-spread',
+                  '@babel/plugin-proposal-optional-chaining',
+                  '@babel/plugin-proposal-nullish-coalescing-operator',
+                  '@babel/plugin-transform-modules-commonjs',
+                ],
+              },
+            },
+            'eslint-loader',
+          ],
         },
         {
           test: /\.css$/,
