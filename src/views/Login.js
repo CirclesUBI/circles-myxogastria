@@ -26,7 +26,7 @@ import translate from '~/services/locale';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
 import notify, { NotificationsTypes } from '~/store/notifications/actions';
 import { restoreAccount } from '~/store/onboarding/actions';
-import { EMAIL_URL, MIGRATION_INFO_URL } from '~/utils/constants';
+import { EMAIL_URL } from '~/utils/constants';
 import {
   RESTORE_ACCOUNT_INVALID_SEED_PHRASE,
   RESTORE_ACCOUNT_UNKNOWN_SAFE,
@@ -181,14 +181,6 @@ const Login = () => {
           <Box className={classes.migrationContainer}>
             <Typography align="center" variant="body1">
               {translate('Login.migrationText1')}
-              <br></br>
-              <ExternalLink
-                classes={{ root: 'body3_link_gradient' }}
-                href={MIGRATION_INFO_URL}
-                variant="body3"
-              >
-                {MIGRATION_INFO_URL}
-              </ExternalLink>
             </Typography>
             <Typography align="center" variant="body1">
               {translate('Login.migrationText2')}

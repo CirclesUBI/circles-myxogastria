@@ -204,7 +204,7 @@
     "linkSupport": "Send an email",
     "linkMigrationText": "Migrate Your Profile",
     "successWelcome": "Successfully connected to account. Welcome!",
-    "migrationText1": "Circles Garden profile data is being migrated. You can read about this here:",
+    "migrationText1": "Circles Garden profile data is being migrated.",
     "migrationText2": "Please login and visit the Migrate Your Profile page to confirm your preference",
     "migrationText3": "Please visit the <a href='{env}/profile-migrate' rel='noopener noreferrer'>Migrate Your Profile</a> page to confirm your preference"
   },
@@ -213,7 +213,6 @@
     "body1": "If you accept the migration of your user profile, this will mean that your data will be transferred to the new Circles team (Gnosis Chain).",
     "body2": "At the end of the migration period, all the data that is not transferred will be deleted from current databases.",
     "body3": "Your wallet, seed phrase, and CRC will not be deleted regardless of your choice and you will still be able to access to your wallet via circles.garden.",
-    "body4": "You can read about this here:",
     "labelForm": "Do you consent to the migration of your profile data to the new Circles team?",
     "option1": "Yes",
     "option2": "no",

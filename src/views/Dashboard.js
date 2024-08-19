@@ -15,7 +15,6 @@ import BackgroundCurved from '~/components/BackgroundCurved';
 import BalanceDisplay from '~/components/BalanceDisplay';
 import ButtonDouble from '~/components/ButtonDouble';
 import Drawer from '~/components/Drawer';
-import ExternalLink from '~/components/ExternalLink';
 import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
@@ -28,7 +27,6 @@ import {
   checkPendingActivities,
 } from '~/store/activity/actions';
 import { IconMenu } from '~/styles/icons';
-import { MIGRATION_INFO_URL } from '~/utils/constants';
 
 const transitionMixin = ({ transitions }) => ({
   transition: transitions.create(['transform'], {
@@ -171,14 +169,6 @@ const Dashboard = () => {
           <Box className={classes.migrationContainer}>
             <Typography align="center" variant="body1">
               {translate('Login.migrationText1')}
-              <br></br>
-              <ExternalLink
-                classes={{ root: 'body3_link_gradient' }}
-                href={MIGRATION_INFO_URL}
-                variant="body3"
-              >
-                {MIGRATION_INFO_URL}
-              </ExternalLink>
             </Typography>
             <Typography
               align="center"
