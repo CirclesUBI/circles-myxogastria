@@ -1,14 +1,25 @@
+require('dotenv').config();
 import CirclesCore from '@circles/core';
 
 import { getAccount } from '~/services/wallet';
 import web3 from '~/services/web3';
 import { PATHFINDER_HOPS_DEFAULT } from '~/utils/constants';
 
+console.log(
+  'hubAddress',
+  process.env.HUB_ADDRESS,
+  typeof process.env.HUB_ADDRESS,
+);
+
+if (!process.env.HUB_ADDRESS || typeof process.env.HUB_ADDRESS !== 'string') {
+  throw new Error('HUB_ADDRESS is not set or not a string');
+}
+
 const core = new CirclesCore(web3, {
   apiServiceEndpoint: process.env.API_SERVICE_EXTERNAL,
   fallbackHandlerAddress: process.env.SAFE_DEFAULT_CALLBACK_HANDLER,
   graphNodeEndpoint: process.env.GRAPH_NODE_EXTERNAL,
-  hubAddress: process.env.HUB_ADDRESS,
+  hubAddress: String(process.env.HUB_ADDRESS),
   pathfinderServiceEndpoint: process.env.PATHFINDER_SERVICE_ENDPOINT,
   pathfinderType: process.env.PATHFINDER_TYPE,
   proxyFactoryAddress: process.env.PROXY_FACTORY_ADDRESS,

@@ -2,8 +2,8 @@ module.exports = {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/config/'],
 
-  // Require .env file
-  setupFiles: ['dotenv/config'],
+  // Require .env file and additional setup
+  setupFiles: ['dotenv/config', '<rootDir>/jest.setup.js'],
 
   // Resolve modules same as Webpack
   moduleNameMapper: {
