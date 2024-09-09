@@ -1,0 +1,526 @@
+{
+  "Activities": {
+    "filterAllTitle": "所有交易",
+    "filterReceivedTitle": "收到的",
+    "filterSentTitle": "发送的",
+    "headingActivityLog": "活动日志"
+  },
+  "ActivityStream": {
+    "bodyActivityAddedToSafe": "已添加到此账户",
+    "bodyActivityMeTrustedSomeone": "你信任了 @{actor}",
+    "bodyActivityMeUntrustedSomeone": "你取消了对 @{actor} 的信任",
+    "bodyActivityMyselfAddedToSafe": "你已将此设备连接到此账户",
+    "bodyActivityReceivedCircles": "@{actor} 给你发送了",
+    "bodyActivityReceivedUBI": "Circles UBI",
+    "bodyActivityRemovedFromSafe": "@{actor} 已从此账户中移除",
+    "bodyActivitySentCircles": "发送给 @{actor}",
+    "bodyActivityTrustedBySomeone": "@{actor} 信任你",
+    "bodyActivityUntrustedBySomeone": "@{actor} 取消了对你的信任",
+    "bodyDateNow": "现在",
+    "bodyExplainMeTrustedSomeone": "你信任了 @{actor}，这意味着 @{actor} 可以向你发送他们的代币。",
+    "bodyExplainMeUntrustedSomeone": "你取消了对 @{actor} 的信任，这意味着你不再接受他们的代币。",
+    "bodyExplainReceivedCircles": "你通过转账从 @{actor} 收到了 {value} {denominator}。",
+    "bodyExplainReceivedUBI": "这是你的基本收入，以你自己的个人货币发行。你每天获得 {rate}。",
+    "bodyExplainSecondary": "所有活动都包含一小笔交易费用，用于维护 Circles 网络。",
+    "bodyExplainSentCircles": "你通过转账向 @{actor} 发送了 {value} {denominator}。",
+    "bodyExplainTrustedBySomeone": "@{actor} 信任你。你现在可以向他们发送你的代币。",
+    "bodyExplainUntrustedBySomeone": "@{actor} 取消了对你的信任，意味着他们不再接受你的代币。",
+    "bodyNothingHereYet": "目前没有显示的活动",
+    "bodyPaymentNote": "备注: {note}",
+    "buttonLoadMore": "加载更多",
+    "linkLearnMore": "了解更多。"
+  },
+  "ActivityStreamWithTabs": {
+    "bodyFilterConnections": "连接",
+    "bodyFilterNews": "新闻",
+    "bodyFilterTransactions": "交易"
+  },
+  "App": {
+    "errorConnection": "你似乎处于离线状态。检查连接以继续",
+    "errorUpdate": "出了点问题，你是否已连接到互联网？{errorMessage}"
+  },
+  "AvatarUploader": {
+    "errorAvatarUpload": "哎呀，出了点问题！\n确保你的图片是最大 1 MB 的 jpeg 或 png 格式。"
+  },
+  "BalanceDisplay": {
+    "tooltipSharedWalletBalance": "这是共享钱包余额。共享钱包不接收基本收入。",
+    "tooltipYourBalance": "你的基本收入以每天 {rate} circles 的速度持续发行。"
+  },
+  "ButtonClipboard": {
+    "buttonCopy": "复制到剪贴板",
+    "infoCopiedMessage": "文本已复制到剪贴板"
+  },
+  "ButtonDeleteProfile": {
+    "bodyText": "此操作将从我们的数据库中删除你的个人资料图片、用户名和电子邮件。",
+    "bodyText2": "然而，此操作不会删除历史交易数据或信任互动。",
+    "bodyText3": "删除后，你可以选择通过设置结束会话。如果你在 90 天内没有登录，你的基本收入发放将永久停止。",
+    "bodyText4": "请注意，数据删除不会跨钱包进行。你需要在结束会话前分别删除个人钱包和任何共享钱包的个人资料数据。",
+    "btnText": "删除个人资料数据",
+    "confirmationCancel": "取消",
+    "confirmationDelete": "删除",
+    "linkEditProfile": "改为编辑个人资料",
+    "notificationError": "哎呀，出了点问题。请再试一次！",
+    "notificationSuccess": "此钱包的个人资料数据已成功删除。你可以在设置中结束会话。",
+    "readMore": "了解更多",
+    "titleText": "你确定要删除你的个人资料数据吗？"
+  },
+  "CheckboxPrivacy": {
+    "checkboxLabel": "我已阅读",
+    "checkboxLink": "隐私政策"
+  },
+  "CheckboxTerms": {
+    "checkboxLabel": "我同意",
+    "checkboxLink": "条款和条件"
+  },
+  "CriticalError": {
+    "bodyCriticalErrorDescription": "哦不！出了点问题。请重新加载此页面并重试。",
+    "bodyCriticalErrorTryAgain": "哦不！加载你的账户时出了点问题。请重新加载此页面并重试。",
+    "buttonBurnWallet": "重置账户",
+    "buttonReload": "刷新页面",
+    "dialogAreYouSure": "你真的想重置这个钱包吗？没有你的魔法词语，你将无法恢复。",
+    "infoCopiedMessage": "文本已复制到剪贴板"
+  },
+  "Dashboard": {
+    "buttonSendCircles": "发送 Circles",
+    "buttonTrustPeople": "信任他人"
+  },
+  "DashboardOrganization": {
+    "buttonSendCircles": "发送 Circles",
+    "buttonTrustPeople": "信任他人"
+  },
+  "DialogAddMember": {
+    "dialogBody": "信任即是力量。当你添加某人时，这意味着你正在共享从共享钱包发送 Circles 的权力。",
+    "dialogBodyCannotAdd": "你不能将另一个共享钱包添加为共享钱包的成员。",
+    "dialogCancel": "取消",
+    "dialogConfirm": "添加成员",
+    "dialogTitle": "添加 @{username}",
+    "linkLearnMore": "了解更多"
+  },
+  "DialogBurn": {
+    "dialogBurnCancel": "取消",
+    "dialogBurnConfirm": "结束会话",
+    "dialogBurnDescription": "你确定要结束此会话吗？如果没有魔法词语，你将无法恢复账户！",
+    "dialogBurnTitle": "警告！"
+  },
+  "DialogTrust": {
+    "afterExternalLink": "在这里",
+    "dialogTrustCancel": "取消",
+    "dialogTrustConfirm": "信任",
+    "dialogTrustDescription": "信任即是力量。当你信任某人时，这意味着你正在共享发行 Circles 的权力。",
+    "dialogTrustTitle": "信任 @{username}？",
+    "errorTrust": "你尝试信任 @{username} 时出了点问题……",
+    "externalLink": "了解更多",
+    "successTrust": "你信任了 @{username}。太棒了！"
+  },
+  "DialogTrustRevoke": {
+    "dialogRevokeTrustCancel": "取消",
+    "dialogRevokeTrustConfirm": "撤销信任",
+    "dialogRevokeTrustDescription": "你确定要撤销对 @{username} 的信任吗？",
+    "dialogRevokeTrustTitle": "取消信任 @{username}",
+    "errorRevokeTrust": "你尝试取消信任 @{username} 时出了点问题……",
+    "successRevokeTrust": "你已撤销对 @{username} 的信任"
+  },
+  "DonationNote": {
+    "bodyPrimary": "自去年启动以来，Circles 社区已在全球发展到 20 万用户。对该项目的兴趣导致了快速扩展，服务器过载，并且在我们改造基础设施后，我们的预算已接近尾声。",
+    "bodySecondary": "我们需要你的支持才能继续前进！我们需要你的帮助，让基本收入在全球成为现实！我们正在寻找致力于支持 Circles 充分发展的定期捐赠者。",
+    "bodyThird": "你的捐赠至关重要！支持为所有人创造基本收入，并在全球范围内建立可持续的地方经济。",
+    "bodyTitle": "Circles 需要你！",
+    "buttonClose": "关闭",
+    "buttonDonate": "立即捐赠"
+  },
+  "EditProfile": {
+    "bodyCancel": "如果你点击取消，所有修改将会丢失。",
+    "buttonCancel": "取消",
+    "buttonContinue": "继续编辑",
+    "buttonSave": "保存更改",
+    "confirmationMessage": "太棒了！你的个人资料更改已保存！",
+    "errorCompressImage": "抱歉，压缩上传图片时出现问题",
+    "errorImageCapture": "抱歉，捕获图片时出现问题。",
+    "errorInvalidName": "哎呀！无效的名称，请重试。",
+    "errorNameTaken": "抱歉，此名称已被使用！",
+    "errorSaveChanges": "抱歉，保存更改时出现问题。",
+    "heading": "编辑个人资料",
+    "informationText": "在这里你可以更改钱包的主要信息。",
+    "informationText2": "你的用户名可以包含基本字符和数字 (a-z, A-Z, 0-9)，并且长度为 3 到 24 个字符。不允许使用符号或空格。",
+    "informationText3": "温馨提示。你的隐私对我们非常重要。我们绝不会分享这些信息！",
+    "optionCamera": "相机",
+    "optionCapture": "拍摄",
+    "optionFile": "图库",
+    "optionTryAgain": "再试一次",
+    "optionUpload": "上传",
+    "titleCancel": "你想保存对个人资料的更改吗？"
+  },
+  "ErrorCodes": {
+    "CoreErrorInsufficientFunds": "如果你想执行任何交易，请向此账户发送一些 Circles",
+    "CoreErrorSafeNotFound": "找不到地址为 ${safeAddress} 的 Safe。请稍后再试",
+    "ErrorTokenNotDeployed": "出了点问题！我们无法创建你的钱包。请重置账户。",
+    "GeneralErrorMessage": "请尝试使用不同的值，或刷新页面后再试一次"
+  },
+  "ExportStatement": {
+    "exportBtnText": "导出账单",
+    "exportFormat": "格式",
+    "exportFrom": "从",
+    "exportHelper": "你只能导出最长一年前的时间段。",
+    "exportHintDate": "无效日期",
+    "exportHintRange": "无效日期",
+    "exportInfoText": "你的钱包对账单将以 CSV 格式下载。",
+    "exportInvalidDateInterval": "无效的日期间隔",
+    "exportLoadingText": "这可能需要几分钟",
+    "exportStatement": "账户对账单",
+    "exportSuccessful": "<strong>账户对账单</strong>已成功下载！",
+    "exportTimeSpan": "时间跨度",
+    "exportTo": "到",
+    "exportWallet": "钱包",
+    "fileBalanceOnEndDate": "期末余额",
+    "fileBalanceOnStartDate": "期初余额",
+    "fileDemurrage": "选定期间的扣费",
+    "fileNamePrefix": "Circles_Statement",
+    "filePeriodEndDate": "期间结束日期",
+    "filePeriodStartDate": "期间开始日期",
+    "fileSumTransactions": "交易总额",
+    "fileTitle": "Circles 钱包对账单",
+    "fileTransactionsTitle": "期间内的交易",
+    "fileTxAmount": "Circles 金额",
+    "fileTxDate": "日期",
+    "fileTxPaymentNote": "付款备注",
+    "fileTxSafeAddress": "来自或发送至 Safe 地址",
+    "fileTxUsername": "发送或接收用户名",
+    "fileUBIName": "CirclesUBI",
+    "fileUBIPaymentNote": "UBI 支付",
+    "fileWalletName": "钱包名称",
+    "fileWalletSafeAddress": "钱包 Safe 地址"
+  },
+  "Finder": {
+    "bodyFilterDirect": "直接信任",
+    "bodyFilterExternal": "外部",
+    "bodyFilterIndirect": "在你的网络中",
+    "bodyNoResultsGiven": "未找到搜索结果！",
+    "buttonLoadMore": "显示更多",
+    "formLabel": "搜索",
+    "formSearch": "添加或搜索联系人"
+  },
+  "LocaleSelector": {
+    "de": "德语",
+    "en": "英语",
+    "es": "西班牙语"
+  },
+  "Login": {
+    "bodyEnterYourSeedPhrase": "请输入你的魔法词语以恢复钱包：",
+    "bodyLostYourSeedPhrase": "丢失了你的魔法词语？",
+    "bodyNeedHelp": "有问题吗？",
+    "buttonCreateNewWallet": "在此注册",
+    "buttonSubmit": "提交",
+    "errorRestoreFailedInvalidSeedPhrase": "你的魔法词语无效。",
+    "errorRestoreFailedUnknown": "由于未知错误，无法恢复账户。",
+    "errorRestoreFailedUnknownSafe": "你尝试恢复的账户未注册。",
+    "headingLogin": "登录",
+    "inputPlaceholder": "开始输入...",
+    "linkMigrationText": "迁移你的资料",
+    "linkSupport": "发送电子邮件",
+    "migrationText1": "Circles Garden 资料数据正在迁移。",
+    "migrationText2": "请登录并访问迁移你的资料页面以确认你的偏好",
+    "migrationText3": "请访问 <a href='{env}/profile-migrate' rel='noopener noreferrer'>迁移你的资料</a> 页面以确认你的偏好",
+    "successWelcome": "成功连接到账户。欢迎！"
+  },
+  "MigrateYourProfile": {
+    "body1": "如果你接受迁移用户资料，这将意味着你的数据将被转移到新的 Circles 团队（Gnosis Chain）。",
+    "body2": "在迁移期结束时，未转移的数据将从当前数据库中删除。",
+    "body3": "无论你的选择如何，你的钱包、魔法词语和 CRC 都不会被删除，你仍然可以通过 circles.garden 访问你的钱包。",
+    "buttonSubmit": "提交",
+    "confirmationMsg": "你已成功更新迁移资料状态",
+    "errorMsg": "抱歉，保存更改时出现问题。",
+    "labelForm": "你是否同意将你的资料迁移到新的 Circles 团队？",
+    "option1": "是",
+    "option2": "否",
+    "title": "迁移你的资料"
+  },
+  "MyProfile": {
+    "buttonCreateOrganization": "创建共享钱包",
+    "buttonEditProfile": "编辑个人资料",
+    "buttonShareProfile": "分享个人资料"
+  },
+  "Navigation": {
+    "buttonActivityLog": "活动日志",
+    "buttonBalanceTokens": "余额明细",
+    "buttonDoublePeople": "信任人",
+    "buttonExportSeedPhrase": "导出魔法词",
+    "buttonMigration": "迁移你的资料",
+    "buttonMyQR": "我的二维码",
+    "buttonOrganization": "创建共享钱包",
+    "buttonSendCircles": "发送 Circles",
+    "buttonSettings": "设置",
+    "linkAbout": "关于",
+    "linkBugReporting": "报告错误",
+    "linkFAQ": "常见问题",
+    "linkMarketplace": "市场",
+    "linkPrivacyLegal": "隐私 / 法律",
+    "linkSupport": "论坛支持"
+  },
+  "NavigationFloating": {
+    "linkAddMembers": "添加成员",
+    "linkEditProfile": "编辑个人资料",
+    "linkMarketplace": "市场",
+    "linkMyWallets": "我的钱包"
+  },
+  "NotFound": {
+    "bodyNotFound": "哎呀。我们无法找到请求的页面。你确定这是正确的地址吗？",
+    "headingNotFound": "未找到"
+  },
+  "Onboarding": {
+    "aboutSeedPhraseLink": "魔法词语",
+    "bodyAboutSeedPhraseP1": "魔法词语是一组包含你钱包所有信息的词语，包括你的 Circles。这就像访问你账户的秘密代码。",
+    "bodyAboutSeedPhraseP2": "保持你的魔法词语秘密和安全非常重要。如果有人获得你的魔法词语，他们可以访问你的私人账户。",
+    "bodyAboutSeedPhraseP3": "将它保存在你可以访问的私人地方。如果你丢失了它，甚至 Circles 团队也无法恢复。",
+    "bodyAvatar": "你的照片是你的朋友在 Circles App 中搜索你的方式。",
+    "bodyEmail": "我们绝不会分享这些信息！",
+    "bodyGuidelinesUsername": "仅允许基本字符和数字 (a-z, A-Z, 0-9)，不允许符号或空格，字符长度为 3-24 个。",
+    "bodySaveSeedPhraseHelper": "将它保存在只有你能访问的地方。如果你丢失了它，甚至 Circles 团队也无法恢复。",
+    "bodySecureWalletP1A": "不要冒着丢失账户的风险。通过保存你的",
+    "bodySecureWalletP1B": " 在你信任的地方来保护你的钱包。",
+    "bodySecureWalletP1Link": "魔法词语",
+    "bodySecureWalletP2": "这是你唯一可以恢复钱包的方法，无论你是否被锁定在应用之外，或者换了新设备。",
+    "bodySeedPhrase": "这是你的账户密码。你可以使用它在其他设备上登录到你的账户。",
+    "bodySeedPhraseChallenge": "请输入你魔法词语中的第 {wordIndex} 个词：",
+    "bodyUsername": "你的用户名是你的朋友在 Circles App 中搜索你的方式。",
+    "buttonCopyToClipboard": "复制到剪贴板",
+    "errorSignup": "注册时发生服务器错误：{errorMessage}",
+    "footerSeedPhrase": "请将它保存到私人地方！",
+    "formEmail": "电子邮件",
+    "formSeedPhraseChallenge": "你的回答",
+    "formSeedPhraseChallengeInvalid": "答案错误",
+    "formUsername": "用户名",
+    "headingAboutSeedPhrase": "什么是“魔法词语”？",
+    "headingAvatar": "添加照片",
+    "headingEmail": "输入电子邮件",
+    "headingSaveSeedPhraseHelper": "在哪里保存你的魔法词语",
+    "headingSecureWallet": "保护你的钱包",
+    "headingSeedPhrase": "保存你的魔法词语",
+    "headingSeedPhraseChallenge": "你保存了你的魔法词语吗？",
+    "headingUsername": "创建你的用户名",
+    "linkHelperSaveSeedPhrase": "需要关于保存它的建议吗？",
+    "listItemSaveSeedPhraseHelper1": "添加到密码管理器",
+    "listItemSaveSeedPhraseHelper2": "保存在记事应用中",
+    "listItemSaveSeedPhraseHelper3": "通过电子邮件发送给自己",
+    "listItemSaveSeedPhraseHelper4": "手写并放在安全的地方",
+    "stepperFirstStep": "创建资料",
+    "stepperSecondStep": "保护钱包",
+    "stepperThirdStep": "验证",
+    "successOnboardingComplete": "你的账户已成功创建！欢迎！"
+  },
+  "OnboardingOrganization": {
+    "bodyPrefund": "Circles 系统中的每一项活动都需要少量的维护费。向你的新钱包发送 1 个或更多的 Circles 以完成设置。",
+    "bodyUsername": "你的钱包名称是你的朋友在 Circles 应用中搜索你的方式。我们建议你将共享钱包命名为组织的名称。",
+    "errorSignup": "服务器发生错误：{errorMessage}",
+    "formEmail": "电子邮件",
+    "formPrefundAmount": "资金额",
+    "formPrefundInvalid": "此金额超过了你当前的代币余额",
+    "formPrefundSender": "发件人",
+    "formUsername": "钱包名称",
+    "headingAddMembers": "添加成员",
+    "headingAvatar": "添加照片",
+    "headingEmail": "输入电子邮件",
+    "headingPrefund": "为你的组织提供资金",
+    "headingWalletName": "命名你的共享钱包",
+    "stepperFirstStep": "创建资料",
+    "stepperSecondStep": "存入资金",
+    "stepperThirdStep": "自定义钱包",
+    "successOnboardingComplete": "你的共享钱包已成功创建！你现在可以开始邀请其他成员了。"
+  },
+  "OnboardingStepper": {
+    "buttonConfirmSave": "我保存了！",
+    "buttonCreateAccount": "创建钱包",
+    "buttonFinish": "注册我！",
+    "buttonNextStep": "继续",
+    "buttonShareProfile": "分享个人资料链接",
+    "skipStep": "稍后再做"
+  },
+  "OrganizationMembers": {
+    "buttonRemoveMember": "移除",
+    "dialogCancel": "取消",
+    "dialogConfirm": "确认",
+    "dialogRemoveMember": "你确定要将 @{username} 从此共享钱包中移除吗？",
+    "dialogTitle": "移除 @{username}",
+    "errorRemovedMember": "出了些问题，无法将 @{username} 从共享钱包中移除",
+    "headingMembers": "成员",
+    "successRemovedMember": "你已成功将 @{username} 从此共享钱包中移除。"
+  },
+  "OrganizationMembersAdd": {
+    "errorAddedMember": "出了些问题，无法将 @{username} 添加到共享钱包",
+    "headingAddMember": "添加成员",
+    "successAddedMember": "你已成功将 @{username} 添加到此共享钱包。"
+  },
+  "Profile": {
+    "bodyActivity": "共享活动",
+    "bodyMutuallyTrusted": "相互信任",
+    "bodyNoActivities": "暂时没有活动。",
+    "bodyNoMutualFriends": "未找到共同信任的联系人。",
+    "bodyStatusCommonFriends": {
+      "one": "@{username} 是你信任的一个人的好友",
+      "other": "@{username} 是 {count} 个你信任的人的好友",
+      "zero": "@{username} 不被你信任的任何人信任"
+    },
+    "bodyStatusMeTrusting": "你信任 @{username}",
+    "bodyStatusMutualTrust": "你和 @{username} 互相信任",
+    "bodyStatusNotDeployedYet": "该账户尚未验证",
+    "bodyStatusTrustingMe": "@{username} 信任你",
+    "tooltipSafeIsYou": "这是你自己的个人资料",
+    "tooltipSafeNotDeployed": "该账户尚未验证"
+  },
+  "ProfileMini": {
+    "bodyMutualFriends": {
+      "one": "你和 @{username} 共有一个相互信任的联系人",
+      "other": "你和 @{username} 共有 {count} 个相互信任的联系人",
+      "zero": "你和 @{username} 在你们信任的人中没有交集"
+    },
+    "bodyUndeployedToken": "账户未验证"
+  },
+  "QRCodeScanner": {
+    "notificationError": "无法打开二维码扫描器：{error}。"
+  },
+  "QRGenerator": {
+    "buttonShowQRCode": "显示二维码",
+    "dialogClose": "关闭",
+    "dialogSaveFile": "保存为 .png 文件",
+    "dialogShare": "分享付款链接",
+    "formAmount": "金额",
+    "formPaymentNote": "备注",
+    "formReceiver": "发送给",
+    "headingGenerator": "二维码生成器"
+  },
+  "Search": {
+    "headingSearch": "信任网络"
+  },
+  "SeedPhrase": {
+    "bodyDescription": "打印此内容并安全存储：",
+    "buttonCopyToClipboard": "复制到剪贴板",
+    "headingExportSeedPhrase": "导出魔法词"
+  },
+  "Send": {
+    "headingSendCircles": "发送 Circles"
+  },
+  "SendConfirm": {
+    "bodyAmountTooHigh": {
+      "one": "你目前只能向 @{username} 发送最多 {count} Circles。",
+      "other": "你目前只能向 @{username} 发送最多 {count} Circles。",
+      "zero": "你目前不能向 @{username} 发送任何东西，这意味着你们之间没有信任路径。"
+    },
+    "bodyMaxFlow": "最大金额：{amount}",
+    "buttonSubmitAmount": "发送",
+    "dialogSendCancel": "取消",
+    "dialogSendConfirm": "确认",
+    "dialogSendDescription": "向 @{username} 发送 {amount} Circles",
+    "errorMessage": "出了点问题 .. {errorMessage}",
+    "errorMessageCannotBeCalculated": "当前无法计算最大金额。",
+    "errorMessageTransferInvalid": "无法转账 Circles，因为它无效。",
+    "errorMessageTransferNotFound": "由于信任路径，向 @{username} 的交易无法完成。请尝试更小的金额。",
+    "errorMessageTransferTooComplex": "无法转账 Circles，因为需要的跳数太多。考虑发送更小的金额，并请 @{username} 直接信任你以使转账更容易。",
+    "errorMessageTransferUnknown": "无法转账 Circles。出了点问题！",
+    "formAmount": "输入金额",
+    "formPaymentNote": "添加备注",
+    "formReceiver": "发送给",
+    "formSender": "发送自",
+    "headingSendCircles": "发送 Circles",
+    "readMoreLink": "阅读更多关于传递交易的信息",
+    "receiveSuccessMessage": "你收到来自 <br> @{username} 的 <strong>{amount} Circles</strong>。",
+    "successMessage": "<strong>{amount} Circles</strong> 已发送给 @{username}！",
+    "tooltipMaxFlow": "这是你在信任网络中向 @{username} 发送的当前最大金额",
+    "transferringCirclesInfo": "正在通过网络转移 Circles。这可能需要几分钟时间。"
+  },
+  "Settings": {
+    "bodyDeviceAddress": "设备地址",
+    "bodySafeAddress": "个人资料地址",
+    "bodyTokenAddress": "代币地址",
+    "buttonBurnWallet": "结束会话",
+    "headingDangerZone": "危险区域",
+    "headingSettings": "设置",
+    "headingStatus": "状态"
+  },
+  "Share": {
+    "buttonQRGenerator": "生成二维码",
+    "buttonShareProfileLink": "分享",
+    "headingShare": "我的二维码",
+    "shareText": "嘿！查看我的 Circles UBI 个人资料！"
+  },
+  "ShareBox": {
+    "headingShowYourQR": "向他人展示你的二维码或个人资料以获得信任。"
+  },
+  "TextVerification": {
+    "noteInvalid": "你不能写入特殊符号，如 {}<br>^ 或超过 100 个字符。"
+  },
+  "Tokens": {
+    "descriptionTokens": "你持有的所有 Circles 最初是作为某人的基本收入发行的。这些用户是你持有的 Circles 的原始发行者。每个 Circles 可以直接发送到其他信任这些用户的钱包。",
+    "headingTokens": "余额分解"
+  },
+  "TransferInfoBalanceCard": {
+    "bodyTotalBalance": "你的总余额：{balance}",
+    "tooltipTotalBalance": "这是你账户中所有 Circles 的当前余额"
+  },
+  "Tutorial": {
+    "buttonFinish": "明白了。注册我！",
+    "buttonNextStep": "下一步",
+    "buttonSkip": "跳过"
+  },
+  "TutorialOnboarding": {
+    "bodyBuildYourOwnEconomy": "Circles 没有中央领导，所以它由你来创建。你可以邀请朋友和本地企业参与 Circles，支持一个替代经济。",
+    "bodyLearnMore": "了解更多",
+    "bodyUnconditionalIncome": "Circles 设计类似于基本收入。因为它是由人们驱动的，所以它基于信任。要接收你的基本收入，必须有一个已经在 Circles 系统中信任的用户信任你的个人资料。这样，你就会定期无条件地获得 Circles 代币。",
+    "bodyWebOfTrust": "你可以在信任的人中花费 Circles。你社区的连接越多，你的 Circles 就越有价值。",
+    "headingBuildYourOwnEconomy": "建立自己的经济",
+    "headingUnconditionalIncome": "无条件收入",
+    "headingWebOfTrust": "信任网络"
+  },
+  "TutorialOrganization": {
+    "finish": "开始吧！",
+    "next": "下一步",
+    "slideBody1": "通过共享钱包，你可以将个人的 Circles 集合在一起，并与信任的人组织联合项目。此钱包将不会接收基本收入。",
+    "slideBody2": "组织、家庭、社区和个人可以使用这些钱包共同持有 Circles，或跟踪个人业务。",
+    "slideBody3": "作为一个团体，你可以信任其他人以接受他们的 Circles。你也可以与其他团体发送和接收 Circles。",
+    "slideBody3Link": "了解更多关于如何与其他团体组织。",
+    "slideHeading1": "共享钱包",
+    "slideHeading2": "分享财富",
+    "slideHeading3": "分享信任"
+  },
+  "UBI": {
+    "infoUbiPayoutReceived": "你刚刚收到了本月的 UBI <br><strong>{payout} Circles</strong>！"
+  },
+  "Validation": {
+    "bodyDoNotReset": "请勿重置浏览器本地存储，否则你将需要使用魔法词恢复数据。",
+    "bodyTrustDescription": "要接收你的基本收入，",
+    "bodyTrustDescriptionEmphasize": "必须有一个人信任你的个人资料。",
+    "buttonShareProfileLink": "分享个人资料链接",
+    "headingBuildYourWebOfTrust": "验证你的账户",
+    "tooltipLeftTrustConnections": ""
+  },
+  "ValidationLock": {
+    "bodyThisMayTakeMinutes": "<b>保持钱包开启！</b> 你的钱包正在区块链上创建。这个过程很复杂，可能需要几分钟时间。重要的是，你<b>不要关闭或刷新浏览器</b>，直到完成。如果你这样做，你的钱包创建将会失败，你将不得不重新开始。",
+    "bodyYourCirclesLoading": "你的 Circles 账户正在加载！"
+  },
+  "ValidationShare": {
+    "buttonShareProfileLink": "分享个人资料链接",
+    "headingShowYourQR": "向他人展示你的二维码或个人资料以获得信任。",
+    "shareText": "嘿！查看我的 Circles 个人资料！"
+  },
+  "ValidationStatus": {
+    "bodyReadyForDeployment": "你的账户现在已准备好，点击下面的按钮来创建它：",
+    "buttonStartDeployment": "创建钱包"
+  },
+  "VerifiedEmailInput": {
+    "formEmailInvalid": "无效的电子邮件地址"
+  },
+  "VerifiedUsernameInput": {
+    "formUnknownError": "未知错误",
+    "formUsernameInvalidFormat": "输入错误，请重试。",
+    "formUsernameTaken": "用户名已被占用"
+  },
+  "Welcome": {
+    "buttonLogin": "登录",
+    "buttonSignUp": "注册",
+    "headingWelcomeToCircles": "欢迎来到 Circles",
+    "linkAboutCircles": "关于 Circles",
+    "linkContactUs": "联系我们",
+    "linkFAQ": "常见问题",
+    "linkPrivacyLegal": "隐私 + 法律",
+    "welcomeMessageBody": "你已成功连接你的钱包",
+    "welcomeMessageTitle": "欢迎来到 Circles！"
+  }
+}
