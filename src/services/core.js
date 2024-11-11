@@ -15,6 +15,7 @@ const core = new CirclesCore(web3, {
   relayServiceEndpoint: process.env.RELAY_SERVICE_EXTERNAL,
   safeMasterAddress: process.env.SAFE_ADDRESS,
   subgraphName: process.env.SUBGRAPH_NAME,
+  pathfinderMaxTransferSteps: 25,
 });
 
 async function requestCore(moduleName, method, options) {
