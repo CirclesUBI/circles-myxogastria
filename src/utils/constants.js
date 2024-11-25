@@ -13,11 +13,11 @@ export const FAQ_URL_DELETION =
   'https://joincircles.net/faq/profile-data-deletion/';
 export const FAQ_TRANSITIVE_TRANSFERS_URL =
   'https://github.com/CirclesUBI/whitepaper?tab=readme-ov-file#transitive-exchange';
-export const PRIVACY_LEGAL_URL = 'https://joincircles.net/privacy-policy';
+export const PRIVACY_LEGAL_URL = 'https://www.gnosis.io/privacy-policy';
 export const TELEGRAM_URL = 'https://t.me/about_circles';
-export const TERMS_URL = 'https://joincircles.net/terms';
+export const TERMS_URL =
+  'https://www.aboutcircles.com/circles-garden-terms-of-service';
 export const TWITTER_URL = 'https://twitter.com/aboutcircles';
-export const MIGRATION_INFO_URL = 'https://bit.ly/3W1il2M';
 
 export const SAFE_LAST_VERSION = '1.3.0';
 export const SAFE_CRC_VERSION = '1.1.1';
