@@ -5,6 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
+// Load environment variables
 dotenv.config();
 
 const PAGE_TITLE = 'Circles UBI | Wallet';
@@ -113,7 +114,18 @@ export default () => {
         '%': getPath(PATH_ASSETS),
         locales: getPath(PATH_LOCALES),
         '~': getPath(PATH_SRC),
+        crypto: require.resolve('crypto-browserify'),
+        stream: require.resolve('stream-browserify'),
+        path: require.resolve('path-browserify'),
       },
+    },
+    node: {
+      fs: 'empty',
+      crypto: 'empty',
+      path: 'empty',
+      stream: 'empty',
+      Buffer: true,
+      process: true,
     },
     module: {
       rules: [
@@ -199,6 +211,10 @@ export default () => {
       }),
       new webpack.DefinePlugin({
         'process.env': envData,
+      }),
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+        process: 'process/browser',
       }),
     ],
   };
