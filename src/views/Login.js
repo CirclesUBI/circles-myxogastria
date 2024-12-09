@@ -130,7 +130,7 @@ const Login = () => {
           <Box className={classes.loginImg}>
             <Logo size="small" />
           </Box>
-          <Box mb={2} mt={2}>
+          <Box mb={7} mt={14}>
             <Typography align="center" gutterBottom variant="h2">
               {translate('Login.headingLogin')}
             </Typography>

@@ -425,7 +425,7 @@ export default createTheme({
     scrollShadow: 30,
     layer2: 20,
     layer1: 10,
-    backgroundCurvedWrapper: -1, // previously 0, changing so migration link is clickable
+    backgroundCurvedWrapper: 0,
   },
   custom: {
     colors,
