@@ -77,13 +77,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     top: '45px',
   },
-
-  migrationContainer: {
-    marginTop: '10px',
-    '& p': {
-      marginBottom: '10px',
-    },
-  },
 }));
 
 const Dashboard = () => {
@@ -116,17 +109,6 @@ const Dashboard = () => {
   const handleMenuClick = () => {
     setIsMenuExpanded(false);
   };
-
-  const env = process.env.BASE_PATH;
-  const htmlMigrationContent = (
-    <span
-      dangerouslySetInnerHTML={{
-        __html: translate('Login.migrationText3', {
-          env,
-        }),
-      }}
-    />
-  );
 
   return (
     <Fragment>
@@ -165,18 +147,6 @@ const Dashboard = () => {
         <Container maxWidth="sm">
           <Box className={classes.balanceContainer}>
             <BalanceDisplay />
-          </Box>
-          <Box className={classes.migrationContainer}>
-            <Typography align="center" variant="body1">
-              {translate('Login.migrationText1')}
-            </Typography>
-            <Typography
-              align="center"
-              classes={{ root: 'body3_link_gradient' }}
-              variant="body1"
-            >
-              {htmlMigrationContent}
-            </Typography>
           </Box>
           <AppNote messageVersion="dashboard" />
           <Grid item xs={12}>

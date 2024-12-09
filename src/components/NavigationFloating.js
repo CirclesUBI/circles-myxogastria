@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 import {
   EDIT_PROFILE_PATH,
-  MIGRATION_PATH,
   MY_PROFILE_PATH,
   ORGANIZATION_MEMBERS_PATH,
 } from '~/routes';
@@ -188,11 +187,6 @@ export default function NavigationFloating(props) {
         }}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
-          <Link to={MIGRATION_PATH}>
-            <Button isOutline>{translate('Navigation.buttonMigration')}</Button>
-          </Link>
-        </MenuItem>
         {props.isAddMembersLink && (
           <MenuItem onClick={handleClose}>
             <Link to={ORGANIZATION_MEMBERS_PATH}>

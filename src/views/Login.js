@@ -58,13 +58,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  migrationContainer: {
-    marginTop: '10px',
-    '& p': {
-      marginBottom: '10px',
-    },
-  },
-
   paperContainer: {
     boxShadow: 'none',
   },
@@ -178,14 +171,6 @@ const Login = () => {
               {translate('Login.linkSupport')}
             </ExternalLink>
           </Typography>
-          <Box className={classes.migrationContainer}>
-            <Typography align="center" variant="body1">
-              {translate('Login.migrationText1')}
-            </Typography>
-            <Typography align="center" variant="body1">
-              {translate('Login.migrationText2')}
-            </Typography>
-          </Box>
         </Container>
       </View>
       <Footer>
