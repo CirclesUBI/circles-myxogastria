@@ -21,6 +21,7 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import Input from '~/components/Input';
 import Logo from '~/components/Logo';
+import ShortMessage from '~/components/ShortMessage';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
@@ -171,6 +172,7 @@ const Login = () => {
               {translate('Login.linkSupport')}
             </ExternalLink>
           </Typography>
+          <ShortMessage />
         </Container>
       </View>
       <Footer>

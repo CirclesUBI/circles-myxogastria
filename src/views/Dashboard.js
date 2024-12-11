@@ -19,6 +19,7 @@ import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import NavigationFloating from '~/components/NavigationFloating';
+import ShortMessage from '~/components/ShortMessage';
 import View from '~/components/View';
 import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
@@ -76,6 +77,14 @@ const useStyles = makeStyles((theme) => ({
   userDataContainer: {
     position: 'relative',
     top: '45px',
+  },
+
+  migrationContainer: {
+    marginTop: '10px',
+    '& p': {
+      marginBottom: '10px',
+    },
+    textAlign: 'center',
   },
 }));
 
@@ -148,6 +157,7 @@ const Dashboard = () => {
           <Box className={classes.balanceContainer}>
             <BalanceDisplay />
           </Box>
+          <ShortMessage />
           <AppNote messageVersion="dashboard" />
           <Grid item xs={12}>
             <ButtonDouble

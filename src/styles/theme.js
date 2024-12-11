@@ -425,7 +425,7 @@ export default createTheme({
     scrollShadow: 30,
     layer2: 20,
     layer1: 10,
-    backgroundCurvedWrapper: 0,
+    backgroundCurvedWrapper: -1, // previously 0, changing so short message link in dashboard is clickable
   },
   custom: {
     colors,
