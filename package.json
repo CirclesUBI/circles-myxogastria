@@ -72,7 +72,7 @@
     "webpack-dev-server": "^3.11.3"
   },
   "dependencies": {
-    "@circles/core": "^4.10.2",
+    "@circles/core": "4.10.2-1-gdedbea5",
     "@circles/timecircles": "^1.0.6",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
