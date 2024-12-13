@@ -113,18 +113,7 @@ export default () => {
         '%': getPath(PATH_ASSETS),
         locales: getPath(PATH_LOCALES),
         '~': getPath(PATH_SRC),
-        crypto: require.resolve('crypto-browserify'),
-        stream: require.resolve('stream-browserify'),
-        path: require.resolve('path-browserify'),
       },
-    },
-    node: {
-      fs: 'empty',
-      crypto: 'empty',
-      path: 'empty',
-      stream: 'empty',
-      Buffer: true,
-      process: true,
     },
     module: {
       rules: [
@@ -136,14 +125,6 @@ export default () => {
               loader: 'babel-loader',
               options: {
                 presets: ['@babel/preset-env', '@babel/react'],
-                plugins: [
-                  '@babel/plugin-transform-runtime',
-                  '@babel/proposal-class-properties',
-                  '@babel/proposal-object-rest-spread',
-                  '@babel/plugin-proposal-optional-chaining',
-                  '@babel/plugin-proposal-nullish-coalescing-operator',
-                  '@babel/plugin-transform-modules-commonjs',
-                ],
               },
             },
             'eslint-loader',
@@ -210,10 +191,6 @@ export default () => {
       }),
       new webpack.DefinePlugin({
         'process.env': envData,
-      }),
-      new webpack.ProvidePlugin({
-        Buffer: ['buffer', 'Buffer'],
-        process: 'process/browser',
       }),
     ],
   };
