@@ -3,7 +3,7 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/', '/config/'],
 
   // Require .env file and additional setup
-  setupFiles: ['dotenv/config', '<rootDir>/jest.setup.js'],
+  setupFiles: ['dotenv/config'],
 
   // Resolve modules same as Webpack
   moduleNameMapper: {
