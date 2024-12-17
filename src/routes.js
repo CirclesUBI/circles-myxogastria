@@ -10,7 +10,6 @@ import DashboardOrganization from '~/views/DashboardOrganization';
 import EditProfile from '~/views/EditProfile';
 import Error from '~/views/Error';
 import Login from '~/views/Login';
-import MigrateYourProfile from '~/views/MigrateYourProfile';
 import NotFound from '~/views/NotFound';
 import Onboarding from '~/views/Onboarding';
 import OnboardingOrganization from '~/views/OnboardingOrganization';
@@ -38,7 +37,6 @@ export const ACTIVITIES_PATH = '/activities';
 export const DASHBOARD_PATH = '/';
 export const EDIT_PROFILE_PATH = '/edit';
 export const LOGIN_PATH = '/welcome/login';
-export const MIGRATION_PATH = '/profile-migrate';
 export const ONBOARDING_PATH = '/welcome/onboarding';
 export const ORGANIZATION_MEMBERS_ADD_PATH = '/sharedwallet/members/add';
 export const ORGANIZATION_MEMBERS_PATH = '/sharedwallet/members';
@@ -266,11 +264,6 @@ const Routes = () => {
       <TrustedRoute component={Share} exact path={SHARE_PATH} />
       <TrustedRoute component={Profile} exact path={PROFILE_PATH} />
       <TrustedRoute component={Activities} exact path={ACTIVITIES_PATH} />
-      <TrustedRoute
-        component={MigrateYourProfile}
-        exact
-        path={MIGRATION_PATH}
-      />
       <TrustedRoute component={EditProfile} exact path={EDIT_PROFILE_PATH} />
       <TrustedRoute component={QRGenerator} exact path={QR_GENERATOR_PATH} />
       <TrustedRoute component={Search} exact path={SEARCH_PATH} />

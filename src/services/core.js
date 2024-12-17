@@ -15,6 +15,7 @@ const core = new CirclesCore(web3, {
   relayServiceEndpoint: process.env.RELAY_SERVICE_EXTERNAL,
   safeMasterAddress: process.env.SAFE_ADDRESS,
   subgraphName: process.env.SUBGRAPH_NAME,
+  pathfinderMaxTransferSteps: 30,
 });
 
 async function requestCore(moduleName, method, options) {
@@ -141,22 +142,6 @@ const user = {
 
   getEmail: async (safeAddress) => {
     return await requestCore('user', 'getEmail', {
-      safeAddress,
-    });
-  },
-
-  updateProfileMigrationConsent: async (
-    safeAddress,
-    profileMigrationConsent,
-  ) => {
-    return await requestCore('user', 'updateProfileMigrationConsent', {
-      safeAddress,
-      profileMigrationConsent,
-    });
-  },
-
-  getProfileMigrationConsent: async (safeAddress) => {
-    return await requestCore('user', 'getProfileMigrationConsent', {
       safeAddress,
     });
   },

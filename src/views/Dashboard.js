@@ -1,4 +1,4 @@
-import { Box, Container, Grid, IconButton, Typography } from '@mui/material';
+import { Box, Container, Grid, IconButton } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import React, { Fragment, useEffect, useState } from 'react';
@@ -19,6 +19,7 @@ import Header from '~/components/Header';
 import LastInteractions from '~/components/LastInteractions';
 import Navigation from '~/components/Navigation';
 import NavigationFloating from '~/components/NavigationFloating';
+import ShortMessage from '~/components/ShortMessage';
 import View from '~/components/View';
 import { useUpdateLoop } from '~/hooks/update';
 import translate from '~/services/locale';
@@ -83,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
     '& p': {
       marginBottom: '10px',
     },
+    textAlign: 'center',
   },
 }));
 
@@ -116,17 +118,6 @@ const Dashboard = () => {
   const handleMenuClick = () => {
     setIsMenuExpanded(false);
   };
-
-  const env = process.env.BASE_PATH;
-  const htmlMigrationContent = (
-    <span
-      dangerouslySetInnerHTML={{
-        __html: translate('Login.migrationText3', {
-          env,
-        }),
-      }}
-    />
-  );
 
   return (
     <Fragment>
@@ -166,18 +157,7 @@ const Dashboard = () => {
           <Box className={classes.balanceContainer}>
             <BalanceDisplay />
           </Box>
-          <Box className={classes.migrationContainer}>
-            <Typography align="center" variant="body1">
-              {translate('Login.migrationText1')}
-            </Typography>
-            <Typography
-              align="center"
-              classes={{ root: 'body3_link_gradient' }}
-              variant="body1"
-            >
-              {htmlMigrationContent}
-            </Typography>
-          </Box>
+          <ShortMessage />
           <AppNote messageVersion="dashboard" />
           <Grid item xs={12}>
             <ButtonDouble
