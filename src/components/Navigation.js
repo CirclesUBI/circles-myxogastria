@@ -8,7 +8,6 @@ import { generatePath } from 'react-router-dom';
 
 import {
   ACTIVITIES_PATH,
-  MIGRATION_PATH,
   MY_PROFILE_PATH,
   ORGANIZATION_PATH,
   SEARCH_PATH,
@@ -151,9 +150,6 @@ const NavigationMain = ({ onClick }) => {
       </NavigationLink>
       <NavigationLink to={SETTINGS_PATH} onClick={onClick}>
         {translate('Navigation.buttonSettings')}
-      </NavigationLink>
-      <NavigationLink to={MIGRATION_PATH} onClick={onClick}>
-        {translate('Navigation.buttonMigration')}
       </NavigationLink>
     </Box>
   );

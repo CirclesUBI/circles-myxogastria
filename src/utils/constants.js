@@ -6,6 +6,7 @@ export const NEEDED_TRUST_CONNECTIONS = 1;
 
 export const ABOUT_URL = 'https://www.aboutcircles.com';
 export const BUG_REPORTING_URL = 'mailto:support@aboutcircles.com';
+export const DISCORD_URL = 'https://discord.com/invite/aboutcircles';
 export const EMAIL_URL = 'mailto:hello@aboutcircles.com';
 export const FACEBOOK_URL = 'https://facebook.com/CirclesUBI';
 export const FAQ_URL = 'https://www.aboutcircles.com/faq';
