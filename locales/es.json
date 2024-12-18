@@ -1,2 +1,526 @@
 {
+  "Activities": {
+    "filterAllTitle": "Todas las transacciones",
+    "filterReceivedTitle": "Recibido",
+    "filterSentTitle": "Enviado",
+    "headingActivityLog": "Registro de Actividad"
+  },
+  "ActivityStream": {
+    "bodyActivityAddedToSafe": "fue añadido a esta cuenta",
+    "bodyActivityMeTrustedSomeone": "Confías en @{actor}",
+    "bodyActivityMeUntrustedSomeone": "Dejas de confiar en @{actor}",
+    "bodyActivityMyselfAddedToSafe": "Vinculaste este dispositivo a esta cuenta",
+    "bodyActivityReceivedCircles": "@{actor} te envió",
+    "bodyActivityReceivedUBI": "UBI de Circles",
+    "bodyActivityRemovedFromSafe": "@{actor} fue eliminado de esta cuenta",
+    "bodyActivitySentCircles": "Enviado a @{actor}",
+    "bodyActivityTrustedBySomeone": "@{actor} confía en ti",
+    "bodyActivityUntrustedBySomeone": "@{actor} dejó de confiar en ti",
+    "bodyDateNow": "Ahora",
+    "bodyExplainMeTrustedSomeone": "Confiaste en @{actor}, por tant @{actor} puede enviarte su token.",
+    "bodyExplainMeUntrustedSomeone": "Dejaste de confiar en @{actor}, por tanto ya no aceptas su token.",
+    "bodyExplainReceivedCircles": "Recibiste {value} {denominator} de @{actor} de manera transitiva.",
+    "bodyExplainReceivedUBI": "Este es tu Ingreso Básico Universal, emitido como tu propia moneda personal. Recibes {rate} por día.",
+    "bodyExplainSecondary": "Todas las actividades tienen una pequeña tasa de transacción utilizada para mantener la red Circles.",
+    "bodyExplainSentCircles": "Enviaste {value} {denominator} a @{actor} de manera transitiva.",
+    "bodyExplainTrustedBySomeone": "@{actor} confía en ti. Ahora puedes enviarle tu token.",
+    "bodyExplainUntrustedBySomeone": "@{actor} dejó de confiar en ti, por tanto ya no acepta tu token.",
+    "bodyNothingHereYet": "No hay actividad reciente para mostrar aún",
+    "bodyPaymentNote": "Nota: {note}",
+    "buttonLoadMore": "Cargar más",
+    "linkLearnMore": "Aprende más."
+  },
+  "ActivityStreamWithTabs": {
+    "bodyFilterConnections": "Conexiones",
+    "bodyFilterNews": "Noticias",
+    "bodyFilterTransactions": "Transacciones"
+  },
+  "App": {
+    "errorConnection": "Parece que estás offline. Verifica la conexión para continuar",
+    "errorUpdate": "Algo salió mal, ¿estás conectado a internet? {errorMessage}"
+  },
+  "AvatarUploader": {
+    "errorAvatarUpload": "¡Ups, algo salió mal!\nAsegúrate de que tu imagen sea un jpeg o png de máximo 1 MB."
+  },
+  "BalanceDisplay": {
+    "tooltipSharedWalletBalance": "Este es el saldo de la cartera compartida. Las carteras compartidas no reciben ingreso básico.",
+    "tooltipYourBalance": "Tu ingreso básico se emite continuamente a una tasa de {rate} círculos por día."
+  },
+  "ButtonClipboard": {
+    "buttonCopy": "Copiar al portapapeles",
+    "infoCopiedMessage": "Texto copiado al portapapeles"
+  },
+  "ButtonDeleteProfile": {
+    "bodyText": "Esta acción eliminará tu foto de perfil, nombre de usuario y correo electrónico de nuestras bases de datos.",
+    "bodyText2": "Sin embargo, esta acción no eliminará los datos históricos de transacciones ni las interacciones de confianza.",
+    "bodyText3": "Después de la eliminación, puedes optar por cerrar sesión a través de Configuración. Si no inicias sesión dentro de 90 días, tus pagos de UBI se detendrán para siempre.",
+    "bodyText4": "Ten en cuenta que la eliminación de datos no ocurrirá a través de las carteras. Tendrás que realizar la eliminación de datos de perfil en tu cartera personal y en cualquier cartera compartida por separado antes de cerrar sesión.",
+    "btnText": "Eliminar datos del perfil",
+    "confirmationCancel": "Cancelar",
+    "confirmationDelete": "Eliminar",
+    "linkEditProfile": "Editar perfil",
+    "notificationError": "¡Ups, algo salió mal. ¡Inténtalo de nuevo!",
+    "notificationSuccess": "Los datos del perfil de esta cartera han sido eliminados con éxito. Puedes cerrar sesión en Configuración.",
+    "readMore": "Lee más",
+    "titleText": "¿Seguro que quieres eliminar los datos de tu perfil?"
+  },
+  "CheckboxPrivacy": {
+    "checkboxLabel": "He leído la",
+    "checkboxLink": "Política de Privacidad"
+  },
+  "CheckboxTerms": {
+    "checkboxLabel": "Acepto los",
+    "checkboxLink": "Términos y Condiciones"
+  },
+  "CriticalError": {
+    "bodyCriticalErrorDescription": "¡Oh no! Algo salió mal. Por favor, recarga esta página e inténtalo de nuevo.",
+    "bodyCriticalErrorTryAgain": "¡Oh no! Algo salió mal mientras se cargaba tu cuenta. Por favor, recarga esta página e inténtalo de nuevo.",
+    "buttonBurnWallet": "Restablecer Cuenta",
+    "buttonReload": "Actualizar Página",
+    "dialogAreYouSure": "¿Realmente quieres restablecer esta cartera? No podrás recuperarla sin tus palabras mágicas.",
+    "infoCopiedMessage": "Texto copiado al portapapeles"
+  },
+  "Dashboard": {
+    "buttonSendCircles": "Enviar Circles",
+    "buttonTrustPeople": "Confiar en Personas"
+  },
+  "DashboardOrganization": {
+    "buttonSendCircles": "Enviar Circles",
+    "buttonTrustPeople": "Confiar en Personas"
+  },
+  "DialogAddMember": {
+    "dialogBody": "La confianza es poder. Cuando agregas a alguien, significa que estás compartiendo el poder para enviar Circles desde tu cartera compartida.",
+    "dialogBodyCannotAdd": "No puedes agregar otra cartera compartida como miembro de una cartera compartida.",
+    "dialogCancel": "Cancelar",
+    "dialogConfirm": "Agregar miembro",
+    "dialogTitle": "Agregar @{username}",
+    "linkLearnMore": "Aprende más"
+  },
+  "DialogBurn": {
+    "dialogBurnCancel": "Cancelar",
+    "dialogBurnConfirm": "Cerrar Sesión",
+    "dialogBurnDescription": "¿Seguro que quieres cerrar esta sesión? No podrás restaurar tu cuenta a menos que tengas tus Palabras Mágicas.",
+    "dialogBurnTitle": "¡Advertencia!"
+  },
+  "DialogTrust": {
+    "afterExternalLink": "aquí",
+    "dialogTrustCancel": "Cancelar",
+    "dialogTrustConfirm": "Confiar",
+    "dialogTrustDescription": "La confianza es poder. Cuando confías en alguien, significa que estás compartiendo el poder para emitir Circles.",
+    "dialogTrustTitle": "¿Confiar en @{username}?",
+    "errorTrust": "Algo salió mal cuando intentaste confiar en @{username} ...",
+    "externalLink": "Aprende más",
+    "successTrust": "Confiaste en @{username}. ¡Genial!"
+  },
+  "DialogTrustRevoke": {
+    "dialogRevokeTrustCancel": "Cancelar",
+    "dialogRevokeTrustConfirm": "Revocar confianza",
+    "dialogRevokeTrustDescription": "¿Estás seguro de que quieres revocar la confianza en @{username}?",
+    "dialogRevokeTrustTitle": "Dejar de confiar en @{username}",
+    "errorRevokeTrust": "Algo salió mal cuando intentaste dejar de confiar en @{username} ...",
+    "successRevokeTrust": "Revocaste la confianza en @{username}"
+  },
+  "DonationNote": {
+    "bodyPrimary": "Desde su lanzamiento el año pasado, la comunidad de Circles ha crecido a 200k usuarios en todo el mundo. El interés en el proyecto llevó a una rápida expansión, lo que sobrecargó nuestros servidores, y después de una revisión de nuestra infraestructura estamos al final de nuestro presupuesto.",
+    "bodySecondary": "¡Necesitamos tu apoyo para continuar! Necesitamos tu ayuda para hacer realidad el ingreso básico a nivel mundial. Estamos buscando donantes comprometidos y regulares que apoyen llevar a Circles a una vida completamente próspera.",
+    "bodyThird": "¡Tu donación es crucial! Apoya la creación de un ingreso básico para todas las personas y contribuye a economías locales y sostenibles en todo el mundo.",
+    "bodyTitle": "¡Circles te necesita!",
+    "buttonClose": "Cerrar",
+    "buttonDonate": "Donar Ahora"
+  },
+  "EditProfile": {
+    "bodyCancel": "Si haces clic en cancelar, se perderán todos los cambios que hayas realizado.",
+    "buttonCancel": "Cancelar",
+    "buttonContinue": "Continuar Editando",
+    "buttonSave": "Guardar Cambios",
+    "confirmationMessage": "¡Genial! ¡Los cambios en tu perfil se han guardado!",
+    "errorCompressImage": "Lo siento, hubo un problema al comprimir la imagen.",
+    "errorImageCapture": "Lo siento, hubo un problema con la captura de la imagen.",
+    "errorInvalidName": "¡Ups! Nombre inválido, inténtalo de nuevo.",
+    "errorNameTaken": "Lo siento, ¡este nombre ya está en uso!",
+    "errorSaveChanges": "Lo siento, hubo un problema al guardar los cambios.",
+    "heading": "Editar perfil",
+    "informationText": "Aquí puedes cambiar la información principal de tu cartera.",
+    "informationText2": "Tu nombre de usuario puede tener caracteres básicos y números (a-z, A-Z, 0-9), y de 3 a 24 caracteres. No se permiten símbolos ni espacios en blanco.",
+    "informationText3": "Solo un recordatorio. Tu privacidad es muy importante para nosotros. ¡Nunca compartiremos esto!",
+    "optionCamera": "Cámara",
+    "optionCapture": "Capturar",
+    "optionFile": "Galería",
+    "optionTryAgain": "Intentar de nuevo",
+    "optionUpload": "Subir",
+    "titleCancel": "¿Quieres guardar los cambios en tu perfil?"
+  },
+  "ErrorCodes": {
+    "CoreErrorInsufficientFunds": "Por favor, envía algunos Circles a esta cuenta si quieres realizar alguna transacción",
+    "CoreErrorSafeNotFound": "No se pudo encontrar el Safe con la dirección ${safeAddress}. Por favor, inténtalo de nuevo más tarde",
+    "ErrorTokenNotDeployed": "¡Algo salió mal! No pudimos crear tu cartera. Por favor, restablece tu cuenta.",
+    "GeneralErrorMessage": "Por favor, intenta con valores diferentes o actualiza la página o inténtalo de nuevo más tarde"
+  },
+  "ExportStatement": {
+    "exportBtnText": "Exportar Estado de Cuenta",
+    "exportFormat": "Formato",
+    "exportFrom": "Desde",
+    "exportHelper": "Solo puedes exportar períodos de hasta un año atrás.",
+    "exportHintDate": "Fecha inválida",
+    "exportHintRange": "Rango de fechas inválido",
+    "exportInfoText": "Tu estado de cuenta será descargado en formato CSV.",
+    "exportInvalidDateInterval": "Intervalo de fechas inválido",
+    "exportLoadingText": "Esto puede tardar unos minutos",
+    "exportStatement": "Estado de cuenta",
+    "exportSuccessful": "<strong>Estado de cuenta</strong> descargado con éxito!",
+    "exportTimeSpan": "Periodo de tiempo",
+    "exportTo": "Hasta",
+    "exportWallet": "Cartera",
+    "fileBalanceOnEndDate": "Saldo en la fecha de finalización",
+    "fileBalanceOnStartDate": "Saldo en la fecha de inicio",
+    "fileDemurrage": "Demurrage durante el período seleccionado",
+    "fileNamePrefix": "Circles_Statement",
+    "filePeriodEndDate": "Fecha de finalización del período",
+    "filePeriodStartDate": "Fecha de inicio del período",
+    "fileSumTransactions": "Suma de transacciones",
+    "fileTitle": "Estado de Cuenta de Circles",
+    "fileTransactionsTitle": "Transacciones dentro del período",
+    "fileTxAmount": "Cantidad en Circles",
+    "fileTxDate": "Fecha",
+    "fileTxPaymentNote": "Nota de pago",
+    "fileTxSafeAddress": "Dirección de Safe a o desde",
+    "fileTxUsername": "Nombre de usuario a o desde",
+    "fileUBIName": "CirclesUBI",
+    "fileUBIPaymentNote": "Pago de UBI",
+    "fileWalletName": "Nombre de la cartera",
+    "fileWalletSafeAddress": "Dirección del Safe de la cartera"
+  },
+  "Finder": {
+    "bodyFilterDirect": "Confianza directa",
+    "bodyFilterExternal": "Externo",
+    "bodyFilterIndirect": "En tu red",
+    "bodyNoResultsGiven": "¡No se encontraron resultados de búsqueda!",
+    "buttonLoadMore": "Mostrar más",
+    "formLabel": "Buscar",
+    "formSearch": "Agregar o buscar contactos"
+  },
+  "LocaleSelector": {
+    "de": "DE",
+    "en": "EN",
+    "es": "ES"
+  },
+  "Login": {
+    "bodyEnterYourSeedPhrase": "Ingresa tus palabras mágicas a continuación para restaurar tu cartera:",
+    "bodyLostYourSeedPhrase": "¿Perdiste tus palabras mágicas?",
+    "bodyNeedHelp": "¿Preguntas?",
+    "buttonCreateNewWallet": "Regístrate aquí",
+    "buttonSubmit": "Enviar",
+    "errorRestoreFailedInvalidSeedPhrase": "Las palabras mágicas son inválidas.",
+    "errorRestoreFailedUnknown": "No se pudo restaurar la cuenta debido a un error desconocido.",
+    "errorRestoreFailedUnknownSafe": "La cuenta que intentaste restaurar no está registrada.",
+    "headingLogin": "Iniciar sesión",
+    "inputPlaceholder": "Empieza a escribir...",
+    "linkMigrationText": "Migra tu perfil",
+    "linkSupport": "Enviar un correo electrónico",
+    "migrationText1": "Los datos del perfil de Circles Garden están siendo migrados.",
+    "migrationText2": "Inicia sesión y visita la página de Migrar tu Perfil para confirmar tu preferencia",
+    "migrationText3": "Por favor visita la página <a href='{env}/profile-migrate' rel='noopener noreferrer'>Migrar tu Perfil</a> para confirmar tu preferencia",
+    "successWelcome": "Conexión a la cuenta exitosa. ¡Te damos la bienvenida!"
+  },
+  "MigrateYourProfile": {
+    "body1": "Si aceptas la migración de tu perfil de usuario, esto significará que tus datos serán transferidos al nuevo equipo de Circles (Gnosis Chain).",
+    "body2": "Al final del período de migración, todos los datos que no se transfieran serán eliminados de las bases de datos actuales.",
+    "body3": "Tu cartera, palabras mágicas y Circles no serán eliminados independientemente de tu elección y aún podrás acceder a tu cartera a través de circles.garden.",
+    "buttonSubmit": "Enviar",
+    "confirmationMsg": "Has actualizado con éxito el estado de tu migración de datos",
+    "errorMsg": "Lo siento, hubo un problema al guardar los cambios.",
+    "labelForm": "¿Consientes la migración de tus datos de perfil al nuevo equipo de Circles?",
+    "option1": "Sí",
+    "option2": "No",
+    "title": "Migra tu perfil"
+  },
+  "MyProfile": {
+    "buttonCreateOrganization": "Crear Cartera Compartida",
+    "buttonEditProfile": "Editar perfil",
+    "buttonShareProfile": "Compartir perfil"
+  },
+  "Navigation": {
+    "buttonActivityLog": "Registro de Actividad",
+    "buttonBalanceTokens": "Desglose de Saldo",
+    "buttonDoublePeople": "Confiar en Personas",
+    "buttonExportSeedPhrase": "Exportar Palabras Mágicas",
+    "buttonMigration": "Migrar Tu Perfil",
+    "buttonMyQR": "Mi QR",
+    "buttonOrganization": "Crear Cartera Compartida",
+    "buttonSendCircles": "Enviar Circles",
+    "buttonSettings": "Configuración",
+    "linkAbout": "Acerca de",
+    "linkBugReporting": "Reportar Errores",
+    "linkFAQ": "FAQ",
+    "linkMarketplace": "Mercado",
+    "linkPrivacyLegal": "Privacidad / Legal",
+    "linkSupport": "Soporte en el Foro"
+  },
+  "NavigationFloating": {
+    "linkAddMembers": "Agregar Miembros",
+    "linkEditProfile": "Editar Perfil",
+    "linkMarketplace": "Mercado",
+    "linkMyWallets": "Mis Carteras"
+  },
+  "NotFound": {
+    "bodyNotFound": "Vaya. No pudimos encontrar la página solicitada. ¿Estás seguro de que es la dirección correcta?",
+    "headingNotFound": "No encontrado"
+  },
+  "Onboarding": {
+    "aboutSeedPhraseLink": "palabras mágicas",
+    "bodyAboutSeedPhraseP1": "Las palabras mágicas son un conjunto de palabras que contienen toda la información sobre tu cartera, incluyendo tus Circles. Es como un código secreto utilizado para acceder a tu cuenta.",
+    "bodyAboutSeedPhraseP2": "Es importante mantener tus palabras mágicas secretas y seguras. Si alguien tiene acceso a tus palabras mágicas, puede acceder a tu cuenta privada.",
+    "bodyAboutSeedPhraseP3": "Guárdalas en un lugar privado al que solo tú puedas acceder. Si las pierdes, ni siquiera el equipo de Circles podrá recuperarlas.",
+    "bodyAvatar": "Tu foto es cómo tus amigos pueden buscarte en la aplicación Circles.",
+    "bodyEmail": "¡Nunca compartiremos esto!",
+    "bodyGuidelinesUsername": "Solo se permiten caracteres básicos y números (a-z, A-Z, 0-9), sin símbolos ni espacios, 3-24 caracteres.",
+    "bodySaveSeedPhraseHelper": "Guárdalo en un lugar al que solo tú puedas acceder. Si lo pierdes, ni siquiera el equipo de Circles podrá recuperarlo.",
+    "bodySecureWalletP1A": "No arriesgues perder tu cuenta. Protege tu cartera guardando tu ",
+    "bodySecureWalletP1B": " en un lugar de confianza.",
+    "bodySecureWalletP1Link": "palabras mágicas",
+    "bodySecureWalletP2": "Esta es la única forma de recuperar tu cartera si tienes que volver a iniciar sesión u obtienes un nuevo dispositivo.",
+    "bodySeedPhrase": "Esta es la contraseña de tu cuenta. Puedes usarla para iniciar sesión en tu cuenta en otros dispositivos.",
+    "bodySeedPhraseChallenge": "Por favor, introduce la palabra {wordIndex} de tus palabras mágicas:",
+    "bodyUsername": "Tu nombre de usuario es cómo tus amigos pueden buscarte en la aplicación Circles.",
+    "buttonCopyToClipboard": "Copiar al portapapeles",
+    "errorSignup": "Ocurrió un error en el servidor durante el registro: {errorMessage}",
+    "footerSeedPhrase": "¡Guarda esto en algún lugar privado!",
+    "formEmail": "Correo electrónico",
+    "formSeedPhraseChallenge": "Tu respuesta",
+    "formSeedPhraseChallengeInvalid": "Respuesta incorrecta",
+    "formUsername": "Nombre de usuario",
+    "headingAboutSeedPhrase": "¿Qué son las \"Palabras Mágicas\"?",
+    "headingAvatar": "Agregar Foto",
+    "headingEmail": "Introduce Correo Electrónico",
+    "headingSaveSeedPhraseHelper": "Dónde guardar tus palabras mágicas",
+    "headingSecureWallet": "Asegura tu Cartera",
+    "headingSeedPhrase": "Guarda tus palabras mágicas",
+    "headingSeedPhraseChallenge": "¿Guardaste tus Palabras Mágicas?",
+    "headingUsername": "Crea tu Nombre de Usuario",
+    "linkHelperSaveSeedPhrase": "¿Necesitas consejos sobre dónde guardarlas?",
+    "listItemSaveSeedPhraseHelper1": "Agrégalas a un gestor de contraseñas",
+    "listItemSaveSeedPhraseHelper2": "Guárdalas en una aplicación de notas",
+    "listItemSaveSeedPhraseHelper3": "Envíatelas por correo electrónico",
+    "listItemSaveSeedPhraseHelper4": "Escríbelas a mano y guárdalas en un lugar seguro",
+    "stepperFirstStep": "Crear Perfil",
+    "stepperSecondStep": "Asegurar Cartera",
+    "stepperThirdStep": "Verificación",
+    "successOnboardingComplete": "¡Tu cuenta fue creada con éxito! ¡Bienvenido!"
+  },
+  "OnboardingOrganization": {
+    "bodyPrefund": "Cada actividad en el sistema de Circles requiere una pequeña tasa de mantenimiento. Envía 1 o más Circles a tu nueva cartera para finalizar la configuración.",
+    "bodyUsername": "El nombre de tu cartera es cómo tus amigos pueden buscarte en la aplicación Circles. Te recomendamos nombrar tu Cartera Compartida con el nombre de tu Organización.",
+    "errorSignup": "Ocurrió un error en el servidor: {errorMessage}",
+    "formEmail": "Correo electrónico",
+    "formPrefundAmount": "Cantidad de financiación",
+    "formPrefundInvalid": "Esta cantidad es mayor que tu saldo actual de tokens",
+    "formPrefundSender": "De remitente",
+    "formUsername": "Nombre de la cartera",
+    "headingAddMembers": "Agregar miembros",
+    "headingAvatar": "Agregar Foto",
+    "headingEmail": "Ingresar Correo Electrónico",
+    "headingPrefund": "Financia tu organización",
+    "headingWalletName": "Nombra tu cartera compartida",
+    "stepperFirstStep": "Crear Perfil",
+    "stepperSecondStep": "Depositar Fondos",
+    "stepperThirdStep": "Personalizar Cartera",
+    "successOnboardingComplete": "¡Tu cartera compartida fue creada con éxito! Ahora puedes comenzar a invitar a otros miembros."
+  },
+  "OnboardingStepper": {
+    "buttonConfirmSave": "¡Lo guardé!",
+    "buttonCreateAccount": "Crear Cartera",
+    "buttonFinish": "¡Regístrame!",
+    "buttonNextStep": "Continuar",
+    "buttonShareProfile": "Compartir Enlace de Perfil",
+    "skipStep": "Lo haré más tarde"
+  },
+  "OrganizationMembers": {
+    "buttonRemoveMember": "Eliminar",
+    "dialogCancel": "Cancelar",
+    "dialogConfirm": "Confirmar",
+    "dialogRemoveMember": "¿Seguro que quieres eliminar a @{username} de esta cartera compartida?",
+    "dialogTitle": "Eliminar a @{username}",
+    "errorRemovedMember": "Algo salió mal, @{username} no pudo ser eliminado de la cartera compartida",
+    "headingMembers": "Miembros",
+    "successRemovedMember": "Has eliminado exitosamente a @{username} de esta cartera compartida."
+  },
+  "OrganizationMembersAdd": {
+    "errorAddedMember": "Algo salió mal, @{username} no pudo ser agregado a la cartera compartida",
+    "headingAddMember": "Agregar miembro",
+    "successAddedMember": "Has agregado con éxito a @{username} a esta cartera compartida."
+  },
+  "Profile": {
+    "bodyActivity": "Actividad Compartida",
+    "bodyMutuallyTrusted": "De Confianza Mutua",
+    "bodyNoActivities": "Aún no hay actividad.",
+    "bodyNoMutualFriends": "No se encontraron personas de confianza mutua.",
+    "bodyStatusCommonFriends": {
+      "one": "Alguien en quien confías también confía en @{username}",
+      "other": "{count} personas en quienes confías también confían en @{username}",
+      "zero": "Nadie en quien confías confía en @{username}"
+    },
+    "bodyStatusMeTrusting": "Confías en @{username}",
+    "bodyStatusMutualTrust": "Tú y @{username} confiáis el uno en el otro",
+    "bodyStatusNotDeployedYet": "Esta cuenta aún no ha sido verificada",
+    "bodyStatusTrustingMe": "@{username} confía en ti",
+    "tooltipSafeIsYou": "Este es tu propio perfil",
+    "tooltipSafeNotDeployed": "Esta cuenta aún no ha sido verificada"
+  },
+  "ProfileMini": {
+    "bodyMutualFriends": {
+      "one": "Compartes una conexión de confianza mutua con @{username}",
+      "other": "Compartes {count} conexiones de confianza mutua con @{username}",
+      "zero": "Tú y @{username} no tenéis ninguna persona en quien confían en común"
+    },
+    "bodyUndeployedToken": "Cuenta no verificada"
+  },
+  "QRCodeScanner": {
+    "notificationError": "No se pudo abrir el escáner de códigos QR: {error}."
+  },
+  "QRGenerator": {
+    "buttonShowQRCode": "Mostrar Código QR",
+    "dialogClose": "Cerrar",
+    "dialogSaveFile": "Guardar como archivo .png",
+    "dialogShare": "Compartir enlace de pago",
+    "formAmount": "Cantidad",
+    "formPaymentNote": "Nota",
+    "formReceiver": "Enviado a",
+    "headingGenerator": "Generador de QR"
+  },
+  "Search": {
+    "headingSearch": "Red de Confianza"
+  },
+  "SeedPhrase": {
+    "bodyDescription": "Imprime esto y guárdalo de forma segura:",
+    "buttonCopyToClipboard": "Copiar al portapapeles",
+    "headingExportSeedPhrase": "Exportar Palabras Mágicas"
+  },
+  "Send": {
+    "headingSendCircles": "Enviar Circles"
+  },
+  "SendConfirm": {
+    "bodyAmountTooHigh": {
+      "one": "Actualmente solo puedes enviar un máximo de {count} Circles a @{username}.",
+      "other": "Actualmente solo puedes enviar un máximo de {count} Circles a @{username}.",
+      "zero": "Actualmente no puedes enviar nada a @{username}, lo que significa que no hay un camino de confianza ambos."
+    },
+    "bodyMaxFlow": "Cantidad máxima: {amount}",
+    "buttonSubmitAmount": "Enviar",
+    "dialogSendCancel": "Cancelar",
+    "dialogSendConfirm": "Confirmar",
+    "dialogSendDescription": "Enviar {amount} Circles a @{username}",
+    "errorMessage": "Algo salió mal .. {errorMessage}",
+    "errorMessageCannotBeCalculated": "La cantidad máxima no se puede calcular en este momento.",
+    "errorMessageTransferInvalid": "No se pudo transferir Circles ya que la transferencia es inválida.",
+    "errorMessageTransferNotFound": "La transacción a @{username} no pudo completarse debido a los caminos de confianza. Intenta con una cantidad más pequeña.",
+    "errorMessageTransferTooComplex": "No se pudo transferir Circles ya que se requieren demasiados saltos para enviar Circles a @{username}. Considera enviar una cantidad menor y pedirle a @{username} que confíe en ti directamente para facilitar esta transferencia.",
+    "errorMessageTransferUnknown": "No se pudo transferir Circles. ¡Algo salió mal!",
+    "formAmount": "Introduce cantidad",
+    "formPaymentNote": "Agregar nota",
+    "formReceiver": "Enviado a",
+    "formSender": "Enviado desde",
+    "headingSendCircles": "Enviar Circles",
+    "readMoreLink": "Lee más sobre transacciones transitivas",
+    "receiveSuccessMessage": "Has recibido <strong>{amount} Circles</strong> de <br> @{username}.",
+    "successMessage": "¡<strong>{amount} Circles</strong> enviados a @{username}!",
+    "tooltipMaxFlow": "Esta es la cantidad máxima actual de Circles que puedes enviar en la red de confianza a @{username}",
+    "transferringCirclesInfo": "Transfiriendo Circles a través de la red. Esto puede tardar unos minutos."
+  },
+  "Settings": {
+    "bodyDeviceAddress": "Dirección del dispositivo",
+    "bodySafeAddress": "Dirección del perfil",
+    "bodyTokenAddress": "Dirección del token",
+    "buttonBurnWallet": "Cerrar sesión",
+    "headingDangerZone": "Zona de Peligro",
+    "headingSettings": "Configuración",
+    "headingStatus": "Estado"
+  },
+  "Share": {
+    "buttonQRGenerator": "Generar Códigos QR",
+    "buttonShareProfileLink": "Compartir",
+    "headingShare": "Mi Código QR",
+    "shareText": "¡Hola! ¡Mira mi perfil de Circles UBI!"
+  },
+  "ShareBox": {
+    "headingShowYourQR": "Muestra tu código QR o perfil a otras personas para que confien en ti."
+  },
+  "TextVerification": {
+    "noteInvalid": "No puedes escribir símbolos especiales como {}<br>^ o más de 100 caracteres."
+  },
+  "Tokens": {
+    "descriptionTokens": "Todos los Circles que posees fueron emitidos originalmente como ingreso básico de alguien. Estos usuarios son los emisores originales de los Circles que posees. Cada uno de estos círculos puede ser enviado directamente a otras personas que confíen en estos usuarios.",
+    "headingTokens": "Desglose del Balance"
+  },
+  "TransferInfoBalanceCard": {
+    "bodyTotalBalance": "Tu saldo total: {balance}",
+    "tooltipTotalBalance": "Este es el saldo actual de todos los Circles que tienes en tu cuenta"
+  },
+  "Tutorial": {
+    "buttonFinish": "¡Entendido. Regístrame!",
+    "buttonNextStep": "Siguiente",
+    "buttonSkip": "Saltar"
+  },
+  "TutorialOnboarding": {
+    "bodyBuildYourOwnEconomy": "Circles no tiene un liderazgo central, por lo que tú mismo puedes crear tu comunidad. Puedes invitar a amigos y negocios locales a Circles para apoyar una economía alternativa.",
+    "bodyLearnMore": "Aprende más",
+    "bodyUnconditionalIncome": "Circles está diseñado de manera similar a un ingreso básico. Debido a que está impulsado por las personas, se basa en la confianza. Para recibir tu ingreso básico, una persona que ya confía en el sistema Circles debe confiar en tu perfil. De esta manera, se te emiten tokens de Circles de manera incondicional de forma regular.",
+    "bodyWebOfTrust": "Puedes gastar Circles con personas en quienes confías. Cuanto más conectada esté tu comunidad, más valiosos se vuelven tus Circles.",
+    "headingBuildYourOwnEconomy": "Construye Tu Propia Economía",
+    "headingUnconditionalIncome": "Ingreso Incondicional",
+    "headingWebOfTrust": "Una Red de Confianza"
+  },
+  "TutorialOrganization": {
+    "finish": "¡Empecemos!",
+    "next": "Siguiente",
+    "slideBody1": "Con una Cartera Compartida puedes unir tus Circles individuales y organizar proyectos conjuntos con las personas en quienes confías. Esta cartera no recibirá un ingreso básico.",
+    "slideBody2": "Organizaciones, familias, comunidades e individuos pueden usar estas carteras para mantener Circles en común o llevar un registro de un negocio personal.",
+    "slideBody3": "Como grupo, puedes confiar en personas para aceptar sus Circles. También puedes enviar y recibir Circles de otros grupos.",
+    "slideBody3Link": "Aprende más sobre cómo organizarse con otros grupos.",
+    "slideHeading1": "Cartera Compartida",
+    "slideHeading2": "Compartir Riqueza",
+    "slideHeading3": "Compartir Confianza"
+  },
+  "UBI": {
+    "infoUbiPayoutReceived": "¡Acabas de recibir tu UBI de <br><strong>{payout} Circles</strong> para el mes!"
+  },
+  "Validation": {
+    "bodyDoNotReset": "No restablezcas el almacenamiento local de tu navegador o necesitarás recuperar tus datos con tus palabras mágicas.",
+    "bodyTrustDescription": "Para recibir tu ingreso básico,",
+    "bodyTrustDescriptionEmphasize": "una persona debe confiar en tu perfil.",
+    "buttonShareProfileLink": "Compartir el enlace del perfil",
+    "headingBuildYourWebOfTrust": "Verifica tu cuenta",
+    "tooltipLeftTrustConnections": ""
+  },
+  "ValidationLock": {
+    "bodyThisMayTakeMinutes": "<b>¡Mantén tu cartera abierta!</b> Tu cartera está siendo creada en la blockchain. Este proceso es delicado y puede tardar unos minutos. Es importante que <b>no cierres ni actualices tu navegador</b> hasta que termine. De lo contrario, la creación de tu cartera fallará y tendrás que comenzar desde cero.",
+    "bodyYourCirclesLoading": "¡Tu cuenta de Circles se está cargando!"
+  },
+  "ValidationShare": {
+    "buttonShareProfileLink": "Compartir enlace del perfil",
+    "headingShowYourQR": "Muestra tu código QR o perfil a otros para recibir confianza.",
+    "shareText": "¡Hola! ¡Mira mi perfil de Circles!"
+  },
+  "ValidationStatus": {
+    "bodyReadyForDeployment": "Tu cuenta está lista ahora, haz clic en el botón de abajo para crearla:",
+    "buttonStartDeployment": "Crear Cartera"
+  },
+  "VerifiedEmailInput": {
+    "formEmailInvalid": "Dirección de correo electrónico inválida"
+  },
+  "VerifiedUsernameInput": {
+    "formUnknownError": "Error desconocido",
+    "formUsernameInvalidFormat": "Error en la entrada, por favor intenta de nuevo.",
+    "formUsernameTaken": "El nombre ya está en uso"
+  },
+  "Welcome": {
+    "buttonLogin": "Iniciar sesión",
+    "buttonSignUp": "Registrarse",
+    "headingWelcomeToCircles": "Bienvenido a Circles",
+    "linkAboutCircles": "Acerca de Circles",
+    "linkContactUs": "Contáctanos",
+    "linkFAQ": "Preguntas frecuentes",
+    "linkPrivacyLegal": "Privacidad + Legal",
+    "welcomeMessageBody": "Has conectado tu cartera con éxito",
+    "welcomeMessageTitle": "¡Bienvenido a Circles!"
+  }
 }
