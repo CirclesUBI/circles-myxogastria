@@ -12,7 +12,7 @@ const core = new CirclesCore(web3, {
   apiServiceEndpoint: process.env.API_SERVICE_EXTERNAL,
   fallbackHandlerAddress: process.env.SAFE_DEFAULT_CALLBACK_HANDLER,
   graphNodeEndpoint: process.env.GRAPH_NODE_EXTERNAL,
-  hubAddress: String(process.env.HUB_ADDRESS),
+  hubAddress: process.env.HUB_ADDRESS,
   pathfinderServiceEndpoint: process.env.PATHFINDER_SERVICE_ENDPOINT,
   pathfinderType: process.env.PATHFINDER_TYPE,
   proxyFactoryAddress: process.env.PROXY_FACTORY_ADDRESS,
