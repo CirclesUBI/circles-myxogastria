@@ -149,22 +149,6 @@ const user = {
       safeAddress,
     });
   },
-
-  updateProfileMigrationConsent: async (
-    safeAddress,
-    profileMigrationConsent,
-  ) => {
-    return await requestCore('user', 'updateProfileMigrationConsent', {
-      safeAddress,
-      profileMigrationConsent,
-    });
-  },
-
-  getProfileMigrationConsent: async (safeAddress) => {
-    return await requestCore('user', 'getProfileMigrationConsent', {
-      safeAddress,
-    });
-  },
 };
 
 const avatar = {

@@ -21,6 +21,7 @@ import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import Input from '~/components/Input';
 import Logo from '~/components/Logo';
+import ShortMessage from '~/components/ShortMessage';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import { hideSpinnerOverlay, showSpinnerOverlay } from '~/store/app/actions';
@@ -55,13 +56,6 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up('lg')]: {
       marginTop: '-25px',
-    },
-  },
-
-  migrationContainer: {
-    marginTop: '10px',
-    '& p': {
-      marginBottom: '10px',
     },
   },
 
@@ -137,7 +131,7 @@ const Login = () => {
           <Box className={classes.loginImg}>
             <Logo size="small" />
           </Box>
-          <Box mb={2} mt={2}>
+          <Box mb={7} mt={14}>
             <Typography align="center" gutterBottom variant="h2">
               {translate('Login.headingLogin')}
             </Typography>
@@ -178,14 +172,7 @@ const Login = () => {
               {translate('Login.linkSupport')}
             </ExternalLink>
           </Typography>
-          <Box className={classes.migrationContainer}>
-            <Typography align="center" variant="body1">
-              {translate('Login.migrationText1')}
-            </Typography>
-            <Typography align="center" variant="body1">
-              {translate('Login.migrationText2')}
-            </Typography>
-          </Box>
+          <ShortMessage />
         </Container>
       </View>
       <Footer>

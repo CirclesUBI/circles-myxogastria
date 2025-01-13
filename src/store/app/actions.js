@@ -20,7 +20,6 @@ import {
   initializeTutorials,
   resetAllTutorials,
 } from '~/store/tutorial/actions';
-import { initializeUser } from '~/store/user/actions';
 import { burnWallet, initializeWallet } from '~/store/wallet/actions';
 import { formatErrorMessage } from '~/utils/debug';
 
@@ -36,9 +35,6 @@ export function initializeApp() {
     });
 
     dispatch(showSpinnerOverlay());
-
-    // Check for migration status
-    dispatch(initializeUser());
 
     // Initialize and gather important app states (auth etc.)
     try {
