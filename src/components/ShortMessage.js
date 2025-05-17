@@ -26,8 +26,8 @@ const ShortMessage = () => {
       </Typography>
       <ExternalLink
         href={METRI_URL}
-        variant="body2"
         style={{ marginBottom: '10px', display: 'block' }}
+        variant="body2"
       >
         {METRI_URL}
       </ExternalLink>
