@@ -13,6 +13,7 @@ import Header from '~/components/Header';
 }
 // import LocaleSelector from '~/components/LocaleSelector';
 import Logo from '~/components/Logo';
+import ShortMessage from '~/components/ShortMessage';
 import View from '~/components/View';
 import translate from '~/services/locale';
 import {
@@ -72,7 +73,12 @@ const Welcome = () => {
             {translate('Welcome.headingWelcomeToCircles')}
           </Typography>
         </Box>
-        <Grid alignItems="center" container justifyContent="center">
+        <Grid
+          alignItems="center"
+          container
+          justifyContent="center"
+          marginBottom={4}
+        >
           <Button
             className={classes.welcomeButton}
             isOutline
@@ -90,6 +96,7 @@ const Welcome = () => {
             {translate('Welcome.buttonLogin')}
           </Button>
         </Grid>
+        <ShortMessage />
       </View>
       <Box className={classes.linkContainer} spacing={1}>
         <WelcomeExternalLink href={FAQ_URL}>

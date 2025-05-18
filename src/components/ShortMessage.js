@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
   messageContainer: {
     marginTop: '10px',
     textAlign: 'center',
+    padding: '0 10px',
     '& p': {
       marginBottom: '3px',
     },
