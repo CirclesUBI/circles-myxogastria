@@ -4,6 +4,10 @@ import { getAccount } from '~/services/wallet';
 import web3 from '~/services/web3';
 import { PATHFINDER_HOPS_DEFAULT } from '~/utils/constants';
 
+if (!process.env.HUB_ADDRESS || typeof process.env.HUB_ADDRESS !== 'string') {
+  throw new Error('HUB_ADDRESS is not set or not a string');
+}
+
 const core = new CirclesCore(web3, {
   apiServiceEndpoint: process.env.API_SERVICE_EXTERNAL,
   fallbackHandlerAddress: process.env.SAFE_DEFAULT_CALLBACK_HANDLER,

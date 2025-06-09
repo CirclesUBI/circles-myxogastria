@@ -25,10 +25,6 @@ const DashboardActivityIcon = () => {
   // Count how many activities we haven't seen yet
   const count =
     CATEGORIES.reduce((acc, category) => {
-      /* eslint-disable no-console */
-      console.log(category);
-      /* eslint-enable no-console */
-
       return (
         acc +
         categories[category].activities.reduce((itemAcc, activity) => {

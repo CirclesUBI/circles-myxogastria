@@ -2,7 +2,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/config/'],
 
-  // Require .env file
+  // Require .env file and additional setup
   setupFiles: ['dotenv/config'],
 
   // Resolve modules same as Webpack
