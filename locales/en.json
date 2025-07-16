@@ -203,8 +203,8 @@
     "inputPlaceholder": "Start typing...",
     "linkSupport": "Send an email",
     "successWelcome": "Successfully connected to account. Welcome!",
-    "ShortMsgText": "Circles V2 is launching soon. Download and import your key to Metri wallet",
-    "ShortMsgText2": "Join our Discord for live updates"
+    "ShortMsgText": "Circles V2 has launched! Download and import your Circles Garden key to Metri wallet",
+    "ShortMsgText2": "Join the Circles Discord for more info"
   },
   "MyProfile": {
     "buttonCreateOrganization": "Create Shared Wallet",
